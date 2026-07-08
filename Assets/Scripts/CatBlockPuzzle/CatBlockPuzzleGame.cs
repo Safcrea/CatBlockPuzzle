@@ -16,7 +16,10 @@ namespace CatBlockPuzzle
         private const float ReferenceWidth = 1080f;
         private const float ReferenceHeight = 1920f;
         private const float MaxBoardWidth = 720f;
-        private const float MaxBoardHeight = 900f;
+        private const float MaxBoardHeight = 820f;
+        private const float BoardCenterY = 54f;
+        private const float TimerBoardGap = 24f;
+        private const float TimerHeight = 70f;
         private const float BoardGap = 8f;
         private const float TrayGap = 5f;
         private const float InvalidReturnSeconds = 0.22f;
@@ -34,16 +37,18 @@ namespace CatBlockPuzzle
         private const float BoardRevealCellSeconds = 0.24f;
         private const float BoardRevealStaggerSeconds = 0.035f;
         private const float BoardRevealOvershoot = 1.14f;
-        private const float TrayCenterY = 242f;
-        private const float TrayMinWidth = 620f;
+        private const float TrayCenterY = 226f;
         private const float TrayMaxWidth = 1040f;
-        private const float TrayVisibilityMin = 0.82f;
-        private const float TrayVisibilityMax = 1.18f;
-        private const float TrayVisibilityDefault = 1f;
+        private const float TrayFloatAmplitude = 9f;
+        private const float TrayFloatRotation = 2.5f;
+        private const float TrayFloatSpeed = 1.25f;
+        private const float TrayScrollIntentPixels = 12f;
+        private const float LevelDurationSeconds = 120f;
+        private const float TimerWarningSeconds = 20f;
+        private const float TimerPulseScale = 1.1f;
         private const int AudioSampleRate = 44100;
         private const string SavedLevelKey = "CatBlockPuzzle.LevelIndex";
         private const string SavedCoinsKey = "CatBlockPuzzle.Coins";
-        private const string SavedTrayVisibilityKey = "CatBlockPuzzle.TrayVisibility";
 
         private static readonly Color PageColor = new Color(251f / 255f, 247f / 255f, 238f / 255f, 1f);
         private static readonly Color PanelColor = new Color(1f, 248f / 255f, 236f / 255f, 0.96f);
@@ -62,6 +67,8 @@ namespace CatBlockPuzzle
         private static readonly Color CardRestColor = new Color(1f, 252f / 255f, 246f / 255f, 0.92f);
         private static readonly Color CardDimColor = new Color(1f, 248f / 255f, 236f / 255f, 0.42f);
         private static readonly Color TrayHoverColor = new Color(1f, 250f / 255f, 236f / 255f, 1f);
+        private static readonly Color TimerNormalColor = new Color(0.05f, 0.045f, 0.04f, 1f);
+        private static readonly Color TimerWarningColor = new Color(0.88f, 0.08f, 0.08f, 1f);
 
         private static readonly Color[] PieceColors =
         {
@@ -86,18 +93,23 @@ namespace CatBlockPuzzle
         private RectTransform boardBackdrop;
         private RectTransform boardRoot;
         private RectTransform trayRoot;
+        private RectTransform trayViewport;
+        private RectTransform trayContent;
         private RectTransform pieceLayer;
         private RectTransform fxLayer;
         private RectTransform winOverlay;
         private RectTransform winPanel;
+        private RectTransform failOverlay;
+        private RectTransform failPanel;
         private Image trayImage;
         private Text levelText;
+        private Text timerText;
         private Text objectiveText;
         private Text coinText;
         private Text winTitleText;
         private Text winRewardText;
         private HorizontalLayoutGroup trayLayout;
-        private Slider trayVisibilitySlider;
+        private ScrollRect trayScrollRect;
         private Font defaultFont;
         private Sprite whiteSprite;
         private Sprite roundedBoxSprite;
@@ -118,19 +130,28 @@ namespace CatBlockPuzzle
         private DragState drag;
         private Coroutine hintRoutine;
         private Coroutine boardRevealRoutine;
+        private Coroutine timerPulseRoutine;
         private bool inputLocked;
+        private bool timerRunning;
+        private bool levelFailed;
+        private bool trayScrollActive;
         private int levelIndex;
         private int coins;
+        private int lastTimerSecond = -1;
         private float boardWidth;
         private float boardHeight;
         private float boardCellWidth;
         private float boardCellHeight;
-        private float trayVisibilityScale = TrayVisibilityDefault;
+        private float levelRemainingSeconds = LevelDurationSeconds;
         private float traySlotPreferredWidth = 196f;
         private float traySlotPreferredHeight = 248f;
         private float traySlotMinWidth = 104f;
         private float traySlotMinHeight = 154f;
         private float trayCellMaxSize = 38f;
+        private float trayScrollStartNormalized;
+        private float trayScrollableWidth = 1f;
+        private Vector2 trayScrollStartRoot;
+        private PieceState trayScrollPiece;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -156,7 +177,6 @@ namespace CatBlockPuzzle
             levelManager = new LevelManager("CatBlockPuzzle/levels_100");
             levelManager.Load();
             haptics = new HapticsController(this);
-            trayVisibilityScale = Mathf.Clamp(PlayerPrefs.GetFloat(SavedTrayVisibilityKey, TrayVisibilityDefault), TrayVisibilityMin, TrayVisibilityMax);
 
             whiteSprite = CreateSolidSprite(Color.white);
             roundedBoxSprite = CreateRoundedBoxSprite();
@@ -176,18 +196,32 @@ namespace CatBlockPuzzle
         private void LoadLevel(int nextLevelIndex)
         {
             inputLocked = true;
+            timerRunning = false;
+            levelFailed = false;
+            trayScrollActive = false;
+            trayScrollPiece = null;
             drag = null;
             StopHint();
             haptics?.CancelLevelComplete();
             StopAllCoroutines();
             boardRevealRoutine = null;
+            timerPulseRoutine = null;
             previewCells.Clear();
             occupancy.Clear();
             pieces.Clear();
             ClearChildren(boardRoot);
-            ClearChildren(trayRoot);
+            if (trayContent != null)
+            {
+                ClearChildren(trayContent);
+            }
+            else
+            {
+                ClearChildren(trayRoot);
+            }
+
             ClearChildren(fxLayer);
             winOverlay.gameObject.SetActive(false);
+            failOverlay.gameObject.SetActive(false);
 
             levelIndex = Mathf.Clamp(nextLevelIndex, 0, levelManager.LevelCount - 1);
             activeLevel = levelManager.GetLevel(levelIndex);
@@ -199,6 +233,7 @@ namespace CatBlockPuzzle
 
             coinText.text = coins.ToString();
             SaveProgress();
+            ResetLevelTimer();
 
             BuildBoard();
             BuildPieces();
@@ -208,6 +243,8 @@ namespace CatBlockPuzzle
         private void Update()
         {
             UpdateDraggedPieceMotion();
+            UpdateLevelTimer();
+            UpdateTrayIdleMotion();
         }
 
         private void ResetLevel()

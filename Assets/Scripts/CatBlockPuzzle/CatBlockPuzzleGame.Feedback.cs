@@ -13,6 +13,181 @@ namespace CatBlockPuzzle
 {
     public sealed partial class CatBlockPuzzleGame
     {
+        private void ResetLevelTimer()
+        {
+            timerRunning = false;
+            levelFailed = false;
+            levelRemainingSeconds = LevelDurationSeconds;
+            lastTimerSecond = Mathf.CeilToInt(levelRemainingSeconds);
+            if (timerPulseRoutine != null)
+            {
+                StopCoroutine(timerPulseRoutine);
+                timerPulseRoutine = null;
+            }
+
+            UpdateTimerDisplay();
+            if (timerText != null)
+            {
+                timerText.rectTransform.localScale = Vector3.one;
+            }
+        }
+
+        private void StartLevelTimer()
+        {
+            if (levelFailed || winOverlay.gameObject.activeSelf || failOverlay.gameObject.activeSelf)
+            {
+                return;
+            }
+
+            timerRunning = true;
+            UpdateTimerDisplay();
+        }
+
+        private void StopLevelTimer()
+        {
+            timerRunning = false;
+            if (timerPulseRoutine != null)
+            {
+                StopCoroutine(timerPulseRoutine);
+                timerPulseRoutine = null;
+            }
+
+            if (timerText != null)
+            {
+                timerText.rectTransform.localScale = Vector3.one;
+            }
+        }
+
+        private void UpdateLevelTimer()
+        {
+            if (!timerRunning || levelFailed)
+            {
+                return;
+            }
+
+            levelRemainingSeconds -= Time.unscaledDeltaTime;
+            if (levelRemainingSeconds <= 0f)
+            {
+                levelRemainingSeconds = 0f;
+                lastTimerSecond = 0;
+                UpdateTimerDisplay();
+                FailLevel();
+                return;
+            }
+
+            int currentSecond = Mathf.CeilToInt(levelRemainingSeconds);
+            if (currentSecond == lastTimerSecond)
+            {
+                return;
+            }
+
+            lastTimerSecond = currentSecond;
+            UpdateTimerDisplay();
+            if (levelRemainingSeconds <= TimerWarningSeconds)
+            {
+                StartTimerPulse();
+            }
+        }
+
+        private void UpdateTimerDisplay()
+        {
+            if (timerText == null)
+            {
+                return;
+            }
+
+            int totalSeconds = Mathf.CeilToInt(Mathf.Max(0f, levelRemainingSeconds));
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            timerText.text = minutes.ToString() + ":" + seconds.ToString("00");
+            timerText.color = levelRemainingSeconds <= TimerWarningSeconds ? TimerWarningColor : TimerNormalColor;
+        }
+
+        private void StartTimerPulse()
+        {
+            if (timerText == null)
+            {
+                return;
+            }
+
+            if (timerPulseRoutine != null)
+            {
+                StopCoroutine(timerPulseRoutine);
+            }
+
+            timerPulseRoutine = StartCoroutine(PulseTimer());
+        }
+
+        private IEnumerator PulseTimer()
+        {
+            RectTransform rect = timerText.rectTransform;
+            float elapsed = 0f;
+            const float seconds = 0.34f;
+            while (elapsed < seconds)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float wave = Mathf.Sin(Mathf.Clamp01(elapsed / seconds) * Mathf.PI);
+                rect.localScale = Vector3.one * Mathf.Lerp(1f, TimerPulseScale, wave);
+                yield return null;
+            }
+
+            rect.localScale = Vector3.one;
+            timerPulseRoutine = null;
+        }
+
+        private void FailLevel()
+        {
+            if (levelFailed || winOverlay.gameObject.activeSelf)
+            {
+                return;
+            }
+
+            levelFailed = true;
+            timerRunning = false;
+            inputLocked = true;
+            StopHint();
+            CancelActiveDragToRest();
+            PlayClip(wrongClip);
+            failOverlay.gameObject.SetActive(true);
+            failPanel.localScale = Vector3.one * 0.88f;
+            StartCoroutine(PopTransform(failPanel, 1.03f));
+        }
+
+        private void CancelActiveDragToRest()
+        {
+            if (drag == null)
+            {
+                return;
+            }
+
+            DragState cancelled = drag;
+            drag = null;
+            ClearPreview();
+            if (trayImage != null)
+            {
+                trayImage.color = TrayColor;
+            }
+
+            PieceState state = cancelled.Piece;
+            if (state == null)
+            {
+                return;
+            }
+
+            if (cancelled.PreviousPlaced)
+            {
+                state.Placed = true;
+                state.Row = cancelled.PreviousRow;
+                state.Col = cancelled.PreviousCol;
+                OccupyCells(state, state.Row, state.Col);
+                AttachPieceToBoard(state);
+            }
+            else
+            {
+                AttachPieceToTray(state);
+            }
+        }
+
         private void CheckWin()
         {
             if (occupancy.Count != activeLevel.ActiveCells.Count)
@@ -29,6 +204,7 @@ namespace CatBlockPuzzle
             }
 
             inputLocked = true;
+            StopLevelTimer();
             StartCoroutine(WinSequence());
         }
 

@@ -92,6 +92,10 @@ namespace CatBlockPuzzle
             SetRect(boardRoot, new Vector2(0.5f, 0.55f), new Vector2(0.5f, 0.55f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(720f, 720f));
             boardRoot.GetComponent<Image>().raycastTarget = false;
 
+            timerText = CreateText(root, "2:00", 46, FontStyle.Bold, TextAnchor.MiddleCenter, TimerNormalColor);
+            SetRect(timerText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 500f), new Vector2(300f, TimerHeight));
+            timerText.raycastTarget = false;
+
             pieceLayer = CreatePanel(root, "Piece Layer", new Color(1f, 1f, 1f, 0f));
             Stretch(pieceLayer);
             pieceLayer.GetComponent<Image>().raycastTarget = false;
@@ -101,15 +105,34 @@ namespace CatBlockPuzzle
             SetRect(trayRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, TrayCenterY), new Vector2(1000f, 302f));
             trayImage = trayRoot.GetComponent<Image>();
             StyleCreamPanel(trayImage, 0.18f);
-            trayImage.raycastTarget = false;
-            trayLayout = trayRoot.gameObject.AddComponent<HorizontalLayoutGroup>();
-            trayLayout.padding = new RectOffset(22, 22, 22, 22);
-            trayLayout.spacing = 16f;
+            trayImage.raycastTarget = true;
+
+            trayScrollRect = trayRoot.gameObject.AddComponent<ScrollRect>();
+            trayScrollRect.horizontal = true;
+            trayScrollRect.vertical = false;
+            trayScrollRect.movementType = ScrollRect.MovementType.Elastic;
+            trayScrollRect.inertia = true;
+            trayScrollRect.decelerationRate = 0.12f;
+            trayScrollRect.scrollSensitivity = 34f;
+
+            trayViewport = CreatePanel(trayRoot, "Viewport", new Color(1f, 1f, 1f, 0f));
+            SetRect(trayViewport, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(-36f, -32f));
+            trayViewport.GetComponent<Image>().raycastTarget = false;
+            trayViewport.gameObject.AddComponent<RectMask2D>();
+
+            trayContent = CreatePanel(trayViewport, "Content", new Color(1f, 1f, 1f, 0f));
+            SetRect(trayContent, new Vector2(0f, 0f), new Vector2(0f, 1f), new Vector2(0f, 0.5f), Vector2.zero, new Vector2(960f, 0f));
+            trayContent.GetComponent<Image>().raycastTarget = false;
+            trayLayout = trayContent.gameObject.AddComponent<HorizontalLayoutGroup>();
+            trayLayout.padding = new RectOffset(24, 24, 24, 24);
+            trayLayout.spacing = 18f;
             trayLayout.childAlignment = TextAnchor.MiddleCenter;
             trayLayout.childControlWidth = true;
             trayLayout.childControlHeight = true;
             trayLayout.childForceExpandWidth = false;
             trayLayout.childForceExpandHeight = false;
+            trayScrollRect.viewport = trayViewport;
+            trayScrollRect.content = trayContent;
 
             RectTransform buttons = CreatePanel(root, "Actions", new Color(1f, 1f, 1f, 0f));
             SetRect(buttons, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 44f), new Vector2(960f, 112f));
@@ -126,12 +149,15 @@ namespace CatBlockPuzzle
             CreateButton(buttons, "Reset", ResetLevel);
             CreateButton(buttons, "Next", LoadNextLevel);
 
+            pieceLayer.SetAsLastSibling();
+
             fxLayer = CreatePanel(root, "FX Layer", new Color(1f, 1f, 1f, 0f));
             Stretch(fxLayer);
             fxLayer.GetComponent<Image>().raycastTarget = false;
             fxLayer.SetAsLastSibling();
 
             BuildWinOverlay();
+            BuildFailOverlay();
         }
 
         private void BuildAudio()
@@ -170,6 +196,29 @@ namespace CatBlockPuzzle
             CreateButton(winPanel, "Next Level", LoadNextLevel, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(360f, 64f), TargetDeepColor);
 
             winOverlay.gameObject.SetActive(false);
+        }
+
+        private void BuildFailOverlay()
+        {
+            failOverlay = CreatePanel(root, "Fail Overlay", new Color(0.14f, 0.13f, 0.12f, 0.32f));
+            Stretch(failOverlay);
+            failOverlay.SetAsLastSibling();
+
+            failPanel = CreatePanel(failOverlay, "Fail Panel", new Color(1f, 0.98f, 0.94f, 0.98f));
+            SetRect(failPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(560f, 330f));
+            UseRoundedSprite(failPanel.GetComponent<Image>());
+            AddSoftShadow(failPanel.GetComponent<Image>(), new Vector2(0f, -18f), 0.22f);
+            AddSoftOutline(failPanel.GetComponent<Image>(), new Color(1f, 1f, 1f, 0.7f), new Vector2(2f, -2f));
+
+            Text header = CreateText(failPanel, "TIME UP", 28, FontStyle.Bold, TextAnchor.MiddleCenter, TimerWarningColor);
+            SetRect(header.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -42f), new Vector2(0f, 48f));
+            Text title = CreateText(failPanel, "Try Again", 52, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
+            SetRect(title.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 42f), new Vector2(0f, 74f));
+            Text message = CreateText(failPanel, "Complete the puzzle before the timer ends.", 28, FontStyle.Bold, TextAnchor.MiddleCenter, SoftInkColor);
+            SetRect(message.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -28f), new Vector2(-72f, 58f));
+            CreateButton(failPanel, "Retry", ResetLevel, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 36f), new Vector2(360f, 66f), TimerWarningColor);
+
+            failOverlay.gameObject.SetActive(false);
         }
 
         private void StyleCreamPanel(Image image, float shadowAlpha)
@@ -222,60 +271,6 @@ namespace CatBlockPuzzle
                 dot.raycastTarget = false;
                 SetRect(dot.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2((i - 1) * 20f, 0f), new Vector2(8f, 8f));
             }
-        }
-
-        private void BuildTrayVisibilitySlider()
-        {
-            RectTransform sliderRoot = CreatePanel(trayRoot, "Tray Visibility Slider", new Color(1f, 1f, 1f, 0f));
-            LayoutElement layoutElement = sliderRoot.gameObject.AddComponent<LayoutElement>();
-            layoutElement.ignoreLayout = true;
-            SetRect(sliderRoot, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(430f, 42f));
-
-            Slider slider = sliderRoot.gameObject.AddComponent<Slider>();
-            slider.direction = Slider.Direction.LeftToRight;
-            slider.minValue = TrayVisibilityMin;
-            slider.maxValue = TrayVisibilityMax;
-            slider.wholeNumbers = false;
-
-            Image track = CreateImage(sliderRoot, "Track", new Color(229f / 255f, 208f / 255f, 168f / 255f, 0.58f));
-            UseRoundedSprite(track);
-            track.raycastTarget = false;
-            SetRect(track.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(-72f, 10f));
-
-            RectTransform fillArea = CreatePanel(sliderRoot, "Fill Area", new Color(1f, 1f, 1f, 0f));
-            fillArea.GetComponent<Image>().raycastTarget = false;
-            SetRect(fillArea, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(-72f, 18f));
-
-            Image fill = CreateImage(fillArea, "Fill", TargetDeepColor);
-            UseRoundedSprite(fill);
-            fill.raycastTarget = false;
-            Stretch(fill.rectTransform);
-
-            RectTransform handleArea = CreatePanel(sliderRoot, "Handle Slide Area", new Color(1f, 1f, 1f, 0f));
-            handleArea.GetComponent<Image>().raycastTarget = false;
-            SetRect(handleArea, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(-72f, 42f));
-
-            Image handle = CreateImage(handleArea, "Handle", Color.white);
-            handle.sprite = circleSprite;
-            SetRect(handle.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(34f, 34f));
-            AddSoftShadow(handle, new Vector2(0f, -3f), 0.18f);
-            AddSoftOutline(handle, PanelOutlineColor, new Vector2(1f, -1f));
-
-            Image smallPaw = CreateImage(sliderRoot, "Small Paw", new Color(229f / 255f, 208f / 255f, 168f / 255f, 0.92f));
-            Image largePaw = CreateImage(sliderRoot, "Large Paw", TargetDeepColor);
-            smallPaw.sprite = pawSprite;
-            largePaw.sprite = pawSprite;
-            smallPaw.raycastTarget = false;
-            largePaw.raycastTarget = false;
-            SetRect(smallPaw.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(20f, 0f), new Vector2(22f, 22f));
-            SetRect(largePaw.rectTransform, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-20f, 0f), new Vector2(28f, 28f));
-
-            slider.fillRect = fill.rectTransform;
-            slider.handleRect = handle.rectTransform;
-            slider.targetGraphic = handle;
-            slider.SetValueWithoutNotify(trayVisibilityScale);
-            slider.onValueChanged.AddListener(OnTrayVisibilitySliderChanged);
-            trayVisibilitySlider = slider;
         }
 
         private RectTransform CreatePanel(RectTransform parent, string name, Color color)

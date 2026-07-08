@@ -15,7 +15,7 @@ namespace CatBlockPuzzle
     {
         private void BeginPieceDrag(PieceState state, PointerEventData eventData)
         {
-            if (inputLocked || winOverlay.gameObject.activeSelf)
+            if (inputLocked || levelFailed || winOverlay.gameObject.activeSelf || failOverlay.gameObject.activeSelf)
             {
                 return;
             }
@@ -56,6 +56,82 @@ namespace CatBlockPuzzle
             SetDraggedPieceTarget(state, PieceFreeCenterRoot(eventData.position + (Vector2.up * drag.Lift), state, drag.Grabbed, state.CellWidth, state.CellHeight, state.GapX, state.GapY));
             drag.SmoothVelocity = Vector2.zero;
             state.Rect.localScale = Vector3.one * 1.07f;
+        }
+
+        private bool ShouldScrollTray(PieceState state, PointerEventData eventData)
+        {
+            if (inputLocked || levelFailed || state == null || state.Placed || trayScrollRect == null || trayContent == null || trayViewport == null)
+            {
+                return false;
+            }
+
+            Vector2 delta = eventData.position - eventData.pressPosition;
+            float absX = Mathf.Abs(delta.x);
+            float absY = Mathf.Abs(delta.y);
+            return absX >= TrayScrollIntentPixels && absX > absY * 1.15f;
+        }
+
+        private void BeginTrayScroll(PieceState state, PointerEventData eventData)
+        {
+            if (trayScrollRect == null || trayContent == null || trayViewport == null)
+            {
+                return;
+            }
+
+            trayScrollActive = true;
+            trayScrollPiece = state;
+            trayScrollStartRoot = ScreenCenterToRootLocal(eventData.position);
+            trayScrollStartNormalized = trayScrollRect.horizontalNormalizedPosition;
+            trayScrollableWidth = Mathf.Max(1f, trayContent.rect.width - trayViewport.rect.width);
+            trayScrollRect.StopMovement();
+        }
+
+        private bool ContinueTrayScroll(PieceState state, PointerEventData eventData)
+        {
+            if (!trayScrollActive || trayScrollPiece != state || trayScrollRect == null)
+            {
+                return false;
+            }
+
+            Vector2 currentRoot = ScreenCenterToRootLocal(eventData.position);
+            float deltaX = currentRoot.x - trayScrollStartRoot.x;
+            trayScrollRect.horizontalNormalizedPosition = Mathf.Clamp01(trayScrollStartNormalized - (deltaX / trayScrollableWidth));
+            return true;
+        }
+
+        private bool EndTrayScroll(PieceState state)
+        {
+            if (!trayScrollActive || trayScrollPiece != state)
+            {
+                return false;
+            }
+
+            trayScrollActive = false;
+            trayScrollPiece = null;
+            return true;
+        }
+
+        private void CancelPieceInteraction(PieceState state)
+        {
+            if (EndTrayScroll(state))
+            {
+                return;
+            }
+
+            if (drag == null || drag.Piece != state)
+            {
+                return;
+            }
+
+            DragState cancelled = drag;
+            drag = null;
+            ClearPreview();
+            if (trayImage != null)
+            {
+                trayImage.color = TrayColor;
+            }
+
+            RestoreInvalidDrop(cancelled);
         }
 
         private void DragPiece(PieceState state, PointerEventData eventData)

@@ -6,8 +6,9 @@ android {
     namespace 'com.safi.catblockpuzzle.haptics'
 
     compileSdk 35
+    buildToolsVersion '36.0.0'
 
     defaultConfig {
-        minSdk 24
+        minSdk 23
     }
 }

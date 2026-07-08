@@ -18,23 +18,20 @@ namespace CatBlockPuzzle
             boardCells.Clear();
             boardRevealCells.Clear();
 
+            Vector2 targetMaxSize = GetBoardTargetMaxSize();
             float levelAspect = (float)activeLevel.Cols / Mathf.Max(1, activeLevel.Rows);
-            if (levelAspect >= MaxBoardWidth / MaxBoardHeight)
+            if (levelAspect >= targetMaxSize.x / targetMaxSize.y)
             {
-                boardWidth = MaxBoardWidth;
-                boardHeight = MaxBoardWidth / levelAspect;
+                boardWidth = targetMaxSize.x;
+                boardHeight = targetMaxSize.x / levelAspect;
             }
             else
             {
-                boardHeight = MaxBoardHeight;
-                boardWidth = MaxBoardHeight * levelAspect;
+                boardHeight = targetMaxSize.y;
+                boardWidth = targetMaxSize.y * levelAspect;
             }
 
-            boardRoot.sizeDelta = new Vector2(boardWidth, boardHeight);
-            if (boardBackdrop != null)
-            {
-                boardBackdrop.sizeDelta = new Vector2(boardWidth + 74f, boardHeight + 74f);
-            }
+            ApplyGameplayLayout();
 
             boardCellWidth = (boardWidth - (BoardGap * (activeLevel.Cols - 1))) / activeLevel.Cols;
             boardCellHeight = (boardHeight - (BoardGap * (activeLevel.Rows - 1))) / activeLevel.Rows;
@@ -76,6 +73,42 @@ namespace CatBlockPuzzle
             }
         }
 
+        private Vector2 GetBoardTargetMaxSize()
+        {
+            int maxDimension = Mathf.Max(activeLevel.Rows, activeLevel.Cols);
+            if (maxDimension <= 3)
+            {
+                return new Vector2(520f, 520f);
+            }
+
+            if (maxDimension <= 4)
+            {
+                return new Vector2(620f, 620f);
+            }
+
+            if (maxDimension <= 5)
+            {
+                return new Vector2(690f, 690f);
+            }
+
+            return new Vector2(MaxBoardWidth, MaxBoardHeight);
+        }
+
+        private void ApplyGameplayLayout()
+        {
+            SetRect(boardRoot, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, BoardCenterY), new Vector2(boardWidth, boardHeight));
+            if (boardBackdrop != null)
+            {
+                SetRect(boardBackdrop, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, BoardCenterY), new Vector2(boardWidth + 74f, boardHeight + 74f));
+            }
+
+            if (timerText != null)
+            {
+                float timerY = BoardCenterY + (boardHeight * 0.5f) + TimerBoardGap + (TimerHeight * 0.5f);
+                SetRect(timerText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, timerY), new Vector2(320f, TimerHeight));
+            }
+        }
+
         // Diagonal "pop-in" reveal: every cell starts at scale 0 and springs to full
         // size, staggered by its (row+col) so the fill sweeps across the board. Runs
         // the grid-creation gate only after the whole sweep finishes, so gameplay starts
@@ -85,6 +118,7 @@ namespace CatBlockPuzzle
             if (boardRevealCells.Count == 0)
             {
                 inputLocked = false;
+                StartLevelTimer();
                 boardRevealRoutine = null;
                 yield break;
             }
@@ -119,6 +153,7 @@ namespace CatBlockPuzzle
             }
 
             inputLocked = false;
+            StartLevelTimer();
             boardRevealRoutine = null;
         }
 
@@ -289,12 +324,12 @@ namespace CatBlockPuzzle
             int cols = Mathf.Max(1, state.Definition.Cols);
             int maxCells = Mathf.Max(rows, cols);
             float horizontalInset = Mathf.Clamp(traySlotPreferredWidth * 0.16f, 14f, 30f);
-            float verticalInset = Mathf.Clamp(traySlotPreferredHeight * 0.3f, 54f, 76f);
+            float verticalInset = Mathf.Clamp(traySlotPreferredHeight * 0.22f, 42f, 58f);
             float widthFit = (traySlotPreferredWidth - horizontalInset - ((cols - 1) * TrayGap)) / cols;
             float heightFit = (traySlotPreferredHeight - verticalInset - ((rows - 1) * TrayGap)) / rows;
-            float shapeCap = maxCells >= 5 ? 28f : maxCells >= 4 ? 32f : trayCellMaxSize;
+            float shapeCap = maxCells >= 5 ? 34f : maxCells >= 4 ? 39f : trayCellMaxSize;
             float cellSize = Mathf.Min(trayCellMaxSize, shapeCap, widthFit, heightFit);
-            return Mathf.Clamp(cellSize, 16f, 44f);
+            return Mathf.Clamp(cellSize, 20f, 46f);
         }
     }
 }
