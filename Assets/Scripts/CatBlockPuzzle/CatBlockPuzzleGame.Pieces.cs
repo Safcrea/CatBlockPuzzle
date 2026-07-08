@@ -291,7 +291,7 @@ namespace CatBlockPuzzle
             view.Tail.localEulerAngles = new Vector3(0f, 0f, -13f);
         }
 
-        private sealed class PieceDragView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, ICancelHandler
+        private sealed class PieceDragView : MonoBehaviour, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler, ICancelHandler
         {
             private CatBlockPuzzleGame controller;
             private PieceState state;
@@ -304,37 +304,41 @@ namespace CatBlockPuzzle
 
             public void OnPointerDown(PointerEventData eventData)
             {
+                eventData.useDragThreshold = false;
+                controller.BeginPieceDrag(state, eventData);
+            }
+
+            public void OnPointerUp(PointerEventData eventData)
+            {
+                controller.EndPieceDrag(state, eventData);
+            }
+
+            public void OnInitializePotentialDrag(PointerEventData eventData)
+            {
+                eventData.useDragThreshold = false;
             }
 
             public void OnBeginDrag(PointerEventData eventData)
             {
-                if (controller.ShouldScrollTray(state, eventData))
+                eventData.useDragThreshold = false;
+                if (!controller.IsPieceDragActive(state))
                 {
-                    controller.BeginTrayScroll(state, eventData);
-                    return;
+                    controller.BeginPieceDrag(state, eventData);
                 }
-
-                controller.BeginPieceDrag(state, eventData);
+                else
+                {
+                    controller.DragPiece(state, eventData);
+                }
             }
 
             public void OnDrag(PointerEventData eventData)
             {
-                if (controller.ContinueTrayScroll(state, eventData))
-                {
-                    return;
-                }
-
                 controller.DragPiece(state, eventData);
             }
 
             public void OnEndDrag(PointerEventData eventData)
             {
-                if (controller.EndTrayScroll(state))
-                {
-                    return;
-                }
-
-                controller.EndPieceDrag(state);
+                controller.EndPieceDrag(state, eventData);
             }
 
             public void OnCancel(BaseEventData eventData)

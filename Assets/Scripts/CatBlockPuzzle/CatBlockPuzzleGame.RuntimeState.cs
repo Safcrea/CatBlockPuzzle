@@ -25,6 +25,7 @@ namespace CatBlockPuzzle
             public float SourceGapX;
             public float SourceGapY;
             public float Lift;
+            public int PointerId;
             public bool Valid;
             public bool ReturnToShelf;
             public int Row;

@@ -25,15 +25,13 @@ namespace CatBlockPuzzle
         private const float InvalidReturnSeconds = 0.22f;
         private const float PopSeconds = 0.22f;
         private const float SparkSeconds = 0.55f;
-        private const float TouchVisualLift = 70f;
-        private const float MouseVisualLift = 28f;
+        private const float TouchVisualLift = 42f;
+        private const float MouseVisualLift = 22f;
         private const float BoardSnapPadding = 84f;
         private const float TrayReturnPadding = 18f;
-        private const float DragMoveDelay = 0.15f;
-        private const float DragMoveSpeed = 6500f;
-        private const float DragTiltAmount = 15f;
-        private const float DragTiltSpeed = 8f;
-        private const float DragTiltVelocityScale = 650f;
+        private const float DragTiltAmount = 8f;
+        private const float DragTiltSpeed = 16f;
+        private const float DragTiltVelocityScale = 900f;
         private const float BoardRevealCellSeconds = 0.24f;
         private const float BoardRevealStaggerSeconds = 0.035f;
         private const float BoardRevealOvershoot = 1.14f;
@@ -42,7 +40,6 @@ namespace CatBlockPuzzle
         private const float TrayFloatAmplitude = 9f;
         private const float TrayFloatRotation = 2.5f;
         private const float TrayFloatSpeed = 1.25f;
-        private const float TrayScrollIntentPixels = 12f;
         private const float LevelDurationSeconds = 120f;
         private const float TimerWarningSeconds = 20f;
         private const float TimerPulseScale = 1.1f;
@@ -134,7 +131,6 @@ namespace CatBlockPuzzle
         private bool inputLocked;
         private bool timerRunning;
         private bool levelFailed;
-        private bool trayScrollActive;
         private int levelIndex;
         private int coins;
         private int lastTimerSecond = -1;
@@ -148,10 +144,6 @@ namespace CatBlockPuzzle
         private float traySlotMinWidth = 104f;
         private float traySlotMinHeight = 154f;
         private float trayCellMaxSize = 38f;
-        private float trayScrollStartNormalized;
-        private float trayScrollableWidth = 1f;
-        private Vector2 trayScrollStartRoot;
-        private PieceState trayScrollPiece;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -198,9 +190,8 @@ namespace CatBlockPuzzle
             inputLocked = true;
             timerRunning = false;
             levelFailed = false;
-            trayScrollActive = false;
-            trayScrollPiece = null;
             drag = null;
+            SetTrayScrollEnabled(true);
             StopHint();
             haptics?.CancelLevelComplete();
             StopAllCoroutines();

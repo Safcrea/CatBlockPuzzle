@@ -162,6 +162,7 @@ namespace CatBlockPuzzle
 
             DragState cancelled = drag;
             drag = null;
+            SetTrayScrollEnabled(true);
             ClearPreview();
             if (trayImage != null)
             {

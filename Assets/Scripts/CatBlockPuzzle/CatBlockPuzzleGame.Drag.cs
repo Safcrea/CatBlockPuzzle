@@ -15,11 +15,22 @@ namespace CatBlockPuzzle
     {
         private void BeginPieceDrag(PieceState state, PointerEventData eventData)
         {
-            if (inputLocked || levelFailed || winOverlay.gameObject.activeSelf || failOverlay.gameObject.activeSelf)
+            if (state == null || eventData == null || inputLocked || levelFailed || winOverlay.gameObject.activeSelf || failOverlay.gameObject.activeSelf)
             {
                 return;
             }
 
+            if (drag != null)
+            {
+                if (drag.Piece == state && drag.PointerId == eventData.pointerId)
+                {
+                    DragPiece(state, eventData);
+                }
+
+                return;
+            }
+
+            SetTrayScrollEnabled(false);
             StopHint();
             if (state.Placed)
             {
@@ -45,7 +56,8 @@ namespace CatBlockPuzzle
                 SourceCellHeight = state.CellHeight,
                 SourceGapX = state.GapX,
                 SourceGapY = state.GapY,
-                Lift = eventData.pointerId >= 0 ? TouchVisualLift : MouseVisualLift
+                Lift = eventData.pointerId >= 0 ? TouchVisualLift : MouseVisualLift,
+                PointerId = eventData.pointerId
             };
 
             state.Rect.SetParent(pieceLayer, true);
@@ -54,70 +66,33 @@ namespace CatBlockPuzzle
             SetPieceCenterRoot(state, startRoot);
             SetPieceGrid(state, drag.SourceCellWidth, drag.SourceGapX, drag.SourceCellHeight, drag.SourceGapY);
             SetDraggedPieceTarget(state, PieceFreeCenterRoot(eventData.position + (Vector2.up * drag.Lift), state, drag.Grabbed, state.CellWidth, state.CellHeight, state.GapX, state.GapY));
+            state.Rect.anchoredPosition = drag.TargetPosition;
             drag.SmoothVelocity = Vector2.zero;
             state.Rect.localScale = Vector3.one * 1.07f;
         }
 
-        private bool ShouldScrollTray(PieceState state, PointerEventData eventData)
+        private bool IsPieceDragActive(PieceState state)
         {
-            if (inputLocked || levelFailed || state == null || state.Placed || trayScrollRect == null || trayContent == null || trayViewport == null)
-            {
-                return false;
-            }
-
-            Vector2 delta = eventData.position - eventData.pressPosition;
-            float absX = Mathf.Abs(delta.x);
-            float absY = Mathf.Abs(delta.y);
-            return absX >= TrayScrollIntentPixels && absX > absY * 1.15f;
+            return drag != null && drag.Piece == state;
         }
 
-        private void BeginTrayScroll(PieceState state, PointerEventData eventData)
+        private void SetTrayScrollEnabled(bool enabled)
         {
-            if (trayScrollRect == null || trayContent == null || trayViewport == null)
+            if (trayScrollRect == null)
             {
                 return;
             }
 
-            trayScrollActive = true;
-            trayScrollPiece = state;
-            trayScrollStartRoot = ScreenCenterToRootLocal(eventData.position);
-            trayScrollStartNormalized = trayScrollRect.horizontalNormalizedPosition;
-            trayScrollableWidth = Mathf.Max(1f, trayContent.rect.width - trayViewport.rect.width);
-            trayScrollRect.StopMovement();
-        }
-
-        private bool ContinueTrayScroll(PieceState state, PointerEventData eventData)
-        {
-            if (!trayScrollActive || trayScrollPiece != state || trayScrollRect == null)
+            if (!enabled)
             {
-                return false;
+                trayScrollRect.StopMovement();
             }
 
-            Vector2 currentRoot = ScreenCenterToRootLocal(eventData.position);
-            float deltaX = currentRoot.x - trayScrollStartRoot.x;
-            trayScrollRect.horizontalNormalizedPosition = Mathf.Clamp01(trayScrollStartNormalized - (deltaX / trayScrollableWidth));
-            return true;
-        }
-
-        private bool EndTrayScroll(PieceState state)
-        {
-            if (!trayScrollActive || trayScrollPiece != state)
-            {
-                return false;
-            }
-
-            trayScrollActive = false;
-            trayScrollPiece = null;
-            return true;
+            trayScrollRect.enabled = enabled;
         }
 
         private void CancelPieceInteraction(PieceState state)
         {
-            if (EndTrayScroll(state))
-            {
-                return;
-            }
-
             if (drag == null || drag.Piece != state)
             {
                 return;
@@ -125,6 +100,7 @@ namespace CatBlockPuzzle
 
             DragState cancelled = drag;
             drag = null;
+            SetTrayScrollEnabled(true);
             ClearPreview();
             if (trayImage != null)
             {
@@ -136,7 +112,7 @@ namespace CatBlockPuzzle
 
         private void DragPiece(PieceState state, PointerEventData eventData)
         {
-            if (drag == null || drag.Piece != state)
+            if (drag == null || drag.Piece != state || eventData == null || drag.PointerId != eventData.pointerId)
             {
                 return;
             }
@@ -181,15 +157,16 @@ namespace CatBlockPuzzle
             SpawnDragTrail(anchorScreen, state.Color);
         }
 
-        private void EndPieceDrag(PieceState state)
+        private void EndPieceDrag(PieceState state, PointerEventData eventData)
         {
-            if (drag == null || drag.Piece != state)
+            if (drag == null || drag.Piece != state || eventData == null || drag.PointerId != eventData.pointerId)
             {
                 return;
             }
 
             DragState endedDrag = drag;
             drag = null;
+            SetTrayScrollEnabled(true);
             ClearPreview();
             trayImage.color = TrayColor;
 
@@ -310,13 +287,9 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            rect.anchoredPosition = Vector2.SmoothDamp(
-                rect.anchoredPosition,
-                drag.TargetPosition,
-                ref drag.SmoothVelocity,
-                DragMoveDelay,
-                DragMoveSpeed,
-                deltaTime);
+            Vector2 previousPosition = rect.anchoredPosition;
+            rect.anchoredPosition = drag.TargetPosition;
+            drag.SmoothVelocity = (rect.anchoredPosition - previousPosition) / deltaTime;
 
             float targetZ = Mathf.Clamp(
                 -(drag.SmoothVelocity.x / DragTiltVelocityScale) * DragTiltAmount,
