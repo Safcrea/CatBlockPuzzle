@@ -1,0 +1,260 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem.UI;
+#endif
+using UnityEngine.UI;
+using CatBlockPuzzle.KawaiiUI;
+
+namespace CatBlockPuzzle
+{
+    public sealed partial class CatBlockPuzzleGame : MonoBehaviour
+    {
+        private const float ReferenceWidth = 1080f;
+        private const float ReferenceHeight = 1920f;
+        private const float MaxBoardWidth = 720f;
+        private const float MaxBoardHeight = 900f;
+        private const float BoardGap = 8f;
+        private const float TrayGap = 5f;
+        private const float InvalidReturnSeconds = 0.22f;
+        private const float PopSeconds = 0.22f;
+        private const float SparkSeconds = 0.55f;
+        private const float TouchVisualLift = 70f;
+        private const float MouseVisualLift = 28f;
+        private const float BoardSnapPadding = 84f;
+        private const float TrayReturnPadding = 18f;
+        private const float DragMoveDelay = 0.15f;
+        private const float DragMoveSpeed = 6500f;
+        private const float DragTiltAmount = 15f;
+        private const float DragTiltSpeed = 8f;
+        private const float DragTiltVelocityScale = 650f;
+        private const float BoardRevealCellSeconds = 0.24f;
+        private const float BoardRevealStaggerSeconds = 0.035f;
+        private const float BoardRevealOvershoot = 1.14f;
+        private const float TrayCenterY = 242f;
+        private const float TrayMinWidth = 620f;
+        private const float TrayMaxWidth = 1040f;
+        private const float TrayVisibilityMin = 0.82f;
+        private const float TrayVisibilityMax = 1.18f;
+        private const float TrayVisibilityDefault = 1f;
+        private const int AudioSampleRate = 44100;
+        private const string SavedLevelKey = "CatBlockPuzzle.LevelIndex";
+        private const string SavedCoinsKey = "CatBlockPuzzle.Coins";
+        private const string SavedTrayVisibilityKey = "CatBlockPuzzle.TrayVisibility";
+
+        private static readonly Color PageColor = new Color(251f / 255f, 247f / 255f, 238f / 255f, 1f);
+        private static readonly Color PanelColor = new Color(1f, 248f / 255f, 236f / 255f, 0.96f);
+        private static readonly Color TrayColor = new Color(1f, 248f / 255f, 236f / 255f, 0.96f);
+        private static readonly Color InkColor = new Color(74f / 255f, 46f / 255f, 42f / 255f, 1f);
+        private static readonly Color SoftInkColor = new Color(0.52f, 0.43f, 0.35f, 1f);
+        private static readonly Color TargetColor = new Color(217f / 255f, 217f / 255f, 221f / 255f, 1f);
+        private static readonly Color TargetDeepColor = new Color(132f / 255f, 185f / 255f, 77f / 255f, 1f);
+        private static readonly Color ValidColor = new Color(0.68f, 0.88f, 0.65f, 1f);
+        private static readonly Color InvalidColor = new Color(1f, 0.55f, 0.58f, 1f);
+        private static readonly Color GoldColor = new Color(246f / 255f, 190f / 255f, 62f / 255f, 1f);
+        private static readonly Color PanelOutlineColor = new Color(229f / 255f, 208f / 255f, 168f / 255f, 0.78f);
+        private static readonly Color BoardFrameColor = new Color(251f / 255f, 241f / 255f, 221f / 255f, 1f);
+        private static readonly Color BoardOutlineColor = new Color(230f / 255f, 214f / 255f, 184f / 255f, 0.9f);
+        private static readonly Color BoardTileEdgeColor = new Color(191f / 255f, 193f / 255f, 200f / 255f, 0.55f);
+        private static readonly Color CardRestColor = new Color(1f, 252f / 255f, 246f / 255f, 0.92f);
+        private static readonly Color CardDimColor = new Color(1f, 248f / 255f, 236f / 255f, 0.42f);
+        private static readonly Color TrayHoverColor = new Color(1f, 250f / 255f, 236f / 255f, 1f);
+
+        private static readonly Color[] PieceColors =
+        {
+            new Color(1f, 143f / 255f, 166f / 255f, 1f),
+            new Color(102f / 255f, 208f / 255f, 183f / 255f, 1f),
+            new Color(111f / 255f, 167f / 255f, 245f / 255f, 1f),
+            new Color(246f / 255f, 190f / 255f, 62f / 255f, 1f),
+            new Color(0.74f, 0.65f, 0.94f, 1f),
+            new Color(0.95f, 0.55f, 0.45f, 1f),
+            new Color(0.61f, 0.83f, 0.42f, 1f),
+            new Color(0.44f, 0.78f, 0.9f, 1f)
+        };
+
+        private readonly Dictionary<Vector2Int, CellView> boardCells = new Dictionary<Vector2Int, CellView>();
+        private readonly Dictionary<Vector2Int, string> occupancy = new Dictionary<Vector2Int, string>();
+        private readonly List<PieceState> pieces = new List<PieceState>();
+        private readonly List<Image> previewCells = new List<Image>();
+        private readonly List<BoardRevealCell> boardRevealCells = new List<BoardRevealCell>();
+
+        private Canvas canvas;
+        private RectTransform root;
+        private RectTransform boardBackdrop;
+        private RectTransform boardRoot;
+        private RectTransform trayRoot;
+        private RectTransform pieceLayer;
+        private RectTransform fxLayer;
+        private RectTransform winOverlay;
+        private RectTransform winPanel;
+        private Image trayImage;
+        private Text levelText;
+        private Text objectiveText;
+        private Text coinText;
+        private Text winTitleText;
+        private Text winRewardText;
+        private HorizontalLayoutGroup trayLayout;
+        private Slider trayVisibilitySlider;
+        private Font defaultFont;
+        private Sprite whiteSprite;
+        private Sprite roundedBoxSprite;
+        private Sprite circleSprite;
+        private Sprite coinSprite;
+        private Sprite catHeadSprite;
+        private Sprite mouthSprite;
+        private Sprite tailSprite;
+        private Sprite pawSprite;
+        private AudioSource audioSource;
+        private AudioClip buttonClip;
+        private AudioClip snapClip;
+        private AudioClip wrongClip;
+        private AudioClip winClip;
+        private LevelDefinition activeLevel;
+        private LevelManager levelManager;
+        private HapticsController haptics;
+        private DragState drag;
+        private Coroutine hintRoutine;
+        private Coroutine boardRevealRoutine;
+        private bool inputLocked;
+        private int levelIndex;
+        private int coins;
+        private float boardWidth;
+        private float boardHeight;
+        private float boardCellWidth;
+        private float boardCellHeight;
+        private float trayVisibilityScale = TrayVisibilityDefault;
+        private float traySlotPreferredWidth = 196f;
+        private float traySlotPreferredHeight = 248f;
+        private float traySlotMinWidth = 104f;
+        private float traySlotMinHeight = 154f;
+        private float trayCellMaxSize = 38f;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void Bootstrap()
+        {
+            if (FindFirstObjectByType<CatBlockPuzzleGame>() != null)
+            {
+                return;
+            }
+
+            GameObject host = new GameObject("Cat Block Puzzle Runtime");
+            host.AddComponent<CatBlockPuzzleGame>();
+        }
+
+        private void Awake()
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+            defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            if (defaultFont == null)
+            {
+                defaultFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            }
+
+            levelManager = new LevelManager("CatBlockPuzzle/levels_100");
+            levelManager.Load();
+            haptics = new HapticsController(this);
+            trayVisibilityScale = Mathf.Clamp(PlayerPrefs.GetFloat(SavedTrayVisibilityKey, TrayVisibilityDefault), TrayVisibilityMin, TrayVisibilityMax);
+
+            whiteSprite = CreateSolidSprite(Color.white);
+            roundedBoxSprite = CreateRoundedBoxSprite();
+            circleSprite = CreateCircleSprite();
+            coinSprite = CreateCoinSprite();
+            catHeadSprite = CreateCatHeadSprite();
+            mouthSprite = CreateMouthSprite();
+            tailSprite = CreateTailSprite();
+            pawSprite = CreatePawSprite();
+            BuildAudio();
+            EnsureEventSystem();
+            BuildCanvas();
+            coins = PlayerPrefs.GetInt(SavedCoinsKey, 0);
+            LoadLevel(Mathf.Clamp(PlayerPrefs.GetInt(SavedLevelKey, 0), 0, levelManager.LevelCount - 1));
+        }
+
+        private void LoadLevel(int nextLevelIndex)
+        {
+            inputLocked = true;
+            drag = null;
+            StopHint();
+            haptics?.CancelLevelComplete();
+            StopAllCoroutines();
+            boardRevealRoutine = null;
+            previewCells.Clear();
+            occupancy.Clear();
+            pieces.Clear();
+            ClearChildren(boardRoot);
+            ClearChildren(trayRoot);
+            ClearChildren(fxLayer);
+            winOverlay.gameObject.SetActive(false);
+
+            levelIndex = Mathf.Clamp(nextLevelIndex, 0, levelManager.LevelCount - 1);
+            activeLevel = levelManager.GetLevel(levelIndex);
+            levelText.text = "Level " + (levelIndex + 1).ToString();
+            if (objectiveText != null)
+            {
+                objectiveText.text = activeLevel.Title;
+            }
+
+            coinText.text = coins.ToString();
+            SaveProgress();
+
+            BuildBoard();
+            BuildPieces();
+            boardRevealRoutine = StartCoroutine(PlayLevelStartReveal());
+        }
+
+        private void Update()
+        {
+            UpdateDraggedPieceMotion();
+        }
+
+        private void ResetLevel()
+        {
+            LoadLevel(levelIndex);
+        }
+
+        private bool CanGoPreviousLevel => levelIndex > 0;
+
+        private bool CanGoNextLevel => levelManager != null && levelIndex < levelManager.LevelCount - 1;
+
+        private void LoadPreviousLevel()
+        {
+            LoadLevel(CanGoPreviousLevel ? levelIndex - 1 : 0);
+        }
+
+        private void LoadNextLevel()
+        {
+            if (levelManager == null || levelManager.LevelCount <= 0)
+            {
+                return;
+            }
+
+            int maxLevelIndex = levelManager.LevelCount - 1;
+            LoadLevel(CanGoNextLevel ? levelIndex + 1 : maxLevelIndex);
+        }
+
+        private void SaveProgress()
+        {
+            PlayerPrefs.SetInt(SavedLevelKey, levelIndex);
+            PlayerPrefs.SetInt(SavedCoinsKey, coins);
+            PlayerPrefs.Save();
+        }
+
+        private void EnsureEventSystem()
+        {
+            if (FindFirstObjectByType<EventSystem>() != null)
+            {
+                return;
+            }
+
+            GameObject eventSystem = new GameObject("EventSystem", typeof(EventSystem));
+#if ENABLE_INPUT_SYSTEM
+            eventSystem.AddComponent<InputSystemUIInputModule>();
+#else
+            eventSystem.AddComponent<StandaloneInputModule>();
+#endif
+        }
+    }
+}

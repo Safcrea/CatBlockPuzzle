@@ -1,0 +1,13 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.safi.catblockpuzzle.haptics'
+
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 24
+    }
+}
