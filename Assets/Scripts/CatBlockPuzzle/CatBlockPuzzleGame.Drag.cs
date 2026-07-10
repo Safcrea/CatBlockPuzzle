@@ -34,12 +34,23 @@ namespace CatBlockPuzzle
             SetTrayScrollEnabled(false);
             StopHint();
             nextDragTrailTime = 0f;
+            SetCatMood(state, CatMood.Neutral);
+            if (state.SizeRoutine != null)
+            {
+                StopCoroutine(state.SizeRoutine);
+                state.SizeRoutine = null;
+            }
+
             if (state.Placed)
             {
+                SetPieceSlotVisible(state, true, true);
                 ClearOccupancyForPiece(state.Definition.Id);
             }
 
-            state.SlotImage.color = CardDimColor;
+            if (state.SlotImage != null)
+            {
+                state.SlotImage.color = CardDimColor;
+            }
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(state.Rect, eventData.position, canvas.worldCamera, out Vector2 local);
             Vector2 size = state.Rect.rect.size;
@@ -47,6 +58,11 @@ namespace CatBlockPuzzle
             float localY = (size.y * 0.5f) - local.y;
             CellGrab grabbed = GetGrabbedCell(state, localX, localY);
 
+            bool isTouch = eventData.pointerId >= 0;
+            float canvasScale = canvas != null ? Mathf.Max(0.25f, canvas.scaleFactor) : 1f;
+            float configuredLift = isTouch
+                ? (layoutProfile != null ? layoutProfile.TouchVisualLift : TouchVisualLift)
+                : (layoutProfile != null ? layoutProfile.MouseVisualLift : MouseVisualLift);
             drag = new DragState
             {
                 Piece = state,
@@ -58,26 +74,23 @@ namespace CatBlockPuzzle
                 SourceCellHeight = state.CellHeight,
                 SourceGapX = state.GapX,
                 SourceGapY = state.GapY,
-                Lift = eventData.pointerId >= 0 ? TouchVisualLift : MouseVisualLift,
+                Lift = configuredLift * canvasScale,
                 PointerId = eventData.pointerId,
-                BoardClampActive = state.Placed
+                IsTouch = isTouch,
+                PointerStartScreen = eventData.position,
+                LastPointerScreen = eventData.position,
+                BoardClampActive = false
             };
 
             state.Rect.SetParent(pieceLayer, true);
             state.Rect.SetAsLastSibling();
             Vector2 startRoot = ScreenCenterToRootLocal(RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, state.Rect.position));
             SetPieceCenterRoot(state, startRoot);
-            SetPieceGrid(state, boardCellWidth, BoardGap, boardCellHeight, BoardGap);
-            Vector2 target = PieceFreeCenterRoot(eventData.position + (Vector2.up * drag.Lift), state, drag.Grabbed, boardCellWidth, boardCellHeight, BoardGap, BoardGap);
-            if (drag.BoardClampActive)
-            {
-                target = ClampPieceCenterInsideBoard(target, state);
-            }
-
-            SetDraggedPieceTarget(state, target);
+            state.Rect.localScale = Vector3.one;
+            state.Rect.localEulerAngles = Vector3.zero;
+            UpdateDragTarget(state);
             state.Rect.anchoredPosition = drag.TargetPosition;
             drag.SmoothVelocity = Vector2.zero;
-            state.Rect.localScale = Vector3.one * 1.07f;
             return true;
         }
 
@@ -122,63 +135,130 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            ClearPreview();
-            Vector2 pointerScreen = eventData.position;
-            Vector2 anchorScreen = pointerScreen + (Vector2.up * drag.Lift);
-            Rect pieceScreenRect = PieceScreenRectFromAnchor(anchorScreen, state, drag.Grabbed, state.CellWidth, state.CellHeight, state.GapX, state.GapY);
-            bool nearBoard = RectsOverlap(pieceScreenRect, ExpandedScreenRect(boardRoot, BoardSnapPadding));
-            if (nearBoard)
+            drag.LastPointerScreen = eventData.position;
+            UpdateDragTarget(state);
+            SpawnDragTrail(drag.LastAnchorScreen, state.Color);
+        }
+
+        private void UpdateDragTarget(PieceState state)
+        {
+            if (drag == null || drag.Piece != state || state?.Rect == null)
             {
-                drag.BoardClampActive = true;
+                return;
             }
 
-            bool overShelf = drag.PreviousPlaced && !drag.BoardClampActive && RectsOverlap(pieceScreenRect, ExpandedScreenRect(trayRoot, TrayReturnPadding));
+            ClearPreview();
+            Vector2 anchorScreen = GetAssistedAnchorScreen(drag.LastPointerScreen);
+            drag.LastAnchorScreen = anchorScreen;
+            Rect pieceScreenRect = PieceScreenRectFromAnchor(
+                anchorScreen,
+                state,
+                drag.Grabbed,
+                state.CellWidth,
+                state.CellHeight,
+                state.GapX,
+                state.GapY);
+
+            bool overShelf = drag.PreviousPlaced && RectsOverlap(pieceScreenRect, ExpandedScreenRect(trayRoot, TrayReturnPadding));
+            float snapPadding = layoutProfile != null ? layoutProfile.BoardSnapPadding : BoardSnapPadding;
+            bool nearBoard = !overShelf && RectsOverlap(pieceScreenRect, ExpandedScreenRect(boardRoot, snapPadding));
+            drag.BoardClampActive = nearBoard;
             drag.ReturnToShelf = overShelf;
-            trayImage.color = overShelf ? TrayHoverColor : TrayColor;
+            if (trayImage != null)
+            {
+                trayImage.color = overShelf ? TrayHoverColor : TrayColor;
+            }
 
             drag.Valid = false;
             drag.Row = -1;
             drag.Col = -1;
 
-            SetPieceGrid(state, boardCellWidth, BoardGap, boardCellHeight, BoardGap);
+            if (nearBoard && TryResolveCatPlacement(state, out CatPlacementResult placement))
+            {
+                drag.Valid = true;
+                drag.Row = placement.Row;
+                drag.Col = placement.Col;
+                ShowPreview(state, placement.Row, placement.Col, true);
+                SetDraggedPieceTarget(state, BoardPieceCenterInRoot(state, placement.Row, placement.Col));
+                return;
+            }
 
-            if (nearBoard && !overShelf)
+            Vector2 target = PieceFreeCenterRoot(
+                anchorScreen,
+                state,
+                drag.Grabbed,
+                state.CellWidth,
+                state.CellHeight,
+                state.GapX,
+                state.GapY);
+
+            if (nearBoard)
             {
                 GetBoardOriginFromGrab(anchorScreen, drag.Grabbed, out int row, out int col);
-                bool valid = CanPlace(state, row, col);
-                drag.Valid = valid;
-                drag.Row = row;
-                drag.Col = col;
-                ShowPreview(state, row, col, valid);
-                Vector2 target;
-                if (valid)
-                {
-                    target = BoardPieceCenterInRoot(state, row, col);
-                }
-                else
-                {
-                    target = PieceFreeCenterRoot(anchorScreen, state, drag.Grabbed, boardCellWidth, boardCellHeight, BoardGap, BoardGap);
-                }
-
-                if (drag.BoardClampActive)
-                {
-                    target = ClampPieceCenterInsideBoard(target, state);
-                }
-
-                SetDraggedPieceTarget(state, target);
+                ShowPreview(state, row, col, false);
+                target = ClampPieceCenterInsideBoard(target, state);
             }
-            else
+
+            SetDraggedPieceTarget(state, target);
+        }
+
+        private Vector2 GetAssistedAnchorScreen(Vector2 pointerScreen)
+        {
+            if (drag == null)
             {
-                Vector2 target = PieceFreeCenterRoot(anchorScreen, state, drag.Grabbed, boardCellWidth, boardCellHeight, BoardGap, BoardGap);
-                if (drag.BoardClampActive)
-                {
-                    target = ClampPieceCenterInsideBoard(target, state);
-                }
-
-                SetDraggedPieceTarget(state, target);
+                return pointerScreen;
             }
 
-            SpawnDragTrail(anchorScreen, state.Color);
+            float extraReach = 0f;
+            if (drag.IsTouch)
+            {
+                float upwardTravel = Mathf.Max(0f, pointerScreen.y - drag.PointerStartScreen.y);
+                float rampDistance = Mathf.Max(1f, Screen.height * 0.35f);
+                float ramp = Mathf.Clamp01(upwardTravel / rampDistance);
+                float maximumGain = layoutProfile != null ? layoutProfile.MaximumVerticalGain : 1.35f;
+                float maximumExtra = layoutProfile != null ? layoutProfile.MaximumExtraReach : 180f;
+                float canvasScale = canvas != null ? Mathf.Max(0.25f, canvas.scaleFactor) : 1f;
+                extraReach = Mathf.Min(maximumExtra * canvasScale, upwardTravel * (maximumGain - 1f) * ramp);
+            }
+
+            return pointerScreen + (Vector2.up * (drag.Lift + extraReach));
+        }
+
+        private bool TryResolveCatPlacement(PieceState state, out CatPlacementResult result)
+        {
+            for (int row = 0; row < activeLevel.Rows; row++)
+            {
+                for (int col = 0; col < activeLevel.Cols; col++)
+                {
+                    Vector2Int coordinate = new Vector2Int(row, col);
+                    placementAvailability[row, col] = activeLevel.ActiveCells.Contains(coordinate) && !occupancy.ContainsKey(coordinate);
+                }
+            }
+
+            float pitchX = Mathf.Max(1f, boardCellWidth + BoardGap);
+            float pitchY = Mathf.Max(1f, boardCellHeight + BoardGap);
+            float pieceWidth = state.Rect.rect.width;
+            float pieceHeight = state.Rect.rect.height;
+            for (int i = 0; i < state.PlacementOffsets.Length; i++)
+            {
+                Vector2Int offset = state.PlacementOffsets[i];
+                Vector3 logicalLocalCenter = state.Rect.localPosition + new Vector3(
+                    -(pieceWidth * 0.5f) + (offset.y * (state.CellWidth + state.GapX)) + (state.CellWidth * 0.5f),
+                    (pieceHeight * 0.5f) - (offset.x * (state.CellHeight + state.GapY)) - (state.CellHeight * 0.5f),
+                    0f);
+                Vector3 logicalWorldCenter = state.Rect.parent.TransformPoint(logicalLocalCenter);
+                Vector2 screen = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, logicalWorldCenter);
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(boardRoot, screen, canvas.worldCamera, out Vector2 local);
+                float boardX = local.x + (boardWidth * 0.5f);
+                float boardY = (boardHeight * 0.5f) - local.y;
+                float row = (boardY - (boardCellHeight * 0.5f)) / pitchY;
+                float col = (boardX - (boardCellWidth * 0.5f)) / pitchX;
+                state.GridCenters[i] = new Vector2(row, col);
+            }
+
+            float threshold = layoutProfile != null ? layoutProfile.CatSnapThreshold : 0.45f;
+            result = CatPlacementResolver.Resolve(state.GridCenters, state.PlacementOffsets, placementAvailability, threshold);
+            return result.IsValid;
         }
 
         private void EndPieceDrag(PieceState state, PointerEventData eventData)
@@ -192,7 +272,12 @@ namespace CatBlockPuzzle
             drag = null;
             SetTrayScrollEnabled(true);
             ClearPreview();
-            trayImage.color = TrayColor;
+            if (trayImage != null)
+            {
+                trayImage.color = TrayColor;
+            }
+
+            state.Rect.localScale = Vector3.one;
 
             if (endedDrag.ReturnToShelf)
             {
@@ -202,14 +287,14 @@ namespace CatBlockPuzzle
 
             if (endedDrag.Valid)
             {
-                PlacePiece(state, endedDrag.Row, endedDrag.Col);
+                PlacePiece(state, endedDrag.Row, endedDrag.Col, !endedDrag.PreviousPlaced);
                 return;
             }
 
             RestoreInvalidDrop(endedDrag);
         }
 
-        private void PlacePiece(PieceState state, int row, int col)
+        private void PlacePiece(PieceState state, int row, int col, bool countForCombo)
         {
             state.Placed = true;
             state.Row = row;
@@ -218,6 +303,7 @@ namespace CatBlockPuzzle
             AttachPieceToBoard(state);
             StartCoroutine(PopTransform(state.Rect, 1.08f));
             PlaySnapFeedback(state, row, col);
+            RegisterValidPlacement(state, countForCombo);
             CheckWin();
         }
 
@@ -246,6 +332,7 @@ namespace CatBlockPuzzle
         private void ReturnPieceToShelf(PieceState state)
         {
             inputLocked = true;
+            SetPieceSlotVisible(state, true, true);
             state.Placed = false;
             state.Row = -1;
             state.Col = -1;
@@ -255,14 +342,26 @@ namespace CatBlockPuzzle
 
         private IEnumerator AnimateToBoard(PieceState state, int row, int col)
         {
-            SetPieceGrid(state, boardCellWidth, BoardGap, boardCellHeight, BoardGap);
             Vector2 start = ScreenCenterToRootLocal(RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, state.Rect.position));
+            float startCellWidth = state.CellWidth;
+            float startCellHeight = state.CellHeight;
+            float startGapX = state.GapX;
+            float startGapY = state.GapY;
+            SetPieceGrid(state, boardCellWidth, BoardGap, boardCellHeight, BoardGap);
             Vector2 end = BoardPieceCenterInRoot(state, row, col);
+            SetPieceGrid(state, startCellWidth, startGapX, startCellHeight, startGapY);
             state.Rect.SetParent(pieceLayer, false);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
-            yield return AnimateAnchored(state.Rect, start, end, InvalidReturnSeconds);
+            yield return AnimatePieceTransition(
+                state,
+                start,
+                end,
+                boardCellWidth,
+                boardCellHeight,
+                BoardGap,
+                BoardGap);
             AttachPieceToBoard(state);
             inputLocked = false;
         }
@@ -270,32 +369,70 @@ namespace CatBlockPuzzle
         private IEnumerator AnimateToTray(PieceState state)
         {
             float trayCellSize = TrayCellSize(state);
-            SetPieceGrid(state, trayCellSize, TrayGap, trayCellSize, TrayGap);
             Vector2 start = ScreenCenterToRootLocal(RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, state.Rect.position));
             Vector2 end = SlotCenterInRoot(state);
             state.Rect.SetParent(pieceLayer, false);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
-            yield return AnimateAnchored(state.Rect, start, end, InvalidReturnSeconds);
+            yield return AnimatePieceTransition(
+                state,
+                start,
+                end,
+                trayCellSize,
+                trayCellSize,
+                TrayGap,
+                TrayGap);
             AttachPieceToTray(state);
             StartCoroutine(PopTransform(state.Slot, 1.04f));
             inputLocked = false;
         }
 
-        private IEnumerator AnimateAnchored(RectTransform rect, Vector2 start, Vector2 end, float seconds)
+        private IEnumerator AnimatePieceTransition(
+            PieceState state,
+            Vector2 start,
+            Vector2 end,
+            float targetCellWidth,
+            float targetCellHeight,
+            float targetGapX,
+            float targetGapY)
         {
+            RectTransform rect = state.Rect;
+            float startCellWidth = state.CellWidth;
+            float startCellHeight = state.CellHeight;
+            float startGapX = state.GapX;
+            float startGapY = state.GapY;
+            float seconds = layoutProfile != null ? layoutProfile.PieceSizeTransitionSeconds : 0.2f;
+            float overshoot = layoutProfile != null ? layoutProfile.DragScaleOvershoot : 0.05f;
+            if (reducedMotion)
+            {
+                SetPieceGrid(state, targetCellWidth, targetGapX, targetCellHeight, targetGapY);
+                rect.anchoredPosition = end;
+                rect.localScale = Vector3.one;
+                yield break;
+            }
+
             float elapsed = 0f;
             rect.anchoredPosition = start;
             while (elapsed < seconds)
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / seconds);
-                rect.anchoredPosition = Vector2.Lerp(start, end, EaseOutCubic(t));
+                float eased = EaseOutCubic(t);
+                SetPieceGrid(
+                    state,
+                    Mathf.Lerp(startCellWidth, targetCellWidth, eased),
+                    Mathf.Lerp(startGapX, targetGapX, eased),
+                    Mathf.Lerp(startCellHeight, targetCellHeight, eased),
+                    Mathf.Lerp(startGapY, targetGapY, eased));
+                rect.anchoredPosition = Vector2.Lerp(start, end, eased);
+                rect.localScale = Vector3.one * (1f + (Mathf.Sin(t * Mathf.PI) * overshoot));
                 yield return null;
             }
 
+            SetPieceGrid(state, targetCellWidth, targetGapX, targetCellHeight, targetGapY);
             rect.anchoredPosition = end;
+            rect.localScale = Vector3.one;
         }
 
         private void UpdateDraggedPieceMotion()
@@ -312,6 +449,9 @@ namespace CatBlockPuzzle
                 return;
             }
 
+            UpdateDraggedPieceSize(deltaTime);
+            UpdateDragTarget(drag.Piece);
+
             Vector2 previousPosition = rect.anchoredPosition;
             rect.anchoredPosition = drag.TargetPosition;
             drag.SmoothVelocity = (rect.anchoredPosition - previousPosition) / deltaTime;
@@ -325,6 +465,31 @@ namespace CatBlockPuzzle
                 rect.localRotation,
                 Quaternion.Euler(0f, 0f, targetZ),
                 DragTiltSpeed * deltaTime);
+        }
+
+        private void UpdateDraggedPieceSize(float deltaTime)
+        {
+            if (drag == null || drag.Piece == null)
+            {
+                return;
+            }
+
+            PieceState state = drag.Piece;
+            float duration = layoutProfile != null ? layoutProfile.PieceSizeTransitionSeconds : 0.2f;
+            drag.ResizeElapsed = reducedMotion ? duration : Mathf.Min(duration, drag.ResizeElapsed + deltaTime);
+            float t = duration <= 0f ? 1f : Mathf.Clamp01(drag.ResizeElapsed / duration);
+            float eased = reducedMotion ? 1f : EaseOutCubic(t);
+            SetPieceGrid(
+                state,
+                Mathf.Lerp(drag.SourceCellWidth, boardCellWidth, eased),
+                Mathf.Lerp(drag.SourceGapX, BoardGap, eased),
+                Mathf.Lerp(drag.SourceCellHeight, boardCellHeight, eased),
+                Mathf.Lerp(drag.SourceGapY, BoardGap, eased));
+
+            float overshoot = layoutProfile != null ? layoutProfile.DragScaleOvershoot : 0.05f;
+            state.Rect.localScale = reducedMotion
+                ? Vector3.one
+                : Vector3.one * (1f + (Mathf.Sin(t * Mathf.PI) * overshoot));
         }
 
         private CellGrab GetGrabbedCell(PieceState state, float localX, float localY)

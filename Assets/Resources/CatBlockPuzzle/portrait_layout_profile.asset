@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: portrait_layout_profile
+  m_EditorClassIdentifier: Assembly-CSharp:CatBlockPuzzle:PortraitLayoutProfile
+  SideMargin: 108
+  HeaderHeight: 184
+  TrayHeight: 292
+  ActionBarHeight: 96
+  SectionGap: 34
+  TrayViewportFraction: 0.25
+  TrayCardWidth: 212
+  TrayCardHeight: 246
+  TrayCardMinWidth: 104
+  TrayCardMinHeight: 154
+  TrayCatCellSize: 46
+  RemainingCardGrowth: 0.08
+  MaximumCardGrowth: 0.16
+  PiecePickDragThreshold: 14
+  PiecePickVerticalBias: 0.65
+  TrayScrollHorizontalBias: 1.1
+  TouchVisualLift: 42
+  MouseVisualLift: 22
+  MaximumVerticalGain: 1.35
+  MaximumExtraReach: 180
+  CatSnapThreshold: 0.45
+  BoardSnapPadding: 84
+  PieceSizeTransitionSeconds: 0.2
+  DragScaleOvershoot: 0.05

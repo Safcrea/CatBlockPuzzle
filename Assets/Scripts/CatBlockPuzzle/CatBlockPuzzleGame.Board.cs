@@ -35,6 +35,10 @@ namespace CatBlockPuzzle
 
             boardCellWidth = (boardWidth - (BoardGap * (activeLevel.Cols - 1))) / activeLevel.Cols;
             boardCellHeight = (boardHeight - (BoardGap * (activeLevel.Rows - 1))) / activeLevel.Rows;
+            if (placementAvailability.GetLength(0) != activeLevel.Rows || placementAvailability.GetLength(1) != activeLevel.Cols)
+            {
+                placementAvailability = new bool[activeLevel.Rows, activeLevel.Cols];
+            }
 
             for (int row = 0; row < activeLevel.Rows; row++)
             {
@@ -53,7 +57,7 @@ namespace CatBlockPuzzle
                     cellImage.raycastTarget = false;
                     RectTransform rect = cellImage.rectTransform;
                     SetTopLeft(rect, CellPosition(row, col), new Vector2(boardCellWidth, boardCellHeight));
-                    boardCells[coord] = new CellView(rect, cellImage, cellImage.color);
+                    Image preview = null;
                     if (active)
                     {
                         rect.localScale = Vector3.zero;
@@ -68,7 +72,17 @@ namespace CatBlockPuzzle
                         paw.sprite = pawSprite;
                         paw.raycastTarget = false;
                         SetRect(paw.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(boardCellWidth * 0.48f, boardCellHeight * 0.48f));
+
+                        preview = CreateImage(rect, "Cat Landing Preview", Color.white);
+                        preview.preserveAspect = true;
+                        preview.raycastTarget = false;
+                        Stretch(preview.rectTransform);
+                        preview.rectTransform.offsetMin = new Vector2(4f, 4f);
+                        preview.rectTransform.offsetMax = new Vector2(-4f, -4f);
+                        preview.gameObject.SetActive(false);
                     }
+
+                    boardCells[coord] = new CellView(rect, cellImage, preview, cellImage.color);
                 }
             }
         }
@@ -76,37 +90,64 @@ namespace CatBlockPuzzle
         private Vector2 GetBoardTargetMaxSize()
         {
             int maxDimension = Mathf.Max(activeLevel.Rows, activeLevel.Cols);
+            Vector2 desired;
             if (maxDimension <= 3)
             {
-                return new Vector2(520f, 520f);
+                desired = new Vector2(520f, 520f);
             }
-
-            if (maxDimension <= 4)
+            else if (maxDimension <= 4)
             {
-                return new Vector2(620f, 620f);
+                desired = new Vector2(620f, 620f);
             }
-
-            if (maxDimension <= 5)
+            else if (maxDimension <= 5)
             {
-                return new Vector2(690f, 690f);
+                desired = new Vector2(690f, 690f);
+            }
+            else
+            {
+                desired = new Vector2(MaxBoardWidth, MaxBoardHeight);
             }
 
-            return new Vector2(MaxBoardWidth, MaxBoardHeight);
+            float sideMargin = layoutProfile != null ? layoutProfile.SideMargin : 108f;
+            float headerHeight = layoutProfile != null ? layoutProfile.HeaderHeight : 184f;
+            float trayHeight = layoutProfile != null ? layoutProfile.TrayHeight : 292f;
+            float actionHeight = layoutProfile != null ? layoutProfile.ActionBarHeight : 96f;
+            float sectionGap = layoutProfile != null ? layoutProfile.SectionGap : 34f;
+            Rect rootRect = root.rect;
+            float boardAreaBottom = rootRect.yMin + actionHeight + trayHeight + (sectionGap * 3f);
+            float boardAreaTop = rootRect.yMax - headerHeight - 118f;
+            boardCenterY = (boardAreaBottom + boardAreaTop) * 0.5f;
+
+            float availableWidth = Mathf.Max(360f, rootRect.width - (sideMargin * 2f));
+            float availableHeight = Mathf.Max(420f, boardAreaTop - boardAreaBottom);
+            return new Vector2(
+                Mathf.Min(desired.x, MaxBoardWidth, availableWidth),
+                Mathf.Min(desired.y, MaxBoardHeight, availableHeight));
         }
 
         private void ApplyGameplayLayout()
         {
-            SetRect(boardRoot, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, BoardCenterY), new Vector2(boardWidth, boardHeight));
+            SetRect(boardRoot, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, boardCenterY), new Vector2(boardWidth, boardHeight));
             if (boardBackdrop != null)
             {
-                SetRect(boardBackdrop, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, BoardCenterY), new Vector2(boardWidth + 74f, boardHeight + 74f));
+                SetRect(boardBackdrop, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, boardCenterY), new Vector2(boardWidth + 64f, boardHeight + 64f));
             }
 
             if (timerText != null)
             {
-                float timerY = BoardCenterY + (boardHeight * 0.5f) + TimerBoardGap + (TimerHeight * 0.5f);
+                float timerY = boardCenterY + (boardHeight * 0.5f) + TimerBoardGap + (TimerHeight * 0.5f);
                 RectTransform timerTarget = timerPanel != null ? timerPanel : timerText.rectTransform;
-                SetRect(timerTarget, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, timerY), new Vector2(336f, TimerHeight + 12f));
+                SetRect(timerTarget, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-132f, timerY), new Vector2(230f, TimerHeight + 8f));
+                if (starPanel != null)
+                {
+                    SetRect(starPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(132f, timerY), new Vector2(246f, TimerHeight + 8f));
+                }
+
+                if (comboBadge != null)
+                {
+                    float comboY = boardCenterY + (boardHeight * 0.5f) - 36f;
+                    SetRect(comboBadge, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, comboY), new Vector2(310f, 58f));
+                }
             }
         }
 
@@ -116,8 +157,16 @@ namespace CatBlockPuzzle
         // on a fully-shown board. Scaling localScale is safe under the current layout.
         private IEnumerator PlayLevelStartReveal()
         {
-            if (boardRevealCells.Count == 0)
+            if (reducedMotion || boardRevealCells.Count == 0)
             {
+                for (int i = 0; i < boardRevealCells.Count; i++)
+                {
+                    if (boardRevealCells[i].Rect != null)
+                    {
+                        boardRevealCells[i].Rect.localScale = Vector3.one;
+                    }
+                }
+
                 inputLocked = false;
                 StartLevelTimer();
                 boardRevealRoutine = null;
@@ -203,9 +252,18 @@ namespace CatBlockPuzzle
                 Vector2Int coord = new Vector2Int(row + cell.Row, col + cell.Col);
                 if (boardCells.TryGetValue(coord, out CellView cellView) && activeLevel.ActiveCells.Contains(coord))
                 {
-                    cellView.Image.color = valid ? ValidColor : InvalidColor;
+                    cellView.Image.color = Color.Lerp(TargetColor, valid ? ValidColor : InvalidColor, 0.42f);
                     cellView.Rect.localScale = Vector3.one * (valid ? 1.045f : 1.03f);
-                    previewCells.Add(cellView.Image);
+                    if (cellView.Preview != null)
+                    {
+                        cellView.Preview.sprite = CatPortrait(valid ? CatMood.Happy : CatMood.Worried, state.AtlasIndex);
+                        cellView.Preview.color = valid
+                            ? new Color(1f, 1f, 1f, 0.58f)
+                            : new Color(1f, 0.62f, 0.62f, 0.72f);
+                        cellView.Preview.gameObject.SetActive(cellView.Preview.sprite != null);
+                    }
+
+                    previewCells.Add(cellView);
                 }
             }
         }
@@ -214,10 +272,16 @@ namespace CatBlockPuzzle
         {
             for (int i = 0; i < previewCells.Count; i++)
             {
-                if (previewCells[i] != null)
+                CellView cell = previewCells[i];
+                if (cell.Image != null)
                 {
-                    previewCells[i].color = TargetColor;
-                    previewCells[i].rectTransform.localScale = Vector3.one;
+                    cell.Image.color = TargetColor;
+                    cell.Rect.localScale = Vector3.one;
+                }
+
+                if (cell.Preview != null)
+                {
+                    cell.Preview.gameObject.SetActive(false);
                 }
             }
 
@@ -329,9 +393,10 @@ namespace CatBlockPuzzle
             float verticalInset = Mathf.Clamp(traySlotPreferredHeight * 0.22f, 42f, 58f);
             float widthFit = (traySlotPreferredWidth - horizontalInset - ((cols - 1) * TrayGap)) / cols;
             float heightFit = (traySlotPreferredHeight - verticalInset - ((rows - 1) * TrayGap)) / rows;
-            float shapeCap = maxCells >= 5 ? 34f : maxCells >= 4 ? 39f : trayCellMaxSize;
+            float shapeScale = maxCells >= 5 ? 0.82f : maxCells >= 4 ? 0.9f : 1f;
+            float shapeCap = trayCellMaxSize * shapeScale;
             float cellSize = Mathf.Min(trayCellMaxSize, shapeCap, widthFit, heightFit);
-            return Mathf.Clamp(cellSize, 20f, 46f);
+            return Mathf.Clamp(cellSize, 20f, 64f);
         }
     }
 }

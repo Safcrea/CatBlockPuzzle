@@ -38,7 +38,6 @@ namespace CatBlockPuzzle
         private const float BoardRevealCellSeconds = 0.24f;
         private const float BoardRevealStaggerSeconds = 0.035f;
         private const float BoardRevealOvershoot = 1.14f;
-        private const float TrayCenterY = 226f;
         private const float TrayMaxWidth = 1040f;
         private const float TrayFloatAmplitude = 9f;
         private const float TrayFloatRotation = 2.5f;
@@ -49,14 +48,18 @@ namespace CatBlockPuzzle
         private const int AudioSampleRate = 44100;
         private const string SavedLevelKey = "CatBlockPuzzle.LevelIndex";
         private const string SavedCoinsKey = "CatBlockPuzzle.Coins";
+        private const string SavedSoundKey = "CatBlockPuzzle.Settings.Sound";
+        private const string SavedHapticsKey = "CatBlockPuzzle.Settings.Haptics";
+        private const string SavedReducedMotionKey = "CatBlockPuzzle.Settings.ReducedMotion";
+        private const string SavedBestStarsPrefix = "CatBlockPuzzle.BestStars.";
 
         private static readonly Color PageColor = new Color(251f / 255f, 247f / 255f, 238f / 255f, 1f);
-        private static readonly Color PanelColor = new Color(1f, 248f / 255f, 236f / 255f, 0.96f);
-        private static readonly Color TrayColor = new Color(1f, 248f / 255f, 236f / 255f, 0.96f);
+        private static readonly Color PanelColor = new Color(1f, 248f / 255f, 236f / 255f, 0.97f);
+        private static readonly Color TrayColor = new Color(248f / 255f, 184f / 255f, 153f / 255f, 0.98f);
         private static readonly Color InkColor = new Color(74f / 255f, 46f / 255f, 42f / 255f, 1f);
         private static readonly Color SoftInkColor = new Color(0.52f, 0.43f, 0.35f, 1f);
         private static readonly Color TargetColor = new Color(217f / 255f, 217f / 255f, 221f / 255f, 1f);
-        private static readonly Color TargetDeepColor = new Color(132f / 255f, 185f / 255f, 77f / 255f, 1f);
+        private static readonly Color TargetDeepColor = new Color(59f / 255f, 151f / 255f, 137f / 255f, 1f);
         private static readonly Color ValidColor = new Color(0.68f, 0.88f, 0.65f, 1f);
         private static readonly Color InvalidColor = new Color(1f, 0.55f, 0.58f, 1f);
         private static readonly Color GoldColor = new Color(246f / 255f, 190f / 255f, 62f / 255f, 1f);
@@ -66,7 +69,7 @@ namespace CatBlockPuzzle
         private static readonly Color BoardTileEdgeColor = new Color(191f / 255f, 193f / 255f, 200f / 255f, 0.55f);
         private static readonly Color CardRestColor = new Color(1f, 252f / 255f, 246f / 255f, 0.92f);
         private static readonly Color CardDimColor = new Color(1f, 248f / 255f, 236f / 255f, 0.42f);
-        private static readonly Color TrayHoverColor = new Color(1f, 250f / 255f, 236f / 255f, 1f);
+        private static readonly Color TrayHoverColor = new Color(1f, 207f / 255f, 164f / 255f, 1f);
         private static readonly Color TimerNormalColor = new Color(0.05f, 0.045f, 0.04f, 1f);
         private static readonly Color TimerWarningColor = new Color(0.88f, 0.08f, 0.08f, 1f);
 
@@ -85,10 +88,12 @@ namespace CatBlockPuzzle
         private readonly Dictionary<Vector2Int, CellView> boardCells = new Dictionary<Vector2Int, CellView>();
         private readonly Dictionary<Vector2Int, string> occupancy = new Dictionary<Vector2Int, string>();
         private readonly List<PieceState> pieces = new List<PieceState>();
-        private readonly List<Image> previewCells = new List<Image>();
+        private readonly List<CellView> previewCells = new List<CellView>();
         private readonly List<BoardRevealCell> boardRevealCells = new List<BoardRevealCell>();
         private readonly List<Vector2Int> occupancyRemovalBuffer = new List<Vector2Int>(8);
+        private readonly Stack<Image> fxImagePool = new Stack<Image>(64);
         private readonly Vector3[] rectWorldCorners = new Vector3[4];
+        private bool[,] placementAvailability = new bool[0, 0];
 
         private Canvas canvas;
         private RectTransform root;
@@ -108,9 +113,33 @@ namespace CatBlockPuzzle
         private RectTransform timerPanel;
         private Text timerText;
         private Text objectiveText;
+        private RectTransform objectivePanel;
         private Text coinText;
         private Text winTitleText;
         private Text winRewardText;
+        private Text winBestText;
+        private Text winUnlockText;
+        private Text comboText;
+        private RectTransform starPanel;
+        private RectTransform comboBadge;
+        private RectTransform actionBar;
+        private RectTransform settingsOverlay;
+        private RectTransform settingsPanel;
+        private Image winCatImage;
+        private readonly Image[] progressStars = new Image[3];
+        private readonly Image[] winStars = new Image[3];
+        private Text soundToggleText;
+        private Text hapticsToggleText;
+        private Text motionToggleText;
+        private Text settingsTitleText;
+        private Toggle soundToggle;
+        private Toggle hapticsToggle;
+        private Toggle motionToggle;
+        private Button previousTestButton;
+        private Button nextTestButton;
+        private RectTransform soundToggleKnob;
+        private RectTransform hapticsToggleKnob;
+        private RectTransform motionToggleKnob;
         private HorizontalLayoutGroup trayLayout;
         private ScrollRect trayScrollRect;
         private Font defaultFont;
@@ -122,11 +151,22 @@ namespace CatBlockPuzzle
         private Sprite mouthSprite;
         private Sprite tailSprite;
         private Sprite pawSprite;
+        private Sprite starSprite;
+        private Sprite starOutlineSprite;
+        private Sprite backIconSprite;
+        private Sprite pauseIconSprite;
+        private Sprite settingsIconSprite;
+        private Sprite hintIconSprite;
+        private Sprite resetIconSprite;
+        private Sprite closeIconSprite;
+        private readonly Sprite[,] catPortraitSprites = new Sprite[3, 8];
         private AudioSource audioSource;
         private AudioClip buttonClip;
         private AudioClip snapClip;
         private AudioClip wrongClip;
         private AudioClip winClip;
+        private CatVisualCatalog visualCatalog;
+        private PortraitLayoutProfile layoutProfile;
         private LevelDefinition activeLevel;
         private LevelManager levelManager;
         private HapticsController haptics;
@@ -137,8 +177,16 @@ namespace CatBlockPuzzle
         private bool inputLocked;
         private bool timerRunning;
         private bool levelFailed;
+        private bool soundEnabled = true;
+        private bool hapticsEnabled = true;
+        private bool reducedMotion;
+        private bool timerWasRunningBeforeSettings;
+        private bool levelNavigationTesting;
         private int levelIndex;
         private int coins;
+        private int comboCount;
+        private int bestCombo;
+        private int earnedStars;
         private int lastTimerSecond = -1;
         private float boardWidth;
         private float boardHeight;
@@ -151,6 +199,7 @@ namespace CatBlockPuzzle
         private float traySlotMinHeight = 154f;
         private float trayCellMaxSize = 38f;
         private float nextDragTrailTime;
+        private float boardCenterY = BoardCenterY;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -176,6 +225,8 @@ namespace CatBlockPuzzle
             levelManager = new LevelManager("CatBlockPuzzle/levels_100");
             levelManager.Load();
             haptics = new HapticsController(this);
+            visualCatalog = CatVisualCatalog.LoadOrCreate();
+            layoutProfile = PortraitLayoutProfile.LoadOrCreate();
 
             whiteSprite = CreateSolidSprite(Color.white);
             roundedBoxSprite = CreateRoundedBoxSprite();
@@ -185,19 +236,50 @@ namespace CatBlockPuzzle
             mouthSprite = CreateMouthSprite();
             tailSprite = CreateTailSprite();
             pawSprite = CreatePawSprite();
+            starSprite = CreateStarSprite(false);
+            starOutlineSprite = CreateStarSprite(true);
+            backIconSprite = CreateUiIconSprite(UiIcon.Back);
+            pauseIconSprite = CreateUiIconSprite(UiIcon.Pause);
+            settingsIconSprite = CreateUiIconSprite(UiIcon.Settings);
+            hintIconSprite = CreateUiIconSprite(UiIcon.Hint);
+            resetIconSprite = CreateUiIconSprite(UiIcon.Reset);
+            closeIconSprite = CreateUiIconSprite(UiIcon.Close);
+            LoadAuthoredCatPortraits();
             BuildAudio();
+            LoadPreferences();
             EnsureEventSystem();
             BuildCanvas();
             coins = PlayerPrefs.GetInt(SavedCoinsKey, 0);
-            LoadLevel(Mathf.Clamp(PlayerPrefs.GetInt(SavedLevelKey, 0), 0, levelManager.LevelCount - 1));
         }
 
-        private void LoadLevel(int nextLevelIndex)
+        private IEnumerator Start()
+        {
+            yield return null;
+            Canvas.ForceUpdateCanvases();
+            int requestedLevel = Mathf.Clamp(PlayerPrefs.GetInt(SavedLevelKey, 0), 0, levelManager.LevelCount - 1);
+            bool previewLevel = false;
+#if UNITY_EDITOR
+            const string previewLevelKey = "CatBlockPuzzle.EditorPreviewLevel";
+            if (UnityEditor.EditorPrefs.HasKey(previewLevelKey))
+            {
+                requestedLevel = Mathf.Clamp(UnityEditor.EditorPrefs.GetInt(previewLevelKey, requestedLevel), 0, levelManager.LevelCount - 1);
+                UnityEditor.EditorPrefs.DeleteKey(previewLevelKey);
+                previewLevel = true;
+            }
+#endif
+            LoadLevel(requestedLevel, !previewLevel);
+        }
+
+        private void LoadLevel(int nextLevelIndex, bool persistProgress = true)
         {
             inputLocked = true;
             timerRunning = false;
             levelFailed = false;
+            comboCount = 0;
+            bestCombo = 0;
+            earnedStars = 0;
             drag = null;
+            levelNavigationTesting = !persistProgress;
             SetTrayScrollEnabled(true);
             StopHint();
             haptics?.CancelLevelComplete();
@@ -217,9 +299,13 @@ namespace CatBlockPuzzle
                 ClearChildren(trayRoot);
             }
 
-            ClearChildren(fxLayer);
+            ResetFxPool();
             winOverlay.gameObject.SetActive(false);
             failOverlay.gameObject.SetActive(false);
+            if (settingsOverlay != null)
+            {
+                settingsOverlay.gameObject.SetActive(false);
+            }
 
             levelIndex = Mathf.Clamp(nextLevelIndex, 0, levelManager.LevelCount - 1);
             activeLevel = levelManager.GetLevel(levelIndex);
@@ -230,11 +316,16 @@ namespace CatBlockPuzzle
             }
 
             coinText.text = coins.ToString();
-            SaveProgress();
+            if (persistProgress)
+            {
+                SaveProgress();
+            }
             ResetLevelTimer();
+            UpdateComboDisplay(false);
 
             BuildBoard();
             BuildPieces();
+            UpdateTestLevelButtons();
             boardRevealRoutine = StartCoroutine(PlayLevelStartReveal());
         }
 
@@ -247,7 +338,7 @@ namespace CatBlockPuzzle
 
         private void ResetLevel()
         {
-            LoadLevel(levelIndex);
+            LoadLevel(levelIndex, !levelNavigationTesting);
         }
 
         private bool CanGoPreviousLevel => levelIndex > 0;
@@ -256,7 +347,7 @@ namespace CatBlockPuzzle
 
         private void LoadPreviousLevel()
         {
-            LoadLevel(CanGoPreviousLevel ? levelIndex - 1 : 0);
+            LoadLevel(CanGoPreviousLevel ? levelIndex - 1 : 0, !levelNavigationTesting);
         }
 
         private void LoadNextLevel()
@@ -267,11 +358,51 @@ namespace CatBlockPuzzle
             }
 
             int maxLevelIndex = levelManager.LevelCount - 1;
-            LoadLevel(CanGoNextLevel ? levelIndex + 1 : maxLevelIndex);
+            LoadLevel(CanGoNextLevel ? levelIndex + 1 : maxLevelIndex, !levelNavigationTesting);
+        }
+
+        private void LoadPreviousTestLevel()
+        {
+            LoadLevel(CanGoPreviousLevel ? levelIndex - 1 : 0, false);
+        }
+
+        private void LoadNextTestLevel()
+        {
+            if (levelManager == null || levelManager.LevelCount <= 0)
+            {
+                return;
+            }
+
+            int maxLevelIndex = levelManager.LevelCount - 1;
+            LoadLevel(CanGoNextLevel ? levelIndex + 1 : maxLevelIndex, false);
+        }
+
+        public void PreviewLevelForTesting(int zeroBasedLevelIndex)
+        {
+            layoutProfile = PortraitLayoutProfile.LoadOrCreate();
+            LoadLevel(zeroBasedLevelIndex, false);
+        }
+
+        private void UpdateTestLevelButtons()
+        {
+            if (previousTestButton != null)
+            {
+                previousTestButton.interactable = CanGoPreviousLevel;
+            }
+
+            if (nextTestButton != null)
+            {
+                nextTestButton.interactable = CanGoNextLevel;
+            }
         }
 
         private void SaveProgress()
         {
+            if (levelNavigationTesting)
+            {
+                return;
+            }
+
             PlayerPrefs.SetInt(SavedLevelKey, levelIndex);
             PlayerPrefs.SetInt(SavedCoinsKey, coins);
             PlayerPrefs.Save();

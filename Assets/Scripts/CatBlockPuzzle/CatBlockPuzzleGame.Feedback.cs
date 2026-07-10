@@ -101,6 +101,7 @@ namespace CatBlockPuzzle
             int seconds = totalSeconds % 60;
             timerText.text = minutes.ToString() + ":" + seconds.ToString("00");
             timerText.color = levelRemainingSeconds <= TimerWarningSeconds ? TimerWarningColor : TimerNormalColor;
+            UpdateStarDisplay();
         }
 
         private void StartTimerPulse()
@@ -213,6 +214,7 @@ namespace CatBlockPuzzle
         {
             for (int i = 0; i < pieces.Count; i++)
             {
+                SetCatMood(pieces[i], CatMood.Happy);
                 StartCoroutine(PopTransform(pieces[i].Rect, 1.08f));
             }
 
@@ -221,12 +223,18 @@ namespace CatBlockPuzzle
             FlyCoins(activeLevel.Reward);
             PlayWinSound();
             yield return new WaitForSecondsRealtime(0.75f);
-            coins += activeLevel.Reward;
+            if (!levelNavigationTesting)
+            {
+                coins += activeLevel.Reward;
+            }
+
             coinText.text = coins.ToString();
+            LevelResult result = SaveLevelResult();
             SaveProgress();
             StartCoroutine(PopTransform(coinText.rectTransform.parent as RectTransform, 1.08f));
             winTitleText.text = activeLevel.Title;
             winRewardText.text = "+" + activeLevel.Reward.ToString() + " coins";
+            ShowWinResult(result);
             winOverlay.gameObject.SetActive(true);
             winPanel.localScale = Vector3.one * 0.88f;
             StartCoroutine(PopTransform(winPanel, 1.03f));
@@ -323,12 +331,13 @@ namespace CatBlockPuzzle
             haptics.PlaySnap();
             SpawnSnapRing(BoardPieceCenterScreen(state, row, col), state.Color);
             FlashPlacedCells(state, row, col);
-            SpawnPawBurst(BoardPieceCenterInBoard(state, row, col), 13, state.Color);
+            SpawnPawBurst(BoardPieceCenterInBoard(state, row, col), reducedMotion ? 4 : 13, state.Color);
             StartCoroutine(PopTransform(boardRoot, 1.015f));
         }
 
         private void PlayWrongFeedback(PieceState state)
         {
+            ShowWorriedMood(state);
             PlayClip(wrongClip);
             haptics.PlayWrongMove();
             SpawnFixedBurst(RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, state.Rect.position), 12, InvalidColor);
@@ -382,6 +391,12 @@ namespace CatBlockPuzzle
 
         private IEnumerator PopTransform(RectTransform rect, float peakScale)
         {
+            if (reducedMotion)
+            {
+                rect.localScale = Vector3.one;
+                yield break;
+            }
+
             float elapsed = 0f;
             while (elapsed < PopSeconds)
             {
@@ -396,6 +411,11 @@ namespace CatBlockPuzzle
 
         private IEnumerator ShakeTransform(RectTransform rect)
         {
+            if (reducedMotion)
+            {
+                yield break;
+            }
+
             Vector2 start = rect.anchoredPosition;
             float elapsed = 0f;
             while (elapsed < 0.25f)
@@ -411,6 +431,11 @@ namespace CatBlockPuzzle
 
         private void SpawnDragTrail(Vector2 screenPosition, Color color)
         {
+            if (reducedMotion)
+            {
+                return;
+            }
+
             float now = Time.unscaledTime;
             if (now < nextDragTrailTime)
             {
@@ -423,7 +448,7 @@ namespace CatBlockPuzzle
 
         private void SpawnSnapRing(Vector2 screenPosition, Color color)
         {
-            Image ring = CreateImage(fxLayer, "Snap Ring", color);
+            Image ring = AcquireFxImage("Snap Ring", fxLayer, color);
             ring.sprite = circleSprite;
             ring.raycastTarget = false;
             SetRect(ring.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), ScreenCenterToRootLocal(screenPosition), new Vector2(42f, 42f));
@@ -443,7 +468,7 @@ namespace CatBlockPuzzle
                 yield return null;
             }
 
-            Destroy(ring.gameObject);
+            ReleaseFxImage(ring);
         }
 
         private void SpawnPawBurst(Vector2 boardLocalPosition, int count, Color color)
@@ -458,7 +483,7 @@ namespace CatBlockPuzzle
 
         private void SpawnBoardBurst()
         {
-            SpawnPawBurst(Vector2.zero, 42, TargetColor);
+            SpawnPawBurst(Vector2.zero, reducedMotion ? 8 : 42, TargetColor);
         }
 
         private void SpawnFixedBurst(Vector2 screenPosition, int count, Color color)
@@ -474,7 +499,7 @@ namespace CatBlockPuzzle
 
         private void SpawnSpark(RectTransform parent, Vector2 start, Vector2 delta, Color color, float size, Sprite sprite = null)
         {
-            Image spark = CreateImage(parent, "Spark", color);
+            Image spark = AcquireFxImage("Spark", parent, color);
             spark.sprite = sprite != null ? sprite : circleSprite;
             spark.raycastTarget = false;
             SetRect(spark.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), start, new Vector2(size, size));
@@ -495,7 +520,7 @@ namespace CatBlockPuzzle
                 yield return null;
             }
 
-            Destroy(spark.gameObject);
+            ReleaseFxImage(spark);
         }
 
         private void FlyCoins(int reward)
@@ -505,7 +530,7 @@ namespace CatBlockPuzzle
             int count = Mathf.Clamp(Mathf.RoundToInt(reward / 7f), 4, 9);
             for (int i = 0; i < count; i++)
             {
-                Image coin = CreateImage(fxLayer, "Flying Coin", Color.white);
+                Image coin = AcquireFxImage("Flying Coin", fxLayer, Color.white);
                 coin.sprite = coinSprite;
                 coin.raycastTarget = false;
                 SetRect(coin.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), ScreenCenterToRootLocal(start + new Vector2((i - count * 0.5f) * 10f, (i % 2) * 12f)), new Vector2(28f, 28f));
@@ -530,7 +555,67 @@ namespace CatBlockPuzzle
                 yield return null;
             }
 
-            Destroy(coin.gameObject);
+            ReleaseFxImage(coin);
+        }
+
+        private Image AcquireFxImage(string name, RectTransform parent, Color color)
+        {
+            Image image = null;
+            while (fxImagePool.Count > 0 && image == null)
+            {
+                image = fxImagePool.Pop();
+            }
+
+            if (image == null)
+            {
+                image = CreateImage(parent, name, color);
+            }
+            else
+            {
+                image.gameObject.SetActive(true);
+                image.transform.SetParent(parent, false);
+                image.gameObject.name = name;
+                image.color = color;
+            }
+
+            image.rectTransform.localScale = Vector3.one;
+            image.rectTransform.localRotation = Quaternion.identity;
+            return image;
+        }
+
+        private void ReleaseFxImage(Image image)
+        {
+            if (image == null)
+            {
+                return;
+            }
+
+            image.gameObject.SetActive(false);
+            image.transform.SetParent(fxLayer, false);
+            fxImagePool.Push(image);
+        }
+
+        private void ResetFxPool()
+        {
+            fxImagePool.Clear();
+            if (fxLayer == null)
+            {
+                return;
+            }
+
+            for (int i = fxLayer.childCount - 1; i >= 0; i--)
+            {
+                Transform child = fxLayer.GetChild(i);
+                Image image = child.GetComponent<Image>();
+                if (image == null)
+                {
+                    Destroy(child.gameObject);
+                    continue;
+                }
+
+                image.gameObject.SetActive(false);
+                fxImagePool.Push(image);
+            }
         }
     }
 }

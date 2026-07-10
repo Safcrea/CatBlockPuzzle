@@ -9,6 +9,8 @@ namespace CatBlockPuzzle
         private readonly MonoBehaviour runner;
         private Coroutine levelCompleteRoutine;
 
+        public bool Enabled { get; set; } = true;
+
         public HapticsController(MonoBehaviour runner)
         {
             this.runner = runner;
@@ -16,6 +18,11 @@ namespace CatBlockPuzzle
 
         public void PlaySnap()
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
 #if UNITY_IOS && !UNITY_EDITOR
             CatBlockPuzzleHapticLight();
 #elif UNITY_ANDROID && !UNITY_EDITOR
@@ -27,6 +34,11 @@ namespace CatBlockPuzzle
 
         public void PlayWrongMove()
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
 #if UNITY_IOS && !UNITY_EDITOR
             CatBlockPuzzleHapticHeavy();
 #elif UNITY_ANDROID && !UNITY_EDITOR
@@ -38,6 +50,11 @@ namespace CatBlockPuzzle
 
         public void PlayLevelComplete()
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             if (runner == null)
             {
                 TriggerLevelCompleteStart();

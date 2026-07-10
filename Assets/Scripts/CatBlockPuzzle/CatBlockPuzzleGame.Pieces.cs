@@ -21,12 +21,13 @@ namespace CatBlockPuzzle
             {
                 PieceDefinition definition = activeLevel.Pieces[i];
                 PieceState state = new PieceState(definition, PieceColors[i % PieceColors.Length]);
+                state.AtlasIndex = i % 8;
                 state.FloatPhase = i * 0.83f;
                 state.Slot = CreatePanel(trayContent, definition.Name + " Slot", CardRestColor);
                 state.SlotImage = state.Slot.GetComponent<Image>();
                 StyleCreamPanel(state.SlotImage, 0.11f);
-                LayoutElement slotLayout = state.Slot.gameObject.AddComponent<LayoutElement>();
-                ApplyTraySlotLayout(slotLayout);
+                state.SlotLayout = state.Slot.gameObject.AddComponent<LayoutElement>();
+                ApplyTraySlotLayout(state.SlotLayout);
                 AddDragDots(state.Slot);
                 PieceDragView slotDragView = state.Slot.gameObject.AddComponent<PieceDragView>();
                 slotDragView.Bind(this, state, true);
@@ -40,30 +41,45 @@ namespace CatBlockPuzzle
                 pieces.Add(state);
             }
 
-            LayoutRebuilder.ForceRebuildLayoutImmediate(trayContent);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(trayRoot);
+            RefreshTrayLayout(false);
             if (trayScrollRect != null)
             {
                 trayScrollRect.horizontalNormalizedPosition = 0f;
             }
         }
 
-        private void ConfigureTrayForPieceCount(int pieceCount)
+        private void ConfigureTrayForPieceCount(int visiblePieceCount)
         {
-            int count = Mathf.Max(1, pieceCount);
+            int visibleCount = Mathf.Max(0, visiblePieceCount);
+            int layoutCount = Mathf.Max(1, visibleCount);
+            int totalCount = activeLevel != null ? Mathf.Max(1, activeLevel.Pieces.Length) : layoutCount;
+            int hiddenCount = Mathf.Max(0, totalCount - visibleCount);
             int horizontalPadding = 24;
             int verticalPadding = 24;
-            float spacing = count >= 7 ? 14f : count >= 5 ? 16f : 18f;
-            traySlotPreferredWidth = count >= 7 ? 176f : count >= 5 ? 190f : 212f;
-            traySlotPreferredHeight = count >= 7 ? 222f : count >= 5 ? 236f : 246f;
-            traySlotMinWidth = Mathf.Min(132f, traySlotPreferredWidth);
-            traySlotMinHeight = Mathf.Min(188f, traySlotPreferredHeight);
-            trayCellMaxSize = count >= 7 ? 40f : count >= 5 ? 43f : 46f;
+            float densityScale = totalCount >= 7 ? 0.83f : totalCount >= 5 ? 0.9f : 1f;
+            float spacing = totalCount >= 7 ? 14f : totalCount >= 5 ? 16f : 18f;
+            float growthPerCard = layoutProfile != null ? layoutProfile.RemainingCardGrowth : 0.08f;
+            float maximumGrowth = layoutProfile != null ? layoutProfile.MaximumCardGrowth : 0.16f;
+            float growth = 1f + Mathf.Min(maximumGrowth, hiddenCount * growthPerCard);
+            float baseWidth = layoutProfile != null ? layoutProfile.TrayCardWidth : 212f;
+            float baseHeight = layoutProfile != null ? layoutProfile.TrayCardHeight : 246f;
+            float baseMinWidth = layoutProfile != null ? layoutProfile.TrayCardMinWidth : 104f;
+            float baseMinHeight = layoutProfile != null ? layoutProfile.TrayCardMinHeight : 154f;
+            float baseCellSize = layoutProfile != null ? layoutProfile.TrayCatCellSize : 46f;
 
-            float trayWidth = TrayMaxWidth;
-            float trayHeight = Mathf.Clamp(traySlotPreferredHeight + (verticalPadding * 2f), 280f, 318f);
+            traySlotPreferredWidth = baseWidth * densityScale * growth;
+            traySlotPreferredHeight = baseHeight * densityScale;
+            traySlotMinWidth = Mathf.Min(baseMinWidth * growth, traySlotPreferredWidth);
+            traySlotMinHeight = Mathf.Min(baseMinHeight, traySlotPreferredHeight);
+            trayCellMaxSize = Mathf.Min(64f, baseCellSize * densityScale * growth);
+
+            float profileTrayHeight = layoutProfile != null ? layoutProfile.TrayHeight : 292f;
+            float profileActionHeight = layoutProfile != null ? layoutProfile.ActionBarHeight : 96f;
+            traySlotPreferredHeight = Mathf.Min(traySlotPreferredHeight, Mathf.Max(150f, profileTrayHeight - (verticalPadding * 2f)));
+            float trayWidth = Mathf.Min(TrayMaxWidth, Mathf.Max(560f, root.rect.width - 64f));
+            float trayHeight = Mathf.Clamp(traySlotPreferredHeight + (verticalPadding * 2f), 270f, profileTrayHeight);
             float viewportWidth = Mathf.Max(1f, trayWidth - 36f);
-            float desiredContentWidth = (traySlotPreferredWidth * count) + (spacing * (count - 1)) + (horizontalPadding * 2f);
+            float desiredContentWidth = (traySlotPreferredWidth * layoutCount) + (spacing * (layoutCount - 1)) + (horizontalPadding * 2f);
 
             if (trayLayout != null)
             {
@@ -71,7 +87,8 @@ namespace CatBlockPuzzle
                 trayLayout.spacing = spacing;
             }
 
-            SetRect(trayRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, TrayCenterY), new Vector2(trayWidth, trayHeight));
+            float trayBottom = profileActionHeight + 40f;
+            SetRect(trayRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, trayBottom), new Vector2(trayWidth, trayHeight));
             if (trayContent != null)
             {
                 SetRect(trayContent, new Vector2(0f, 0f), new Vector2(0f, 1f), new Vector2(0f, 0.5f), Vector2.zero, new Vector2(Mathf.Max(viewportWidth, desiredContentWidth), 0f));
@@ -93,6 +110,127 @@ namespace CatBlockPuzzle
             layout.flexibleHeight = 0f;
         }
 
+        private int VisibleTrayCardCount()
+        {
+            int count = 0;
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                if (pieces[i]?.Slot != null && pieces[i].Slot.gameObject.activeSelf)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        private void SetPieceSlotVisible(PieceState state, bool visible, bool refreshLayout)
+        {
+            if (state?.Slot == null)
+            {
+                return;
+            }
+
+            if (state.Slot.gameObject.activeSelf != visible)
+            {
+                state.Slot.gameObject.SetActive(visible);
+            }
+
+            if (state.SlotImage != null)
+            {
+                state.SlotImage.color = visible ? CardRestColor : CardDimColor;
+            }
+
+            if (refreshLayout)
+            {
+                RefreshTrayLayout(!reducedMotion);
+            }
+        }
+
+        private void RefreshTrayLayout(bool animateCatSizes)
+        {
+            if (trayContent == null || trayRoot == null)
+            {
+                return;
+            }
+
+            float previousScroll = trayScrollRect != null ? trayScrollRect.horizontalNormalizedPosition : 0f;
+            ConfigureTrayForPieceCount(VisibleTrayCardCount());
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState state = pieces[i];
+                if (state?.Slot == null || !state.Slot.gameObject.activeSelf)
+                {
+                    continue;
+                }
+
+                ApplyTraySlotLayout(state.SlotLayout);
+            }
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(trayContent);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(trayRoot);
+            Canvas.ForceUpdateCanvases();
+            if (trayScrollRect != null)
+            {
+                trayScrollRect.horizontalNormalizedPosition = Mathf.Clamp01(previousScroll);
+            }
+
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState state = pieces[i];
+                if (state?.Rect == null || state.Placed || state.Slot == null || !state.Slot.gameObject.activeSelf ||
+                    (drag != null && drag.Piece == state))
+                {
+                    continue;
+                }
+
+                float targetCellSize = TrayCellSize(state);
+                if (state.SizeRoutine != null)
+                {
+                    StopCoroutine(state.SizeRoutine);
+                    state.SizeRoutine = null;
+                }
+
+                if (animateCatSizes && gameObject.activeInHierarchy && !Mathf.Approximately(state.CellWidth, targetCellSize))
+                {
+                    state.SizeRoutine = StartCoroutine(AnimateTrayPieceSize(state, targetCellSize));
+                }
+                else
+                {
+                    SetPieceGrid(state, targetCellSize, TrayGap, targetCellSize, TrayGap);
+                }
+            }
+        }
+
+        private IEnumerator AnimateTrayPieceSize(PieceState state, float targetCellSize)
+        {
+            float startWidth = state.CellWidth;
+            float startHeight = state.CellHeight;
+            float startGapX = state.GapX;
+            float startGapY = state.GapY;
+            float duration = layoutProfile != null ? layoutProfile.PieceSizeTransitionSeconds : 0.2f;
+            float elapsed = 0f;
+            while (elapsed < duration && state != null && state.Rect != null && !state.Placed &&
+                   (drag == null || drag.Piece != state))
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = EaseOutCubic(Mathf.Clamp01(elapsed / duration));
+                SetPieceGrid(
+                    state,
+                    Mathf.Lerp(startWidth, targetCellSize, t),
+                    Mathf.Lerp(startGapX, TrayGap, t),
+                    Mathf.Lerp(startHeight, targetCellSize, t),
+                    Mathf.Lerp(startGapY, TrayGap, t));
+                yield return null;
+            }
+
+            if (state != null && state.Rect != null && !state.Placed && (drag == null || drag.Piece != state))
+            {
+                SetPieceGrid(state, targetCellSize, TrayGap, targetCellSize, TrayGap);
+                state.SizeRoutine = null;
+            }
+        }
+
         private void CreatePieceCells(PieceState state)
         {
             state.CellImages.Clear();
@@ -101,6 +239,20 @@ namespace CatBlockPuzzle
             {
                 RectTransform cellRect = CreatePanel(state.Rect, "Cat Cell", state.Color).GetComponent<RectTransform>();
                 Image body = cellRect.GetComponent<Image>();
+                Sprite portrait = CatPortrait(CatMood.Neutral, state.AtlasIndex);
+                if (portrait != null)
+                {
+                    body.sprite = portrait;
+                    body.type = Image.Type.Simple;
+                    body.color = Color.white;
+                    body.preserveAspect = true;
+                    body.raycastTarget = false;
+                    AddSoftShadow(body, new Vector2(0f, -5f), 0.22f);
+                    state.CellImages.Add(body);
+                    state.CatViews.Add(new CatCellView(cellRect, body));
+                    continue;
+                }
+
                 body.sprite = catHeadSprite;
                 body.type = Image.Type.Simple;
                 body.raycastTarget = false;
@@ -185,6 +337,11 @@ namespace CatBlockPuzzle
         private void AttachPieceToTray(PieceState state)
         {
             state.Placed = false;
+            if (state.Slot != null && !state.Slot.gameObject.activeSelf)
+            {
+                state.Slot.gameObject.SetActive(true);
+            }
+
             state.Rect.SetParent(state.Slot, false);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
@@ -199,7 +356,7 @@ namespace CatBlockPuzzle
 
         private void UpdateTrayIdleMotion()
         {
-            if (pieces.Count == 0)
+            if (pieces.Count == 0 || reducedMotion)
             {
                 return;
             }
@@ -229,7 +386,7 @@ namespace CatBlockPuzzle
             state.Rect.anchoredPosition = BoardPieceCenter(state.Row, state.Col, state);
             state.Rect.localScale = Vector3.one;
             state.Rect.localEulerAngles = Vector3.zero;
-            state.SlotImage.color = CardDimColor;
+            SetPieceSlotVisible(state, false, true);
         }
 
         private void SetPieceGrid(PieceState state, float cellWidth, float gapX, float cellHeight, float gapY)
@@ -272,6 +429,12 @@ namespace CatBlockPuzzle
 
         private void LayoutCatCell(CatCellView view, float width, float height, bool resting)
         {
+            if (view.Authored)
+            {
+                view.Portrait.preserveAspect = true;
+                return;
+            }
+
             float min = Mathf.Min(width, height);
             SetCenteredChild(view.LeftEar, new Vector2(width * -0.26f, height * 0.43f), new Vector2(min * 0.32f, min * 0.32f));
             SetCenteredChild(view.RightEar, new Vector2(width * 0.26f, height * 0.43f), new Vector2(min * 0.32f, min * 0.32f));
@@ -314,6 +477,24 @@ namespace CatBlockPuzzle
 
             trayScrollRect.OnInitializePotentialDrag(eventData);
             trayScrollRect.StopMovement();
+        }
+
+        private float GetPieceDragThresholdPixels()
+        {
+            float configured = layoutProfile != null ? layoutProfile.PiecePickDragThreshold : PiecePickDragThreshold;
+            float canvasScale = canvas != null ? Mathf.Max(0.25f, canvas.scaleFactor) : 1f;
+            int eventThreshold = EventSystem.current != null ? EventSystem.current.pixelDragThreshold : 0;
+            return Mathf.Max(configured * canvasScale, eventThreshold);
+        }
+
+        private float GetPiecePickVerticalBias()
+        {
+            return layoutProfile != null ? layoutProfile.PiecePickVerticalBias : PiecePickVerticalBias;
+        }
+
+        private float GetTrayScrollHorizontalBias()
+        {
+            return layoutProfile != null ? layoutProfile.TrayScrollHorizontalBias : TrayScrollHorizontalBias;
         }
 
         private void BeginForwardedTrayScroll(PointerEventData eventData)
@@ -500,20 +681,19 @@ namespace CatBlockPuzzle
                 }
 
                 float absX = Mathf.Abs(delta.x);
-                return delta.y >= threshold && delta.y >= absX * PiecePickVerticalBias;
+                return delta.y >= threshold && delta.y >= absX * controller.GetPiecePickVerticalBias();
             }
 
             private bool CanStartTrayScroll(Vector2 delta)
             {
                 float absX = Mathf.Abs(delta.x);
                 float absY = Mathf.Abs(delta.y);
-                return absX >= DragThreshold() && absX >= absY * TrayScrollHorizontalBias;
+                return absX >= DragThreshold() && absX >= absY * controller.GetTrayScrollHorizontalBias();
             }
 
             private float DragThreshold()
             {
-                int eventThreshold = EventSystem.current != null ? EventSystem.current.pixelDragThreshold : 0;
-                return Mathf.Max(PiecePickDragThreshold, eventThreshold);
+                return controller != null ? controller.GetPieceDragThresholdPixels() : PiecePickDragThreshold;
             }
 
             private void EndGesture(PointerEventData eventData)
@@ -551,6 +731,7 @@ namespace CatBlockPuzzle
             public RectTransform Rect;
             public RectTransform Slot;
             public Image SlotImage;
+            public LayoutElement SlotLayout;
             public bool Placed;
             public int Row = -1;
             public int Col = -1;
@@ -561,17 +742,29 @@ namespace CatBlockPuzzle
             public float FloatPhase;
             public bool HasGridLayout;
             public bool RestingLayout;
+            public int AtlasIndex;
+            public Coroutine SizeRoutine;
+            public readonly Vector2Int[] PlacementOffsets;
+            public readonly Vector2[] GridCenters;
 
             public PieceState(PieceDefinition definition, Color color)
             {
                 Definition = definition;
                 Color = color;
+                PlacementOffsets = new Vector2Int[definition.Cells.Length];
+                GridCenters = new Vector2[definition.Cells.Length];
+                for (int i = 0; i < definition.Cells.Length; i++)
+                {
+                    PlacementOffsets[i] = new Vector2Int(definition.Cells[i].Row, definition.Cells[i].Col);
+                }
             }
         }
 
         private sealed class CatCellView
         {
             public readonly RectTransform Body;
+            public readonly Image Portrait;
+            public readonly bool Authored;
             public readonly RectTransform LeftEar;
             public readonly RectTransform RightEar;
             public readonly RectTransform LeftInnerEar;
@@ -589,6 +782,13 @@ namespace CatBlockPuzzle
             public readonly RectTransform RightWhiskerBottom;
             public readonly RectTransform ForeheadStripe;
             public readonly RectTransform Tail;
+
+            public CatCellView(RectTransform body, Image portrait)
+            {
+                Body = body;
+                Portrait = portrait;
+                Authored = true;
+            }
 
             public CatCellView(
                 RectTransform body,
@@ -611,6 +811,8 @@ namespace CatBlockPuzzle
                 RectTransform tail)
             {
                 Body = body;
+                Portrait = body != null ? body.GetComponent<Image>() : null;
+                Authored = false;
                 LeftEar = leftEar;
                 RightEar = rightEar;
                 LeftInnerEar = leftInnerEar;

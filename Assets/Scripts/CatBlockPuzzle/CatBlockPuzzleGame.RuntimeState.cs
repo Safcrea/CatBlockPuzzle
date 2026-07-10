@@ -25,12 +25,17 @@ namespace CatBlockPuzzle
             public float SourceGapX;
             public float SourceGapY;
             public float Lift;
+            public float ResizeElapsed;
             public int PointerId;
+            public bool IsTouch;
             public bool Valid;
             public bool ReturnToShelf;
             public bool BoardClampActive;
             public int Row;
             public int Col;
+            public Vector2 PointerStartScreen;
+            public Vector2 LastPointerScreen;
+            public Vector2 LastAnchorScreen;
             public Vector2 TargetPosition;
             public Vector2 SmoothVelocity;
         }
@@ -39,12 +44,14 @@ namespace CatBlockPuzzle
         {
             public readonly RectTransform Rect;
             public readonly Image Image;
+            public readonly Image Preview;
             public readonly Color BaseColor;
 
-            public CellView(RectTransform rect, Image image, Color baseColor)
+            public CellView(RectTransform rect, Image image, Image preview, Color baseColor)
             {
                 Rect = rect;
                 Image = image;
+                Preview = preview;
                 BaseColor = baseColor;
             }
         }

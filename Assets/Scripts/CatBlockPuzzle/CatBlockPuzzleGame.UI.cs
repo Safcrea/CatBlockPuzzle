@@ -27,6 +27,8 @@ namespace CatBlockPuzzle
             Image background = canvasObject.GetComponent<Image>();
             background.sprite = CreateBackgroundSprite();
             background.color = Color.white;
+            background.preserveAspect = false;
+            background.raycastTarget = false;
 
             RectTransform canvasRoot = canvasObject.GetComponent<RectTransform>();
             Stretch(canvasRoot);
@@ -36,49 +38,37 @@ namespace CatBlockPuzzle
             root.GetComponent<Image>().raycastTarget = false;
             root.gameObject.AddComponent<SafeAreaFitter>();
 
-            RectTransform backPanel = CreatePanel(root, "Back Button", PanelColor);
-            SetRect(backPanel, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(42f, -50f), new Vector2(96f, 96f));
-            StyleCreamPanel(backPanel.GetComponent<Image>(), 0.15f);
-            Text backText = CreateText(backPanel, "<", 42, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            Stretch(backText.rectTransform);
+            RectTransform headerBand = CreatePanel(root, "Top Shelf", new Color(1f, 0.96f, 0.88f, 0.9f));
+            SetRect(headerBand, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), Vector2.zero, new Vector2(-30f, 106f));
+            UseRoundedSprite(headerBand.GetComponent<Image>());
+            AddSoftShadow(headerBand.GetComponent<Image>(), new Vector2(0f, -8f), 0.11f);
+            headerBand.GetComponent<Image>().raycastTarget = false;
 
-            levelText = CreateText(root, "Level 1", 64, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            SetRect(levelText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -54f), new Vector2(520f, 82f));
+            CreateIconButton(root, "Back", backIconSprite, LoadPreviousLevel, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(24f, -18f), new Vector2(74f, 74f));
 
-            RectTransform pausePanel = CreatePanel(root, "Pause Button", PanelColor);
-            SetRect(pausePanel, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-156f, -50f), new Vector2(96f, 96f));
-            StyleCreamPanel(pausePanel.GetComponent<Image>(), 0.15f);
-            Text pauseText = CreateText(pausePanel, "II", 34, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            Stretch(pauseText.rectTransform);
+            levelText = CreateText(root, "Level 1", 44, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
+            SetRect(levelText.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(-50f, -22f), new Vector2(-600f, 68f));
 
-            RectTransform settingsPanel = CreatePanel(root, "Settings Button", PanelColor);
-            SetRect(settingsPanel, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-42f, -50f), new Vector2(96f, 96f));
-            StyleCreamPanel(settingsPanel.GetComponent<Image>(), 0.15f);
-            Text settingsText = CreateText(settingsPanel, "o", 42, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            Stretch(settingsText.rectTransform);
-
-            RectTransform progressBar = CreatePanel(root, "Star Progress Bar", new Color(229f / 255f, 208f / 255f, 168f / 255f, 0.42f));
-            SetRect(progressBar, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -132f), new Vector2(282f, 38f));
-            UseRoundedSprite(progressBar.GetComponent<Image>());
-            progressBar.GetComponent<Image>().raycastTarget = false;
-            for (int i = 0; i < 3; i++)
-            {
-                Text star = CreateText(progressBar, "*", 42, FontStyle.Bold, TextAnchor.MiddleCenter, i == 0 ? GoldColor : new Color(229f / 255f, 208f / 255f, 168f / 255f, 0.95f));
-                SetRect(star.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2((i - 1) * 64f, 0f), new Vector2(54f, 46f));
-            }
-
-            objectiveText = CreateText(root, "Fill the board", 34, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            SetRect(objectiveText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -182f), new Vector2(620f, 48f));
-
-            RectTransform coinPanel = CreatePanel(root, "Coin Counter", PanelColor);
-            SetRect(coinPanel, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-54f, -158f), new Vector2(164f, 56f));
-            StyleCreamPanel(coinPanel.GetComponent<Image>(), 0.1f);
+            RectTransform coinPanel = CreatePanel(root, "Coin Counter", new Color(1f, 0.86f, 0.56f, 0.96f));
+            SetRect(coinPanel, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-200f, -24f), new Vector2(128f, 68f));
+            StyleCreamPanel(coinPanel.GetComponent<Image>(), 0.12f);
             Image coinIcon = CreateImage(coinPanel, "Coin", Color.white);
             coinIcon.sprite = coinSprite;
             AddSoftShadow(coinIcon, new Vector2(0f, -2f), 0.18f);
-            SetRect(coinIcon.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(18f, 0f), new Vector2(34f, 34f));
-            coinText = CreateText(coinPanel, "0", 30, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            SetRect(coinText.rectTransform, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(0.5f, 0.5f), new Vector2(28f, 0f), Vector2.zero);
+            SetRect(coinIcon.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(14f, 0f), new Vector2(38f, 38f));
+            coinText = CreateText(coinPanel, "0", 29, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
+            SetRect(coinText.rectTransform, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), new Vector2(22f, 0f), Vector2.zero);
+
+            CreateIconButton(root, "Pause", pauseIconSprite, OpenPause, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-108f, -18f), new Vector2(74f, 74f));
+            CreateIconButton(root, "Settings", settingsIconSprite, OpenSettings, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-24f, -18f), new Vector2(74f, 74f));
+
+            objectivePanel = CreatePanel(root, "Level Objective", new Color(0.25f, 0.61f, 0.56f, 0.94f));
+            SetRect(objectivePanel, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -108f), new Vector2(330f, 50f));
+            UseRoundedSprite(objectivePanel.GetComponent<Image>());
+            AddSoftShadow(objectivePanel.GetComponent<Image>(), new Vector2(0f, -5f), 0.14f);
+            objectiveText = CreateText(objectivePanel, "Fill the board", 25, FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
+            Stretch(objectiveText.rectTransform);
+            objectiveText.raycastTarget = false;
 
             boardBackdrop = CreatePanel(root, "Board Frame", BoardFrameColor);
             SetRect(boardBackdrop, new Vector2(0.5f, 0.55f), new Vector2(0.5f, 0.55f), new Vector2(0.5f, 0.5f), new Vector2(0f, 0f), new Vector2(806f, 806f));
@@ -93,18 +83,38 @@ namespace CatBlockPuzzle
             boardRoot.GetComponent<Image>().raycastTarget = false;
 
             timerPanel = CreatePanel(root, "Timer Badge", new Color(1f, 247f / 255f, 228f / 255f, 0.97f));
-            SetRect(timerPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 500f), new Vector2(336f, TimerHeight + 12f));
+            SetRect(timerPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-142f, 500f), new Vector2(230f, TimerHeight + 8f));
             StyleCreamPanel(timerPanel.GetComponent<Image>(), 0.14f);
-            Image timerShine = CreateImage(timerPanel, "Timer Shine", new Color(1f, 1f, 1f, 0.32f));
-            UseRoundedSprite(timerShine);
-            timerShine.raycastTarget = false;
-            SetRect(timerShine.rectTransform, new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.5f), new Vector2(-8f, 0f), new Vector2(248f, 24f));
-            timerText = CreateText(timerPanel, "2:00", 54, FontStyle.Bold, TextAnchor.MiddleCenter, TimerNormalColor);
+            Image timerPaw = CreateImage(timerPanel, "Timer Paw", new Color(0.88f, 0.45f, 0.4f, 0.74f));
+            timerPaw.sprite = pawSprite;
+            timerPaw.raycastTarget = false;
+            SetRect(timerPaw.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(15f, 0f), new Vector2(44f, 44f));
+            timerText = CreateText(timerPanel, "2:00", 46, FontStyle.Bold, TextAnchor.MiddleCenter, TimerNormalColor);
             Stretch(timerText.rectTransform);
+            timerText.rectTransform.offsetMin = new Vector2(48f, 0f);
             timerText.horizontalOverflow = HorizontalWrapMode.Overflow;
             AddSoftShadow(timerText, new Vector2(0f, -3f), 0.18f);
             AddSoftOutline(timerText, new Color(1f, 1f, 1f, 0.78f), new Vector2(2f, -2f));
             timerText.raycastTarget = false;
+
+            starPanel = CreatePanel(root, "Star Goal", new Color(1f, 0.96f, 0.86f, 0.96f));
+            SetRect(starPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(145f, 500f), new Vector2(246f, TimerHeight + 8f));
+            StyleCreamPanel(starPanel.GetComponent<Image>(), 0.12f);
+            for (int i = 0; i < progressStars.Length; i++)
+            {
+                progressStars[i] = CreateImage(starPanel, "Goal Star " + (i + 1), GoldColor);
+                progressStars[i].sprite = starSprite;
+                progressStars[i].raycastTarget = false;
+                SetRect(progressStars[i].rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2((i - 1) * 66f, 0f), new Vector2(54f, 54f));
+            }
+
+            comboBadge = CreatePanel(root, "Combo Badge", new Color(0.99f, 0.56f, 0.5f, 0.96f));
+            SetRect(comboBadge, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 390f), new Vector2(310f, 58f));
+            UseRoundedSprite(comboBadge.GetComponent<Image>());
+            AddSoftShadow(comboBadge.GetComponent<Image>(), new Vector2(0f, -6f), 0.16f);
+            comboText = CreateText(comboBadge, "3x  PURRFECT", 24, FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
+            Stretch(comboText.rectTransform);
+            comboBadge.gameObject.SetActive(false);
 
             pieceLayer = CreatePanel(root, "Piece Layer", new Color(1f, 1f, 1f, 0f));
             Stretch(pieceLayer);
@@ -112,10 +122,11 @@ namespace CatBlockPuzzle
             pieceLayer.SetAsLastSibling();
 
             trayRoot = CreatePanel(root, "Shelf", TrayColor);
-            SetRect(trayRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, TrayCenterY), new Vector2(1000f, 302f));
+            SetRect(trayRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 136f), new Vector2(1000f, 292f));
             trayImage = trayRoot.GetComponent<Image>();
             StyleCreamPanel(trayImage, 0.18f);
             trayImage.raycastTarget = true;
+            AddBasketDecorations(trayRoot);
 
             trayScrollRect = trayRoot.gameObject.AddComponent<ScrollRect>();
             trayScrollRect.horizontal = true;
@@ -144,20 +155,22 @@ namespace CatBlockPuzzle
             trayScrollRect.viewport = trayViewport;
             trayScrollRect.content = trayContent;
 
-            RectTransform buttons = CreatePanel(root, "Actions", new Color(1f, 1f, 1f, 0f));
-            SetRect(buttons, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 44f), new Vector2(960f, 112f));
-            buttons.GetComponent<Image>().raycastTarget = false;
-            HorizontalLayoutGroup buttonLayout = buttons.gameObject.AddComponent<HorizontalLayoutGroup>();
+            actionBar = CreatePanel(root, "Actions", new Color(1f, 1f, 1f, 0f));
+            SetRect(actionBar, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 22f), new Vector2(520f, 92f));
+            actionBar.GetComponent<Image>().raycastTarget = false;
+            HorizontalLayoutGroup buttonLayout = actionBar.gameObject.AddComponent<HorizontalLayoutGroup>();
             buttonLayout.spacing = 12f;
             buttonLayout.childAlignment = TextAnchor.MiddleCenter;
             buttonLayout.childControlWidth = true;
             buttonLayout.childForceExpandWidth = true;
             buttonLayout.childControlHeight = true;
             buttonLayout.childForceExpandHeight = true;
-            CreateButton(buttons, "Previous", LoadPreviousLevel);
-            CreateButton(buttons, "Hint", ShowHint);
-            CreateButton(buttons, "Reset", ResetLevel);
-            CreateButton(buttons, "Next", LoadNextLevel);
+            CreateActionButton(actionBar, "Hint", hintIconSprite, ShowHint);
+            CreateActionButton(actionBar, "Reset", resetIconSprite, ResetLevel);
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            BuildTestLevelControls();
+#endif
 
             pieceLayer.SetAsLastSibling();
 
@@ -168,6 +181,41 @@ namespace CatBlockPuzzle
 
             BuildWinOverlay();
             BuildFailOverlay();
+            BuildSettingsOverlay();
+            ApplyPreferences();
+        }
+
+        private void BuildTestLevelControls()
+        {
+            previousTestButton = CreateIconButton(
+                root,
+                "Previous Test Level",
+                backIconSprite,
+                LoadPreviousTestLevel,
+                new Vector2(0f, 0f),
+                new Vector2(0f, 0f),
+                new Vector2(0f, 0f),
+                new Vector2(24f, 18f),
+                new Vector2(72f, 72f));
+
+            nextTestButton = CreateIconButton(
+                root,
+                "Next Test Level",
+                backIconSprite,
+                LoadNextTestLevel,
+                new Vector2(1f, 0f),
+                new Vector2(1f, 0f),
+                new Vector2(1f, 0f),
+                new Vector2(-24f, 18f),
+                new Vector2(72f, 72f));
+
+            Transform nextIcon = nextTestButton.transform.Find("Next Test Level Icon");
+            if (nextIcon != null)
+            {
+                nextIcon.localEulerAngles = new Vector3(0f, 0f, 180f);
+            }
+
+            UpdateTestLevelButtons();
         }
 
         private void BuildAudio()
@@ -192,18 +240,40 @@ namespace CatBlockPuzzle
             winOverlay.SetAsLastSibling();
 
             winPanel = CreatePanel(winOverlay, "Win Panel", new Color(1f, 0.98f, 0.94f, 0.98f));
-            SetRect(winPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(560f, 310f));
+            SetRect(winPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(650f, 610f));
             UseRoundedSprite(winPanel.GetComponent<Image>());
             AddSoftShadow(winPanel.GetComponent<Image>(), new Vector2(0f, -18f), 0.22f);
             AddSoftOutline(winPanel.GetComponent<Image>(), new Color(1f, 1f, 1f, 0.7f), new Vector2(2f, -2f));
 
             Text header = CreateText(winPanel, "LEVEL COMPLETE", 26, FontStyle.Bold, TextAnchor.MiddleCenter, TargetDeepColor);
             SetRect(header.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -34f), new Vector2(0f, 42f));
-            winTitleText = CreateText(winPanel, "Perfect Fit", 48, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            SetRect(winTitleText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 34f), new Vector2(0f, 70f));
+            winTitleText = CreateText(winPanel, "Perfect Fit", 46, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
+            SetRect(winTitleText.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -88f), new Vector2(-50f, 62f));
+
+            RectTransform winStarPanel = CreatePanel(winPanel, "Earned Stars", new Color(1f, 1f, 1f, 0f));
+            SetRect(winStarPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 120f), new Vector2(300f, 76f));
+            winStarPanel.GetComponent<Image>().raycastTarget = false;
+            for (int i = 0; i < winStars.Length; i++)
+            {
+                winStars[i] = CreateImage(winStarPanel, "Result Star " + (i + 1), GoldColor);
+                winStars[i].sprite = starSprite;
+                winStars[i].raycastTarget = false;
+                SetRect(winStars[i].rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2((i - 1) * 88f, 0f), new Vector2(72f, 72f));
+            }
+
             winRewardText = CreateText(winPanel, "+25 coins", 30, FontStyle.Bold, TextAnchor.MiddleCenter, SoftInkColor);
-            SetRect(winRewardText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -30f), new Vector2(0f, 46f));
-            CreateButton(winPanel, "Next Level", LoadNextLevel, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(360f, 64f), TargetDeepColor);
+            SetRect(winRewardText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 58f), new Vector2(0f, 44f));
+            winBestText = CreateText(winPanel, "New best: 3 stars", 24, FontStyle.Bold, TextAnchor.MiddleCenter, TargetDeepColor);
+            SetRect(winBestText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 14f), new Vector2(0f, 38f));
+
+            winCatImage = CreateImage(winPanel, "Unlocked Cat", Color.white);
+            winCatImage.preserveAspect = true;
+            winCatImage.raycastTarget = false;
+            SetRect(winCatImage.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -72f), new Vector2(126f, 126f));
+            winUnlockText = CreateText(winPanel, "New cat friend unlocked", 24, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
+            SetRect(winUnlockText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -148f), new Vector2(-48f, 36f));
+
+            CreateButton(winPanel, "Next Level", LoadNextLevel, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 42f), new Vector2(390f, 76f), TargetDeepColor);
 
             winOverlay.gameObject.SetActive(false);
         }
@@ -231,10 +301,156 @@ namespace CatBlockPuzzle
             failOverlay.gameObject.SetActive(false);
         }
 
+        private void BuildSettingsOverlay()
+        {
+            settingsOverlay = CreatePanel(root, "Settings Overlay", new Color(0.12f, 0.1f, 0.09f, 0.42f));
+            Stretch(settingsOverlay);
+            settingsOverlay.SetAsLastSibling();
+
+            settingsPanel = CreatePanel(settingsOverlay, "Settings Panel", new Color(1f, 0.97f, 0.9f, 0.99f));
+            SetRect(settingsPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(650f, 590f));
+            UseRoundedSprite(settingsPanel.GetComponent<Image>());
+            AddSoftShadow(settingsPanel.GetComponent<Image>(), new Vector2(0f, -18f), 0.24f);
+            AddSoftOutline(settingsPanel.GetComponent<Image>(), new Color(1f, 1f, 1f, 0.72f), new Vector2(2f, -2f));
+
+            settingsTitleText = CreateText(settingsPanel, "SETTINGS", 38, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
+            SetRect(settingsTitleText.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -34f), new Vector2(-120f, 58f));
+            CreateIconButton(settingsPanel, "Close", closeIconSprite, CloseSettings, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-26f, -24f), new Vector2(66f, 66f));
+
+            CreateToggleRow(settingsPanel, "Sound", soundEnabled, new Vector2(0f, 118f), SetSound, out soundToggle, out soundToggleKnob, out soundToggleText);
+            CreateToggleRow(settingsPanel, "Haptics", hapticsEnabled, new Vector2(0f, 16f), SetHaptics, out hapticsToggle, out hapticsToggleKnob, out hapticsToggleText);
+            CreateToggleRow(settingsPanel, "Reduced motion", reducedMotion, new Vector2(0f, -86f), SetReducedMotion, out motionToggle, out motionToggleKnob, out motionToggleText);
+
+            CreateButton(settingsPanel, "Resume", CloseSettings, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 46f), new Vector2(350f, 76f), TargetDeepColor);
+            settingsOverlay.gameObject.SetActive(false);
+        }
+
+        private void CreateToggleRow(
+            RectTransform parent,
+            string label,
+            bool initialValue,
+            Vector2 position,
+            UnityEngine.Events.UnityAction<bool> action,
+            out Toggle toggle,
+            out RectTransform knob,
+            out Text valueText)
+        {
+            RectTransform row = CreatePanel(parent, label + " Row", new Color(1f, 0.86f, 0.74f, 0.34f));
+            SetRect(row, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), position, new Vector2(540f, 82f));
+            UseRoundedSprite(row.GetComponent<Image>());
+            row.GetComponent<Image>().raycastTarget = false;
+
+            Text labelText = CreateText(row, label, 30, FontStyle.Bold, TextAnchor.MiddleLeft, InkColor);
+            SetRect(labelText.rectTransform, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), new Vector2(28f, 0f), new Vector2(-250f, 0f));
+            labelText.raycastTarget = false;
+
+            GameObject toggleObject = new GameObject(label + " Toggle", typeof(RectTransform), typeof(Image), typeof(Toggle));
+            toggleObject.transform.SetParent(row, false);
+            RectTransform toggleRect = toggleObject.GetComponent<RectTransform>();
+            SetRect(toggleRect, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-22f, 0f), new Vector2(116f, 52f));
+            Image track = toggleObject.GetComponent<Image>();
+            UseRoundedSprite(track);
+            track.color = initialValue ? TargetDeepColor : new Color(0.76f, 0.7f, 0.65f, 1f);
+
+            Image knobImage = CreateImage(toggleRect, "Knob", Color.white);
+            knobImage.sprite = circleSprite;
+            knobImage.raycastTarget = false;
+            knob = knobImage.rectTransform;
+            SetRect(knob, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(initialValue ? 24f : -24f, 0f), new Vector2(42f, 42f));
+            AddSoftShadow(knobImage, new Vector2(0f, -2f), 0.16f);
+
+            valueText = CreateText(row, initialValue ? "On" : "Off", 22, FontStyle.Bold, TextAnchor.MiddleRight, SoftInkColor);
+            SetRect(valueText.rectTransform, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-154f, 0f), new Vector2(70f, 42f));
+            valueText.raycastTarget = false;
+
+            toggle = toggleObject.GetComponent<Toggle>();
+            toggle.targetGraphic = track;
+            toggle.isOn = initialValue;
+            toggle.onValueChanged.AddListener(action);
+        }
+
+        private void AddBasketDecorations(RectTransform basket)
+        {
+            Image rim = CreateImage(basket, "Basket Rim", new Color(0.76f, 0.39f, 0.3f, 0.76f));
+            UseRoundedSprite(rim);
+            rim.raycastTarget = false;
+            SetRect(rim.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, 5f), new Vector2(-18f, 28f));
+
+            for (int i = 0; i < 11; i++)
+            {
+                Image weave = CreateImage(basket, "Basket Weave", new Color(0.72f, 0.36f, 0.28f, 0.13f));
+                UseRoundedSprite(weave);
+                weave.raycastTarget = false;
+                SetRect(weave.rectTransform, new Vector2(i / 10f, 0f), new Vector2(i / 10f, 1f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(9f, -34f));
+                weave.rectTransform.localEulerAngles = new Vector3(0f, 0f, i % 2 == 0 ? -7f : 7f);
+            }
+        }
+
+        private Button CreateIconButton(
+            RectTransform parent,
+            string name,
+            Sprite icon,
+            UnityEngine.Events.UnityAction action,
+            Vector2 anchorMin,
+            Vector2 anchorMax,
+            Vector2 pivot,
+            Vector2 position,
+            Vector2 size)
+        {
+            GameObject gameObject = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+            gameObject.transform.SetParent(parent, false);
+            RectTransform rect = gameObject.GetComponent<RectTransform>();
+            SetRect(rect, anchorMin, anchorMax, pivot, position, size);
+            Image background = gameObject.GetComponent<Image>();
+            background.sprite = circleSprite;
+            background.type = Image.Type.Simple;
+            background.color = new Color(1f, 0.95f, 0.86f, 0.98f);
+            AddSoftShadow(background, new Vector2(0f, -5f), 0.15f);
+
+            Button button = gameObject.GetComponent<Button>();
+            button.targetGraphic = background;
+            button.onClick.AddListener(PlayButtonSound);
+            button.onClick.AddListener(action);
+
+            Image iconImage = CreateImage(rect, name + " Icon", InkColor);
+            iconImage.sprite = icon;
+            iconImage.preserveAspect = true;
+            iconImage.raycastTarget = false;
+            SetRect(iconImage.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, size * 0.48f);
+            return button;
+        }
+
+        private void CreateActionButton(RectTransform parent, string label, Sprite icon, UnityEngine.Events.UnityAction action)
+        {
+            GameObject gameObject = new GameObject(label, typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
+            gameObject.transform.SetParent(parent, false);
+            RectTransform rect = gameObject.GetComponent<RectTransform>();
+            Image image = gameObject.GetComponent<Image>();
+            image.color = label == "Hint" ? new Color(0.35f, 0.72f, 0.67f, 0.97f) : new Color(0.96f, 0.56f, 0.48f, 0.97f);
+            UseRoundedSprite(image);
+            AddSoftShadow(image, new Vector2(0f, -6f), 0.16f);
+
+            Button button = gameObject.GetComponent<Button>();
+            button.targetGraphic = image;
+            button.onClick.AddListener(PlayButtonSound);
+            button.onClick.AddListener(action);
+
+            Image iconImage = CreateImage(rect, label + " Icon", Color.white);
+            iconImage.sprite = icon;
+            iconImage.preserveAspect = true;
+            iconImage.raycastTarget = false;
+            SetRect(iconImage.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(24f, 0f), new Vector2(44f, 44f));
+            Text text = CreateText(rect, label, 28, FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
+            Stretch(text.rectTransform);
+            text.rectTransform.offsetMin = new Vector2(64f, 0f);
+            text.raycastTarget = false;
+        }
+
         private void StyleCreamPanel(Image image, float shadowAlpha)
         {
+            Color color = image.color;
             UseRoundedSprite(image);
-            image.color = PanelColor;
+            image.color = color;
             AddSoftShadow(image, new Vector2(0f, -8f), shadowAlpha);
             AddSoftOutline(image, PanelOutlineColor, new Vector2(2f, -2f));
         }
@@ -331,20 +547,21 @@ namespace CatBlockPuzzle
             RectTransform rect = gameObject.GetComponent<RectTransform>();
             SetRect(rect, anchorMin, anchorMax, pivot, position, size);
             Image image = gameObject.GetComponent<Image>();
+            image.color = background;
             StyleCreamPanel(image, 0.16f);
             Button button = gameObject.GetComponent<Button>();
             button.targetGraphic = image;
             ColorBlock colors = button.colors;
-            colors.normalColor = PanelColor;
-            colors.highlightedColor = new Color(1f, 252f / 255f, 245f / 255f, 1f);
-            colors.pressedColor = new Color(241f / 255f, 228f / 255f, 203f / 255f, 1f);
+            colors.normalColor = background;
+            colors.highlightedColor = Color.Lerp(background, Color.white, 0.16f);
+            colors.pressedColor = Color.Lerp(background, InkColor, 0.12f);
             colors.selectedColor = colors.highlightedColor;
             colors.disabledColor = new Color(1f, 248f / 255f, 236f / 255f, 0.45f);
             colors.colorMultiplier = 1f;
             button.colors = colors;
             button.onClick.AddListener(PlayButtonSound);
             button.onClick.AddListener(action);
-            Text text = CreateText(rect, label, 28, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
+            Text text = CreateText(rect, label, 28, FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
             Stretch(text.rectTransform);
             text.raycastTarget = false;
         }
@@ -356,7 +573,7 @@ namespace CatBlockPuzzle
 
         private void PlayClip(AudioClip clip)
         {
-            if (audioSource != null && clip != null)
+            if (soundEnabled && audioSource != null && clip != null)
             {
                 audioSource.PlayOneShot(clip);
             }
