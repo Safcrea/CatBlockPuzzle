@@ -327,16 +327,6 @@ namespace CatBlockPuzzle
             StartCoroutine(PopTransform(boardRoot, 1.015f));
         }
 
-        private void VibrateIfSupported()
-        {
-#if UNITY_ANDROID || UNITY_IOS
-            if (Application.isMobilePlatform)
-            {
-                Handheld.Vibrate();
-            }
-#endif
-        }
-
         private void PlayWrongFeedback(PieceState state)
         {
             PlayClip(wrongClip);
@@ -421,11 +411,13 @@ namespace CatBlockPuzzle
 
         private void SpawnDragTrail(Vector2 screenPosition, Color color)
         {
-            if (Time.unscaledTime % 0.04f > 0.018f)
+            float now = Time.unscaledTime;
+            if (now < nextDragTrailTime)
             {
                 return;
             }
 
+            nextDragTrailTime = now + 0.04f;
             SpawnSpark(fxLayer, ScreenCenterToRootLocal(screenPosition), new Vector2(0f, -24f), color, 15f, pawSprite);
         }
 

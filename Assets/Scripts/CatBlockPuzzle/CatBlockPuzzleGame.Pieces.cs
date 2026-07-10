@@ -28,10 +28,12 @@ namespace CatBlockPuzzle
                 LayoutElement slotLayout = state.Slot.gameObject.AddComponent<LayoutElement>();
                 ApplyTraySlotLayout(slotLayout);
                 AddDragDots(state.Slot);
+                PieceDragView slotDragView = state.Slot.gameObject.AddComponent<PieceDragView>();
+                slotDragView.Bind(this, state, true);
 
                 state.Rect = CreatePanel(state.Slot, definition.Name, new Color(1f, 1f, 1f, 0f));
                 PieceDragView dragView = state.Rect.gameObject.AddComponent<PieceDragView>();
-                dragView.Bind(this, state);
+                dragView.Bind(this, state, false);
                 state.Rect.SetAsLastSibling();
                 CreatePieceCells(state);
                 AttachPieceToTray(state);
@@ -94,7 +96,6 @@ namespace CatBlockPuzzle
         private void CreatePieceCells(PieceState state)
         {
             state.CellImages.Clear();
-            state.FaceTexts.Clear();
             state.CatViews.Clear();
             for (int i = 0; i < state.Definition.Cells.Length; i++)
             {
@@ -189,7 +190,8 @@ namespace CatBlockPuzzle
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
             state.Rect.anchoredPosition = Vector2.zero;
-            SetPieceGrid(state, TrayCellSize(state), TrayGap, TrayCellSize(state), TrayGap);
+            float trayCellSize = TrayCellSize(state);
+            SetPieceGrid(state, trayCellSize, TrayGap, trayCellSize, TrayGap);
             state.SlotImage.color = CardRestColor;
             state.Rect.localScale = Vector3.one;
             state.Rect.localEulerAngles = Vector3.zero;
@@ -232,6 +234,19 @@ namespace CatBlockPuzzle
 
         private void SetPieceGrid(PieceState state, float cellWidth, float gapX, float cellHeight, float gapY)
         {
+            bool resting = state.Placed && (drag == null || drag.Piece != state);
+            if (state.HasGridLayout &&
+                state.RestingLayout == resting &&
+                Mathf.Approximately(state.CellWidth, cellWidth) &&
+                Mathf.Approximately(state.CellHeight, cellHeight) &&
+                Mathf.Approximately(state.GapX, gapX) &&
+                Mathf.Approximately(state.GapY, gapY))
+            {
+                return;
+            }
+
+            state.HasGridLayout = true;
+            state.RestingLayout = resting;
             state.CellWidth = cellWidth;
             state.CellHeight = cellHeight;
             state.GapX = gapX;
@@ -251,7 +266,6 @@ namespace CatBlockPuzzle
                 cellRect.anchoredPosition = new Vector2(
                     (cell.Col * (cellWidth + gapX)) + (cellWidth * 0.5f),
                     -((cell.Row * (cellHeight + gapY)) + (cellHeight * 0.5f)));
-                bool resting = state.Placed && (drag == null || drag.Piece != state);
                 LayoutCatCell(state.CatViews[i], cellWidth, cellHeight, resting);
             }
         }
@@ -291,59 +305,240 @@ namespace CatBlockPuzzle
             view.Tail.localEulerAngles = new Vector3(0f, 0f, -13f);
         }
 
+        private void PrepareTrayGesture(PointerEventData eventData)
+        {
+            if (trayScrollRect == null || eventData == null)
+            {
+                return;
+            }
+
+            trayScrollRect.OnInitializePotentialDrag(eventData);
+            trayScrollRect.StopMovement();
+        }
+
+        private void BeginForwardedTrayScroll(PointerEventData eventData)
+        {
+            if (trayScrollRect == null || eventData == null)
+            {
+                return;
+            }
+
+            trayScrollRect.enabled = true;
+            trayScrollRect.OnInitializePotentialDrag(eventData);
+            trayScrollRect.OnBeginDrag(eventData);
+        }
+
+        private void ForwardTrayScroll(PointerEventData eventData)
+        {
+            if (trayScrollRect == null || eventData == null)
+            {
+                return;
+            }
+
+            trayScrollRect.OnDrag(eventData);
+        }
+
+        private void EndForwardedTrayScroll(PointerEventData eventData)
+        {
+            if (trayScrollRect == null || eventData == null)
+            {
+                return;
+            }
+
+            trayScrollRect.OnEndDrag(eventData);
+        }
+
         private sealed class PieceDragView : MonoBehaviour, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler, ICancelHandler
         {
+            private enum GestureMode
+            {
+                None,
+                Pending,
+                PieceDrag,
+                TrayScroll
+            }
+
             private CatBlockPuzzleGame controller;
             private PieceState state;
+            private bool traySlotProxy;
+            private Vector2 pointerDownPosition;
+            private int pointerId = int.MinValue;
+            private GestureMode gestureMode;
 
-            public void Bind(CatBlockPuzzleGame owner, PieceState pieceState)
+            public void Bind(CatBlockPuzzleGame owner, PieceState pieceState, bool slotProxy)
             {
                 controller = owner;
                 state = pieceState;
+                traySlotProxy = slotProxy;
             }
 
             public void OnPointerDown(PointerEventData eventData)
             {
+                if (eventData == null)
+                {
+                    return;
+                }
+
                 eventData.useDragThreshold = false;
-                controller.BeginPieceDrag(state, eventData);
+                pointerDownPosition = eventData.position;
+                pointerId = eventData.pointerId;
+                gestureMode = GestureMode.Pending;
+                if (state == null || controller == null)
+                {
+                    return;
+                }
+
+                controller.PrepareTrayGesture(eventData);
             }
 
             public void OnPointerUp(PointerEventData eventData)
             {
-                controller.EndPieceDrag(state, eventData);
+                EndGesture(eventData);
             }
 
             public void OnInitializePotentialDrag(PointerEventData eventData)
             {
-                eventData.useDragThreshold = false;
+                if (eventData != null)
+                {
+                    eventData.useDragThreshold = false;
+                }
             }
 
             public void OnBeginDrag(PointerEventData eventData)
             {
-                eventData.useDragThreshold = false;
-                if (!controller.IsPieceDragActive(state))
+                if (eventData != null)
                 {
-                    controller.BeginPieceDrag(state, eventData);
-                }
-                else
-                {
-                    controller.DragPiece(state, eventData);
+                    eventData.useDragThreshold = false;
                 }
             }
 
             public void OnDrag(PointerEventData eventData)
             {
-                controller.DragPiece(state, eventData);
+                if (eventData == null || controller == null || state == null || eventData.pointerId != pointerId)
+                {
+                    return;
+                }
+
+                eventData.useDragThreshold = false;
+                if (gestureMode == GestureMode.PieceDrag)
+                {
+                    controller.DragPiece(state, eventData);
+                    return;
+                }
+
+                if (gestureMode == GestureMode.TrayScroll)
+                {
+                    controller.ForwardTrayScroll(eventData);
+                    return;
+                }
+
+                if (gestureMode != GestureMode.Pending)
+                {
+                    return;
+                }
+
+                Vector2 delta = eventData.position - pointerDownPosition;
+                if (CanStartPieceDrag(delta))
+                {
+                    if (controller.BeginPieceDrag(state, eventData))
+                    {
+                        gestureMode = GestureMode.PieceDrag;
+                        controller.DragPiece(state, eventData);
+                    }
+                    else
+                    {
+                        ResetGesture();
+                    }
+
+                    return;
+                }
+
+                if (CanStartTrayScroll(delta))
+                {
+                    gestureMode = GestureMode.TrayScroll;
+                    controller.BeginForwardedTrayScroll(eventData);
+                    controller.ForwardTrayScroll(eventData);
+                }
             }
 
             public void OnEndDrag(PointerEventData eventData)
             {
-                controller.EndPieceDrag(state, eventData);
+                EndGesture(eventData);
             }
 
             public void OnCancel(BaseEventData eventData)
             {
-                controller.CancelPieceInteraction(state);
+                if (controller == null)
+                {
+                    ResetGesture();
+                    return;
+                }
+
+                if (gestureMode == GestureMode.PieceDrag)
+                {
+                    controller.CancelPieceInteraction(state);
+                }
+                else if (gestureMode == GestureMode.TrayScroll && eventData is PointerEventData pointerEventData)
+                {
+                    controller.EndForwardedTrayScroll(pointerEventData);
+                }
+
+                ResetGesture();
+            }
+
+            private bool CanStartPieceDrag(Vector2 delta)
+            {
+                float threshold = DragThreshold();
+                if (!traySlotProxy && state.Placed)
+                {
+                    return delta.sqrMagnitude >= threshold * threshold;
+                }
+
+                if (state.Placed)
+                {
+                    return false;
+                }
+
+                float absX = Mathf.Abs(delta.x);
+                return delta.y >= threshold && delta.y >= absX * PiecePickVerticalBias;
+            }
+
+            private bool CanStartTrayScroll(Vector2 delta)
+            {
+                float absX = Mathf.Abs(delta.x);
+                float absY = Mathf.Abs(delta.y);
+                return absX >= DragThreshold() && absX >= absY * TrayScrollHorizontalBias;
+            }
+
+            private float DragThreshold()
+            {
+                int eventThreshold = EventSystem.current != null ? EventSystem.current.pixelDragThreshold : 0;
+                return Mathf.Max(PiecePickDragThreshold, eventThreshold);
+            }
+
+            private void EndGesture(PointerEventData eventData)
+            {
+                if (eventData == null || eventData.pointerId != pointerId)
+                {
+                    return;
+                }
+
+                if (gestureMode == GestureMode.PieceDrag)
+                {
+                    controller.EndPieceDrag(state, eventData);
+                }
+                else if (gestureMode == GestureMode.TrayScroll)
+                {
+                    controller.EndForwardedTrayScroll(eventData);
+                }
+
+                ResetGesture();
+            }
+
+            private void ResetGesture()
+            {
+                pointerId = int.MinValue;
+                gestureMode = GestureMode.None;
             }
         }
 
@@ -352,7 +547,6 @@ namespace CatBlockPuzzle
             public readonly PieceDefinition Definition;
             public readonly Color Color;
             public readonly List<Image> CellImages = new List<Image>();
-            public readonly List<Text> FaceTexts = new List<Text>();
             public readonly List<CatCellView> CatViews = new List<CatCellView>();
             public RectTransform Rect;
             public RectTransform Slot;
@@ -365,6 +559,8 @@ namespace CatBlockPuzzle
             public float GapX;
             public float GapY;
             public float FloatPhase;
+            public bool HasGridLayout;
+            public bool RestingLayout;
 
             public PieceState(PieceDefinition definition, Color color)
             {

@@ -92,8 +92,18 @@ namespace CatBlockPuzzle
             SetRect(boardRoot, new Vector2(0.5f, 0.55f), new Vector2(0.5f, 0.55f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(720f, 720f));
             boardRoot.GetComponent<Image>().raycastTarget = false;
 
-            timerText = CreateText(root, "2:00", 46, FontStyle.Bold, TextAnchor.MiddleCenter, TimerNormalColor);
-            SetRect(timerText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 500f), new Vector2(300f, TimerHeight));
+            timerPanel = CreatePanel(root, "Timer Badge", new Color(1f, 247f / 255f, 228f / 255f, 0.97f));
+            SetRect(timerPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 500f), new Vector2(336f, TimerHeight + 12f));
+            StyleCreamPanel(timerPanel.GetComponent<Image>(), 0.14f);
+            Image timerShine = CreateImage(timerPanel, "Timer Shine", new Color(1f, 1f, 1f, 0.32f));
+            UseRoundedSprite(timerShine);
+            timerShine.raycastTarget = false;
+            SetRect(timerShine.rectTransform, new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.5f), new Vector2(-8f, 0f), new Vector2(248f, 24f));
+            timerText = CreateText(timerPanel, "2:00", 54, FontStyle.Bold, TextAnchor.MiddleCenter, TimerNormalColor);
+            Stretch(timerText.rectTransform);
+            timerText.horizontalOverflow = HorizontalWrapMode.Overflow;
+            AddSoftShadow(timerText, new Vector2(0f, -3f), 0.18f);
+            AddSoftOutline(timerText, new Color(1f, 1f, 1f, 0.78f), new Vector2(2f, -2f));
             timerText.raycastTarget = false;
 
             pieceLayer = CreatePanel(root, "Piece Layer", new Color(1f, 1f, 1f, 0f));
@@ -387,15 +397,6 @@ namespace CatBlockPuzzle
             outline.effectColor = color;
             outline.effectDistance = distance;
             outline.useGraphicAlpha = true;
-        }
-
-        private void AddPanel(RectTransform parent, RectTransform target, Color color)
-        {
-            Image image = target.gameObject.AddComponent<Image>();
-            image.sprite = whiteSprite;
-            image.color = color;
-            image.raycastTarget = false;
-            target.SetAsFirstSibling();
         }
 
         private void SetRect(RectTransform rect, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot, Vector2 anchoredPosition, Vector2 size)

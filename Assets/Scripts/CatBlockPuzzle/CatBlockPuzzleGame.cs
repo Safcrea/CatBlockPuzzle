@@ -29,6 +29,9 @@ namespace CatBlockPuzzle
         private const float MouseVisualLift = 22f;
         private const float BoardSnapPadding = 84f;
         private const float TrayReturnPadding = 18f;
+        private const float PiecePickDragThreshold = 14f;
+        private const float PiecePickVerticalBias = 0.65f;
+        private const float TrayScrollHorizontalBias = 1.1f;
         private const float DragTiltAmount = 8f;
         private const float DragTiltSpeed = 16f;
         private const float DragTiltVelocityScale = 900f;
@@ -84,6 +87,8 @@ namespace CatBlockPuzzle
         private readonly List<PieceState> pieces = new List<PieceState>();
         private readonly List<Image> previewCells = new List<Image>();
         private readonly List<BoardRevealCell> boardRevealCells = new List<BoardRevealCell>();
+        private readonly List<Vector2Int> occupancyRemovalBuffer = new List<Vector2Int>(8);
+        private readonly Vector3[] rectWorldCorners = new Vector3[4];
 
         private Canvas canvas;
         private RectTransform root;
@@ -100,6 +105,7 @@ namespace CatBlockPuzzle
         private RectTransform failPanel;
         private Image trayImage;
         private Text levelText;
+        private RectTransform timerPanel;
         private Text timerText;
         private Text objectiveText;
         private Text coinText;
@@ -144,6 +150,7 @@ namespace CatBlockPuzzle
         private float traySlotMinWidth = 104f;
         private float traySlotMinHeight = 154f;
         private float trayCellMaxSize = 38f;
+        private float nextDragTrailTime;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()

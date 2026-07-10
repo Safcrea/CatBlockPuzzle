@@ -105,7 +105,8 @@ namespace CatBlockPuzzle
             if (timerText != null)
             {
                 float timerY = BoardCenterY + (boardHeight * 0.5f) + TimerBoardGap + (TimerHeight * 0.5f);
-                SetRect(timerText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, timerY), new Vector2(320f, TimerHeight));
+                RectTransform timerTarget = timerPanel != null ? timerPanel : timerText.rectTransform;
+                SetRect(timerTarget, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, timerY), new Vector2(336f, TimerHeight + 12f));
             }
         }
 
@@ -234,19 +235,21 @@ namespace CatBlockPuzzle
 
         private void ClearOccupancyForPiece(string pieceId)
         {
-            List<Vector2Int> toRemove = new List<Vector2Int>();
+            occupancyRemovalBuffer.Clear();
             foreach (KeyValuePair<Vector2Int, string> entry in occupancy)
             {
                 if (entry.Value == pieceId)
                 {
-                    toRemove.Add(entry.Key);
+                    occupancyRemovalBuffer.Add(entry.Key);
                 }
             }
 
-            for (int i = 0; i < toRemove.Count; i++)
+            for (int i = 0; i < occupancyRemovalBuffer.Count; i++)
             {
-                occupancy.Remove(toRemove[i]);
+                occupancy.Remove(occupancyRemovalBuffer[i]);
             }
+
+            occupancyRemovalBuffer.Clear();
         }
 
         private Vector2 CellPosition(int row, int col)
@@ -306,10 +309,9 @@ namespace CatBlockPuzzle
 
         private Rect ExpandedScreenRect(RectTransform rect, float padding)
         {
-            Vector3[] corners = new Vector3[4];
-            rect.GetWorldCorners(corners);
-            Vector2 min = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, corners[0]);
-            Vector2 max = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, corners[2]);
+            rect.GetWorldCorners(rectWorldCorners);
+            Vector2 min = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, rectWorldCorners[0]);
+            Vector2 max = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, rectWorldCorners[2]);
             return Rect.MinMaxRect(min.x - padding, min.y - padding, max.x + padding, max.y + padding);
         }
 

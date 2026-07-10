@@ -28,6 +28,7 @@ namespace CatBlockPuzzle
             public int PointerId;
             public bool Valid;
             public bool ReturnToShelf;
+            public bool BoardClampActive;
             public int Row;
             public int Col;
             public Vector2 TargetPosition;
