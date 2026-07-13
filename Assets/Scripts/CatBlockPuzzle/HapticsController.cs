@@ -32,6 +32,22 @@ namespace CatBlockPuzzle
 #endif
         }
 
+        public void PlayPickup()
+        {
+            if (!Enabled)
+            {
+                return;
+            }
+
+#if UNITY_IOS && !UNITY_EDITOR
+            CatBlockPuzzleHapticLight();
+#elif UNITY_ANDROID && !UNITY_EDITOR
+            VibrateAndroidOneShot(12, 55);
+#else
+            FallbackVibrate();
+#endif
+        }
+
         public void PlayWrongMove()
         {
             if (!Enabled)

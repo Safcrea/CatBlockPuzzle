@@ -32,9 +32,13 @@ namespace CatBlockPuzzle
         private const float PiecePickDragThreshold = 14f;
         private const float PiecePickVerticalBias = 0.65f;
         private const float TrayScrollHorizontalBias = 1.1f;
+        private const float DragFollowDelay = 0.075f;
         private const float DragTiltAmount = 8f;
         private const float DragTiltSpeed = 16f;
         private const float DragTiltVelocityScale = 900f;
+        private const float DragJellyAmount = 0.065f;
+        private const float DragJellySpeed = 18f;
+        private const float DragJellyVelocityScale = 900f;
         private const float BoardRevealCellSeconds = 0.24f;
         private const float BoardRevealStaggerSeconds = 0.035f;
         private const float BoardRevealOvershoot = 1.14f;
@@ -309,10 +313,11 @@ namespace CatBlockPuzzle
 
             levelIndex = Mathf.Clamp(nextLevelIndex, 0, levelManager.LevelCount - 1);
             activeLevel = levelManager.GetLevel(levelIndex);
+            ApplyLevelTheme(levelIndex);
             levelText.text = "Level " + (levelIndex + 1).ToString();
             if (objectiveText != null)
             {
-                objectiveText.text = activeLevel.Title;
+                objectiveText.text = BuildThemedObjectiveTitle(activeLevel.Title);
             }
 
             coinText.text = coins.ToString();

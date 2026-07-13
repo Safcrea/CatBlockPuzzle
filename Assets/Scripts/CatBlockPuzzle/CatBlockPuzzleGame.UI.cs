@@ -24,11 +24,11 @@ namespace CatBlockPuzzle
             scaler.referenceResolution = new Vector2(ReferenceWidth, ReferenceHeight);
             scaler.matchWidthOrHeight = 0.5f;
 
-            Image background = canvasObject.GetComponent<Image>();
-            background.sprite = CreateBackgroundSprite();
-            background.color = Color.white;
-            background.preserveAspect = false;
-            background.raycastTarget = false;
+            backgroundImage = canvasObject.GetComponent<Image>();
+            backgroundImage.sprite = CreateBackgroundSprite();
+            backgroundImage.color = Color.white;
+            backgroundImage.preserveAspect = false;
+            backgroundImage.raycastTarget = false;
 
             RectTransform canvasRoot = canvasObject.GetComponent<RectTransform>();
             Stretch(canvasRoot);
@@ -39,10 +39,11 @@ namespace CatBlockPuzzle
             root.gameObject.AddComponent<SafeAreaFitter>();
 
             RectTransform headerBand = CreatePanel(root, "Top Shelf", new Color(1f, 0.96f, 0.88f, 0.9f));
+            headerBandImage = headerBand.GetComponent<Image>();
             SetRect(headerBand, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), Vector2.zero, new Vector2(-30f, 106f));
-            UseRoundedSprite(headerBand.GetComponent<Image>());
-            AddSoftShadow(headerBand.GetComponent<Image>(), new Vector2(0f, -8f), 0.11f);
-            headerBand.GetComponent<Image>().raycastTarget = false;
+            UseRoundedSprite(headerBandImage);
+            AddSoftShadow(headerBandImage, new Vector2(0f, -8f), 0.11f);
+            headerBandImage.raycastTarget = false;
 
             CreateIconButton(root, "Back", backIconSprite, LoadPreviousLevel, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(24f, -18f), new Vector2(74f, 74f));
 
@@ -63,10 +64,13 @@ namespace CatBlockPuzzle
             CreateIconButton(root, "Settings", settingsIconSprite, OpenSettings, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-24f, -18f), new Vector2(74f, 74f));
 
             objectivePanel = CreatePanel(root, "Level Objective", new Color(0.25f, 0.61f, 0.56f, 0.94f));
-            SetRect(objectivePanel, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -108f), new Vector2(330f, 50f));
+            SetRect(objectivePanel, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -108f), new Vector2(520f, 50f));
             UseRoundedSprite(objectivePanel.GetComponent<Image>());
             AddSoftShadow(objectivePanel.GetComponent<Image>(), new Vector2(0f, -5f), 0.14f);
-            objectiveText = CreateText(objectivePanel, "Fill the board", 25, FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
+            objectiveText = CreateText(objectivePanel, "Fill the board", 22, FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
+            objectiveText.resizeTextForBestFit = true;
+            objectiveText.resizeTextMinSize = 16;
+            objectiveText.resizeTextMaxSize = 22;
             Stretch(objectiveText.rectTransform);
             objectiveText.raycastTarget = false;
 

@@ -36,3 +36,6 @@ MonoBehaviour:
   BoardSnapPadding: 84
   PieceSizeTransitionSeconds: 0.2
   DragScaleOvershoot: 0.05
+  DragFollowDelay: 0.075
+  DragTiltAmount: 8
+  DragJellyAmount: 0.065

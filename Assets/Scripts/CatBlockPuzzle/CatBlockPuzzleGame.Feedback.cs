@@ -167,7 +167,7 @@ namespace CatBlockPuzzle
             ClearPreview();
             if (trayImage != null)
             {
-                trayImage.color = TrayColor;
+                trayImage.color = activeTrayColor;
             }
 
             PieceState state = cancelled.Piece;
@@ -325,14 +325,40 @@ namespace CatBlockPuzzle
             }
         }
 
+        private void PlayPickupFeedback(PieceState state, Vector2 screenPosition)
+        {
+            PlayClip(buttonClip);
+            haptics?.PlayPickup();
+            Color accent = Color.Lerp(state.Color, Color.white, 0.28f);
+            SpawnSnapRing(screenPosition, accent);
+            SpawnFixedBurst(screenPosition, reducedMotion ? 2 : 7, accent);
+            if (state.Slot != null)
+            {
+                StartCoroutine(PopTransform(state.Slot, 1.025f));
+            }
+        }
+
         private void PlaySnapFeedback(PieceState state, int row, int col)
         {
             PlayClip(snapClip);
             haptics.PlaySnap();
-            SpawnSnapRing(BoardPieceCenterScreen(state, row, col), state.Color);
+            Vector2 centerScreen = BoardPieceCenterScreen(state, row, col);
+            SpawnSnapRing(centerScreen, state.Color);
+            StartCoroutine(SpawnPlacementEcho(centerScreen, state.Color));
             FlashPlacedCells(state, row, col);
             SpawnPawBurst(BoardPieceCenterInBoard(state, row, col), reducedMotion ? 4 : 13, state.Color);
             StartCoroutine(PopTransform(boardRoot, 1.015f));
+        }
+
+        private IEnumerator SpawnPlacementEcho(Vector2 screenPosition, Color color)
+        {
+            if (reducedMotion)
+            {
+                yield break;
+            }
+
+            yield return new WaitForSecondsRealtime(0.065f);
+            SpawnSnapRing(screenPosition, Color.Lerp(color, Color.white, 0.32f));
         }
 
         private void PlayWrongFeedback(PieceState state)
@@ -407,6 +433,55 @@ namespace CatBlockPuzzle
             }
 
             rect.localScale = Vector3.one;
+        }
+
+        private IEnumerator SquishLandTransform(RectTransform rect)
+        {
+            if (rect == null)
+            {
+                yield break;
+            }
+
+            if (reducedMotion)
+            {
+                rect.localScale = Vector3.one;
+                rect.localRotation = Quaternion.identity;
+                yield break;
+            }
+
+            const float duration = 0.32f;
+            Vector2 squash = new Vector2(1.12f, 0.88f);
+            Vector2 rebound = new Vector2(0.96f, 1.07f);
+            float elapsed = 0f;
+            while (elapsed < duration && rect != null)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                Vector2 scale;
+                if (t < 0.24f)
+                {
+                    scale = Vector2.Lerp(Vector2.one, squash, EaseOutCubic(t / 0.24f));
+                }
+                else if (t < 0.58f)
+                {
+                    scale = Vector2.Lerp(squash, rebound, EaseOutCubic((t - 0.24f) / 0.34f));
+                }
+                else
+                {
+                    scale = Vector2.Lerp(rebound, Vector2.one, EaseOutCubic((t - 0.58f) / 0.42f));
+                }
+
+                float wobble = Mathf.Sin(t * Mathf.PI * 4f) * (1f - t) * 2.2f;
+                rect.localScale = new Vector3(scale.x, scale.y, 1f);
+                rect.localRotation = Quaternion.Euler(0f, 0f, wobble);
+                yield return null;
+            }
+
+            if (rect != null)
+            {
+                rect.localScale = Vector3.one;
+                rect.localRotation = Quaternion.identity;
+            }
         }
 
         private IEnumerator ShakeTransform(RectTransform rect)

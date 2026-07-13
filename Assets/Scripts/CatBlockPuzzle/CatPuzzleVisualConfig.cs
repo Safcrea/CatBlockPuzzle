@@ -6,6 +6,7 @@ namespace CatBlockPuzzle
     public sealed class CatVisualCatalog : ScriptableObject
     {
         public Texture2D CozyRoomBackground;
+        public Texture2D ThemeAtlas;
         public Texture2D NeutralCatAtlas;
         public Texture2D HappyCatAtlas;
         public Texture2D WorriedCatAtlas;
@@ -21,6 +22,11 @@ namespace CatBlockPuzzle
             if (catalog.CozyRoomBackground == null)
             {
                 catalog.CozyRoomBackground = Resources.Load<Texture2D>("CatBlockPuzzle/Art/cozy_room_background");
+            }
+
+            if (catalog.ThemeAtlas == null)
+            {
+                catalog.ThemeAtlas = Resources.Load<Texture2D>("CatBlockPuzzle/Art/Themes/theme_atlas");
             }
 
             if (catalog.NeutralCatAtlas == null)
@@ -76,6 +82,9 @@ namespace CatBlockPuzzle
         [Header("Motion")]
         [Range(0.05f, 0.5f)] public float PieceSizeTransitionSeconds = 0.2f;
         [Range(0f, 0.12f)] public float DragScaleOvershoot = 0.05f;
+        [Range(0.02f, 0.18f)] public float DragFollowDelay = 0.075f;
+        [Range(0f, 12f)] public float DragTiltAmount = 8f;
+        [Range(0f, 0.14f)] public float DragJellyAmount = 0.065f;
 
         public void ResetToDefaults()
         {
@@ -103,6 +112,9 @@ namespace CatBlockPuzzle
             BoardSnapPadding = 84f;
             PieceSizeTransitionSeconds = 0.2f;
             DragScaleOvershoot = 0.05f;
+            DragFollowDelay = 0.075f;
+            DragTiltAmount = 8f;
+            DragJellyAmount = 0.065f;
         }
 
         public void ValidateValues()
@@ -131,6 +143,9 @@ namespace CatBlockPuzzle
             BoardSnapPadding = Mathf.Clamp(BoardSnapPadding, 0f, 180f);
             PieceSizeTransitionSeconds = Mathf.Clamp(PieceSizeTransitionSeconds, 0.05f, 0.5f);
             DragScaleOvershoot = Mathf.Clamp(DragScaleOvershoot, 0f, 0.12f);
+            DragFollowDelay = Mathf.Clamp(DragFollowDelay, 0.02f, 0.18f);
+            DragTiltAmount = Mathf.Clamp(DragTiltAmount, 0f, 12f);
+            DragJellyAmount = Mathf.Clamp(DragJellyAmount, 0f, 0.14f);
         }
 
         private void OnValidate()

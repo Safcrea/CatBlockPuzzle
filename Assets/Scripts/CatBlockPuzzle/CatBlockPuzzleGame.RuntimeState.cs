@@ -30,7 +30,6 @@ namespace CatBlockPuzzle
             public bool IsTouch;
             public bool Valid;
             public bool ReturnToShelf;
-            public bool BoardClampActive;
             public int Row;
             public int Col;
             public Vector2 PointerStartScreen;
@@ -38,6 +37,8 @@ namespace CatBlockPuzzle
             public Vector2 LastAnchorScreen;
             public Vector2 TargetPosition;
             public Vector2 SmoothVelocity;
+            public Vector2 JellyScale = Vector2.one;
+            public float PickupScale = 1f;
         }
 
         private readonly struct CellView
