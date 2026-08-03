@@ -1,4 +1,4 @@
-<p align="center"> ## CatBlockPuzzle </p>
+# CatBlockPuzzle 
 
 > A cozy mobile block-placement puzzle where players arrange groups of colorful cat tiles to complete each board before time runs out.
 
