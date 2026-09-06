@@ -13,6 +13,7 @@ namespace CatBlockPuzzle
 {
     public sealed partial class CatBlockPuzzleGame
     {
+#if UNITY_EDITOR
         private void BuildCanvas()
         {
             GameObject canvasObject = new GameObject("Cat Puzzle Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(Image));
@@ -25,7 +26,7 @@ namespace CatBlockPuzzle
             scaler.matchWidthOrHeight = 0.5f;
 
             backgroundImage = canvasObject.GetComponent<Image>();
-            backgroundImage.sprite = CreateBackgroundSprite();
+            backgroundImage.sprite = uiAssets.Background;
             backgroundImage.color = Color.white;
             backgroundImage.preserveAspect = false;
             backgroundImage.raycastTarget = false;
@@ -231,10 +232,6 @@ namespace CatBlockPuzzle
             audioSource.spatialBlend = 0f;
             audioSource.ignoreListenerPause = true;
 
-            buttonClip = CreateToneClip("Cat Button", 0.07f, 0.22f, 520f, 660f);
-            snapClip = CreateToneClip("Cat Snap", 0.1f, 0.28f, 720f, 980f);
-            wrongClip = CreateToneClip("Cat Wrong", 0.16f, 0.22f, 210f, 140f);
-            winClip = CreateToneClip("Cat Win", 0.42f, 0.24f, 520f, 660f, 780f, 1040f);
         }
 
         private void BuildWinOverlay()
@@ -370,7 +367,7 @@ namespace CatBlockPuzzle
             toggle = toggleObject.GetComponent<Toggle>();
             toggle.targetGraphic = track;
             toggle.isOn = initialValue;
-            toggle.onValueChanged.AddListener(action);
+            BindToggleAction(toggle, action);
         }
 
         private void AddBasketDecorations(RectTransform basket)
@@ -413,8 +410,8 @@ namespace CatBlockPuzzle
 
             Button button = gameObject.GetComponent<Button>();
             button.targetGraphic = background;
-            button.onClick.AddListener(PlayButtonSound);
-            button.onClick.AddListener(action);
+            BindButtonAction(button, PlayButtonSound);
+            BindButtonAction(button, action);
 
             Image iconImage = CreateImage(rect, name + " Icon", InkColor);
             iconImage.sprite = icon;
@@ -436,8 +433,8 @@ namespace CatBlockPuzzle
 
             Button button = gameObject.GetComponent<Button>();
             button.targetGraphic = image;
-            button.onClick.AddListener(PlayButtonSound);
-            button.onClick.AddListener(action);
+            BindButtonAction(button, PlayButtonSound);
+            BindButtonAction(button, action);
 
             Image iconImage = CreateImage(rect, label + " Icon", Color.white);
             iconImage.sprite = icon;
@@ -563,16 +560,41 @@ namespace CatBlockPuzzle
             colors.disabledColor = new Color(1f, 248f / 255f, 236f / 255f, 0.45f);
             colors.colorMultiplier = 1f;
             button.colors = colors;
-            button.onClick.AddListener(PlayButtonSound);
-            button.onClick.AddListener(action);
+            BindButtonAction(button, PlayButtonSound);
+            BindButtonAction(button, action);
             Text text = CreateText(rect, label, 28, FontStyle.Bold, TextAnchor.MiddleCenter, Color.white);
             Stretch(text.rectTransform);
             text.raycastTarget = false;
         }
 
+#endif
         private void PlayButtonSound()
         {
             PlayClip(buttonClip);
+        }
+
+        private void BindToggleAction(Toggle toggle, UnityEngine.Events.UnityAction<bool> action)
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                UnityEditor.Events.UnityEventTools.AddPersistentListener(toggle.onValueChanged, action);
+                return;
+            }
+#endif
+            toggle.onValueChanged.AddListener(action);
+        }
+
+        private void BindButtonAction(Button button, UnityEngine.Events.UnityAction action)
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                UnityEditor.Events.UnityEventTools.AddPersistentListener(button.onClick, action);
+                return;
+            }
+#endif
+            button.onClick.AddListener(action);
         }
 
         private void PlayClip(AudioClip clip)
@@ -594,6 +616,7 @@ namespace CatBlockPuzzle
             image.type = Image.Type.Sliced;
         }
 
+#if UNITY_EDITOR
         private void AddSoftShadow(Graphic graphic, Vector2 distance, float alpha)
         {
             if (graphic == null)
@@ -620,6 +643,7 @@ namespace CatBlockPuzzle
             outline.useGraphicAlpha = true;
         }
 
+#endif
         private void SetRect(RectTransform rect, Vector2 anchorMin, Vector2 anchorMax, Vector2 pivot, Vector2 anchoredPosition, Vector2 size)
         {
             rect.anchorMin = anchorMin;
@@ -656,12 +680,5 @@ namespace CatBlockPuzzle
             rect.sizeDelta = size;
         }
 
-        private void ClearChildren(RectTransform parent)
-        {
-            for (int i = parent.childCount - 1; i >= 0; i--)
-            {
-                Destroy(parent.GetChild(i).gameObject);
-            }
-        }
     }
 }

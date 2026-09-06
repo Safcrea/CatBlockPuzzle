@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle.Tests
 {
-    public sealed class CatBlockPuzzleInteractionTests
+    public sealed class CatBlockPuzzleInteractionTests : AuthoredSceneTestBase
     {
         [UnityTest]
         public IEnumerator PlacedCard_HidesGrowsRemainingAndReturnsWithBoardPiece()

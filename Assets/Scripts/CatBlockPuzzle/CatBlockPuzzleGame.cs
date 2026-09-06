@@ -99,53 +99,53 @@ namespace CatBlockPuzzle
         private readonly Vector3[] rectWorldCorners = new Vector3[4];
         private bool[,] placementAvailability = new bool[0, 0];
 
-        private Canvas canvas;
-        private RectTransform root;
-        private RectTransform boardBackdrop;
-        private RectTransform boardRoot;
-        private RectTransform trayRoot;
-        private RectTransform trayViewport;
-        private RectTransform trayContent;
-        private RectTransform pieceLayer;
-        private RectTransform fxLayer;
-        private RectTransform winOverlay;
-        private RectTransform winPanel;
-        private RectTransform failOverlay;
-        private RectTransform failPanel;
-        private Image trayImage;
-        private Text levelText;
-        private RectTransform timerPanel;
-        private Text timerText;
-        private Text objectiveText;
-        private RectTransform objectivePanel;
-        private Text coinText;
-        private Text winTitleText;
-        private Text winRewardText;
-        private Text winBestText;
-        private Text winUnlockText;
-        private Text comboText;
-        private RectTransform starPanel;
-        private RectTransform comboBadge;
-        private RectTransform actionBar;
-        private RectTransform settingsOverlay;
-        private RectTransform settingsPanel;
-        private Image winCatImage;
-        private readonly Image[] progressStars = new Image[3];
-        private readonly Image[] winStars = new Image[3];
-        private Text soundToggleText;
-        private Text hapticsToggleText;
-        private Text motionToggleText;
-        private Text settingsTitleText;
-        private Toggle soundToggle;
-        private Toggle hapticsToggle;
-        private Toggle motionToggle;
-        private Button previousTestButton;
-        private Button nextTestButton;
-        private RectTransform soundToggleKnob;
-        private RectTransform hapticsToggleKnob;
-        private RectTransform motionToggleKnob;
-        private HorizontalLayoutGroup trayLayout;
-        private ScrollRect trayScrollRect;
+        [SerializeField] private Canvas canvas;
+        [SerializeField] private RectTransform root;
+        [SerializeField] private RectTransform boardBackdrop;
+        [SerializeField] private RectTransform boardRoot;
+        [SerializeField] private RectTransform trayRoot;
+        [SerializeField] private RectTransform trayViewport;
+        [SerializeField] private RectTransform trayContent;
+        [SerializeField] private RectTransform pieceLayer;
+        [SerializeField] private RectTransform fxLayer;
+        [SerializeField] private RectTransform winOverlay;
+        [SerializeField] private RectTransform winPanel;
+        [SerializeField] private RectTransform failOverlay;
+        [SerializeField] private RectTransform failPanel;
+        [SerializeField] private Image trayImage;
+        [SerializeField] private Text levelText;
+        [SerializeField] private RectTransform timerPanel;
+        [SerializeField] private Text timerText;
+        [SerializeField] private Text objectiveText;
+        [SerializeField] private RectTransform objectivePanel;
+        [SerializeField] private Text coinText;
+        [SerializeField] private Text winTitleText;
+        [SerializeField] private Text winRewardText;
+        [SerializeField] private Text winBestText;
+        [SerializeField] private Text winUnlockText;
+        [SerializeField] private Text comboText;
+        [SerializeField] private RectTransform starPanel;
+        [SerializeField] private RectTransform comboBadge;
+        [SerializeField] private RectTransform actionBar;
+        [SerializeField] private RectTransform settingsOverlay;
+        [SerializeField] private RectTransform settingsPanel;
+        [SerializeField] private Image winCatImage;
+        [SerializeField] private Image[] progressStars = new Image[3];
+        [SerializeField] private Image[] winStars = new Image[3];
+        [SerializeField] private Text soundToggleText;
+        [SerializeField] private Text hapticsToggleText;
+        [SerializeField] private Text motionToggleText;
+        [SerializeField] private Text settingsTitleText;
+        [SerializeField] private Toggle soundToggle;
+        [SerializeField] private Toggle hapticsToggle;
+        [SerializeField] private Toggle motionToggle;
+        [SerializeField] private Button previousTestButton;
+        [SerializeField] private Button nextTestButton;
+        [SerializeField] private RectTransform soundToggleKnob;
+        [SerializeField] private RectTransform hapticsToggleKnob;
+        [SerializeField] private RectTransform motionToggleKnob;
+        [SerializeField] private HorizontalLayoutGroup trayLayout;
+        [SerializeField] private ScrollRect trayScrollRect;
         private Font defaultFont;
         private Sprite whiteSprite;
         private Sprite roundedBoxSprite;
@@ -164,13 +164,14 @@ namespace CatBlockPuzzle
         private Sprite resetIconSprite;
         private Sprite closeIconSprite;
         private readonly Sprite[,] catPortraitSprites = new Sprite[3, 8];
-        private AudioSource audioSource;
+        [SerializeField] private AudioSource audioSource;
         private AudioClip buttonClip;
         private AudioClip snapClip;
         private AudioClip wrongClip;
         private AudioClip winClip;
         private CatVisualCatalog visualCatalog;
-        private PortraitLayoutProfile layoutProfile;
+        [SerializeField] private PortraitLayoutProfile layoutProfile;
+        [SerializeField] private CatPuzzleUiAssets uiAssets;
         private LevelDefinition activeLevel;
         private LevelManager levelManager;
         private HapticsController haptics;
@@ -205,20 +206,14 @@ namespace CatBlockPuzzle
         private float nextDragTrailTime;
         private float boardCenterY = BoardCenterY;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void Bootstrap()
-        {
-            if (FindFirstObjectByType<CatBlockPuzzleGame>() != null)
-            {
-                return;
-            }
-
-            GameObject host = new GameObject("Cat Block Puzzle Runtime");
-            host.AddComponent<CatBlockPuzzleGame>();
-        }
-
         private void Awake()
         {
+            if (canvas == null || root == null || audioSource == null || winOverlay == null || failOverlay == null || settingsOverlay == null)
+            {
+                Debug.LogError("The scene is missing authored UI references. Use the scene authoring tools in Edit Mode.", this);
+                enabled = false;
+                return;
+            }
             Screen.orientation = ScreenOrientation.Portrait;
             defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             if (defaultFont == null)
@@ -229,35 +224,17 @@ namespace CatBlockPuzzle
             levelManager = new LevelManager("CatBlockPuzzle/levels_100");
             levelManager.Load();
             haptics = new HapticsController(this);
-            visualCatalog = CatVisualCatalog.LoadOrCreate();
-            layoutProfile = PortraitLayoutProfile.LoadOrCreate();
+            if (layoutProfile == null)
+                throw new InvalidOperationException("Assign the authored portrait layout profile in the scene.");
 
-            whiteSprite = CreateSolidSprite(Color.white);
-            roundedBoxSprite = CreateRoundedBoxSprite();
-            circleSprite = CreateCircleSprite();
-            coinSprite = CreateCoinSprite();
-            catHeadSprite = CreateCatHeadSprite();
-            mouthSprite = CreateMouthSprite();
-            tailSprite = CreateTailSprite();
-            pawSprite = CreatePawSprite();
-            starSprite = CreateStarSprite(false);
-            starOutlineSprite = CreateStarSprite(true);
-            backIconSprite = CreateUiIconSprite(UiIcon.Back);
-            pauseIconSprite = CreateUiIconSprite(UiIcon.Pause);
-            settingsIconSprite = CreateUiIconSprite(UiIcon.Settings);
-            hintIconSprite = CreateUiIconSprite(UiIcon.Hint);
-            resetIconSprite = CreateUiIconSprite(UiIcon.Reset);
-            closeIconSprite = CreateUiIconSprite(UiIcon.Close);
-            LoadAuthoredCatPortraits();
-            BuildAudio();
+            LoadBakedUiAssets();
             LoadPreferences();
-            EnsureEventSystem();
-            BuildCanvas();
             coins = PlayerPrefs.GetInt(SavedCoinsKey, 0);
         }
 
         private IEnumerator Start()
         {
+            if (!enabled) yield break;
             yield return null;
             Canvas.ForceUpdateCanvases();
             int requestedLevel = Mathf.Clamp(PlayerPrefs.GetInt(SavedLevelKey, 0), 0, levelManager.LevelCount - 1);
@@ -293,15 +270,7 @@ namespace CatBlockPuzzle
             previewCells.Clear();
             occupancy.Clear();
             pieces.Clear();
-            ClearChildren(boardRoot);
-            if (trayContent != null)
-            {
-                ClearChildren(trayContent);
-            }
-            else
-            {
-                ClearChildren(trayRoot);
-            }
+            ResetAuthoredViews();
 
             ResetFxPool();
             winOverlay.gameObject.SetActive(false);
@@ -336,6 +305,7 @@ namespace CatBlockPuzzle
 
         private void Update()
         {
+            UpdateResponsiveLayout();
             UpdateDraggedPieceMotion();
             UpdateLevelTimer();
             UpdateTrayIdleMotion();
@@ -384,7 +354,6 @@ namespace CatBlockPuzzle
 
         public void PreviewLevelForTesting(int zeroBasedLevelIndex)
         {
-            layoutProfile = PortraitLayoutProfile.LoadOrCreate();
             LoadLevel(zeroBasedLevelIndex, false);
         }
 
@@ -413,6 +382,7 @@ namespace CatBlockPuzzle
             PlayerPrefs.Save();
         }
 
+#if UNITY_EDITOR
         private void EnsureEventSystem()
         {
             if (FindFirstObjectByType<EventSystem>() != null)
@@ -427,5 +397,6 @@ namespace CatBlockPuzzle
             eventSystem.AddComponent<StandaloneInputModule>();
 #endif
         }
+#endif
     }
 }

@@ -13,7 +13,7 @@ namespace CatBlockPuzzle
 {
     public sealed partial class CatBlockPuzzleGame
     {
-        private bool BeginPieceDrag(PieceState state, PointerEventData eventData)
+        internal bool BeginPieceDrag(PieceState state, PointerEventData eventData)
         {
             if (state == null || eventData == null || inputLocked || levelFailed || winOverlay.gameObject.activeSelf || failOverlay.gameObject.activeSelf)
             {
@@ -113,7 +113,7 @@ namespace CatBlockPuzzle
             trayScrollRect.enabled = enabled;
         }
 
-        private void CancelPieceInteraction(PieceState state)
+        internal void CancelPieceInteraction(PieceState state)
         {
             if (drag == null || drag.Piece != state)
             {
@@ -132,7 +132,7 @@ namespace CatBlockPuzzle
             RestoreInvalidDrop(cancelled);
         }
 
-        private void DragPiece(PieceState state, PointerEventData eventData)
+        internal void DragPiece(PieceState state, PointerEventData eventData)
         {
             if (drag == null || drag.Piece != state || eventData == null || drag.PointerId != eventData.pointerId)
             {
@@ -265,7 +265,7 @@ namespace CatBlockPuzzle
             return result.IsValid;
         }
 
-        private void EndPieceDrag(PieceState state, PointerEventData eventData)
+        internal void EndPieceDrag(PieceState state, PointerEventData eventData)
         {
             if (drag == null || drag.Piece != state || eventData == null || drag.PointerId != eventData.pointerId)
             {

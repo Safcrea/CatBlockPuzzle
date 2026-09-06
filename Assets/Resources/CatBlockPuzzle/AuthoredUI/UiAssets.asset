@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33d93064cba9944c96c2e008b1befec, type: 3}
+  m_Name: UiAssets
+  m_EditorClassIdentifier: Assembly-CSharp::CatBlockPuzzle.CatPuzzleUiAssets
+  White: {fileID: 21300000, guid: f3d8919684e0e8d42a5dbd4f8a26e31f, type: 2}
+  RoundedBox: {fileID: 21300000, guid: cedbdf6ada89a6541a3e09f655c564a7, type: 2}
+  Circle: {fileID: 21300000, guid: 699b3a3bfe323cd42afc0e44b01c8882, type: 2}
+  Coin: {fileID: 21300000, guid: b27e85db9b8999d4783177f075efe2d8, type: 2}
+  CatHead: {fileID: 21300000, guid: 93076881b8e5d3d4abe69c0f9c5bf446, type: 2}
+  Mouth: {fileID: 21300000, guid: 5b948ea1113179f43960d04f2cf5f531, type: 2}
+  Tail: {fileID: 21300000, guid: 5a5a2079c742c7048b0bb786a22d6df5, type: 2}
+  Paw: {fileID: 21300000, guid: 695f2aa007e1b1346a58a1e6498b4ae2, type: 2}
+  Star: {fileID: 21300000, guid: a1dedb0e992ffd748b469fa30e3dc0d2, type: 2}
+  StarOutline: {fileID: 21300000, guid: e42a674ed5036304f9014805ea60f389, type: 2}
+  Background: {fileID: 21300000, guid: 056bbccb8cc236a4fb33b452e1294d42, type: 2}
+  Icons:
+  - {fileID: 21300000, guid: a5a71f879c9e737458a13b881f2ae357, type: 2}
+  - {fileID: 21300000, guid: 9872d9384be66e84b8bddddd30b4750b, type: 2}
+  - {fileID: 21300000, guid: 277ae4a436c6fe8458910828660e55cb, type: 2}
+  - {fileID: 21300000, guid: c220f863713042b4a8b6016fdbd9f78e, type: 2}
+  - {fileID: 21300000, guid: 7ac8fb84a62f49946a147f91a2df847f, type: 2}
+  - {fileID: 21300000, guid: 8e6482d8e7832394db351b1dfa94e9ff, type: 2}
+  Portraits:
+  - {fileID: 21300000, guid: c3085d802402acf489528d4b14609be1, type: 2}
+  - {fileID: 21300000, guid: 432381b21141655489c7aefe178e9295, type: 2}
+  - {fileID: 21300000, guid: 4cf658762d6e66d448bad6a25aeab25d, type: 2}
+  - {fileID: 21300000, guid: 01a84c599804f6b49a54a3fa12412eb1, type: 2}
+  - {fileID: 21300000, guid: 035e9f352f682a144b4e249d6554c1e5, type: 2}
+  - {fileID: 21300000, guid: f8c52a9288feab44593718f03723a3d9, type: 2}
+  - {fileID: 21300000, guid: 6bc3ffb399393f8458545cf1c877961d, type: 2}
+  - {fileID: 21300000, guid: 0a973274bc34c664786251d0a6df4e84, type: 2}
+  - {fileID: 21300000, guid: 6f4826235c64123449f2ec7a3baea9c9, type: 2}
+  - {fileID: 21300000, guid: 92d53ac5fd217974494be9bb6e4bf8a9, type: 2}
+  - {fileID: 21300000, guid: bcf8e60f627821f4d92803105f5127f9, type: 2}
+  - {fileID: 21300000, guid: 7375e73fef4fdb049a5f00753a814052, type: 2}
+  - {fileID: 21300000, guid: 8de87fcba75c30b4aaaeae046c293c5c, type: 2}
+  - {fileID: 21300000, guid: 1e8380c28a9de3849a735502590b6fd0, type: 2}
+  - {fileID: 21300000, guid: 619525b87fba60f4babd3c537d24e3f4, type: 2}
+  - {fileID: 21300000, guid: b148b4402c80fbb4e95c1f0b16507770, type: 2}
+  - {fileID: 21300000, guid: 9da2649144829bc4aa07fe22d2c589b5, type: 2}
+  - {fileID: 21300000, guid: 5a9ce47c86179da4bbf881a651a42e0a, type: 2}
+  - {fileID: 21300000, guid: bc6e67b90adef2245b92e4d5e734f09b, type: 2}
+  - {fileID: 21300000, guid: bd6d0a55ab296ab43b6e343d4771d11b, type: 2}
+  - {fileID: 21300000, guid: a7d6007bd4f24c34d81de9c1ff83bbcd, type: 2}
+  - {fileID: 21300000, guid: d8b325dd124a8de47b36153f03ba92a7, type: 2}
+  - {fileID: 21300000, guid: 8e00033a1c1b0cd479d167319490627a, type: 2}
+  - {fileID: 21300000, guid: b3d0acbeabe472b46b4c390c705fbc3b, type: 2}
+  ThemeBackgrounds:
+  - {fileID: 21300000, guid: b768170ef6f188c4d8b0506ff7257168, type: 2}
+  - {fileID: 21300000, guid: 1eacff35cd05b2b4f905a8f74c436b42, type: 2}
+  - {fileID: 21300000, guid: 31db101f957305f4f9764fcb516e8a2f, type: 2}
+  - {fileID: 21300000, guid: b8f78e4a3fbeed1418f8c84f5c410816, type: 2}
+  - {fileID: 21300000, guid: 56998e2063ffe66429fcb5cb272d5f79, type: 2}
+  Sounds:
+  - {fileID: 8300000, guid: c317d1de7cc56e74fb1100c1a06f6465, type: 3}
+  - {fileID: 8300000, guid: 5140abe5d2f41dc4995b7f53d3d2578b, type: 3}
+  - {fileID: 8300000, guid: 4294a9f6f13908540a7123e947a3eb08, type: 3}
+  - {fileID: 8300000, guid: 95856bb959e256f40b5e27cc22a19a7f, type: 3}

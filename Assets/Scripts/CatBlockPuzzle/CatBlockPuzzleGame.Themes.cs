@@ -10,8 +10,8 @@ namespace CatBlockPuzzle
         private const float ThemeAtlasInset = 0.75f;
 
         private readonly Sprite[] themeBackgroundSprites = new Sprite[CatPuzzleThemeCatalog.ThemeCount];
-        private Image backgroundImage;
-        private Image headerBandImage;
+        [SerializeField] private Image backgroundImage;
+        [SerializeField] private Image headerBandImage;
         private CatPuzzleTheme activeTheme;
         private int activeThemeIndex = -1;
         private Color activeTrayColor = TrayColor;
@@ -62,6 +62,13 @@ namespace CatBlockPuzzle
 
         private Sprite GetThemeBackgroundSprite(CatPuzzleTheme theme)
         {
+            return uiAssets != null && theme.Index >= 0 && theme.Index < uiAssets.ThemeBackgrounds.Length
+                ? uiAssets.ThemeBackgrounds[theme.Index] : null;
+        }
+
+#if UNITY_EDITOR
+        private Sprite BakeThemeBackgroundSprite(CatPuzzleTheme theme)
+        {
             if (theme.Index < 0 || theme.Index >= themeBackgroundSprites.Length)
             {
                 return CreateBackgroundSprite();
@@ -99,6 +106,7 @@ namespace CatBlockPuzzle
             themeBackgroundSprites[theme.Index] = sprite;
             return sprite;
         }
+#endif
 
         private void SetBoardDecorationColor(string childName, Color color)
         {

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle.Tests
 {
-    public sealed class CatBlockPuzzlePortraitTests
+    public sealed class CatBlockPuzzlePortraitTests : AuthoredSceneTestBase
     {
         [UnityTest]
         public IEnumerator PortraitLayout_UsesAuthoredCatsAndSeparatedGameplayZones()
@@ -21,7 +21,7 @@ namespace CatBlockPuzzle.Tests
                 yield return null;
             }
 
-            Assert.That(canvasObject, Is.Not.Null, "Runtime canvas was not created.");
+            Assert.That(canvasObject, Is.Not.Null, "Authored canvas is missing from the scene.");
             yield return new WaitForSecondsRealtime(0.7f);
 
             RectTransform safeArea = FindRect(canvasObject.transform, "Safe Area");
@@ -57,6 +57,9 @@ namespace CatBlockPuzzle.Tests
             Directory.CreateDirectory(artifactDirectory);
             string screenshotPath = Path.Combine(artifactDirectory, "portrait-540x960.png");
             Canvas canvas = canvasObject.GetComponent<Canvas>();
+            RenderMode previousRenderMode = canvas.renderMode;
+            Camera previousCamera = canvas.worldCamera;
+            float previousPlaneDistance = canvas.planeDistance;
             GameObject cameraObject = new GameObject("Portrait Test Camera", typeof(Camera));
             Camera camera = cameraObject.GetComponent<Camera>();
             camera.clearFlags = CameraClearFlags.SolidColor;
@@ -80,6 +83,9 @@ namespace CatBlockPuzzle.Tests
             screenshot.Apply();
             File.WriteAllBytes(screenshotPath, screenshot.EncodeToPNG());
             RenderTexture.active = previous;
+            canvas.renderMode = previousRenderMode;
+            canvas.worldCamera = previousCamera;
+            canvas.planeDistance = previousPlaneDistance;
             Object.Destroy(screenshot);
             Object.Destroy(target);
             Object.Destroy(cameraObject);

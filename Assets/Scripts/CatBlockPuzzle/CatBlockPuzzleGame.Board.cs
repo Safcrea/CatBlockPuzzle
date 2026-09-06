@@ -40,51 +40,7 @@ namespace CatBlockPuzzle
                 placementAvailability = new bool[activeLevel.Rows, activeLevel.Cols];
             }
 
-            for (int row = 0; row < activeLevel.Rows; row++)
-            {
-                for (int col = 0; col < activeLevel.Cols; col++)
-                {
-                    Vector2Int coord = new Vector2Int(row, col);
-                    bool active = activeLevel.ActiveCells.Contains(coord);
-                    Image cellImage = CreateImage(boardRoot, "Cell " + row + "," + col, active ? TargetColor : Color.clear);
-                    if (active)
-                    {
-                        UseRoundedSprite(cellImage);
-                        AddSoftShadow(cellImage, new Vector2(0f, -5f), 0.1f);
-                        AddSoftOutline(cellImage, BoardTileEdgeColor, new Vector2(2f, -2f));
-                    }
-
-                    cellImage.raycastTarget = false;
-                    RectTransform rect = cellImage.rectTransform;
-                    SetTopLeft(rect, CellPosition(row, col), new Vector2(boardCellWidth, boardCellHeight));
-                    Image preview = null;
-                    if (active)
-                    {
-                        rect.localScale = Vector3.zero;
-                        boardRevealCells.Add(new BoardRevealCell(rect, row + col));
-
-                        Image shine = CreateImage(rect, "Cell Shine", new Color(1f, 1f, 1f, 0.28f));
-                        UseRoundedSprite(shine);
-                        shine.raycastTarget = false;
-                        SetRect(shine.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-boardCellWidth * 0.08f, boardCellHeight * 0.08f), new Vector2(boardCellWidth * 0.72f, boardCellHeight * 0.72f));
-
-                        Image paw = CreateImage(rect, "Paw Print", new Color(241f / 255f, 241f / 255f, 244f / 255f, 0.58f));
-                        paw.sprite = pawSprite;
-                        paw.raycastTarget = false;
-                        SetRect(paw.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(boardCellWidth * 0.48f, boardCellHeight * 0.48f));
-
-                        preview = CreateImage(rect, "Cat Landing Preview", Color.white);
-                        preview.preserveAspect = true;
-                        preview.raycastTarget = false;
-                        Stretch(preview.rectTransform);
-                        preview.rectTransform.offsetMin = new Vector2(4f, 4f);
-                        preview.rectTransform.offsetMax = new Vector2(-4f, -4f);
-                        preview.gameObject.SetActive(false);
-                    }
-
-                    boardCells[coord] = new CellView(rect, cellImage, preview, cellImage.color);
-                }
-            }
+            ConfigureAuthoredBoardCells();
         }
 
         private Vector2 GetBoardTargetMaxSize()
@@ -118,8 +74,8 @@ namespace CatBlockPuzzle
             float boardAreaTop = rootRect.yMax - headerHeight - 118f;
             boardCenterY = (boardAreaBottom + boardAreaTop) * 0.5f;
 
-            float availableWidth = Mathf.Max(360f, rootRect.width - (sideMargin * 2f));
-            float availableHeight = Mathf.Max(420f, boardAreaTop - boardAreaBottom);
+            float availableWidth = Mathf.Max(80f, rootRect.width - (sideMargin * 2f));
+            float availableHeight = Mathf.Max(80f, boardAreaTop - boardAreaBottom);
             return new Vector2(
                 Mathf.Min(desired.x, MaxBoardWidth, availableWidth),
                 Mathf.Min(desired.y, MaxBoardHeight, availableHeight));
