@@ -231,6 +231,8 @@ namespace CatBlockPuzzle
             haptics = new HapticsController(this);
             visualCatalog = CatVisualCatalog.LoadOrCreate();
             layoutProfile = PortraitLayoutProfile.LoadOrCreate();
+            coins = PlayerPrefs.GetInt(SavedCoinsKey, 0);
+            InitializeMetaSystems();
 
             whiteSprite = CreateSolidSprite(Color.white);
             roundedBoxSprite = CreateRoundedBoxSprite();
@@ -253,7 +255,6 @@ namespace CatBlockPuzzle
             LoadPreferences();
             EnsureEventSystem();
             BuildCanvas();
-            coins = PlayerPrefs.GetInt(SavedCoinsKey, 0);
         }
 
         private IEnumerator Start()
@@ -271,7 +272,7 @@ namespace CatBlockPuzzle
                 previewLevel = true;
             }
 #endif
-            LoadLevel(requestedLevel, !previewLevel);
+            ShowMetaStartup(requestedLevel, previewLevel);
         }
 
         private void LoadLevel(int nextLevelIndex, bool persistProgress = true)
@@ -319,6 +320,8 @@ namespace CatBlockPuzzle
             {
                 objectiveText.text = BuildThemedObjectiveTitle(activeLevel.Title);
             }
+
+            ApplyMetaLevelPresentation(levelIndex);
 
             coinText.text = coins.ToString();
             if (persistProgress)
@@ -385,6 +388,14 @@ namespace CatBlockPuzzle
         public void PreviewLevelForTesting(int zeroBasedLevelIndex)
         {
             layoutProfile = PortraitLayoutProfile.LoadOrCreate();
+            if (metaOverlay != null)
+            {
+                metaOverlay.gameObject.SetActive(false);
+            }
+
+            metaOverlayOwnsPause = false;
+            metaTimerWasRunning = false;
+            metaRequiresRoomCompletion = false;
             LoadLevel(zeroBasedLevelIndex, false);
         }
 

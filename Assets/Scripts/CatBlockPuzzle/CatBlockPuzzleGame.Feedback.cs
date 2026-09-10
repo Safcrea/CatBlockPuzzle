@@ -34,7 +34,7 @@ namespace CatBlockPuzzle
 
         private void StartLevelTimer()
         {
-            if (levelFailed || winOverlay.gameObject.activeSelf || failOverlay.gameObject.activeSelf)
+            if (levelFailed || winOverlay.gameObject.activeSelf || failOverlay.gameObject.activeSelf || IsMetaUiOpen)
             {
                 return;
             }
@@ -220,21 +220,24 @@ namespace CatBlockPuzzle
 
             SpawnBoardBurst();
             haptics.PlayLevelComplete();
-            FlyCoins(activeLevel.Reward);
-            PlayWinSound();
-            yield return new WaitForSecondsRealtime(0.75f);
-            if (!levelNavigationTesting)
+            int awardedCoins = RecordMetaFirstClear(activeLevel.Reward);
+            if (awardedCoins > 0)
             {
-                coins += activeLevel.Reward;
+                FlyCoins(awardedCoins);
             }
 
+            PlayWinSound();
+            yield return new WaitForSecondsRealtime(0.75f);
             coinText.text = coins.ToString();
             LevelResult result = SaveLevelResult();
             SaveProgress();
             StartCoroutine(PopTransform(coinText.rectTransform.parent as RectTransform, 1.08f));
             winTitleText.text = activeLevel.Title;
-            winRewardText.text = "+" + activeLevel.Reward.ToString() + " coins";
+            winRewardText.text = awardedCoins > 0
+                ? "+" + awardedCoins.ToString() + " coins"
+                : "Replay complete - coins already claimed";
             ShowWinResult(result);
+            ConfigureMetaWinPresentation(awardedCoins);
             winOverlay.gameObject.SetActive(true);
             winPanel.localScale = Vector3.one * 0.88f;
             StartCoroutine(PopTransform(winPanel, 1.03f));

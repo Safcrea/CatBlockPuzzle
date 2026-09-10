@@ -167,8 +167,12 @@ namespace CatBlockPuzzle
                     }
                 }
 
-                inputLocked = false;
-                StartLevelTimer();
+                inputLocked = IsMetaUiOpen;
+                if (!IsMetaUiOpen)
+                {
+                    StartLevelTimer();
+                }
+
                 boardRevealRoutine = null;
                 yield break;
             }
@@ -202,8 +206,12 @@ namespace CatBlockPuzzle
                 }
             }
 
-            inputLocked = false;
-            StartLevelTimer();
+            inputLocked = IsMetaUiOpen;
+            if (!IsMetaUiOpen)
+            {
+                StartLevelTimer();
+            }
+
             boardRevealRoutine = null;
         }
 

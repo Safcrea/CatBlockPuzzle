@@ -45,7 +45,7 @@ namespace CatBlockPuzzle
             AddSoftShadow(headerBandImage, new Vector2(0f, -8f), 0.11f);
             headerBandImage.raycastTarget = false;
 
-            CreateIconButton(root, "Back", backIconSprite, LoadPreviousLevel, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(24f, -18f), new Vector2(74f, 74f));
+            CreateIconButton(root, "Rooms", backIconSprite, OpenRoomHub, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(24f, -18f), new Vector2(74f, 74f));
 
             levelText = CreateText(root, "Level 1", 44, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
             SetRect(levelText.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(-50f, -22f), new Vector2(-600f, 68f));
@@ -186,6 +186,7 @@ namespace CatBlockPuzzle
             BuildWinOverlay();
             BuildFailOverlay();
             BuildSettingsOverlay();
+            BuildMetaUi();
             ApplyPreferences();
         }
 
@@ -277,7 +278,7 @@ namespace CatBlockPuzzle
             winUnlockText = CreateText(winPanel, "New cat friend unlocked", 24, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
             SetRect(winUnlockText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -148f), new Vector2(-48f, 36f));
 
-            CreateButton(winPanel, "Next Level", LoadNextLevel, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 42f), new Vector2(390f, 76f), TargetDeepColor);
+            CreateButton(winPanel, "Next Level", LoadNextLevelThroughMetaGate, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 42f), new Vector2(390f, 76f), TargetDeepColor);
 
             winOverlay.gameObject.SetActive(false);
         }

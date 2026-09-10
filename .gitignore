@@ -6,6 +6,7 @@
 /[Uu]ser[Ss]ettings/
 /[Mm]emoryCaptures/
 /.utmp/
+/[Cc]rash[Dd]umps/
 
 # Builds and exported projects
 /[Bb]uild/
@@ -15,6 +16,7 @@
 # IDE and generated project files
 /.vs/
 /.vscode/
+/.idea/
 *.csproj
 *.unityproj
 *.sln
@@ -26,6 +28,23 @@
 *.pidb
 *.booproj
 *.svd
+
+# Package manager and platform-generated files
+/[Ll]ocal[Ll]ow/[Cc]ache/
+/[Ll]ocal[Ll]ow/[Ll]og[sS]/
+*.apk
+*.aab
+*.unitypackage
+
+# Android/Gradle generated files
+/.gradle/
+/[Bb]uild/[Aa]ndroid/
+/[Bb]uild/[Ii][Oo][Ss]/
+
+# Crash reports and profiling captures
+*.dmp
+*.stackdump
+*.pdb
 
 # OS files
 .DS_Store

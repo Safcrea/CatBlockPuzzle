@@ -173,7 +173,7 @@ namespace CatBlockPuzzle.Tests
         }
 
         [UnityTest]
-        public IEnumerator Theme_ChangesAtFiveLevelBoundariesAndUsesAtlasPalette()
+        public IEnumerator ThemePaletteChangesAtFiveLevels_AndRoomBackgroundChangesAtTen()
         {
             MonoBehaviour game = null;
             for (int i = 0; i < 120 && game == null; i++)
@@ -208,8 +208,8 @@ namespace CatBlockPuzzle.Tests
             Sprite firstSprite = background.sprite;
             Color firstTrayColor = tray.color;
             Assert.That(firstTheme, Is.EqualTo(0));
-            Assert.That(firstSprite.texture.name, Is.EqualTo("theme_atlas"));
-            Assert.That(objective.text, Does.Contain("Sunlit Glasshouse"));
+            Assert.That(firstSprite.texture.name, Is.EqualTo("room_01"));
+            Assert.That(objective.text, Does.Contain("Welcome Nook"));
 
             previewLevel.Invoke(game, new object[] { 4 });
             yield return new WaitForSecondsRealtime(0.15f);
@@ -219,10 +219,15 @@ namespace CatBlockPuzzle.Tests
             previewLevel.Invoke(game, new object[] { 5 });
             yield return new WaitForSecondsRealtime(0.15f);
             Assert.That((int)themeIndexField.GetValue(game), Is.EqualTo(1));
-            Assert.That(background.sprite, Is.Not.SameAs(firstSprite));
-            Assert.That(background.sprite.rect.x, Is.GreaterThan(firstSprite.rect.x));
+            Assert.That(background.sprite, Is.SameAs(firstSprite), "A room background should span its ten-level chapter.");
             Assert.That(tray.color, Is.Not.EqualTo(firstTrayColor));
-            Assert.That(objective.text, Does.Contain("Sugar Patisserie"));
+            Assert.That(objective.text, Does.Contain("Welcome Nook"));
+
+            previewLevel.Invoke(game, new object[] { 10 });
+            yield return new WaitForSecondsRealtime(0.15f);
+            Assert.That(background.sprite, Is.Not.SameAs(firstSprite));
+            Assert.That(background.sprite.texture.name, Is.EqualTo("room_02"));
+            Assert.That(objective.text, Does.Contain("Maker Corner"));
         }
 
         private static MethodInfo FindMethod(System.Type type, string name)
