@@ -39,7 +39,7 @@ public sealed class CatPuzzleUiTuningWindow : EditorWindow
 
         EditorGUILayout.LabelField("Portrait UI And Touch Tuning", EditorStyles.boldLabel);
         EditorGUILayout.HelpBox(
-            "These values tune the authored GameScene UI. Save changes, then rebuild the scene or selected level to preview them.",
+            "These values drive the runtime-generated gameplay UI. Save changes, then rebuild the selected level to preview them.",
             MessageType.Info);
 
         scroll = EditorGUILayout.BeginScrollView(scroll);

@@ -22,15 +22,15 @@ namespace CatBlockPuzzle
 
         private CatMetaCatalog metaCatalog;
         private CatMetaProgressStore metaProgress;
-        [SerializeField] private RectTransform metaOverlay;
-        [SerializeField] private RectTransform metaHubPage;
-        [SerializeField] private RectTransform metaRoomPage;
-        [SerializeField] private RectTransform metaStoryOverlay;
-        [SerializeField] private RectTransform metaCompletionOverlay;
-        [SerializeField] private Text metaStatusText;
-        [SerializeField] private Button metaNextLevelButton;
-        [SerializeField] private Text metaNextLevelButtonText;
-        [SerializeField] private Button metaDecorateNowButton;
+        private RectTransform metaOverlay;
+        private RectTransform metaHubPage;
+        private RectTransform metaRoomPage;
+        private RectTransform metaStoryOverlay;
+        private RectTransform metaCompletionOverlay;
+        private Text metaStatusText;
+        private Button metaNextLevelButton;
+        private Text metaNextLevelButtonText;
+        private Button metaDecorateNowButton;
         private bool metaSystemsUnavailable;
         private bool metaOverlayOwnsPause;
         private bool metaTimerWasRunning;
@@ -94,8 +94,7 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            metaOverlay = CreatePanel(gameUiRoot != null ? gameUiRoot : root, "HomeScreen", PageColor);
-            homeScreen = metaOverlay;
+            metaOverlay = CreatePanel(root, "Meta Overlay", PageColor);
             Stretch(metaOverlay);
             metaOverlay.SetAsLastSibling();
             metaOverlay.GetComponent<Image>().raycastTarget = true;

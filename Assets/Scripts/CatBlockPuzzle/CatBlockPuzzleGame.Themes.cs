@@ -10,8 +10,8 @@ namespace CatBlockPuzzle
         private const float ThemeAtlasInset = 0.75f;
 
         private readonly Sprite[] themeBackgroundSprites = new Sprite[CatPuzzleThemeCatalog.ThemeCount];
-        [SerializeField] private Image backgroundImage;
-        [SerializeField] private Image headerBandImage;
+        private Image backgroundImage;
+        private Image headerBandImage;
         private CatPuzzleTheme activeTheme;
         private int activeThemeIndex = -1;
         private Color activeTrayColor = TrayColor;
