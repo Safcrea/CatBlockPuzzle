@@ -15,7 +15,7 @@ namespace CatBlockPuzzle
     {
         private void BuildCanvas()
         {
-            GameObject canvasObject = new GameObject("Cat Puzzle Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(Image));
+            GameObject canvasObject = new GameObject("GameUI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(Image));
             canvas = canvasObject.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
@@ -25,15 +25,20 @@ namespace CatBlockPuzzle
             scaler.matchWidthOrHeight = 0.5f;
 
             backgroundImage = canvasObject.GetComponent<Image>();
-            backgroundImage.sprite = CreateBackgroundSprite();
+            backgroundImage.sprite = whiteSprite;
             backgroundImage.color = Color.white;
             backgroundImage.preserveAspect = false;
             backgroundImage.raycastTarget = false;
 
             RectTransform canvasRoot = canvasObject.GetComponent<RectTransform>();
             Stretch(canvasRoot);
+            gameUiRoot = canvasRoot;
 
-            root = CreatePanel(canvasRoot, "Safe Area", new Color(1f, 1f, 1f, 0f));
+            gameplayScreen = CreatePanel(canvasRoot, "Gameplay Screen", new Color(1f, 1f, 1f, 0f));
+            Stretch(gameplayScreen);
+            gameplayScreen.GetComponent<Image>().raycastTarget = false;
+
+            root = CreatePanel(gameplayScreen, "Safe Area", new Color(1f, 1f, 1f, 0f));
             Stretch(root);
             root.GetComponent<Image>().raycastTarget = false;
             root.gameObject.AddComponent<SafeAreaFitter>();
@@ -173,6 +178,9 @@ namespace CatBlockPuzzle
             CreateActionButton(actionBar, "Reset", resetIconSprite, ResetLevel);
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            developerTools = CreatePanel(canvasRoot, "Developer Tools", new Color(1f, 1f, 1f, 0f));
+            Stretch(developerTools);
+            developerTools.GetComponent<Image>().raycastTarget = false;
             BuildTestLevelControls();
 #endif
 
@@ -187,13 +195,25 @@ namespace CatBlockPuzzle
             BuildFailOverlay();
             BuildSettingsOverlay();
             BuildMetaUi();
+            shopScreen = CreatePanel(canvasRoot, "Shop Screen", new Color(1f, 1f, 1f, 0f));
+            Stretch(shopScreen);
+            shopScreen.GetComponent<Image>().raycastTarget = false;
+            shopScreen.gameObject.SetActive(false);
+
+            gameplayScreen.SetSiblingIndex(0);
+            if (homeScreen != null) homeScreen.SetSiblingIndex(1);
+            if (settingsOverlay != null) settingsOverlay.SetSiblingIndex(2);
+            shopScreen.SetSiblingIndex(3);
+            if (winOverlay != null) winOverlay.SetSiblingIndex(4);
+            if (failOverlay != null) failOverlay.SetSiblingIndex(5);
+            if (developerTools != null) developerTools.SetSiblingIndex(6);
             ApplyPreferences();
         }
 
         private void BuildTestLevelControls()
         {
             previousTestButton = CreateIconButton(
-                root,
+                developerTools != null ? developerTools : root,
                 "Previous Test Level",
                 backIconSprite,
                 LoadPreviousTestLevel,
@@ -204,7 +224,7 @@ namespace CatBlockPuzzle
                 new Vector2(72f, 72f));
 
             nextTestButton = CreateIconButton(
-                root,
+                developerTools != null ? developerTools : root,
                 "Next Test Level",
                 backIconSprite,
                 LoadNextTestLevel,
@@ -225,6 +245,11 @@ namespace CatBlockPuzzle
 
         private void BuildAudio()
         {
+            if (audioSource != null)
+            {
+                return;
+            }
+
             GameObject audioObject = new GameObject("Cat Puzzle Audio", typeof(AudioSource));
             audioObject.transform.SetParent(transform, false);
             audioSource = audioObject.GetComponent<AudioSource>();
@@ -238,9 +263,105 @@ namespace CatBlockPuzzle
             winClip = CreateToneClip("Cat Win", 0.42f, 0.24f, 520f, 660f, 780f, 1040f);
         }
 
+        private void WireAuthoredUiEvents()
+        {
+            WireButton("Rooms", OpenRoomHub);
+            WireButton("Pause", OpenPause);
+            WireButton("Settings", OpenSettings);
+            WireButton("Hint", ShowHint);
+            WireButton("Reset", ResetLevel);
+            WireButton("Previous Test Level", LoadPreviousTestLevel);
+            WireButton("Next Test Level", LoadNextTestLevel);
+            WireButton("Next Level", LoadNextLevelThroughMetaGate);
+            WireButton("Retry", ResetLevel);
+            WireButton("Close", CloseSettings);
+            WireButton("Resume", CloseSettings);
+
+            if (soundToggle != null)
+            {
+                soundToggle.onValueChanged.RemoveAllListeners();
+                soundToggle.onValueChanged.AddListener(SetSound);
+            }
+
+            if (hapticsToggle != null)
+            {
+                hapticsToggle.onValueChanged.RemoveAllListeners();
+                hapticsToggle.onValueChanged.AddListener(SetHaptics);
+            }
+
+            if (motionToggle != null)
+            {
+                motionToggle.onValueChanged.RemoveAllListeners();
+                motionToggle.onValueChanged.AddListener(SetReducedMotion);
+            }
+
+            RewireMetaNavigationButtons();
+        }
+
+        private void WireButton(string objectName, UnityEngine.Events.UnityAction action)
+        {
+            if (canvas == null)
+            {
+                return;
+            }
+
+            Button[] buttons = canvas.GetComponentsInChildren<Button>(true);
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].name != objectName)
+                {
+                    continue;
+                }
+
+                buttons[i].onClick.RemoveAllListeners();
+                buttons[i].onClick.AddListener(PlayButtonSound);
+                buttons[i].onClick.AddListener(action);
+                return;
+            }
+        }
+
+#if UNITY_EDITOR
+        public void EditorBuildAuthoredScene(EventSystem assignedEventSystem, GameObject assignedKillZone)
+        {
+            defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            if (defaultFont == null)
+            {
+                defaultFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            }
+
+            visualCatalog = CatVisualCatalog.LoadOrCreate();
+            layoutProfile = PortraitLayoutProfile.LoadOrCreate();
+            whiteSprite = CreateSolidSprite(Color.white);
+            roundedBoxSprite = CreateRoundedBoxSprite();
+            circleSprite = CreateCircleSprite();
+            coinSprite = CreateCoinSprite();
+            catHeadSprite = CreateCatHeadSprite();
+            mouthSprite = CreateMouthSprite();
+            tailSprite = CreateTailSprite();
+            pawSprite = CreatePawSprite();
+            starSprite = CreateStarSprite(false);
+            starOutlineSprite = CreateStarSprite(true);
+            backIconSprite = CreateUiIconSprite(UiIcon.Back);
+            pauseIconSprite = CreateUiIconSprite(UiIcon.Pause);
+            settingsIconSprite = CreateUiIconSprite(UiIcon.Settings);
+            hintIconSprite = CreateUiIconSprite(UiIcon.Hint);
+            resetIconSprite = CreateUiIconSprite(UiIcon.Reset);
+            closeIconSprite = CreateUiIconSprite(UiIcon.Close);
+            LoadAuthoredCatPortraits();
+            BuildAudio();
+            sceneEventSystem = assignedEventSystem;
+            killZone = assignedKillZone;
+            developerTools = null;
+            BuildCanvas();
+            authoredSceneVersion = 1;
+            enabled = true;
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+#endif
+
         private void BuildWinOverlay()
         {
-            winOverlay = CreatePanel(root, "Win Overlay", new Color(0.14f, 0.13f, 0.12f, 0.32f));
+            winOverlay = CreatePanel(gameUiRoot != null ? gameUiRoot : root, "Level Complete Screen", new Color(0.14f, 0.13f, 0.12f, 0.32f));
             Stretch(winOverlay);
             winOverlay.SetAsLastSibling();
 
@@ -285,7 +406,7 @@ namespace CatBlockPuzzle
 
         private void BuildFailOverlay()
         {
-            failOverlay = CreatePanel(root, "Fail Overlay", new Color(0.14f, 0.13f, 0.12f, 0.32f));
+            failOverlay = CreatePanel(gameUiRoot != null ? gameUiRoot : root, "Level Failed Screen", new Color(0.14f, 0.13f, 0.12f, 0.32f));
             Stretch(failOverlay);
             failOverlay.SetAsLastSibling();
 
@@ -308,7 +429,7 @@ namespace CatBlockPuzzle
 
         private void BuildSettingsOverlay()
         {
-            settingsOverlay = CreatePanel(root, "Settings Overlay", new Color(0.12f, 0.1f, 0.09f, 0.42f));
+            settingsOverlay = CreatePanel(gameUiRoot != null ? gameUiRoot : root, "Pause Panel", new Color(0.12f, 0.1f, 0.09f, 0.42f));
             Stretch(settingsOverlay);
             settingsOverlay.SetAsLastSibling();
 
