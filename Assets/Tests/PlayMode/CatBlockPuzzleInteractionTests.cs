@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle.Tests
 {
-    public sealed class CatBlockPuzzleInteractionTests
+    public sealed class CatBlockPuzzleInteractionTests : PreparedScenePlayModeFixture
     {
         [UnityTest]
         public IEnumerator PlacedCard_HidesGrowsRemainingAndReturnsWithBoardPiece()
@@ -220,6 +220,8 @@ namespace CatBlockPuzzle.Tests
             yield return new WaitForSecondsRealtime(0.15f);
             Assert.That((int)themeIndexField.GetValue(game), Is.EqualTo(1));
             Assert.That(background.sprite, Is.SameAs(firstSprite), "A room background should span its ten-level chapter.");
+            // Every level now owns a saved tray; read the active level's assigned image.
+            tray = (Image)trayField.GetValue(game);
             Assert.That(tray.color, Is.Not.EqualTo(firstTrayColor));
             Assert.That(objective.text, Does.Contain("Welcome Nook"));
 

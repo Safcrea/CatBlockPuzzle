@@ -9,9 +9,9 @@ namespace CatBlockPuzzle
         private const int ThemeAtlasRows = 3;
         private const float ThemeAtlasInset = 0.75f;
 
-        private readonly Sprite[] themeBackgroundSprites = new Sprite[CatPuzzleThemeCatalog.ThemeCount];
-        private Image backgroundImage;
-        private Image headerBandImage;
+        [SerializeField] private Sprite[] themeBackgroundSprites = new Sprite[CatPuzzleThemeCatalog.ThemeCount];
+        [SerializeField] private Image backgroundImage;
+        [SerializeField] private Image headerBandImage;
         private CatPuzzleTheme activeTheme;
         private int activeThemeIndex = -1;
         private Color activeTrayColor = TrayColor;
@@ -36,22 +36,17 @@ namespace CatBlockPuzzle
                 headerBandImage.color = activeTheme.HeaderColor;
             }
 
-            if (objectivePanel != null)
+            if (objectiveImage != null)
             {
-                objectivePanel.GetComponent<Image>().color = activeTheme.ObjectiveColor;
+                objectiveImage.color = activeTheme.ObjectiveColor;
             }
 
-            if (boardBackdrop != null)
+            if (preparedLevelIndex >= 0)
             {
-                boardBackdrop.GetComponent<Image>().color = activeTheme.BoardColor;
-                Outline outline = boardBackdrop.GetComponent<Outline>();
-                if (outline != null)
-                {
-                    outline.effectColor = activeTheme.BoardOutlineColor;
-                }
-
-                SetBoardDecorationColor("Board Ear Left", activeTheme.BoardColor);
-                SetBoardDecorationColor("Board Ear Right", activeTheme.BoardColor);
+                var view = loadedLevel;
+                view.boardFrameImage.color = activeTheme.BoardColor;
+                view.boardOutline.effectColor = activeTheme.BoardOutlineColor;
+                foreach (var ear in view.boardEars) ear.color = activeTheme.BoardColor;
             }
 
             if (trayImage != null)
@@ -62,57 +57,7 @@ namespace CatBlockPuzzle
 
         private Sprite GetThemeBackgroundSprite(CatPuzzleTheme theme)
         {
-            if (theme.Index < 0 || theme.Index >= themeBackgroundSprites.Length)
-            {
-                return CreateBackgroundSprite();
-            }
-
-            Sprite cached = themeBackgroundSprites[theme.Index];
-            if (cached != null)
-            {
-                return cached;
-            }
-
-            Texture2D atlas = visualCatalog != null ? visualCatalog.ThemeAtlas : null;
-            if (atlas == null)
-            {
-                return CreateBackgroundSprite();
-            }
-
-            float cellWidth = atlas.width / (float)ThemeAtlasColumns;
-            float cellHeight = atlas.height / (float)ThemeAtlasRows;
-            int column = theme.AtlasIndex % ThemeAtlasColumns;
-            int rowFromTop = theme.AtlasIndex / ThemeAtlasColumns;
-            Rect atlasRect = new Rect(
-                (column * cellWidth) + ThemeAtlasInset,
-                atlas.height - ((rowFromTop + 1) * cellHeight) + ThemeAtlasInset,
-                cellWidth - (ThemeAtlasInset * 2f),
-                cellHeight - (ThemeAtlasInset * 2f));
-            Sprite sprite = Sprite.Create(
-                atlas,
-                atlasRect,
-                new Vector2(0.5f, 0.5f),
-                100f,
-                0,
-                SpriteMeshType.FullRect);
-            sprite.name = "Theme Background - " + theme.DisplayName;
-            themeBackgroundSprites[theme.Index] = sprite;
-            return sprite;
-        }
-
-        private void SetBoardDecorationColor(string childName, Color color)
-        {
-            Transform child = boardBackdrop.Find(childName);
-            if (child == null)
-            {
-                return;
-            }
-
-            Image image = child.GetComponent<Image>();
-            if (image != null)
-            {
-                image.color = color;
-            }
+            return themeBackgroundSprites[Mathf.Clamp(theme.Index, 0, themeBackgroundSprites.Length - 1)];
         }
 
         private string BuildThemedObjectiveTitle(string levelTitle)

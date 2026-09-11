@@ -527,6 +527,7 @@ namespace CatBlockPuzzle
         private void SpawnSnapRing(Vector2 screenPosition, Color color)
         {
             Image ring = AcquireFxImage("Snap Ring", fxLayer, color);
+            if (ring == null) return;
             ring.sprite = circleSprite;
             ring.raycastTarget = false;
             SetRect(ring.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), ScreenCenterToRootLocal(screenPosition), new Vector2(42f, 42f));
@@ -578,6 +579,7 @@ namespace CatBlockPuzzle
         private void SpawnSpark(RectTransform parent, Vector2 start, Vector2 delta, Color color, float size, Sprite sprite = null)
         {
             Image spark = AcquireFxImage("Spark", parent, color);
+            if (spark == null) return;
             spark.sprite = sprite != null ? sprite : circleSprite;
             spark.raycastTarget = false;
             SetRect(spark.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), start, new Vector2(size, size));
@@ -609,6 +611,7 @@ namespace CatBlockPuzzle
             for (int i = 0; i < count; i++)
             {
                 Image coin = AcquireFxImage("Flying Coin", fxLayer, Color.white);
+                if (coin == null) break;
                 coin.sprite = coinSprite;
                 coin.raycastTarget = false;
                 SetRect(coin.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), ScreenCenterToRootLocal(start + new Vector2((i - count * 0.5f) * 10f, (i % 2) * 12f)), new Vector2(28f, 28f));
@@ -646,7 +649,7 @@ namespace CatBlockPuzzle
 
             if (image == null)
             {
-                image = CreateImage(parent, name, color);
+                return null;
             }
             else
             {
@@ -676,22 +679,16 @@ namespace CatBlockPuzzle
         private void ResetFxPool()
         {
             fxImagePool.Clear();
-            if (fxLayer == null)
+            if (fxLayer == null || preparedEffects == null)
             {
                 return;
             }
 
-            for (int i = fxLayer.childCount - 1; i >= 0; i--)
+            foreach (Image image in preparedEffects)
             {
-                Transform child = fxLayer.GetChild(i);
-                Image image = child.GetComponent<Image>();
-                if (image == null)
-                {
-                    Destroy(child.gameObject);
-                    continue;
-                }
-
+                if (image == null) continue;
                 image.gameObject.SetActive(false);
+                image.transform.SetParent(fxLayer, false);
                 fxImagePool.Push(image);
             }
         }

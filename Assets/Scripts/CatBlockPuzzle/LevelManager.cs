@@ -16,6 +16,11 @@ namespace CatBlockPuzzle
             this.resourcePath = resourcePath;
         }
 
+        internal LevelManager(LevelData[] data)
+        {
+            levels = ConvertLevels(data);
+        }
+
         public void Load()
         {
             TextAsset asset = Resources.Load<TextAsset>(resourcePath);

@@ -309,8 +309,8 @@ namespace CatBlockPuzzle
         private Sprite CatPortrait(CatMood mood, int atlasIndex)
         {
             int index = Mathf.Abs(atlasIndex) % 8;
-            Sprite requested = catPortraitSprites[(int)mood, index];
-            return requested != null ? requested : catPortraitSprites[(int)CatMood.Neutral, index];
+            Sprite requested = catPortraitSprites[(int)mood * 8 + index];
+            return requested != null ? requested : catPortraitSprites[index];
         }
     }
 }

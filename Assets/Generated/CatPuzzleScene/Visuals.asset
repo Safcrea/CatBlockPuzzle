@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99be3c9674b4a78459a1322c54e30764, type: 3}
+  m_Name: Visuals
+  m_EditorClassIdentifier: Assembly-CSharp::CatBlockPuzzle.CatVisualCatalog
+  CozyRoomBackground: {fileID: 2800000, guid: 2c1c7008232ad4f42a45fc32d58ed7e0, type: 3}
+  ThemeAtlas: {fileID: 2800000, guid: 385cf596389c9a145916befe5e166a23, type: 3}
+  NeutralCatAtlas: {fileID: 2800000, guid: 7b2996c660c3ac1469ee8eb98fda5522, type: 3}
+  HappyCatAtlas: {fileID: 2800000, guid: 95d3ad25b9e2a2441903a1991f480ff1, type: 3}
+  WorriedCatAtlas: {fileID: 2800000, guid: 77d337017991baa4c86f728ab59d1428, type: 3}

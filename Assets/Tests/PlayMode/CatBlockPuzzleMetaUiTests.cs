@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle.Tests
 {
-    public sealed class CatBlockPuzzleMetaUiTests
+    public sealed class CatBlockPuzzleMetaUiTests : PreparedScenePlayModeFixture
     {
         [UnityTest]
         public IEnumerator RoomHubAndDetail_UseTenChaptersAndAuthoredArt()
@@ -57,8 +57,8 @@ namespace CatBlockPuzzle.Tests
 
             Canvas canvas = Object.FindFirstObjectByType<Canvas>();
             Assert.That(canvas, Is.Not.Null);
-            Transform overlay = FindTransform(canvas.transform, "Meta Overlay");
-            Transform hub = FindTransform(overlay, "Room Hub");
+            Transform overlay = FindTransform(canvas.transform, "Home and Rooms");
+            Transform hub = FindTransform(overlay, "Home Screen");
             Transform chapters = FindTransform(hub, "Chapters");
             Assert.That(overlay.gameObject.activeSelf, Is.True);
             Assert.That(hub.gameObject.activeSelf, Is.True);
@@ -82,7 +82,7 @@ namespace CatBlockPuzzle.Tests
             yield return null;
             Canvas.ForceUpdateCanvases();
 
-            Transform roomDetail = FindTransform(overlay, "Room Detail");
+            Transform roomDetail = FindTransform(overlay, "Room_01");
             Image roomBackground = FindTransform(roomDetail, "Room Background").GetComponent<Image>();
             Transform treasureRail = FindTransform(roomDetail, "Treasure Rail");
             Assert.That(roomDetail.gameObject.activeSelf, Is.True);
@@ -97,35 +97,7 @@ namespace CatBlockPuzzle.Tests
 
         private static void CaptureCanvas(Canvas canvas, string fileName)
         {
-            string artifactDirectory = Path.GetFullPath(Path.Combine(Application.dataPath, "../TestArtifacts"));
-            Directory.CreateDirectory(artifactDirectory);
-            string screenshotPath = Path.Combine(artifactDirectory, fileName);
-            GameObject cameraObject = new GameObject("Meta UI Test Camera", typeof(Camera));
-            Camera camera = cameraObject.GetComponent<Camera>();
-            camera.clearFlags = CameraClearFlags.SolidColor;
-            camera.backgroundColor = new Color(0.98f, 0.95f, 0.9f, 1f);
-            camera.orthographic = true;
-            camera.aspect = 540f / 960f;
-            camera.transform.position = new Vector3(0f, 0f, -10f);
-            RenderTexture target = new RenderTexture(540, 960, 24, RenderTextureFormat.ARGB32);
-            camera.targetTexture = target;
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.worldCamera = camera;
-            canvas.planeDistance = 1f;
-            Canvas.ForceUpdateCanvases();
-            camera.Render();
-
-            RenderTexture previous = RenderTexture.active;
-            RenderTexture.active = target;
-            Texture2D screenshot = new Texture2D(540, 960, TextureFormat.RGB24, false);
-            screenshot.ReadPixels(new Rect(0f, 0f, 540f, 960f), 0, 0);
-            screenshot.Apply();
-            File.WriteAllBytes(screenshotPath, screenshot.EncodeToPNG());
-            RenderTexture.active = previous;
-            Object.Destroy(screenshot);
-            Object.Destroy(target);
-            Object.Destroy(cameraObject);
-            Assert.That(new FileInfo(screenshotPath).Length, Is.GreaterThan(1024));
+            CaptureAssignedCamera(canvas, fileName);
         }
 
         private static Transform FindTransform(Transform parent, string name)

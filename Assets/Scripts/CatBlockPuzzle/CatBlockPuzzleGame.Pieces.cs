@@ -13,40 +13,7 @@ namespace CatBlockPuzzle
 {
     public sealed partial class CatBlockPuzzleGame
     {
-        private void BuildPieces()
-        {
-            ConfigureTrayForPieceCount(activeLevel.Pieces.Length);
 
-            for (int i = 0; i < activeLevel.Pieces.Length; i++)
-            {
-                PieceDefinition definition = activeLevel.Pieces[i];
-                PieceState state = new PieceState(definition, PieceColors[i % PieceColors.Length]);
-                state.AtlasIndex = i % 8;
-                state.FloatPhase = i * 0.83f;
-                state.Slot = CreatePanel(trayContent, definition.Name + " Slot", CardRestColor);
-                state.SlotImage = state.Slot.GetComponent<Image>();
-                StyleCreamPanel(state.SlotImage, 0.11f);
-                state.SlotLayout = state.Slot.gameObject.AddComponent<LayoutElement>();
-                ApplyTraySlotLayout(state.SlotLayout);
-                AddDragDots(state.Slot);
-                PieceDragView slotDragView = state.Slot.gameObject.AddComponent<PieceDragView>();
-                slotDragView.Bind(this, state, true);
-
-                state.Rect = CreatePanel(state.Slot, definition.Name, new Color(1f, 1f, 1f, 0f));
-                PieceDragView dragView = state.Rect.gameObject.AddComponent<PieceDragView>();
-                dragView.Bind(this, state, false);
-                state.Rect.SetAsLastSibling();
-                CreatePieceCells(state);
-                AttachPieceToTray(state);
-                pieces.Add(state);
-            }
-
-            RefreshTrayLayout(false);
-            if (trayScrollRect != null)
-            {
-                trayScrollRect.horizontalNormalizedPosition = 0f;
-            }
-        }
 
         private void ConfigureTrayForPieceCount(int visiblePieceCount)
         {
@@ -231,108 +198,7 @@ namespace CatBlockPuzzle
             }
         }
 
-        private void CreatePieceCells(PieceState state)
-        {
-            state.CellImages.Clear();
-            state.CatViews.Clear();
-            for (int i = 0; i < state.Definition.Cells.Length; i++)
-            {
-                RectTransform cellRect = CreatePanel(state.Rect, "Cat Cell", state.Color).GetComponent<RectTransform>();
-                Image body = cellRect.GetComponent<Image>();
-                Sprite portrait = CatPortrait(CatMood.Neutral, state.AtlasIndex);
-                if (portrait != null)
-                {
-                    body.sprite = portrait;
-                    body.type = Image.Type.Simple;
-                    body.color = Color.white;
-                    body.preserveAspect = true;
-                    body.raycastTarget = false;
-                    AddSoftShadow(body, new Vector2(0f, -5f), 0.22f);
-                    state.CellImages.Add(body);
-                    state.CatViews.Add(new CatCellView(cellRect, body));
-                    continue;
-                }
 
-                body.sprite = catHeadSprite;
-                body.type = Image.Type.Simple;
-                body.raycastTarget = false;
-                AddSoftShadow(body, new Vector2(0f, -4f), 0.18f);
-                AddSoftOutline(body, new Color(1f, 1f, 1f, 0.78f), new Vector2(2f, -2f));
-
-                Image leftEar = CreateImage(cellRect, "Ear Left", state.Color);
-                Image rightEar = CreateImage(cellRect, "Ear Right", state.Color);
-                Image leftInnerEar = CreateImage(cellRect, "Inner Ear Left", new Color(1f, 0.76f, 0.78f, 0.58f));
-                Image rightInnerEar = CreateImage(cellRect, "Inner Ear Right", new Color(1f, 0.76f, 0.78f, 0.58f));
-                Image highlight = CreateImage(cellRect, "Body Highlight", new Color(1f, 1f, 1f, 0.18f));
-                Image leftEye = CreateImage(cellRect, "Eye Left", InkColor);
-                Image rightEye = CreateImage(cellRect, "Eye Right", InkColor);
-                Image nose = CreateImage(cellRect, "Nose", new Color(0.38f, 0.23f, 0.22f, 0.62f));
-                Image mouth = CreateImage(cellRect, "Mouth", new Color(0.18f, 0.16f, 0.14f, 0.62f));
-                Image leftCheek = CreateImage(cellRect, "Cheek Left", new Color(1f, 0.47f, 0.55f, 0.2f));
-                Image rightCheek = CreateImage(cellRect, "Cheek Right", new Color(1f, 0.47f, 0.55f, 0.2f));
-                Image leftWhiskerTop = CreateImage(cellRect, "Whisker Left Top", new Color(0.18f, 0.16f, 0.14f, 0.28f));
-                Image leftWhiskerBottom = CreateImage(cellRect, "Whisker Left Bottom", new Color(0.18f, 0.16f, 0.14f, 0.24f));
-                Image rightWhiskerTop = CreateImage(cellRect, "Whisker Right Top", new Color(0.18f, 0.16f, 0.14f, 0.28f));
-                Image rightWhiskerBottom = CreateImage(cellRect, "Whisker Right Bottom", new Color(0.18f, 0.16f, 0.14f, 0.24f));
-                Image foreheadStripe = CreateImage(cellRect, "Forehead Stripe", new Color(0.18f, 0.16f, 0.14f, 0.16f));
-                Image tail = CreateImage(cellRect, "Tail", new Color(0.18f, 0.16f, 0.14f, 0.18f));
-
-                leftEar.raycastTarget = false;
-                rightEar.raycastTarget = false;
-                leftInnerEar.raycastTarget = false;
-                rightInnerEar.raycastTarget = false;
-                highlight.raycastTarget = false;
-                leftEye.raycastTarget = false;
-                rightEye.raycastTarget = false;
-                nose.raycastTarget = false;
-                mouth.raycastTarget = false;
-                leftCheek.raycastTarget = false;
-                rightCheek.raycastTarget = false;
-                leftWhiskerTop.raycastTarget = false;
-                leftWhiskerBottom.raycastTarget = false;
-                rightWhiskerTop.raycastTarget = false;
-                rightWhiskerBottom.raycastTarget = false;
-                foreheadStripe.raycastTarget = false;
-                tail.raycastTarget = false;
-                leftEar.sprite = catHeadSprite;
-                rightEar.sprite = catHeadSprite;
-                leftInnerEar.sprite = catHeadSprite;
-                rightInnerEar.sprite = catHeadSprite;
-                highlight.sprite = catHeadSprite;
-                leftEar.type = Image.Type.Simple;
-                rightEar.type = Image.Type.Simple;
-                leftInnerEar.type = Image.Type.Simple;
-                rightInnerEar.type = Image.Type.Simple;
-                leftEye.sprite = circleSprite;
-                rightEye.sprite = circleSprite;
-                nose.sprite = circleSprite;
-                mouth.sprite = mouthSprite;
-                leftCheek.sprite = circleSprite;
-                rightCheek.sprite = circleSprite;
-                tail.sprite = tailSprite;
-
-                state.CellImages.Add(body);
-                state.CatViews.Add(new CatCellView(
-                    cellRect,
-                    leftEar.rectTransform,
-                    rightEar.rectTransform,
-                    leftInnerEar.rectTransform,
-                    rightInnerEar.rectTransform,
-                    highlight.rectTransform,
-                    leftEye.rectTransform,
-                    rightEye.rectTransform,
-                    nose.rectTransform,
-                    mouth.rectTransform,
-                    leftCheek.rectTransform,
-                    rightCheek.rectTransform,
-                    leftWhiskerTop.rectTransform,
-                    leftWhiskerBottom.rectTransform,
-                    rightWhiskerTop.rectTransform,
-                    rightWhiskerBottom.rectTransform,
-                    foreheadStripe.rectTransform,
-                    tail.rectTransform));
-            }
-        }
 
         private void AttachPieceToTray(PieceState state)
         {
@@ -529,7 +395,7 @@ namespace CatBlockPuzzle
             trayScrollRect.OnEndDrag(eventData);
         }
 
-        private sealed class PieceDragView : MonoBehaviour, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler, ICancelHandler
+        private sealed class PieceDragGesture
         {
             private enum GestureMode
             {
@@ -715,7 +581,7 @@ namespace CatBlockPuzzle
                 ResetGesture();
             }
 
-            private void ResetGesture()
+            public void ResetGesture()
             {
                 pointerId = int.MinValue;
                 gestureMode = GestureMode.None;

@@ -1,0 +1,4115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fec7c590c3bd8b4cbedf508bb8089ae, type: 3}
+  m_Name: Content
+  m_EditorClassIdentifier: Assembly-CSharp::CatBlockPuzzle.CatPuzzleContentCatalog
+  levelPack:
+    version: 1
+    levels:
+    - id: level_001
+      title: Porch Box
+      difficulty: 1
+      rows: 3
+      cols: 3
+      reward: 25
+      pieces:
+      - id: l001_p1
+        name: Pickle
+        shape: l4
+        row: 0
+        col: 0
+      - id: l001_p2
+        name: Bean
+        shape: l3
+        row: 0
+        col: 1
+    - id: level_002
+      title: Window Stretch
+      difficulty: 1
+      rows: 3
+      cols: 4
+      reward: 20
+      pieces:
+      - id: l002_p1
+        name: Bean
+        shape: o4
+        row: 0
+        col: 0
+      - id: l002_p2
+        name: Nori
+        shape: l4
+        row: 0
+        col: 2
+    - id: level_003
+      title: Shelf Tunnel
+      difficulty: 1
+      rows: 4
+      cols: 4
+      reward: 25
+      pieces:
+      - id: l003_p1
+        name: Nori
+        shape: i3h
+        row: 0
+        col: 0
+      - id: l003_p2
+        name: Waffle
+        shape: o4
+        row: 2
+        col: 2
+    - id: level_004
+      title: Cardboard Cove
+      difficulty: 1
+      rows: 4
+      cols: 4
+      reward: 20
+      pieces:
+      - id: l004_p1
+        name: Waffle
+        shape: i3v
+        row: 0
+        col: 0
+      - id: l004_p2
+        name: Taffy
+        shape: i3h
+        row: 1
+        col: 1
+      - id: l004_p3
+        name: Sunny
+        shape: o4
+        row: 2
+        col: 1
+    - id: level_005
+      title: Moonlit Loft
+      difficulty: 1
+      rows: 4
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l005_p1
+        name: Taffy
+        shape: i4h
+        row: 2
+        col: 0
+      - id: l005_p2
+        name: Sunny
+        shape: i3v
+        row: 0
+        col: 4
+      - id: l005_p3
+        name: Miso
+        shape: i3h
+        row: 3
+        col: 0
+    - id: level_006
+      title: Cozy Corner
+      difficulty: 2
+      rows: 4
+      cols: 5
+      reward: 20
+      pieces:
+      - id: l006_p1
+        name: Sunny
+        shape: l3
+        row: 0
+        col: 0
+      - id: l006_p2
+        name: Miso
+        shape: i4h
+        row: 2
+        col: 0
+      - id: l006_p3
+        name: Biscuit
+        shape: i3v
+        row: 0
+        col: 4
+    - id: level_007
+      title: Tiny Basket
+      difficulty: 2
+      rows: 5
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l007_p1
+        name: Miso
+        shape: i3h
+        row: 0
+        col: 0
+      - id: l007_p2
+        name: Biscuit
+        shape: l3
+        row: 0
+        col: 3
+      - id: l007_p3
+        name: Button
+        shape: o4
+        row: 1
+        col: 0
+    - id: level_008
+      title: Soft Cushion
+      difficulty: 2
+      rows: 5
+      cols: 5
+      reward: 20
+      pieces:
+      - id: l008_p1
+        name: Biscuit
+        shape: i4v
+        row: 1
+        col: 0
+      - id: l008_p2
+        name: Button
+        shape: i3v
+        row: 1
+        col: 3
+      - id: l008_p3
+        name: Pepper
+        shape: i3h
+        row: 4
+        col: 1
+    - id: level_009
+      title: Yarn Nook
+      difficulty: 2
+      rows: 5
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l009_p1
+        name: Button
+        shape: i4h
+        row: 3
+        col: 0
+      - id: l009_p2
+        name: Pepper
+        shape: i4v
+        row: 0
+        col: 4
+      - id: l009_p3
+        name: Plum
+        shape: l4
+        row: 0
+        col: 0
+      - id: l009_p4
+        name: Olive
+        shape: i3v
+        row: 0
+        col: 2
+    - id: level_010
+      title: Sunny Mat
+      difficulty: 2
+      rows: 5
+      cols: 5
+      reward: 20
+      pieces:
+      - id: l010_p1
+        name: Pepper
+        shape: l3
+        row: 0
+        col: 0
+      - id: l010_p2
+        name: Plum
+        shape: o4
+        row: 0
+        col: 3
+      - id: l010_p3
+        name: Olive
+        shape: i4h
+        row: 2
+        col: 0
+      - id: l010_p4
+        name: Fig
+        shape: i3v
+        row: 2
+        col: 4
+    - id: level_011
+      title: Nap Shelf
+      difficulty: 2
+      rows: 5
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l011_p1
+        name: Plum
+        shape: i3v
+        row: 2
+        col: 0
+      - id: l011_p2
+        name: Olive
+        shape: i3h
+        row: 3
+        col: 1
+      - id: l011_p3
+        name: Fig
+        shape: l3
+        row: 0
+        col: 0
+      - id: l011_p4
+        name: Maple
+        shape: i4h
+        row: 2
+        col: 1
+    - id: level_012
+      title: First Real Fit
+      difficulty: 3
+      rows: 5
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l012_p1
+        name: Olive
+        shape: i4h
+        row: 0
+        col: 0
+      - id: l012_p2
+        name: Fig
+        shape: l4
+        row: 1
+        col: 0
+      - id: l012_p3
+        name: Maple
+        shape: o4
+        row: 2
+        col: 2
+      - id: l012_p4
+        name: Clover
+        shape: i3h
+        row: 4
+        col: 1
+    - id: level_013
+      title: Window 3
+      difficulty: 3
+      rows: 4
+      cols: 5
+      reward: 30
+      pieces:
+      - id: l013_p1
+        name: Fig
+        shape: l4Top
+        row: 2
+        col: 0
+      - id: l013_p2
+        name: Maple
+        shape: o4
+        row: 0
+        col: 0
+      - id: l013_p3
+        name: Clover
+        shape: t4
+        row: 1
+        col: 2
+      - id: l013_p4
+        name: Sprout
+        shape: i3h
+        row: 0
+        col: 2
+    - id: level_014
+      title: Window 4
+      difficulty: 3
+      rows: 5
+      cols: 5
+      reward: 35
+      pieces:
+      - id: l014_p1
+        name: Maple
+        shape: z4
+        row: 3
+        col: 0
+      - id: l014_p2
+        name: Clover
+        shape: i3h
+        row: 0
+        col: 0
+      - id: l014_p3
+        name: Sprout
+        shape: i4h
+        row: 1
+        col: 0
+      - id: l014_p4
+        name: Toast
+        shape: i4v
+        row: 0
+        col: 4
+    - id: level_015
+      title: Window 5
+      difficulty: 3
+      rows: 5
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l015_p1
+        name: Clover
+        shape: l3
+        row: 0
+        col: 0
+      - id: l015_p2
+        name: Sprout
+        shape: l4
+        row: 0
+        col: 3
+      - id: l015_p3
+        name: Toast
+        shape: j4
+        row: 1
+        col: 1
+      - id: l015_p4
+        name: Poppy
+        shape: o4
+        row: 3
+        col: 3
+    - id: level_016
+      title: Window 6
+      difficulty: 3
+      rows: 5
+      cols: 6
+      reward: 30
+      pieces:
+      - id: l016_p1
+        name: Sprout
+        shape: t4
+        row: 2
+        col: 0
+      - id: l016_p2
+        name: Toast
+        shape: s4
+        row: 1
+        col: 3
+      - id: l016_p3
+        name: Poppy
+        shape: z4
+        row: 3
+        col: 2
+      - id: l016_p4
+        name: Mint
+        shape: i3v
+        row: 2
+        col: 5
+    - id: level_017
+      title: Window 7
+      difficulty: 3
+      rows: 4
+      cols: 5
+      reward: 35
+      pieces:
+      - id: l017_p1
+        name: Toast
+        shape: l3
+        row: 0
+        col: 0
+      - id: l017_p2
+        name: Poppy
+        shape: l4
+        row: 0
+        col: 2
+      - id: l017_p3
+        name: Mint
+        shape: j4
+        row: 1
+        col: 3
+      - id: l017_p4
+        name: Chili
+        shape: o4
+        row: 2
+        col: 0
+    - id: level_018
+      title: Window 8
+      difficulty: 3
+      rows: 5
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l018_p1
+        name: Poppy
+        shape: o4
+        row: 1
+        col: 0
+      - id: l018_p2
+        name: Mint
+        shape: t4
+        row: 2
+        col: 2
+      - id: l018_p3
+        name: Chili
+        shape: s4
+        row: 3
+        col: 0
+      - id: l018_p4
+        name: Pearl
+        shape: i3h
+        row: 0
+        col: 1
+    - id: level_019
+      title: Window 9
+      difficulty: 4
+      rows: 5
+      cols: 5
+      reward: 30
+      pieces:
+      - id: l019_p1
+        name: Mint
+        shape: i3h
+        row: 3
+        col: 0
+      - id: l019_p2
+        name: Chili
+        shape: i4h
+        row: 4
+        col: 0
+      - id: l019_p3
+        name: Pearl
+        shape: i4v
+        row: 0
+        col: 3
+      - id: l019_p4
+        name: Socks
+        shape: l3
+        row: 0
+        col: 0
+    - id: level_020
+      title: Window 10
+      difficulty: 4
+      rows: 5
+      cols: 6
+      reward: 35
+      pieces:
+      - id: l020_p1
+        name: Chili
+        shape: l4Top
+        row: 3
+        col: 2
+      - id: l020_p2
+        name: Pearl
+        shape: j4
+        row: 0
+        col: 0
+      - id: l020_p3
+        name: Socks
+        shape: o4
+        row: 0
+        col: 2
+      - id: l020_p4
+        name: Ribbon
+        shape: o4
+        row: 3
+        col: 0
+    - id: level_021
+      title: Shelf 1
+      difficulty: 4
+      rows: 4
+      cols: 5
+      reward: 25
+      pieces:
+      - id: l021_p1
+        name: Pearl
+        shape: i3v
+        row: 0
+        col: 0
+      - id: l021_p2
+        name: Socks
+        shape: i3h
+        row: 0
+        col: 1
+      - id: l021_p3
+        name: Ribbon
+        shape: i4h
+        row: 1
+        col: 1
+      - id: l021_p4
+        name: Jelly
+        shape: l4Top
+        row: 2
+        col: 1
+    - id: level_022
+      title: Shelf 2
+      difficulty: 4
+      rows: 5
+      cols: 5
+      reward: 30
+      pieces:
+      - id: l022_p1
+        name: Socks
+        shape: l3
+        row: 0
+        col: 0
+      - id: l022_p2
+        name: Ribbon
+        shape: l4
+        row: 0
+        col: 2
+      - id: l022_p3
+        name: Jelly
+        shape: j4
+        row: 1
+        col: 3
+      - id: l022_p4
+        name: Pumpkin
+        shape: o4
+        row: 2
+        col: 0
+    - id: level_023
+      title: Shelf 3
+      difficulty: 4
+      rows: 5
+      cols: 5
+      reward: 35
+      pieces:
+      - id: l023_p1
+        name: Ribbon
+        shape: t4
+        row: 1
+        col: 0
+      - id: l023_p2
+        name: Jelly
+        shape: z4
+        row: 2
+        col: 2
+      - id: l023_p3
+        name: Pumpkin
+        shape: i3v
+        row: 0
+        col: 4
+      - id: l023_p4
+        name: Mango
+        shape: i3h
+        row: 3
+        col: 0
+    - id: level_024
+      title: Shelf 4
+      difficulty: 4
+      rows: 5
+      cols: 6
+      reward: 25
+      pieces:
+      - id: l024_p1
+        name: Jelly
+        shape: i4h
+        row: 0
+        col: 0
+      - id: l024_p2
+        name: Pumpkin
+        shape: i4v
+        row: 0
+        col: 4
+      - id: l024_p3
+        name: Mango
+        shape: l3
+        row: 1
+        col: 0
+      - id: l024_p4
+        name: Fudge
+        shape: l4
+        row: 1
+        col: 2
+    - id: level_025
+      title: Shelf 5
+      difficulty: 4
+      rows: 4
+      cols: 5
+      reward: 30
+      pieces:
+      - id: l025_p1
+        name: Pumpkin
+        shape: o4
+        row: 2
+        col: 0
+      - id: l025_p2
+        name: Mango
+        shape: s4
+        row: 0
+        col: 0
+      - id: l025_p3
+        name: Fudge
+        shape: z4
+        row: 1
+        col: 2
+      - id: l025_p4
+        name: Pebble
+        shape: i3h
+        row: 3
+        col: 2
+    - id: level_026
+      title: Shelf 6
+      difficulty: 4
+      rows: 5
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l026_p1
+        name: Mango
+        shape: t5
+        row: 0
+        col: 0
+      - id: l026_p2
+        name: Fudge
+        shape: s4
+        row: 3
+        col: 0
+      - id: l026_p3
+        name: Pebble
+        shape: z4
+        row: 3
+        col: 3
+      - id: l026_p4
+        name: Noodle
+        shape: i3h
+        row: 0
+        col: 2
+    - id: level_027
+      title: Shelf 7
+      difficulty: 4
+      rows: 6
+      cols: 5
+      reward: 50
+      pieces:
+      - id: l027_p1
+        name: Fudge
+        shape: i4h
+        row: 0
+        col: 0
+      - id: l027_p2
+        name: Pebble
+        shape: i4v
+        row: 0
+        col: 4
+      - id: l027_p3
+        name: Noodle
+        shape: l4
+        row: 2
+        col: 0
+      - id: l027_p4
+        name: Tuna
+        shape: l4
+        row: 1
+        col: 1
+    - id: level_028
+      title: Shelf 8
+      difficulty: 4
+      rows: 6
+      cols: 6
+      reward: 35
+      pieces:
+      - id: l028_p1
+        name: Pebble
+        shape: l4Corner
+        row: 0
+        col: 0
+      - id: l028_p2
+        name: Noodle
+        shape: j4
+        row: 3
+        col: 2
+      - id: l028_p3
+        name: Tuna
+        shape: j4
+        row: 2
+        col: 0
+      - id: l028_p4
+        name: Boba
+        shape: o4
+        row: 0
+        col: 4
+    - id: level_029
+      title: Shelf 9
+      difficulty: 4
+      rows: 5
+      cols: 5
+      reward: 40
+      pieces:
+      - id: l029_p1
+        name: Noodle
+        shape: s4
+        row: 3
+        col: 0
+      - id: l029_p2
+        name: Tuna
+        shape: z4
+        row: 0
+        col: 0
+      - id: l029_p3
+        name: Boba
+        shape: i3h
+        row: 2
+        col: 0
+      - id: l029_p4
+        name: Sesame
+        shape: i3h
+        row: 0
+        col: 2
+    - id: level_030
+      title: Shelf 10
+      difficulty: 4
+      rows: 5
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l030_p1
+        name: Tuna
+        shape: i4v
+        row: 0
+        col: 0
+      - id: l030_p2
+        name: Boba
+        shape: i5h
+        row: 0
+        col: 1
+      - id: l030_p3
+        name: Sesame
+        shape: l4
+        row: 1
+        col: 1
+      - id: l030_p4
+        name: Peanut
+        shape: l4Top
+        row: 1
+        col: 2
+    - id: level_031
+      title: Cardboard 1
+      difficulty: 4
+      rows: 6
+      cols: 5
+      reward: 50
+      pieces:
+      - id: l031_p1
+        name: Boba
+        shape: j4
+        row: 2
+        col: 0
+      - id: l031_p2
+        name: Sesame
+        shape: o4
+        row: 1
+        col: 3
+      - id: l031_p3
+        name: Peanut
+        shape: p5
+        row: 3
+        col: 2
+      - id: l031_p4
+        name: Cookie
+        shape: t4
+        row: 0
+        col: 0
+    - id: level_032
+      title: Cardboard 2
+      difficulty: 4
+      rows: 6
+      cols: 6
+      reward: 35
+      pieces:
+      - id: l032_p1
+        name: Sesame
+        shape: t5
+        row: 0
+        col: 0
+      - id: l032_p2
+        name: Peanut
+        shape: s4
+        row: 4
+        col: 0
+      - id: l032_p3
+        name: Cookie
+        shape: z4
+        row: 3
+        col: 2
+      - id: l032_p4
+        name: Cocoa
+        shape: i3v
+        row: 1
+        col: 4
+    - id: level_033
+      title: Cardboard 3
+      difficulty: 4
+      rows: 5
+      cols: 5
+      reward: 40
+      pieces:
+      - id: l033_p1
+        name: Peanut
+        shape: i4v
+        row: 1
+        col: 0
+      - id: l033_p2
+        name: Cookie
+        shape: l4
+        row: 1
+        col: 3
+      - id: l033_p3
+        name: Cocoa
+        shape: l4Top
+        row: 0
+        col: 0
+      - id: l033_p4
+        name: Latte
+        shape: l4Corner
+        row: 3
+        col: 1
+    - id: level_034
+      title: Cardboard 4
+      difficulty: 4
+      rows: 5
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l034_p1
+        name: Cookie
+        shape: j4
+        row: 1
+        col: 4
+      - id: l034_p2
+        name: Cocoa
+        shape: o4
+        row: 1
+        col: 2
+      - id: l034_p3
+        name: Latte
+        shape: p5
+        row: 1
+        col: 0
+      - id: l034_p4
+        name: Peach
+        shape: s4
+        row: 3
+        col: 1
+      - id: l034_p5
+        name: Berry
+        shape: i3v
+        row: 0
+        col: 4
+    - id: level_035
+      title: Cardboard 5
+      difficulty: 4
+      rows: 6
+      cols: 5
+      reward: 50
+      pieces:
+      - id: l035_p1
+        name: Cocoa
+        shape: s4
+        row: 4
+        col: 0
+      - id: l035_p2
+        name: Latte
+        shape: z4
+        row: 0
+        col: 0
+      - id: l035_p3
+        name: Peach
+        shape: i3v
+        row: 3
+        col: 3
+      - id: l035_p4
+        name: Berry
+        shape: i3h
+        row: 3
+        col: 0
+      - id: l035_p5
+        name: Muffin
+        shape: i4v
+        row: 1
+        col: 4
+    - id: level_036
+      title: Cardboard 6
+      difficulty: 5
+      rows: 6
+      cols: 6
+      reward: 35
+      pieces:
+      - id: l036_p1
+        name: Latte
+        shape: i4v
+        row: 0
+        col: 0
+      - id: l036_p2
+        name: Peach
+        shape: i5h
+        row: 0
+        col: 1
+      - id: l036_p3
+        name: Berry
+        shape: i5h
+        row: 4
+        col: 0
+      - id: l036_p4
+        name: Muffin
+        shape: l4Top
+        row: 1
+        col: 1
+      - id: l036_p5
+        name: Dumpling
+        shape: l4Top
+        row: 3
+        col: 3
+    - id: level_037
+      title: Cardboard 7
+      difficulty: 5
+      rows: 5
+      cols: 5
+      reward: 40
+      pieces:
+      - id: l037_p1
+        name: Peach
+        shape: o4
+        row: 0
+        col: 0
+      - id: l037_p2
+        name: Berry
+        shape: p5
+        row: 0
+        col: 2
+      - id: l037_p3
+        name: Muffin
+        shape: t5
+        row: 2
+        col: 0
+      - id: l037_p4
+        name: Dumpling
+        shape: s4
+        row: 3
+        col: 2
+      - id: l037_p5
+        name: Pudding
+        shape: i3v
+        row: 0
+        col: 4
+    - id: level_038
+      title: Cardboard 8
+      difficulty: 5
+      rows: 5
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l038_p1
+        name: Berry
+        shape: s4
+        row: 3
+        col: 2
+      - id: l038_p2
+        name: Muffin
+        shape: i3v
+        row: 0
+        col: 0
+      - id: l038_p3
+        name: Dumpling
+        shape: i3v
+        row: 2
+        col: 5
+      - id: l038_p4
+        name: Pudding
+        shape: i3h
+        row: 2
+        col: 2
+      - id: l038_p5
+        name: Honey
+        shape: i4v
+        row: 0
+        col: 1
+    - id: level_039
+      title: Cardboard 9
+      difficulty: 5
+      rows: 6
+      cols: 5
+      reward: 50
+      pieces:
+      - id: l039_p1
+        name: Muffin
+        shape: i4v
+        row: 0
+        col: 0
+      - id: l039_p2
+        name: Dumpling
+        shape: l4
+        row: 0
+        col: 3
+      - id: l039_p3
+        name: Pudding
+        shape: l4
+        row: 0
+        col: 1
+      - id: l039_p4
+        name: Honey
+        shape: l4Corner
+        row: 3
+        col: 1
+      - id: l039_p5
+        name: Ginger
+        shape: j4
+        row: 3
+        col: 3
+    - id: level_040
+      title: Cardboard 10
+      difficulty: 5
+      rows: 6
+      cols: 6
+      reward: 35
+      pieces:
+      - id: l040_p1
+        name: Dumpling
+        shape: j4
+        row: 0
+        col: 4
+      - id: l040_p2
+        name: Pudding
+        shape: o4
+        row: 0
+        col: 0
+      - id: l040_p3
+        name: Honey
+        shape: o4
+        row: 4
+        col: 0
+      - id: l040_p4
+        name: Ginger
+        shape: p5
+        row: 3
+        col: 2
+      - id: l040_p5
+        name: Basil
+        shape: t4
+        row: 1
+        col: 2
+    - id: level_041
+      title: Moonlit 1
+      difficulty: 5
+      rows: 5
+      cols: 5
+      reward: 40
+      pieces:
+      - id: l041_p1
+        name: Pudding
+        shape: z4
+        row: 2
+        col: 0
+      - id: l041_p2
+        name: Honey
+        shape: i3h
+        row: 4
+        col: 0
+      - id: l041_p3
+        name: Ginger
+        shape: i4h
+        row: 0
+        col: 0
+      - id: l041_p4
+        name: Basil
+        shape: i4v
+        row: 0
+        col: 4
+      - id: l041_p5
+        name: Taco
+        shape: l4
+        row: 2
+        col: 3
+    - id: level_042
+      title: Moonlit 2
+      difficulty: 5
+      rows: 5
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l042_p1
+        name: Honey
+        shape: i5h
+        row: 0
+        col: 0
+      - id: l042_p2
+        name: Ginger
+        shape: l4
+        row: 1
+        col: 0
+      - id: l042_p3
+        name: Basil
+        shape: l4Top
+        row: 1
+        col: 1
+      - id: l042_p4
+        name: Taco
+        shape: l4Corner
+        row: 2
+        col: 2
+      - id: l042_p5
+        name: Mimi
+        shape: j4
+        row: 0
+        col: 4
+    - id: level_043
+      title: Moonlit 3
+      difficulty: 5
+      rows: 6
+      cols: 5
+      reward: 50
+      pieces:
+      - id: l043_p1
+        name: Ginger
+        shape: o4
+        row: 2
+        col: 0
+      - id: l043_p2
+        name: Basil
+        shape: p5
+        row: 1
+        col: 3
+      - id: l043_p3
+        name: Taco
+        shape: t4
+        row: 4
+        col: 0
+      - id: l043_p4
+        name: Mimi
+        shape: s4
+        row: 0
+        col: 1
+      - id: l043_p5
+        name: Kiki
+        shape: s4
+        row: 4
+        col: 2
+    - id: level_044
+      title: Moonlit 4
+      difficulty: 5
+      rows: 6
+      cols: 6
+      reward: 35
+      pieces:
+      - id: l044_p1
+        name: Basil
+        shape: s4
+        row: 1
+        col: 2
+      - id: l044_p2
+        name: Taco
+        shape: z4
+        row: 0
+        col: 0
+      - id: l044_p3
+        name: Mimi
+        shape: i3v
+        row: 0
+        col: 5
+      - id: l044_p4
+        name: Kiki
+        shape: i3h
+        row: 3
+        col: 2
+      - id: l044_p5
+        name: Lulu
+        shape: i4h
+        row: 4
+        col: 0
+    - id: level_045
+      title: Moonlit 5
+      difficulty: 5
+      rows: 5
+      cols: 5
+      reward: 40
+      pieces:
+      - id: l045_p1
+        name: Taco
+        shape: l4
+        row: 0
+        col: 0
+      - id: l045_p2
+        name: Mimi
+        shape: l4Top
+        row: 1
+        col: 1
+      - id: l045_p3
+        name: Kiki
+        shape: l4Corner
+        row: 2
+        col: 2
+      - id: l045_p4
+        name: Lulu
+        shape: o4
+        row: 3
+        col: 0
+      - id: l045_p5
+        name: Yuzu
+        shape: i3v
+        row: 0
+        col: 4
+    - id: level_046
+      title: Moonlit 6
+      difficulty: 5
+      rows: 5
+      cols: 6
+      reward: 55
+      pieces:
+      - id: l046_p1
+        name: Mimi
+        shape: z4
+        row: 2
+        col: 0
+      - id: l046_p2
+        name: Kiki
+        shape: s5
+        row: 1
+        col: 3
+      - id: l046_p3
+        name: Lulu
+        shape: u5
+        row: 0
+        col: 0
+      - id: l046_p4
+        name: Yuzu
+        shape: i4h
+        row: 4
+        col: 0
+      - id: l046_p5
+        name: Mochi
+        shape: j4
+        row: 2
+        col: 4
+    - id: level_047
+      title: Moonlit 7
+      difficulty: 5
+      rows: 6
+      cols: 6
+      reward: 60
+      pieces:
+      - id: l047_p1
+        name: Kiki
+        shape: i4h
+        row: 0
+        col: 2
+      - id: l047_p2
+        name: Lulu
+        shape: i4v
+        row: 0
+        col: 0
+      - id: l047_p3
+        name: Yuzu
+        shape: i5h
+        row: 4
+        col: 0
+      - id: l047_p4
+        name: Mochi
+        shape: l4
+        row: 0
+        col: 1
+      - id: l047_p5
+        name: Pickle
+        shape: l4Top
+        row: 1
+        col: 2
+    - id: level_048
+      title: Moonlit 8
+      difficulty: 5
+      rows: 6
+      cols: 7
+      reward: 45
+      pieces:
+      - id: l048_p1
+        name: Lulu
+        shape: l4Corner
+        row: 2
+        col: 4
+      - id: l048_p2
+        name: Yuzu
+        shape: j4
+        row: 0
+        col: 5
+      - id: l048_p3
+        name: Mochi
+        shape: l5
+        row: 0
+        col: 0
+      - id: l048_p4
+        name: Pickle
+        shape: l5Top
+        row: 0
+        col: 1
+      - id: l048_p5
+        name: Bean
+        shape: l5Top
+        row: 4
+        col: 0
+    - id: level_049
+      title: Moonlit 9
+      difficulty: 5
+      rows: 5
+      cols: 6
+      reward: 50
+      pieces:
+      - id: l049_p1
+        name: Yuzu
+        shape: t5
+        row: 2
+        col: 0
+      - id: l049_p2
+        name: Mochi
+        shape: s4
+        row: 1
+        col: 2
+      - id: l049_p3
+        name: Pickle
+        shape: s5
+        row: 2
+        col: 3
+      - id: l049_p4
+        name: Bean
+        shape: u5
+        row: 0
+        col: 0
+      - id: l049_p5
+        name: Nori
+        shape: l4Top
+        row: 0
+        col: 3
+    - id: level_050
+      title: Moonlit 10
+      difficulty: 5
+      rows: 6
+      cols: 6
+      reward: 55
+      pieces:
+      - id: l050_p1
+        name: Mochi
+        shape: u5
+        row: 0
+        col: 0
+      - id: l050_p2
+        name: Pickle
+        shape: u5
+        row: 4
+        col: 0
+      - id: l050_p3
+        name: Bean
+        shape: i4h
+        row: 3
+        col: 0
+      - id: l050_p4
+        name: Nori
+        shape: i4v
+        row: 1
+        col: 4
+      - id: l050_p5
+        name: Waffle
+        shape: l4Top
+        row: 0
+        col: 3
+    - id: level_051
+      title: Cafe 1
+      difficulty: 5
+      rows: 6
+      cols: 7
+      reward: 60
+      pieces:
+      - id: l051_p1
+        name: Pickle
+        shape: l4
+        row: 1
+        col: 0
+      - id: l051_p2
+        name: Bean
+        shape: l4Top
+        row: 0
+        col: 0
+      - id: l051_p3
+        name: Nori
+        shape: l4Corner
+        row: 3
+        col: 2
+      - id: l051_p4
+        name: Waffle
+        shape: l4Corner
+        row: 1
+        col: 1
+      - id: l051_p5
+        name: Taffy
+        shape: j4
+        row: 0
+        col: 4
+    - id: level_052
+      title: Cafe 2
+      difficulty: 5
+      rows: 5
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l052_p1
+        name: Bean
+        shape: p5
+        row: 1
+        col: 4
+      - id: l052_p2
+        name: Nori
+        shape: t5
+        row: 2
+        col: 0
+      - id: l052_p3
+        name: Waffle
+        shape: s4
+        row: 3
+        col: 2
+      - id: l052_p4
+        name: Taffy
+        shape: z4
+        row: 1
+        col: 1
+      - id: l052_p5
+        name: Sunny
+        shape: i4h
+        row: 0
+        col: 0
+    - id: level_053
+      title: Cafe 3
+      difficulty: 5
+      rows: 6
+      cols: 6
+      reward: 50
+      pieces:
+      - id: l053_p1
+        name: Nori
+        shape: s5
+        row: 0
+        col: 0
+      - id: l053_p2
+        name: Waffle
+        shape: z5
+        row: 3
+        col: 0
+      - id: l053_p3
+        name: Taffy
+        shape: u5
+        row: 2
+        col: 2
+      - id: l053_p4
+        name: Sunny
+        shape: u5
+        row: 0
+        col: 3
+      - id: l053_p5
+        name: Miso
+        shape: i4v
+        row: 2
+        col: 5
+    - id: level_054
+      title: Cafe 4
+      difficulty: 5
+      rows: 6
+      cols: 7
+      reward: 55
+      pieces:
+      - id: l054_p1
+        name: Waffle
+        shape: i5h
+        row: 0
+        col: 0
+      - id: l054_p2
+        name: Taffy
+        shape: i5h
+        row: 3
+        col: 1
+      - id: l054_p3
+        name: Sunny
+        shape: l4
+        row: 2
+        col: 0
+      - id: l054_p4
+        name: Miso
+        shape: l4Top
+        row: 1
+        col: 0
+      - id: l054_p5
+        name: Biscuit
+        shape: l4Top
+        row: 4
+        col: 2
+    - id: level_055
+      title: Cafe 5
+      difficulty: 6
+      rows: 5
+      cols: 6
+      reward: 60
+      pieces:
+      - id: l055_p1
+        name: Taffy
+        shape: l5Top
+        row: 2
+        col: 0
+      - id: l055_p2
+        name: Sunny
+        shape: o4
+        row: 1
+        col: 4
+      - id: l055_p3
+        name: Miso
+        shape: s4
+        row: 0
+        col: 0
+      - id: l055_p4
+        name: Biscuit
+        shape: s4
+        row: 0
+        col: 2
+      - id: l055_p5
+        name: Button
+        shape: s4
+        row: 3
+        col: 0
+    - id: level_056
+      title: Cafe 6
+      difficulty: 6
+      rows: 6
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l056_p1
+        name: Sunny
+        shape: s4
+        row: 3
+        col: 2
+      - id: l056_p2
+        name: Miso
+        shape: z4
+        row: 2
+        col: 0
+      - id: l056_p3
+        name: Biscuit
+        shape: z5
+        row: 0
+        col: 0
+      - id: l056_p4
+        name: Button
+        shape: z5
+        row: 0
+        col: 2
+      - id: l056_p5
+        name: Pepper
+        shape: i4h
+        row: 5
+        col: 2
+      - id: l056_p6
+        name: Plum
+        shape: i4v
+        row: 0
+        col: 5
+    - id: level_057
+      title: Cafe 7
+      difficulty: 6
+      rows: 6
+      cols: 7
+      reward: 50
+      pieces:
+      - id: l057_p1
+        name: Miso
+        shape: i4h
+        row: 3
+        col: 3
+      - id: l057_p2
+        name: Biscuit
+        shape: i4h
+        row: 1
+        col: 3
+      - id: l057_p3
+        name: Button
+        shape: i4v
+        row: 0
+        col: 0
+      - id: l057_p4
+        name: Pepper
+        shape: i5h
+        row: 4
+        col: 0
+      - id: l057_p5
+        name: Plum
+        shape: i5h
+        row: 2
+        col: 1
+      - id: l057_p6
+        name: Olive
+        shape: o4
+        row: 4
+        col: 5
+    - id: level_058
+      title: Cafe 8
+      difficulty: 6
+      rows: 5
+      cols: 6
+      reward: 55
+      pieces:
+      - id: l058_p1
+        name: Biscuit
+        shape: j4
+        row: 1
+        col: 4
+      - id: l058_p2
+        name: Button
+        shape: l5
+        row: 1
+        col: 2
+      - id: l058_p3
+        name: Pepper
+        shape: o4
+        row: 3
+        col: 0
+      - id: l058_p4
+        name: Plum
+        shape: o4
+        row: 1
+        col: 0
+      - id: l058_p5
+        name: Olive
+        shape: p5
+        row: 0
+        col: 3
+      - id: l058_p6
+        name: Fig
+        shape: i3h
+        row: 0
+        col: 0
+    - id: level_059
+      title: Cafe 9
+      difficulty: 6
+      rows: 6
+      cols: 6
+      reward: 60
+      pieces:
+      - id: l059_p1
+        name: Button
+        shape: p5
+        row: 2
+        col: 2
+      - id: l059_p2
+        name: Pepper
+        shape: s4
+        row: 4
+        col: 0
+      - id: l059_p3
+        name: Plum
+        shape: s4
+        row: 0
+        col: 0
+      - id: l059_p4
+        name: Olive
+        shape: z4
+        row: 0
+        col: 3
+      - id: l059_p5
+        name: Fig
+        shape: i4h
+        row: 5
+        col: 2
+      - id: l059_p6
+        name: Maple
+        shape: l4
+        row: 2
+        col: 4
+    - id: level_060
+      title: Cafe 10
+      difficulty: 6
+      rows: 6
+      cols: 7
+      reward: 45
+      pieces:
+      - id: l060_p1
+        name: Pepper
+        shape: z5
+        row: 2
+        col: 0
+      - id: l060_p2
+        name: Plum
+        shape: u5
+        row: 0
+        col: 0
+      - id: l060_p3
+        name: Olive
+        shape: u5
+        row: 4
+        col: 1
+      - id: l060_p4
+        name: Fig
+        shape: i4h
+        row: 2
+        col: 2
+      - id: l060_p5
+        name: Maple
+        shape: i4v
+        row: 0
+        col: 6
+      - id: l060_p6
+        name: Clover
+        shape: l4
+        row: 3
+        col: 4
+    - id: level_061
+      title: Garden 1
+      difficulty: 6
+      rows: 5
+      cols: 6
+      reward: 50
+      pieces:
+      - id: l061_p1
+        name: Plum
+        shape: l4Corner
+        row: 2
+        col: 0
+      - id: l061_p2
+        name: Olive
+        shape: j4
+        row: 1
+        col: 3
+      - id: l061_p3
+        name: Fig
+        shape: l5Top
+        row: 0
+        col: 0
+      - id: l061_p4
+        name: Maple
+        shape: o4
+        row: 1
+        col: 1
+      - id: l061_p5
+        name: Clover
+        shape: i3h
+        row: 4
+        col: 0
+      - id: l061_p6
+        name: Sprout
+        shape: i3h
+        row: 4
+        col: 3
+    - id: level_062
+      title: Garden 2
+      difficulty: 6
+      rows: 6
+      cols: 6
+      reward: 55
+      pieces:
+      - id: l062_p1
+        name: Olive
+        shape: o4
+        row: 1
+        col: 2
+      - id: l062_p2
+        name: Fig
+        shape: o4
+        row: 0
+        col: 0
+      - id: l062_p3
+        name: Maple
+        shape: t5
+        row: 2
+        col: 0
+      - id: l062_p4
+        name: Clover
+        shape: t5
+        row: 3
+        col: 2
+      - id: l062_p5
+        name: Sprout
+        shape: z4
+        row: 0
+        col: 3
+      - id: l062_p6
+        name: Toast
+        shape: i4v
+        row: 2
+        col: 5
+    - id: level_063
+      title: Garden 3
+      difficulty: 6
+      rows: 6
+      cols: 7
+      reward: 60
+      pieces:
+      - id: l063_p1
+        name: Fig
+        shape: z4
+        row: 0
+        col: 0
+      - id: l063_p2
+        name: Maple
+        shape: s5
+        row: 0
+        col: 3
+      - id: l063_p3
+        name: Clover
+        shape: s5
+        row: 2
+        col: 0
+      - id: l063_p4
+        name: Sprout
+        shape: z5
+        row: 2
+        col: 4
+      - id: l063_p5
+        name: Toast
+        shape: u5
+        row: 4
+        col: 1
+      - id: l063_p6
+        name: Poppy
+        shape: l4
+        row: 3
+        col: 4
+    - id: level_064
+      title: Garden 4
+      difficulty: 6
+      rows: 5
+      cols: 6
+      reward: 45
+      pieces:
+      - id: l064_p1
+        name: Maple
+        shape: l4
+        row: 1
+        col: 4
+      - id: l064_p2
+        name: Clover
+        shape: l4Top
+        row: 2
+        col: 0
+      - id: l064_p3
+        name: Sprout
+        shape: l4Corner
+        row: 3
+        col: 0
+      - id: l064_p4
+        name: Toast
+        shape: l5
+        row: 1
+        col: 3
+      - id: l064_p5
+        name: Poppy
+        shape: l5Top
+        row: 0
+        col: 2
+      - id: l064_p6
+        name: Mint
+        shape: o4
+        row: 0
+        col: 0
+    - id: level_065
+      title: Garden 5
+      difficulty: 6
+      rows: 6
+      cols: 6
+      reward: 50
+      pieces:
+      - id: l065_p1
+        name: Clover
+        shape: l5
+        row: 0
+        col: 2
+      - id: l065_p2
+        name: Sprout
+        shape: o4
+        row: 4
+        col: 0
+      - id: l065_p3
+        name: Toast
+        shape: o4
+        row: 4
+        col: 2
+      - id: l065_p4
+        name: Poppy
+        shape: o4
+        row: 2
+        col: 4
+      - id: l065_p5
+        name: Mint
+        shape: p5
+        row: 1
+        col: 0
+      - id: l065_p6
+        name: Chili
+        shape: s4
+        row: 0
+        col: 3
+    - id: level_066
+      title: Garden 6
+      difficulty: 6
+      rows: 7
+      cols: 8
+      reward: 60
+      pieces:
+      - id: l066_p1
+        name: Sprout
+        shape: s4
+        row: 5
+        col: 4
+      - id: l066_p2
+        name: Toast
+        shape: z4
+        row: 2
+        col: 0
+      - id: l066_p3
+        name: Poppy
+        shape: z4
+        row: 0
+        col: 0
+      - id: l066_p4
+        name: Mint
+        shape: s5
+        row: 2
+        col: 3
+      - id: l066_p5
+        name: Chili
+        shape: s5
+        row: 0
+        col: 3
+      - id: l066_p6
+        name: Pearl
+        shape: z5
+        row: 3
+        col: 5
+    - id: level_067
+      title: Garden 7
+      difficulty: 6
+      rows: 6
+      cols: 7
+      reward: 65
+      pieces:
+      - id: l067_p1
+        name: Toast
+        shape: stair5
+        row: 0
+        col: 0
+      - id: l067_p2
+        name: Poppy
+        shape: i4h
+        row: 4
+        col: 0
+      - id: l067_p3
+        name: Mint
+        shape: i4v
+        row: 1
+        col: 5
+      - id: l067_p4
+        name: Chili
+        shape: i4v
+        row: 0
+        col: 3
+      - id: l067_p5
+        name: Pearl
+        shape: i5h
+        row: 5
+        col: 0
+      - id: l067_p6
+        name: Socks
+        shape: l4Top
+        row: 0
+        col: 4
+    - id: level_068
+      title: Garden 8
+      difficulty: 6
+      rows: 7
+      cols: 7
+      reward: 70
+      pieces:
+      - id: l068_p1
+        name: Poppy
+        shape: l4Top
+        row: 0
+        col: 0
+      - id: l068_p2
+        name: Mint
+        shape: l4Top
+        row: 3
+        col: 1
+      - id: l068_p3
+        name: Chili
+        shape: l4Corner
+        row: 0
+        col: 3
+      - id: l068_p4
+        name: Pearl
+        shape: l4Corner
+        row: 4
+        col: 1
+      - id: l068_p5
+        name: Socks
+        shape: j4
+        row: 1
+        col: 5
+      - id: l068_p6
+        name: Ribbon
+        shape: l5
+        row: 2
+        col: 4
+    - id: level_069
+      title: Garden 9
+      difficulty: 6
+      rows: 7
+      cols: 8
+      reward: 75
+      pieces:
+      - id: l069_p1
+        name: Mint
+        shape: l5Top
+        row: 2
+        col: 2
+      - id: l069_p2
+        name: Chili
+        shape: o4
+        row: 5
+        col: 6
+      - id: l069_p3
+        name: Pearl
+        shape: o4
+        row: 2
+        col: 6
+      - id: l069_p4
+        name: Socks
+        shape: p5
+        row: 0
+        col: 0
+      - id: l069_p5
+        name: Ribbon
+        shape: p5
+        row: 3
+        col: 0
+      - id: l069_p6
+        name: Jelly
+        shape: t4
+        row: 0
+        col: 2
+    - id: level_070
+      title: Garden 10
+      difficulty: 6
+      rows: 6
+      cols: 7
+      reward: 55
+      pieces:
+      - id: l070_p1
+        name: Chili
+        shape: s5
+        row: 0
+        col: 0
+      - id: l070_p2
+        name: Pearl
+        shape: s5
+        row: 2
+        col: 0
+      - id: l070_p3
+        name: Socks
+        shape: z5
+        row: 0
+        col: 3
+      - id: l070_p4
+        name: Ribbon
+        shape: u5
+        row: 4
+        col: 1
+      - id: l070_p5
+        name: Jelly
+        shape: u5
+        row: 2
+        col: 4
+      - id: l070_p6
+        name: Pumpkin
+        shape: l4Top
+        row: 4
+        col: 4
+    - id: level_071
+      title: Rooftop 1
+      difficulty: 6
+      rows: 7
+      cols: 7
+      reward: 60
+      pieces:
+      - id: l071_p1
+        name: Pearl
+        shape: stair5
+        row: 3
+        col: 3
+      - id: l071_p2
+        name: Socks
+        shape: stair5
+        row: 0
+        col: 3
+      - id: l071_p3
+        name: Ribbon
+        shape: i4h
+        row: 5
+        col: 0
+      - id: l071_p4
+        name: Jelly
+        shape: i4v
+        row: 1
+        col: 6
+      - id: l071_p5
+        name: Pumpkin
+        shape: i4v
+        row: 0
+        col: 0
+      - id: l071_p6
+        name: Mango
+        shape: i5h
+        row: 6
+        col: 0
+    - id: level_072
+      title: Rooftop 2
+      difficulty: 7
+      rows: 7
+      cols: 8
+      reward: 65
+      pieces:
+      - id: l072_p1
+        name: Socks
+        shape: l4Top
+        row: 0
+        col: 0
+      - id: l072_p2
+        name: Ribbon
+        shape: l4Top
+        row: 2
+        col: 4
+      - id: l072_p3
+        name: Jelly
+        shape: l4Corner
+        row: 0
+        col: 3
+      - id: l072_p4
+        name: Pumpkin
+        shape: l4Corner
+        row: 3
+        col: 0
+      - id: l072_p5
+        name: Mango
+        shape: j4
+        row: 2
+        col: 6
+      - id: l072_p6
+        name: Fudge
+        shape: j4
+        row: 3
+        col: 2
+    - id: level_073
+      title: Rooftop 3
+      difficulty: 7
+      rows: 6
+      cols: 7
+      reward: 70
+      pieces:
+      - id: l073_p1
+        name: Ribbon
+        shape: p5
+        row: 2
+        col: 2
+      - id: l073_p2
+        name: Jelly
+        shape: p5
+        row: 0
+        col: 3
+      - id: l073_p3
+        name: Pumpkin
+        shape: t4
+        row: 4
+        col: 4
+      - id: l073_p4
+        name: Mango
+        shape: t5
+        row: 3
+        col: 0
+      - id: l073_p5
+        name: Fudge
+        shape: s4
+        row: 1
+        col: 0
+      - id: l073_p6
+        name: Pebble
+        shape: i4v
+        row: 0
+        col: 5
+    - id: level_074
+      title: Rooftop 4
+      difficulty: 7
+      rows: 7
+      cols: 7
+      reward: 75
+      pieces:
+      - id: l074_p1
+        name: Jelly
+        shape: z4
+        row: 1
+        col: 0
+      - id: l074_p2
+        name: Pumpkin
+        shape: s5
+        row: 0
+        col: 3
+      - id: l074_p3
+        name: Mango
+        shape: s5
+        row: 2
+        col: 3
+      - id: l074_p4
+        name: Fudge
+        shape: z5
+        row: 3
+        col: 0
+      - id: l074_p5
+        name: Pebble
+        shape: u5
+        row: 4
+        col: 4
+      - id: l074_p6
+        name: Noodle
+        shape: stair5
+        row: 4
+        col: 0
+    - id: level_075
+      title: Rooftop 5
+      difficulty: 7
+      rows: 7
+      cols: 8
+      reward: 55
+      pieces:
+      - id: l075_p1
+        name: Pumpkin
+        shape: stair5
+        row: 3
+        col: 0
+      - id: l075_p2
+        name: Mango
+        shape: stair5
+        row: 0
+        col: 0
+      - id: l075_p3
+        name: Fudge
+        shape: i4h
+        row: 3
+        col: 1
+      - id: l075_p4
+        name: Pebble
+        shape: i4h
+        row: 6
+        col: 2
+      - id: l075_p5
+        name: Noodle
+        shape: i4v
+        row: 2
+        col: 6
+      - id: l075_p6
+        name: Tuna
+        shape: i4v
+        row: 0
+        col: 5
+    - id: level_076
+      title: Rooftop 6
+      difficulty: 7
+      rows: 6
+      cols: 7
+      reward: 60
+      pieces:
+      - id: l076_p1
+        name: Mango
+        shape: l4Corner
+        row: 0
+        col: 4
+      - id: l076_p2
+        name: Fudge
+        shape: j4
+        row: 0
+        col: 0
+      - id: l076_p3
+        name: Pebble
+        shape: j4
+        row: 2
+        col: 4
+      - id: l076_p4
+        name: Noodle
+        shape: l5
+        row: 1
+        col: 2
+      - id: l076_p5
+        name: Tuna
+        shape: o4
+        row: 4
+        col: 0
+      - id: l076_p6
+        name: Boba
+        shape: o4
+        row: 2
+        col: 3
+      - id: l076_p7
+        name: Sesame
+        shape: i3h
+        row: 5
+        col: 2
+    - id: level_077
+      title: Rooftop 7
+      difficulty: 7
+      rows: 7
+      cols: 7
+      reward: 65
+      pieces:
+      - id: l077_p1
+        name: Fudge
+        shape: o4
+        row: 5
+        col: 0
+      - id: l077_p2
+        name: Pebble
+        shape: p5
+        row: 2
+        col: 0
+      - id: l077_p3
+        name: Noodle
+        shape: t4
+        row: 0
+        col: 0
+      - id: l077_p4
+        name: Tuna
+        shape: t4
+        row: 3
+        col: 2
+      - id: l077_p5
+        name: Boba
+        shape: t5
+        row: 0
+        col: 2
+      - id: l077_p6
+        name: Sesame
+        shape: t5
+        row: 4
+        col: 3
+      - id: l077_p7
+        name: Peanut
+        shape: s4
+        row: 1
+        col: 4
+    - id: level_078
+      title: Rooftop 8
+      difficulty: 7
+      rows: 7
+      cols: 8
+      reward: 70
+      pieces:
+      - id: l078_p1
+        name: Pebble
+        shape: z4
+        row: 0
+        col: 0
+      - id: l078_p2
+        name: Noodle
+        shape: z4
+        row: 3
+        col: 0
+      - id: l078_p3
+        name: Tuna
+        shape: s5
+        row: 0
+        col: 3
+      - id: l078_p4
+        name: Boba
+        shape: s5
+        row: 3
+        col: 3
+      - id: l078_p5
+        name: Sesame
+        shape: z5
+        row: 1
+        col: 5
+      - id: l078_p6
+        name: Peanut
+        shape: z5
+        row: 4
+        col: 5
+      - id: l078_p7
+        name: Cookie
+        shape: u5
+        row: 5
+        col: 0
+    - id: level_079
+      title: Rooftop 9
+      difficulty: 7
+      rows: 6
+      cols: 7
+      reward: 75
+      pieces:
+      - id: l079_p1
+        name: Noodle
+        shape: i4h
+        row: 5
+        col: 0
+      - id: l079_p2
+        name: Tuna
+        shape: i4v
+        row: 2
+        col: 6
+      - id: l079_p3
+        name: Boba
+        shape: i5h
+        row: 1
+        col: 0
+      - id: l079_p4
+        name: Sesame
+        shape: i5h
+        row: 0
+        col: 0
+      - id: l079_p5
+        name: Peanut
+        shape: l4
+        row: 3
+        col: 4
+      - id: l079_p6
+        name: Cookie
+        shape: l4Top
+        row: 2
+        col: 0
+      - id: l079_p7
+        name: Cocoa
+        shape: l4Corner
+        row: 3
+        col: 0
+    - id: level_080
+      title: Rooftop 10
+      difficulty: 7
+      rows: 7
+      cols: 7
+      reward: 55
+      pieces:
+      - id: l080_p1
+        name: Tuna
+        shape: l4Top
+        row: 2
+        col: 2
+      - id: l080_p2
+        name: Boba
+        shape: l4Corner
+        row: 0
+        col: 0
+      - id: l080_p3
+        name: Sesame
+        shape: j4
+        row: 3
+        col: 2
+      - id: l080_p4
+        name: Peanut
+        shape: j4
+        row: 0
+        col: 5
+      - id: l080_p5
+        name: Cookie
+        shape: l5
+        row: 2
+        col: 0
+      - id: l080_p6
+        name: Cocoa
+        shape: l5Top
+        row: 0
+        col: 1
+      - id: l080_p7
+        name: Latte
+        shape: o4
+        row: 3
+        col: 1
+    - id: level_081
+      title: Basket 1
+      difficulty: 7
+      rows: 7
+      cols: 8
+      reward: 60
+      pieces:
+      - id: l081_p1
+        name: Boba
+        shape: o4
+        row: 3
+        col: 2
+      - id: l081_p2
+        name: Sesame
+        shape: o4
+        row: 0
+        col: 0
+      - id: l081_p3
+        name: Peanut
+        shape: p5
+        row: 3
+        col: 4
+      - id: l081_p4
+        name: Cookie
+        shape: p5
+        row: 0
+        col: 2
+      - id: l081_p5
+        name: Cocoa
+        shape: t4
+        row: 5
+        col: 0
+      - id: l081_p6
+        name: Latte
+        shape: t4
+        row: 0
+        col: 4
+      - id: l081_p7
+        name: Peach
+        shape: s4
+        row: 1
+        col: 5
+    - id: level_082
+      title: Basket 2
+      difficulty: 8
+      rows: 6
+      cols: 7
+      reward: 65
+      pieces:
+      - id: l082_p1
+        name: Sesame
+        shape: s5
+        row: 3
+        col: 1
+      - id: l082_p2
+        name: Peanut
+        shape: z5
+        row: 1
+        col: 2
+      - id: l082_p3
+        name: Cookie
+        shape: u5
+        row: 0
+        col: 4
+      - id: l082_p4
+        name: Cocoa
+        shape: plus5
+        row: 1
+        col: 0
+      - id: l082_p5
+        name: Latte
+        shape: plus5
+        row: 3
+        col: 4
+      - id: l082_p6
+        name: Peach
+        shape: i4h
+        row: 0
+        col: 0
+      - id: l082_p7
+        name: Berry
+        shape: l3
+        row: 4
+        col: 3
+    - id: level_083
+      title: Basket 3
+      difficulty: 8
+      rows: 7
+      cols: 7
+      reward: 70
+      pieces:
+      - id: l083_p1
+        name: Peanut
+        shape: i4h
+        row: 0
+        col: 0
+      - id: l083_p2
+        name: Cookie
+        shape: i4h
+        row: 4
+        col: 0
+      - id: l083_p3
+        name: Cocoa
+        shape: i4v
+        row: 0
+        col: 4
+      - id: l083_p4
+        name: Latte
+        shape: i5h
+        row: 6
+        col: 0
+      - id: l083_p5
+        name: Peach
+        shape: i5h
+        row: 5
+        col: 0
+      - id: l083_p6
+        name: Berry
+        shape: l4
+        row: 0
+        col: 5
+      - id: l083_p7
+        name: Muffin
+        shape: l4
+        row: 3
+        col: 5
+    - id: level_084
+      title: Basket 4
+      difficulty: 8
+      rows: 7
+      cols: 8
+      reward: 75
+      pieces:
+      - id: l084_p1
+        name: Cookie
+        shape: l4Top
+        row: 0
+        col: 0
+      - id: l084_p2
+        name: Cocoa
+        shape: l4Corner
+        row: 3
+        col: 4
+      - id: l084_p3
+        name: Latte
+        shape: l4Corner
+        row: 0
+        col: 3
+      - id: l084_p4
+        name: Peach
+        shape: j4
+        row: 3
+        col: 6
+      - id: l084_p5
+        name: Berry
+        shape: j4
+        row: 0
+        col: 5
+      - id: l084_p6
+        name: Muffin
+        shape: l5
+        row: 1
+        col: 0
+      - id: l084_p7
+        name: Dumpling
+        shape: l5
+        row: 2
+        col: 2
+    - id: level_085
+      title: Basket 5
+      difficulty: 8
+      rows: 6
+      cols: 7
+      reward: 55
+      pieces:
+      - id: l085_p1
+        name: Cocoa
+        shape: t4
+        row: 1
+        col: 3
+      - id: l085_p2
+        name: Latte
+        shape: t4
+        row: 0
+        col: 0
+      - id: l085_p3
+        name: Peach
+        shape: t5
+        row: 3
+        col: 3
+      - id: l085_p4
+        name: Berry
+        shape: s4
+        row: 2
+        col: 0
+      - id: l085_p5
+        name: Muffin
+        shape: z4
+        row: 4
+        col: 0
+      - id: l085_p6
+        name: Dumpling
+        shape: i4h
+        row: 0
+        col: 3
+      - id: l085_p7
+        name: Pudding
+        shape: i4v
+        row: 1
+        col: 6
+    - id: level_086
+      title: Basket 6
+      difficulty: 8
+      rows: 7
+      cols: 8
+      reward: 75
+      pieces:
+      - id: l086_p1
+        name: Latte
+        shape: z4
+        row: 2
+        col: 4
+      - id: l086_p2
+        name: Peach
+        shape: s5
+        row: 0
+        col: 0
+      - id: l086_p3
+        name: Berry
+        shape: s5
+        row: 3
+        col: 0
+      - id: l086_p4
+        name: Muffin
+        shape: z5
+        row: 0
+        col: 4
+      - id: l086_p5
+        name: Dumpling
+        shape: z5
+        row: 3
+        col: 3
+      - id: l086_p6
+        name: Pudding
+        shape: u5
+        row: 5
+        col: 1
+      - id: l086_p7
+        name: Honey
+        shape: plus5
+        row: 0
+        col: 2
+    - id: level_087
+      title: Basket 7
+      difficulty: 8
+      rows: 8
+      cols: 7
+      reward: 80
+      pieces:
+      - id: l087_p1
+        name: Peach
+        shape: stair5
+        row: 4
+        col: 2
+      - id: l087_p2
+        name: Berry
+        shape: i4h
+        row: 0
+        col: 2
+      - id: l087_p3
+        name: Muffin
+        shape: i4h
+        row: 4
+        col: 3
+      - id: l087_p4
+        name: Dumpling
+        shape: i4v
+        row: 0
+        col: 6
+      - id: l087_p5
+        name: Pudding
+        shape: i5h
+        row: 7
+        col: 0
+      - id: l087_p6
+        name: Honey
+        shape: i5h
+        row: 1
+        col: 0
+      - id: l087_p7
+        name: Ginger
+        shape: l4
+        row: 2
+        col: 0
+    - id: level_088
+      title: Basket 8
+      difficulty: 8
+      rows: 7
+      cols: 7
+      reward: 85
+      pieces:
+      - id: l088_p1
+        name: Berry
+        shape: l4Corner
+        row: 0
+        col: 0
+      - id: l088_p2
+        name: Muffin
+        shape: j4
+        row: 4
+        col: 0
+      - id: l088_p3
+        name: Dumpling
+        shape: j4
+        row: 0
+        col: 5
+      - id: l088_p4
+        name: Pudding
+        shape: l5
+        row: 0
+        col: 3
+      - id: l088_p5
+        name: Honey
+        shape: l5
+        row: 2
+        col: 2
+      - id: l088_p6
+        name: Ginger
+        shape: o4
+        row: 4
+        col: 4
+      - id: l088_p7
+        name: Basil
+        shape: o4
+        row: 0
+        col: 4
+    - id: level_089
+      title: Basket 9
+      difficulty: 8
+      rows: 7
+      cols: 8
+      reward: 90
+      pieces:
+      - id: l089_p1
+        name: Muffin
+        shape: o4
+        row: 0
+        col: 0
+      - id: l089_p2
+        name: Dumpling
+        shape: p5
+        row: 2
+        col: 6
+      - id: l089_p3
+        name: Pudding
+        shape: p5
+        row: 0
+        col: 2
+      - id: l089_p4
+        name: Honey
+        shape: t4
+        row: 3
+        col: 0
+      - id: l089_p5
+        name: Ginger
+        shape: t4
+        row: 0
+        col: 4
+      - id: l089_p6
+        name: Basil
+        shape: t5
+        row: 3
+        col: 2
+      - id: l089_p7
+        name: Taco
+        shape: s4
+        row: 4
+        col: 4
+    - id: level_090
+      title: Basket 10
+      difficulty: 8
+      rows: 8
+      cols: 7
+      reward: 70
+      pieces:
+      - id: l090_p1
+        name: Dumpling
+        shape: z4
+        row: 0
+        col: 4
+      - id: l090_p2
+        name: Pudding
+        shape: s5
+        row: 4
+        col: 4
+      - id: l090_p3
+        name: Honey
+        shape: s5
+        row: 1
+        col: 0
+      - id: l090_p4
+        name: Ginger
+        shape: z5
+        row: 5
+        col: 0
+      - id: l090_p5
+        name: Basil
+        shape: z5
+        row: 1
+        col: 3
+      - id: l090_p6
+        name: Taco
+        shape: u5
+        row: 6
+        col: 3
+      - id: l090_p7
+        name: Mimi
+        shape: plus5
+        row: 2
+        col: 1
+    - id: level_091
+      title: Yarn 1
+      difficulty: 9
+      rows: 7
+      cols: 7
+      reward: 75
+      pieces:
+      - id: l091_p1
+        name: Pudding
+        shape: i4h
+        row: 4
+        col: 0
+      - id: l091_p2
+        name: Honey
+        shape: i4v
+        row: 1
+        col: 4
+      - id: l091_p3
+        name: Ginger
+        shape: i5h
+        row: 0
+        col: 0
+      - id: l091_p4
+        name: Basil
+        shape: i5h
+        row: 5
+        col: 0
+      - id: l091_p5
+        name: Taco
+        shape: i5h
+        row: 6
+        col: 0
+      - id: l091_p6
+        name: Mimi
+        shape: l4
+        row: 3
+        col: 5
+      - id: l091_p7
+        name: Kiki
+        shape: l4Top
+        row: 1
+        col: 0
+    - id: level_092
+      title: Yarn 2
+      difficulty: 9
+      rows: 7
+      cols: 8
+      reward: 80
+      pieces:
+      - id: l092_p1
+        name: Honey
+        shape: l4Top
+        row: 3
+        col: 0
+      - id: l092_p2
+        name: Ginger
+        shape: l4Corner
+        row: 0
+        col: 0
+      - id: l092_p3
+        name: Basil
+        shape: l4Corner
+        row: 3
+        col: 3
+      - id: l092_p4
+        name: Taco
+        shape: j4
+        row: 0
+        col: 2
+      - id: l092_p5
+        name: Mimi
+        shape: l5
+        row: 3
+        col: 6
+      - id: l092_p6
+        name: Kiki
+        shape: l5
+        row: 0
+        col: 4
+      - id: l092_p7
+        name: Lulu
+        shape: l5Top
+        row: 5
+        col: 0
+    - id: level_093
+      title: Yarn 3
+      difficulty: 9
+      rows: 8
+      cols: 7
+      reward: 85
+      pieces:
+      - id: l093_p1
+        name: Ginger
+        shape: p5
+        row: 5
+        col: 0
+      - id: l093_p2
+        name: Basil
+        shape: p5
+        row: 1
+        col: 0
+      - id: l093_p3
+        name: Taco
+        shape: t4
+        row: 5
+        col: 2
+      - id: l093_p4
+        name: Mimi
+        shape: t4
+        row: 1
+        col: 2
+      - id: l093_p5
+        name: Kiki
+        shape: t5
+        row: 5
+        col: 4
+      - id: l093_p6
+        name: Lulu
+        shape: t5
+        row: 1
+        col: 4
+      - id: l093_p7
+        name: Yuzu
+        shape: s4
+        row: 3
+        col: 1
+    - id: level_094
+      title: Yarn 4
+      difficulty: 9
+      rows: 7
+      cols: 7
+      reward: 90
+      pieces:
+      - id: l094_p1
+        name: Basil
+        shape: s5
+        row: 1
+        col: 2
+      - id: l094_p2
+        name: Taco
+        shape: z5
+        row: 0
+        col: 4
+      - id: l094_p3
+        name: Mimi
+        shape: z5
+        row: 2
+        col: 4
+      - id: l094_p4
+        name: Kiki
+        shape: u5
+        row: 0
+        col: 0
+      - id: l094_p5
+        name: Lulu
+        shape: plus5
+        row: 3
+        col: 2
+      - id: l094_p6
+        name: Yuzu
+        shape: stair5
+        row: 3
+        col: 0
+      - id: l094_p7
+        name: Mochi
+        shape: i4h
+        row: 6
+        col: 0
+    - id: level_095
+      title: Yarn 5
+      difficulty: 9
+      rows: 7
+      cols: 8
+      reward: 70
+      pieces:
+      - id: l095_p1
+        name: Taco
+        shape: i4h
+        row: 0
+        col: 0
+      - id: l095_p2
+        name: Mimi
+        shape: i4h
+        row: 3
+        col: 2
+      - id: l095_p3
+        name: Kiki
+        shape: i4v
+        row: 0
+        col: 6
+      - id: l095_p4
+        name: Lulu
+        shape: i4v
+        row: 3
+        col: 7
+      - id: l095_p5
+        name: Yuzu
+        shape: i5h
+        row: 1
+        col: 0
+      - id: l095_p6
+        name: Mochi
+        shape: i5h
+        row: 4
+        col: 0
+      - id: l095_p7
+        name: Pickle
+        shape: l4
+        row: 4
+        col: 5
+    - id: level_096
+      title: Yarn 6
+      difficulty: 9
+      rows: 8
+      cols: 8
+      reward: 84
+      pieces:
+      - id: l096_p1
+        name: Mimi
+        shape: l4Top
+        row: 0
+        col: 0
+      - id: l096_p2
+        name: Kiki
+        shape: l4Top
+        row: 3
+        col: 4
+      - id: l096_p3
+        name: Lulu
+        shape: l4Corner
+        row: 0
+        col: 3
+      - id: l096_p4
+        name: Yuzu
+        shape: l4Corner
+        row: 3
+        col: 0
+      - id: l096_p5
+        name: Mochi
+        shape: j4
+        row: 0
+        col: 5
+      - id: l096_p6
+        name: Pickle
+        shape: j4
+        row: 3
+        col: 2
+      - id: l096_p7
+        name: Bean
+        shape: l5Top
+        row: 5
+        col: 4
+    - id: level_097
+      title: Yarn 7
+      difficulty: 9
+      rows: 8
+      cols: 8
+      reward: 88
+      pieces:
+      - id: l097_p1
+        name: Kiki
+        shape: o4
+        row: 1
+        col: 2
+      - id: l097_p2
+        name: Lulu
+        shape: o4
+        row: 4
+        col: 6
+      - id: l097_p3
+        name: Yuzu
+        shape: p5
+        row: 0
+        col: 4
+      - id: l097_p4
+        name: Mochi
+        shape: p5
+        row: 4
+        col: 0
+      - id: l097_p5
+        name: Pickle
+        shape: t4
+        row: 0
+        col: 0
+      - id: l097_p6
+        name: Bean
+        shape: t4
+        row: 3
+        col: 1
+      - id: l097_p7
+        name: Nori
+        shape: t5
+        row: 3
+        col: 3
+    - id: level_098
+      title: Yarn 8
+      difficulty: 9
+      rows: 8
+      cols: 8
+      reward: 92
+      pieces:
+      - id: l098_p1
+        name: Lulu
+        shape: z4
+        row: 2
+        col: 4
+      - id: l098_p2
+        name: Yuzu
+        shape: s5
+        row: 0
+        col: 0
+      - id: l098_p3
+        name: Mochi
+        shape: s5
+        row: 2
+        col: 0
+      - id: l098_p4
+        name: Pickle
+        shape: s5
+        row: 5
+        col: 0
+      - id: l098_p5
+        name: Bean
+        shape: z5
+        row: 0
+        col: 4
+      - id: l098_p6
+        name: Nori
+        shape: z5
+        row: 4
+        col: 2
+      - id: l098_p7
+        name: Waffle
+        shape: u5
+        row: 4
+        col: 5
+      - id: l098_p8
+        name: Taffy
+        shape: plus5
+        row: 0
+        col: 2
+    - id: level_099
+      title: Yarn 9
+      difficulty: 10
+      rows: 8
+      cols: 8
+      reward: 96
+      pieces:
+      - id: l099_p1
+        name: Yuzu
+        shape: stair5
+        row: 4
+        col: 0
+      - id: l099_p2
+        name: Mochi
+        shape: i4h
+        row: 7
+        col: 2
+      - id: l099_p3
+        name: Pickle
+        shape: i4h
+        row: 3
+        col: 0
+      - id: l099_p4
+        name: Bean
+        shape: i4h
+        row: 6
+        col: 3
+      - id: l099_p5
+        name: Nori
+        shape: i4v
+        row: 1
+        col: 6
+      - id: l099_p6
+        name: Waffle
+        shape: i5h
+        row: 0
+        col: 0
+      - id: l099_p7
+        name: Taffy
+        shape: i5h
+        row: 1
+        col: 0
+      - id: l099_p8
+        name: Sunny
+        shape: i5h
+        row: 5
+        col: 2
+    - id: level_100
+      title: Rooftop Finale
+      difficulty: 10
+      rows: 8
+      cols: 8
+      reward: 100
+      pieces:
+      - id: l100_p1
+        name: Mochi
+        shape: l4Top
+        row: 5
+        col: 0
+      - id: l100_p2
+        name: Pickle
+        shape: l4Corner
+        row: 0
+        col: 4
+      - id: l100_p3
+        name: Bean
+        shape: l4Corner
+        row: 4
+        col: 3
+      - id: l100_p4
+        name: Nori
+        shape: j4
+        row: 0
+        col: 0
+      - id: l100_p5
+        name: Waffle
+        shape: j4
+        row: 3
+        col: 6
+      - id: l100_p6
+        name: Taffy
+        shape: l5
+        row: 0
+        col: 2
+      - id: l100_p7
+        name: Sunny
+        shape: l5Top
+        row: 2
+        col: 3
+      - id: l100_p8
+        name: Miso
+        shape: l5Top
+        row: 6
+        col: 3
+  metaData:
+    version: 1
+    chapters:
+    - index: 0
+      id: welcome_nook
+      title: Welcome Nook
+      catName: Mochi
+      startStory: Mochi is frightened by every new sound.
+      completionStory: Completing the nook gives Mochi the first truly safe sleeping
+        place.
+      firstLevelIndex: 0
+      lastLevelIndex: 9
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_01
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_01_thumb
+      catPortraitIndex: 0
+      decorations:
+      - id: ch01_cloud_bed
+        displayName: Cloud Bed
+        cost: 35
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_cloud_bed
+        hotspot: {x: 0.24, y: 0.2}
+        size: {x: 0.38, y: 0.22}
+        sortOrder: 10
+      - id: ch01_bubble_ball_set
+        displayName: Bubble Ball Set
+        cost: 35
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_bubble_ball_set
+        hotspot: {x: 0.51, y: 0.17}
+        size: {x: 0.22, y: 0.16}
+        sortOrder: 20
+      - id: ch01_heart_lantern
+        displayName: Heart Lantern
+        cost: 35
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_heart_lantern
+        hotspot: {x: 0.8, y: 0.47}
+        size: {x: 0.2, y: 0.38}
+        sortOrder: 30
+      - id: ch01_mint_sprout
+        displayName: Mint Sprout
+        cost: 35
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_mint_sprout
+        hotspot: {x: 0.15, y: 0.43}
+        size: {x: 0.19, y: 0.27}
+        sortOrder: 25
+      - id: ch01_mochi_welcome_plaque
+        displayName: Mochi Welcome Plaque
+        cost: 35
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_mochi_welcome_plaque
+        hotspot: {x: 0.55, y: 0.69}
+        size: {x: 0.23, y: 0.25}
+        sortOrder: 5
+    - index: 1
+      id: maker_corner
+      title: Maker Corner
+      catName: Bean
+      startStory: Bean hides beneath the craft desk.
+      completionStory: A handmade room teaches Bean that human hands can create comfort.
+      firstLevelIndex: 10
+      lastLevelIndex: 19
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_02
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_02_thumb
+      catPortraitIndex: 1
+      decorations:
+      - id: ch02_patchwork_cushion
+        displayName: Patchwork Cushion
+        cost: 40
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r02_patchwork_cushion
+        hotspot: {x: 0.27, y: 0.19}
+        size: {x: 0.35, y: 0.21}
+        sortOrder: 10
+      - id: ch02_button_mouse
+        displayName: Button Mouse
+        cost: 55
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r02_button_mouse
+        hotspot: {x: 0.52, y: 0.16}
+        size: {x: 0.18, y: 0.14}
+        sortOrder: 20
+      - id: ch02_sewing_lamp
+        displayName: Sewing Lamp
+        cost: 45
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r02_sewing_lamp
+        hotspot: {x: 0.78, y: 0.46}
+        size: {x: 0.19, y: 0.37}
+        sortOrder: 30
+      - id: ch02_spool_succulent
+        displayName: Spool Succulent
+        cost: 50
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r02_spool_succulent
+        hotspot: {x: 0.16, y: 0.45}
+        size: {x: 0.18, y: 0.25}
+        sortOrder: 25
+      - id: ch02_bean_quilt_portrait
+        displayName: Bean Quilt Portrait
+        cost: 55
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r02_bean_quilt_portrait
+        hotspot: {x: 0.57, y: 0.7}
+        size: {x: 0.24, y: 0.26}
+        sortOrder: 5
+    - index: 2
+      id: reading_nest
+      title: Reading Nest
+      catName: Pickle
+      startStory: Pickle watches the doorway instead of resting.
+      completionStory: The quiet reading room finally invites Pickle to stay.
+      firstLevelIndex: 20
+      lastLevelIndex: 29
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_03
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_03_thumb
+      catPortraitIndex: 2
+      decorations:
+      - id: ch03_book_nook_bed
+        displayName: Book Nook Bed
+        cost: 45
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r03_book_nook_bed
+        hotspot: {x: 0.25, y: 0.21}
+        size: {x: 0.39, y: 0.23}
+        sortOrder: 10
+      - id: ch03_bookmark_wand
+        displayName: Bookmark Wand
+        cost: 50
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r03_bookmark_wand
+        hotspot: {x: 0.5, y: 0.18}
+        size: {x: 0.2, y: 0.17}
+        sortOrder: 20
+      - id: ch03_rose_reading_lamp
+        displayName: Rose Reading Lamp
+        cost: 60
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r03_rose_reading_lamp
+        hotspot: {x: 0.79, y: 0.48}
+        size: {x: 0.21, y: 0.4}
+        sortOrder: 30
+      - id: ch03_ivy_bookend_planter
+        displayName: Ivy Bookend Planter
+        cost: 70
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r03_ivy_bookend_planter
+        hotspot: {x: 0.14, y: 0.46}
+        size: {x: 0.21, y: 0.29}
+        sortOrder: 25
+      - id: ch03_pickle_story_portrait
+        displayName: Pickle Story Portrait
+        cost: 70
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r03_pickle_story_portrait
+        hotspot: {x: 0.55, y: 0.68}
+        size: {x: 0.23, y: 0.27}
+        sortOrder: 5
+    - index: 3
+      id: seaside_dayroom
+      title: Seaside Dayroom
+      catName: Nori
+      startStory: Nori is nervous near open windows.
+      completionStory: The peaceful sea view becomes a symbol of curiosity instead
+        of fear.
+      firstLevelIndex: 30
+      lastLevelIndex: 39
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_04
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_04_thumb
+      catPortraitIndex: 3
+      decorations:
+      - id: ch04_shell_bed
+        displayName: Shell Bed
+        cost: 70
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r04_shell_bed
+        hotspot: {x: 0.26, y: 0.18}
+        size: {x: 0.4, y: 0.24}
+        sortOrder: 10
+      - id: ch04_sailboat_toy
+        displayName: Sailboat Toy
+        cost: 70
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r04_sailboat_toy
+        hotspot: {x: 0.53, y: 0.16}
+        size: {x: 0.23, y: 0.17}
+        sortOrder: 20
+      - id: ch04_coral_wind_chime
+        displayName: Coral Wind Chime
+        cost: 70
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r04_coral_wind_chime
+        hotspot: {x: 0.8, y: 0.52}
+        size: {x: 0.18, y: 0.35}
+        sortOrder: 30
+      - id: ch04_sea_glass_lamp
+        displayName: Sea-glass Lamp
+        cost: 70
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r04_sea_glass_lamp
+        hotspot: {x: 0.15, y: 0.44}
+        size: {x: 0.2, y: 0.32}
+        sortOrder: 25
+      - id: ch04_nori_ocean_portrait
+        displayName: Nori Ocean Portrait
+        cost: 70
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r04_nori_ocean_portrait
+        hotspot: {x: 0.56, y: 0.71}
+        size: {x: 0.24, y: 0.25}
+        sortOrder: 5
+    - index: 4
+      id: dreamy_nursery
+      title: Dreamy Nursery
+      catName: Miso
+      startStory: Miso sleeps lightly beside the exit.
+      completionStory: The finished nursery lets Miso dream without preparing to
+        run.
+      firstLevelIndex: 40
+      lastLevelIndex: 49
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_05
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_05_thumb
+      catPortraitIndex: 4
+      decorations:
+      - id: ch05_moon_cradle
+        displayName: Moon Cradle
+        cost: 70
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r05_moon_cradle
+        hotspot: {x: 0.25, y: 0.2}
+        size: {x: 0.4, y: 0.24}
+        sortOrder: 10
+      - id: ch05_star_chaser
+        displayName: Star Chaser
+        cost: 70
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r05_star_chaser
+        hotspot: {x: 0.52, y: 0.17}
+        size: {x: 0.21, y: 0.16}
+        sortOrder: 20
+      - id: ch05_cloud_nightlight
+        displayName: Cloud Nightlight
+        cost: 80
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r05_cloud_nightlight
+        hotspot: {x: 0.79, y: 0.49}
+        size: {x: 0.2, y: 0.37}
+        sortOrder: 30
+      - id: ch05_dream_vine
+        displayName: Dream Vine
+        cost: 85
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r05_dream_vine
+        hotspot: {x: 0.14, y: 0.47}
+        size: {x: 0.2, y: 0.3}
+        sortOrder: 25
+      - id: ch05_miso_constellation_portrait
+        displayName: Miso Constellation Portrait
+        cost: 85
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r05_miso_constellation_portrait
+        hotspot: {x: 0.56, y: 0.7}
+        size: {x: 0.25, y: 0.27}
+        sortOrder: 5
+    - index: 5
+      id: celebration_craft_room
+      title: Celebration Craft Room
+      catName: Waffle
+      startStory: Waffle brings broken toys to the house.
+      completionStory: Repairing and decorating them creates a welcome kit for future
+        rescues.
+      firstLevelIndex: 50
+      lastLevelIndex: 59
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_06
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_06_thumb
+      catPortraitIndex: 5
+      decorations:
+      - id: ch06_bunting_basket_bed
+        displayName: Bunting Basket Bed
+        cost: 85
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r06_bunting_basket_bed
+        hotspot: {x: 0.24, y: 0.19}
+        size: {x: 0.39, y: 0.23}
+        sortOrder: 10
+      - id: ch06_ribbon_ball
+        displayName: Ribbon Ball
+        cost: 85
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r06_ribbon_ball
+        hotspot: {x: 0.51, y: 0.16}
+        size: {x: 0.19, y: 0.15}
+        sortOrder: 20
+      - id: ch06_flower_work_lamp
+        displayName: Flower Work Lamp
+        cost: 85
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r06_flower_work_lamp
+        hotspot: {x: 0.81, y: 0.47}
+        size: {x: 0.2, y: 0.39}
+        sortOrder: 30
+      - id: ch06_craft_pot_plant
+        displayName: Craft Pot Plant
+        cost: 85
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r06_craft_pot_plant
+        hotspot: {x: 0.16, y: 0.44}
+        size: {x: 0.21, y: 0.28}
+        sortOrder: 25
+      - id: ch06_waffle_celebration_portrait
+        displayName: Waffle Celebration Portrait
+        cost: 85
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r06_waffle_celebration_portrait
+        hotspot: {x: 0.55, y: 0.69}
+        size: {x: 0.24, y: 0.26}
+        sortOrder: 5
+    - index: 6
+      id: tea_and_trust_lounge
+      title: Tea & Trust Lounge
+      catName: Taffy
+      startStory: Taffy will only eat alone.
+      completionStory: The shared lounge turns mealtime into a calm family ritual.
+      firstLevelIndex: 60
+      lastLevelIndex: 69
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_07
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_07_thumb
+      catPortraitIndex: 6
+      decorations:
+      - id: ch07_tea_cushion
+        displayName: Tea Cushion
+        cost: 85
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r07_tea_cushion
+        hotspot: {x: 0.26, y: 0.2}
+        size: {x: 0.37, y: 0.22}
+        sortOrder: 10
+      - id: ch07_biscuit_puzzle_toy
+        displayName: Biscuit Puzzle Toy
+        cost: 85
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r07_biscuit_puzzle_toy
+        hotspot: {x: 0.52, y: 0.18}
+        size: {x: 0.22, y: 0.16}
+        sortOrder: 20
+      - id: ch07_teapot_glow_lamp
+        displayName: Teapot Glow Lamp
+        cost: 90
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r07_teapot_glow_lamp
+        hotspot: {x: 0.79, y: 0.47}
+        size: {x: 0.21, y: 0.38}
+        sortOrder: 30
+      - id: ch07_rosebud_plant
+        displayName: Rosebud Plant
+        cost: 110
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r07_rosebud_plant
+        hotspot: {x: 0.15, y: 0.45}
+        size: {x: 0.2, y: 0.29}
+        sortOrder: 25
+      - id: ch07_taffy_trust_portrait
+        displayName: Taffy Trust Portrait
+        cost: 110
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r07_taffy_trust_portrait
+        hotspot: {x: 0.57, y: 0.7}
+        size: {x: 0.24, y: 0.27}
+        sortOrder: 5
+    - index: 7
+      id: garden_sunroom
+      title: Garden Sunroom
+      catName: Sunny
+      startStory: Sunny is curious about nature but afraid to step outside.
+      completionStory: The indoor garden gives Sunny a safe first adventure.
+      firstLevelIndex: 70
+      lastLevelIndex: 79
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_08
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_08_thumb
+      catPortraitIndex: 7
+      decorations:
+      - id: ch08_petal_bed
+        displayName: Petal Bed
+        cost: 105
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r08_petal_bed
+        hotspot: {x: 0.25, y: 0.18}
+        size: {x: 0.4, y: 0.23}
+        sortOrder: 10
+      - id: ch08_ladybug_roller
+        displayName: Ladybug Roller
+        cost: 120
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r08_ladybug_roller
+        hotspot: {x: 0.53, y: 0.16}
+        size: {x: 0.21, y: 0.16}
+        sortOrder: 20
+      - id: ch08_daisy_garden_lamp
+        displayName: Daisy Garden Lamp
+        cost: 95
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r08_daisy_garden_lamp
+        hotspot: {x: 0.8, y: 0.48}
+        size: {x: 0.2, y: 0.39}
+        sortOrder: 30
+      - id: ch08_watering_can_plant
+        displayName: Watering-can Plant
+        cost: 110
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r08_watering_can_plant
+        hotspot: {x: 0.14, y: 0.46}
+        size: {x: 0.22, y: 0.29}
+        sortOrder: 25
+      - id: ch08_sunny_garden_portrait
+        displayName: Sunny Garden Portrait
+        cost: 110
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r08_sunny_garden_portrait
+        hotspot: {x: 0.56, y: 0.69}
+        size: {x: 0.24, y: 0.26}
+        sortOrder: 5
+    - index: 8
+      id: moonlight_den
+      title: Moonlight Den
+      catName: Pepper
+      startStory: Pepper wakes at every nighttime noise.
+      completionStory: The other cats remain nearby until Pepper learns that the
+        house is safe after dark.
+      firstLevelIndex: 80
+      lastLevelIndex: 89
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_09
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_09_thumb
+      catPortraitIndex: 0
+      decorations:
+      - id: ch09_mossy_nest
+        displayName: Mossy Nest
+        cost: 105
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r09_mossy_nest
+        hotspot: {x: 0.24, y: 0.19}
+        size: {x: 0.39, y: 0.23}
+        sortOrder: 10
+      - id: ch09_firefly_plush
+        displayName: Firefly Plush
+        cost: 120
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r09_firefly_plush
+        hotspot: {x: 0.51, y: 0.17}
+        size: {x: 0.2, y: 0.16}
+        sortOrder: 20
+      - id: ch09_star_shade_lamp
+        displayName: Star Shade Lamp
+        cost: 110
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r09_star_shade_lamp
+        hotspot: {x: 0.81, y: 0.47}
+        size: {x: 0.21, y: 0.4}
+        sortOrder: 30
+      - id: ch09_moon_vine
+        displayName: Moon Vine
+        cost: 140
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r09_moon_vine
+        hotspot: {x: 0.15, y: 0.45}
+        size: {x: 0.2, y: 0.3}
+        sortOrder: 25
+      - id: ch09_pepper_night_portrait
+        displayName: Pepper Night Portrait
+        cost: 135
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r09_pepper_night_portrait
+        hotspot: {x: 0.55, y: 0.71}
+        size: {x: 0.25, y: 0.27}
+        sortOrder: 5
+    - index: 9
+      id: forever_home_studio
+      title: Forever Home Studio
+      catName: All Cats
+      startStory: Every rescued cat helps finish the final room.
+      completionStory: The completed house becomes their permanent shared home.
+      firstLevelIndex: 90
+      lastLevelIndex: 99
+      backgroundResourcePath: CatBlockPuzzle/Art/Rooms/room_10
+      thumbnailResourcePath: CatBlockPuzzle/Art/RoomThumbnails/room_10_thumb
+      catPortraitIndex: 0
+      decorations:
+      - id: ch10_rainbow_rug_bed
+        displayName: Rainbow Rug Bed
+        cost: 130
+        unlockAfterChapterLevel: 2
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r10_rainbow_rug_bed
+        hotspot: {x: 0.25, y: 0.2}
+        size: {x: 0.41, y: 0.24}
+        sortOrder: 10
+      - id: ch10_button_maze
+        displayName: Button Maze
+        cost: 145
+        unlockAfterChapterLevel: 4
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r10_button_maze
+        hotspot: {x: 0.52, y: 0.17}
+        size: {x: 0.23, y: 0.17}
+        sortOrder: 20
+      - id: ch10_studio_lamp
+        displayName: Studio Lamp
+        cost: 130
+        unlockAfterChapterLevel: 6
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r10_studio_lamp
+        hotspot: {x: 0.8, y: 0.49}
+        size: {x: 0.21, y: 0.4}
+        sortOrder: 30
+      - id: ch10_heart_topiary
+        displayName: Heart Topiary
+        cost: 150
+        unlockAfterChapterLevel: 8
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r10_heart_topiary
+        hotspot: {x: 0.14, y: 0.46}
+        size: {x: 0.22, y: 0.31}
+        sortOrder: 25
+      - id: ch10_forever_home_group_portrait
+        displayName: Forever Home Group Portrait
+        cost: 165
+        unlockAfterChapterLevel: 10
+        spriteResourcePath: CatBlockPuzzle/Art/Decorations/r10_forever_home_group_portrait
+        hotspot: {x: 0.56, y: 0.7}
+        size: {x: 0.3, y: 0.28}
+        sortOrder: 5
+  sourceFingerprint: 59e276c2fb56eaafcfe6e5a1b8272f86
+  roomBackgrounds:
+  - {fileID: 21300000, guid: 584454aefd40caf44958837c992b0b01, type: 2}
+  - {fileID: 21300000, guid: ded8ee71baa2d58429de009adaffb17d, type: 2}
+  - {fileID: 21300000, guid: 7186c917c571d004980d79072d09d512, type: 2}
+  - {fileID: 21300000, guid: fb2bf6642851bad4fa0727a7fc10e98e, type: 2}
+  - {fileID: 21300000, guid: 4e658f2d123a87446aebfc6581b36ca3, type: 2}
+  - {fileID: 21300000, guid: 5451c2dd2f0feb54eac4448a17d8175f, type: 2}
+  - {fileID: 21300000, guid: 6296662bfd6f06f4d8365be141263b20, type: 2}
+  - {fileID: 21300000, guid: 9f2354b12114d794f9a945afd4f6912a, type: 2}
+  - {fileID: 21300000, guid: 2f5c518c18bec24468147ac51fa2f390, type: 2}
+  - {fileID: 21300000, guid: d7294d70c62eba044b15a7180cc42e3d, type: 2}
+  roomThumbnails:
+  - {fileID: 21300000, guid: c2589b03f3197494ca279b7c5c1bb7e7, type: 2}
+  - {fileID: 21300000, guid: 4b1ee4b324ddba64f9b97afcdbca4e58, type: 2}
+  - {fileID: 21300000, guid: d5e2b20a47a9b7947b97541bee0f61e8, type: 2}
+  - {fileID: 21300000, guid: 71acc06c6dc01b04096655b6d676cae5, type: 2}
+  - {fileID: 21300000, guid: bd24f95d7427fd5488a44c81db2f9d95, type: 2}
+  - {fileID: 21300000, guid: 3a6da0f0b2e170744b163134ad263896, type: 2}
+  - {fileID: 21300000, guid: b0b87dbae7eddb643a8656bd4ac96588, type: 2}
+  - {fileID: 21300000, guid: d2a1bacebaaaa7d42bc223370d3234af, type: 2}
+  - {fileID: 21300000, guid: 8adb73cba5b68294b815db854608b5a5, type: 2}
+  - {fileID: 21300000, guid: db2b91b35f2456b448166ce90a6220df, type: 2}
+  decorations:
+  - id: ch01_cloud_bed
+    sprite: {fileID: 21300000, guid: e2301bec552057349a49afcee526efed, type: 2}
+  - id: ch01_bubble_ball_set
+    sprite: {fileID: 21300000, guid: 7932b8d598897ae468d7f426a624151e, type: 2}
+  - id: ch01_heart_lantern
+    sprite: {fileID: 21300000, guid: 4855e25376c030f4ea05377b8047720c, type: 2}
+  - id: ch01_mint_sprout
+    sprite: {fileID: 21300000, guid: ab799ca821409d14ba0f55a5742245d2, type: 2}
+  - id: ch01_mochi_welcome_plaque
+    sprite: {fileID: 21300000, guid: 754556f3d08fd9b4b88615d2994584d4, type: 2}
+  - id: ch02_patchwork_cushion
+    sprite: {fileID: 21300000, guid: 99ea0b86dde13e648892aad5616c149a, type: 2}
+  - id: ch02_button_mouse
+    sprite: {fileID: 21300000, guid: 8c34d8e76fa4e9f43806629a3ff8e9d3, type: 2}
+  - id: ch02_sewing_lamp
+    sprite: {fileID: 21300000, guid: cfd194b617c5a964b83ec1cef6c2aa13, type: 2}
+  - id: ch02_spool_succulent
+    sprite: {fileID: 21300000, guid: 54aa0876133401747b13b95452bb238b, type: 2}
+  - id: ch02_bean_quilt_portrait
+    sprite: {fileID: 21300000, guid: d7b0236c4aac8834f93ebf9b7d4eed4e, type: 2}
+  - id: ch03_book_nook_bed
+    sprite: {fileID: 21300000, guid: cb2124d3495ab9049b772094db57b413, type: 2}
+  - id: ch03_bookmark_wand
+    sprite: {fileID: 21300000, guid: 15f8d0362c99c51498efe9ba32f6d4bc, type: 2}
+  - id: ch03_rose_reading_lamp
+    sprite: {fileID: 21300000, guid: b0cb873028c8d2844a984c5a4c49a596, type: 2}
+  - id: ch03_ivy_bookend_planter
+    sprite: {fileID: 21300000, guid: 45064f9232eee254ebc5489f0143150d, type: 2}
+  - id: ch03_pickle_story_portrait
+    sprite: {fileID: 21300000, guid: a80a1ecdddade094eb5b1d3f9e9d4900, type: 2}
+  - id: ch04_shell_bed
+    sprite: {fileID: 21300000, guid: 2eb275c6919392f469e916d11f9579ab, type: 2}
+  - id: ch04_sailboat_toy
+    sprite: {fileID: 21300000, guid: 4687e6b4b30acdc4ca8586d09ef85e4f, type: 2}
+  - id: ch04_coral_wind_chime
+    sprite: {fileID: 21300000, guid: ecb18581b31c0e643aff31657121db3f, type: 2}
+  - id: ch04_sea_glass_lamp
+    sprite: {fileID: 21300000, guid: 826ea5d7eb2aabd41a24e915c8e78aac, type: 2}
+  - id: ch04_nori_ocean_portrait
+    sprite: {fileID: 21300000, guid: 0ececccd603fad44baf9dbdee132a445, type: 2}
+  - id: ch05_moon_cradle
+    sprite: {fileID: 21300000, guid: 650b597d4177d1d4a83ec49fb39921aa, type: 2}
+  - id: ch05_star_chaser
+    sprite: {fileID: 21300000, guid: 40a1cfa529a77e94f911c1f86f0b920a, type: 2}
+  - id: ch05_cloud_nightlight
+    sprite: {fileID: 21300000, guid: 478d4ae977a4bca42ba048731613e77a, type: 2}
+  - id: ch05_dream_vine
+    sprite: {fileID: 21300000, guid: 065a4c040f84fbe44930fbca1cac90fe, type: 2}
+  - id: ch05_miso_constellation_portrait
+    sprite: {fileID: 21300000, guid: 6e31b185387746d4eb9573afbace0dcf, type: 2}
+  - id: ch06_bunting_basket_bed
+    sprite: {fileID: 21300000, guid: c22129f5079f13b46afc198ac3356d9a, type: 2}
+  - id: ch06_ribbon_ball
+    sprite: {fileID: 21300000, guid: 242f5d88aed0c614298cbb6d51e90423, type: 2}
+  - id: ch06_flower_work_lamp
+    sprite: {fileID: 21300000, guid: d34f81fe49ae45042a8005665455ae74, type: 2}
+  - id: ch06_craft_pot_plant
+    sprite: {fileID: 21300000, guid: f92e4449c5a854a4b96c551e1109d1f8, type: 2}
+  - id: ch06_waffle_celebration_portrait
+    sprite: {fileID: 21300000, guid: 8857fc7e476600e4da35d05e4cb1c2b9, type: 2}
+  - id: ch07_tea_cushion
+    sprite: {fileID: 21300000, guid: 7775f071d56d0dd4d93be3e0499e75e8, type: 2}
+  - id: ch07_biscuit_puzzle_toy
+    sprite: {fileID: 21300000, guid: cc9f8e83c14945543974536265877dae, type: 2}
+  - id: ch07_teapot_glow_lamp
+    sprite: {fileID: 21300000, guid: 1a3061f32f1f67a4e91d439800bde2e3, type: 2}
+  - id: ch07_rosebud_plant
+    sprite: {fileID: 21300000, guid: 33d060d6419c4914a81b8f87e2455869, type: 2}
+  - id: ch07_taffy_trust_portrait
+    sprite: {fileID: 21300000, guid: 3add6cab2518163438f01fc92f295505, type: 2}
+  - id: ch08_petal_bed
+    sprite: {fileID: 21300000, guid: 1c07652facc81f44f83cac5ae0c70f17, type: 2}
+  - id: ch08_ladybug_roller
+    sprite: {fileID: 21300000, guid: 2c73c821998366e48a3b3ac8c1896262, type: 2}
+  - id: ch08_daisy_garden_lamp
+    sprite: {fileID: 21300000, guid: 98a37ff90b0b65e46a80734d2c3346f0, type: 2}
+  - id: ch08_watering_can_plant
+    sprite: {fileID: 21300000, guid: 6986e0e4c228dcc4b9b32b41e28fec56, type: 2}
+  - id: ch08_sunny_garden_portrait
+    sprite: {fileID: 21300000, guid: e4ec86360aaf06644b1689dff2705b65, type: 2}
+  - id: ch09_mossy_nest
+    sprite: {fileID: 21300000, guid: cfe686c8024ac1f469b1346f0b4cfde5, type: 2}
+  - id: ch09_firefly_plush
+    sprite: {fileID: 21300000, guid: b771628f592851b4ab48f98f4a1cc2f3, type: 2}
+  - id: ch09_star_shade_lamp
+    sprite: {fileID: 21300000, guid: 25a75b8b20aef354d90fc53d009c5c4a, type: 2}
+  - id: ch09_moon_vine
+    sprite: {fileID: 21300000, guid: 5cc5ecbb043a84741bd317c57d1818d3, type: 2}
+  - id: ch09_pepper_night_portrait
+    sprite: {fileID: 21300000, guid: 824b71e0ae288f8458df94cd49b6b28e, type: 2}
+  - id: ch10_rainbow_rug_bed
+    sprite: {fileID: 21300000, guid: 0f36817ab55688d4389cffe54fd3c25a, type: 2}
+  - id: ch10_button_maze
+    sprite: {fileID: 21300000, guid: 0b6e15b44a400e6488becece7d387d6a, type: 2}
+  - id: ch10_studio_lamp
+    sprite: {fileID: 21300000, guid: 9f21c3fb93bf7344695d854391fc240c, type: 2}
+  - id: ch10_heart_topiary
+    sprite: {fileID: 21300000, guid: fff11d2c7f3aeeb49a64e14bbfa4411c, type: 2}
+  - id: ch10_forever_home_group_portrait
+    sprite: {fileID: 21300000, guid: 644db485a1ae8de49b696802244daa17, type: 2}
+  levelPrefabResources:
+  - CatBlockPuzzle/Levels/Level_001
+  - CatBlockPuzzle/Levels/Level_002
+  - CatBlockPuzzle/Levels/Level_003
+  - CatBlockPuzzle/Levels/Level_004
+  - CatBlockPuzzle/Levels/Level_005
+  - CatBlockPuzzle/Levels/Level_006
+  - CatBlockPuzzle/Levels/Level_007
+  - CatBlockPuzzle/Levels/Level_008
+  - CatBlockPuzzle/Levels/Level_009
+  - CatBlockPuzzle/Levels/Level_010
+  - CatBlockPuzzle/Levels/Level_011
+  - CatBlockPuzzle/Levels/Level_012
+  - CatBlockPuzzle/Levels/Level_013
+  - CatBlockPuzzle/Levels/Level_014
+  - CatBlockPuzzle/Levels/Level_015
+  - CatBlockPuzzle/Levels/Level_016
+  - CatBlockPuzzle/Levels/Level_017
+  - CatBlockPuzzle/Levels/Level_018
+  - CatBlockPuzzle/Levels/Level_019
+  - CatBlockPuzzle/Levels/Level_020
+  - CatBlockPuzzle/Levels/Level_021
+  - CatBlockPuzzle/Levels/Level_022
+  - CatBlockPuzzle/Levels/Level_023
+  - CatBlockPuzzle/Levels/Level_024
+  - CatBlockPuzzle/Levels/Level_025
+  - CatBlockPuzzle/Levels/Level_026
+  - CatBlockPuzzle/Levels/Level_027
+  - CatBlockPuzzle/Levels/Level_028
+  - CatBlockPuzzle/Levels/Level_029
+  - CatBlockPuzzle/Levels/Level_030
+  - CatBlockPuzzle/Levels/Level_031
+  - CatBlockPuzzle/Levels/Level_032
+  - CatBlockPuzzle/Levels/Level_033
+  - CatBlockPuzzle/Levels/Level_034
+  - CatBlockPuzzle/Levels/Level_035
+  - CatBlockPuzzle/Levels/Level_036
+  - CatBlockPuzzle/Levels/Level_037
+  - CatBlockPuzzle/Levels/Level_038
+  - CatBlockPuzzle/Levels/Level_039
+  - CatBlockPuzzle/Levels/Level_040
+  - CatBlockPuzzle/Levels/Level_041
+  - CatBlockPuzzle/Levels/Level_042
+  - CatBlockPuzzle/Levels/Level_043
+  - CatBlockPuzzle/Levels/Level_044
+  - CatBlockPuzzle/Levels/Level_045
+  - CatBlockPuzzle/Levels/Level_046
+  - CatBlockPuzzle/Levels/Level_047
+  - CatBlockPuzzle/Levels/Level_048
+  - CatBlockPuzzle/Levels/Level_049
+  - CatBlockPuzzle/Levels/Level_050
+  - CatBlockPuzzle/Levels/Level_051
+  - CatBlockPuzzle/Levels/Level_052
+  - CatBlockPuzzle/Levels/Level_053
+  - CatBlockPuzzle/Levels/Level_054
+  - CatBlockPuzzle/Levels/Level_055
+  - CatBlockPuzzle/Levels/Level_056
+  - CatBlockPuzzle/Levels/Level_057
+  - CatBlockPuzzle/Levels/Level_058
+  - CatBlockPuzzle/Levels/Level_059
+  - CatBlockPuzzle/Levels/Level_060
+  - CatBlockPuzzle/Levels/Level_061
+  - CatBlockPuzzle/Levels/Level_062
+  - CatBlockPuzzle/Levels/Level_063
+  - CatBlockPuzzle/Levels/Level_064
+  - CatBlockPuzzle/Levels/Level_065
+  - CatBlockPuzzle/Levels/Level_066
+  - CatBlockPuzzle/Levels/Level_067
+  - CatBlockPuzzle/Levels/Level_068
+  - CatBlockPuzzle/Levels/Level_069
+  - CatBlockPuzzle/Levels/Level_070
+  - CatBlockPuzzle/Levels/Level_071
+  - CatBlockPuzzle/Levels/Level_072
+  - CatBlockPuzzle/Levels/Level_073
+  - CatBlockPuzzle/Levels/Level_074
+  - CatBlockPuzzle/Levels/Level_075
+  - CatBlockPuzzle/Levels/Level_076
+  - CatBlockPuzzle/Levels/Level_077
+  - CatBlockPuzzle/Levels/Level_078
+  - CatBlockPuzzle/Levels/Level_079
+  - CatBlockPuzzle/Levels/Level_080
+  - CatBlockPuzzle/Levels/Level_081
+  - CatBlockPuzzle/Levels/Level_082
+  - CatBlockPuzzle/Levels/Level_083
+  - CatBlockPuzzle/Levels/Level_084
+  - CatBlockPuzzle/Levels/Level_085
+  - CatBlockPuzzle/Levels/Level_086
+  - CatBlockPuzzle/Levels/Level_087
+  - CatBlockPuzzle/Levels/Level_088
+  - CatBlockPuzzle/Levels/Level_089
+  - CatBlockPuzzle/Levels/Level_090
+  - CatBlockPuzzle/Levels/Level_091
+  - CatBlockPuzzle/Levels/Level_092
+  - CatBlockPuzzle/Levels/Level_093
+  - CatBlockPuzzle/Levels/Level_094
+  - CatBlockPuzzle/Levels/Level_095
+  - CatBlockPuzzle/Levels/Level_096
+  - CatBlockPuzzle/Levels/Level_097
+  - CatBlockPuzzle/Levels/Level_098
+  - CatBlockPuzzle/Levels/Level_099
+  - CatBlockPuzzle/Levels/Level_100

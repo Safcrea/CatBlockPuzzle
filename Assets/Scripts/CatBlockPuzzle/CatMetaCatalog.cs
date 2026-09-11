@@ -50,6 +50,13 @@ namespace CatBlockPuzzle
             return FromJson(asset.text, rewards);
         }
 
+        internal static CatMetaCatalog FromData(CatMetaCatalogData data, IReadOnlyList<int> rewards)
+        {
+            if (!CatMetaCatalogValidator.TryValidate(data, rewards, out string error))
+                throw new InvalidOperationException("Invalid prepared meta catalog: " + error);
+            return new CatMetaCatalog(data);
+        }
+
         internal static CatMetaCatalog FromJson(string json, IReadOnlyList<int> levelRewards = null)
         {
             if (string.IsNullOrWhiteSpace(json))

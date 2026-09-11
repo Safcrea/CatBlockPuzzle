@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle.Tests
 {
-    public sealed class CatBlockPuzzlePortraitTests
+    public sealed class CatBlockPuzzlePortraitTests : PreparedScenePlayModeFixture
     {
         [UnityTest]
         public IEnumerator PortraitLayout_UsesAuthoredCatsAndSeparatedGameplayZones()
@@ -17,7 +17,7 @@ namespace CatBlockPuzzle.Tests
             GameObject canvasObject = null;
             for (int i = 0; i < 120 && canvasObject == null; i++)
             {
-                canvasObject = GameObject.Find("Cat Puzzle Canvas");
+                canvasObject = GameObject.Find("Canvas");
                 yield return null;
             }
 
@@ -57,32 +57,7 @@ namespace CatBlockPuzzle.Tests
             Directory.CreateDirectory(artifactDirectory);
             string screenshotPath = Path.Combine(artifactDirectory, "portrait-540x960.png");
             Canvas canvas = canvasObject.GetComponent<Canvas>();
-            GameObject cameraObject = new GameObject("Portrait Test Camera", typeof(Camera));
-            Camera camera = cameraObject.GetComponent<Camera>();
-            camera.clearFlags = CameraClearFlags.SolidColor;
-            camera.backgroundColor = new Color(0.98f, 0.95f, 0.9f, 1f);
-            camera.orthographic = true;
-            camera.aspect = 540f / 960f;
-            camera.transform.position = new Vector3(0f, 0f, -10f);
-            RenderTexture target = new RenderTexture(540, 960, 24, RenderTextureFormat.ARGB32);
-            camera.targetTexture = target;
-            canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.worldCamera = camera;
-            canvas.planeDistance = 1f;
-            yield return null;
-            Canvas.ForceUpdateCanvases();
-            camera.Render();
-
-            RenderTexture previous = RenderTexture.active;
-            RenderTexture.active = target;
-            Texture2D screenshot = new Texture2D(540, 960, TextureFormat.RGB24, false);
-            screenshot.ReadPixels(new Rect(0f, 0f, 540f, 960f), 0, 0);
-            screenshot.Apply();
-            File.WriteAllBytes(screenshotPath, screenshot.EncodeToPNG());
-            RenderTexture.active = previous;
-            Object.Destroy(screenshot);
-            Object.Destroy(target);
-            Object.Destroy(cameraObject);
+            CaptureAssignedCamera(canvas, "portrait-540x960.png");
             Assert.That(new FileInfo(screenshotPath).Length, Is.GreaterThan(1024), "Portrait screenshot was empty.");
         }
 

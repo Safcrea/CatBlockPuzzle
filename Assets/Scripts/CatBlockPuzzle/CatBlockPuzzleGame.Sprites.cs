@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -196,7 +197,7 @@ namespace CatBlockPuzzle
 
         private void SliceCatAtlas(Texture2D atlas, int moodIndex)
         {
-            if (atlas == null || moodIndex < 0 || moodIndex >= catPortraitSprites.GetLength(0))
+            if (atlas == null || moodIndex < 0 || moodIndex >= 3)
             {
                 return;
             }
@@ -209,7 +210,7 @@ namespace CatBlockPuzzle
                 int rowFromTop = index / 4;
                 float x = column * cellWidth;
                 float y = rowFromTop == 0 ? atlas.height - cellHeight : 0f;
-                catPortraitSprites[moodIndex, index] = Sprite.Create(
+                catPortraitSprites[moodIndex * 8 + index] = Sprite.Create(
                     atlas,
                     new Rect(x, y, cellWidth, cellHeight),
                     new Vector2(0.5f, 0.5f),
@@ -474,3 +475,5 @@ namespace CatBlockPuzzle
         }
     }
 }
+
+#endif

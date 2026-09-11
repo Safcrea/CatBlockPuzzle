@@ -39,7 +39,7 @@ public sealed class CatPuzzleUiTuningWindow : EditorWindow
 
         EditorGUILayout.LabelField("Portrait UI And Touch Tuning", EditorStyles.boldLabel);
         EditorGUILayout.HelpBox(
-            "These values drive the runtime-generated gameplay UI. Save changes, then rebuild the selected level to preview them.",
+            "These values control the prebuilt level prefabs. Preview loads one temporary level instance; it is not saved into the UI scene.",
             MessageType.Info);
 
         scroll = EditorGUILayout.BeginScrollView(scroll);
@@ -74,7 +74,7 @@ public sealed class CatPuzzleUiTuningWindow : EditorWindow
                 SaveProfile();
             }
 
-            if (GUILayout.Button(Application.isPlaying ? "Apply And Rebuild" : "Play And Preview", GUILayout.Height(30f)))
+            if (GUILayout.Button("Preview Level Prefab", GUILayout.Height(30f)))
             {
                 SaveProfile();
                 PreviewSelectedLevel();
@@ -139,20 +139,13 @@ public sealed class CatPuzzleUiTuningWindow : EditorWindow
     private void PreviewSelectedLevel()
     {
         int zeroBasedLevel = Mathf.Clamp(previewLevel - 1, 0, 99);
-        if (!Application.isPlaying)
-        {
-            EditorPrefs.SetInt(PreviewLevelKey, zeroBasedLevel);
-            EditorApplication.isPlaying = true;
-            return;
-        }
-
         CatBlockPuzzleGame game = FindFirstObjectByType<CatBlockPuzzleGame>();
         if (game == null)
         {
-            ShowNotification(new GUIContent("Runtime game is still starting. Try Apply And Rebuild again."));
+            ShowNotification(new GUIContent("Prepare the Game Scene first."));
             return;
         }
 
-        game.PreviewLevelForTesting(zeroBasedLevel);
+        game.PreviewPreparedLevelInEditor(zeroBasedLevel);
     }
 }
