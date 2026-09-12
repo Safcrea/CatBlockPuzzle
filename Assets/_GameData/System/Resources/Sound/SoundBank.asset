@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84e6fd6cbb44f48a92574a4cd640e10, type: 3}
+  m_Name: SoundBank
+  m_EditorClassIdentifier: 
+  entries:
+  - id: Button
+    clip: {fileID: 8300000, guid: 514ce5b2e453c934e9cae8cc09608967, type: 3}
+    volume: 1
+  - id: Snap
+    clip: {fileID: 8300000, guid: 211ee5e2f4c251b4d9381c8709748672, type: 3}
+    volume: 1
+  - id: Wrong
+    clip: {fileID: 8300000, guid: 4134d45fd0e333544baf28220f2056b7, type: 3}
+    volume: 1
+  - id: Win
+    clip: {fileID: 8300000, guid: 82b59c4d5fe27be43963b7d1f61f21b9, type: 3}
+    volume: 1
+  masterVolume: 1
+  musicTrack: {fileID: 0}
+  musicVolume: 0.45
