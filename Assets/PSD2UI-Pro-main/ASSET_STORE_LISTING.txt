@@ -1,0 +1,131 @@
+PSD2UI Pro — Asset Store Listing
+=================================
+
+Copy each section into the corresponding Publisher Portal field.
+
+
+PRODUCT TITLE
+-------------
+PSD2UI Pro — Photoshop UI Layout to uGUI Canvas
+
+
+CATEGORY
+--------
+Tools / Utilities
+
+
+MINIMUM UNITY VERSION
+---------------------
+2021.3 (LTS)
+
+
+KEYWORDS (max 5)
+----------------
+photoshop, psd, ui importer, ugui, textmeshpro
+
+
+SUMMARY (max 200 characters)
+-----------------------------
+Import Photoshop UI layouts into Unity as pixel-accurate uGUI hierarchies. One-click PSD import with editable TextMeshPro text, full layer tree, and 9 pivot presets.
+
+
+DESCRIPTION
+-----------
+Design in Photoshop. Import into Unity. Done.
+
+PSD2UI Pro turns any Photoshop composition into a fully structured uGUI Canvas — complete with Image, TextMeshProUGUI, and CanvasGroup components — positioned exactly where your designer placed them.
+
+
+HOW IT WORKS
+
+1. Run psd2ui_export.jsx in Photoshop and pick an output folder.
+2. Choose whether text layers export as rasterized PNGs or as editable text metadata.
+3. In Unity, open Window > PSD2UI Pro, load the exported layout.json, and click Import.
+
+
+FEATURES
+
+Pixel-Accurate Positioning — Every layer's position and size is transferred exactly. Photoshop coordinates are automatically converted to Unity UI space.
+
+Full Layer Hierarchy — Groups become parent GameObjects. Stacking order is preserved as sibling order.
+
+Editable TextMeshPro Text — Choose at export time: rasterize to PNG for pixel-perfect visuals, or export as metadata for live TextMeshProUGUI components ready for localization and restyling.
+
+Group Opacity Cascade — Groups below 100% opacity receive a CanvasGroup so alpha propagates to children automatically.
+
+Layer Effects Baked — Drop shadows, strokes, gradients, smart objects, and masks are pre-rasterized during export. What you see in Photoshop is what you get in Unity.
+
+Drag & Drop — Drag layout.json onto the window. An inline preview shows document name, resolution, and layer counts before you import.
+
+One-Step Undo — The entire import is a single Undo operation. Ctrl+Z reverts everything.
+
+Batched Asset Import — File copies and sprite reimports use AssetDatabase batching for fast import on large PSDs (50-200+ layers).
+
+9 Pivot Presets — Center, TopLeft, TopCenter, TopRight, MiddleLeft, MiddleRight, BottomLeft, BottomCenter, BottomRight.
+
+
+WHAT GETS CREATED
+
+- Canvas — Auto-created with ScaleWithScreenSize matching PSD dimensions, or parented to an existing canvas you specify.
+- Image layers — GameObject + Image + Sprite. Opacity preserved. Raycast Target off.
+- Text layers — GameObject + TextMeshProUGUI with original text content.
+- Groups — Empty parent GameObjects. CanvasGroup added when opacity < 100%.
+- Hidden layers — Imported as inactive GameObjects (configurable).
+
+
+PHOTOSHOP SCRIPT
+
+The included ExtendScript (psd2ui_export.jsx) runs in Adobe Photoshop CC 2018+:
+
+- Pre-rasterizes all layers (bakes styles, masks, smart objects).
+- Named snapshots for stable undo on large files.
+- Single working copy — no per-layer document overhead.
+- Progress bar with phase indicators.
+- Outputs layout.json (v2 schema) with hierarchy, bounds, opacity, visibility, and text content.
+
+
+REQUIREMENTS
+
+- Unity 2021.3 LTS or newer.
+- TextMeshPro package (bundled with Unity — no extra install).
+- Adobe Photoshop CC 2018+ for the export script.
+
+
+LIMITATIONS
+
+- Smart objects and layer effects are baked into PNGs during export.
+- Animations are not imported.
+- TMP text uses default font/size/color — customize after import.
+
+
+TECHNICAL DETAILS
+-----------------
+Scripts: 1 C# editor script (~930 lines), 1 Photoshop ExtendScript (~630 lines)
+Documentation: Quick guide included in package
+
+Assembly Definition: PSD2UIPro.Editor (editor-only)
+Namespace: PSD2UIPro.Editor
+Menu: Window > PSD2UI Pro
+
+Dependencies:
+  - com.unity.textmeshpro (bundled with Unity)
+
+Platforms: Editor-only tool (all build targets)
+Min Unity: 2021.3 LTS
+Tested up to: Unity 6000.x
+
+Export format: Individual PNGs + layout.json (v2 schema)
+
+
+VERSION HISTORY (What's New)
+----------------------------
+v1.0 — Initial release
+
+- Photoshop export with text mode choice (rasterized PNG or editable TMP)
+- Drag-and-drop editor window with inline preview and stat cards
+- Full layer hierarchy, opacity, and visibility preserved
+- Batched asset import for large PSDs
+- Single-step Undo for entire import
+- 9 pivot presets
+- CanvasGroup on groups with opacity < 100%
+- Assembly Definition for isolated compilation

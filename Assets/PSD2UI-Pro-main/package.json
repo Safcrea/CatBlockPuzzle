@@ -1,0 +1,22 @@
+{
+  "name": "com.marwan0.psd2ui-pro",
+  "version": "1.0.0",
+  "displayName": "PSD2UI Pro",
+  "description": "Import Photoshop UI layouts into Unity as pixel-accurate uGUI hierarchies with TextMeshPro support.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Marwan0",
+    "url": "https://github.com/Marwan0"
+  },
+  "keywords": [
+    "photoshop",
+    "psd",
+    "ui",
+    "ugui",
+    "textmeshpro",
+    "importer"
+  ],
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.0"
+  }
+}
