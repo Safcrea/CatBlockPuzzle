@@ -134,7 +134,7 @@ namespace CatBlockPuzzle
 
                 bool filled = i < visibleStars;
                 star.sprite = filled ? starSprite : starOutlineSprite;
-                star.color = gameplayHud.UsesAuthoredLayout ? (filled ? Color.white : new Color(.55f,.55f,.55f)) : filled ? GoldColor : new Color(0.64f, 0.52f, 0.42f, 0.48f);
+                star.color = gameplayHud.UsesAuthoredLayout ? Color.white : filled ? GoldColor : new Color(0.64f, 0.52f, 0.42f, 0.48f);
             }
         }
 

@@ -15,10 +15,15 @@ GameScene now runs through Canvas/Reference UI. Game System coordinates navigati
 
 ## Deliberately unconfigured
 
-Existing Shop product IDs/purchase callbacks and Daily Reward claim callbacks remain empty. Collection content is still empty. Hint is connected to the existing hint mechanic. Time Freeze and Tile Break artwork is present, with no guessed inventory, purchase or effect rules attached.
+Existing Shop product IDs/purchase callbacks and Daily Reward claim callbacks remain empty. Collection content is still empty. Hint is connected to the existing hint mechanic. Freeze stops the timer for a configurable 10 seconds once per attempt while piece interaction continues. Pause and navigation suspend its countdown; Restart resets it. Tile Break is authored inactive.
 
 ## Authoring and validation
 
 ReferenceGameUiPreparation builds the saved UI in Edit Mode, with Undo support. It does not build UI at runtime. It accepts inspected scene instance IDs and validates dependencies before saving GameScene.
 
 ReferenceGameUiTests checks the saved scene, active UI roots, authored HUD and all 100 level slots. ReferenceGameUiPlayModeTests covers selection/locks, pause/settings/resume, restart reuse, hidden timer suspension and separate completion/failure screens. Its fixture backs up and restores the player's progress, stars and audio/settings preferences.
+
+Validation result: saved-scene validation passed (1 Edit Mode test), and both navigation and separate result-screen Play Mode tests passed. Screenshots are recorded in TestArtifacts. Chapter 3 uses its existing room background because the supplied portrait-named slice is a panel. Grey stars use the actual greyscale gameplay sprite.
+
+
+Day 1 is the whole-card Button prefab (also used by Days 2–6). The existing DailyRewardScreen owns references for both card and claim-button images plus their available/claimed sprites. Both Buttons request the same claim callback; after a successful reward grant, call SetDayClaimed(dayNumber, true) to swap both sprites and disable duplicate claims. Reopening preserves the controller's current state. Day 7 keeps its authored card Button; absent separate claim-control/claimed-art references stay empty. No new runtime scripts or runtime UI generation were added for these changes.

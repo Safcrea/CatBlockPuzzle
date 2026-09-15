@@ -16,6 +16,14 @@ namespace CatBlockPuzzle
             public TMP_Text amountLabel;
             public Image rewardIcon;
             public Button claimButton;
+            public Button cardButton;
+            public Image cardImage;
+            public Image claimImage;
+            public Sprite availableCardSprite;
+            public Sprite claimedCardSprite;
+            public Sprite availableClaimSprite;
+            public Sprite claimedClaimSprite;
+            public bool claimed;
             public UnityEvent claimRequested = new UnityEvent();
         }
 
@@ -24,26 +32,64 @@ namespace CatBlockPuzzle
         [SerializeField] private DayView[] days = Array.Empty<DayView>();
         private UnityAction[] claimActions;
 
-        private void Awake()
+        private void OnEnable()
         {
-            claimActions = new UnityAction[days.Length];
+            if (claimActions == null) claimActions = new UnityAction[days.Length];
             for (int i = 0; i < days.Length; i++)
             {
                 DayView day = days[i];
-                if (day == null || day.claimButton == null) continue;
-                claimActions[i] = day.claimRequested.Invoke;
-                day.claimButton.onClick.AddListener(claimActions[i]);
+                if (day == null) continue;
+                int index = i;
+                if (claimActions[i] == null) claimActions[i] = () => RequestClaim(days[index].day);
+                Bind(day.cardButton, claimActions[i], true);
+                if (day.claimButton != day.cardButton) Bind(day.claimButton, claimActions[i], true);
+                ApplyClaimedState(day);
             }
-            if (closeButton != null) closeButton.onClick.AddListener(Close);
+            Bind(closeButton, Close, true);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            if (closeButton != null) closeButton.onClick.RemoveListener(Close);
+            Bind(closeButton, Close, false);
             if (claimActions == null) return;
             for (int i = 0; i < days.Length; i++)
-                if (days[i]?.claimButton != null && claimActions[i] != null)
-                    days[i].claimButton.onClick.RemoveListener(claimActions[i]);
+            {
+                if (days[i] == null || claimActions[i] == null) continue;
+                Bind(days[i].cardButton, claimActions[i], false);
+                Bind(days[i].claimButton, claimActions[i], false);
+            }
+        }
+
+        private static void Bind(Button button, UnityAction action, bool bind)
+        {
+            if (button == null) return;
+            button.onClick.RemoveListener(action);
+            if (bind) button.onClick.AddListener(action);
+        }
+
+        public void RequestClaim(int dayNumber)
+        {
+            foreach (var day in days)
+                if (day != null && day.day == dayNumber && !day.claimed)
+                { day.claimRequested?.Invoke(); return; }
+        }
+
+        /// <summary>Called by the reward system after a claim succeeds, or while restoring its saved state.</summary>
+        public void SetDayClaimed(int dayNumber, bool claimed)
+        {
+            foreach (var day in days)
+                if (day != null && day.day == dayNumber)
+                { day.claimed = claimed; ApplyClaimedState(day); return; }
+        }
+
+        private static void ApplyClaimedState(DayView day)
+        {
+            Sprite card = day.claimed ? day.claimedCardSprite : day.availableCardSprite;
+            Sprite claim = day.claimed ? day.claimedClaimSprite : day.availableClaimSprite;
+            if (day.cardImage != null && card != null) day.cardImage.sprite = card;
+            if (day.claimImage != null && claim != null) day.claimImage.sprite = claim;
+            if (day.cardButton != null) day.cardButton.interactable = !day.claimed;
+            if (day.claimButton != null) day.claimButton.interactable = !day.claimed;
         }
 
         public void Show() { if (root != null) root.SetActive(true); }

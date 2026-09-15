@@ -74,7 +74,7 @@ namespace CatBlockPuzzle
                 for (int s = 0; s < slot.stars.Length; s++)
                 {
                     slot.stars[s].sprite = s < stars ? earnedStar : emptyStar;
-                    slot.stars[s].color = s < stars ? Color.white : new Color(.55f,.55f,.55f);
+                    slot.stars[s].color = Color.white;
                 }
             }
             coinText.text = gameplay.CurrentCoins.ToString();

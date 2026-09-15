@@ -46,6 +46,23 @@ namespace CatBlockPuzzle
         [SerializeField] internal RectTransform boardArea;
         [SerializeField] internal RectTransform trayArea;
         public bool UsesAuthoredLayout => boardArea != null && trayArea != null;
+        [Header("Power Up Controls")]
+        [SerializeField] private Button freezeButton;
+        private void OnEnable()
+        {
+            if (freezeButton == null) return;
+            freezeButton.onClick.RemoveListener(Freeze);
+            freezeButton.onClick.AddListener(Freeze);
+        }
+        private void OnDisable()
+        {
+            if (freezeButton != null) freezeButton.onClick.RemoveListener(Freeze);
+        }
+        private void Freeze() => GameSystem.Instance?.TryUseFreezePowerUp();
+        public void SetFreezeAvailable(bool available)
+        {
+            if (freezeButton != null) freezeButton.interactable = available;
+        }
 
         public bool Validate(out string error)
         {

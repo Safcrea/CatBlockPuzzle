@@ -28,6 +28,7 @@ namespace CatBlockPuzzle
         public bool HasReferenceUi => referenceUi != null;
         public bool IsPaused => systemPaused;
         public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
+        public bool TryUseFreezePowerUp() => HasGameplayController && gameplayController.TryUseFreezePowerUp();
         public bool IsGameplayOpen => referenceUi == null || referenceUi.IsGameplayOpen;
         public void ShowGameplayPage() => referenceUi?.ShowGameplay();
         public void ShowRoomsPage() => referenceUi?.ShowRooms();

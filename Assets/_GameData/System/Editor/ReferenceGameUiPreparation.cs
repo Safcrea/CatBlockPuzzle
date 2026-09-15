@@ -86,7 +86,7 @@ namespace CatBlockPuzzle.Editor
             var combo=Label("Combo",dynamicHud,new Vector2(300,54),new Vector2(0,-290),26);
             var stars=Rect("Progress Stars",dynamicHud,new Vector2(166,65),new Vector2(95,648));
             var starSprite=Sprite("Gameplay","L_0-1_Star_gameplay_0011");
-            var emptyStar=AssetDatabase.LoadAssetAtPath<Sprite>("Assets/_GameData/Art/UI/CatPuzzleScene/StarOutline.asset");
+            var emptyStar=Sprite("Gameplay","L_0-2_Black_&_White_2_0010");
             var starImages=Enumerable.Range(0,3).Select(i=>Image("Star "+(i+1),stars,starSprite,new Vector2(46,44),new Vector2((i-1)*50,0))).ToArray();
             foreach(string name in new[]{"Star","Star Disabled"}) { var old=Child(screen,name); Undo.RecordObject(old.gameObject,"Hide obsolete star"); old.gameObject.SetActive(false); }
             Set(Get(game,"presentationAssets"),"starSprite",starSprite);
@@ -96,9 +96,9 @@ namespace CatBlockPuzzle.Editor
             var hint=Image("Hint",actions,Sprite("Gameplay","L_0-0-2_Hint_0012"),new Vector2(150,150),new Vector2(-210,0));
             hint.raycastTarget=true; var hintButton=Undo.AddComponent<Button>(hint.gameObject);
             UnityEditor.Events.UnityEventTools.AddPersistentListener(hintButton.onClick,game.RequestHint);
-            // Boosters without defined inventory/effect rules remain visible but unbound.
-            Image("Time Freeze",actions,Sprite("Gameplay","L_0-0-1_Time_Freeze_0013"),new Vector2(150,150),Vector2.zero);
-            Image("Tile Break",actions,Sprite("Gameplay","L_0-0-0_Tile_break_0014"),new Vector2(150,150),new Vector2(210,0));
+            var freeze=Image("Time Freeze",actions,Sprite("Gameplay","L_0-0-1_Time_Freeze_0013"),new Vector2(150,150),Vector2.zero);
+            freeze.raycastTarget=true;Set(hud,"freezeButton",Undo.AddComponent<Button>(freeze.gameObject));
+            Image("Tile Break",actions,Sprite("Gameplay","L_0-0-0_Tile_break_0014"),new Vector2(150,150),new Vector2(210,0)).gameObject.SetActive(false);
             Set(hud,"root",screen); Set(hud,"gameplayScreen",screen); Set(hud,"levelRoot",levelRoot);
             Set(hud,"boardArea",boardArea); Set(hud,"trayArea",trayArea);
             Set(hud,"levelText",levelText); Set(hud,"timerText",timer); Set(hud,"timerPanel",timer.rectTransform);
@@ -148,7 +148,7 @@ namespace CatBlockPuzzle.Editor
                 card.rectTransform.anchorMin=card.rectTransform.anchorMax=new Vector2(.5f,1); card.preserveAspect=false;
                 string[] portraits={"L_0-4-6_Image_0008","L_0-3-1_Image_0021","L_0-2-1_ChatGPT_Image_Sep_13,_2026,_05_27_10_PM_0024"};
                 var portraitRoot=Rect("Room Portrait",card.transform,new Vector2(200,270),new Vector2(-320,0));Undo.AddComponent<RectMask2D>(portraitRoot.gameObject);
-                var portrait=Image("Art",portraitRoot,chapter<3?Sprite("LevelSelection",portraits[chapter]):catalog.roomBackgrounds[chapter],Vector2.zero,Vector2.zero);
+                var portrait=Image("Art",portraitRoot,chapter<2?Sprite("LevelSelection",portraits[chapter]):catalog.roomBackgrounds[chapter],Vector2.zero,Vector2.zero);
                 Stretch(portrait.rectTransform);var fit=Undo.AddComponent<AspectRatioFitter>(portrait.gameObject);fit.aspectMode=AspectRatioFitter.AspectMode.EnvelopeParent;fit.aspectRatio=portrait.sprite.rect.width/portrait.sprite.rect.height;
                 Label("Chapter Title",card.transform,new Vector2(590,65),new Vector2(100,112),28,"Chapter "+(chapter+1).ToString("00"));
                 var inner=Image("Levels",card.transform,Sprite("LevelSelection","L_0-4-11_Level_Selection_panel_internal_0003"),new Vector2(610,215),new Vector2(110,-32)); inner.preserveAspect=false;

@@ -13,8 +13,32 @@ namespace CatBlockPuzzle
 {
     public sealed partial class CatBlockPuzzleGame
     {
+        [Header("Power Ups")]
+        [SerializeField, Min(0.1f)] private float freezeDurationSeconds = 10f;
+        private float freezeRemainingSeconds;
+        private bool freezeUsedThisAttempt;
+        public bool IsTimerFrozen => freezeRemainingSeconds > 0f;
+        public float FreezeRemainingSeconds => freezeRemainingSeconds;
+
+        public bool TryUseFreezePowerUp()
+        {
+            if (!timerRunning || inputLocked || levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
+                freezeUsedThisAttempt || (GameSystem.Instance != null &&
+                (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen))) return false;
+            freezeUsedThisAttempt = true;
+            freezeRemainingSeconds = Mathf.Max(.1f, freezeDurationSeconds);
+            gameplayHud?.SetFreezeAvailable(false);
+            if (timerPulseRoutine != null) { StopCoroutine(timerPulseRoutine); timerPulseRoutine = null; }
+            if (timerText != null) timerText.rectTransform.localScale = Vector3.one;
+            UpdateTimerDisplay();
+            return true;
+        }
+
         private void ResetLevelTimer()
         {
+            freezeRemainingSeconds = 0f;
+            freezeUsedThisAttempt = false;
+            gameplayHud?.SetFreezeAvailable(true);
             timerRunning = false;
             levelFailed = false;
             levelRemainingSeconds = LevelDurationSeconds;
@@ -66,7 +90,16 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            levelRemainingSeconds -= Time.unscaledDeltaTime;
+            float elapsed = Time.unscaledDeltaTime;
+            if (freezeRemainingSeconds > 0f)
+            {
+                float frozenElapsed = Mathf.Min(freezeRemainingSeconds, elapsed);
+                freezeRemainingSeconds = Mathf.Max(0f, freezeRemainingSeconds - frozenElapsed);
+                elapsed -= frozenElapsed;
+                if (freezeRemainingSeconds > 0f) return;
+                UpdateTimerDisplay();
+            }
+            levelRemainingSeconds -= elapsed;
             if (levelRemainingSeconds <= 0f)
             {
                 levelRemainingSeconds = 0f;
@@ -101,7 +134,8 @@ namespace CatBlockPuzzle
             int minutes = totalSeconds / 60;
             int seconds = totalSeconds % 60;
             timerText.text = minutes.ToString() + ":" + seconds.ToString("00");
-            timerText.color = levelRemainingSeconds <= TimerWarningSeconds ? TimerWarningColor : TimerNormalColor;
+            timerText.color = IsTimerFrozen ? new Color(.08f,.55f,.85f) :
+                levelRemainingSeconds <= TimerWarningSeconds ? TimerWarningColor : TimerNormalColor;
             UpdateStarDisplay();
         }
 

@@ -7,7 +7,12 @@ namespace CatBlockPuzzle
     public sealed class CanvasBackgroundFitter : MonoBehaviour
     {
         private bool applying;
-        private void OnEnable() => Fit();
+        private void OnEnable()
+        {
+            Canvas.willRenderCanvases += Fit;
+            Fit();
+        }
+        private void OnDisable() => Canvas.willRenderCanvases -= Fit;
         private void OnRectTransformDimensionsChange() => Fit();
         private void Fit()
         {
