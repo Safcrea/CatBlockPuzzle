@@ -87313,7 +87313,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 989934566}
-  - component: {fileID: 9700000200}
   m_Layer: 5
   m_Name: Reference UI
   m_TagString: Untagged
@@ -193568,18 +193567,6 @@ MonoBehaviour:
   auxiliaryBackButtons:
   - {fileID: 9700000009}
   - {fileID: 9700000014}
---- !u!114 &9700000200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989934565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34b1f3d9227fdd94db66b773d1ad57d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5571064163690353439
 PrefabInstance:
   m_ObjectHideFlags: 0

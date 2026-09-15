@@ -119,6 +119,9 @@ namespace CatBlockPuzzle.Editor
             BuildSelection(selection,game,catalog,starSprite,emptyStar);
             Undo.RecordObject(game,"Enable puzzle controller"); game.enabled=true;
             Undo.RecordObject(reference.gameObject,"Activate Reference UI"); reference.gameObject.SetActive(true);
+            var wholePageFitter=reference.GetComponent<CatBlockPuzzle.KawaiiUI.SafeAreaFitter>();
+            if(wholePageFitter!=null) Undo.DestroyObjectImmediate(wholePageFitter);
+            Undo.RecordObject(reference,"Keep authored full-screen layout"); Stretch((RectTransform)reference);
             reference.parent.Find("Safe Area").gameObject.SetActive(false);
             foreach(Transform page in reference) page.gameObject.SetActive(page.name=="Main Menu Screen");
             if(!game.ValidatePreparedScene(out var error)) throw new InvalidOperationException(error);

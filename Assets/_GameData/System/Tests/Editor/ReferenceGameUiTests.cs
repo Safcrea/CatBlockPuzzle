@@ -46,6 +46,8 @@ namespace CatBlockPuzzle.Tests
                 Assert.That(selector.SlotCount,Is.EqualTo(100));
                 Assert.That(all.Single(t=>t.name=="Safe Area").gameObject.activeSelf,Is.False);
                 Assert.That(all.Single(t=>t.name=="Reference UI").gameObject.activeSelf,Is.True);
+                Assert.That(all.Single(t=>t.name=="Reference UI").GetComponent<CatBlockPuzzle.KawaiiUI.SafeAreaFitter>(),Is.Null,
+                    "Fitting the entire page clips backgrounds and changes the authored layout on entering Play Mode");
                 var slots=new SerializedObject(selector).FindProperty("levels");
                 for(int i=0;i<slots.arraySize;i++)
                 {

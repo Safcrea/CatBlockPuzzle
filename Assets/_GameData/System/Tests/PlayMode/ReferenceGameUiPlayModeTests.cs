@@ -14,6 +14,19 @@ namespace CatBlockPuzzle.Tests
         private static object Invoke(object target,string method,params object[] args) => target.GetType().GetMethod(method,BindingFlags.Public|BindingFlags.Instance).Invoke(target,args);
 
         [UnityTest]
+        public IEnumerator MainMenu_KeepsAuthoredFullCanvasLayoutInPlayMode()
+        {
+            Invoke(Screen("GameSystem"),"GoHome");yield return null;
+            var canvas=(Canvas)Game.GetType().GetProperty("PreparedCanvas").GetValue(Game);
+            var reference=(RectTransform)canvas.transform.Find("Reference UI");
+            var bg=(RectTransform)reference.Find("Main Menu Screen/BG");
+            Assert.That(reference.anchorMin,Is.EqualTo(Vector2.zero));Assert.That(reference.anchorMax,Is.EqualTo(Vector2.one));
+            Assert.That(reference.rect.size,Is.EqualTo(((RectTransform)canvas.transform).rect.size));
+            Assert.That(bg.rect.size,Is.EqualTo(reference.rect.size));
+            CaptureAssignedCamera(canvas,"ReferenceUI_MainMenuFullScreen.png");
+        }
+
+        [UnityTest]
         public IEnumerator Freeze_PreservesPieceInteractionPausesExpiresAndResetsOnRestart()
         {
             var system=Screen("GameSystem");Invoke(system,"StartLevel",0);yield return new WaitForSecondsRealtime(1.2f);
