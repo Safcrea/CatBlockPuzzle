@@ -42,6 +42,10 @@ namespace CatBlockPuzzle
         public Canvas Canvas => canvas;
         public RectTransform GameplayScreen => gameplayScreen;
         public RectTransform LevelRoot => levelRoot;
+        [Header("Authored Gameplay Layout")]
+        [SerializeField] internal RectTransform boardArea;
+        [SerializeField] internal RectTransform trayArea;
+        public bool UsesAuthoredLayout => boardArea != null && trayArea != null;
 
         public bool Validate(out string error)
         {
@@ -52,7 +56,7 @@ namespace CatBlockPuzzle
             else if (root == null || gameplayScreen == null || levelRoot == null || fxLayer == null)
                 error = "gameplay scene roots are missing";
             else if (levelText == null || timerText == null || coinText == null || objectiveImage == null ||
-                previousTestButton == null || nextTestButton == null)
+                (!UsesAuthoredLayout && (previousTestButton == null || nextTestButton == null)))
                 error = "gameplay HUD controls are missing";
             else if (preparedEffects == null || preparedEffects.Length != 256 || backgroundCrossfade == null)
                 error = "the saved effect pool or crossfade is missing";

@@ -1,98 +1,59 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace CatBlockPuzzle
 {
+    [DisallowMultipleComponent]
     public sealed class SettingsMenu : MonoBehaviour
     {
         public const string HapticsEnabledKey = "CatBlockPuzzle.Settings.Haptics";
-
         [SerializeField] private GameObject root;
-        [System.NonSerialized] private Button closeButton;
-        [System.NonSerialized] private Button musicButton;
-        [System.NonSerialized] private Button sfxButton;
-        [System.NonSerialized] private Button hapticsButton;
-        [System.NonSerialized] private Text musicStateText;
-        [System.NonSerialized] private Text sfxStateText;
-        [System.NonSerialized] private Text hapticsStateText;
-
+        [Header("Authored Buttons")]
+        [SerializeField] private Button closeButton;
+        [SerializeField] private Button musicButton;
+        [SerializeField] private Button sfxButton;
+        [SerializeField] private Button hapticsButton;
+        [Header("Toggle Artwork")]
+        [SerializeField] private Sprite enabledSprite;
+        [SerializeField] private Sprite disabledSprite;
+        [Header("Optional Labels")]
+        [SerializeField] private Text musicStateText;
+        [SerializeField] private Text sfxStateText;
+        [SerializeField] private Text hapticsStateText;
         private bool returnToPause;
+
         public static bool HapticsEnabled => PlayerPrefs.GetInt(HapticsEnabledKey, 1) != 0;
-        public bool IsOpen => root != null && root.activeSelf;
-
-        public void EnsureRuntimeView(Transform canvas)
-        {
-            if (musicButton != null || canvas == null)
-            {
-                BindButtons();
-                return;
-            }
-
-            RectTransform overlay = root != null ? root.GetComponent<RectTransform>() : null;
-            if (overlay == null)
-            {
-                overlay = RuntimeUiFactory.CreateOverlay(canvas, "Settings Menu");
-                root = overlay.gameObject;
-            }
-            else
-            {
-                RuntimeUiFactory.PrepareOverlay(overlay);
-            }
-
-            RectTransform panel = RuntimeUiFactory.CreatePanel(overlay, "Settings Panel", new Vector2(650f, 650f));
-            Text title = RuntimeUiFactory.CreateText(panel, "Title", "SETTINGS", 58, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(title.rectTransform, new Vector2(0f, 245f), new Vector2(520f, 80f));
-            musicButton = CreateSettingRow(panel, "Music", new Vector2(0f, 115f), out musicStateText);
-            sfxButton = CreateSettingRow(panel, "SFX", new Vector2(0f, 0f), out sfxStateText);
-            hapticsButton = CreateSettingRow(panel, "Haptics", new Vector2(0f, -115f), out hapticsStateText);
-            closeButton = RuntimeUiFactory.CreateButton(panel, "Close", "Done", new Vector2(0f, -245f), new Vector2(360f, 82f), RuntimeUiFactory.Coral);
-            root.SetActive(false);
-            BindButtons();
-            RefreshVisuals();
-        }
+        public bool IsOpen => root != null && root.activeInHierarchy;
+        public bool IsConfigured => root != null;
+        private void OnEnable() { EnsureBindings(); RefreshVisuals(); }
+        private void OnDestroy() => UpdateListeners(false);
+        public void EnsureBindings() => UpdateListeners(true);
 
         public void Show(bool openedFromPause)
         {
-            returnToPause = openedFromPause;
             if (root == null) return;
-            RefreshVisuals();
+            returnToPause = openedFromPause;
             root.SetActive(true);
+            root.transform.SetAsLastSibling();
+            RefreshVisuals();
         }
 
-        public void Hide()
+        public void Hide() { if (root != null) root.SetActive(false); }
+
+        private void UpdateListeners(bool bind)
         {
-            if (root != null) root.SetActive(false);
+            Listen(closeButton, Close, bind);
+            Listen(musicButton, ToggleMusic, bind);
+            Listen(sfxButton, ToggleSfx, bind);
+            Listen(hapticsButton, ToggleHaptics, bind);
         }
 
-        private Button CreateSettingRow(Transform panel, string label, Vector2 position, out Text stateText)
-        {
-            Button button = RuntimeUiFactory.CreateButton(panel, label, label, position, new Vector2(510f, 86f), Color.white);
-            Text labelText = button.GetComponentInChildren<Text>();
-            labelText.alignment = TextAnchor.MiddleLeft;
-            labelText.rectTransform.offsetMin = new Vector2(34f, 0f);
-            labelText.rectTransform.offsetMax = new Vector2(-145f, 0f);
-            stateText = RuntimeUiFactory.CreateText(button.transform, "State", "On", 30, TextAnchor.MiddleCenter);
-            RectTransform stateRect = stateText.rectTransform;
-            stateRect.anchorMin = stateRect.anchorMax = new Vector2(1f, 0.5f);
-            stateRect.pivot = new Vector2(1f, 0.5f);
-            stateRect.anchoredPosition = new Vector2(-24f, 0f);
-            stateRect.sizeDelta = new Vector2(110f, 60f);
-            return button;
-        }
-
-        private void BindButtons()
-        {
-            Bind(closeButton, Close);
-            Bind(musicButton, ToggleMusic);
-            Bind(sfxButton, ToggleSfx);
-            Bind(hapticsButton, ToggleHaptics);
-        }
-
-        private static void Bind(Button button, UnityEngine.Events.UnityAction action)
+        private static void Listen(Button button, UnityAction action, bool bind)
         {
             if (button == null) return;
             button.onClick.RemoveListener(action);
-            button.onClick.AddListener(action);
+            if (bind) button.onClick.AddListener(action);
         }
 
         private void ToggleMusic()
@@ -119,17 +80,18 @@ namespace CatBlockPuzzle
 
         private void RefreshVisuals()
         {
+            if (!Application.isPlaying) return;
             SoundManager manager = SoundManager.EnsureInstance();
-            SetState(musicStateText, manager.MusicEnabled);
-            SetState(sfxStateText, manager.SfxEnabled);
-            SetState(hapticsStateText, HapticsEnabled);
+            SetState(musicButton, musicStateText, manager.MusicEnabled);
+            SetState(sfxButton, sfxStateText, manager.SfxEnabled);
+            SetState(hapticsButton, hapticsStateText, HapticsEnabled);
         }
 
-        private static void SetState(Text text, bool enabled)
+        private void SetState(Button button, Text text, bool enabled)
         {
-            if (text == null) return;
-            text.text = enabled ? "ON" : "OFF";
-            text.color = enabled ? new Color(0.2f, 0.62f, 0.5f, 1f) : new Color(0.65f, 0.45f, 0.42f, 1f);
+            Sprite sprite = enabled ? enabledSprite : disabledSprite;
+            if (button != null && button.targetGraphic is Image image && sprite != null) image.sprite = sprite;
+            if (text != null) text.text = enabled ? "ON" : "OFF";
         }
 
         private void Close()

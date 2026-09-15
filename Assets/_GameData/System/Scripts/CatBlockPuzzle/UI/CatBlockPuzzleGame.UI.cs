@@ -56,11 +56,6 @@ namespace CatBlockPuzzle
 
         private void PlaySfx(string id)
         {
-            if (!soundEnabled)
-            {
-                return;
-            }
-
             SoundManager manager = SoundManager.EnsureInstance();
             if (manager != null) manager.PlaySfx(id);
         }

@@ -160,8 +160,8 @@ namespace CatBlockPuzzle
             ApplyPreferences();
             ResetFxPool();
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
-            previousTestButton.gameObject.SetActive(false);
-            nextTestButton.gameObject.SetActive(false);
+            if (previousTestButton != null) previousTestButton.gameObject.SetActive(false);
+            if (nextTestButton != null) nextTestButton.gameObject.SetActive(false);
 #endif
         }
 
@@ -181,7 +181,12 @@ namespace CatBlockPuzzle
                 previewLevel = true;
             }
 #endif
-            ShowMetaStartup(requestedLevel, previewLevel);
+            if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi)
+            {
+                if (previewLevel) { GameSystem.Instance.ShowGameplayPage(); LoadLevel(requestedLevel, false); }
+                else GameSystem.Instance.GoHome();
+            }
+            else ShowMetaStartup(requestedLevel, previewLevel);
         }
 
         private void LoadLevel(int nextLevelIndex, bool persistProgress = true)
@@ -242,6 +247,7 @@ namespace CatBlockPuzzle
 
         private void Update()
         {
+            if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi && !GameSystem.Instance.IsGameplayOpen) return;
             UpdateDraggedPieceMotion();
             UpdateLevelTimer();
             UpdateTrayIdleMotion();

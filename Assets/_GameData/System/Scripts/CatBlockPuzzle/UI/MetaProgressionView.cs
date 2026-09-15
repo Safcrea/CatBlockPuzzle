@@ -58,7 +58,7 @@ namespace CatBlockPuzzle
         [SerializeField] internal Text completionNextText;
         [SerializeField] internal Text completionActionLabel;
 
-        public bool IsOpen => metaOverlay != null && metaOverlay.gameObject.activeSelf;
+        public bool IsOpen => metaOverlay != null && metaOverlay.gameObject.activeInHierarchy;
 
         public bool Validate(out string error)
         {

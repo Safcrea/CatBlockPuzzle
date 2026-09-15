@@ -45,6 +45,11 @@ namespace CatBlockPuzzle
             traySlotPreferredHeight = Mathf.Min(traySlotPreferredHeight, Mathf.Max(150f, profileTrayHeight - (verticalPadding * 2f)));
             float trayWidth = Mathf.Min(TrayMaxWidth, Mathf.Max(560f, root.rect.width - 64f));
             float trayHeight = Mathf.Clamp(traySlotPreferredHeight + (verticalPadding * 2f), 270f, profileTrayHeight);
+            if (gameplayHud.UsesAuthoredLayout)
+            {
+                trayWidth = gameplayHud.trayArea.rect.width;
+                trayHeight = gameplayHud.trayArea.rect.height;
+            }
             float viewportWidth = Mathf.Max(1f, trayWidth - 36f);
             float desiredContentWidth = (traySlotPreferredWidth * layoutCount) + (spacing * (layoutCount - 1)) + (horizontalPadding * 2f);
 
@@ -56,6 +61,12 @@ namespace CatBlockPuzzle
 
             float trayBottom = profileActionHeight + 40f;
             SetRect(trayRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, trayBottom), new Vector2(trayWidth, trayHeight));
+            if (gameplayHud.UsesAuthoredLayout)
+            {
+                Vector2 center = levelRoot.InverseTransformPoint(gameplayHud.trayArea.TransformPoint(gameplayHud.trayArea.rect.center));
+                SetRect(trayRoot, new Vector2(.5f,.5f), new Vector2(.5f,.5f), new Vector2(.5f,.5f), center, new Vector2(trayWidth,trayHeight));
+                if (trayImage != null) trayImage.enabled = false;
+            }
             if (trayContent != null)
             {
                 SetRect(trayContent, new Vector2(0f, 0f), new Vector2(0f, 1f), new Vector2(0f, 0.5f), Vector2.zero, new Vector2(Mathf.Max(viewportWidth, desiredContentWidth), 0f));

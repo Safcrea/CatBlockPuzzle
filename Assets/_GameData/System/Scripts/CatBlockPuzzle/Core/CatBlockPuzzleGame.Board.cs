@@ -17,6 +17,11 @@ namespace CatBlockPuzzle
 
         private Vector2 GetBoardTargetMaxSize()
         {
+            if (gameplayHud.UsesAuthoredLayout)
+            {
+                boardCenterY = levelRoot.InverseTransformPoint(gameplayHud.boardArea.TransformPoint(gameplayHud.boardArea.rect.center)).y;
+                return gameplayHud.boardArea.rect.size;
+            }
             int maxDimension = Mathf.Max(activeLevel.Rows, activeLevel.Cols);
             Vector2 desired;
             if (maxDimension <= 3)
@@ -61,6 +66,11 @@ namespace CatBlockPuzzle
                 SetRect(boardBackdrop, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, boardCenterY), new Vector2(boardWidth + 64f, boardHeight + 64f));
             }
 
+            if (gameplayHud.UsesAuthoredLayout)
+            {
+                if (boardBackdrop != null) boardBackdrop.gameObject.SetActive(false);
+                return;
+            }
             if (timerText != null)
             {
                 float timerY = boardCenterY + (boardHeight * 0.5f) + TimerBoardGap + (TimerHeight * 0.5f);
@@ -95,7 +105,7 @@ namespace CatBlockPuzzle
                     }
                 }
 
-                inputLocked = IsMetaUiOpen;
+                inputLocked = IsMetaUiOpen || (GameSystem.Instance != null && GameSystem.Instance.IsPaused);
                 if (!IsMetaUiOpen)
                 {
                     StartLevelTimer();
@@ -134,7 +144,7 @@ namespace CatBlockPuzzle
                 }
             }
 
-            inputLocked = IsMetaUiOpen;
+            inputLocked = IsMetaUiOpen || (GameSystem.Instance != null && GameSystem.Instance.IsPaused);
             if (!IsMetaUiOpen)
             {
                 StartLevelTimer();

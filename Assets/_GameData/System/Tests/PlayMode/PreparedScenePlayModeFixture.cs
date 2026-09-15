@@ -14,6 +14,7 @@ namespace CatBlockPuzzle.Tests
     public abstract class PreparedScenePlayModeFixture
     {
         protected MonoBehaviour Game;
+        protected virtual string SceneName => "CatBlockPuzzle";
         private readonly Dictionary<string,int?> ints = new Dictionary<string,int?>();
         private string metaSave;
         private bool hadMetaSave;
@@ -28,7 +29,7 @@ namespace CatBlockPuzzle.Tests
         public IEnumerator LoadPreparedScene()
         {
             ints.Clear();
-            string[] keys = {"CatBlockPuzzle.LevelIndex", "CatBlockPuzzle.Coins", "CatBlockPuzzle.Settings.Sound", "CatBlockPuzzle.Settings.Haptics", "CatBlockPuzzle.Settings.ReducedMotion"};
+            string[] keys = {"CatBlockPuzzle.LevelIndex", "CatBlockPuzzle.Coins", "CatBlockPuzzle.Settings.Sound", "CatBlockPuzzle.Settings.Sfx", "CatBlockPuzzle.Settings.Music", "CatBlockPuzzle.Settings.Haptics", "CatBlockPuzzle.Settings.ReducedMotion"};
             foreach (var key in keys) ints[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null;
             var pack = JsonUtility.FromJson<Pack>(Resources.Load<TextAsset>("CatBlockPuzzle/levels_100").text);
             foreach (var level in pack.levels) { string key = "CatBlockPuzzle.BestStars." + level.id; ints[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null; }
@@ -42,7 +43,7 @@ namespace CatBlockPuzzle.Tests
             oldPreview = UnityEditor.EditorPrefs.GetInt("CatBlockPuzzle.EditorPreviewLevel",0);
             UnityEditor.EditorPrefs.SetInt("CatBlockPuzzle.EditorPreviewLevel",0);
 #endif
-            yield return SceneManager.LoadSceneAsync("CatBlockPuzzle", LoadSceneMode.Single);
+            yield return SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Single);
             Game = UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
                 .Single(g => g.GetType().FullName == "CatBlockPuzzle.CatBlockPuzzleGame");
             Assert.That(Game.enabled, Is.True, "Prepared scene validation rejected the game.");
@@ -55,7 +56,7 @@ namespace CatBlockPuzzle.Tests
         public IEnumerator RestorePlayerPreferences()
         {
             // Stop the game before restoring its save keys, including failure cases.
-            var scene = SceneManager.GetSceneByName("CatBlockPuzzle");
+            var scene = SceneManager.GetSceneByName(SceneName);
             if (scene.IsValid() && scene.isLoaded)
             {
                 var empty = SceneManager.CreateScene("Test Cleanup");

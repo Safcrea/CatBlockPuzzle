@@ -34,7 +34,8 @@ namespace CatBlockPuzzle
 
         private void StartLevelTimer()
         {
-            if (levelFailed || IsResultScreenOpen || IsMetaUiOpen)
+            if (levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
+                (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen)))
             {
                 return;
             }

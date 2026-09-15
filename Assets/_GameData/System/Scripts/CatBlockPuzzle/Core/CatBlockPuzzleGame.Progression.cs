@@ -15,7 +15,7 @@ namespace CatBlockPuzzle
 
         private void LoadPreferences()
         {
-            soundEnabled = PlayerPrefs.GetInt(SavedSoundKey, 1) != 0;
+            soundEnabled = PlayerPrefs.GetInt(SoundManager.SfxEnabledKey, PlayerPrefs.GetInt(SavedSoundKey, 1)) != 0;
             hapticsEnabled = PlayerPrefs.GetInt(SavedHapticsKey, 1) != 0;
             reducedMotion = PlayerPrefs.GetInt(SavedReducedMotionKey, 0) != 0;
             ApplyPreferences();
@@ -24,6 +24,7 @@ namespace CatBlockPuzzle
         private void ApplyPreferences()
         {
             SoundManager soundManager = SoundManager.EnsureInstance();
+            soundEnabled = PlayerPrefs.GetInt(SoundManager.SfxEnabledKey, soundEnabled ? 1 : 0) != 0;
             soundManager.SetSfxEnabled(soundEnabled);
             soundManager.SetMusicEnabled(PlayerPrefs.GetInt(SoundManager.MusicEnabledKey, 1) != 0);
 
@@ -133,7 +134,7 @@ namespace CatBlockPuzzle
 
                 bool filled = i < visibleStars;
                 star.sprite = filled ? starSprite : starOutlineSprite;
-                star.color = filled ? GoldColor : new Color(0.64f, 0.52f, 0.42f, 0.48f);
+                star.color = gameplayHud.UsesAuthoredLayout ? (filled ? Color.white : new Color(.55f,.55f,.55f)) : filled ? GoldColor : new Color(0.64f, 0.52f, 0.42f, 0.48f);
             }
         }
 
