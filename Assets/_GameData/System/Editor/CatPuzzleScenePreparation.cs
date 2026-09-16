@@ -80,9 +80,10 @@ public static class CatPuzzleScenePreparation
         var games = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<CatBlockPuzzleGame>(true)).ToArray();
         if (games.Length != 1) throw new BuildFailedException("Expected exactly one prepared CatBlockPuzzle controller.");
         if (!games[0].ValidatePreparedScene(out string error)) throw new BuildFailedException(error);
-        var catalog = AssetDatabase.LoadAssetAtPath<CatPuzzleContentCatalog>(CatBlockPuzzleGame.PreparedAssetFolder + "/Content.asset");
-        if (catalog == null || catalog.sourceFingerprint != CatBlockPuzzleGame.PreparationFingerprint())
-            throw new BuildFailedException("Prepared content is stale. Run Cat Block Puzzle > Prepare Game Scene.");
+        // A script import hash changes for unrelated UI edits (and across Unity versions).
+        // Validate the data used by this scene instead of demanding a destructive scene rebuild.
+        if (!games[0].ValidatePreparedContentSources(out string sourceError))
+            throw new BuildFailedException(sourceError);
         for (int i = 0; i < games[0].LevelPrefabResources.Length; i++)
         {
             string path = "Assets/_GameData/System/Resources/" + games[0].LevelPrefabResources[i] + ".prefab";

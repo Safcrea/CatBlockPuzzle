@@ -16,6 +16,45 @@ namespace CatBlockPuzzle
         public const string PreparedAssetFolder = "Assets/_GameData/Art/UI/CatPuzzleScene";
         private readonly Dictionary<Sprite, Sprite> persistedSprites = new Dictionary<Sprite, Sprite>();
 
+        public bool ValidatePreparedContentSources(out string error)
+        {
+            error = null;
+            if (contentCatalog == null) { error = "The scene's content catalog is missing."; return false; }
+            const string levelsPath = "Assets/_GameData/System/Resources/CatBlockPuzzle/levels_100.json";
+            const string roomsPath = "Assets/_GameData/System/Resources/CatBlockPuzzle/meta_chapters.json";
+            try
+            {
+                var sourceLevels = JsonUtility.FromJson<LevelPackData>(File.ReadAllText(levelsPath));
+                if (!LevelValidator.TryValidatePack(sourceLevels, out string levelError))
+                {
+                    error = "Invalid level source data: " + levelError;
+                    return false;
+                }
+                if (JsonUtility.ToJson(sourceLevels) != JsonUtility.ToJson(contentCatalog.levelPack))
+                {
+                    error = "Prepared level data differs from " + levelsPath + ". Regenerate the prepared content after your level-data changes.";
+                    return false;
+                }
+                var sourceRooms = JsonUtility.FromJson<CatMetaCatalogData>(File.ReadAllText(roomsPath));
+                if (sourceRooms == null || sourceRooms.chapters == null || sourceRooms.chapters.Length == 0)
+                {
+                    error = "Room source data is empty or invalid: " + roomsPath;
+                    return false;
+                }
+                if (JsonUtility.ToJson(sourceRooms) != JsonUtility.ToJson(contentCatalog.metaData))
+                {
+                    error = "Prepared room data differs from " + roomsPath + ". Regenerate the prepared content after your room-data changes.";
+                    return false;
+                }
+            }
+            catch (Exception exception)
+            {
+                error = "Could not validate prepared source content: " + exception.Message;
+                return false;
+            }
+            return true;
+        }
+
         public static string PreparationFingerprint()
         {
             string[] sources = {

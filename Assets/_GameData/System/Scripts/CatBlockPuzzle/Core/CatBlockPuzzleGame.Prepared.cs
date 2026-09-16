@@ -69,9 +69,24 @@ namespace CatBlockPuzzle
                     view.cells == null || view.cells.Length != data.rows * data.cols ||
                     view.pieces == null || view.pieces.Length != data.pieces.Length)
                 { error = "level " + (i + 1) + " has incomplete bindings"; return false; }
+                var expectedCells = new System.Collections.Generic.HashSet<Vector2Int>();
+                foreach (var sourcePiece in data.pieces)
+                {
+                    if (!ShapeLibrary.TryGetShape(sourcePiece.shape, out CellOffset[] offsets))
+                    { error = "level " + (i + 1) + " has an unknown shape: " + sourcePiece.shape; return false; }
+                    foreach (var offset in offsets)
+                        expectedCells.Add(new Vector2Int(sourcePiece.row + offset.Row, sourcePiece.col + offset.Col));
+                }
+                var seenCells = new System.Collections.Generic.HashSet<Vector2Int>();
                 foreach (var cell in view.cells)
+                {
+                    var coordinate = new Vector2Int(cell.row, cell.col);
+                    if (cell.row < 0 || cell.row >= data.rows || cell.col < 0 || cell.col >= data.cols ||
+                        !seenCells.Add(coordinate) || cell.active != expectedCells.Contains(coordinate))
+                    { error = "level " + (i + 1) + " has stale board geometry; regenerate its level prefab"; return false; }
                     if (cell.image == null || (cell.active && (cell.preview == null || cell.shine == null || cell.paw == null)))
                     { error = "level " + (i + 1) + " has a missing board-cell reference"; return false; }
+                }
                 for (int p = 0; p < view.pieces.Length; p++)
                 {
                     var piece = view.pieces[p];
@@ -81,6 +96,9 @@ namespace CatBlockPuzzle
                         piece.slotInput.pieceIndex != p || piece.pieceInput.pieceIndex != p ||
                         !piece.slotInput.slotProxy || piece.pieceInput.slotProxy || piece.cats == null || piece.cats.Length == 0)
                     { error = "level " + (i + 1) + ", piece " + p + " has incomplete bindings"; return false; }
+                    ShapeLibrary.TryGetShape(data.pieces[p].shape, out CellOffset[] shapeCells);
+                    if (piece.cats.Length != shapeCells.Length)
+                    { error = "level " + (i + 1) + ", piece " + p + " has a stale shape; regenerate its level prefab"; return false; }
                     foreach (var cat in piece.cats) if (cat == null || cat.sprite == null)
                     { error = "level " + (i + 1) + " has a missing cat image"; return false; }
                 }

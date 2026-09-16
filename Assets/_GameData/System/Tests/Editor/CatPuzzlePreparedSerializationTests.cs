@@ -11,6 +11,37 @@ namespace CatBlockPuzzle.Tests
     public sealed class CatPuzzlePreparedSerializationTests
     {
         [Test]
+        public void SourceValidation_AllowsOldScriptFingerprintButRejectsChangedLevelData()
+        {
+            var scene = EditorSceneManager.OpenPreviewScene(CatPuzzleScenePreparation.ScenePath);
+            CatPuzzleContentCatalog copy = null;
+            try
+            {
+                var game = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<CatBlockPuzzleGame>(true)).Single();
+                var serializedGame = new SerializedObject(game);
+                var binding = serializedGame.FindProperty("contentCatalog");
+                copy = Object.Instantiate((CatPuzzleContentCatalog)binding.objectReferenceValue);
+                copy.sourceFingerprint = "old-editor-script-hash";
+                binding.objectReferenceValue = copy;
+                serializedGame.ApplyModifiedPropertiesWithoutUndo();
+                Assert.That(game.ValidatePreparedContentSources(out string error), Is.True, error);
+                CatPuzzleScenePreparation.ValidateScene(scene);
+
+                var serializedCatalog = new SerializedObject(copy);
+                serializedCatalog.FindProperty("levelPack").FindPropertyRelative("levels")
+                    .GetArrayElementAtIndex(0).FindPropertyRelative("reward").intValue += 1;
+                serializedCatalog.ApplyModifiedPropertiesWithoutUndo();
+                Assert.That(game.ValidatePreparedContentSources(out error), Is.False);
+                StringAssert.Contains("Prepared level data differs", error);
+            }
+            finally
+            {
+                EditorSceneManager.ClosePreviewScene(scene);
+                if (copy != null) Object.DestroyImmediate(copy);
+            }
+        }
+
+        [Test]
         public void EditorPreview_LoadsOnlyOneTemporaryPrefab()
         {
             var scene = EditorSceneManager.OpenPreviewScene(CatPuzzleScenePreparation.ScenePath);
