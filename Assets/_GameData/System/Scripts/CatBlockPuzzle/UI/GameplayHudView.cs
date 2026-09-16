@@ -48,20 +48,47 @@ namespace CatBlockPuzzle
         public bool UsesAuthoredLayout => boardArea != null && trayArea != null;
         [Header("Power Up Controls")]
         [SerializeField] private Button freezeButton;
+        [SerializeField] private Button hintButton;
+        [SerializeField] private Text hintCountText;
+        [SerializeField] private Text freezeCountText;
+        private bool freezeAvailable = true;
+
         private void OnEnable()
         {
-            if (freezeButton == null) return;
-            freezeButton.onClick.RemoveListener(Freeze);
-            freezeButton.onClick.AddListener(Freeze);
+            if (freezeButton != null)
+            {
+                freezeButton.onClick.RemoveListener(Freeze);
+                freezeButton.onClick.AddListener(Freeze);
+            }
+
+            RefreshPowerUpCounts();
         }
         private void OnDisable()
         {
             if (freezeButton != null) freezeButton.onClick.RemoveListener(Freeze);
         }
+
+        private void Start() => RefreshPowerUpCounts();
+
         private void Freeze() => GameSystem.Instance?.TryUseFreezePowerUp();
+
+        /// <summary>Updates the authored HUD labels and availability from the saved inventory.</summary>
+        public void RefreshPowerUpCounts()
+        {
+            GameSystem system = GameSystem.Instance;
+            int hintCount = system != null ? system.GetPowerUpCount(PowerUpKind.Hint) : 0;
+            int freezeCount = system != null ? system.GetPowerUpCount(PowerUpKind.Freeze) : 0;
+
+            if (hintCountText != null) hintCountText.text = $"x{hintCount}";
+            if (freezeCountText != null) freezeCountText.text = $"x{freezeCount}";
+            if (hintButton != null) hintButton.interactable = hintCount > 0;
+            if (freezeButton != null) freezeButton.interactable = freezeAvailable && freezeCount > 0;
+        }
+
         public void SetFreezeAvailable(bool available)
         {
-            if (freezeButton != null) freezeButton.interactable = available;
+            freezeAvailable = available;
+            RefreshPowerUpCounts();
         }
 
         public bool Validate(out string error)
@@ -75,6 +102,8 @@ namespace CatBlockPuzzle
             else if (levelText == null || timerText == null || coinText == null || objectiveImage == null ||
                 (!UsesAuthoredLayout && (previousTestButton == null || nextTestButton == null)))
                 error = "gameplay HUD controls are missing";
+            else if (freezeButton == null || hintButton == null || hintCountText == null || freezeCountText == null)
+                error = "power-up HUD controls or count labels are missing";
             else if (preparedEffects == null || preparedEffects.Length != 256 || backgroundCrossfade == null)
                 error = "the saved effect pool or crossfade is missing";
             return error == null;

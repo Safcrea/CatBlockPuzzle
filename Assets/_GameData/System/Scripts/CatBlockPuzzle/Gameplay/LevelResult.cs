@@ -20,6 +20,9 @@ namespace CatBlockPuzzle
 
     public static class CatPuzzleResultCalculator
     {
+        public const int MinimumStars = 1;
+        public const int MaximumStars = 3;
+
         public static int CalculateStars(float remainingSeconds, float durationSeconds)
         {
             float ratio = durationSeconds > 0f ? Mathf.Clamp01(remainingSeconds / durationSeconds) : 0f;
@@ -29,6 +32,11 @@ namespace CatBlockPuzzle
             }
 
             return ratio > 0.2f ? 2 : 1;
+        }
+
+        public static int ClampStars(int stars)
+        {
+            return Mathf.Clamp(stars, MinimumStars, MaximumStars);
         }
     }
 }

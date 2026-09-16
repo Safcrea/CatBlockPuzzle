@@ -28,11 +28,45 @@ namespace CatBlockPuzzle
         public bool HasReferenceUi => referenceUi != null;
         public bool IsPaused => systemPaused;
         public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
-        public bool TryUseFreezePowerUp() => HasGameplayController && gameplayController.TryUseFreezePowerUp();
+        public bool AwardCoins(int amount)
+        {
+            if (gameplayController == null || amount <= 0) return false;
+            gameplayController.AwardExternalCoins(amount);
+            return true;
+        }
+        public int GetPowerUpCount(PowerUpKind kind) => PowerUpInventory.GetCount(kind);
+        public bool TryUseFreezePowerUp()
+        {
+            if (!HasGameplayController || PowerUpInventory.GetCount(PowerUpKind.Freeze) <= 0) return false;
+            if (!gameplayController.TryUseFreezePowerUp()) return false;
+            bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Freeze);
+            if (consumed) gameplayController.RefreshPowerUpHud();
+            return consumed;
+        }
+        public bool TryUseHintPowerUp()
+        {
+            if (!HasGameplayController || PowerUpInventory.GetCount(PowerUpKind.Hint) <= 0) return false;
+            if (!gameplayController.TryUseHintPowerUp()) return false;
+            bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Hint);
+            if (consumed) gameplayController.RefreshPowerUpHud();
+            return consumed;
+        }
+        public void RefreshPowerUpHud() => gameplayController?.RefreshPowerUpHud();
         public bool IsGameplayOpen => referenceUi == null || referenceUi.IsGameplayOpen;
         public void ShowGameplayPage() => referenceUi?.ShowGameplay();
         public void ShowRoomsPage() => referenceUi?.ShowRooms();
-        public void OpenRooms() => gameplayController?.ShowHomeFromSystem();
+        public void OpenRooms()
+        {
+            // Rooms are unavailable in the reference-menu release. Do not fall back
+            // to the old meta hub when the feature is intentionally disabled.
+            if (referenceUi != null)
+            {
+                referenceUi.ShowRooms();
+                return;
+            }
+
+            gameplayController?.ShowHomeFromSystem();
+        }
         public bool StartLevel(int index)
         {
             if (!HasGameplayController || !gameplayController.IsLevelAvailable(index)) return false;

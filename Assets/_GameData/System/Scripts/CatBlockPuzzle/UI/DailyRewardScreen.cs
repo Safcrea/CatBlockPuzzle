@@ -30,7 +30,12 @@ namespace CatBlockPuzzle
         [SerializeField] private GameObject root;
         [SerializeField] private Button closeButton;
         [SerializeField] private DayView[] days = Array.Empty<DayView>();
+        [Header("Rewards")]
+        [SerializeField] private DailyRewardConfig rewardConfig;
         private UnityAction[] claimActions;
+
+        public bool IsClaimAvailable => Config != null && DailyRewardProgress.GetAvailableDay(Config, DateTime.UtcNow) > 0;
+        private DailyRewardConfig Config => rewardConfig != null ? rewardConfig : DailyRewardConfig.Load();
 
         private void OnEnable()
         {
@@ -46,6 +51,7 @@ namespace CatBlockPuzzle
                 ApplyClaimedState(day);
             }
             Bind(closeButton, Close, true);
+            RefreshPresentation();
         }
 
         private void OnDisable()
@@ -69,9 +75,21 @@ namespace CatBlockPuzzle
 
         public void RequestClaim(int dayNumber)
         {
+            DailyRewardConfig config = Config;
+            int availableDay = config != null ? DailyRewardProgress.GetAvailableDay(config, DateTime.UtcNow) : 0;
+            if (availableDay != dayNumber) return;
+
             foreach (var day in days)
-                if (day != null && day.day == dayNumber && !day.claimed)
-                { day.claimRequested?.Invoke(); return; }
+                if (day != null && day.day == dayNumber)
+                {
+                    if (GameSystem.Instance == null) return;
+                    if (config == null || !DailyRewardProgress.TryClaim(config, DateTime.UtcNow, dayNumber, out var reward)) return;
+                    if (reward.coins > 0) GameSystem.Instance.AwardCoins(reward.coins);
+                    GameSystem.Instance.RefreshPowerUpHud();
+                    day.claimRequested?.Invoke();
+                    RefreshPresentation();
+                    return;
+                }
         }
 
         /// <summary>Called by the reward system after a claim succeeds, or while restoring its saved state.</summary>
@@ -92,8 +110,42 @@ namespace CatBlockPuzzle
             if (day.claimButton != null) day.claimButton.interactable = !day.claimed;
         }
 
-        public void Show() { if (root != null) root.SetActive(true); }
+        public void Show()
+        {
+            if (root != null) root.SetActive(true);
+            RefreshPresentation();
+        }
         public void Hide() { if (root != null) root.SetActive(false); }
         private void Close() => GameSystem.Instance?.GoHome();
+
+        private string RewardLabelForDay(int dayNumber)
+        {
+            DailyRewardConfig.DayReward reward = Config != null ? Config.GetDay(dayNumber) : default;
+            int coins = reward.coins;
+            if (coins > 0 && dayNumber != 7) return "x" + coins;
+            if (reward.hintCount > 0 && reward.freezeCount == 0) return "x" + reward.hintCount + " Hint";
+            if (reward.freezeCount > 0 && reward.hintCount == 0) return "x" + reward.freezeCount + " Freeze";
+            return string.Empty;
+        }
+
+        private void RefreshPresentation()
+        {
+            if (days == null) return;
+            DailyRewardConfig config = Config;
+            int availableDay = config != null ? DailyRewardProgress.GetAvailableDay(config, DateTime.UtcNow) : 0;
+            int savedDay = DailyRewardProgress.GetLastClaimDay();
+            bool claimedToday = availableDay == 0;
+            for (int i = 0; i < days.Length; i++)
+            {
+                DayView day = days[i];
+                if (day == null) continue;
+                day.claimed = claimedToday ? day.day <= savedDay : day.day < availableDay;
+                if (day.amountLabel != null) day.amountLabel.text = RewardLabelForDay(day.day);
+                ApplyClaimedState(day);
+                bool canClaim = day.day == availableDay;
+                if (day.cardButton != null) day.cardButton.interactable = canClaim;
+                if (day.claimButton != null) day.claimButton.interactable = canClaim;
+            }
+        }
     }
 }

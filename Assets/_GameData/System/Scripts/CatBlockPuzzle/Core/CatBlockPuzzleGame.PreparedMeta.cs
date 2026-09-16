@@ -184,7 +184,7 @@ namespace CatBlockPuzzle
                 case CatPuzzleUiAction.ActionKind.Rooms: OpenRoomHub(); break;
                 case CatPuzzleUiAction.ActionKind.Pause: OpenPause(); break;
                 case CatPuzzleUiAction.ActionKind.Settings: OpenSettings(); break;
-                case CatPuzzleUiAction.ActionKind.Hint: ShowHint(); break;
+                case CatPuzzleUiAction.ActionKind.Hint: GameSystem.Instance?.TryUseHintPowerUp(); break;
                 case CatPuzzleUiAction.ActionKind.Reset: ResetLevel(); break;
                 case CatPuzzleUiAction.ActionKind.PreviousTest: LoadPreviousTestLevel(); break;
                 case CatPuzzleUiAction.ActionKind.NextTest: LoadNextTestLevel(); break;

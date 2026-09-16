@@ -15,17 +15,27 @@ namespace CatBlockPuzzle
         [SerializeField] private GameObject gameplayScreen;
         [SerializeField] private GameObject collectionScreen;
         [SerializeField] private GameObject roomsScreen;
+        [Header("Coming Soon")]
+        [SerializeField] private bool collectionEnabled;
+        [SerializeField] private bool roomsEnabled;
         [Header("Existing Controls")]
         [SerializeField] private Button levelBackButton;
         [SerializeField] private Button levelPlayButton;
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button[] auxiliaryBackButtons;
+        private ComingSoonPopup comingSoon;
 
         public bool IsGameplayOpen => gameplayScreen != null && gameplayScreen.activeInHierarchy;
-        public bool HasCollection => collectionScreen != null;
-        public bool HasRooms => roomsScreen != null;
+        public bool HasCollection => collectionEnabled && collectionScreen != null;
+        public bool HasRooms => roomsEnabled && roomsScreen != null;
 
-        private void Start() { UpdateListeners(true); ShowHome(); }
+        private void Start()
+        {
+            UpdateListeners(true);
+            ShowHome();
+            // Run after every Start method has established the main-menu page.
+            Invoke(nameof(ShowAvailableDailyReward), 0f);
+        }
         private void OnDestroy() => UpdateListeners(false);
 
         public void ShowHome()
@@ -38,8 +48,35 @@ namespace CatBlockPuzzle
         public void ShowDailyReward() { if (dailyReward != null) { HidePages(); dailyReward.Show(); } }
         public void ShowLevels() => ShowPage(levelSelectionScreen);
         public void ShowGameplay() => ShowPage(gameplayScreen);
-        public void ShowCollection() => ShowPage(collectionScreen);
-        public void ShowRooms() => ShowPage(roomsScreen);
+        public void ShowCollection()
+        {
+            if (!HasCollection) { ShowComingSoon("Collection"); return; }
+            ShowPage(collectionScreen);
+        }
+
+        public void ShowRooms()
+        {
+            if (!HasRooms) { ShowComingSoon("Rooms"); return; }
+            ShowPage(roomsScreen);
+        }
+
+        private void ShowAvailableDailyReward()
+        {
+            if (dailyReward != null && dailyReward.IsClaimAvailable) ShowDailyReward();
+        }
+
+        private void ShowComingSoon(string feature)
+        {
+            if (comingSoon == null)
+            {
+                Canvas canvas = GetComponentInParent<Canvas>();
+                if (canvas == null && levelSelectionScreen != null)
+                    canvas = levelSelectionScreen.GetComponentInParent<Canvas>();
+                if (canvas == null) return;
+                comingSoon = ComingSoonPopup.Create(canvas.transform);
+            }
+            comingSoon.Show(feature);
+        }
 
         private void ShowPage(GameObject page)
         {
@@ -51,6 +88,7 @@ namespace CatBlockPuzzle
 
         private void HidePages()
         {
+            if (comingSoon != null) comingSoon.HideImmediately();
             GameSystem.Instance?.CloseSettings();
             home?.Hide();
             shop?.Hide();

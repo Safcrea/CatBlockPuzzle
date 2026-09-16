@@ -566,7 +566,13 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            int safeLevel = Mathf.Clamp(requestedLevelIndex, 0, levelManager.LevelCount - 1);
+            if (requestedLevelIndex < 0 || requestedLevelIndex >= levelManager.LevelCount)
+            {
+                Debug.LogWarning("Ignoring request for a level outside the loaded catalog: " + requestedLevelIndex, this);
+                return;
+            }
+
+            int safeLevel = requestedLevelIndex;
             if (metaProgress != null && !IsMetaLevelSelectable(safeLevel))
             {
                 ShowMetaStatus("Clear the previous paw step first.");
@@ -593,6 +599,8 @@ namespace CatBlockPuzzle
         {
             if (metaCatalog == null || metaProgress == null
                 || absoluteLevelIndex < 0
+                || levelManager == null
+                || absoluteLevelIndex >= levelManager.LevelCount
                 || absoluteLevelIndex >= CatMetaCatalog.SupportedLevelCount)
             {
                 return false;

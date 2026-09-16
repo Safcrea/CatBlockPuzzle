@@ -34,12 +34,11 @@ namespace CatBlockPuzzle
         {
             if (root == null) return;
             returnToPause = openedFromPause;
-            root.SetActive(true);
-            root.transform.SetAsLastSibling();
+            MenuTransition.Show(root);
             RefreshVisuals();
         }
 
-        public void Hide() { if (root != null) root.SetActive(false); }
+        public void Hide() => MenuTransition.Hide(root, null, false);
 
         private void UpdateListeners(bool bind)
         {
@@ -96,8 +95,10 @@ namespace CatBlockPuzzle
 
         private void Close()
         {
-            Hide();
-            if (returnToPause) GameSystem.Instance?.ReturnToPause();
+            MenuTransition.Hide(root, () =>
+            {
+                if (returnToPause) GameSystem.Instance?.ReturnToPause();
+            });
         }
     }
 }
