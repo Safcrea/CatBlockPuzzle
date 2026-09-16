@@ -31,11 +31,10 @@ namespace CatBlockPuzzle
             if (levelText != null) levelText.text = "Level " + Mathf.Max(1, levelNumber);
             if (starsText != null) starsText.text = new string('★', Mathf.Clamp(stars, 0, 3)) + new string('☆', 3 - Mathf.Clamp(stars, 0, 3));
             if (coinsText != null) coinsText.text = Mathf.Max(0, coins).ToString();
-            root.SetActive(true);
-            root.transform.SetAsLastSibling();
+            MenuTransition.Show(root);
         }
 
-        public void Hide() { if (root != null) root.SetActive(false); }
+        public void Hide() => MenuTransition.Hide(root, null, false);
 
         private void UpdateListeners(bool bind)
         {
@@ -53,7 +52,7 @@ namespace CatBlockPuzzle
             if (bind) button.onClick.AddListener(action);
         }
 
-        private void Resume() => GameSystem.Instance?.ResumeGame();
+        private void Resume() => MenuTransition.Hide(root, () => GameSystem.Instance?.ResumeGame());
         private void Restart() => GameSystem.Instance?.RestartLevel();
         private void Home() => GameSystem.Instance?.GoHome();
         private void Settings() => GameSystem.Instance?.OpenSettings(true);

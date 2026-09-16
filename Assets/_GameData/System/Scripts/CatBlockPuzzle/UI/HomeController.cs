@@ -74,10 +74,8 @@ namespace CatBlockPuzzle
 
         private void UpdateComingSoonVisibility()
         {
-            // Keep unfinished features out of the menu and rely on the navigation
-            // gate as a second line of defence against direct method calls.
-            if (collectionButton != null) collectionButton.gameObject.SetActive(navigation != null && navigation.HasCollection);
-            if (roomsButton != null) roomsButton.gameObject.SetActive(navigation != null && navigation.HasRooms);
+            if (collectionButton != null) collectionButton.gameObject.SetActive(true);
+            if (roomsButton != null) roomsButton.gameObject.SetActive(true);
         }
 
         private static void Listen(Button button, UnityAction action, bool bind)

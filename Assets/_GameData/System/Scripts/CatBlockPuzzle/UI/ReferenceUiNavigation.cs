@@ -23,6 +23,7 @@ namespace CatBlockPuzzle
         [SerializeField] private Button levelPlayButton;
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button[] auxiliaryBackButtons;
+        private ComingSoonPopup comingSoon;
 
         public bool IsGameplayOpen => gameplayScreen != null && gameplayScreen.activeInHierarchy;
         public bool HasCollection => collectionEnabled && collectionScreen != null;
@@ -49,19 +50,32 @@ namespace CatBlockPuzzle
         public void ShowGameplay() => ShowPage(gameplayScreen);
         public void ShowCollection()
         {
-            if (!HasCollection) return;
+            if (!HasCollection) { ShowComingSoon("Collection"); return; }
             ShowPage(collectionScreen);
         }
 
         public void ShowRooms()
         {
-            if (!HasRooms) return;
+            if (!HasRooms) { ShowComingSoon("Rooms"); return; }
             ShowPage(roomsScreen);
         }
 
         private void ShowAvailableDailyReward()
         {
             if (dailyReward != null && dailyReward.IsClaimAvailable) ShowDailyReward();
+        }
+
+        private void ShowComingSoon(string feature)
+        {
+            if (comingSoon == null)
+            {
+                Canvas canvas = GetComponentInParent<Canvas>();
+                if (canvas == null && levelSelectionScreen != null)
+                    canvas = levelSelectionScreen.GetComponentInParent<Canvas>();
+                if (canvas == null) return;
+                comingSoon = ComingSoonPopup.Create(canvas.transform);
+            }
+            comingSoon.Show(feature);
         }
 
         private void ShowPage(GameObject page)
@@ -74,6 +88,7 @@ namespace CatBlockPuzzle
 
         private void HidePages()
         {
+            if (comingSoon != null) comingSoon.HideImmediately();
             GameSystem.Instance?.CloseSettings();
             home?.Hide();
             shop?.Hide();

@@ -14,6 +14,64 @@ namespace CatBlockPuzzle.Tests
         private static object Invoke(object target,string method,params object[] args) => target.GetType().GetMethod(method,BindingFlags.Public|BindingFlags.Instance).Invoke(target,args);
 
         [UnityTest]
+        public IEnumerator ShopAndComingSoon_KeepBalanceAndNavigationVisible()
+        {
+            var system = Screen("GameSystem");
+            var navigation = Screen("ReferenceUiNavigation");
+            Invoke(system, "GoHome");
+            Invoke(navigation, "ShowShop");
+            yield return null;
+            var shop = Screen("ShopScreen");
+            var label = (Component)shop.GetType().GetField("coinLabel", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(shop);
+            Assert.That(label, Is.Not.Null);
+            Assert.That(label.gameObject.activeInHierarchy, Is.True);
+            Assert.That(label.GetType().GetProperty("text").GetValue(label), Is.EqualTo(system.GetType().GetProperty("CurrentCoins").GetValue(system).ToString()));
+            Invoke(system, "GoHome");
+            var home = Screen("HomeController");
+            foreach (string field in new[] { "collectionButton", "roomsButton" })
+            {
+                var button = (UnityEngine.UI.Button)home.GetType().GetField(field, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(home);
+                Assert.That(button.gameObject.activeInHierarchy, Is.True);
+                button.onClick.Invoke();
+                yield return new WaitForSecondsRealtime(.3f);
+                var popup = Screen("ComingSoonPopup");
+                Assert.That(popup.gameObject.activeInHierarchy, Is.True);
+                Assert.That(button.gameObject.activeInHierarchy, Is.True, "Opening a placeholder must preserve the home page.");
+                Invoke(popup, "Close");
+                yield return new WaitForSecondsRealtime(.25f);
+                Assert.That(popup.gameObject.activeSelf, Is.False);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator PauseTransitions_RunWhileTimeIsStoppedAndResumeAfterDismissal()
+        {
+            var system = Screen("GameSystem");
+            Invoke(system, "StartLevel", 0);
+            yield return new WaitForSecondsRealtime(1.2f);
+            Invoke(system, "OpenPause");
+            var pause = Screen("PauseMenu");
+            var root = (GameObject)pause.GetType().GetField("root", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(pause);
+            Assert.That(Time.timeScale, Is.Zero);
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That(root.GetComponent<CanvasGroup>().alpha, Is.EqualTo(1f));
+            Invoke(system, "OpenSettings", true);
+            yield return new WaitForSecondsRealtime(.3f);
+            var settings = Screen("SettingsMenu");
+            var close = (UnityEngine.UI.Button)settings.GetType().GetField("closeButton", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(settings);
+            close.onClick.Invoke();
+            yield return new WaitForSecondsRealtime(.5f);
+            Assert.That(root.activeInHierarchy, Is.True);
+            Assert.That(Time.timeScale, Is.Zero);
+            var resume = (UnityEngine.UI.Button)pause.GetType().GetField("resumeButton", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(pause);
+            resume.onClick.Invoke();
+            Assert.That(Time.timeScale, Is.Zero, "Gameplay must stay paused until the dismissal finishes.");
+            yield return new WaitForSecondsRealtime(.25f);
+            Assert.That(root.activeSelf, Is.False);
+            Assert.That(Time.timeScale, Is.GreaterThan(0f));
+        }
+
+        [UnityTest]
         public IEnumerator MainMenu_KeepsAuthoredFullCanvasLayoutInPlayMode()
         {
             Invoke(Screen("GameSystem"),"GoHome");yield return null;
