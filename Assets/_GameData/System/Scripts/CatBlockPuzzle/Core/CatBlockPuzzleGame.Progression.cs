@@ -103,14 +103,18 @@ namespace CatBlockPuzzle
 
         private int GetBestStars(string levelId)
         {
-            return PlayerPrefs.GetInt(SavedBestStarsPrefix + levelId, 0);
+            if (string.IsNullOrWhiteSpace(levelId)) return 0;
+            int savedStars = PlayerPrefs.GetInt(SavedBestStarsPrefix + levelId, 0);
+            // Zero means this level has never been completed. Any non-zero save value
+            // is untrusted local data and must remain within the visual three-star range.
+            return savedStars <= 0 ? 0 : CatPuzzleResultCalculator.ClampStars(savedStars);
         }
 
         private LevelResult SaveLevelResult()
         {
             earnedStars = CatPuzzleResultCalculator.CalculateStars(levelRemainingSeconds, LevelDurationSeconds);
             int previousBest = GetBestStars(activeLevel.Id);
-            int best = Mathf.Max(previousBest, earnedStars);
+            int best = CatPuzzleResultCalculator.ClampStars(Mathf.Max(previousBest, earnedStars));
             if (levelNavigationTesting)
             {
                 return new LevelResult(activeLevel.Id, LevelDurationSeconds - levelRemainingSeconds, earnedStars, best);

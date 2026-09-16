@@ -151,6 +151,12 @@ namespace CatBlockPuzzle
                 return;
             }
             Screen.orientation = ScreenOrientation.Portrait;
+            if (!LevelValidator.TryValidatePack(contentCatalog.levelPack, out error))
+            {
+                Debug.LogError("CatBlockPuzzle content catalog is invalid: " + error, this);
+                enabled = false;
+                return;
+            }
             levelManager = contentCatalog.CreateLevelManager();
             haptics = new HapticsController(this);
             GameSystem.EnsureForScene(this);

@@ -19,12 +19,13 @@ namespace CatBlockPuzzle
         }
         public int LevelCount => levelManager != null ? levelManager.LevelCount : 0;
         public int RecommendedLevelIndex => metaProgress != null ? GetRecommendedLevelIndex() : 0;
-        public bool IsLevelAvailable(int index) => IsMetaLevelSelectable(index);
+        public bool IsLevelAvailable(int index) => levelManager != null && index >= 0 && index < levelManager.LevelCount && IsMetaLevelSelectable(index);
         public int GetLevelStars(int index) => levelManager != null && index >= 0 && index < LevelCount ? GetBestStars(levelManager.GetLevel(index).Id) : 0;
         public string GetChapterTitle(int chapter) => metaCatalog.GetChapter(chapter).Title;
         public Sprite GetChapterThumbnail(int chapter) => contentCatalog.roomThumbnails[chapter];
         public void StartSelectedLevel(int index) => PlayMetaLevel(index);
         public void RequestHint() => GameSystem.Instance?.TryUseHintPowerUp();
+        public void RefreshPowerUpHud() => gameplayHud?.RefreshPowerUpCounts();
         public void SuspendForNavigation()
         {
             if (boardRevealRoutine != null) { StopCoroutine(boardRevealRoutine); boardRevealRoutine = null; }

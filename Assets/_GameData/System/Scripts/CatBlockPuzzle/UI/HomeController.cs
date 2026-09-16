@@ -69,6 +69,15 @@ namespace CatBlockPuzzle
             Listen(dailyRewardButton, OpenDailyReward, bind);
             Listen(collectionButton, OpenCollection, bind);
             Listen(roomsButton, OpenRooms, bind);
+            UpdateComingSoonVisibility();
+        }
+
+        private void UpdateComingSoonVisibility()
+        {
+            // Keep unfinished features out of the menu and rely on the navigation
+            // gate as a second line of defence against direct method calls.
+            if (collectionButton != null) collectionButton.gameObject.SetActive(navigation != null && navigation.HasCollection);
+            if (roomsButton != null) roomsButton.gameObject.SetActive(navigation != null && navigation.HasRooms);
         }
 
         private static void Listen(Button button, UnityAction action, bool bind)

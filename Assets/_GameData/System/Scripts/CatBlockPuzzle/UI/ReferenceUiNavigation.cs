@@ -15,6 +15,9 @@ namespace CatBlockPuzzle
         [SerializeField] private GameObject gameplayScreen;
         [SerializeField] private GameObject collectionScreen;
         [SerializeField] private GameObject roomsScreen;
+        [Header("Coming Soon")]
+        [SerializeField] private bool collectionEnabled;
+        [SerializeField] private bool roomsEnabled;
         [Header("Existing Controls")]
         [SerializeField] private Button levelBackButton;
         [SerializeField] private Button levelPlayButton;
@@ -22,8 +25,8 @@ namespace CatBlockPuzzle
         [SerializeField] private Button[] auxiliaryBackButtons;
 
         public bool IsGameplayOpen => gameplayScreen != null && gameplayScreen.activeInHierarchy;
-        public bool HasCollection => collectionScreen != null;
-        public bool HasRooms => roomsScreen != null;
+        public bool HasCollection => collectionEnabled && collectionScreen != null;
+        public bool HasRooms => roomsEnabled && roomsScreen != null;
 
         private void Start()
         {
@@ -44,8 +47,17 @@ namespace CatBlockPuzzle
         public void ShowDailyReward() { if (dailyReward != null) { HidePages(); dailyReward.Show(); } }
         public void ShowLevels() => ShowPage(levelSelectionScreen);
         public void ShowGameplay() => ShowPage(gameplayScreen);
-        public void ShowCollection() => ShowPage(collectionScreen);
-        public void ShowRooms() => ShowPage(roomsScreen);
+        public void ShowCollection()
+        {
+            if (!HasCollection) return;
+            ShowPage(collectionScreen);
+        }
+
+        public void ShowRooms()
+        {
+            if (!HasRooms) return;
+            ShowPage(roomsScreen);
+        }
 
         private void ShowAvailableDailyReward()
         {

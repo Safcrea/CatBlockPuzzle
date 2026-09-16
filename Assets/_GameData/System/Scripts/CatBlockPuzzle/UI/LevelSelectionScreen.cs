@@ -28,12 +28,18 @@ namespace CatBlockPuzzle
         [SerializeField] private Sprite earnedStar;
         [SerializeField] private Sprite emptyStar;
         private int selectedLevel = -1;
+        private bool bindingsValidated;
         public int SelectedLevel => selectedLevel;
         public int SlotCount => levels != null ? levels.Length : 0;
 
         private void OnEnable()
         {
-            if (levels == null) return;
+            if (!ValidateBindings(out string error))
+            {
+                Debug.LogError("Level Selection Screen is not configured: " + error, this);
+                enabled = false;
+                return;
+            }
             for (int i = 0; i < levels.Length; i++)
             {
                 int index = i;
@@ -61,6 +67,7 @@ namespace CatBlockPuzzle
         {
             if (gameplay == null || levels == null) return;
             if (!gameplay.IsLevelAvailable(selectedLevel)) selectedLevel = gameplay.RecommendedLevelIndex;
+            if (!gameplay.IsLevelAvailable(selectedLevel)) selectedLevel = -1;
             for (int i = 0; i < levels.Length; i++)
             {
                 var slot = levels[i];
@@ -78,9 +85,47 @@ namespace CatBlockPuzzle
                 }
             }
             coinText.text = gameplay.CurrentCoins.ToString();
-            selectionText.text = "Level " + (selectedLevel + 1);
+            selectionText.text = selectedLevel >= 0 ? "Level " + (selectedLevel + 1) : "No level available";
             playButton.interactable = gameplay.IsLevelAvailable(selectedLevel);
         }
         public void Play() => GameSystem.Instance?.StartLevel(selectedLevel);
+
+        private bool ValidateBindings(out string error)
+        {
+            if (bindingsValidated)
+            {
+                error = string.Empty;
+                return true;
+            }
+
+            if (gameplay == null) { error = "Gameplay is not assigned."; return false; }
+            if (playButton == null) { error = "Play Button is not assigned."; return false; }
+            if (coinText == null || selectionText == null) { error = "Coin Text or Selection Text is not assigned."; return false; }
+            if (levels == null || levels.Length == 0) { error = "No level slots are assigned."; return false; }
+            if (normalSprite == null || selectedSprite == null || lockedSprite == null || earnedStar == null || emptyStar == null)
+            {
+                error = "One or more level-card sprites are not assigned.";
+                return false;
+            }
+            for (int i = 0; i < levels.Length; i++)
+            {
+                LevelSlot slot = levels[i];
+                if (slot == null || slot.button == null || slot.number == null || slot.background == null || slot.locked == null || slot.stars == null)
+                {
+                    error = "Level slot " + (i + 1) + " has incomplete references.";
+                    return false;
+                }
+                if (slot.stars.Length != CatPuzzleResultCalculator.MaximumStars)
+                {
+                    error = "Level slot " + (i + 1) + " must have exactly three star images.";
+                    return false;
+                }
+                for (int star = 0; star < slot.stars.Length; star++)
+                    if (slot.stars[star] == null) { error = "Level slot " + (i + 1) + " has an unassigned star image."; return false; }
+            }
+            bindingsValidated = true;
+            error = string.Empty;
+            return true;
+        }
     }
 }
