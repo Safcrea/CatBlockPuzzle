@@ -34,14 +34,17 @@ namespace CatBlockPuzzle
         public bool ValidatePreparedScene(out string error)
         {
             error = null;
+            // Reference UI replaces the legacy room-decoration flow. Its unused room
+            // bindings must not block the authored main-menu and level-selection flow.
+            bool usesReferenceUi = FindFirstObjectByType<ReferenceUiNavigation>(FindObjectsInactive.Include) != null;
             if (contentCatalog == null || contentCatalog.LevelCount != 100)
                 error = "the 100-level content catalog is missing";
             else if (gameplayHud == null) error = "the Gameplay HUD View is missing";
             else if (!gameplayHud.Validate(out error)) { }
             else if (presentationAssets == null) error = "the Gameplay Presentation Assets component is missing";
             else if (!presentationAssets.Validate(out error)) { }
-            else if (metaView == null) error = "the Meta Progression View is missing";
-            else if (!metaView.Validate(out error)) { }
+            else if (!usesReferenceUi && metaView == null) error = "the Meta Progression View is missing";
+            else if (!usesReferenceUi && !metaView.Validate(out error)) { }
             else if (levelCompleteScreen == null || !levelCompleteScreen.IsConfigured ||
                 levelFailScreen == null || !levelFailScreen.IsConfigured)
                 error = "level result screen controllers are missing";
@@ -51,7 +54,7 @@ namespace CatBlockPuzzle
             foreach (var effect in preparedEffects) if (effect == null) { error = "an effect slot is missing"; return false; }
             foreach (var address in contentCatalog.levelPrefabResources)
                 if (string.IsNullOrWhiteSpace(address)) { error = "a level prefab address is missing"; return false; }
-            return ValidatePreparedMeta(out error);
+            return usesReferenceUi || ValidatePreparedMeta(out error);
         }
 
         public bool ValidateLevelPrefab(CatPuzzleLevelView view, int i, out string error)
