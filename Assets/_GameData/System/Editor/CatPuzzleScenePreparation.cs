@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 public static class CatPuzzleScenePreparation
 {
-    public const string ScenePath = "Assets/_GameData/System/Scenes/CatBlockPuzzle.unity";
+    public const string ScenePath = "Assets/_GameData/System/Scenes/GameScene.unity";
 
     [MenuItem("Cat Block Puzzle/Prepare Game Scene")]
     public static void Prepare()
