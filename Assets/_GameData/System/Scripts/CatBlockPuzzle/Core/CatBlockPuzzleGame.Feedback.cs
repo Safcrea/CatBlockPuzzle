@@ -14,7 +14,7 @@ namespace CatBlockPuzzle
     public sealed partial class CatBlockPuzzleGame
     {
         [Header("Power Ups")]
-        [SerializeField, Min(0.1f)] private float freezeDurationSeconds = 10f;
+        [SerializeField, Min(0.1f)] private float freezeDurationSeconds = 15f;
         private float freezeRemainingSeconds;
         private bool freezeUsedThisAttempt;
         public bool IsTimerFrozen => freezeRemainingSeconds > 0f;
@@ -254,13 +254,10 @@ namespace CatBlockPuzzle
             SpawnBoardBurst();
             haptics.PlayLevelComplete();
             int awardedCoins = RecordMetaFirstClear(activeLevel.Reward);
-            if (awardedCoins > 0)
-            {
-                FlyCoins(awardedCoins);
-            }
+            float coinFlightDuration = awardedCoins > 0 ? FlyCoins(awardedCoins) : 0f;
 
             PlayWinSound();
-            yield return new WaitForSecondsRealtime(0.75f);
+            yield return new WaitForSecondsRealtime(Mathf.Max(0.75f, coinFlightDuration));
             coinText.text = coins.ToString();
             LevelResult result = SaveLevelResult();
             SaveProgress();
@@ -629,23 +626,31 @@ namespace CatBlockPuzzle
             ReleaseFxImage(spark);
         }
 
-        private void FlyCoins(int reward)
+        private float FlyCoins(int reward)
         {
             Vector2 start = BoardCenterScreen();
             Vector2 end = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, coinText.rectTransform.position);
             int count = Mathf.Clamp(Mathf.RoundToInt(reward / 7f), 4, 9);
+            const float flightSeconds = 0.62f;
+            const float staggerSeconds = 0.055f;
+            Vector2 rootEnd = ScreenCenterToRootLocal(end);
             for (int i = 0; i < count; i++)
             {
                 Image coin = AcquireFxImage("Flying Coin", fxLayer, Color.white);
                 if (coin == null) break;
                 coin.sprite = coinSprite;
                 coin.raycastTarget = false;
-                SetRect(coin.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), ScreenCenterToRootLocal(start + new Vector2((i - count * 0.5f) * 10f, (i % 2) * 12f)), new Vector2(28f, 28f));
-                StartCoroutine(AnimateCoin(coin, ScreenCenterToRootLocal(start), ScreenCenterToRootLocal(end), i * 0.045f));
+                Vector2 rootStart = ScreenCenterToRootLocal(start + new Vector2((i - ((count - 1) * 0.5f)) * 12f, (i % 2) * 14f));
+                float arcSide = (i - ((count - 1) * 0.5f)) * 26f;
+                Vector2 arc = Vector2.Lerp(rootStart, rootEnd, 0.45f) + new Vector2(arcSide, 160f + ((i % 3) * 18f));
+                SetRect(coin.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), rootStart, new Vector2(28f, 28f));
+                StartCoroutine(AnimateCoin(coin, rootStart, arc, rootEnd, i * staggerSeconds, flightSeconds, i % 2 == 0 ? 1f : -1f));
             }
+
+            return ((count - 1) * staggerSeconds) + flightSeconds;
         }
 
-        private IEnumerator AnimateCoin(Image coin, Vector2 start, Vector2 end, float delay)
+        private IEnumerator AnimateCoin(Image coin, Vector2 start, Vector2 arc, Vector2 end, float delay, float duration, float spinDirection)
         {
             if (delay > 0f)
             {
@@ -653,12 +658,15 @@ namespace CatBlockPuzzle
             }
 
             float elapsed = 0f;
-            while (elapsed < 0.52f)
+            while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsed / 0.52f);
-                coin.rectTransform.anchoredPosition = Vector2.Lerp(start, end, EaseOutCubic(t));
-                coin.rectTransform.localScale = Vector3.one * Mathf.Lerp(1f, 0.35f, t);
+                float t = Mathf.Clamp01(elapsed / duration);
+                float eased = EaseOutCubic(t);
+                float inverse = 1f - eased;
+                coin.rectTransform.anchoredPosition = (inverse * inverse * start) + (2f * inverse * eased * arc) + (eased * eased * end);
+                coin.rectTransform.localScale = Vector3.one * Mathf.Lerp(1.15f, 0.38f, eased);
+                coin.rectTransform.localRotation = Quaternion.Euler(0f, 0f, spinDirection * Mathf.Lerp(0f, 310f, eased));
                 yield return null;
             }
 

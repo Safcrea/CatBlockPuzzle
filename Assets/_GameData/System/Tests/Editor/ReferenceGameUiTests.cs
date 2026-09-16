@@ -42,6 +42,7 @@ namespace CatBlockPuzzle.Tests
                 var presentation=new SerializedObject(new SerializedObject(game).FindProperty("presentationAssets").objectReferenceValue);
                 Assert.That(AssetDatabase.GetAssetPath(presentation.FindProperty("starSprite").objectReferenceValue),Does.Contain("Slicing/Gameplay"));
                 Assert.That(hud.transform.parent.name,Is.EqualTo("Reference UI"));
+                Assert.That(hud.gameObject.name,Is.EqualTo("Gameplay Screen"));
                 var selector=all.Select(t=>t.GetComponent<LevelSelectionScreen>()).Single(s=>s!=null);
                 Assert.That(selector.SlotCount,Is.EqualTo(100));
                 Assert.That(all.Single(t=>t.name=="Safe Area").gameObject.activeSelf,Is.False);
