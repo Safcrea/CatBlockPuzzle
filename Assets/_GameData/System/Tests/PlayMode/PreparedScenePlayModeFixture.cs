@@ -18,6 +18,8 @@ namespace CatBlockPuzzle.Tests
         private readonly Dictionary<string,int?> ints = new Dictionary<string,int?>();
         private string metaSave;
         private bool hadMetaSave;
+        private string rewardSave;
+        private bool hadRewardSave;
 #if UNITY_EDITOR
         private bool hadPreview;
         private int oldPreview;
@@ -31,12 +33,20 @@ namespace CatBlockPuzzle.Tests
             ints.Clear();
             string[] keys = {"CatBlockPuzzle.LevelIndex", "CatBlockPuzzle.Coins", "CatBlockPuzzle.Settings.Sound", "CatBlockPuzzle.Settings.Sfx", "CatBlockPuzzle.Settings.Music", "CatBlockPuzzle.Settings.Haptics", "CatBlockPuzzle.Settings.ReducedMotion"};
             foreach (var key in keys) ints[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null;
+            foreach (var key in new[] { "CatBlockPuzzle.Tutorial.Hint", "CatBlockPuzzle.Tutorial.Freeze" })
+                ints[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null;
+            hadRewardSave = PlayerPrefs.HasKey("CatBlockPuzzle.DailyReward.State.v1");
+            rewardSave = PlayerPrefs.GetString("CatBlockPuzzle.DailyReward.State.v1", "");
             var pack = JsonUtility.FromJson<Pack>(Resources.Load<TextAsset>("CatBlockPuzzle/levels_100").text);
             foreach (var level in pack.levels) { string key = "CatBlockPuzzle.BestStars." + level.id; ints[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null; }
             hadMetaSave = PlayerPrefs.HasKey("CatBlockPuzzle.Meta.Progress");
             metaSave = PlayerPrefs.GetString("CatBlockPuzzle.Meta.Progress", "");
             // Tests run against a deterministic new-player state, then restore the user's exact save.
             foreach (var key in ints.Keys) PlayerPrefs.DeleteKey(key);
+            // Existing interaction tests run after onboarding; tutorial tests reset these explicitly.
+            PlayerPrefs.SetInt("CatBlockPuzzle.Tutorial.Hint", 1);
+            PlayerPrefs.SetInt("CatBlockPuzzle.Tutorial.Freeze", 1);
+            PlayerPrefs.SetString("CatBlockPuzzle.DailyReward.State.v1", "{\"version\":1,\"hintCount\":10,\"freezeCount\":10}");
             PlayerPrefs.DeleteKey("CatBlockPuzzle.Meta.Progress");
 #if UNITY_EDITOR
             hadPreview = UnityEditor.EditorPrefs.HasKey("CatBlockPuzzle.EditorPreviewLevel");
@@ -66,6 +76,8 @@ namespace CatBlockPuzzle.Tests
             foreach (var pair in ints)
                 if (pair.Value.HasValue) PlayerPrefs.SetInt(pair.Key,pair.Value.Value); else PlayerPrefs.DeleteKey(pair.Key);
             if (hadMetaSave) PlayerPrefs.SetString("CatBlockPuzzle.Meta.Progress",metaSave); else PlayerPrefs.DeleteKey("CatBlockPuzzle.Meta.Progress");
+            if (hadRewardSave) PlayerPrefs.SetString("CatBlockPuzzle.DailyReward.State.v1", rewardSave);
+            else PlayerPrefs.DeleteKey("CatBlockPuzzle.DailyReward.State.v1");
             PlayerPrefs.Save();
 #if UNITY_EDITOR
             if (hadPreview) UnityEditor.EditorPrefs.SetInt("CatBlockPuzzle.EditorPreviewLevel",oldPreview);

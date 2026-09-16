@@ -28,6 +28,20 @@ namespace CatBlockPuzzle
         public bool HasReferenceUi => referenceUi != null;
         public bool IsPaused => systemPaused;
         public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
+        public int CurrentLevelNumber => gameplayController != null ? gameplayController.CurrentLevelNumber : 1;
+
+        // Button helpers for browsing levels without awarding progress or unlocking chapters.
+        public void LoadNextLevel() => LoadAdjacentLevel(1);
+        public void LoadPreviousLevel() => LoadAdjacentLevel(-1);
+        private void LoadAdjacentLevel(int direction)
+        {
+            if (!HasGameplayController) return;
+            int index = gameplayController.CurrentLevelNumber - 1 + direction;
+            if (index < 0 || index >= gameplayController.LevelCount) return;
+            ResumeGame();
+            ShowGameplayPage();
+            gameplayController.PreviewLevelForTesting(index);
+        }
         public bool AwardCoins(int amount)
         {
             if (gameplayController == null || amount <= 0) return false;
@@ -122,6 +136,7 @@ namespace CatBlockPuzzle
 
         public void OpenPause()
         {
+            if (gameplayController != null && gameplayController.IsPowerUpTutorialOpen) return;
             if (pauseMenu == null || !pauseMenu.IsConfigured) return;
             if (referenceUi != null && !referenceUi.IsGameplayOpen) return;
             if (!systemPaused)
@@ -193,6 +208,7 @@ namespace CatBlockPuzzle
 
         public void OpenSettings(bool fromPause)
         {
+            if (gameplayController != null && gameplayController.IsPowerUpTutorialOpen) return;
             if (settingsMenu == null || !settingsMenu.IsConfigured) return;
             if (fromPause) pauseMenu?.Hide();
             settingsMenu?.Show(fromPause);

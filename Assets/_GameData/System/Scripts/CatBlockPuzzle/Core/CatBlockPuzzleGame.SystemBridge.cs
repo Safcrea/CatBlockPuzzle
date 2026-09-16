@@ -26,8 +26,10 @@ namespace CatBlockPuzzle
         public void StartSelectedLevel(int index) => PlayMetaLevel(index);
         public void RequestHint() => GameSystem.Instance?.TryUseHintPowerUp();
         public void RefreshPowerUpHud() => gameplayHud?.RefreshPowerUpCounts();
+        public bool IsPowerUpTutorialOpen => gameplayHud != null && gameplayHud.IsTutorialOpen;
         public void SuspendForNavigation()
         {
+            gameplayHud?.CancelPowerUpTutorial();
             if (boardRevealRoutine != null) { StopCoroutine(boardRevealRoutine); boardRevealRoutine = null; }
             StopLevelTimer(); StopHint(); CancelActiveDragToRest(); inputLocked = true;
         }
@@ -44,7 +46,7 @@ namespace CatBlockPuzzle
             }
             else
             {
-                inputLocked = IsMetaUiOpen || IsResultScreenOpen;
+                inputLocked = IsMetaUiOpen || IsResultScreenOpen || boardRevealRoutine != null || IsPowerUpTutorialOpen;
                 timerRunning = timerWasRunningBeforeSettings && !levelFailed && !inputLocked;
             }
         }

@@ -36,12 +36,6 @@ namespace CatBlockPuzzle
             root.GetComponent<Image>().raycastTarget = false;
             root.gameObject.AddComponent<SafeAreaFitter>();
 
-            RectTransform headerBand = CreatePanel(root, "Top Shelf", new Color(1f, 0.96f, 0.88f, 0.9f));
-            headerBandImage = headerBand.GetComponent<Image>();
-            SetRect(headerBand, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), Vector2.zero, new Vector2(-30f, 106f));
-            UseRoundedSprite(headerBandImage);
-            AddSoftShadow(headerBandImage, new Vector2(0f, -8f), 0.11f);
-            headerBandImage.raycastTarget = false;
 
             CreateIconButton(root, "Rooms", backIconSprite, OpenRoomHub, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(24f, -18f), new Vector2(74f, 74f));
 

@@ -22,6 +22,7 @@ namespace CatBlockPuzzle
 
         public bool TryUseFreezePowerUp()
         {
+            if (gameplayHud == null || !gameplayHud.IsPowerUpUnlocked(PowerUpKind.Freeze)) return false;
             if (!timerRunning || inputLocked || levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
                 freezeUsedThisAttempt || (GameSystem.Instance != null &&
                 (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen))) return false;
@@ -36,6 +37,7 @@ namespace CatBlockPuzzle
 
         public bool TryUseHintPowerUp()
         {
+            if (gameplayHud == null || !gameplayHud.IsPowerUpUnlocked(PowerUpKind.Hint)) return false;
             if (!timerRunning || inputLocked || levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
                 (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen))) return false;
             ShowHint();

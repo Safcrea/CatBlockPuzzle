@@ -28,11 +28,6 @@ namespace CatBlockPuzzle
                 backgroundImage.color = Color.white;
             }
 
-            if (headerBandImage != null)
-            {
-                headerBandImage.color = activeTheme.HeaderColor;
-            }
-
             if (objectiveImage != null && !gameplayHud.UsesAuthoredLayout)
             {
                 objectiveImage.color = activeTheme.ObjectiveColor;

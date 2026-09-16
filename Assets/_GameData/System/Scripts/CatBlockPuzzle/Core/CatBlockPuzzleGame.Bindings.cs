@@ -42,7 +42,6 @@ namespace CatBlockPuzzle
         private Image objectiveImage { get => gameplayHud != null ? gameplayHud.objectiveImage : null; set => EnsureHud().objectiveImage = value; }
         private Sprite defaultBackgroundSprite { get => gameplayHud != null ? gameplayHud.defaultBackgroundSprite : null; set => EnsureHud().defaultBackgroundSprite = value; }
         private Image backgroundImage { get => gameplayHud != null ? gameplayHud.backgroundImage : null; set => EnsureHud().backgroundImage = value; }
-        private Image headerBandImage { get => gameplayHud != null ? gameplayHud.headerBandImage : null; set => EnsureHud().headerBandImage = value; }
 
         private Font defaultFont { get => presentationAssets != null ? presentationAssets.defaultFont : null; set => EnsurePresentation().defaultFont = value; }
         private Sprite whiteSprite { get => presentationAssets != null ? presentationAssets.whiteSprite : null; set => EnsurePresentation().whiteSprite = value; }

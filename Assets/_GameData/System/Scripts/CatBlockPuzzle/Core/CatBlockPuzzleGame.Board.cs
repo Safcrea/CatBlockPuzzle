@@ -105,6 +105,7 @@ namespace CatBlockPuzzle
                     }
                 }
 
+                if (gameplayHud != null) yield return gameplayHud.ShowPowerUpTutorials(freezeDurationSeconds);
                 inputLocked = IsMetaUiOpen || (GameSystem.Instance != null && GameSystem.Instance.IsPaused);
                 if (!IsMetaUiOpen)
                 {
@@ -144,6 +145,7 @@ namespace CatBlockPuzzle
                 }
             }
 
+            if (gameplayHud != null) yield return gameplayHud.ShowPowerUpTutorials(freezeDurationSeconds);
             inputLocked = IsMetaUiOpen || (GameSystem.Instance != null && GameSystem.Instance.IsPaused);
             if (!IsMetaUiOpen)
             {

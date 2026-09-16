@@ -37,7 +37,8 @@ namespace CatBlockPuzzle
         [SerializeField] internal Image objectiveImage;
         [SerializeField] internal Sprite defaultBackgroundSprite;
         [SerializeField] internal Image backgroundImage;
-        [SerializeField] internal Image headerBandImage;
+        [SerializeField, HideInInspector, UnityEngine.Serialization.FormerlySerializedAs("headerBandImage")]
+        private Image legacyHeaderBand;
 
         public Canvas Canvas => canvas;
         public RectTransform GameplayScreen => gameplayScreen;
@@ -52,6 +53,39 @@ namespace CatBlockPuzzle
         [SerializeField] private Text hintCountText;
         [SerializeField] private Text freezeCountText;
         private bool freezeAvailable = true;
+        [Header("Power Up Unlock Levels")]
+        [SerializeField, Min(1)] private int hintUnlockLevel = 3;
+        [SerializeField, Min(1)] private int freezeUnlockLevel = 5;
+        private PowerUpTutorialManager tutorialManager;
+        public bool IsTutorialOpen => tutorialManager != null && tutorialManager.IsOpen;
+
+        private void Awake()
+        {
+            if (legacyHeaderBand != null) legacyHeaderBand.enabled = false;
+        }
+
+        public bool IsPowerUpUnlocked(PowerUpKind kind)
+        {
+            int level = GameSystem.Instance != null ? GameSystem.Instance.CurrentLevelNumber : 1;
+            return level >= Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : freezeUnlockLevel);
+        }
+
+        public Sprite GetPowerUpSprite(PowerUpKind kind)
+        {
+            var button = kind == PowerUpKind.Hint ? hintButton : freezeButton;
+            return button != null && button.targetGraphic is Image image ? image.sprite : null;
+        }
+
+        public System.Collections.IEnumerator ShowPowerUpTutorials(float freezeSeconds)
+        {
+            if (tutorialManager == null) tutorialManager = GetComponent<PowerUpTutorialManager>();
+            if (tutorialManager == null) tutorialManager = gameObject.AddComponent<PowerUpTutorialManager>();
+            yield return tutorialManager.ShowUnlockedTutorials(this, freezeSeconds);
+        }
+
+        public void CancelPowerUpTutorial() { if (tutorialManager != null) tutorialManager.Cancel(); }
+        public void LoadNextLevel() => GameSystem.Instance?.LoadNextLevel();
+        public void LoadPreviousLevel() => GameSystem.Instance?.LoadPreviousLevel();
 
         private void OnEnable()
         {
@@ -65,6 +99,7 @@ namespace CatBlockPuzzle
         }
         private void OnDisable()
         {
+            CancelPowerUpTutorial();
             if (freezeButton != null) freezeButton.onClick.RemoveListener(Freeze);
         }
 
@@ -81,8 +116,18 @@ namespace CatBlockPuzzle
 
             if (hintCountText != null) hintCountText.text = $"x{hintCount}";
             if (freezeCountText != null) freezeCountText.text = $"x{freezeCount}";
-            if (hintButton != null) hintButton.interactable = hintCount > 0;
-            if (freezeButton != null) freezeButton.interactable = freezeAvailable && freezeCount > 0;
+            bool hintUnlocked = IsPowerUpUnlocked(PowerUpKind.Hint);
+            bool freezeUnlocked = IsPowerUpUnlocked(PowerUpKind.Freeze);
+            if (hintButton != null)
+            {
+                hintButton.gameObject.SetActive(hintUnlocked);
+                hintButton.interactable = hintUnlocked && hintCount > 0;
+            }
+            if (freezeButton != null)
+            {
+                freezeButton.gameObject.SetActive(freezeUnlocked);
+                freezeButton.interactable = freezeUnlocked && freezeAvailable && freezeCount > 0;
+            }
         }
 
         public void SetFreezeAvailable(bool available)

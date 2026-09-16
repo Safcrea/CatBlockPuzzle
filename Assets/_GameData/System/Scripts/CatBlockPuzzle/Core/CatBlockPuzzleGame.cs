@@ -201,6 +201,7 @@ namespace CatBlockPuzzle
             // Resolve/validate before disturbing the current level, so a missing prefab is recoverable.
             var nextPrefab = LoadLevelPrefab(nextLevelIndex);
             if (nextPrefab == null) return;
+            gameplayHud?.CancelPowerUpTutorial();
             inputLocked = true;
             timerRunning = false;
             levelFailed = false;
@@ -286,7 +287,7 @@ namespace CatBlockPuzzle
 
         private void LoadPreviousTestLevel()
         {
-            LoadLevel(CanGoPreviousLevel ? levelIndex - 1 : 0, false);
+            GameSystem.Instance?.LoadPreviousLevel();
         }
 
         private void LoadNextTestLevel()
@@ -296,8 +297,7 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            int maxLevelIndex = levelManager.LevelCount - 1;
-            LoadLevel(CanGoNextLevel ? levelIndex + 1 : maxLevelIndex, false);
+            GameSystem.Instance?.LoadNextLevel();
         }
 
         public void PreviewLevelForTesting(int zeroBasedLevelIndex)

@@ -87,7 +87,7 @@ namespace CatBlockPuzzle.Tests
         [UnityTest]
         public IEnumerator Freeze_PreservesPieceInteractionPausesExpiresAndResetsOnRestart()
         {
-            var system=Screen("GameSystem");Invoke(system,"StartLevel",0);yield return new WaitForSecondsRealtime(1.2f);
+            var system=Screen("GameSystem");Invoke(system,"ShowGameplayPage");Call("PreviewLevelForTesting",4);yield return new WaitForSecondsRealtime(1.2f);
             Game.GetType().GetField("freezeDurationSeconds",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(Game,.35f);
             var hud=(Component)Field("gameplayHud");
             var button=(UnityEngine.UI.Button)hud.GetType().GetField("freezeButton",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
@@ -112,6 +112,47 @@ namespace CatBlockPuzzle.Tests
             Assert.That(button.interactable,Is.True);Assert.That((float)Field("freezeRemainingSeconds"),Is.Zero);
             button.onClick.Invoke();Invoke(system,"GoHome");frozen=(float)Field("freezeRemainingSeconds");yield return new WaitForSecondsRealtime(.2f);
             Assert.That((float)Field("freezeRemainingSeconds"),Is.EqualTo(frozen));
+        }
+
+        [UnityTest]
+        public IEnumerator PowerUpUnlocks_TeachOnceAndKeepTimerStoppedUntilAcknowledged()
+        {
+            PlayerPrefs.DeleteKey("CatBlockPuzzle.Tutorial.Hint");
+            PlayerPrefs.DeleteKey("CatBlockPuzzle.Tutorial.Freeze");
+            var hud = (Component)Field("gameplayHud");
+            var hint = (UnityEngine.UI.Button)hud.GetType().GetField("hintButton", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(hud);
+            var freeze = (UnityEngine.UI.Button)hud.GetType().GetField("freezeButton", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(hud);
+            var system = Screen("GameSystem");
+            Invoke(system, "ShowGameplayPage");
+            Call("PreviewLevelForTesting", 0);
+            yield return new WaitForSecondsRealtime(1.2f);
+            Assert.That(hint.gameObject.activeSelf, Is.False);
+            Assert.That(freeze.gameObject.activeSelf, Is.False);
+            Assert.That(Invoke(system, "TryUseHintPowerUp"), Is.EqualTo(false));
+            Assert.That(Invoke(system, "TryUseFreezePowerUp"), Is.EqualTo(false));
+            foreach (int index in new[] { 2, 4 })
+            {
+                Call("PreviewLevelForTesting", index);
+                yield return new WaitForSecondsRealtime(1.2f);
+                Assert.That(hint.gameObject.activeSelf, Is.True);
+                Assert.That(freeze.gameObject.activeSelf, Is.EqualTo(index == 4));
+                Assert.That(Field("timerRunning"), Is.EqualTo(false));
+                Assert.That(Field("inputLocked"), Is.EqualTo(true));
+                var canvas = (Canvas)Game.GetType().GetProperty("PreparedCanvas").GetValue(Game);
+                var popup = canvas.transform.Find("Power Up Tutorial");
+                Assert.That(popup, Is.Not.Null);
+                popup.GetComponentInChildren<UnityEngine.UI.Button>().onClick.Invoke();
+                yield return new WaitForSecondsRealtime(.3f);
+                Assert.That(Field("timerRunning"), Is.EqualTo(true));
+                Invoke(system, "RestartLevel");
+                yield return new WaitForSecondsRealtime(1.2f);
+                Assert.That(Game.GetType().GetProperty("IsPowerUpTutorialOpen").GetValue(Game), Is.EqualTo(false));
+            }
+            Invoke(system, "LoadPreviousLevel");
+            Assert.That(Game.GetType().GetProperty("CurrentLevelNumber").GetValue(Game), Is.EqualTo(4));
+            Invoke(system, "LoadNextLevel");
+            Assert.That(Game.GetType().GetProperty("CurrentLevelNumber").GetValue(Game), Is.EqualTo(5));
+            Assert.That(Field("levelNavigationTesting"), Is.EqualTo(true));
         }
 
         [UnityTest]
