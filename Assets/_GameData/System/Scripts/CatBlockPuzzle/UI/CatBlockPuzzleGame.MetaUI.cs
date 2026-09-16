@@ -35,7 +35,7 @@ namespace CatBlockPuzzle
             get
             {
                 return metaOverlay != null
-                    && metaOverlay.gameObject.activeSelf
+                    && metaOverlay.gameObject.activeInHierarchy
                     && ((metaHubPage != null && metaHubPage.gameObject.activeSelf)
                         || (metaRoomPage != null && metaRoomPage.gameObject.activeSelf)
                         || (metaStoryOverlay != null && metaStoryOverlay.gameObject.activeSelf)
@@ -141,6 +141,7 @@ namespace CatBlockPuzzle
         /// <summary>Dismisses meta UI and safely resumes the interrupted puzzle.</summary>
         private void CloseMetaToGameplay()
         {
+            if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi) { GameSystem.Instance.GoHome(); return; }
             if (metaRequiresRoomCompletion
                 && metaProgress != null
                 && metaCatalog != null
@@ -553,6 +554,7 @@ namespace CatBlockPuzzle
             CancelActiveDragToRest();
             SetTrayScrollEnabled(false);
             inputLocked = true;
+            GameSystem.Instance?.ShowRoomsPage();
             metaOverlay.gameObject.SetActive(true);
             metaOverlay.SetAsLastSibling();
         }
@@ -581,6 +583,7 @@ namespace CatBlockPuzzle
             metaOverlayOwnsPause = false;
             metaTimerWasRunning = false;
             metaRequiresRoomCompletion = false;
+            GameSystem.Instance?.ShowGameplayPage();
             LogMetaEvent("level_start", "level=" + safeLevel + " chapter=" + (safeLevel / CatMetaCatalog.LevelsPerChapter));
             LoadLevel(safeLevel, true);
             ApplyMetaLevelPresentation(safeLevel);

@@ -14,10 +14,16 @@ namespace CatBlockPuzzle
         [SerializeField] private Button homeButton;
 
         public bool IsConfigured => root != null;
-        public bool IsOpen => root != null && root.activeSelf;
+        public bool IsOpen => root != null && root.activeInHierarchy;
         internal RectTransform RootRect => root != null ? root.transform as RectTransform : null;
 
-        public void EnsureBindings() => CaptureExisting(root);
+        public void EnsureBindings() => BindButtons();
+        private void OnEnable() => BindButtons();
+        private void OnDestroy()
+        {
+            if (retryButton != null) retryButton.onClick.RemoveListener(Retry);
+            if (homeButton != null) homeButton.onClick.RemoveListener(Home);
+        }
 
         public void CaptureExisting(GameObject screenRoot)
         {
@@ -44,6 +50,7 @@ namespace CatBlockPuzzle
             if (titleText != null) titleText.text = title;
             if (messageText != null) messageText.text = message;
             root.SetActive(true);
+            root.transform.SetAsLastSibling();
             if (panel != null)
             {
                 StopAllCoroutines();
@@ -77,8 +84,19 @@ namespace CatBlockPuzzle
 
         private void BindButtons()
         {
-            if (retryButton != null && retryButton.onClick.GetPersistentEventCount() == 0) retryButton.onClick.AddListener(() => GameSystem.Instance?.RestartLevel());
-            if (homeButton != null && homeButton.onClick.GetPersistentEventCount() == 0) homeButton.onClick.AddListener(() => GameSystem.Instance?.GoHome());
+            if (retryButton != null)
+            {
+                retryButton.onClick.RemoveListener(Retry);
+                if (retryButton.onClick.GetPersistentEventCount() == 0) retryButton.onClick.AddListener(Retry);
+            }
+            if (homeButton != null)
+            {
+                homeButton.onClick.RemoveListener(Home);
+                if (homeButton.onClick.GetPersistentEventCount() == 0) homeButton.onClick.AddListener(Home);
+            }
         }
+
+        private void Retry() => GameSystem.Instance?.RestartLevel();
+        private void Home() => GameSystem.Instance?.GoHome();
     }
 }

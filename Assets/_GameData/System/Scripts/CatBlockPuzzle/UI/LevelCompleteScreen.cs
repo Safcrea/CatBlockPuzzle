@@ -19,10 +19,17 @@ namespace CatBlockPuzzle
         [SerializeField] private Button homeButton;
 
         public bool IsConfigured => root != null;
-        public bool IsOpen => root != null && root.activeSelf;
+        public bool IsOpen => root != null && root.activeInHierarchy;
         internal RectTransform RootRect => root != null ? root.transform as RectTransform : null;
 
-        public void EnsureBindings() => CaptureExisting(root);
+        public void EnsureBindings() => BindButtons();
+        private void OnEnable() => BindButtons();
+        private void OnDestroy()
+        {
+            if (nextButton != null) nextButton.onClick.RemoveListener(Next);
+            if (restartButton != null) restartButton.onClick.RemoveListener(Restart);
+            if (homeButton != null) homeButton.onClick.RemoveListener(Home);
+        }
 
         public void CaptureExisting(GameObject screenRoot)
         {
@@ -59,6 +66,8 @@ namespace CatBlockPuzzle
             }
             for (int i = 0; i < stars.Length; i++) if (stars[i] != null) stars[i].enabled = i < starCount;
             root.SetActive(true);
+            root.transform.SetAsLastSibling();
+            root.transform.SetAsLastSibling();
             if (panel != null)
             {
                 StopAllCoroutines();
@@ -101,15 +110,21 @@ namespace CatBlockPuzzle
 
         private void BindButtons()
         {
-            BindIfEmpty(nextButton, () => GameSystem.Instance?.NextLevel());
-            BindIfEmpty(restartButton, () => GameSystem.Instance?.RestartLevel());
-            BindIfEmpty(homeButton, () => GameSystem.Instance?.GoHome());
+            BindIfEmpty(nextButton, Next);
+            BindIfEmpty(restartButton, Restart);
+            BindIfEmpty(homeButton, Home);
         }
 
         private static void BindIfEmpty(Button button, UnityEngine.Events.UnityAction action)
         {
-            if (button != null && button.onClick.GetPersistentEventCount() == 0) button.onClick.AddListener(action);
+            if (button == null) return;
+            button.onClick.RemoveListener(action);
+            if (button.onClick.GetPersistentEventCount() == 0) button.onClick.AddListener(action);
         }
+
+        private void Next() => GameSystem.Instance?.NextLevel();
+        private void Restart() => GameSystem.Instance?.RestartLevel();
+        private void Home() => GameSystem.Instance?.GoHome();
 
         private static Text FindText(Text[] texts, params string[] names)
         {

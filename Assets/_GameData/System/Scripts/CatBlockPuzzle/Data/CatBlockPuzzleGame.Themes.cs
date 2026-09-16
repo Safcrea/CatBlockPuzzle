@@ -22,7 +22,7 @@ namespace CatBlockPuzzle
             activeTrayHoverColor = activeTheme.TrayHoverColor;
 
             Sprite themeSprite = GetThemeBackgroundSprite(activeTheme);
-            if (backgroundImage != null && themeSprite != null)
+            if (backgroundImage != null && themeSprite != null && !gameplayHud.UsesAuthoredLayout)
             {
                 backgroundImage.sprite = themeSprite;
                 backgroundImage.color = Color.white;
@@ -33,7 +33,7 @@ namespace CatBlockPuzzle
                 headerBandImage.color = activeTheme.HeaderColor;
             }
 
-            if (objectiveImage != null)
+            if (objectiveImage != null && !gameplayHud.UsesAuthoredLayout)
             {
                 objectiveImage.color = activeTheme.ObjectiveColor;
             }

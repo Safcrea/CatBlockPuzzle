@@ -17,9 +17,29 @@ namespace CatBlockPuzzle
         [SerializeField] private SettingsMenu settingsMenu;
         [SerializeField] private LevelCompleteScreen levelComplete;
         [SerializeField] private LevelFailScreen levelFail;
+        [SerializeField] private ReferenceUiNavigation referenceUi;
+        [SerializeField] private NoInternetScreen noInternet;
 
-        public bool HasGameplayController => gameplayController != null;
+        private bool systemPaused;
+        private float timeScaleBeforePause = 1f;
+
+        public bool HasGameplayController => gameplayController != null && gameplayController.isActiveAndEnabled;
         public bool IsSettingsOpen => settingsMenu != null && settingsMenu.IsOpen;
+        public bool HasReferenceUi => referenceUi != null;
+        public bool IsPaused => systemPaused;
+        public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
+        public bool TryUseFreezePowerUp() => HasGameplayController && gameplayController.TryUseFreezePowerUp();
+        public bool IsGameplayOpen => referenceUi == null || referenceUi.IsGameplayOpen;
+        public void ShowGameplayPage() => referenceUi?.ShowGameplay();
+        public void ShowRoomsPage() => referenceUi?.ShowRooms();
+        public void OpenRooms() => gameplayController?.ShowHomeFromSystem();
+        public bool StartLevel(int index)
+        {
+            if (!HasGameplayController || !gameplayController.IsLevelAvailable(index)) return false;
+            ResumeGame();
+            gameplayController.StartSelectedLevel(index);
+            return true;
+        }
 
         public static GameSystem EnsureForScene(CatBlockPuzzleGame gameplay)
         {
@@ -54,39 +74,13 @@ namespace CatBlockPuzzle
 
             Instance = this;
             if (home == null) home = GetComponent<HomeController>();
-            if (pauseMenu == null)
-            {
-                pauseMenu = GetComponent<PauseMenu>();
-                if (pauseMenu == null) pauseMenu = gameObject.AddComponent<PauseMenu>();
-            }
-            if (settingsMenu == null)
-            {
-                settingsMenu = GetComponent<SettingsMenu>();
-                if (settingsMenu == null) settingsMenu = gameObject.AddComponent<SettingsMenu>();
-            }
-            if (levelComplete == null)
-            {
-                levelComplete = GetComponent<LevelCompleteScreen>();
-                if (levelComplete == null) levelComplete = gameObject.AddComponent<LevelCompleteScreen>();
-            }
-            if (levelFail == null)
-            {
-                levelFail = GetComponent<LevelFailScreen>();
-                if (levelFail == null) levelFail = gameObject.AddComponent<LevelFailScreen>();
-            }
-            if (gameplayController == null) gameplayController = FindFirstObjectByType<CatBlockPuzzleGame>(FindObjectsInactive.Include);
             SoundManager.EnsureInstance();
         }
 
         private void Start()
         {
-            Canvas canvas = FindFirstObjectByType<Canvas>(FindObjectsInactive.Include);
-            if (canvas != null)
-            {
-                pauseMenu.EnsureRuntimeView(canvas.transform);
-                settingsMenu.EnsureRuntimeView(canvas.transform);
-            }
-
+            pauseMenu?.EnsureBindings();
+            settingsMenu?.EnsureBindings();
             levelComplete?.EnsureBindings();
             levelFail?.EnsureBindings();
             home?.EnsureBindings();
@@ -94,8 +88,15 @@ namespace CatBlockPuzzle
 
         public void OpenPause()
         {
-            if (pauseMenu == null) return;
-            gameplayController?.SetSystemPaused(true);
+            if (pauseMenu == null || !pauseMenu.IsConfigured) return;
+            if (referenceUi != null && !referenceUi.IsGameplayOpen) return;
+            if (!systemPaused)
+            {
+                timeScaleBeforePause = Time.timeScale;
+                systemPaused = true;
+                if (HasGameplayController) gameplayController.SetSystemPaused(true);
+                Time.timeScale = 0f;
+            }
             pauseMenu.Show(gameplayController != null ? gameplayController.CurrentLevelNumber : 1,
                 gameplayController != null ? gameplayController.CurrentStarCount : 0,
                 gameplayController != null ? gameplayController.CurrentCoins : 0);
@@ -105,48 +106,67 @@ namespace CatBlockPuzzle
         {
             settingsMenu?.Hide();
             pauseMenu?.Hide();
-            Time.timeScale = 1f;
-            gameplayController?.SetSystemPaused(false);
+            if (!systemPaused) return;
+            Time.timeScale = timeScaleBeforePause;
+            systemPaused = false;
+            if (HasGameplayController) gameplayController.SetSystemPaused(false);
+        }
+
+        public void StartGameplay()
+        {
+            if (HasReferenceUi) StartLevel(gameplayController != null ? gameplayController.RecommendedLevelIndex : 0);
+            else { home?.Hide(); ResumeGame(); }
         }
 
         public void RestartLevel()
         {
+            systemPaused = false;
             Time.timeScale = 1f;
             pauseMenu?.Hide();
             settingsMenu?.Hide();
             levelComplete?.Hide();
             levelFail?.Hide();
-            if (gameplayController != null) gameplayController.RestartCurrentLevel();
+            if (HasGameplayController) gameplayController.RestartCurrentLevel();
+            else if (referenceUi != null) referenceUi.ShowGameplay();
             else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         public void NextLevel()
         {
+            systemPaused = false;
             Time.timeScale = 1f;
             levelComplete?.Hide();
-            gameplayController?.LoadNextLevelFromSystem();
+            if (HasGameplayController) gameplayController.LoadNextLevelFromSystem();
+            else referenceUi?.ShowGameplay();
         }
 
         public void GoHome()
         {
+            systemPaused = false;
             Time.timeScale = 1f;
             pauseMenu?.Hide();
             settingsMenu?.Hide();
             levelComplete?.Hide();
             levelFail?.Hide();
-            if (gameplayController != null) gameplayController.ShowHomeFromSystem();
-            home?.Show();
+            noInternet?.Hide();
+            if (referenceUi != null) { gameplayController?.SuspendForNavigation(); referenceUi.ShowHome(); }
+            else
+            {
+                if (HasGameplayController) gameplayController.ShowHomeFromSystem();
+                home?.Show();
+            }
         }
 
         public void OpenSettings(bool fromPause)
         {
+            if (settingsMenu == null || !settingsMenu.IsConfigured) return;
             if (fromPause) pauseMenu?.Hide();
             settingsMenu?.Show(fromPause);
         }
 
         public void ReturnToPause()
         {
-            if (gameplayController != null) OpenPause();
+            if (systemPaused) OpenPause();
         }
 
         public bool ShowLevelComplete(string title, int stars, int reward, int bestStars, int bestCombo)
@@ -171,6 +191,15 @@ namespace CatBlockPuzzle
         public void CloseSettings()
         {
             settingsMenu?.Hide();
+        }
+
+        public void ShowNoInternet() => noInternet?.Show();
+
+        private void OnDestroy()
+        {
+            if (Instance != this) return;
+            if (systemPaused) Time.timeScale = timeScaleBeforePause;
+            Instance = null;
         }
 
     }
