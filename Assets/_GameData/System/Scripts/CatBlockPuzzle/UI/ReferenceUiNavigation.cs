@@ -25,7 +25,13 @@ namespace CatBlockPuzzle
         public bool HasCollection => collectionScreen != null;
         public bool HasRooms => roomsScreen != null;
 
-        private void Start() { UpdateListeners(true); ShowHome(); }
+        private void Start()
+        {
+            UpdateListeners(true);
+            ShowHome();
+            // Run after every Start method has established the main-menu page.
+            Invoke(nameof(ShowAvailableDailyReward), 0f);
+        }
         private void OnDestroy() => UpdateListeners(false);
 
         public void ShowHome()
@@ -40,6 +46,11 @@ namespace CatBlockPuzzle
         public void ShowGameplay() => ShowPage(gameplayScreen);
         public void ShowCollection() => ShowPage(collectionScreen);
         public void ShowRooms() => ShowPage(roomsScreen);
+
+        private void ShowAvailableDailyReward()
+        {
+            if (dailyReward != null && dailyReward.IsClaimAvailable) ShowDailyReward();
+        }
 
         private void ShowPage(GameObject page)
         {

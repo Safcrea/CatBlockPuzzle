@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,7 +31,14 @@ namespace CatBlockPuzzle
         [SerializeField] private GameObject root;
         [SerializeField] private Button closeButton;
         [SerializeField] private DayView[] days = Array.Empty<DayView>();
+        [Header("Rewards")]
         private UnityAction[] claimActions;
+
+        private const string LastClaimDateKey = "CatBlockPuzzle.DailyReward.LastClaimUtc";
+        private const string LastClaimDayKey = "CatBlockPuzzle.DailyReward.LastClaimDay";
+        private const string DateFormat = "yyyy-MM-dd";
+
+        public bool IsClaimAvailable => GetAvailableDay() > 0;
 
         private void OnEnable()
         {
@@ -46,6 +54,7 @@ namespace CatBlockPuzzle
                 ApplyClaimedState(day);
             }
             Bind(closeButton, Close, true);
+            RefreshPresentation();
         }
 
         private void OnDisable()
@@ -69,9 +78,22 @@ namespace CatBlockPuzzle
 
         public void RequestClaim(int dayNumber)
         {
+            int availableDay = GetAvailableDay();
+            if (availableDay != dayNumber) return;
+
             foreach (var day in days)
-                if (day != null && day.day == dayNumber && !day.claimed)
-                { day.claimRequested?.Invoke(); return; }
+                if (day != null && day.day == dayNumber)
+                {
+                    int coins = CoinsForDay(dayNumber);
+                    if (GameSystem.Instance == null || (coins > 0 && !GameSystem.Instance.AwardCoins(coins))) return;
+                    GrantPowerUps(dayNumber);
+                    PlayerPrefs.SetString(LastClaimDateKey, DateTime.UtcNow.ToString(DateFormat, CultureInfo.InvariantCulture));
+                    PlayerPrefs.SetInt(LastClaimDayKey, dayNumber);
+                    PlayerPrefs.Save();
+                    day.claimRequested?.Invoke();
+                    RefreshPresentation();
+                    return;
+                }
         }
 
         /// <summary>Called by the reward system after a claim succeeds, or while restoring its saved state.</summary>
@@ -92,8 +114,78 @@ namespace CatBlockPuzzle
             if (day.claimButton != null) day.claimButton.interactable = !day.claimed;
         }
 
-        public void Show() { if (root != null) root.SetActive(true); }
+        public void Show()
+        {
+            if (root != null) root.SetActive(true);
+            RefreshPresentation();
+        }
         public void Hide() { if (root != null) root.SetActive(false); }
         private void Close() => GameSystem.Instance?.GoHome();
+
+        private int GetAvailableDay()
+        {
+            int dayCount = days == null ? 0 : days.Length;
+            if (dayCount == 0) return 0;
+            string saved = PlayerPrefs.GetString(LastClaimDateKey, string.Empty);
+            if (!DateTime.TryParseExact(saved, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime lastClaim)) return 1;
+            int elapsedDays = (DateTime.UtcNow.Date - lastClaim.Date).Days;
+            if (elapsedDays <= 0) return 0;
+            if (elapsedDays == 1) return (Mathf.Clamp(PlayerPrefs.GetInt(LastClaimDayKey, 0), 0, dayCount - 1) % dayCount) + 1;
+            return 1;
+        }
+
+        private static int CoinsForDay(int dayNumber)
+        {
+            switch (dayNumber)
+            {
+                case 1: return 100;
+                case 3: return 250;
+                case 5: return 500;
+                case 6: return 750;
+                case 7: return 1000;
+                default: return 0;
+            }
+        }
+
+        private static void GrantPowerUps(int dayNumber)
+        {
+            switch (dayNumber)
+            {
+                case 2: PowerUpInventory.Add(PowerUpKind.Hint); break;
+                case 4: PowerUpInventory.Add(PowerUpKind.Freeze); break;
+                case 7:
+                    PowerUpInventory.Add(PowerUpKind.Freeze);
+                    PowerUpInventory.Add(PowerUpKind.Hint);
+                    break;
+            }
+        }
+
+        private static string RewardLabelForDay(int dayNumber)
+        {
+            int coins = CoinsForDay(dayNumber);
+            if (coins > 0 && dayNumber != 7) return "x" + coins;
+            if (dayNumber == 2) return "1 Hint";
+            if (dayNumber == 4) return "1 Freeze";
+            return string.Empty;
+        }
+
+        private void RefreshPresentation()
+        {
+            if (days == null) return;
+            int availableDay = GetAvailableDay();
+            int savedDay = Mathf.Max(0, PlayerPrefs.GetInt(LastClaimDayKey, 0));
+            bool claimedToday = availableDay == 0;
+            for (int i = 0; i < days.Length; i++)
+            {
+                DayView day = days[i];
+                if (day == null) continue;
+                day.claimed = claimedToday ? day.day <= savedDay : day.day < availableDay;
+                if (day.amountLabel != null) day.amountLabel.text = RewardLabelForDay(day.day);
+                ApplyClaimedState(day);
+                bool canClaim = day.day == availableDay;
+                if (day.cardButton != null) day.cardButton.interactable = canClaim;
+                if (day.claimButton != null) day.claimButton.interactable = canClaim;
+            }
+        }
     }
 }

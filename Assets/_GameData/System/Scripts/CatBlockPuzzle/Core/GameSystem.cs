@@ -28,7 +28,25 @@ namespace CatBlockPuzzle
         public bool HasReferenceUi => referenceUi != null;
         public bool IsPaused => systemPaused;
         public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
-        public bool TryUseFreezePowerUp() => HasGameplayController && gameplayController.TryUseFreezePowerUp();
+        public bool AwardCoins(int amount)
+        {
+            if (gameplayController == null || amount <= 0) return false;
+            gameplayController.AwardExternalCoins(amount);
+            return true;
+        }
+        public int GetPowerUpCount(PowerUpKind kind) => PowerUpInventory.GetCount(kind);
+        public bool TryUseFreezePowerUp()
+        {
+            if (!HasGameplayController || PowerUpInventory.GetCount(PowerUpKind.Freeze) <= 0) return false;
+            if (!gameplayController.TryUseFreezePowerUp()) return false;
+            return PowerUpInventory.TryConsume(PowerUpKind.Freeze);
+        }
+        public bool TryUseHintPowerUp()
+        {
+            if (!HasGameplayController || PowerUpInventory.GetCount(PowerUpKind.Hint) <= 0) return false;
+            if (!gameplayController.TryUseHintPowerUp()) return false;
+            return PowerUpInventory.TryConsume(PowerUpKind.Hint);
+        }
         public bool IsGameplayOpen => referenceUi == null || referenceUi.IsGameplayOpen;
         public void ShowGameplayPage() => referenceUi?.ShowGameplay();
         public void ShowRoomsPage() => referenceUi?.ShowRooms();

@@ -34,6 +34,14 @@ namespace CatBlockPuzzle
             return true;
         }
 
+        public bool TryUseHintPowerUp()
+        {
+            if (!timerRunning || inputLocked || levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
+                (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen))) return false;
+            ShowHint();
+            return true;
+        }
+
         private void ResetLevelTimer()
         {
             freezeRemainingSeconds = 0f;
