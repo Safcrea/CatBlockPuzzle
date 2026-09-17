@@ -6,9 +6,9 @@ namespace CatBlockPuzzle
 {
     public sealed class ComingSoonPopup : MonoBehaviour
     {
-        private Text title;
+        [SerializeField] private Text title;
         private GameObject previousSelection;
-        private Button dismiss;
+        [SerializeField] private Button dismiss;
 
         public static ComingSoonPopup Create(Transform parent)
         {
@@ -24,18 +24,31 @@ namespace CatBlockPuzzle
             var message = RuntimeUiFactory.CreateText(panel, "Message", "Coming soon!\nMore cozy adventures are on the way.", 30, TextAnchor.MiddleCenter);
             RuntimeUiFactory.SetRect(message.rectTransform, new Vector2(0f, 10f), new Vector2(panel.sizeDelta.x - 48f, 120f));
             popup.dismiss = RuntimeUiFactory.CreateButton(panel, "Okay", "Got it!", new Vector2(0f, -125f), new Vector2(280f, 78f), RuntimeUiFactory.Coral);
-            popup.dismiss.onClick.AddListener(popup.Close);
+            popup.BindDismissButton();
             root.gameObject.SetActive(false);
             return popup;
+        }
+
+        private void OnEnable() => BindDismissButton();
+        private void OnDestroy()
+        {
+            if (dismiss != null) dismiss.onClick.RemoveListener(Close);
+        }
+
+        private void BindDismissButton()
+        {
+            if (dismiss == null) return;
+            dismiss.onClick.RemoveListener(Close);
+            dismiss.onClick.AddListener(Close);
         }
 
         public void Show(string feature)
         {
             if (!gameObject.activeSelf && EventSystem.current != null)
                 previousSelection = EventSystem.current.currentSelectedGameObject;
-            title.text = feature;
+            if (title != null) title.text = feature;
             MenuTransition.Show(gameObject);
-            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(dismiss.gameObject);
+            if (EventSystem.current != null && dismiss != null) EventSystem.current.SetSelectedGameObject(dismiss.gameObject);
         }
 
         public void Close() => MenuTransition.Hide(gameObject, RestoreSelection);

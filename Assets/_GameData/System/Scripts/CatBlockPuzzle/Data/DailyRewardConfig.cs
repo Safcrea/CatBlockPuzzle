@@ -14,6 +14,12 @@ namespace CatBlockPuzzle
             [Min(0)] public int coins;
             [Min(0)] public int freezeCount;
             [Min(0)] public int hintCount;
+            [Tooltip("Optional artwork displayed in this day's reward-icon Image.")]
+            public Sprite rewardIcon;
+            [Tooltip("Suppress the amount/reward label for this day.")]
+            public bool leaveTextEmpty;
+            [Tooltip("Optional replacement for the generated reward label. Leave blank to generate it from the reward amounts.")]
+            public string textOverride;
         }
 
         [SerializeField] private DayReward[] days = Array.Empty<DayReward>();

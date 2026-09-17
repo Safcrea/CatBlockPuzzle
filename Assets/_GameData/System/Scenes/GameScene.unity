@@ -136494,7 +136494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1574262321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -136777,7 +136777,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574262320}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -187663,7 +187663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1111111111111111111111111111102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  defaultFont: {fileID: 12800000, guid: 619698d9b6e39494b9ba0336e961ed66, type: 3}
   whiteSprite: {fileID: 21300000, guid: c4efcc884f2440a48b63297a801b087b, type: 2}
   roundedBoxSprite: {fileID: 21300000, guid: 5daeb936545061d4bab0806ccb1f8a95, type: 2}
   circleSprite: {fileID: 21300000, guid: eaa9a5242c868634d989668e5252e81f, type: 2}
@@ -187711,7 +187711,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 68d9d1d08f093a84691d569821f7929f, type: 2}
   - {fileID: 21300000, guid: ba387d846ad66464e89927814a23e6df, type: 2}
   - {fileID: 21300000, guid: 2d35959b60a09da4ba5f18295b0372c4, type: 2}
-  visualCatalog: {fileID: 0}
+  visualCatalog: {fileID: 11400000, guid: d43f40fbd0ff2f246a07316ba3a6d1f3, type: 2}
   layoutProfile: {fileID: 11400000, guid: 7444de179f8aba94ca7ea9456e025e74, type: 2}
 --- !u!114 &9400000003
 MonoBehaviour:
@@ -189471,7 +189471,7 @@ MonoBehaviour:
     claimRequested:
       m_PersistentCalls:
         m_Calls: []
-  rewardConfig: {fileID: 0}
+  rewardConfig: {fileID: 11400000, guid: 3f3d03f59c5c4e2da7161678b77775a8, type: 2}
 --- !u!114 &9700000078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189974,6 +189974,7 @@ MonoBehaviour:
   gameplayScreen: {fileID: 2116504853}
   collectionScreen: {fileID: 9700000001}
   roomsScreen: {fileID: 9700000003}
+  comingSoonPrefab: {fileID: 4295743609645264096, guid: cd557a326a4e743bd971a4c4f074a391, type: 3}
   collectionEnabled: 0
   roomsEnabled: 0
   levelBackButton: {fileID: 9700000099}

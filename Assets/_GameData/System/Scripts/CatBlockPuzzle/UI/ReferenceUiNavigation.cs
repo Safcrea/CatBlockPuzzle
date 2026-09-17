@@ -16,6 +16,8 @@ namespace CatBlockPuzzle
         [SerializeField] private GameObject collectionScreen;
         [SerializeField] private GameObject roomsScreen;
         [Header("Coming Soon")]
+        [Tooltip("Shared popup shown while Rooms or Collections is unavailable.")]
+        [SerializeField] private ComingSoonPopup comingSoonPrefab;
         [SerializeField] private bool collectionEnabled;
         [SerializeField] private bool roomsEnabled;
         [Header("Existing Controls")]
@@ -23,7 +25,7 @@ namespace CatBlockPuzzle
         [SerializeField] private Button levelPlayButton;
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button[] auxiliaryBackButtons;
-        private ComingSoonPopup comingSoon;
+        private ComingSoonPopup comingSoonInstance;
 
         public bool IsGameplayOpen => gameplayScreen != null && gameplayScreen.activeInHierarchy;
         public bool HasCollection => collectionEnabled && collectionScreen != null;
@@ -67,15 +69,18 @@ namespace CatBlockPuzzle
 
         private void ShowComingSoon(string feature)
         {
-            if (comingSoon == null)
+            if (comingSoonInstance == null)
             {
                 Canvas canvas = GetComponentInParent<Canvas>();
                 if (canvas == null && levelSelectionScreen != null)
                     canvas = levelSelectionScreen.GetComponentInParent<Canvas>();
                 if (canvas == null) return;
-                comingSoon = ComingSoonPopup.Create(canvas.transform);
+                comingSoonInstance = comingSoonPrefab != null
+                    ? Instantiate(comingSoonPrefab, canvas.transform)
+                    : ComingSoonPopup.Create(canvas.transform);
+                comingSoonInstance.name = "Coming Soon Popup";
             }
-            comingSoon.Show(feature);
+            comingSoonInstance.Show(feature);
         }
 
         private void ShowPage(GameObject page)
@@ -88,7 +93,7 @@ namespace CatBlockPuzzle
 
         private void HidePages()
         {
-            if (comingSoon != null) comingSoon.HideImmediately();
+            if (comingSoonInstance != null) comingSoonInstance.HideImmediately();
             GameSystem.Instance?.CloseSettings();
             home?.Hide();
             shop?.Hide();

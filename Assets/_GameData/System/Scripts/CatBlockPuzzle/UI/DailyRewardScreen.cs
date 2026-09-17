@@ -118,9 +118,10 @@ namespace CatBlockPuzzle
         public void Hide() { if (root != null) root.SetActive(false); }
         private void Close() => GameSystem.Instance?.GoHome();
 
-        private string RewardLabelForDay(int dayNumber)
+        private string RewardLabelFor(DailyRewardConfig.DayReward reward, int dayNumber)
         {
-            DailyRewardConfig.DayReward reward = Config != null ? Config.GetDay(dayNumber) : default;
+            if (reward.leaveTextEmpty) return string.Empty;
+            if (!string.IsNullOrWhiteSpace(reward.textOverride)) return reward.textOverride;
             int coins = reward.coins;
             if (coins > 0 && dayNumber != 7) return "x" + coins;
             if (reward.hintCount > 0 && reward.freezeCount == 0) return "x" + reward.hintCount + " Hint";
@@ -140,7 +141,9 @@ namespace CatBlockPuzzle
                 DayView day = days[i];
                 if (day == null) continue;
                 day.claimed = claimedToday ? day.day <= savedDay : day.day < availableDay;
-                if (day.amountLabel != null) day.amountLabel.text = RewardLabelForDay(day.day);
+                DailyRewardConfig.DayReward reward = config != null ? config.GetDay(day.day) : default;
+                if (day.rewardIcon != null && reward.rewardIcon != null) day.rewardIcon.sprite = reward.rewardIcon;
+                if (day.amountLabel != null) day.amountLabel.text = RewardLabelFor(reward, day.day);
                 ApplyClaimedState(day);
                 bool canClaim = day.day == availableDay;
                 if (day.cardButton != null) day.cardButton.interactable = canClaim;
