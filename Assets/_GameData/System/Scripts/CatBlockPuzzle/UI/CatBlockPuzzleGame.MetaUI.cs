@@ -280,22 +280,11 @@ namespace CatBlockPuzzle
 
             CatMetaChapterDefinition chapter = metaCatalog.GetChapterForLevel(levelIndex);
             int chapterLevel = (levelIndex - chapter.FirstLevelIndex) + 1;
-            CatMetaDecorationDefinition revealedDecoration = FindDecorationAtMilestone(chapter, chapterLevel);
-            bool canDecorateNow = awardedCoins > 0 && revealedDecoration != null;
-
+            // Decoration is not part of the current result flow. Keep its button hidden
+            // and preserve the authored, full-width Continue artwork below.
             if (metaDecorateNowButton != null)
             {
-                metaDecorateNowButton.gameObject.SetActive(canDecorateNow && chapterLevel < CatMetaCatalog.LevelsPerChapter);
-            }
-
-            if (metaNextLevelButton != null)
-            {
-                RectTransform nextRect = metaNextLevelButton.transform as RectTransform;
-                bool splitButtons = metaDecorateNowButton != null && metaDecorateNowButton.gameObject.activeSelf;
-                SetRect(nextRect,
-                    new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
-                    splitButtons ? new Vector2(-155f, 42f) : new Vector2(0f, 42f),
-                    splitButtons ? new Vector2(280f, 76f) : new Vector2(390f, 76f));
+                metaDecorateNowButton.gameObject.SetActive(false);
             }
 
             if (metaNextLevelButtonText != null)

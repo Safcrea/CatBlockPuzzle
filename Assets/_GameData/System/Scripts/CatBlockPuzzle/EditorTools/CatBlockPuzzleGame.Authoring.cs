@@ -899,6 +899,7 @@ namespace CatBlockPuzzle
                 }
                 else
                 {
+                    haptics?.PlayWrongMove();
                     ShowMetaStatus("Complete the room before this one to unlock it.");
                 }
             });

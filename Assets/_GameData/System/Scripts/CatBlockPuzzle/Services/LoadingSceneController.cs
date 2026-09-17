@@ -9,6 +9,7 @@ namespace CatBlockPuzzle
     {
         private const string LoadingSceneName = "Loading";
         private const string TargetSceneKey = "CatBlockPuzzle.Loading.TargetScene";
+        private const float MaximumDisplayedProgress = 0.85f;
         private static int requestedBuildIndex = -1;
 
         [SerializeField] private Slider progressBar;
@@ -42,15 +43,21 @@ namespace CatBlockPuzzle
             int target = requestedBuildIndex >= 0 ? requestedBuildIndex : PlayerPrefs.GetInt(TargetSceneKey, 1);
             if (target == SceneManager.GetActiveScene().buildIndex) target = 1;
             float startedAt = Time.realtimeSinceStartup;
+            if (progressBar != null) progressBar.SetValueWithoutNotify(0f);
             AsyncOperation operation = SceneManager.LoadSceneAsync(target);
             operation.allowSceneActivation = false;
 
             while (!operation.isDone)
             {
-                float progress = Mathf.Clamp01(operation.progress / 0.9f);
-                if (progressBar != null) progressBar.value = progress;
+                // The loading bar is intentionally time-based rather than tied to Unity's
+                // bursty async progress. The PawICon is the Slider handle, so it rides
+                // exactly at this fill front and pauses at 85% while activation is pending.
+                float elapsed = Time.realtimeSinceStartup - startedAt;
+                float timedProgress = Mathf.Clamp01(elapsed / Mathf.Max(0.01f, minimumDisplaySeconds));
+                float progress = timedProgress * MaximumDisplayedProgress;
+                if (progressBar != null) progressBar.SetValueWithoutNotify(progress);
                 // if (progressText != null) progressText.text = "Loading " + Mathf.RoundToInt(progress * 100f) + "%";
-                bool minimumElapsed = Time.realtimeSinceStartup - startedAt >= minimumDisplaySeconds;
+                bool minimumElapsed = elapsed >= minimumDisplaySeconds;
                 if (operation.progress >= 0.75f && minimumElapsed) operation.allowSceneActivation = true;
                 yield return null;
             }

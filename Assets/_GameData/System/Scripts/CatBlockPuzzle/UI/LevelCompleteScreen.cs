@@ -75,7 +75,7 @@ namespace CatBlockPuzzle
         private IEnumerator PlayEntrance(int earnedStars)
         {
             if (panel != null) panel.localScale = Vector3.one * 0.94f;
-            SetAllStarStates(StarVisual.Disabled);
+            SetAllStarsVisible(false);
 
             const float panelDuration = 0.18f;
             float panelTime = 0f;
@@ -113,12 +113,28 @@ namespace CatBlockPuzzle
                 float t = Mathf.Clamp01(elapsed / duration);
                 float eased = 1f - Mathf.Pow(1f - t, 3f);
                 rect.anchoredPosition = Vector2.LerpUnclamped(start, target, eased);
-                rect.localScale = Vector3.one * (Mathf.Lerp(0.25f, 1f, eased) + (Mathf.Sin(t * Mathf.PI) * 0.20f));
+                rect.localScale = Vector3.one * Mathf.Lerp(0.25f, 1f, eased);
                 yield return null;
             }
             rect.anchoredPosition = target;
             rect.localScale = Vector3.one;
+            if (index == stars.Length - 1) yield return StartCoroutine(SpringStar(rect));
             yield return new WaitForSecondsRealtime(0.07f);
+        }
+
+        private static IEnumerator SpringStar(RectTransform rect)
+        {
+            const float duration = 0.42f;
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                float spring = Mathf.Sin(t * Mathf.PI * 4f) * (1f - t) * 0.28f;
+                rect.localScale = Vector3.one * (1f + spring);
+                yield return null;
+            }
+            rect.localScale = Vector3.one;
         }
 
         private void CacheStarTargets()
@@ -132,6 +148,12 @@ namespace CatBlockPuzzle
         private void SetAllStarStates(StarVisual state)
         {
             for (int i = 0; i < stars.Length; i++) SetStarState(i, state);
+        }
+
+        private void SetAllStarsVisible(bool visible)
+        {
+            for (int i = 0; i < stars.Length; i++)
+                if (stars[i] != null) stars[i].gameObject.SetActive(visible);
         }
 
         private void SetStarState(int index, StarVisual state)

@@ -34,6 +34,8 @@ namespace CatBlockPuzzle
         [SerializeField] internal Button metaDecorateNowButton;
 
         [Header("Home and Rooms")]
+        [Tooltip("Scale applied to the recommended chapter card in the Rooms selector.")]
+        [Range(1f, 1.25f)] [SerializeField] internal float activeChapterScale = 1.08f;
         [SerializeField] internal HubCardView[] hubCards;
         [SerializeField] internal CatPuzzleRoomView[] roomViews;
         [SerializeField] internal Text hubContinueLabel;

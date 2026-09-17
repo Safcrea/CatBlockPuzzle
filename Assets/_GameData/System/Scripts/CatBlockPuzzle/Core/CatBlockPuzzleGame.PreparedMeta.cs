@@ -57,11 +57,22 @@ namespace CatBlockPuzzle
             metaStatusText = hubStatus;
             hubStatus.text = "Choose a room or continue your rescue story.";
             RefreshCoinLabels();
+            int activeChapterIndex = metaCatalog.GetChapterForLevel(GetRecommendedLevelIndex()).Index;
+            float selectedScale = metaView != null ? Mathf.Max(1f, metaView.activeChapterScale) : 1.08f;
             for (int i = 0; i < hubCards.Length; i++)
             {
                 var view = hubCards[i]; var chapter = metaCatalog.GetChapter(i);
                 bool unlocked = metaProgress.IsChapterUnlocked(i), complete = metaProgress.IsChapterComplete(i);
+                bool active = i == activeChapterIndex;
                 int installed = metaProgress.InstalledDecorationCount(i);
+                // The background is the card root. Scaling it keeps the selected chapter
+                // prominent without changing the scroll/grid layout's slot positions.
+                view.background.rectTransform.localScale = active ? Vector3.one * selectedScale : Vector3.one;
+                CanvasGroup cardGroup = view.background.GetComponent<CanvasGroup>();
+                if (cardGroup == null) cardGroup = view.background.gameObject.AddComponent<CanvasGroup>();
+                cardGroup.alpha = unlocked ? 1f : 0.52f;
+                cardGroup.interactable = true;
+                cardGroup.blocksRaycasts = true;
                 view.background.color = unlocked ? new Color(1f,.98f,.93f,.99f) : new Color(.82f,.8f,.77f,.98f);
                 view.thumbnail.color = unlocked ? Color.white : new Color(.42f,.42f,.42f,.78f);
                 view.number.color = complete ? TargetDeepColor : SoftInkColor;
@@ -200,7 +211,11 @@ namespace CatBlockPuzzle
                     break;
                 case CatPuzzleUiAction.ActionKind.OpenRoom:
                     if (metaProgress.IsChapterUnlocked(index)) OpenRoomDetail(index);
-                    else ShowMetaStatus("Complete the room before this one to unlock it.");
+                    else
+                    {
+                        haptics?.PlayWrongMove();
+                        ShowMetaStatus("Complete the room before this one to unlock it.");
+                    }
                     break;
                 case CatPuzzleUiAction.ActionKind.PlayLevel:
                     if (IsMetaLevelSelectable(index)) PlayMetaLevel(index); else ShowMetaStatus("Clear the previous paw step first.");

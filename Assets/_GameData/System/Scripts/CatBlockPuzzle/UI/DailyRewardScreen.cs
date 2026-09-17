@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace CatBlockPuzzle
@@ -19,8 +20,8 @@ namespace CatBlockPuzzle
             public Button cardButton;
             public Image cardImage;
             public Image claimImage;
-            public Sprite availableCardSprite;
-            public Sprite claimedCardSprite;
+            [FormerlySerializedAs("availableCardSprite")] public Sprite claimDaySprite;
+            [FormerlySerializedAs("claimedCardSprite")] public Sprite backgroundDaySprite;
             public Sprite availableClaimSprite;
             public Sprite claimedClaimSprite;
             public bool claimed;
@@ -105,12 +106,14 @@ namespace CatBlockPuzzle
         {
             foreach (var day in days)
                 if (day != null && day.day == dayNumber)
-                { day.claimed = claimed; ApplyClaimedState(day); return; }
+                { day.claimed = claimed; ApplyClaimedState(day, false); return; }
         }
 
-        private static void ApplyClaimedState(DayView day)
+        private static void ApplyClaimedState(DayView day, bool canClaim = false)
         {
-            Sprite card = day.claimed ? day.claimedCardSprite : day.availableCardSprite;
+            // claim_day is reserved for today's available reward; all other standard
+            // day cards use bg_day, whether they are future or already claimed.
+            Sprite card = canClaim ? day.claimDaySprite : day.backgroundDaySprite;
             Sprite claim = day.claimed ? day.claimedClaimSprite : day.availableClaimSprite;
             if (day.cardImage != null && card != null) day.cardImage.sprite = card;
             if (day.claimImage != null && claim != null) day.claimImage.sprite = claim;
@@ -152,8 +155,8 @@ namespace CatBlockPuzzle
                 DailyRewardConfig.DayReward reward = config != null ? config.GetDay(day.day) : default;
                 if (day.rewardIcon != null && reward.rewardIcon != null) day.rewardIcon.sprite = reward.rewardIcon;
                 if (day.amountLabel != null) day.amountLabel.text = RewardLabelFor(reward, day.day);
-                ApplyClaimedState(day);
                 bool canClaim = day.day == availableDay;
+                ApplyClaimedState(day, canClaim);
                 if (day.cardButton != null) day.cardButton.interactable = canClaim;
                 if (day.claimButton != null) day.claimButton.interactable = canClaim;
             }
