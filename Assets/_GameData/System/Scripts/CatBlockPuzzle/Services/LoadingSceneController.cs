@@ -58,7 +58,7 @@ namespace CatBlockPuzzle
 
         private void EnsureRuntimeView()
         {
-            if (progressBar != null && progressText != null) return;
+            if (progressBar != null) return;
             GameObject canvasObject = new GameObject("Loading Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             Canvas canvas = canvasObject.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
