@@ -15720,7 +15720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+  m_Color: {r: 0.88699996, g: 0.88699996, b: 0.88699996, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -27503,7 +27503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &291560117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81688,7 +81688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3, g: 0.14, b: 0.08, a: 1}
+  m_Color: {r: 0.49056602, g: 0.22028281, b: 0.11801351, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -81696,8 +81696,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 619698d9b6e39494b9ba0336e961ed66, type: 3}
+    m_FontSize: 37
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -131128,9 +131128,9 @@ RectTransform:
   - {fileID: 2147000102}
   m_Father: {fileID: 86341001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 75, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506195015
@@ -148604,9 +148604,9 @@ RectTransform:
   - {fileID: 2147000202}
   m_Father: {fileID: 86341001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 415, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1727233363
@@ -184586,7 +184586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2116504854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -187523,13 +187523,19 @@ MonoBehaviour:
   panel: {fileID: 1897033906}
   sprites:
     blackAndWhite: {fileID: 21300000, guid: ada60d0bd1d963a409813db2e28ab7ec, type: 3}
-    disabled: {fileID: 21300000, guid: 472507853c293d04e8829927705b115f, type: 3}
+    disabled: {fileID: 21300000, guid: ada60d0bd1d963a409813db2e28ab7ec, type: 3}
     winStars: {fileID: 21300000, guid: eb65d41402b317047b52bf692b8e054c, type: 3}
   stars:
   - {fileID: 1543315}
   - {fileID: 227320219}
   - {fileID: 875983209}
   continueButton: {fileID: 228754302}
+  titleArtwork: {fileID: 825019703}
+  coinReward: {fileID: 1101967814}
+  rewardText: {fileID: 469063979}
+  popDuration: 0.45
+  coinCountDuration: 0.9
+  starPause: 0.08
 --- !u!114 &9100000015
 MonoBehaviour:
   m_ObjectHideFlags: 0

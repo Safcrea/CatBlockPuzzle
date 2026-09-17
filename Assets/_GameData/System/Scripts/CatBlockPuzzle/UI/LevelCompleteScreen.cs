@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CatBlockPuzzle
 {
-    /// <summary>Reference-art level-win overlay: animated earned stars and a single Continue action.</summary>
+    /// <summary>Top-to-bottom win celebration: title, earned stars, coins, Continue.</summary>
     public sealed class LevelCompleteScreen : MonoBehaviour
     {
         [System.Serializable]
@@ -22,19 +23,31 @@ namespace CatBlockPuzzle
         [Header("On-screen image placeholders, ordered left to right")]
         [SerializeField] internal Image[] stars = new Image[3];
         [SerializeField] private Button continueButton;
+        [Header("Sequence (auto-bound for the existing win screen)")]
+        [SerializeField] private RectTransform titleArtwork;
+        [SerializeField] private RectTransform coinReward;
+        [SerializeField] private Text rewardText;
+        [SerializeField, Min(0.1f)] private float popDuration = 0.45f;
+        [SerializeField, Min(0.1f)] private float coinCountDuration = 0.9f;
+        [SerializeField, Min(0f)] private float starPause = 0.08f;
 
-        private Vector2[] starTargets;
-        // The configured star Images are the static, disabled slots.  The win artwork is
-        // created as a child overlay at runtime so it can travel into the slot without
-        // ever replacing or hiding the disabled star underneath.
+        private readonly Dictionary<Transform, Vector3> restingScales = new Dictionary<Transform, Vector3>();
         private Image[] winStarOverlays;
+        private Coroutine entrance;
+        private bool continueWasInteractable;
 
         public bool IsConfigured => root != null;
         public bool IsOpen => root != null && root.activeInHierarchy;
         internal RectTransform RootRect => root != null ? root.transform as RectTransform : null;
 
-        public void EnsureBindings() => BindButtons();
+        public void EnsureBindings() { BindPresentation(); BindButtons(); }
         private void OnEnable() => BindButtons();
+        private void OnDisable() => CancelEntrance();
+        private void Update()
+        {
+            // The component may live outside the overlay and survive its deactivation.
+            if (entrance != null && !IsOpen) CancelEntrance();
+        }
         private void OnDestroy()
         {
             if (continueButton != null) continueButton.onClick.RemoveListener(Next);
@@ -43,112 +56,166 @@ namespace CatBlockPuzzle
         public void CaptureExisting(GameObject screenRoot)
         {
             if (screenRoot == null) return;
+            CancelEntrance();
             root = screenRoot;
             panel = FindChild(root.transform, "Win Panel") as RectTransform;
-            continueButton = FindButton(root.transform, "Continue");
-            if (continueButton == null) continueButton = FindButton(root.transform, "Next Level");
-
-            Image[] foundImages = root.GetComponentsInChildren<Image>(true);
-            var placeholders = new System.Collections.Generic.List<Image>(3);
-            for (int i = 0; i < foundImages.Length; i++)
+            if (panel == null) panel = root.transform as RectTransform;
+            titleArtwork = null;
+            coinReward = null;
+            rewardText = null;
+            if (continueButton != null) continueButton.onClick.RemoveListener(Next);
+            continueButton = null;
+            var placeholders = new List<Image>(3);
+            foreach (Image image in root.GetComponentsInChildren<Image>(true))
             {
-                string name = foundImages[i].name;
-                if (name.StartsWith("Result Star", System.StringComparison.OrdinalIgnoreCase) ||
-                    name.StartsWith("Star Placeholder", System.StringComparison.OrdinalIgnoreCase))
-                    placeholders.Add(foundImages[i]);
+                if (image.name.StartsWith("Result Star", System.StringComparison.OrdinalIgnoreCase) ||
+                    image.name.StartsWith("Star Placeholder", System.StringComparison.OrdinalIgnoreCase))
+                    placeholders.Add(image);
             }
             if (placeholders.Count > 0) stars = placeholders.ToArray();
-            CacheStarTargets();
-            BindButtons();
+            EnsureBindings();
         }
 
-        // Kept compatible with GameSystem's result contract. The reference art already
-        // contains the win title and reward treatment; only the earned star count changes.
+        // Gameplay grants the reward; this sequence only presents the amount earned.
         public void Show(string title, int starCount, int reward, int bestStars, int bestCombo)
         {
             if (root == null) return;
+            CancelEntrance();
+            EnsureBindings();
+            if (coinReward != null) coinReward.gameObject.SetActive(false);
             root.SetActive(true);
             root.transform.SetAsLastSibling();
-            StopAllCoroutines();
-            CacheStarTargets();
-            StartCoroutine(PlayEntrance(Mathf.Clamp(starCount, 0, stars.Length)));
+            if (continueButton != null) continueWasInteractable = continueButton.interactable;
+            entrance = StartCoroutine(PlayEntrance(Mathf.Clamp(starCount, 0, stars.Length), Mathf.Max(0, reward)));
         }
 
-        public void Hide() { if (root != null) root.SetActive(false); }
-
-        private IEnumerator PlayEntrance(int earnedStars)
+        public void Hide()
         {
-            if (panel != null) panel.localScale = Vector3.one * 0.94f;
-            CacheStarTargets();
+            CancelEntrance();
+            if (root != null) root.SetActive(false);
+        }
+
+        private IEnumerator PlayEntrance(int earnedStars, int reward)
+        {
             EnsureWinStarOverlays();
-            // The placed slots use the black-and-white artwork. Earned win stars then
-            // fly in as overlays, leaving the grayscale stars visible underneath.
-            SetAllStarStates(StarVisual.BlackAndWhite);
-            SetAllWinStarOverlaysVisible(false);
-
-            const float panelDuration = 0.18f;
-            float panelTime = 0f;
-            while (panelTime < panelDuration)
+            SetOverlaysVisible(false);
+            HideForEntrance(titleArtwork);
+            HideForEntrance(coinReward);
+            for (int i = 0; i < stars.Length; i++)
             {
-                panelTime += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(panelTime / panelDuration);
-                if (panel != null) panel.localScale = Vector3.one * Mathf.Lerp(0.94f, 1f, 1f - Mathf.Pow(1f - t, 3f));
-                yield return null;
+                if (stars[i] == null) continue;
+                Sprite disabledSprite = sprites != null ? sprites.disabled : null;
+                if (disabledSprite == null && sprites != null) disabledSprite = sprites.blackAndWhite;
+                if (disabledSprite != null) stars[i].sprite = disabledSprite;
+                stars[i].gameObject.SetActive(true);
+                HideForEntrance(stars[i].transform);
             }
-            if (panel != null) panel.localScale = Vector3.one;
-
+            if (continueButton != null)
+            {
+                continueButton.interactable = false;
+                HideForEntrance(continueButton.transform);
+            }
+            SetReward(0);
+            // Ensure the first frame is prepared even if optional bindings are missing.
+            yield return null;
+            yield return Pop(titleArtwork, popDuration);
+            for (int i = 0; i < stars.Length; i++)
+                if (stars[i] != null) RestoreScale(stars[i].transform);
             for (int i = 0; i < earnedStars; i++)
             {
-                if (i >= winStarOverlays.Length || winStarOverlays[i] == null) continue;
-                Image overlay = winStarOverlays[i];
-                overlay.gameObject.SetActive(true);
-                yield return StartCoroutine(FlyStarToSlot(overlay, i));
+                if (winStarOverlays[i] == null) continue;
+                winStarOverlays[i].gameObject.SetActive(true);
+                yield return Pop(winStarOverlays[i].transform, popDuration, true);
+                yield return new WaitForSecondsRealtime(Mathf.Max(0f, starPause));
             }
-        }
-
-        private IEnumerator FlyStarToSlot(Image star, int index)
-        {
-            RectTransform rect = star.rectTransform;
-            Vector2 target = starTargets[index];
-            Vector2 start = new Vector2(0f, target.y - 210f);
-            rect.anchoredPosition = start;
-            rect.localScale = Vector3.one * 0.25f;
-            const float duration = 0.34f;
+            if (coinReward != null) coinReward.gameObject.SetActive(true);
+            yield return Pop(coinReward, popDuration * 0.7f);
+            float duration = Mathf.Max(0.1f, coinCountDuration);
             float elapsed = 0f;
-            while (elapsed < duration)
+            while (reward > 0 && elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                float eased = 1f - Mathf.Pow(1f - t, 3f);
-                rect.anchoredPosition = Vector2.LerpUnclamped(start, target, eased);
-                rect.localScale = Vector3.one * Mathf.Lerp(0.25f, 1f, eased);
+                SetReward(Mathf.RoundToInt(Mathf.Lerp(0f, reward, 1f - Mathf.Pow(1f - t, 3f))));
+                if (coinReward != null)
+                    coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI * 8f) * 0.045f);
                 yield return null;
             }
-            rect.anchoredPosition = target;
-            rect.localScale = Vector3.one;
-            if (index == stars.Length - 1) yield return StartCoroutine(SpringStar(rect));
-            yield return new WaitForSecondsRealtime(0.07f);
+            SetReward(reward);
+            RestoreScale(coinReward);
+            yield return new WaitForSecondsRealtime(0.15f);
+            if (continueButton != null)
+            {
+                yield return Pop(continueButton.transform, popDuration);
+                continueButton.interactable = continueWasInteractable;
+            }
+            entrance = null;
         }
 
-        private static IEnumerator SpringStar(RectTransform rect)
+        private IEnumerator Pop(Transform target, float duration, bool jelly = false)
         {
-            const float duration = 0.42f;
+            if (target == null) yield break;
+            CacheScale(target);
+            Vector3 scale = restingScales[target];
+            duration = Mathf.Max(0.1f, duration);
             float elapsed = 0f;
+            target.localScale = Vector3.zero;
             while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
+                float grow = 1f - Mathf.Pow(1f - Mathf.Clamp01(t / 0.35f), 3f);
                 float spring = Mathf.Sin(t * Mathf.PI * 4f) * (1f - t) * 0.28f;
-                rect.localScale = Vector3.one * (1f + spring);
+                target.localScale = Vector3.Scale(scale, jelly
+                    ? new Vector3(grow * (1f + spring), grow * (1f - spring * 0.75f), 1f)
+                    : Vector3.one * (grow * (1f + spring)));
                 yield return null;
             }
-            rect.localScale = Vector3.one;
+            target.localScale = scale;
         }
 
-        private void CacheStarTargets()
+        private void CacheScale(Transform target)
         {
-            if (starTargets == null || starTargets.Length != stars.Length) starTargets = new Vector2[stars.Length];
-            for (int i = 0; i < stars.Length; i++) if (stars[i] != null) starTargets[i] = stars[i].rectTransform.anchoredPosition;
+            if (target != null && !restingScales.ContainsKey(target)) restingScales.Add(target, target.localScale);
+        }
+        private void HideForEntrance(Transform target)
+        {
+            if (target == null) return;
+            CacheScale(target);
+            target.localScale = Vector3.zero;
+        }
+        private void RestoreScale(Transform target)
+        {
+            if (target != null && restingScales.TryGetValue(target, out Vector3 scale)) target.localScale = scale;
+        }
+        private void CancelEntrance()
+        {
+            if (entrance != null)
+            {
+                StopCoroutine(entrance);
+                entrance = null;
+                if (continueButton != null) continueButton.interactable = continueWasInteractable;
+            }
+            foreach (var entry in restingScales)
+                if (entry.Key != null) entry.Key.localScale = entry.Value;
+            SetOverlaysVisible(false);
+        }
+        private void SetReward(int amount)
+        {
+            if (rewardText != null) rewardText.text = "+" + amount + " coins";
+        }
+
+        private void BindPresentation()
+        {
+            if (root == null) return;
+            if (stars == null) stars = new Image[0];
+            if (titleArtwork == null) titleArtwork = FindChild(root.transform, "Level Complete Artwork") as RectTransform;
+            if (titleArtwork == null) titleArtwork = FindChild(root.transform, "Title") as RectTransform;
+            if (coinReward == null) coinReward = FindChild(root.transform, "Coin Reward Artwork") as RectTransform;
+            if (coinReward == null) coinReward = FindChild(root.transform, "Board") as RectTransform;
+            if (rewardText == null && coinReward != null) rewardText = coinReward.GetComponentInChildren<Text>(true);
+            if (continueButton == null) continueButton = FindButton(root.transform, "Continue");
+            if (continueButton == null) continueButton = FindButton(root.transform, "Next Level");
         }
 
         private void EnsureWinStarOverlays()
@@ -157,76 +224,52 @@ namespace CatBlockPuzzle
             for (int i = 0; i < stars.Length; i++)
             {
                 if (stars[i] == null) continue;
-                if (winStarOverlays[i] == null)
+                // Child overlays inherit layout/rotation/scale and leave disabled slots intact.
+                Transform existing = stars[i].transform.Find("Win Star Overlay");
+                Image overlay = existing != null ? existing.GetComponent<Image>() : null;
+                if (overlay == null)
                 {
-                    var overlayObject = new GameObject("Win Star Overlay " + (i + 1), typeof(RectTransform), typeof(Image));
-                    overlayObject.transform.SetParent(stars[i].transform.parent, false);
-                    RectTransform overlayRect = overlayObject.GetComponent<RectTransform>();
-                    RectTransform sourceRect = stars[i].rectTransform;
-                    overlayRect.anchorMin = sourceRect.anchorMin;
-                    overlayRect.anchorMax = sourceRect.anchorMax;
-                    overlayRect.pivot = sourceRect.pivot;
-                    overlayRect.sizeDelta = sourceRect.sizeDelta;
-                    overlayRect.anchoredPosition = sourceRect.anchoredPosition;
-                    overlayRect.localRotation = sourceRect.localRotation;
-
-                    Image overlay = overlayObject.GetComponent<Image>();
-                    overlay.sprite = sprites != null ? sprites.winStars : null;
-                    overlay.preserveAspect = stars[i].preserveAspect;
-                    overlay.type = stars[i].type;
-                    overlay.raycastTarget = false;
-                    overlayObject.transform.SetSiblingIndex(stars[i].transform.GetSiblingIndex() + 1);
-                    winStarOverlays[i] = overlay;
+                    var overlayObject = new GameObject("Win Star Overlay", typeof(RectTransform), typeof(Image), typeof(LayoutElement));
+                    overlayObject.transform.SetParent(stars[i].transform, false);
+                    overlayObject.GetComponent<LayoutElement>().ignoreLayout = true;
+                    overlay = overlayObject.GetComponent<Image>();
+                    RectTransform rect = overlay.rectTransform;
+                    rect.anchorMin = Vector2.zero;
+                    rect.anchorMax = Vector2.one;
+                    rect.pivot = stars[i].rectTransform.pivot;
+                    rect.sizeDelta = Vector2.zero;
+                    rect.anchoredPosition = Vector2.zero;
                 }
-                else
-                {
-                    winStarOverlays[i].sprite = sprites != null ? sprites.winStars : null;
-                }
+                overlay.sprite = sprites != null ? sprites.winStars : null;
+                overlay.preserveAspect = stars[i].preserveAspect;
+                overlay.type = stars[i].type;
+                overlay.raycastTarget = false;
+                overlay.enabled = overlay.sprite != null;
+                winStarOverlays[i] = overlay;
             }
         }
-
-        private enum StarVisual { Disabled, BlackAndWhite, Win }
-
-        private void SetAllStarStates(StarVisual state)
-        {
-            for (int i = 0; i < stars.Length; i++) SetStarState(i, state);
-        }
-
-        private void SetAllWinStarOverlaysVisible(bool visible)
+        private void SetOverlaysVisible(bool visible)
         {
             if (winStarOverlays == null) return;
-            for (int i = 0; i < winStarOverlays.Length; i++)
-                if (winStarOverlays[i] != null) winStarOverlays[i].gameObject.SetActive(visible);
+            foreach (Image overlay in winStarOverlays)
+                if (overlay != null) overlay.gameObject.SetActive(visible);
         }
-
-        private void SetStarState(int index, StarVisual state)
-        {
-            if (index < 0 || index >= stars.Length || stars[index] == null) return;
-            Sprite sprite = state == StarVisual.BlackAndWhite ? sprites?.blackAndWhite :
-                state == StarVisual.Disabled ? sprites?.disabled : sprites?.winStars;
-            if (sprite == null) return;
-            stars[index].sprite = sprite;
-            stars[index].gameObject.SetActive(true);
-        }
-
         private void BindButtons()
         {
             if (continueButton == null) return;
             continueButton.onClick.RemoveListener(Next);
             if (continueButton.onClick.GetPersistentEventCount() == 0) continueButton.onClick.AddListener(Next);
         }
-
         private void Next() => GameSystem.Instance?.NextLevel();
-
         private static Button FindButton(Transform parent, string name)
         {
             Transform found = FindChild(parent, name);
             return found != null ? found.GetComponent<Button>() : null;
         }
-
         private static Transform FindChild(Transform parent, string name)
         {
-            foreach (Transform child in parent.GetComponentsInChildren<Transform>(true)) if (child.name == name) return child;
+            foreach (Transform child in parent.GetComponentsInChildren<Transform>(true))
+                if (child.name == name) return child;
             return null;
         }
     }
