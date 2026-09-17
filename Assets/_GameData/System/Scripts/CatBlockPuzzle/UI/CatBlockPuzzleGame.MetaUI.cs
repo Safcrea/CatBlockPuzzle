@@ -296,7 +296,7 @@ namespace CatBlockPuzzle
             }
         }
 
-        /// <summary>Routes chapter endings through the furnishing gate.</summary>
+        /// <summary>Advances directly through gameplay; room furnishing is optional UI.</summary>
         private void LoadNextLevelThroughMetaGate()
         {
             if (metaCatalog == null || metaProgress == null)
@@ -309,22 +309,6 @@ namespace CatBlockPuzzle
             int chapterLevel = (levelIndex - chapter.FirstLevelIndex) + 1;
             levelCompleteScreen?.Hide();
 
-            string trustId = CatMetaStoryIds.TrustMilestone(chapter.Id);
-            if (chapterLevel == 5
-                && metaLastAwardedCoins > 0
-                && !metaProgress.HasViewedStory(trustId))
-            {
-                EnterMetaOverlay();
-                MarkMetaStoryViewed(trustId, chapter.Index, "trust");
-                ShowStoryCard(
-                    chapter.CatName + " TRUSTS YOU",
-                    chapter.CatName + " is starting to relax. Every puzzle and every caring choice makes this room feel safer.",
-                    "Keep Helping",
-                    () => ContinueAfterMetaWin(chapter, chapterLevel),
-                    CatPortrait(CatMood.Happy, chapter.CatPortraitIndex));
-                return;
-            }
-
             ContinueAfterMetaWin(chapter, chapterLevel);
         }
 
@@ -332,18 +316,9 @@ namespace CatBlockPuzzle
         {
             if (chapterLevel >= CatMetaCatalog.LevelsPerChapter)
             {
-                if (!metaProgress.IsChapterComplete(chapter.Index))
-                {
-                    metaRequiresRoomCompletion = true;
-                    metaCurrentChapterIndex = chapter.Index;
-                    OpenRoomDetail(chapter.Index);
-                    ShowMetaStatus("The last treasure is ready. Place all five items to finish the room!");
-                    return;
-                }
-
                 if (chapter.Index >= metaCatalog.Chapters.Count - 1)
                 {
-                    OpenRoomHub();
+                    GameSystem.Instance?.GoHome();
                     return;
                 }
 
@@ -576,12 +551,8 @@ namespace CatBlockPuzzle
             }
 
             CatMetaChapterDefinition chapter = metaCatalog.GetChapterForLevel(absoluteLevelIndex);
-            if (!metaProgress.IsChapterUnlocked(chapter.Index))
-            {
-                return false;
-            }
-
             return absoluteLevelIndex == chapter.FirstLevelIndex
+                && chapter.Index == 0
                 || metaProgress.IsLevelFirstCleared(absoluteLevelIndex)
                 || metaProgress.IsLevelFirstCleared(absoluteLevelIndex - 1);
         }

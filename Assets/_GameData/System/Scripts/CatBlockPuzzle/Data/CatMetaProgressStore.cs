@@ -144,7 +144,9 @@ namespace CatBlockPuzzle
                 int highest = 0;
                 for (int chapterIndex = 0; chapterIndex < CatMetaCatalog.ChapterCount - 1; chapterIndex++)
                 {
-                    if (!IsChapterComplete(chapterIndex))
+                    // Room decoration is optional. A chapter unlocks the next one when
+                    // its five gameplay levels have been cleared.
+                    if (!AreAllChapterLevelsCleared(chapterIndex))
                     {
                         break;
                     }
@@ -606,6 +608,20 @@ namespace CatBlockPuzzle
             }
 
             return completedChapterIds.Add(chapter.Id);
+        }
+
+        private bool AreAllChapterLevelsCleared(int chapterIndex)
+        {
+            CatMetaChapterDefinition chapter = catalog.GetChapter(chapterIndex);
+            for (int levelIndex = chapter.FirstLevelIndex; levelIndex <= chapter.LastLevelIndex; levelIndex++)
+            {
+                if (!firstClearedLevelIndices.Contains(levelIndex))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private static List<string> SortedStrings(HashSet<string> values)

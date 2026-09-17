@@ -24,6 +24,10 @@ namespace CatBlockPuzzle
         [SerializeField] private Button continueButton;
 
         private Vector2[] starTargets;
+        // The configured star Images are the static, disabled slots.  The win artwork is
+        // created as a child overlay at runtime so it can travel into the slot without
+        // ever replacing or hiding the disabled star underneath.
+        private Image[] winStarOverlays;
 
         public bool IsConfigured => root != null;
         public bool IsOpen => root != null && root.activeInHierarchy;
@@ -75,7 +79,12 @@ namespace CatBlockPuzzle
         private IEnumerator PlayEntrance(int earnedStars)
         {
             if (panel != null) panel.localScale = Vector3.one * 0.94f;
-            SetAllStarsVisible(false);
+            CacheStarTargets();
+            EnsureWinStarOverlays();
+            // The placed slots use the black-and-white artwork. Earned win stars then
+            // fly in as overlays, leaving the grayscale stars visible underneath.
+            SetAllStarStates(StarVisual.BlackAndWhite);
+            SetAllWinStarOverlaysVisible(false);
 
             const float panelDuration = 0.18f;
             float panelTime = 0f;
@@ -90,12 +99,11 @@ namespace CatBlockPuzzle
 
             for (int i = 0; i < earnedStars; i++)
             {
-                if (stars[i] == null) continue;
-                SetStarState(i, StarVisual.Win);
-                yield return StartCoroutine(FlyStarToSlot(stars[i], i));
+                if (i >= winStarOverlays.Length || winStarOverlays[i] == null) continue;
+                Image overlay = winStarOverlays[i];
+                overlay.gameObject.SetActive(true);
+                yield return StartCoroutine(FlyStarToSlot(overlay, i));
             }
-
-            for (int i = earnedStars; i < stars.Length; i++) SetStarState(i, StarVisual.BlackAndWhite);
         }
 
         private IEnumerator FlyStarToSlot(Image star, int index)
@@ -143,6 +151,40 @@ namespace CatBlockPuzzle
             for (int i = 0; i < stars.Length; i++) if (stars[i] != null) starTargets[i] = stars[i].rectTransform.anchoredPosition;
         }
 
+        private void EnsureWinStarOverlays()
+        {
+            if (winStarOverlays == null || winStarOverlays.Length != stars.Length) winStarOverlays = new Image[stars.Length];
+            for (int i = 0; i < stars.Length; i++)
+            {
+                if (stars[i] == null) continue;
+                if (winStarOverlays[i] == null)
+                {
+                    var overlayObject = new GameObject("Win Star Overlay " + (i + 1), typeof(RectTransform), typeof(Image));
+                    overlayObject.transform.SetParent(stars[i].transform.parent, false);
+                    RectTransform overlayRect = overlayObject.GetComponent<RectTransform>();
+                    RectTransform sourceRect = stars[i].rectTransform;
+                    overlayRect.anchorMin = sourceRect.anchorMin;
+                    overlayRect.anchorMax = sourceRect.anchorMax;
+                    overlayRect.pivot = sourceRect.pivot;
+                    overlayRect.sizeDelta = sourceRect.sizeDelta;
+                    overlayRect.anchoredPosition = sourceRect.anchoredPosition;
+                    overlayRect.localRotation = sourceRect.localRotation;
+
+                    Image overlay = overlayObject.GetComponent<Image>();
+                    overlay.sprite = sprites != null ? sprites.winStars : null;
+                    overlay.preserveAspect = stars[i].preserveAspect;
+                    overlay.type = stars[i].type;
+                    overlay.raycastTarget = false;
+                    overlayObject.transform.SetSiblingIndex(stars[i].transform.GetSiblingIndex() + 1);
+                    winStarOverlays[i] = overlay;
+                }
+                else
+                {
+                    winStarOverlays[i].sprite = sprites != null ? sprites.winStars : null;
+                }
+            }
+        }
+
         private enum StarVisual { Disabled, BlackAndWhite, Win }
 
         private void SetAllStarStates(StarVisual state)
@@ -150,10 +192,11 @@ namespace CatBlockPuzzle
             for (int i = 0; i < stars.Length; i++) SetStarState(i, state);
         }
 
-        private void SetAllStarsVisible(bool visible)
+        private void SetAllWinStarOverlaysVisible(bool visible)
         {
-            for (int i = 0; i < stars.Length; i++)
-                if (stars[i] != null) stars[i].gameObject.SetActive(visible);
+            if (winStarOverlays == null) return;
+            for (int i = 0; i < winStarOverlays.Length; i++)
+                if (winStarOverlays[i] != null) winStarOverlays[i].gameObject.SetActive(visible);
         }
 
         private void SetStarState(int index, StarVisual state)

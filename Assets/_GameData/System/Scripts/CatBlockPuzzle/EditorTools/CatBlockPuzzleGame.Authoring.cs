@@ -851,23 +851,9 @@ namespace CatBlockPuzzle
 
             int recommendedLevel = GetRecommendedLevelIndex();
             CatMetaChapterDefinition recommendedChapter = metaCatalog.GetChapterForLevel(recommendedLevel);
-            bool needsDecorating = AreAllChapterLevelsCleared(recommendedChapter)
-                && !metaProgress.IsChapterComplete(recommendedChapter.Index);
-            string continueLabel = needsDecorating
-                ? "Finish " + recommendedChapter.Title
-                : "Continue • Level " + (recommendedLevel + 1);
+            string continueLabel = "Continue • Level " + (recommendedLevel + 1);
             CreateMetaButton(metaHubPage, continueLabel,
-                () =>
-                {
-                    if (needsDecorating)
-                    {
-                        OpenRoomDetail(recommendedChapter.Index);
-                    }
-                    else
-                    {
-                        PlayMetaLevel(recommendedLevel);
-                    }
-                },
+                () => PlayMetaLevel(recommendedLevel),
                 new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
                 new Vector2(0f, 44f), new Vector2(610f, 88f), TargetDeepColor, 29);
 
