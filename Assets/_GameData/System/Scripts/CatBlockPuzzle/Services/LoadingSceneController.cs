@@ -51,7 +51,7 @@ namespace CatBlockPuzzle
                 if (progressBar != null) progressBar.value = progress;
                 // if (progressText != null) progressText.text = "Loading " + Mathf.RoundToInt(progress * 100f) + "%";
                 bool minimumElapsed = Time.realtimeSinceStartup - startedAt >= minimumDisplaySeconds;
-                if (operation.progress >= 0.85f && minimumElapsed) operation.allowSceneActivation = true;
+                if (operation.progress >= 0.75f && minimumElapsed) operation.allowSceneActivation = true;
                 yield return null;
             }
         }

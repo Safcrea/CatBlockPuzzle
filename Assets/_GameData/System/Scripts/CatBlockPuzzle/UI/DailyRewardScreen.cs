@@ -29,6 +29,7 @@ namespace CatBlockPuzzle
 
         [SerializeField] private GameObject root;
         [SerializeField] private Button closeButton;
+        [SerializeField] private Button okayButton;
         [SerializeField] private DayView[] days = Array.Empty<DayView>();
         [Header("Rewards")]
         [SerializeField] private DailyRewardConfig rewardConfig;
@@ -39,6 +40,11 @@ namespace CatBlockPuzzle
 
         private void OnEnable()
         {
+            if (okayButton == null && root != null)
+            {
+                Transform okay = root.transform.Find("BG/Okay");
+                if (okay != null) okayButton = okay.GetComponent<Button>();
+            }
             if (claimActions == null) claimActions = new UnityAction[days.Length];
             for (int i = 0; i < days.Length; i++)
             {
@@ -51,12 +57,14 @@ namespace CatBlockPuzzle
                 ApplyClaimedState(day);
             }
             Bind(closeButton, Close, true);
+            Bind(okayButton, Close, true);
             RefreshPresentation();
         }
 
         private void OnDisable()
         {
             Bind(closeButton, Close, false);
+            Bind(okayButton, Close, false);
             if (claimActions == null) return;
             for (int i = 0; i < days.Length; i++)
             {
