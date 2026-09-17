@@ -50,6 +50,15 @@ public static class CatPuzzleScenePreparation
         }
     }
 
+    // Used by automated editor runs after a UI-authoring change. Opening the scene
+    // explicitly keeps this independent of whichever scene was last active locally.
+    public static void PrepareFromBatch()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play Mode before preparing.");
+        EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        Prepare();
+    }
+
     [MenuItem("Cat Block Puzzle/Validate Game Scene")]
     public static void Validate()
     {

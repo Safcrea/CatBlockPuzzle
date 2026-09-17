@@ -4,19 +4,26 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle
 {
+    /// <summary>Reference-art level-win overlay: animated earned stars and a single Continue action.</summary>
     public sealed class LevelCompleteScreen : MonoBehaviour
     {
+        [System.Serializable]
+        internal sealed class StarSprites
+        {
+            public Sprite blackAndWhite;
+            public Sprite disabled;
+            public Sprite winStars;
+        }
+
         [SerializeField] internal GameObject root;
         [SerializeField] internal RectTransform panel;
-        [SerializeField] internal Text titleText;
-        [SerializeField] internal Text rewardText;
-        [SerializeField] internal Text bestText;
-        [SerializeField] internal Text unlockText;
-        [SerializeField] internal Image unlockImage;
+        [Header("Shared star artwork")]
+        [SerializeField] internal StarSprites sprites = new StarSprites();
+        [Header("On-screen image placeholders, ordered left to right")]
         [SerializeField] internal Image[] stars = new Image[3];
-        [SerializeField] private Button nextButton;
-        [SerializeField] private Button restartButton;
-        [SerializeField] private Button homeButton;
+        [SerializeField] private Button continueButton;
+
+        private Vector2[] starTargets;
 
         public bool IsConfigured => root != null;
         public bool IsOpen => root != null && root.activeInHierarchy;
@@ -26,9 +33,7 @@ namespace CatBlockPuzzle
         private void OnEnable() => BindButtons();
         private void OnDestroy()
         {
-            if (nextButton != null) nextButton.onClick.RemoveListener(Next);
-            if (restartButton != null) restartButton.onClick.RemoveListener(Restart);
-            if (homeButton != null) homeButton.onClick.RemoveListener(Home);
+            if (continueButton != null) continueButton.onClick.RemoveListener(Next);
         }
 
         public void CaptureExisting(GameObject screenRoot)
@@ -36,107 +41,121 @@ namespace CatBlockPuzzle
             if (screenRoot == null) return;
             root = screenRoot;
             panel = FindChild(root.transform, "Win Panel") as RectTransform;
-            Text[] texts = root.GetComponentsInChildren<Text>(true);
-            Text foundTitle = FindText(texts, "Win Title", "Title");
-            Text foundReward = FindText(texts, "Reward");
-            Text foundBest = FindText(texts, "Best");
-            if (foundTitle != null) titleText = foundTitle;
-            if (foundReward != null) rewardText = foundReward;
-            if (foundBest != null) bestText = foundBest;
-            Text foundUnlock = FindText(texts, "Unlock");
-            if (foundUnlock != null) unlockText = foundUnlock;
-            Transform unlockTransform = FindChild(root.transform, "Unlocked Cat");
-            if (unlockTransform != null) unlockImage = unlockTransform.GetComponent<Image>();
-            Transform starRoot = FindChild(root.transform, "Earned Stars");
-            if (starRoot != null) stars = starRoot.GetComponentsInChildren<Image>(true);
-            Button foundNext = FindButton(root.transform, "Next Level");
-            if (foundNext != null) nextButton = foundNext;
+            continueButton = FindButton(root.transform, "Continue");
+            if (continueButton == null) continueButton = FindButton(root.transform, "Next Level");
+
+            Image[] foundImages = root.GetComponentsInChildren<Image>(true);
+            var placeholders = new System.Collections.Generic.List<Image>(3);
+            for (int i = 0; i < foundImages.Length; i++)
+            {
+                string name = foundImages[i].name;
+                if (name.StartsWith("Result Star", System.StringComparison.OrdinalIgnoreCase) ||
+                    name.StartsWith("Star Placeholder", System.StringComparison.OrdinalIgnoreCase))
+                    placeholders.Add(foundImages[i]);
+            }
+            if (placeholders.Count > 0) stars = placeholders.ToArray();
+            CacheStarTargets();
             BindButtons();
         }
 
+        // Kept compatible with GameSystem's result contract. The reference art already
+        // contains the win title and reward treatment; only the earned star count changes.
         public void Show(string title, int starCount, int reward, int bestStars, int bestCombo)
         {
             if (root == null) return;
-            if (titleText != null) titleText.text = title;
-            if (rewardText != null) rewardText.text = reward > 0 ? "+" + reward + " coins • first clear" : "First-clear reward already claimed";
-            if (bestText != null)
-            {
-                bestText.text = "Best: " + Mathf.Clamp(bestStars, 0, 3) + " stars";
-                if (bestCombo >= 3) bestText.text += "  |  Combo " + bestCombo + "x";
-            }
-            for (int i = 0; i < stars.Length; i++) if (stars[i] != null) stars[i].enabled = i < starCount;
             root.SetActive(true);
             root.transform.SetAsLastSibling();
-            root.transform.SetAsLastSibling();
-            if (panel != null)
-            {
-                StopAllCoroutines();
-                StartCoroutine(PopPanel());
-            }
+            StopAllCoroutines();
+            CacheStarTargets();
+            StartCoroutine(PlayEntrance(Mathf.Clamp(starCount, 0, stars.Length)));
         }
 
         public void Hide() { if (root != null) root.SetActive(false); }
 
-        public void SetUnlock(Sprite sprite, string message)
+        private IEnumerator PlayEntrance(int earnedStars)
         {
-            bool visible = sprite != null && !string.IsNullOrWhiteSpace(message);
-            if (unlockImage != null)
+            if (panel != null) panel.localScale = Vector3.one * 0.94f;
+            SetAllStarStates(StarVisual.Disabled);
+
+            const float panelDuration = 0.18f;
+            float panelTime = 0f;
+            while (panelTime < panelDuration)
             {
-                unlockImage.sprite = sprite;
-                unlockImage.gameObject.SetActive(visible);
+                panelTime += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(panelTime / panelDuration);
+                if (panel != null) panel.localScale = Vector3.one * Mathf.Lerp(0.94f, 1f, 1f - Mathf.Pow(1f - t, 3f));
+                yield return null;
             }
-            if (unlockText != null)
+            if (panel != null) panel.localScale = Vector3.one;
+
+            for (int i = 0; i < earnedStars; i++)
             {
-                unlockText.text = visible ? message : string.Empty;
-                unlockText.gameObject.SetActive(visible);
+                if (stars[i] == null) continue;
+                SetStarState(i, StarVisual.Win);
+                yield return StartCoroutine(FlyStarToSlot(stars[i], i));
             }
+
+            for (int i = earnedStars; i < stars.Length; i++) SetStarState(i, StarVisual.BlackAndWhite);
         }
 
-        private IEnumerator PopPanel()
+        private IEnumerator FlyStarToSlot(Image star, int index)
         {
-            panel.localScale = Vector3.one * 0.88f;
+            RectTransform rect = star.rectTransform;
+            Vector2 target = starTargets[index];
+            Vector2 start = new Vector2(0f, target.y - 210f);
+            rect.anchoredPosition = start;
+            rect.localScale = Vector3.one * 0.25f;
+            const float duration = 0.34f;
             float elapsed = 0f;
-            const float duration = 0.22f;
             while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                float scale = t < 0.7f ? Mathf.Lerp(0.88f, 1.03f, t / 0.7f) : Mathf.Lerp(1.03f, 1f, (t - 0.7f) / 0.3f);
-                panel.localScale = Vector3.one * scale;
+                float eased = 1f - Mathf.Pow(1f - t, 3f);
+                rect.anchoredPosition = Vector2.LerpUnclamped(start, target, eased);
+                rect.localScale = Vector3.one * (Mathf.Lerp(0.25f, 1f, eased) + (Mathf.Sin(t * Mathf.PI) * 0.20f));
                 yield return null;
             }
-            panel.localScale = Vector3.one;
+            rect.anchoredPosition = target;
+            rect.localScale = Vector3.one;
+            yield return new WaitForSecondsRealtime(0.07f);
+        }
+
+        private void CacheStarTargets()
+        {
+            if (starTargets == null || starTargets.Length != stars.Length) starTargets = new Vector2[stars.Length];
+            for (int i = 0; i < stars.Length; i++) if (stars[i] != null) starTargets[i] = stars[i].rectTransform.anchoredPosition;
+        }
+
+        private enum StarVisual { Disabled, BlackAndWhite, Win }
+
+        private void SetAllStarStates(StarVisual state)
+        {
+            for (int i = 0; i < stars.Length; i++) SetStarState(i, state);
+        }
+
+        private void SetStarState(int index, StarVisual state)
+        {
+            if (index < 0 || index >= stars.Length || stars[index] == null) return;
+            Sprite sprite = state == StarVisual.BlackAndWhite ? sprites?.blackAndWhite :
+                state == StarVisual.Disabled ? sprites?.disabled : sprites?.winStars;
+            if (sprite == null) return;
+            stars[index].sprite = sprite;
+            stars[index].gameObject.SetActive(true);
         }
 
         private void BindButtons()
         {
-            BindIfEmpty(nextButton, Next);
-            BindIfEmpty(restartButton, Restart);
-            BindIfEmpty(homeButton, Home);
-        }
-
-        private static void BindIfEmpty(Button button, UnityEngine.Events.UnityAction action)
-        {
-            if (button == null) return;
-            button.onClick.RemoveListener(action);
-            if (button.onClick.GetPersistentEventCount() == 0) button.onClick.AddListener(action);
+            if (continueButton == null) return;
+            continueButton.onClick.RemoveListener(Next);
+            if (continueButton.onClick.GetPersistentEventCount() == 0) continueButton.onClick.AddListener(Next);
         }
 
         private void Next() => GameSystem.Instance?.NextLevel();
-        private void Restart() => GameSystem.Instance?.RestartLevel();
-        private void Home() => GameSystem.Instance?.GoHome();
 
-        private static Text FindText(Text[] texts, params string[] names)
+        private static Button FindButton(Transform parent, string name)
         {
-            for (int n = 0; n < names.Length; n++)
-                for (int i = 0; i < texts.Length; i++)
-                    if (texts[i].name.IndexOf(names[n], System.StringComparison.OrdinalIgnoreCase) >= 0) return texts[i];
-            return null;
-        }
-
-        private static Button FindButton(Transform rootTransform, string name)
-        {
-            Transform found = FindChild(rootTransform, name);
+            Transform found = FindChild(parent, name);
             return found != null ? found.GetComponent<Button>() : null;
         }
 

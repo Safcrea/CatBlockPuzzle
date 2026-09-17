@@ -189,6 +189,8 @@ namespace CatBlockPuzzle
                 case CatPuzzleUiAction.ActionKind.PreviousTest: LoadPreviousTestLevel(); break;
                 case CatPuzzleUiAction.ActionKind.NextTest: LoadNextTestLevel(); break;
                 case CatPuzzleUiAction.ActionKind.NextLevel: LoadNextLevelThroughMetaGate(); break;
+                case CatPuzzleUiAction.ActionKind.Home: OpenRoomHub(); break;
+                case CatPuzzleUiAction.ActionKind.SkipLevel: LoadNextLevel(); break;
                 case CatPuzzleUiAction.ActionKind.CloseSettings: CloseSettings(); break;
                 case CatPuzzleUiAction.ActionKind.CloseMeta: CloseMetaToGameplay(); break;
                 case CatPuzzleUiAction.ActionKind.ContinueHub:

@@ -275,7 +275,6 @@ namespace CatBlockPuzzle
             metaLastAwardedCoins = Mathf.Max(0, awardedCoins);
             if (metaCatalog == null || metaProgress == null)
             {
-                levelCompleteScreen?.SetUnlock(null, null);
                 return;
             }
 
@@ -283,25 +282,6 @@ namespace CatBlockPuzzle
             int chapterLevel = (levelIndex - chapter.FirstLevelIndex) + 1;
             CatMetaDecorationDefinition revealedDecoration = FindDecorationAtMilestone(chapter, chapterLevel);
             bool canDecorateNow = awardedCoins > 0 && revealedDecoration != null;
-
-            Sprite unlockSprite = null;
-            string unlockMessage = null;
-
-            if (revealedDecoration != null && awardedCoins > 0)
-            {
-                Sprite decorationSprite = PreparedDecorationSprite(revealedDecoration.Id);
-                unlockSprite = decorationSprite != null
-                    ? decorationSprite
-                    : CatPortrait(CatMood.Happy, chapter.CatPortraitIndex);
-                unlockMessage = revealedDecoration.DisplayName + " unlocked for " + chapter.CatName;
-            }
-            else if (chapterLevel == 5 && awardedCoins > 0)
-            {
-                unlockSprite = CatPortrait(CatMood.Happy, chapter.CatPortraitIndex);
-                unlockMessage = chapter.CatName + " is beginning to trust this home";
-            }
-
-            levelCompleteScreen?.SetUnlock(unlockSprite, unlockMessage);
 
             if (metaDecorateNowButton != null)
             {

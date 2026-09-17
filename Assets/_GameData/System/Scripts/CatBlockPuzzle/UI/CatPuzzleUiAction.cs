@@ -7,7 +7,7 @@ namespace CatBlockPuzzle
         public enum ActionKind {
             Rooms, Pause, Settings, Hint, Reset, PreviousTest, NextTest, NextLevel,
             CloseSettings, CloseMeta, ContinueHub, OpenRoom, PlayLevel, Decoration,
-            Install, StoryContinue, CompletionContinue, DecorateNow, Sound, Haptics, Motion
+            Install, StoryContinue, CompletionContinue, DecorateNow, Home, SkipLevel, Sound, Haptics, Motion
         }
         public CatBlockPuzzleGame controller;
         public ActionKind action;

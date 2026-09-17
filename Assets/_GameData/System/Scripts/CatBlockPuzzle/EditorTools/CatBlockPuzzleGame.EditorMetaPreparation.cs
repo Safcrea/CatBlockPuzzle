@@ -111,8 +111,12 @@ namespace CatBlockPuzzle
             BindButton(actionBar.Find("Hint").GetComponent<Button>(), ActionKind.Hint);
             BindButton(actionBar.Find("Reset").GetComponent<Button>(), ActionKind.Reset);
             BindButton(previousTestButton, ActionKind.PreviousTest); BindButton(nextTestButton, ActionKind.NextTest);
+            // Reference-navigation builds omit these legacy meta controls.
             BindButton(metaNextLevelButton, ActionKind.NextLevel); BindButton(metaDecorateNowButton, ActionKind.DecorateNow);
             BindButton(failPanel.Find("Retry").GetComponent<Button>(), ActionKind.Reset);
+            BindButton(failPanel.Find("Skip Level").GetComponent<Button>(), ActionKind.SkipLevel);
+            BindButton(failPanel.Find("Home").GetComponent<Button>(), ActionKind.Home);
+            BindButton(winPanel.Find("Continue").GetComponent<Button>(), ActionKind.NextLevel);
             foreach (var button in canvas.GetComponentsInChildren<Button>(true))
                 if (button.onClick.GetPersistentEventCount() != 1)
                     throw new InvalidOperationException("Button is not persistently assigned: " + button.name);
@@ -120,6 +124,7 @@ namespace CatBlockPuzzle
 
         private void BindButton(Button button, ActionKind action, int index = 0, string item = null)
         {
+            if (button == null) return;
             var binding = button.gameObject.AddComponent<CatPuzzleUiAction>();
             binding.controller = this; binding.action = action; binding.index = index; binding.itemId = item;
             button.onClick = new Button.ButtonClickedEvent();

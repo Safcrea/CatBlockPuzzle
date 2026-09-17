@@ -96,12 +96,6 @@ namespace CatBlockPuzzle
 
         private RectTransform winOverlay { get => levelCompleteScreen != null ? levelCompleteScreen.RootRect : null; set => EnsureComplete(value).root = value != null ? value.gameObject : null; }
         private RectTransform winPanel { get => levelCompleteScreen != null ? levelCompleteScreen.panel : null; set => EnsureComplete(value).panel = value; }
-        private Text winTitleText { get => levelCompleteScreen != null ? levelCompleteScreen.titleText : null; set => EnsureComplete(value != null ? value.rectTransform : null).titleText = value; }
-        private Text winRewardText { get => levelCompleteScreen != null ? levelCompleteScreen.rewardText : null; set => EnsureComplete(value != null ? value.rectTransform : null).rewardText = value; }
-        private Text winBestText { get => levelCompleteScreen != null ? levelCompleteScreen.bestText : null; set => EnsureComplete(value != null ? value.rectTransform : null).bestText = value; }
-        private Text winUnlockText { get => levelCompleteScreen != null ? levelCompleteScreen.unlockText : null; set => EnsureComplete(value != null ? value.rectTransform : null).unlockText = value; }
-        private Image winCatImage { get => levelCompleteScreen != null ? levelCompleteScreen.unlockImage : null; set => EnsureComplete(value != null ? value.rectTransform : null).unlockImage = value; }
-        private Image[] winStars { get => levelCompleteScreen != null ? levelCompleteScreen.stars : null; set => EnsureComplete(null).stars = value; }
         private RectTransform failOverlay { get => levelFailScreen != null ? levelFailScreen.RootRect : null; set => EnsureFail(value).root = value != null ? value.gameObject : null; }
         private RectTransform failPanel { get => levelFailScreen != null ? levelFailScreen.panel : null; set => EnsureFail(value).panel = value; }
 

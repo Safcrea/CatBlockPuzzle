@@ -12,7 +12,7 @@ namespace CatBlockPuzzle
         private static int requestedBuildIndex = -1;
 
         [SerializeField] private Slider progressBar;
-        [SerializeField] private Text progressText;
+        // [SerializeField] private Text progressText;
         [SerializeField, Min(0f)] private float minimumDisplaySeconds = 0.35f;
 
         public static void LoadScene(int targetBuildIndex)
@@ -49,9 +49,9 @@ namespace CatBlockPuzzle
             {
                 float progress = Mathf.Clamp01(operation.progress / 0.9f);
                 if (progressBar != null) progressBar.value = progress;
-                if (progressText != null) progressText.text = "Loading " + Mathf.RoundToInt(progress * 100f) + "%";
+                // if (progressText != null) progressText.text = "Loading " + Mathf.RoundToInt(progress * 100f) + "%";
                 bool minimumElapsed = Time.realtimeSinceStartup - startedAt >= minimumDisplaySeconds;
-                if (operation.progress >= 0.9f && minimumElapsed) operation.allowSceneActivation = true;
+                if (operation.progress >= 0.85f && minimumElapsed) operation.allowSceneActivation = true;
                 yield return null;
             }
         }
@@ -71,8 +71,8 @@ namespace CatBlockPuzzle
             background.gameObject.AddComponent<Image>().color = new Color(1f, 0.92f, 0.85f, 1f);
             Text title = RuntimeUiFactory.CreateText(background, "Title", "Getting the cats ready…", 52, TextAnchor.MiddleCenter);
             RuntimeUiFactory.SetRect(title.rectTransform, new Vector2(0f, 120f), new Vector2(820f, 100f));
-            progressText = RuntimeUiFactory.CreateText(background, "Progress", "Loading 0%", 30, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(progressText.rectTransform, new Vector2(0f, -80f), new Vector2(500f, 60f));
+            // progressText = RuntimeUiFactory.CreateText(background, "Progress", "Loading 0%", 30, TextAnchor.MiddleCenter);
+            // RuntimeUiFactory.SetRect(progressText.rectTransform, new Vector2(0f, -80f), new Vector2(500f, 60f));
 
             RectTransform sliderRect = RuntimeUiFactory.CreateRect(background, "Progress Bar");
             RuntimeUiFactory.SetRect(sliderRect, new Vector2(0f, 10f), new Vector2(650f, 36f));

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEditor;
 using CatBlockPuzzle.KawaiiUI;
 namespace CatBlockPuzzle
 {
@@ -215,70 +216,76 @@ namespace CatBlockPuzzle
 
         private void BuildWinOverlay()
         {
-            winOverlay = CreatePanel(root, "Win Overlay", new Color(0.14f, 0.13f, 0.12f, 0.32f));
+            winOverlay = CreatePanel(root, "Win Overlay", Color.clear);
             Stretch(winOverlay);
             winOverlay.SetAsLastSibling();
 
-            winPanel = CreatePanel(winOverlay, "Win Panel", new Color(1f, 0.98f, 0.94f, 0.98f));
-            SetRect(winPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(650f, 610f));
-            UseRoundedSprite(winPanel.GetComponent<Image>());
-            AddSoftShadow(winPanel.GetComponent<Image>(), new Vector2(0f, -18f), 0.22f);
-            AddSoftOutline(winPanel.GetComponent<Image>(), new Color(1f, 1f, 1f, 0.7f), new Vector2(2f, -2f));
+            winPanel = CreatePanel(winOverlay, "Win Panel", Color.clear);
+            Stretch(winPanel);
+            AddReferenceLayer(winPanel, "Background", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/BG.png", 0, 0, 1080, 1920);
+            AddReferenceLayer(winPanel, "Level Complete Artwork", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/Title.png", 195, 175, 691, 362);
+            AddReferenceLayer(winPanel, "Cat Win Artwork", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/Cat.png", 239, 888, 527, 637);
+            AddReferenceLayer(winPanel, "Coin Reward Artwork", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/CoinsBoard.png", 415, 786, 247, 104);
 
-            Text header = CreateText(winPanel, "LEVEL COMPLETE", 26, FontStyle.Bold, TextAnchor.MiddleCenter, TargetDeepColor);
-            SetRect(header.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -34f), new Vector2(0f, 42f));
-            winTitleText = CreateText(winPanel, "Perfect Fit", 46, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            SetRect(winTitleText.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -88f), new Vector2(-50f, 62f));
-
-            RectTransform winStarPanel = CreatePanel(winPanel, "Earned Stars", new Color(1f, 1f, 1f, 0f));
-            SetRect(winStarPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 120f), new Vector2(300f, 76f));
-            winStarPanel.GetComponent<Image>().raycastTarget = false;
-            for (int i = 0; i < winStars.Length; i++)
+            levelCompleteScreen.sprites = new LevelCompleteScreen.StarSprites {
+                blackAndWhite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/Black_&_White Star.png"),
+                disabled = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/StarDisabled.png"),
+                winStars = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/Stars_Win.png")
+            };
+            levelCompleteScreen.stars = new Image[3];
+            int[] starX = { 286, 441, 596 };
+            for (int i = 0; i < levelCompleteScreen.stars.Length; i++)
             {
-                winStars[i] = CreateImage(winStarPanel, "Result Star " + (i + 1), GoldColor);
-                winStars[i].sprite = starSprite;
-                winStars[i].raycastTarget = false;
-                SetRect(winStars[i].rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2((i - 1) * 88f, 0f), new Vector2(72f, 72f));
+                levelCompleteScreen.stars[i] = AddReferenceLayer(winPanel, "Result Star " + (i + 1), "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/StarDisabled.png", starX[i], 539, 209, 203);
             }
 
-            winRewardText = CreateText(winPanel, "+25 coins", 30, FontStyle.Bold, TextAnchor.MiddleCenter, SoftInkColor);
-            SetRect(winRewardText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 58f), new Vector2(0f, 44f));
-            winBestText = CreateText(winPanel, "New best: 3 stars", 24, FontStyle.Bold, TextAnchor.MiddleCenter, TargetDeepColor);
-            SetRect(winBestText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 14f), new Vector2(0f, 38f));
+            CreateReferenceButton(winPanel, "Continue", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelWin/Continue.png", 243, 1499, 594, 172, LoadNextLevelThroughMetaGate);
 
-            winCatImage = CreateImage(winPanel, "Unlocked Cat", Color.white);
-            winCatImage.preserveAspect = true;
-            winCatImage.raycastTarget = false;
-            SetRect(winCatImage.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -72f), new Vector2(126f, 126f));
-            winUnlockText = CreateText(winPanel, "New cat friend unlocked", 24, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            SetRect(winUnlockText.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -148f), new Vector2(-48f, 36f));
-
-            CreateButton(winPanel, "Next Level", LoadNextLevelThroughMetaGate, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 42f), new Vector2(390f, 76f), TargetDeepColor);
-
+            levelCompleteScreen.CaptureExisting(winOverlay.gameObject);
             winOverlay.gameObject.SetActive(false);
         }
 
         private void BuildFailOverlay()
         {
-            failOverlay = CreatePanel(root, "Fail Overlay", new Color(0.14f, 0.13f, 0.12f, 0.32f));
+            failOverlay = CreatePanel(root, "Fail Overlay", Color.clear);
             Stretch(failOverlay);
             failOverlay.SetAsLastSibling();
 
-            failPanel = CreatePanel(failOverlay, "Fail Panel", new Color(1f, 0.98f, 0.94f, 0.98f));
-            SetRect(failPanel, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(560f, 330f));
-            UseRoundedSprite(failPanel.GetComponent<Image>());
-            AddSoftShadow(failPanel.GetComponent<Image>(), new Vector2(0f, -18f), 0.22f);
-            AddSoftOutline(failPanel.GetComponent<Image>(), new Color(1f, 1f, 1f, 0.7f), new Vector2(2f, -2f));
+            failPanel = CreatePanel(failOverlay, "Fail Panel", Color.clear);
+            Stretch(failPanel);
+            AddReferenceLayer(failPanel, "Background", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/BG.png", 0, 0, 1080, 1920);
+            AddReferenceLayer(failPanel, "Sad Cat Artwork", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/CatSad.png", 232, 723, 635, 527);
+            AddReferenceLayer(failPanel, "So Close Artwork", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/So_close.png", 728, 645, 221, 212);
+            AddReferenceLayer(failPanel, "Level Failed Artwork", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/title.png", 133, 234, 816, 208);
+            AddReferenceLayer(failPanel, "Encouragement Artwork", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/Donotworry.png", 227, 1214, 621, 181);
+            CreateReferenceButton(failPanel, "Retry", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/TRY.png", 225, 1403, 626, 176, ResetLevel);
+            CreateReferenceButton(failPanel, "Skip Level", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/Skip.png", 152, 1620, 362, 113, LoadNextLevel);
+            CreateReferenceButton(failPanel, "Home", "Assets/Art/CatBlockPuzzleUI/UI/Slicing/LevelLose/HOME.png", 526, 1617, 354, 115, OpenRoomHub);
 
-            Text header = CreateText(failPanel, "TIME UP", 28, FontStyle.Bold, TextAnchor.MiddleCenter, TimerWarningColor);
-            SetRect(header.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -42f), new Vector2(0f, 48f));
-            Text title = CreateText(failPanel, "Try Again", 52, FontStyle.Bold, TextAnchor.MiddleCenter, InkColor);
-            SetRect(title.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 42f), new Vector2(0f, 74f));
-            Text message = CreateText(failPanel, "Complete the puzzle before the timer ends.", 28, FontStyle.Bold, TextAnchor.MiddleCenter, SoftInkColor);
-            SetRect(message.rectTransform, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -28f), new Vector2(-72f, 58f));
-            CreateButton(failPanel, "Retry", ResetLevel, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 36f), new Vector2(360f, 66f), TimerWarningColor);
-
+            levelFailScreen.CaptureExisting(failOverlay.gameObject);
             failOverlay.gameObject.SetActive(false);
+        }
+
+        private Image AddReferenceLayer(RectTransform parent, string name, string assetPath, float x, float y, float width, float height)
+        {
+            Image image = CreateImage(parent, name, Color.white);
+            image.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(assetPath);
+            image.preserveAspect = true;
+            image.raycastTarget = false;
+            SetRect(image.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(x + (width * 0.5f) - 540f, 960f - y - (height * 0.5f)), new Vector2(width, height));
+            return image;
+        }
+
+        private Button CreateReferenceButton(RectTransform parent, string name, string assetPath, float x, float y, float width, float height, UnityEngine.Events.UnityAction action)
+        {
+            Image image = AddReferenceLayer(parent, name, assetPath, x, y, width, height);
+            image.raycastTarget = true;
+            Button button = image.gameObject.AddComponent<Button>();
+            button.targetGraphic = image;
+            button.onClick.AddListener(PlayButtonSound);
+            button.onClick.AddListener(action);
+            return button;
         }
 
         private void AddBasketDecorations(RectTransform basket)
