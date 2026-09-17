@@ -29,6 +29,12 @@ namespace CatBlockPuzzle
         [Header("Startup Daily Reward")]
         [SerializeField] private bool showDailyRewardOnStartup = true;
         [SerializeField, Min(0f)] private float startupRewardDelay = 0.25f;
+        private static bool dailyRewardShownThisSession;
+
+        // Survives scene changes, but resets for each app launch or Editor Play session,
+        // including when domain reload is disabled.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetDailyRewardSession() => dailyRewardShownThisSession = false;
 
         public bool IsGameplayOpen => gameplayScreen != null && gameplayScreen.activeInHierarchy;
         public bool HasCollection => collectionEnabled && collectionScreen != null;
@@ -40,7 +46,8 @@ namespace CatBlockPuzzle
             UpdateListeners(true);
             ShowHomeImmediately();
             // Run after every Start method has established the main-menu page.
-            if (showDailyRewardOnStartup) Invoke(nameof(ShowStartupDailyReward), Mathf.Max(0f, startupRewardDelay));
+            if (showDailyRewardOnStartup && !dailyRewardShownThisSession)
+                Invoke(nameof(ShowStartupDailyReward), Mathf.Max(0f, startupRewardDelay));
         }
         private void OnDestroy() => UpdateListeners(false);
 
@@ -69,7 +76,13 @@ namespace CatBlockPuzzle
         }
 
         public void ShowShop() { if (shop != null) { HidePages(); shop.Show(); } }
-        public void ShowDailyReward() { if (dailyReward != null) { HidePages(); dailyReward.Show(); } }
+        public void ShowDailyReward()
+        {
+            if (dailyReward == null) return;
+            HidePages();
+            dailyReward.Show();
+            if (dailyReward.IsOpen) dailyRewardShownThisSession = true;
+        }
         public void ShowLevels() => ShowPage(levelSelectionScreen);
         public void ShowGameplay() => ShowPage(gameplayScreen);
         public void ShowCollection()
@@ -87,7 +100,8 @@ namespace CatBlockPuzzle
         private void ShowStartupDailyReward()
         {
             // Do not interrupt a player who has already left Home during the delay.
-            if (home != null && home.IsOpen && dailyReward != null) ShowDailyReward();
+            if (!dailyRewardShownThisSession && home != null && home.IsOpen && dailyReward != null)
+                ShowDailyReward();
         }
 
         private void ShowComingSoon(string feature)
