@@ -123,7 +123,6 @@ namespace CatBlockPuzzle
             trayImage = trayRoot.GetComponent<Image>();
             StyleCreamPanel(trayImage, 0.18f);
             trayImage.raycastTarget = true;
-            AddBasketDecorations(trayRoot);
 
             trayScrollRect = trayRoot.gameObject.AddComponent<ScrollRect>();
             trayScrollRect.horizontal = true;
@@ -286,23 +285,6 @@ namespace CatBlockPuzzle
             button.onClick.AddListener(PlayButtonSound);
             button.onClick.AddListener(action);
             return button;
-        }
-
-        private void AddBasketDecorations(RectTransform basket)
-        {
-            Image rim = CreateImage(basket, "Basket Rim", new Color(0.76f, 0.39f, 0.3f, 0.76f));
-            UseRoundedSprite(rim);
-            rim.raycastTarget = false;
-            SetRect(rim.rectTransform, new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, 5f), new Vector2(-18f, 28f));
-
-            for (int i = 0; i < 11; i++)
-            {
-                Image weave = CreateImage(basket, "Basket Weave", new Color(0.72f, 0.36f, 0.28f, 0.13f));
-                UseRoundedSprite(weave);
-                weave.raycastTarget = false;
-                SetRect(weave.rectTransform, new Vector2(i / 10f, 0f), new Vector2(i / 10f, 1f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(9f, -34f));
-                weave.rectTransform.localEulerAngles = new Vector3(0f, 0f, i % 2 == 0 ? -7f : 7f);
-            }
         }
 
         private Button CreateIconButton(
