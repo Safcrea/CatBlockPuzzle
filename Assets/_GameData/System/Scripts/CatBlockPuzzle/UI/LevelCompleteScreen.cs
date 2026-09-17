@@ -25,6 +25,8 @@ namespace CatBlockPuzzle
         [SerializeField] private Button continueButton;
         [Header("Sequence (auto-bound for the existing win screen)")]
         [SerializeField] private RectTransform titleArtwork;
+        [Tooltip("The entire board to reveal after the earned stars.")]
+        [SerializeField] private RectTransform coinBoard;
         [SerializeField] private RectTransform coinReward;
         [SerializeField] private Text rewardText;
         [SerializeField, Min(0.1f)] private float popDuration = 0.45f;
@@ -61,6 +63,7 @@ namespace CatBlockPuzzle
             panel = FindChild(root.transform, "Win Panel") as RectTransform;
             if (panel == null) panel = root.transform as RectTransform;
             titleArtwork = null;
+            coinBoard = null;
             coinReward = null;
             rewardText = null;
             if (continueButton != null) continueButton.onClick.RemoveListener(Next);
@@ -82,7 +85,7 @@ namespace CatBlockPuzzle
             if (root == null) return;
             CancelEntrance();
             EnsureBindings();
-            if (coinReward != null) coinReward.gameObject.SetActive(false);
+            if (coinBoard != null) coinBoard.gameObject.SetActive(false);
             root.SetActive(true);
             root.transform.SetAsLastSibling();
             if (continueButton != null) continueWasInteractable = continueButton.interactable;
@@ -100,7 +103,8 @@ namespace CatBlockPuzzle
             EnsureWinStarOverlays();
             SetOverlaysVisible(false);
             HideForEntrance(titleArtwork);
-            HideForEntrance(coinReward);
+            HideForEntrance(coinBoard);
+            CacheScale(coinReward);
             for (int i = 0; i < stars.Length; i++)
             {
                 if (stars[i] == null) continue;
@@ -128,8 +132,10 @@ namespace CatBlockPuzzle
                 yield return Pop(winStarOverlays[i].transform, popDuration, true);
                 yield return new WaitForSecondsRealtime(Mathf.Max(0f, starPause));
             }
+            // Reveal the parent board, then wait for its pop to finish before counting.
+            if (coinBoard != null) coinBoard.gameObject.SetActive(true);
             if (coinReward != null) coinReward.gameObject.SetActive(true);
-            yield return Pop(coinReward, popDuration * 0.7f);
+            yield return Pop(coinBoard, popDuration * 0.7f);
             float duration = Mathf.Max(0.1f, coinCountDuration);
             float elapsed = 0f;
             while (reward > 0 && elapsed < duration)
@@ -213,6 +219,9 @@ namespace CatBlockPuzzle
             if (titleArtwork == null) titleArtwork = FindChild(root.transform, "Title") as RectTransform;
             if (coinReward == null) coinReward = FindChild(root.transform, "Coin Reward Artwork") as RectTransform;
             if (coinReward == null) coinReward = FindChild(root.transform, "Board") as RectTransform;
+            // Existing scenes may bind coinReward to Board/Coins rather than Board.
+            if (coinBoard == null) coinBoard = FindChild(root.transform, "Board") as RectTransform;
+            if (coinBoard == null) coinBoard = coinReward;
             if (rewardText == null && coinReward != null) rewardText = coinReward.GetComponentInChildren<Text>(true);
             if (continueButton == null) continueButton = FindButton(root.transform, "Continue");
             if (continueButton == null) continueButton = FindButton(root.transform, "Next Level");
