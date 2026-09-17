@@ -44101,8 +44101,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 795266241}
   - {fileID: 616164847}
+  - {fileID: 795266241}
   m_Father: {fileID: 155468336}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -187508,6 +187508,14 @@ MonoBehaviour:
   roomsButton: {fileID: 1945198971}
   gameplayBuildIndex: 1
   dailyRewardDot: {fileID: 1587117944}
+  playPop:
+    enabled: 1
+    scaleAmount: 0.065
+    interval: 2.8
+    popDuration: 0.48
+    startDelay: 0.15
+    secondPopStrength: 0.45
+    pressedScale: 0.94
 --- !u!114 &9100000012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189930,6 +189938,22 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   rewardConfig: {fileID: 11400000, guid: 3f3d03f59c5c4e2da7161678b77775a8, type: 2}
+  openingAnimation:
+    enabled: 1
+    duration: 0.42
+    startingScale: 0.92
+    slideDistance: 40
+    overshoot: 1.8
+    cardDelay: 0.08
+    cardStagger: 0.035
+    cardDuration: 0.32
+    cardStartingScale: 0.78
+  closingAnimation:
+    enabled: 1
+    duration: 0.3
+    endingScale: 0.84
+    slideDistance: 65
+    anticipation: 1.4
 --- !u!114 &9700000078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189970,6 +189994,22 @@ MonoBehaviour:
     purchaseRequested:
       m_PersistentCalls:
         m_Calls: []
+  openingAnimation:
+    enabled: 1
+    duration: 0.42
+    startingScale: 0.92
+    slideDistance: 40
+    overshoot: 1.8
+    cardDelay: 0.08
+    cardStagger: 0.035
+    cardDuration: 0.32
+    cardStartingScale: 0.78
+  closingAnimation:
+    enabled: 1
+    duration: 0.3
+    endingScale: 0.84
+    slideDistance: 65
+    anticipation: 1.4
 --- !u!1 &9700000079
 GameObject:
   m_ObjectHideFlags: 0
@@ -190441,6 +190481,8 @@ MonoBehaviour:
   auxiliaryBackButtons:
   - {fileID: 9700000009}
   - {fileID: 9700000014}
+  showDailyRewardOnStartup: 1
+  startupRewardDelay: 0.25
 --- !u!1001 &5571064163690353439
 PrefabInstance:
   m_ObjectHideFlags: 0

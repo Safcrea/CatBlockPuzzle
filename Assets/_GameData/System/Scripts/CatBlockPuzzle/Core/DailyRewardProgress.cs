@@ -89,6 +89,12 @@ namespace CatBlockPuzzle
 
         private static DailyRewardSave Load()
         {
+            if (!PlayerPrefs.HasKey(SaveKey))
+            {
+                var startingSave = new DailyRewardSave { hintCount = 5, freezeCount = 5 };
+                Save(startingSave);
+                return startingSave;
+            }
             string json = PlayerPrefs.GetString(SaveKey, string.Empty);
             try { return string.IsNullOrEmpty(json) ? new DailyRewardSave() : JsonUtility.FromJson<DailyRewardSave>(json) ?? new DailyRewardSave(); }
             catch { return new DailyRewardSave(); }

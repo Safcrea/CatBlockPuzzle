@@ -100,7 +100,8 @@ namespace CatBlockPuzzle
         private void ShowStartupDailyReward()
         {
             // Do not interrupt a player who has already left Home during the delay.
-            if (!dailyRewardShownThisSession && home != null && home.IsOpen && dailyReward != null)
+            if (!dailyRewardShownThisSession && home != null && home.IsOpen &&
+                dailyReward != null && dailyReward.IsClaimAvailable)
                 ShowDailyReward();
         }
 

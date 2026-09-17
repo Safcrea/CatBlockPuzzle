@@ -9,6 +9,8 @@ namespace CatBlockPuzzle
     {
         public const string HintSeenKey = "CatBlockPuzzle.Tutorial.Hint";
         public const string FreezeSeenKey = "CatBlockPuzzle.Tutorial.Freeze";
+        [SerializeField] private GameObject hintTutorialPrefab;
+        [SerializeField] private GameObject freezeTutorialPrefab;
         private GameObject overlay;
         public bool IsOpen => overlay != null && overlay.activeSelf;
 
@@ -22,14 +24,30 @@ namespace CatBlockPuzzle
                     "Stuck? Tap Hint to highlight a cat and show where it fits.\n\nEach tap uses one Hint.", HintSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Freeze, "Freeze unlocked!",
-                    $"Tap Freeze to stop the timer for {freezeSeconds:0.#} seconds. You can keep moving cats!\n\nUses one Freeze. Available once per attempt.", FreezeSeenKey);
+                    $"Tap Freeze to stop the timer for {freezeSeconds:0.#} seconds. You can keep moving cats!\n\nUses one Freeze. Available once per attempt.", FreezeSeenKey, freezeSeconds);
         }
 
-        private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string heading, string message, string key)
+        private RectTransform CreateTutorial(GameplayHudView hud, PowerUpKind kind, string heading, string message, float freezeSeconds)
         {
-            if (hud.Canvas == null) yield break;
+            var prefab = kind == PowerUpKind.Hint ? hintTutorialPrefab : freezeTutorialPrefab;
+            if (prefab == null)
+                prefab = Resources.Load<GameObject>("CatBlockPuzzle/" + (kind == PowerUpKind.Hint ? "HintTutorial" : "FreezeTutorial"));
+            if (prefab != null)
+            {
+                var instance = Instantiate(prefab, hud.Canvas.transform, false);
+                instance.name = "Power Up Tutorial";
+                var instructions = instance.transform.Find("Panel/Instructions")?.GetComponent<Text>();
+                if (instructions != null)
+                    instructions.text = instructions.text.Replace("{freezeSeconds}", freezeSeconds.ToString("0.#"));
+                var powerUpIcon = instance.transform.Find("Panel/Power Up Icon")?.GetComponent<Image>();
+                if (powerUpIcon != null && powerUpIcon.sprite == null)
+                {
+                    powerUpIcon.sprite = hud.GetPowerUpSprite(kind);
+                    powerUpIcon.enabled = powerUpIcon.sprite != null;
+                }
+                return instance.GetComponent<RectTransform>();
+            }
             var root = RuntimeUiFactory.CreateOverlay(hud.Canvas.transform, "Power Up Tutorial");
-            overlay = root.gameObject;
             float width = Mathf.Min(760f, ((RectTransform)hud.Canvas.transform).rect.width - 48f);
             var panel = RuntimeUiFactory.CreatePanel(root, "Panel", new Vector2(width, 620f));
             var title = RuntimeUiFactory.CreateText(panel, "Title", heading, 44, TextAnchor.MiddleCenter);
@@ -44,6 +62,21 @@ namespace CatBlockPuzzle
             var body = RuntimeUiFactory.CreateText(panel, "Instructions", message, 30, TextAnchor.MiddleCenter);
             RuntimeUiFactory.SetRect(body.rectTransform, new Vector2(0f, -35f), new Vector2(width - 64f, 210f));
             var okay = RuntimeUiFactory.CreateButton(panel, "Continue", "Got it!", new Vector2(0f, -225f), new Vector2(280f, 78f), RuntimeUiFactory.Coral);
+            return root;
+        }
+
+        private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string heading, string message, string key, float freezeSeconds = 0f)
+        {
+            if (hud.Canvas == null) yield break;
+            var root = CreateTutorial(hud, kind, heading, message, freezeSeconds);
+            overlay = root.gameObject;
+            var okay = root.GetComponentInChildren<Button>(true);
+            if (okay == null)
+            {
+                Debug.LogError("Power up tutorial prefab requires a Continue button.", overlay);
+                Cancel();
+                yield break;
+            }
             bool finished = false;
             okay.onClick.AddListener(() =>
             {
