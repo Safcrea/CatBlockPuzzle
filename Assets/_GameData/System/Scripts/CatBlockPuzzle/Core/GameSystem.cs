@@ -11,6 +11,17 @@ namespace CatBlockPuzzle
 
         [Header("Gameplay")]
         [SerializeField] private CatBlockPuzzleGame gameplayController;
+        [Header("Power Up Purchases")]
+        [Tooltip("Leave unassigned to use Resources/CatBlockPuzzle/PowerUpShopConfig.")]
+        [SerializeField] private PowerUpShopConfig powerUpShopConfig;
+        public PowerUpShopConfig PowerUpShop
+        {
+            get
+            {
+                if (powerUpShopConfig == null) powerUpShopConfig = PowerUpShopConfig.Load();
+                return powerUpShopConfig;
+            }
+        }
         [Header("Screens")]
         [SerializeField] private HomeController home;
         [SerializeField] private PauseMenu pauseMenu;
@@ -49,9 +60,15 @@ namespace CatBlockPuzzle
             return true;
         }
         public int GetPowerUpCount(PowerUpKind kind) => PowerUpInventory.GetCount(kind);
+        public bool CanRequestPowerUp(PowerUpKind kind) => HasGameplayController && gameplayController.CanRequestPowerUp(kind);
         public bool TryUseFreezePowerUp()
         {
-            if (!HasGameplayController || PowerUpInventory.GetCount(PowerUpKind.Freeze) <= 0) return false;
+            if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Freeze)) return false;
+            if (PowerUpInventory.GetCount(PowerUpKind.Freeze) <= 0)
+            {
+                gameplayController.OpenPowerUpPurchase(PowerUpKind.Freeze);
+                return false;
+            }
             if (!gameplayController.TryUseFreezePowerUp()) return false;
             bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Freeze);
             if (consumed) gameplayController.RefreshPowerUpHud();
@@ -59,13 +76,21 @@ namespace CatBlockPuzzle
         }
         public bool TryUseHintPowerUp()
         {
-            if (!HasGameplayController || PowerUpInventory.GetCount(PowerUpKind.Hint) <= 0) return false;
+            if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Hint)) return false;
+            if (PowerUpInventory.GetCount(PowerUpKind.Hint) <= 0)
+            {
+                gameplayController.OpenPowerUpPurchase(PowerUpKind.Hint);
+                return false;
+            }
             if (!gameplayController.TryUseHintPowerUp()) return false;
             bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Hint);
             if (consumed) gameplayController.RefreshPowerUpHud();
             return consumed;
         }
         public void RefreshPowerUpHud() => gameplayController?.RefreshPowerUpHud();
+        public PowerUpPurchaseStatus PurchasePowerUp(PowerUpKind kind) => HasGameplayController && PowerUpShop != null
+            ? gameplayController.PurchasePowerUp(kind, PowerUpShop.GetOffer(kind)) : PowerUpPurchaseStatus.Unavailable;
+        internal void SetPowerUpPurchaseOpen(bool open, bool resumeGameplay = true) => gameplayController?.SetPowerUpPurchaseOpen(open, resumeGameplay);
         public bool IsGameplayOpen => referenceUi == null || referenceUi.IsGameplayOpen;
         public void ShowGameplayPage() => referenceUi?.ShowGameplay();
         public void ShowRoomsPage() => referenceUi?.ShowRooms();
@@ -136,7 +161,7 @@ namespace CatBlockPuzzle
 
         public void OpenPause()
         {
-            if (gameplayController != null && gameplayController.IsPowerUpTutorialOpen) return;
+            if (gameplayController != null && (gameplayController.IsPowerUpTutorialOpen || gameplayController.IsPowerUpPurchaseOpen)) return;
             if (pauseMenu == null || !pauseMenu.IsConfigured) return;
             if (referenceUi != null && !referenceUi.IsGameplayOpen) return;
             if (!systemPaused)
@@ -215,7 +240,7 @@ namespace CatBlockPuzzle
 
         public void OpenSettings(bool fromPause)
         {
-            if (gameplayController != null && gameplayController.IsPowerUpTutorialOpen) return;
+            if (gameplayController != null && (gameplayController.IsPowerUpTutorialOpen || gameplayController.IsPowerUpPurchaseOpen)) return;
             if (settingsMenu == null || !settingsMenu.IsConfigured) return;
             if (fromPause) pauseMenu?.Hide();
             settingsMenu?.Show(fromPause);

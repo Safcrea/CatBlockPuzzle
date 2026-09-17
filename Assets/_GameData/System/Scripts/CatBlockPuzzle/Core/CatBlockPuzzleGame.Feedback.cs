@@ -20,12 +20,19 @@ namespace CatBlockPuzzle
         public bool IsTimerFrozen => freezeRemainingSeconds > 0f;
         public float FreezeRemainingSeconds => freezeRemainingSeconds;
 
+        public bool CanRequestPowerUp(PowerUpKind kind)
+        {
+            if (kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze) return false;
+            if (gameplayHud == null || !gameplayHud.IsPowerUpUnlocked(kind)) return false;
+            if (!timerRunning || inputLocked || levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
+                IsLevelOneTutorialOpen || IsPowerUpTutorialOpen || IsPowerUpPurchaseOpen ||
+                (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen))) return false;
+            return kind != PowerUpKind.Freeze || !freezeUsedThisAttempt;
+        }
+
         public bool TryUseFreezePowerUp()
         {
-            if (gameplayHud == null || !gameplayHud.IsPowerUpUnlocked(PowerUpKind.Freeze)) return false;
-            if (!timerRunning || inputLocked || levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
-                freezeUsedThisAttempt || (GameSystem.Instance != null &&
-                (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen))) return false;
+            if (!CanRequestPowerUp(PowerUpKind.Freeze)) return false;
             freezeUsedThisAttempt = true;
             freezeRemainingSeconds = Mathf.Max(.1f, freezeDurationSeconds);
             gameplayHud?.SetFreezeAvailable(false);
@@ -37,9 +44,7 @@ namespace CatBlockPuzzle
 
         public bool TryUseHintPowerUp()
         {
-            if (gameplayHud == null || !gameplayHud.IsPowerUpUnlocked(PowerUpKind.Hint)) return false;
-            if (!timerRunning || inputLocked || levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
-                (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen))) return false;
+            if (!CanRequestPowerUp(PowerUpKind.Hint)) return false;
             ShowHint();
             return true;
         }
@@ -68,7 +73,7 @@ namespace CatBlockPuzzle
 
         private void StartLevelTimer()
         {
-            if (levelFailed || IsResultScreenOpen || IsMetaUiOpen ||
+            if (levelFailed || IsResultScreenOpen || IsMetaUiOpen || IsPowerUpPurchaseOpen ||
                 (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen)))
             {
                 return;

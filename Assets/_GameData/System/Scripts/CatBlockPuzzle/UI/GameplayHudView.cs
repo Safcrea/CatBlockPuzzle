@@ -61,7 +61,20 @@ namespace CatBlockPuzzle
         [SerializeField, Min(1)] private int hintUnlockLevel = 3;
         [SerializeField, Min(1)] private int freezeUnlockLevel = 5;
         private PowerUpTutorialManager tutorialManager;
+        private PowerUpPurchasePopup purchasePopup;
         public bool IsTutorialOpen => tutorialManager != null && tutorialManager.IsOpen;
+        public bool IsPurchaseOpen => purchasePopup != null && purchasePopup.IsOpen;
+        internal PowerUpKind PurchaseKind => purchasePopup != null ? purchasePopup.Kind : default;
+        public bool ShowPowerUpPurchase(PowerUpKind kind)
+        {
+            if (canvas == null || IsTutorialOpen || IsPurchaseOpen) return false;
+            if (purchasePopup == null) purchasePopup = PowerUpPurchasePopup.Create(this);
+            return purchasePopup.Show(kind);
+        }
+        public void CancelPowerUpPurchase(bool resumeGameplay = true)
+        {
+            if (purchasePopup != null) purchasePopup.HideImmediately(resumeGameplay);
+        }
 
         private void Awake()
         {
@@ -99,17 +112,30 @@ namespace CatBlockPuzzle
                 freezeButton.onClick.AddListener(Freeze);
             }
 
+            if (hintButton != null)
+            {
+                hintButton.onClick.RemoveListener(Hint);
+                if (hintButton.onClick.GetPersistentEventCount() == 0) hintButton.onClick.AddListener(Hint);
+            }
             RefreshPowerUpCounts();
         }
         private void OnDisable()
         {
             CancelPowerUpTutorial();
+            CancelPowerUpPurchase(false);
             if (freezeButton != null) freezeButton.onClick.RemoveListener(Freeze);
+            if (hintButton != null) hintButton.onClick.RemoveListener(Hint);
+        }
+        private void OnDestroy()
+        {
+            CancelPowerUpPurchase(false);
+            if (purchasePopup != null) Destroy(purchasePopup.gameObject);
         }
 
         private void Start() => RefreshPowerUpCounts();
 
         private void Freeze() => GameSystem.Instance?.TryUseFreezePowerUp();
+        private void Hint() => GameSystem.Instance?.TryUseHintPowerUp();
 
         /// <summary>Updates the authored HUD labels and availability from the saved inventory.</summary>
         public void RefreshPowerUpCounts()
@@ -125,18 +151,18 @@ namespace CatBlockPuzzle
             if (hintButton != null)
             {
                 hintButton.gameObject.SetActive(hintUnlocked);
-                hintButton.interactable = hintUnlocked && hintCount > 0;
+                hintButton.interactable = hintUnlocked;
             }
             if (freezeButton != null)
             {
                 freezeButton.gameObject.SetActive(freezeUnlocked);
-                freezeButton.interactable = freezeUnlocked && freezeAvailable && freezeCount > 0;
+                freezeButton.interactable = freezeUnlocked && freezeAvailable;
             }
         }
 
         private static void UpdateCountPresentation(Text label, GameObject board, int count)
         {
-            bool visible = count > 0;
+            bool visible = count >= 0;
             if (label != null)
             {
                 label.text = $"x{count}";

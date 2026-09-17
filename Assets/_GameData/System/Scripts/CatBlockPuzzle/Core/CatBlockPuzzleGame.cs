@@ -203,6 +203,7 @@ namespace CatBlockPuzzle
             var nextPrefab = LoadLevelPrefab(nextLevelIndex);
             if (nextPrefab == null) return;
             gameplayHud?.CancelPowerUpTutorial();
+            gameplayHud?.CancelPowerUpPurchase(false);
             CancelLevelOneTutorial();
             inputLocked = true;
             timerRunning = false;

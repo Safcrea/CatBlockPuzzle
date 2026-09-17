@@ -53,6 +53,21 @@ namespace CatBlockPuzzle
             Save(save); return true;
         }
 
+        internal static PowerUpPurchaseStatus TryPurchasePowerUp(PowerUpKind kind, PowerUpShopConfig.Offer offer,
+            int coins, string coinsKey, out int remainingCoins)
+        {
+            DailyRewardSave save = Load();
+            int inventory = kind == PowerUpKind.Freeze ? save.freezeCount : save.hintCount;
+            var status = PowerUpShopConfig.CalculatePurchase(kind, offer, coins, inventory, out remainingCoins, out int updatedInventory);
+            if (status != PowerUpPurchaseStatus.Success) return status;
+            if (kind == PowerUpKind.Freeze) save.freezeCount = updatedInventory;
+            else save.hintCount = updatedInventory;
+            // Persist the wallet and inventory together, then refresh their live views.
+            PlayerPrefs.SetInt(coinsKey, remainingCoins);
+            Save(save);
+            return status;
+        }
+
         internal static int GetAvailableDay(DailyRewardConfig config, DateTime utcNow)
         {
             if (config == null || config.DayCount == 0) return 0;

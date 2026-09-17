@@ -6,6 +6,9 @@ namespace CatBlockPuzzle
     {
         public int CurrentLevelNumber => levelIndex + 1;
         public int CurrentCoins => coins;
+        private bool powerUpPurchaseOwnsPause;
+        private bool timerWasRunningBeforePurchase;
+        private bool inputWasLockedBeforePurchase;
         public void AwardExternalCoins(int amount)
         {
             if (amount <= 0) return;
@@ -27,10 +30,54 @@ namespace CatBlockPuzzle
         public void RequestHint() => GameSystem.Instance?.TryUseHintPowerUp();
         public void RefreshPowerUpHud() => gameplayHud?.RefreshPowerUpCounts();
         public bool IsPowerUpTutorialOpen => gameplayHud != null && gameplayHud.IsTutorialOpen;
+        public bool IsPowerUpPurchaseOpen => gameplayHud != null && gameplayHud.IsPurchaseOpen;
+        public bool OpenPowerUpPurchase(PowerUpKind kind)
+        {
+            if (!CanRequestPowerUp(kind)) return false;
+            return gameplayHud.ShowPowerUpPurchase(kind);
+        }
+
+        internal void SetPowerUpPurchaseOpen(bool open, bool resumeGameplay = true)
+        {
+            if (open)
+            {
+                if (powerUpPurchaseOwnsPause) return;
+                timerWasRunningBeforePurchase = timerRunning;
+                inputWasLockedBeforePurchase = inputLocked;
+                powerUpPurchaseOwnsPause = true;
+                StopLevelTimer();
+                StopHint();
+                CancelActiveDragToRest();
+                inputLocked = true;
+                return;
+            }
+            if (!powerUpPurchaseOwnsPause) return;
+            powerUpPurchaseOwnsPause = false;
+            if (!resumeGameplay) return;
+            inputLocked = inputWasLockedBeforePurchase || IsMetaUiOpen || IsResultScreenOpen ||
+                boardRevealRoutine != null || IsPowerUpTutorialOpen ||
+                (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || !GameSystem.Instance.IsGameplayOpen));
+            timerRunning = timerWasRunningBeforePurchase && !levelFailed && !inputLocked;
+        }
+
+        internal PowerUpPurchaseStatus PurchasePowerUp(PowerUpKind kind, PowerUpShopConfig.Offer offer)
+        {
+            if (!IsPowerUpPurchaseOpen || gameplayHud.PurchaseKind != kind || PowerUpInventory.GetCount(kind) > 0)
+                return PowerUpPurchaseStatus.Unavailable;
+            var status = DailyRewardProgress.TryPurchasePowerUp(kind, offer, coins, SavedCoinsKey, out int remainingCoins);
+            if (status != PowerUpPurchaseStatus.Success) return status;
+            coins = remainingCoins;
+            if (coinText != null) coinText.text = coins.ToString();
+            if (metaCoinLabels != null)
+                foreach (var label in metaCoinLabels) if (label != null) label.text = coins.ToString();
+            RefreshPowerUpHud();
+            return status;
+        }
         public void SuspendForNavigation()
         {
             CancelLevelOneTutorial();
             gameplayHud?.CancelPowerUpTutorial();
+            gameplayHud?.CancelPowerUpPurchase(false);
             if (boardRevealRoutine != null) { StopCoroutine(boardRevealRoutine); boardRevealRoutine = null; }
             StopLevelTimer(); StopHint(); CancelActiveDragToRest(); inputLocked = true;
         }
@@ -47,7 +94,7 @@ namespace CatBlockPuzzle
             }
             else
             {
-                inputLocked = IsMetaUiOpen || IsResultScreenOpen || boardRevealRoutine != null || IsPowerUpTutorialOpen;
+                inputLocked = IsMetaUiOpen || IsResultScreenOpen || boardRevealRoutine != null || IsPowerUpTutorialOpen || IsPowerUpPurchaseOpen;
                 timerRunning = timerWasRunningBeforeSettings && !levelFailed && !inputLocked;
             }
         }
