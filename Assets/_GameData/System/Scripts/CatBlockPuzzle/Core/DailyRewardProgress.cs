@@ -18,17 +18,9 @@ namespace CatBlockPuzzle
     {
         private const string SaveKey = "CatBlockPuzzle.DailyReward.State.v1";
         private const string DateFormat = "yyyy-MM-dd";
-        private const string ViewedKey = "CatBlockPuzzle.DailyReward.LastViewedUtcDate";
-
+        // The Home badge reminds players to claim, even after viewing and dismissing the screen.
         internal static bool HasUnreadReward(DailyRewardConfig config, DateTime utcNow) =>
-            GetAvailableDay(config, utcNow) > 0 &&
-            PlayerPrefs.GetString(ViewedKey, string.Empty) != utcNow.ToString(DateFormat, CultureInfo.InvariantCulture);
-
-        internal static void MarkViewed(DateTime utcNow)
-        {
-            PlayerPrefs.SetString(ViewedKey, utcNow.ToString(DateFormat, CultureInfo.InvariantCulture));
-            PlayerPrefs.Save();
-        }
+            GetAvailableDay(config, utcNow) > 0;
 
         internal static int GetPowerUpCount(PowerUpKind kind)
         {

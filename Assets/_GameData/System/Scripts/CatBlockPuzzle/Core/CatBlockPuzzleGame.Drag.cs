@@ -15,7 +15,7 @@ namespace CatBlockPuzzle
     {
         private bool BeginPieceDrag(PieceState state, PointerEventData eventData)
         {
-            if (state == null || eventData == null || inputLocked || levelFailed || IsResultScreenOpen)
+            if (state == null || eventData == null || inputLocked || levelFailed || IsResultScreenOpen || !TutorialAllowsPickup(state))
             {
                 return false;
             }
@@ -176,7 +176,7 @@ namespace CatBlockPuzzle
             bool overShelf = drag.PreviousPlaced && RectsOverlap(pieceScreenRect, ExpandedScreenRect(trayRoot, TrayReturnPadding));
             float snapPadding = layoutProfile != null ? layoutProfile.BoardSnapPadding : BoardSnapPadding;
             bool nearBoard = !overShelf && RectsOverlap(pieceScreenRect, ExpandedScreenRect(boardRoot, snapPadding));
-            drag.ReturnToShelf = overShelf;
+            drag.ReturnToShelf = overShelf && TutorialAllowsShelfReturn(state);
             if (trayImage != null)
             {
                 trayImage.color = overShelf ? activeTrayHoverColor : activeTrayColor;
@@ -186,7 +186,8 @@ namespace CatBlockPuzzle
             drag.Row = -1;
             drag.Col = -1;
 
-            if (nearBoard && TryResolveCatPlacement(state, target, out CatPlacementResult placement))
+            if (nearBoard && TryResolveCatPlacement(state, target, out CatPlacementResult placement) &&
+                TutorialAllowsPlacement(state, placement.Row, placement.Col))
             {
                 drag.Valid = true;
                 drag.Row = placement.Row;
@@ -209,10 +210,15 @@ namespace CatBlockPuzzle
                 return pointerScreen;
             }
 
+            return AssistedAnchorScreen(pointerScreen, drag.PointerStartScreen, drag.IsTouch, drag.Lift);
+        }
+
+        private Vector2 AssistedAnchorScreen(Vector2 pointerScreen, Vector2 pointerStartScreen, bool isTouch, float lift)
+        {
             float extraReach = 0f;
-            if (drag.IsTouch)
+            if (isTouch)
             {
-                float upwardTravel = Mathf.Max(0f, pointerScreen.y - drag.PointerStartScreen.y);
+                float upwardTravel = Mathf.Max(0f, pointerScreen.y - pointerStartScreen.y);
                 float rampDistance = Mathf.Max(1f, Screen.height * 0.35f);
                 float ramp = Mathf.Clamp01(upwardTravel / rampDistance);
                 float maximumGain = layoutProfile != null ? layoutProfile.MaximumVerticalGain : 1.35f;
@@ -221,7 +227,7 @@ namespace CatBlockPuzzle
                 extraReach = Mathf.Min(maximumExtra * canvasScale, upwardTravel * (maximumGain - 1f) * ramp);
             }
 
-            return pointerScreen + (Vector2.up * (drag.Lift + extraReach));
+            return pointerScreen + (Vector2.up * (lift + extraReach));
         }
 
         private bool TryResolveCatPlacement(PieceState state, Vector2 candidateCenter, out CatPlacementResult result)
@@ -311,6 +317,7 @@ namespace CatBlockPuzzle
             StartCoroutine(SquishLandTransform(state.Rect));
             PlaySnapFeedback(state, row, col);
             RegisterValidPlacement(state, countForCombo);
+            TutorialPiecePlaced(state);
             CheckWin();
         }
 
@@ -345,6 +352,7 @@ namespace CatBlockPuzzle
             state.Col = -1;
             PlayShelfReturnFeedback();
             StartCoroutine(AnimateToTray(state));
+            TutorialPieceReturned(state);
         }
 
         private IEnumerator AnimateToBoard(PieceState state, int row, int col)

@@ -232,9 +232,9 @@ namespace CatBlockPuzzle
         {
             boardCells.Clear(); boardRevealCells.Clear();
             Vector2 target = GetBoardTargetMaxSize();
-            float aspect = (float)activeLevel.Cols / activeLevel.Rows;
-            boardWidth = aspect >= target.x / target.y ? target.x : target.y * aspect;
-            boardHeight = boardWidth / aspect;
+            Vector2 gridSize = CatPuzzleBoardLayout.Fit(activeLevel.Rows, activeLevel.Cols, target, BoardGap);
+            boardWidth = gridSize.x;
+            boardHeight = gridSize.y;
             ApplyGameplayLayout();
             boardCellWidth = (boardWidth - BoardGap * (activeLevel.Cols - 1)) / activeLevel.Cols;
             boardCellHeight = (boardHeight - BoardGap * (activeLevel.Rows - 1)) / activeLevel.Rows;

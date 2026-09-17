@@ -299,9 +299,15 @@ namespace CatBlockPuzzle
         /// <summary>Advances directly through gameplay; room furnishing is optional UI.</summary>
         private void LoadNextLevelThroughMetaGate()
         {
+            if (levelNavigationTesting)
+            {
+                if (CanGoNextLevel) LoadNextLevel();
+                else GameSystem.Instance?.GoHome();
+                return;
+            }
             if (metaCatalog == null || metaProgress == null)
             {
-                LoadNextLevel();
+                LoadNextLevelDirect();
                 return;
             }
 
@@ -553,8 +559,8 @@ namespace CatBlockPuzzle
             CatMetaChapterDefinition chapter = metaCatalog.GetChapterForLevel(absoluteLevelIndex);
             return absoluteLevelIndex == chapter.FirstLevelIndex
                 && chapter.Index == 0
-                || metaProgress.IsLevelFirstCleared(absoluteLevelIndex)
-                || metaProgress.IsLevelFirstCleared(absoluteLevelIndex - 1);
+                || metaProgress.IsLevelPassed(absoluteLevelIndex)
+                || metaProgress.IsLevelPassed(absoluteLevelIndex - 1);
         }
 
         private int GetRecommendedLevelIndex()
@@ -563,7 +569,7 @@ namespace CatBlockPuzzle
             CatMetaChapterDefinition chapter = metaCatalog.GetChapter(chapterIndex);
             for (int level = chapter.FirstLevelIndex; level <= chapter.LastLevelIndex; level++)
             {
-                if (!metaProgress.IsLevelFirstCleared(level))
+                if (!metaProgress.IsLevelPassed(level))
                 {
                     return level;
                 }

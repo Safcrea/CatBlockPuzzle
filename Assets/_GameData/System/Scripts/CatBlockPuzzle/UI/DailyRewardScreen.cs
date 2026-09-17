@@ -131,7 +131,6 @@ namespace CatBlockPuzzle
         public void Show()
         {
             if (root == null) return;
-            DailyRewardProgress.MarkViewed(DateTime.UtcNow);
             var cards = new Transform[days.Length];
             for (int i = 0; i < days.Length; i++)
                 if (days[i]?.cardImage != null) cards[i] = days[i].cardImage.transform;

@@ -125,9 +125,15 @@ namespace CatBlockPuzzle
             return new LevelResult(activeLevel.Id, LevelDurationSeconds - levelRemainingSeconds, earnedStars, best);
         }
 
+        private Image[] progressStarBackgrounds;
+
         private void UpdateStarDisplay()
         {
-            int visibleStars = CatPuzzleResultCalculator.CalculateStars(levelRemainingSeconds, LevelDurationSeconds);
+            if (progressStars == null) return;
+            if (progressStarBackgrounds == null || progressStarBackgrounds.Length != progressStars.Length)
+            {
+                progressStarBackgrounds = new Image[progressStars.Length];
+            }
             for (int i = 0; i < progressStars.Length; i++)
             {
                 Image star = progressStars[i];
@@ -136,9 +142,36 @@ namespace CatBlockPuzzle
                     continue;
                 }
 
-                bool filled = i < visibleStars;
-                star.sprite = filled ? starSprite : starOutlineSprite;
-                star.color = gameplayHud.UsesAuthoredLayout ? Color.white : filled ? GoldColor : new Color(0.64f, 0.52f, 0.42f, 0.48f);
+                Image background = progressStarBackgrounds[i];
+                if (background == null)
+                {
+                    background = new GameObject(star.name + " Empty", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image)).GetComponent<Image>();
+                    background.transform.SetParent(star.transform.parent, false);
+                    background.transform.SetSiblingIndex(star.transform.GetSiblingIndex());
+                    RectTransform rect = background.rectTransform;
+                    RectTransform source = star.rectTransform;
+                    rect.anchorMin = source.anchorMin;
+                    rect.anchorMax = source.anchorMax;
+                    rect.pivot = source.pivot;
+                    rect.sizeDelta = source.sizeDelta;
+                    rect.anchoredPosition3D = source.anchoredPosition3D;
+                    rect.localRotation = source.localRotation;
+                    rect.localScale = source.localScale;
+                    background.preserveAspect = star.preserveAspect;
+                    background.raycastTarget = false;
+                    background.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+                    progressStarBackgrounds[i] = background;
+                }
+
+                background.sprite = starOutlineSprite;
+                background.color = gameplayHud.UsesAuthoredLayout ? Color.white : new Color(0.64f, 0.52f, 0.42f, 0.48f);
+                background.gameObject.SetActive(star.gameObject.activeSelf);
+                star.sprite = starSprite;
+                star.color = gameplayHud.UsesAuthoredLayout ? Color.white : GoldColor;
+                star.type = Image.Type.Filled;
+                star.fillMethod = Image.FillMethod.Vertical;
+                star.fillOrigin = (int)Image.OriginVertical.Bottom;
+                star.fillAmount = CatPuzzleResultCalculator.CalculateStarFill(i, levelRemainingSeconds, LevelDurationSeconds);
             }
         }
 

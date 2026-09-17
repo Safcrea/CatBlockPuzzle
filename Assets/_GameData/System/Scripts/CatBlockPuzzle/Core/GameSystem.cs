@@ -189,6 +189,13 @@ namespace CatBlockPuzzle
             else referenceUi?.ShowGameplay();
         }
 
+        public void SkipLevel()
+        {
+            if (!HasGameplayController) return;
+            ResumeGame();
+            gameplayController.SkipCurrentLevel();
+        }
+
         public void GoHome()
         {
             systemPaused = false;

@@ -140,6 +140,7 @@ namespace CatBlockPuzzle
         private float trayCellMaxSize = 38f;
         private float nextDragTrailTime;
         private float boardCenterY = BoardCenterY;
+        private float boardCenterX;
 
         private void Awake()
         {
@@ -202,6 +203,7 @@ namespace CatBlockPuzzle
             var nextPrefab = LoadLevelPrefab(nextLevelIndex);
             if (nextPrefab == null) return;
             gameplayHud?.CancelPowerUpTutorial();
+            CancelLevelOneTutorial();
             inputLocked = true;
             timerRunning = false;
             levelFailed = false;
@@ -254,6 +256,7 @@ namespace CatBlockPuzzle
 
         private void Update()
         {
+            UpdateLevelOneTutorial();
             if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi && !GameSystem.Instance.IsGameplayOpen) return;
             UpdateDraggedPieceMotion();
             UpdateLevelTimer();
@@ -269,12 +272,22 @@ namespace CatBlockPuzzle
 
         private bool CanGoNextLevel => levelManager != null && levelIndex < levelManager.LevelCount - 1;
 
-        private void LoadPreviousLevel()
+        // UnityEvent helpers for freely browsing levels; previews do not award progress.
+        public void LoadPreviousLevel()
         {
-            LoadLevel(CanGoPreviousLevel ? levelIndex - 1 : 0, !levelNavigationTesting);
+            if (!CanGoPreviousLevel) return;
+            if (GameSystem.Instance != null) GameSystem.Instance.LoadPreviousLevel();
+            else PreviewLevelForTesting(levelIndex - 1);
         }
 
-        private void LoadNextLevel()
+        public void LoadNextLevel()
+        {
+            if (!CanGoNextLevel) return;
+            if (GameSystem.Instance != null) GameSystem.Instance.LoadNextLevel();
+            else PreviewLevelForTesting(levelIndex + 1);
+        }
+
+        private void LoadNextLevelDirect()
         {
             if (levelManager == null || levelManager.LevelCount <= 0)
             {

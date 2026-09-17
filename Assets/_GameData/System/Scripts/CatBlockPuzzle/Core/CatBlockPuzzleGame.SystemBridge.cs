@@ -29,6 +29,7 @@ namespace CatBlockPuzzle
         public bool IsPowerUpTutorialOpen => gameplayHud != null && gameplayHud.IsTutorialOpen;
         public void SuspendForNavigation()
         {
+            CancelLevelOneTutorial();
             gameplayHud?.CancelPowerUpTutorial();
             if (boardRevealRoutine != null) { StopCoroutine(boardRevealRoutine); boardRevealRoutine = null; }
             StopLevelTimer(); StopHint(); CancelActiveDragToRest(); inputLocked = true;
@@ -53,6 +54,22 @@ namespace CatBlockPuzzle
 
         public void RestartCurrentLevel() => ResetLevel();
         public void LoadNextLevelFromSystem() => LoadNextLevelThroughMetaGate();
+        public void SkipCurrentLevel()
+        {
+            if (levelManager == null) return;
+            if (!CanGoNextLevel) { GameSystem.Instance?.GoHome(); return; }
+            // Validate the destination before changing either progress or the current screen.
+            if (LoadLevelPrefab(levelIndex + 1) == null) return;
+            if (levelNavigationTesting) { LoadNextLevel(); return; }
+            if (metaProgress != null && !metaProgress.RecordSkip(levelIndex).Succeeded) return;
+            if (metaOverlay != null) metaOverlay.gameObject.SetActive(false);
+            metaOverlayOwnsPause = false;
+            metaTimerWasRunning = false;
+            metaRequiresRoomCompletion = false;
+            GameSystem.Instance?.ResumeGame();
+            GameSystem.Instance?.ShowGameplayPage();
+            LoadLevel(levelIndex + 1, true);
+        }
         public void ShowHomeFromSystem() => OpenRoomHub();
 
         public void SetHapticsFromSystem(bool enabled)

@@ -25,5 +25,30 @@ namespace CatBlockPuzzle.Tests
             Assert.That(result.Stars, Is.EqualTo(2));
             Assert.That(result.BestStars, Is.EqualTo(3));
         }
+
+        [TestCase(120f, 1f, 1f, 1f)]
+        [TestCase(90f, 1f, 1f, .5f)]
+        [TestCase(60f, 1f, 1f, 0f)]
+        [TestCase(42f, 1f, .5f, 0f)]
+        [TestCase(24f, 1f, 0f, 0f)]
+        [TestCase(12f, .5f, 0f, 0f)]
+        [TestCase(0f, 0f, 0f, 0f)]
+        public void StarFill_DrainsSequentiallyAtScoreThresholds(float remaining, float first, float second, float third)
+        {
+            float[] expected = { first, second, third };
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.That(CatPuzzleResultCalculator.CalculateStarFill(i, remaining, 120f), Is.EqualTo(expected[i]).Within(.00001f));
+            }
+        }
+
+        [TestCase(-1, 120f, 120f)]
+        [TestCase(3, 120f, 120f)]
+        [TestCase(0, 120f, 0f)]
+        [TestCase(2, -10f, 120f)]
+        public void StarFill_HandlesInvalidInput(int index, float remaining, float duration)
+        {
+            Assert.That(CatPuzzleResultCalculator.CalculateStarFill(index, remaining, duration), Is.Zero);
+        }
     }
 }

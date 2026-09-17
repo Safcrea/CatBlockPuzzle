@@ -19,9 +19,19 @@ namespace CatBlockPuzzle
         {
             if (gameplayHud.UsesAuthoredLayout)
             {
-                boardCenterY = levelRoot.InverseTransformPoint(gameplayHud.boardArea.TransformPoint(gameplayHud.boardArea.rect.center)).y;
-                return gameplayHud.boardArea.rect.size;
+                var area = gameplayHud.boardArea;
+                Vector2 center = levelRoot.InverseTransformPoint(area.TransformPoint(area.rect.center));
+                boardCenterX = center.x;
+                boardCenterY = center.y;
+                // Measure in the same coordinate space as the instantiated puzzle.
+                Vector2 min = levelRoot.InverseTransformPoint(area.TransformPoint(area.rect.min));
+                Vector2 max = levelRoot.InverseTransformPoint(area.TransformPoint(area.rect.max));
+                Vector2 size = new Vector2(Mathf.Abs(max.x - min.x), Mathf.Abs(max.y - min.y));
+                Vector2 padding = gameplayHud.boardContentPadding;
+                return new Vector2(Mathf.Max(1f, size.x - Mathf.Clamp(padding.x, 0f, size.x * .4f) * 2f),
+                    Mathf.Max(1f, size.y - Mathf.Clamp(padding.y, 0f, size.y * .4f) * 2f));
             }
+            boardCenterX = 0f;
             int maxDimension = Mathf.Max(activeLevel.Rows, activeLevel.Cols);
             Vector2 desired;
             if (maxDimension <= 3)
@@ -60,10 +70,10 @@ namespace CatBlockPuzzle
 
         private void ApplyGameplayLayout()
         {
-            SetRect(boardRoot, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, boardCenterY), new Vector2(boardWidth, boardHeight));
+            SetRect(boardRoot, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(boardCenterX, boardCenterY), new Vector2(boardWidth, boardHeight));
             if (boardBackdrop != null)
             {
-                SetRect(boardBackdrop, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, boardCenterY), new Vector2(boardWidth + 64f, boardHeight + 64f));
+                SetRect(boardBackdrop, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(boardCenterX, boardCenterY), new Vector2(boardWidth + 64f, boardHeight + 64f));
             }
 
             if (gameplayHud.UsesAuthoredLayout)
@@ -113,6 +123,7 @@ namespace CatBlockPuzzle
                 }
 
                 boardRevealRoutine = null;
+                BeginLevelOneTutorial();
                 yield break;
             }
 
@@ -153,6 +164,7 @@ namespace CatBlockPuzzle
             }
 
             boardRevealRoutine = null;
+            BeginLevelOneTutorial();
         }
 
         private IEnumerator SpringBoardCell(RectTransform rect)

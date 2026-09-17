@@ -95,7 +95,7 @@ namespace CatBlockPuzzle
 
         private void UpdateLevelTimer()
         {
-            if (!timerRunning || levelFailed)
+            if (!timerRunning || levelFailed || IsLevelOneTutorialOpen)
             {
                 return;
             }
@@ -122,6 +122,7 @@ namespace CatBlockPuzzle
             int currentSecond = Mathf.CeilToInt(levelRemainingSeconds);
             if (currentSecond == lastTimerSecond)
             {
+                UpdateStarDisplay();
                 return;
             }
 
@@ -135,6 +136,7 @@ namespace CatBlockPuzzle
 
         private void UpdateTimerDisplay()
         {
+            UpdateStarDisplay();
             if (timerText == null)
             {
                 return;
@@ -146,7 +148,6 @@ namespace CatBlockPuzzle
             timerText.text = minutes.ToString() + ":" + seconds.ToString("00");
             timerText.color = IsTimerFrozen ? new Color(.08f,.55f,.85f) :
                 levelRemainingSeconds <= TimerWarningSeconds ? TimerWarningColor : TimerNormalColor;
-            UpdateStarDisplay();
         }
 
         private void StartTimerPulse()

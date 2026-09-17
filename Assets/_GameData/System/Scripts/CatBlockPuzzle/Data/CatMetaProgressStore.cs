@@ -56,6 +56,7 @@ namespace CatBlockPuzzle
         public List<string> completedChapterIds = new List<string>();
         public List<string> viewedStoryIds = new List<string>();
         public List<int> firstClearedLevelIndices = new List<int>();
+        public List<int> skippedLevelIndices = new List<int>();
     }
 
     internal readonly struct CatMetaStorageKeys
@@ -133,6 +134,7 @@ namespace CatBlockPuzzle
         private readonly HashSet<string> completedChapterIds = new HashSet<string>(StringComparer.Ordinal);
         private readonly HashSet<string> viewedStoryIds = new HashSet<string>(StringComparer.Ordinal);
         private readonly HashSet<int> firstClearedLevelIndices = new HashSet<int>();
+        private readonly HashSet<int> skippedLevelIndices = new HashSet<int>();
         private CatMetaSaveData data;
 
         public int CoinBalance => preferences.GetInt(keys.CoinsKey, 0);
@@ -145,7 +147,7 @@ namespace CatBlockPuzzle
                 for (int chapterIndex = 0; chapterIndex < CatMetaCatalog.ChapterCount - 1; chapterIndex++)
                 {
                     // Room decoration is optional. A chapter unlocks the next one when
-                    // its five gameplay levels have been cleared.
+                    // its gameplay levels have been cleared or explicitly skipped.
                     if (!AreAllChapterLevelsCleared(chapterIndex))
                     {
                         break;
@@ -210,6 +212,21 @@ namespace CatBlockPuzzle
         public bool IsLevelFirstCleared(int zeroBasedLevelIndex)
         {
             return firstClearedLevelIndices.Contains(zeroBasedLevelIndex);
+        }
+
+        public bool IsLevelPassed(int zeroBasedLevelIndex) => firstClearedLevelIndices.Contains(zeroBasedLevelIndex)
+            || skippedLevelIndices.Contains(zeroBasedLevelIndex);
+
+        public CatMetaOperationResult RecordSkip(int zeroBasedLevelIndex)
+        {
+            if (zeroBasedLevelIndex < 0 || zeroBasedLevelIndex >= CatMetaCatalog.SupportedLevelCount)
+                return Result(CatMetaOperationStatus.InvalidLevel, CoinBalance);
+            if (!IsChapterUnlocked(catalog.GetChapterForLevel(zeroBasedLevelIndex).Index))
+                return Result(CatMetaOperationStatus.ChapterLocked, CoinBalance);
+            if (IsLevelPassed(zeroBasedLevelIndex)) return Result(CatMetaOperationStatus.NoChange, CoinBalance);
+            skippedLevelIndices.Add(zeroBasedLevelIndex);
+            Save();
+            return Result(CatMetaOperationStatus.Success, CoinBalance);
         }
 
         public bool HasViewedStory(string storyId)
@@ -529,6 +546,7 @@ namespace CatBlockPuzzle
             data.completedChapterIds = data.completedChapterIds ?? new List<string>();
             data.viewedStoryIds = data.viewedStoryIds ?? new List<string>();
             data.firstClearedLevelIndices = data.firstClearedLevelIndices ?? new List<int>();
+            data.skippedLevelIndices = data.skippedLevelIndices ?? new List<int>();
         }
 
         private void CopyDataToSets()
@@ -538,6 +556,7 @@ namespace CatBlockPuzzle
             completedChapterIds.Clear();
             viewedStoryIds.Clear();
             firstClearedLevelIndices.Clear();
+            skippedLevelIndices.Clear();
 
             for (int i = 0; i < data.ownedDecorationIds.Count; i++)
             {
@@ -583,6 +602,12 @@ namespace CatBlockPuzzle
                     firstClearedLevelIndices.Add(levelIndex);
                 }
             }
+            for (int i = 0; i < data.skippedLevelIndices.Count; i++)
+            {
+                int levelIndex = data.skippedLevelIndices[i];
+                if (levelIndex >= 0 && levelIndex < CatMetaCatalog.SupportedLevelCount)
+                    skippedLevelIndices.Add(levelIndex);
+            }
         }
 
         private void CopySetsToData()
@@ -594,6 +619,8 @@ namespace CatBlockPuzzle
             data.viewedStoryIds = SortedStrings(viewedStoryIds);
             data.firstClearedLevelIndices = new List<int>(firstClearedLevelIndices);
             data.firstClearedLevelIndices.Sort();
+            data.skippedLevelIndices = new List<int>(skippedLevelIndices);
+            data.skippedLevelIndices.Sort();
         }
 
         private bool AwardCompletionIfFullyInstalled(int chapterIndex)
@@ -615,7 +642,7 @@ namespace CatBlockPuzzle
             CatMetaChapterDefinition chapter = catalog.GetChapter(chapterIndex);
             for (int levelIndex = chapter.FirstLevelIndex; levelIndex <= chapter.LastLevelIndex; levelIndex++)
             {
-                if (!firstClearedLevelIndices.Contains(levelIndex))
+                if (!IsLevelPassed(levelIndex))
                 {
                     return false;
                 }

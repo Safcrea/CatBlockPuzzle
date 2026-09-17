@@ -14,6 +14,77 @@ namespace CatBlockPuzzle.Tests
         private static object Invoke(object target,string method,params object[] args) => target.GetType().GetMethod(method,BindingFlags.Public|BindingFlags.Instance).Invoke(target,args);
 
         [UnityTest]
+        public IEnumerator ProgressStars_DrainBetweenTimerTicksPauseAndResetWithoutDuplicateBackgrounds()
+        {
+            var system = Screen("GameSystem");
+            Invoke(system, "ShowGameplayPage");
+            Call("PreviewLevelForTesting", 0);
+            yield return new WaitForSecondsRealtime(1.2f);
+            var hud = (Component)Field("gameplayHud");
+            var stars = (UnityEngine.UI.Image[])hud.GetType().GetField("progressStars", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(hud);
+            Game.GetType().GetField("levelRemainingSeconds", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, 90.5f);
+            Game.GetType().GetField("lastTimerSecond", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, 91);
+            Call("UpdateTimerDisplay");
+            Assert.That(stars[2].type, Is.EqualTo(UnityEngine.UI.Image.Type.Filled));
+            Assert.That(stars[0].fillAmount, Is.EqualTo(1f));
+            float before = stars[2].fillAmount;
+            yield return new WaitForSecondsRealtime(.1f);
+            Assert.That(Field("lastTimerSecond"), Is.EqualTo(91), "This must update before the timer label changes.");
+            Assert.That(stars[2].fillAmount, Is.LessThan(before));
+            Invoke(system, "OpenPause");
+            float paused = stars[2].fillAmount;
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(stars[2].fillAmount, Is.EqualTo(paused));
+            Invoke(system, "ResumeGame");
+            yield return new WaitForSecondsRealtime(.4f);
+            Assert.That(stars[2].fillAmount, Is.LessThan(paused));
+            Call("PreviewLevelForTesting", 0);
+            Assert.That(stars.All(s => s.fillAmount == 1f), Is.True);
+            var backgrounds = (UnityEngine.UI.Image[])Field("progressStarBackgrounds");
+            Assert.That(backgrounds.Length, Is.EqualTo(3));
+            Assert.That(stars[0].transform.parent.GetComponentsInChildren<UnityEngine.UI.Image>(true).Length, Is.EqualTo(6));
+            for (int i = 0; i < stars.Length; i++)
+            {
+                Assert.That(backgrounds[i].transform.GetSiblingIndex(), Is.LessThan(stars[i].transform.GetSiblingIndex()));
+                Assert.That(backgrounds[i].raycastTarget, Is.False);
+                Assert.That(backgrounds[i].rectTransform.anchoredPosition, Is.EqualTo(stars[i].rectTransform.anchoredPosition));
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator DailyRewardBadge_KeepsPoppingAfterDismissalUntilClaimed()
+        {
+            var system = Screen("GameSystem");
+            var navigation = Screen("ReferenceUiNavigation");
+            Invoke(system, "GoHome");
+            yield return null;
+            var home = Screen("HomeController");
+            var badge = (RectTransform)home.GetType().GetField("dailyRewardDot", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(home);
+            Assert.That(badge, Is.Not.Null);
+            Assert.That(badge.gameObject.activeInHierarchy, Is.True);
+            for (int visit = 0; visit < 2; visit++)
+            {
+                Invoke(navigation, "ShowDailyReward");
+                yield return new WaitForSecondsRealtime(.3f);
+                Invoke(system, "GoHome");
+                yield return new WaitForSecondsRealtime(.3f);
+                Assert.That(badge.gameObject.activeInHierarchy, Is.True, "Dismissing a reward without claiming must preserve its badge.");
+                var pulse = badge.GetComponents<MonoBehaviour>().Single(c => c.GetType().Name == "MenuAttentionPulse");
+                Assert.That(pulse.isActiveAndEnabled, Is.True);
+                Vector3 scale = badge.localScale;
+                yield return new WaitForSecondsRealtime(.15f);
+                Assert.That(Vector3.Distance(scale, badge.localScale), Is.GreaterThan(.001f), "The badge must pop on returning Home.");
+            }
+            Invoke(navigation, "ShowDailyReward");
+            yield return new WaitForSecondsRealtime(.3f);
+            Invoke(Screen("DailyRewardScreen"), "RequestClaim", 1);
+            yield return new WaitForSecondsRealtime(.3f);
+            Assert.That((bool)home.GetType().GetProperty("IsOpen").GetValue(home), Is.True);
+            Assert.That(badge.gameObject.activeSelf, Is.False, "A successful claim should hide the badge for today.");
+            Assert.That((bool)navigation.GetType().GetProperty("HasUnreadDailyReward").GetValue(navigation), Is.False);
+        }
+
+        [UnityTest]
         public IEnumerator ShopAndComingSoon_KeepBalanceAndNavigationVisible()
         {
             var system = Screen("GameSystem");
@@ -92,6 +163,8 @@ namespace CatBlockPuzzle.Tests
             var hud=(Component)Field("gameplayHud");
             var button=(UnityEngine.UI.Button)hud.GetType().GetField("freezeButton",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
             float timer=(float)Field("levelRemainingSeconds");button.onClick.Invoke();
+            var stars=(UnityEngine.UI.Image[])hud.GetType().GetField("progressStars",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
+            float frozenStarFill=stars[2].fillAmount;
             Assert.That(Game.GetType().GetProperty("IsTimerFrozen").GetValue(Game),Is.EqualTo(true));
             Assert.That(button.interactable,Is.False);
             Assert.That(Field("inputLocked"),Is.EqualTo(false));
@@ -102,6 +175,7 @@ namespace CatBlockPuzzle.Tests
             Assert.That(Call("BeginPieceDrag",piece,pointer),Is.EqualTo(true));Call("CancelActiveDragToRest");
             yield return new WaitForSecondsRealtime(.1f);
             Assert.That((float)Field("levelRemainingSeconds"),Is.EqualTo(timer));
+            Assert.That(stars[2].fillAmount,Is.EqualTo(frozenStarFill));
             Invoke(system,"OpenPause");float frozen=(float)Field("freezeRemainingSeconds");yield return new WaitForSecondsRealtime(.2f);
             Assert.That((float)Field("freezeRemainingSeconds"),Is.EqualTo(frozen));
             Invoke(system,"ResumeGame");yield return new WaitForSecondsRealtime(.5f);
@@ -223,6 +297,74 @@ namespace CatBlockPuzzle.Tests
             Assert.That((bool)Screen("LevelCompleteScreen").GetType().GetProperty("IsOpen").GetValue(Screen("LevelCompleteScreen")),Is.True);
             Invoke(system,"RestartLevel");yield return new WaitForSecondsRealtime(1.2f);Call("FailLevel");yield return null;
             Assert.That((bool)Screen("LevelFailScreen").GetType().GetProperty("IsOpen").GetValue(Screen("LevelFailScreen")),Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator SadFailPresentation_RunsWhilePausedRestoresOnRetryAndReusesTears()
+        {
+            var fail = Screen("LevelFailScreen");
+            var system = Screen("GameSystem");
+            Invoke(system, "StartLevel", 0);
+            yield return new WaitForSecondsRealtime(1.2f);
+            Call("StopLevelTimer");
+            Invoke(fail, "EnsureBindings");
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var cat = (RectTransform)fail.GetType().GetField("sadCatArtwork", flags).GetValue(fail);
+            Assert.That(cat, Is.Not.Null);
+            Vector3 scale = cat.localScale;
+            Vector2 position = cat.anchoredPosition;
+            Quaternion rotation = cat.localRotation;
+            Time.timeScale = 0f;
+            try
+            {
+                Invoke(fail, "Show", "Try Again", "Time is up");
+                yield return new WaitForSecondsRealtime(.18f);
+                Assert.That(Vector2.Distance(cat.anchoredPosition, position), Is.GreaterThan(.01f), "The entrance uses unscaled time.");
+                var retry = (UnityEngine.UI.Button)fail.GetType().GetField("retryButton", flags).GetValue(fail);
+                Assert.That(retry.interactable, Is.True, "Retry stays usable during the reaction.");
+                retry.onClick.Invoke();
+                Assert.That((bool)fail.GetType().GetProperty("IsOpen").GetValue(fail), Is.False);
+                Assert.That(cat.localScale, Is.EqualTo(scale));
+                Assert.That(cat.anchoredPosition, Is.EqualTo(position));
+                Assert.That(cat.localRotation, Is.EqualTo(rotation));
+                Invoke(fail, "Show", "Try Again", "Time is up");
+                yield return new WaitForSecondsRealtime(1.9f);
+                var tears = (UnityEngine.UI.Image[])fail.GetType().GetField("tears", flags).GetValue(fail);
+                Assert.That(tears.Length, Is.EqualTo(2));
+                Assert.That(tears.All(t => t.gameObject.activeInHierarchy && !t.raycastTarget), Is.True);
+                Assert.That(cat.GetComponentsInChildren<UnityEngine.UI.Image>(true).Count(i => i.name.StartsWith("Sad Tear ")), Is.EqualTo(2));
+                var canvas = (Canvas)Game.GetType().GetProperty("PreparedCanvas").GetValue(Game);
+                CaptureAssignedCamera(canvas, "ReferenceUI_SadFail.png");
+                Invoke(system, "GoHome");
+                Assert.That(tears.All(t => !t.gameObject.activeSelf), Is.True);
+                Assert.That(cat.localScale, Is.EqualTo(scale));
+                Assert.That(cat.anchoredPosition, Is.EqualTo(position));
+                Assert.That(fail.GetType().GetField("presentation", flags).GetValue(fail), Is.Null);
+            }
+            finally { Time.timeScale = 1f; }
+        }
+
+        [UnityTest]
+        public IEnumerator SadFailPresentation_ReducedMotionKeepsArtworkStillAndControlsUsable()
+        {
+            PlayerPrefs.SetInt("CatBlockPuzzle.Settings.ReducedMotion", 1);
+            var fail = Screen("LevelFailScreen");
+            Invoke(fail, "EnsureBindings");
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var cat = (RectTransform)fail.GetType().GetField("sadCatArtwork", flags).GetValue(fail);
+            Vector3 scale = cat.localScale;
+            Vector2 position = cat.anchoredPosition;
+            Invoke(fail, "Show", "Try Again", "Time is up");
+            yield return new WaitForSecondsRealtime(.2f);
+            Assert.That(cat.localScale, Is.EqualTo(scale));
+            Assert.That(cat.anchoredPosition, Is.EqualTo(position));
+            Assert.That(fail.GetType().GetField("presentation", flags).GetValue(fail), Is.Null);
+            foreach (string field in new[] { "retryButton", "homeButton", "skipButton" })
+            {
+                var button = (UnityEngine.UI.Button)fail.GetType().GetField(field, flags).GetValue(fail);
+                Assert.That(button.gameObject.activeInHierarchy && button.interactable, Is.True);
+            }
+            Invoke(fail, "Hide");
         }
     }
 }

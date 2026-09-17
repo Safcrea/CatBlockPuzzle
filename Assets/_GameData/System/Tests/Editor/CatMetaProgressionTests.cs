@@ -287,6 +287,32 @@ namespace CatBlockPuzzle.Tests
             Assert.That(store.TryInstall("ch01_cloud_bed").Status, Is.EqualTo(CatMetaOperationStatus.NotOwned));
         }
 
+        [Test]
+        public void Skipping_PersistsUnlocksWithoutAwardingClearRewards()
+        {
+            var preferences = new InMemoryMetaPreferences();
+            var store = CreateStore(preferences);
+            int coins = 0;
+            for (int level = 0; level < CatMetaCatalog.LevelsPerChapter; level++)
+            {
+                Assert.That(store.RecordSkip(level).Succeeded, Is.True);
+                Assert.That(store.IsLevelPassed(level), Is.True);
+                Assert.That(store.IsLevelFirstCleared(level), Is.False);
+            }
+            Assert.That(store.CoinBalance, Is.Zero);
+            Assert.That(store.IsChapterUnlocked(1), Is.True);
+            var reloaded = CreateStore(preferences);
+            Assert.That(reloaded.IsChapterUnlocked(1), Is.True);
+            Assert.That(reloaded.IsLevelPassed(0), Is.True);
+            Assert.That(reloaded.RecordSkip(0).Changed, Is.False);
+            Assert.That(reloaded.RecordFirstClear(0, 25, ref coins).Changed, Is.True);
+            Assert.That(coins, Is.EqualTo(25), "A skipped level can still earn its first clear reward later.");
+            Assert.That(reloaded.RecordFirstClear(0, 25, ref coins).Changed, Is.False);
+            Assert.That(coins, Is.EqualTo(25));
+            Assert.That(reloaded.RecordSkip(-1).Succeeded, Is.False);
+            Assert.That(reloaded.RecordSkip(100).Succeeded, Is.False);
+        }
+
         private CatMetaProgressStore CreateStore(InMemoryMetaPreferences preferences)
         {
             return CatMetaProgressStore.Load(catalog, preferences, TestKeys);

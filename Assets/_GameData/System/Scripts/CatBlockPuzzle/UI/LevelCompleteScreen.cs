@@ -23,6 +23,7 @@ namespace CatBlockPuzzle
         [Header("On-screen image placeholders, ordered left to right")]
         [SerializeField] internal Image[] stars = new Image[3];
         [SerializeField] private Button continueButton;
+        [SerializeField] private Button skipButton;
         [Header("Sequence (auto-bound for the existing win screen)")]
         [SerializeField] private RectTransform titleArtwork;
         [Tooltip("The entire board to reveal after the earned stars.")]
@@ -43,7 +44,7 @@ namespace CatBlockPuzzle
         internal RectTransform RootRect => root != null ? root.transform as RectTransform : null;
 
         public void EnsureBindings() { BindPresentation(); BindButtons(); }
-        private void OnEnable() => BindButtons();
+        private void OnEnable() => EnsureBindings();
         private void OnDisable() => CancelEntrance();
         private void Update()
         {
@@ -53,6 +54,7 @@ namespace CatBlockPuzzle
         private void OnDestroy()
         {
             if (continueButton != null) continueButton.onClick.RemoveListener(Next);
+            if (skipButton != null) skipButton.onClick.RemoveListener(SkipLevel);
         }
 
         public void CaptureExisting(GameObject screenRoot)
@@ -68,6 +70,8 @@ namespace CatBlockPuzzle
             rewardText = null;
             if (continueButton != null) continueButton.onClick.RemoveListener(Next);
             continueButton = null;
+            if (skipButton != null) skipButton.onClick.RemoveListener(SkipLevel);
+            skipButton = null;
             var placeholders = new List<Image>(3);
             foreach (Image image in root.GetComponentsInChildren<Image>(true))
             {
@@ -225,6 +229,8 @@ namespace CatBlockPuzzle
             if (rewardText == null && coinReward != null) rewardText = coinReward.GetComponentInChildren<Text>(true);
             if (continueButton == null) continueButton = FindButton(root.transform, "Continue");
             if (continueButton == null) continueButton = FindButton(root.transform, "Next Level");
+            if (skipButton == null) skipButton = FindButton(root.transform, "Skip Level");
+            if (skipButton == null) skipButton = FindButton(root.transform, "Skip");
         }
 
         private void EnsureWinStarOverlays()
@@ -265,10 +271,18 @@ namespace CatBlockPuzzle
         }
         private void BindButtons()
         {
-            if (continueButton == null) return;
-            continueButton.onClick.RemoveListener(Next);
-            if (continueButton.onClick.GetPersistentEventCount() == 0) continueButton.onClick.AddListener(Next);
+            if (continueButton != null)
+            {
+                continueButton.onClick.RemoveListener(Next);
+                if (continueButton.onClick.GetPersistentEventCount() == 0) continueButton.onClick.AddListener(Next);
+            }
+            if (skipButton != null)
+            {
+                skipButton.onClick.RemoveListener(SkipLevel);
+                if (skipButton.onClick.GetPersistentEventCount() == 0) skipButton.onClick.AddListener(SkipLevel);
+            }
         }
+        public void SkipLevel() => GameSystem.Instance?.SkipLevel();
         private void Next() => GameSystem.Instance?.NextLevel();
         private static Button FindButton(Transform parent, string name)
         {

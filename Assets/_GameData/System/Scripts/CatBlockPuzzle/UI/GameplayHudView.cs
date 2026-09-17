@@ -46,6 +46,8 @@ namespace CatBlockPuzzle
         [Header("Authored Gameplay Layout")]
         [SerializeField] internal RectTransform boardArea;
         [SerializeField] internal RectTransform trayArea;
+        [Tooltip("Space on each side between the puzzle grid and the authored board area.")]
+        [SerializeField] internal Vector2 boardContentPadding = new Vector2(36f, 36f);
         public bool UsesAuthoredLayout => boardArea != null && trayArea != null;
         [Header("Power Up Controls")]
         [SerializeField] private Button freezeButton;
