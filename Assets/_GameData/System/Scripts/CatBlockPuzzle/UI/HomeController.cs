@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -21,6 +22,12 @@ namespace CatBlockPuzzle
         [SerializeField] private Button collectionButton;
         [SerializeField] private Button roomsButton;
         [SerializeField] private int gameplayBuildIndex = 1;
+        [Header("Menu Motion")]
+        [SerializeField] private RectTransform dailyRewardDot;
+        [Tooltip("Controls the Play button's idle pop and pressed scale. Can be adjusted during Play Mode.")]
+        [SerializeField] private MenuAttentionPulse.Settings playPop = new MenuAttentionPulse.Settings();
+        private DateTime notificationDate;
+        public bool IsOpen => homeScreen != null && homeScreen.activeInHierarchy;
 
         private void OnEnable() => EnsureBindings();
         private void OnDestroy() => UpdateListeners(false);
@@ -32,6 +39,8 @@ namespace CatBlockPuzzle
         {
             if (coinText != null) coinText.text = (GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0).ToString();
             if (homeScreen != null) homeScreen.SetActive(true);
+            if (playButton != null) MenuAttentionPulse.Configure(playButton.transform, playPop);
+            RefreshDailyRewardDot();
         }
         public void Hide() { if (homeScreen != null) homeScreen.SetActive(false); }
 
@@ -48,6 +57,23 @@ namespace CatBlockPuzzle
         private void OpenDailyReward() => navigation?.ShowDailyReward();
         private void OpenCollection() => navigation?.ShowCollection();
         private void OpenRooms() => GameSystem.Instance?.OpenRooms();
+
+        private void Update()
+        {
+            if (homeScreen != null && homeScreen.activeInHierarchy && notificationDate != DateTime.UtcNow.Date)
+                RefreshDailyRewardDot();
+        }
+
+        private void RefreshDailyRewardDot()
+        {
+            notificationDate = DateTime.UtcNow.Date;
+            if (dailyRewardDot == null && dailyRewardButton != null)
+                dailyRewardDot = dailyRewardButton.transform.Find("Badge") as RectTransform;
+            if (dailyRewardDot == null) return;
+            bool unread = navigation != null && navigation.HasUnreadDailyReward;
+            dailyRewardDot.gameObject.SetActive(unread);
+            if (unread) MenuAttentionPulse.Configure(dailyRewardDot, 0.22f, 1.9f);
+        }
 
         public void Quit()
         {

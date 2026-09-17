@@ -21,8 +21,13 @@ namespace CatBlockPuzzle
         [SerializeField] private Button backButton;
         [SerializeField] private TMP_Text coinLabel;
         [SerializeField] private OfferView[] offers = Array.Empty<OfferView>();
+        [Header("Opening Animation")]
+        [SerializeField] private MenuTransition.EntranceSettings openingAnimation = new MenuTransition.EntranceSettings();
+        [Header("Closing Animation")]
+        [SerializeField] private MenuTransition.ExitSettings closingAnimation = new MenuTransition.ExitSettings();
         private UnityAction[] purchaseActions;
         private int displayedBalance = -1;
+        public bool IsOpen => root != null && root.activeInHierarchy;
 
         private void Awake()
         {
@@ -51,7 +56,10 @@ namespace CatBlockPuzzle
         {
             EnsureCoinLabel();
             SetCoinBalance(GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
-            if (root != null) root.SetActive(true);
+            var cards = new Transform[offers.Length];
+            for (int i = 0; i < offers.Length; i++)
+                if (offers[i]?.button != null) cards[i] = offers[i].button.transform;
+            MenuTransition.Show(root, true, openingAnimation, cards);
         }
         private void LateUpdate()
         {
@@ -87,7 +95,8 @@ namespace CatBlockPuzzle
             rect.offsetMin = new Vector2(80f, 8f);
             rect.offsetMax = new Vector2(-18f, -8f);
         }
-        public void Hide() { if (root != null) root.SetActive(false); }
+        public void Hide() => MenuTransition.Hide(root, null, false);
+        public void HideAnimated(Action completed) => MenuTransition.Hide(root, completed, true, closingAnimation);
         public void SetCoinBalance(int balance)
         {
             balance = Mathf.Max(0, balance);

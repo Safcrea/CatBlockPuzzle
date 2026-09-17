@@ -34,9 +34,15 @@ namespace CatBlockPuzzle
         [SerializeField] private DayView[] days = Array.Empty<DayView>();
         [Header("Rewards")]
         [SerializeField] private DailyRewardConfig rewardConfig;
+        [Header("Opening Animation")]
+        [SerializeField] private MenuTransition.EntranceSettings openingAnimation = new MenuTransition.EntranceSettings();
+        [Header("Closing Animation")]
+        [SerializeField] private MenuTransition.ExitSettings closingAnimation = new MenuTransition.ExitSettings();
         private UnityAction[] claimActions;
 
         public bool IsClaimAvailable => Config != null && DailyRewardProgress.GetAvailableDay(Config, DateTime.UtcNow) > 0;
+        public bool IsOpen => root != null && root.activeInHierarchy;
+        public bool HasUnreadReward => DailyRewardProgress.HasUnreadReward(Config, DateTime.UtcNow);
         private DailyRewardConfig Config => rewardConfig != null ? rewardConfig : DailyRewardConfig.Load();
 
         private void OnEnable()
@@ -97,6 +103,7 @@ namespace CatBlockPuzzle
                     GameSystem.Instance.RefreshPowerUpHud();
                     day.claimRequested?.Invoke();
                     RefreshPresentation();
+                    Close();
                     return;
                 }
         }
@@ -123,10 +130,16 @@ namespace CatBlockPuzzle
 
         public void Show()
         {
-            if (root != null) root.SetActive(true);
+            if (root == null) return;
+            DailyRewardProgress.MarkViewed(DateTime.UtcNow);
+            var cards = new Transform[days.Length];
+            for (int i = 0; i < days.Length; i++)
+                if (days[i]?.cardImage != null) cards[i] = days[i].cardImage.transform;
+            MenuTransition.Show(root, true, openingAnimation, cards);
             RefreshPresentation();
         }
-        public void Hide() { if (root != null) root.SetActive(false); }
+        public void Hide() => MenuTransition.Hide(root, null, false);
+        public void HideAnimated(Action completed) => MenuTransition.Hide(root, completed, true, closingAnimation);
         private void Close() => GameSystem.Instance?.GoHome();
 
         private string RewardLabelFor(DailyRewardConfig.DayReward reward, int dayNumber)

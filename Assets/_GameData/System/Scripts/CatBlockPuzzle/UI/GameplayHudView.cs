@@ -52,6 +52,8 @@ namespace CatBlockPuzzle
         [SerializeField] private Button hintButton;
         [SerializeField] private Text hintCountText;
         [SerializeField] private Text freezeCountText;
+        [SerializeField] private GameObject hintCountBoard;
+        [SerializeField] private GameObject freezeCountBoard;
         private bool freezeAvailable = true;
         [Header("Power Up Unlock Levels")]
         [SerializeField, Min(1)] private int hintUnlockLevel = 3;
@@ -114,8 +116,8 @@ namespace CatBlockPuzzle
             int hintCount = system != null ? system.GetPowerUpCount(PowerUpKind.Hint) : 0;
             int freezeCount = system != null ? system.GetPowerUpCount(PowerUpKind.Freeze) : 0;
 
-            if (hintCountText != null) hintCountText.text = $"x{hintCount}";
-            if (freezeCountText != null) freezeCountText.text = $"x{freezeCount}";
+            UpdateCountPresentation(hintCountText, hintCountBoard, hintCount);
+            UpdateCountPresentation(freezeCountText, freezeCountBoard, freezeCount);
             bool hintUnlocked = IsPowerUpUnlocked(PowerUpKind.Hint);
             bool freezeUnlocked = IsPowerUpUnlocked(PowerUpKind.Freeze);
             if (hintButton != null)
@@ -128,6 +130,17 @@ namespace CatBlockPuzzle
                 freezeButton.gameObject.SetActive(freezeUnlocked);
                 freezeButton.interactable = freezeUnlocked && freezeAvailable && freezeCount > 0;
             }
+        }
+
+        private static void UpdateCountPresentation(Text label, GameObject board, int count)
+        {
+            bool visible = count > 0;
+            if (label != null)
+            {
+                label.text = $"x{count}";
+                label.gameObject.SetActive(visible);
+            }
+            if (board != null) board.SetActive(visible);
         }
 
         public void SetFreezeAvailable(bool available)

@@ -18,6 +18,17 @@ namespace CatBlockPuzzle
     {
         private const string SaveKey = "CatBlockPuzzle.DailyReward.State.v1";
         private const string DateFormat = "yyyy-MM-dd";
+        private const string ViewedKey = "CatBlockPuzzle.DailyReward.LastViewedUtcDate";
+
+        internal static bool HasUnreadReward(DailyRewardConfig config, DateTime utcNow) =>
+            GetAvailableDay(config, utcNow) > 0 &&
+            PlayerPrefs.GetString(ViewedKey, string.Empty) != utcNow.ToString(DateFormat, CultureInfo.InvariantCulture);
+
+        internal static void MarkViewed(DateTime utcNow)
+        {
+            PlayerPrefs.SetString(ViewedKey, utcNow.ToString(DateFormat, CultureInfo.InvariantCulture));
+            PlayerPrefs.Save();
+        }
 
         internal static int GetPowerUpCount(PowerUpKind kind)
         {
