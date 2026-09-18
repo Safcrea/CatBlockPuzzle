@@ -131247,8 +131247,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 230830478}
   - {fileID: 2147000102}
+  - {fileID: 230830478}
   m_Father: {fileID: 86341001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -184972,6 +184972,7 @@ MonoBehaviour:
   freezeCountBoard: {fileID: 2089321821}
   hintUnlockLevel: 3
   freezeUnlockLevel: 5
+  purchasePopupPrefab: {fileID: 0}
 --- !u!1 &2118349277
 GameObject:
   m_ObjectHideFlags: 0
@@ -187478,6 +187479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayController: {fileID: 319740947}
+  powerUpShopConfig: {fileID: 0}
   home: {fileID: 9100000011}
   pauseMenu: {fileID: 9100000012}
   settingsMenu: {fileID: 9100000013}
@@ -187610,6 +187612,8 @@ MonoBehaviour:
   retryButton: {fileID: 111028204}
   homeButton: {fileID: 1970446276}
   skipButton: {fileID: 376785509}
+  titleArtwork: {fileID: 0}
+  sadCatArtwork: {fileID: 0}
 --- !u!1 &9200000001
 GameObject:
   m_ObjectHideFlags: 0

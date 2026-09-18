@@ -8,15 +8,21 @@ namespace CatBlockPuzzle
     /// <summary>Gameplay coin purchase. Inventory is granted here; using it requires a separate HUD tap.</summary>
     public sealed class PowerUpPurchasePopup : MonoBehaviour
     {
+        /// <summary>Resources path used when the HUD has no prefab assigned.</summary>
+        public const string PrefabResourcePath = "CatBlockPuzzle/PowerUpPurchasePopup";
+        internal static readonly Vector2 PanelSize = new Vector2(720f, 660f);
+
+        [Header("Layout")]
+        [SerializeField] private RectTransform panel;
+        [SerializeField] private Text heading;
+        [SerializeField] private Text message;
+        [SerializeField] private Text wallet;
+        [SerializeField] private Image icon;
+        [SerializeField] private Button buyButton;
+        [SerializeField] private Button closeButton;
         private GameplayHudView hud;
-        private Text heading;
-        private Text message;
-        private Text wallet;
         private Text buyLabel;
         private Text closeLabel;
-        private Image icon;
-        private Button buyButton;
-        private Button closeButton;
         private GameObject previousSelection;
         private bool sessionOpen;
         private bool closing;
@@ -27,47 +33,117 @@ namespace CatBlockPuzzle
         public bool IsOpen => sessionOpen && gameObject.activeInHierarchy;
         private bool ReducedMotion => PlayerPrefs.GetInt("CatBlockPuzzle.Settings.ReducedMotion", 0) != 0;
 
-        public static PowerUpPurchasePopup Create(GameplayHudView hud)
+        /// <summary>Spawns the popup from <paramref name="prefab"/>, the Resources copy, or the runtime fallback layout.</summary>
+        public static PowerUpPurchasePopup Create(GameplayHudView hud, GameObject prefab = null)
         {
-            RectTransform root = RuntimeUiFactory.CreateOverlay(hud.Canvas.transform, "Power Up Purchase Popup");
-            root.gameObject.SetActive(false);
+            if (hud == null || hud.Canvas == null) return null;
+            if (prefab == null) prefab = Resources.Load<GameObject>(PrefabResourcePath);
+            PowerUpPurchasePopup popup = null;
+            if (prefab != null)
+            {
+                var instance = Instantiate(prefab, hud.Canvas.transform, false);
+                instance.name = "Power Up Purchase Popup";
+                popup = instance.GetComponent<PowerUpPurchasePopup>();
+                if (popup == null)
+                {
+                    Debug.LogError($"{prefab.name} needs a PowerUpPurchasePopup component; using the runtime layout instead.", prefab);
+                    Destroy(instance);
+                }
+            }
+            if (popup == null) popup = Build(hud.Canvas.transform);
+            if (!popup.Bind(hud))
+            {
+                Destroy(popup.gameObject);
+                return null;
+            }
+            return popup;
+        }
+
+        /// <summary>Builds the authored layout in code. Shared by the runtime fallback and the prefab generator.</summary>
+        public static PowerUpPurchasePopup Build(Transform parent)
+        {
+            RectTransform root = RuntimeUiFactory.CreateOverlay(parent, "Power Up Purchase Popup");
             var popup = root.gameObject.AddComponent<PowerUpPurchasePopup>();
-            popup.hud = hud;
-            var panel = RuntimeUiFactory.CreatePanel(root, "Panel", new Vector2(720f, 660f));
-            Vector2 available = ((RectTransform)hud.Canvas.transform).rect.size - new Vector2(64f, 64f);
-            panel.localScale = Vector3.one * Mathf.Clamp(Mathf.Min(available.x / 720f, available.y / 660f), .1f, 1f);
-            Sprite rounded = KawaiiSprites.RoundedRect;
-            panel.GetComponent<Image>().sprite = rounded;
-            panel.GetComponent<Image>().type = Image.Type.Sliced;
-            popup.heading = RuntimeUiFactory.CreateText(panel, "Title", "Out of Hints!", 44, TextAnchor.MiddleCenter);
+            popup.panel = RuntimeUiFactory.CreatePanel(root, "Panel", PanelSize);
+            popup.heading = RuntimeUiFactory.CreateText(popup.panel, "Title", "Out of Hints!", 44, TextAnchor.MiddleCenter);
             RuntimeUiFactory.SetRect(popup.heading.rectTransform, new Vector2(0f, 255f), new Vector2(640f, 70f));
-            var iconRect = RuntimeUiFactory.CreateRect(panel, "Power Up Icon");
+            var iconRect = RuntimeUiFactory.CreateRect(popup.panel, "Power Up Icon");
             RuntimeUiFactory.SetRect(iconRect, new Vector2(0f, 140f), new Vector2(130f, 130f));
             popup.icon = iconRect.gameObject.AddComponent<Image>();
             popup.icon.preserveAspect = true;
             popup.icon.raycastTarget = false;
-            popup.message = RuntimeUiFactory.CreateText(panel, "Message", "", 30, TextAnchor.MiddleCenter);
+            popup.message = RuntimeUiFactory.CreateText(popup.panel, "Message", "", 30, TextAnchor.MiddleCenter);
             RuntimeUiFactory.SetRect(popup.message.rectTransform, new Vector2(0f, 10f), new Vector2(620f, 125f));
-            popup.wallet = RuntimeUiFactory.CreateText(panel, "Wallet", "", 28, TextAnchor.MiddleCenter);
+            popup.wallet = RuntimeUiFactory.CreateText(popup.panel, "Wallet", "", 28, TextAnchor.MiddleCenter);
             RuntimeUiFactory.SetRect(popup.wallet.rectTransform, new Vector2(0f, -100f), new Vector2(620f, 60f));
-            popup.buyButton = RuntimeUiFactory.CreateButton(panel, "Buy", "Buy", new Vector2(0f, -185f), new Vector2(520f, 82f), RuntimeUiFactory.Coral);
-            popup.buyLabel = popup.buyButton.GetComponentInChildren<Text>();
-            popup.closeButton = RuntimeUiFactory.CreateButton(panel, "Close", "Not now", new Vector2(0f, -275f), new Vector2(280f, 68f), new Color(.9f, .85f, .76f));
-            popup.closeLabel = popup.closeButton.GetComponentInChildren<Text>();
-            foreach (Button button in new[] { popup.buyButton, popup.closeButton })
+            popup.buyButton = RuntimeUiFactory.CreateButton(popup.panel, "Buy", "Buy", new Vector2(0f, -185f), new Vector2(520f, 82f), RuntimeUiFactory.Coral);
+            popup.closeButton = RuntimeUiFactory.CreateButton(popup.panel, "Close", "Not now", new Vector2(0f, -275f), new Vector2(280f, 68f), new Color(.9f, .85f, .76f));
+            popup.gameObject.SetActive(false);
+            return popup;
+        }
+
+        /// <summary>Resolves authored references, fits the panel to the canvas and wires the buttons.</summary>
+        private bool Bind(GameplayHudView hud)
+        {
+            this.hud = hud;
+            if (panel == null) panel = transform.Find("Panel") as RectTransform;
+            if (panel == null)
             {
-                var image = button.GetComponent<Image>();
-                image.sprite = rounded;
-                image.type = Image.Type.Sliced;
+                Debug.LogError("Power up purchase popup needs a 'Panel' child.", this);
+                return false;
             }
-            foreach (Text text in root.GetComponentsInChildren<Text>(true))
+            if (heading == null) heading = Find<Text>("Title");
+            if (message == null) message = Find<Text>("Message");
+            if (wallet == null) wallet = Find<Text>("Wallet");
+            if (icon == null) icon = Find<Image>("Power Up Icon");
+            if (buyButton == null) buyButton = Find<Button>("Buy");
+            if (closeButton == null) closeButton = Find<Button>("Close");
+            if (heading == null || message == null || wallet == null || icon == null || buyButton == null || closeButton == null)
+            {
+                Debug.LogError("Power up purchase popup is missing Title, Message, Wallet, Power Up Icon, Buy or Close.", this);
+                return false;
+            }
+            buyLabel = buyButton.GetComponentInChildren<Text>(true);
+            closeLabel = closeButton.GetComponentInChildren<Text>(true);
+            if (buyLabel == null || closeLabel == null)
+            {
+                Debug.LogError("Power up purchase popup buttons need a Text label.", this);
+                return false;
+            }
+            Vector2 available = ((RectTransform)hud.Canvas.transform).rect.size - new Vector2(64f, 64f);
+            Vector2 size = panel.rect.size.x > 0f && panel.rect.size.y > 0f ? panel.rect.size : PanelSize;
+            panel.localScale = Vector3.one * Mathf.Clamp(Mathf.Min(available.x / size.x, available.y / size.y), .1f, 1f);
+            ApplyFallbackSprite(panel.GetComponent<Image>());
+            ApplyFallbackSprite(buyButton.GetComponent<Image>());
+            ApplyFallbackSprite(closeButton.GetComponent<Image>());
+            Font hudFont = hud.levelText != null ? hud.levelText.font : null;
+            Font builtinFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            foreach (Text text in GetComponentsInChildren<Text>(true))
             {
                 text.raycastTarget = false;
-                if (hud.levelText != null && hud.levelText.font != null) text.font = hud.levelText.font;
+                // Authored fonts win; unskinned labels follow the HUD.
+                if (hudFont != null && (text.font == null || text.font == builtinFont)) text.font = hudFont;
             }
-            popup.buyButton.onClick.AddListener(popup.Buy);
-            popup.closeButton.onClick.AddListener(popup.Close);
-            return popup;
+            buyButton.onClick.RemoveListener(Buy);
+            buyButton.onClick.AddListener(Buy);
+            closeButton.onClick.RemoveListener(Close);
+            closeButton.onClick.AddListener(Close);
+            gameObject.SetActive(false);
+            return true;
+        }
+
+        /// <summary>Authored art wins; unskinned images fall back to the generated rounded rect.</summary>
+        private static void ApplyFallbackSprite(Image image)
+        {
+            if (image == null || image.sprite != null) return;
+            image.sprite = KawaiiSprites.RoundedRect;
+            image.type = Image.Type.Sliced;
+        }
+
+        private T Find<T>(string childName) where T : Component
+        {
+            Transform child = panel.Find(childName);
+            return child != null ? child.GetComponent<T>() : null;
         }
 
         public bool Show(PowerUpKind kind)
@@ -85,11 +161,8 @@ namespace CatBlockPuzzle
             icon.enabled = icon.sprite != null;
             RefreshOffer();
             system.SetPowerUpPurchaseOpen(true);
-            if (ReducedMotion)
-            {
-                gameObject.SetActive(true);
-                transform.SetAsLastSibling();
-            }
+            transform.SetAsLastSibling(); // Authored prefabs are not spawned on top like the runtime overlay.
+            if (ReducedMotion) gameObject.SetActive(true);
             else MenuTransition.Show(gameObject, true, new MenuTransition.EntranceSettings { duration = .35f, slideDistance = 24f, overshoot = 1.2f });
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(buyButton.interactable ? buyButton.gameObject : closeButton.gameObject);
             return true;

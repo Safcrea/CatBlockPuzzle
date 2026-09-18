@@ -60,6 +60,9 @@ namespace CatBlockPuzzle
         [Header("Power Up Unlock Levels")]
         [SerializeField, Min(1)] private int hintUnlockLevel = 3;
         [SerializeField, Min(1)] private int freezeUnlockLevel = 5;
+        [Header("Power Up Purchase")]
+        [Tooltip("Popup spawned when a power-up is tapped with an empty bag. Falls back to Resources/" + PowerUpPurchasePopup.PrefabResourcePath + ", then to a code-built layout.")]
+        [SerializeField] private GameObject purchasePopupPrefab;
         private PowerUpTutorialManager tutorialManager;
         private PowerUpPurchasePopup purchasePopup;
         public bool IsTutorialOpen => tutorialManager != null && tutorialManager.IsOpen;
@@ -68,8 +71,8 @@ namespace CatBlockPuzzle
         public bool ShowPowerUpPurchase(PowerUpKind kind)
         {
             if (canvas == null || IsTutorialOpen || IsPurchaseOpen) return false;
-            if (purchasePopup == null) purchasePopup = PowerUpPurchasePopup.Create(this);
-            return purchasePopup.Show(kind);
+            if (purchasePopup == null) purchasePopup = PowerUpPurchasePopup.Create(this, purchasePopupPrefab);
+            return purchasePopup != null && purchasePopup.Show(kind);
         }
         public void CancelPowerUpPurchase(bool resumeGameplay = true)
         {
