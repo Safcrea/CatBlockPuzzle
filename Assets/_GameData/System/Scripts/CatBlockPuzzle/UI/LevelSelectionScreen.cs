@@ -27,10 +27,81 @@ namespace CatBlockPuzzle
         [SerializeField] private Sprite lockedSprite;
         [SerializeField] private Sprite earnedStar;
         [SerializeField] private Sprite emptyStar;
+        [Header("Chapter Unfold")]
+        [Tooltip("Scroll view holding the chapters. Falls back to a child named 'Chapter Board'.")]
+        [SerializeField] private RectTransform chapterBoard;
+        [Tooltip("On: each chapter panel swings open in turn. Off: the screen just springs in.")]
+        [SerializeField] private bool unfoldChapters = true;
+        [SerializeField] private MenuTransition.EntranceSettings openingAnimation = new MenuTransition.EntranceSettings
+        {
+            duration = .4f,
+            startingScale = .94f,
+            slideDistance = 26f,
+            overshoot = 1.5f,
+            // Chapters begin swinging open while the board is still settling.
+            cardDelay = .16f,
+            cardStagger = .11f,
+            cardDuration = .46f,
+            cardStartingScale = .84f,
+            cardSlideDistance = 34f,
+            cardTilt = 0f,
+            cardUnfoldAngle = 84f,
+            unfoldFromTop = true
+        };
+        [SerializeField] private MenuTransition.ExitSettings closingAnimation = new MenuTransition.ExitSettings
+        {
+            duration = .24f,
+            endingScale = .9f,
+            slideDistance = 40f,
+            anticipation = 1.1f
+        };
         private int selectedLevel = -1;
         private bool bindingsValidated;
+        private Transform[] cards;
         public int SelectedLevel => selectedLevel;
         public int SlotCount => levels != null ? levels.Length : 0;
+        public bool IsOpen => gameObject.activeInHierarchy;
+
+        /// <summary>Springs the screen in, then unfolds each chapter panel in turn.</summary>
+        public void Show()
+        {
+            MenuTransition.Show(gameObject, true, openingAnimation, BuildCards());
+        }
+
+        public void Hide() => MenuTransition.Hide(gameObject, null, false);
+        public void HideAnimated(System.Action completed) => MenuTransition.Hide(gameObject, completed, true, closingAnimation);
+
+        private RectTransform ResolveChapterBoard()
+        {
+            if (chapterBoard == null) chapterBoard = transform.Find("Chapter Board") as RectTransform;
+            return chapterBoard;
+        }
+
+        /// <summary>
+        /// Chapter panels in board order, then the play button as the closing beat. The panels sit inside the
+        /// scroll view's RectMask2D, which clips by an axis-aligned rect - so they carry the unfold themselves
+        /// rather than the board rotating above the mask.
+        /// </summary>
+        private Transform[] BuildCards()
+        {
+            if (cards != null) return cards;
+            var parts = new System.Collections.Generic.List<Component>();
+            RectTransform content = ResolveChapterContent();
+            // The tiles themselves are never cards: a hundred of them would stagger for several seconds.
+            if (unfoldChapters && content != null)
+                for (int i = 0; i < content.childCount; i++) parts.Add(content.GetChild(i));
+            if (playButton != null) parts.Add(playButton);
+            cards = MenuTransition.Cards(parts.ToArray());
+            return cards;
+        }
+
+        private RectTransform ResolveChapterContent()
+        {
+            RectTransform board = ResolveChapterBoard();
+            if (board == null) return null;
+            var scroll = board.GetComponent<ScrollRect>();
+            return scroll != null ? scroll.content : board.Find("Viewport/Chapters") as RectTransform;
+        }
 
         private void OnEnable()
         {

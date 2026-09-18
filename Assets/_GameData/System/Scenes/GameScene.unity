@@ -139011,6 +139011,30 @@ MonoBehaviour:
   lockedSprite: {fileID: 21300000, guid: 67a5daba259255540b811f0dc7346048, type: 3}
   earnedStar: {fileID: 21300000, guid: 8749721ce5311aa4bbd62f5cd9a75b32, type: 3}
   emptyStar: {fileID: 21300000, guid: 29de44415b83afe448ded67fe8db097a, type: 3}
+  chapterBoard: {fileID: 1544878932}
+  unfoldChapters: 1
+  openingAnimation:
+    enabled: 1
+    duration: 0.46
+    startingScale: 0.94
+    slideDistance: 24
+    overshoot: 1.5
+    cardDelay: 0.26
+    cardStagger: 0.045
+    cardDuration: 0.34
+    cardStartingScale: 0.62
+    cardSlideDistance: 38
+    cardTilt: 7
+    cardUnfoldAngle: 84
+    unfold: 1
+    unfoldAngle: 84
+    unfoldFromTop: 1
+  closingAnimation:
+    enabled: 1
+    duration: 0.24
+    endingScale: 0.9
+    slideDistance: 40
+    anticipation: 1.1
 --- !u!1 &1586675552
 GameObject:
   m_ObjectHideFlags: 0
@@ -187542,6 +187566,23 @@ MonoBehaviour:
   levelText: {fileID: 0}
   starsText: {fileID: 0}
   coinsText: {fileID: 0}
+  animatedItems: []
+  openingAnimation:
+    enabled: 1
+    duration: 0.34
+    startingScale: 0.92
+    slideDistance: 30
+    overshoot: 2
+    cardDelay: 0.06
+    cardStagger: 0.07
+    cardDuration: 0.3
+    cardStartingScale: 0.7
+    cardSlideDistance: 48
+    cardTilt: 5
+    cardUnfoldAngle: 0
+    unfold: 0
+    unfoldAngle: 82
+    unfoldFromTop: 1
 --- !u!114 &9100000013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187564,6 +187605,23 @@ MonoBehaviour:
   musicStateText: {fileID: 0}
   sfxStateText: {fileID: 0}
   hapticsStateText: {fileID: 0}
+  animatedItems: []
+  openingAnimation:
+    enabled: 1
+    duration: 0.34
+    startingScale: 0.92
+    slideDistance: 30
+    overshoot: 2
+    cardDelay: 0.06
+    cardStagger: 0.08
+    cardDuration: 0.3
+    cardStartingScale: 0.7
+    cardSlideDistance: 48
+    cardTilt: 5
+    cardUnfoldAngle: 0
+    unfold: 0
+    unfoldAngle: 82
+    unfoldFromTop: 1
 --- !u!114 &9100000014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189956,6 +190014,12 @@ MonoBehaviour:
     cardStagger: 0.035
     cardDuration: 0.32
     cardStartingScale: 0.78
+    cardSlideDistance: 42
+    cardTilt: 5
+    cardUnfoldAngle: 0
+    unfold: 0
+    unfoldAngle: 82
+    unfoldFromTop: 1
   closingAnimation:
     enabled: 1
     duration: 0.3
@@ -190012,6 +190076,12 @@ MonoBehaviour:
     cardStagger: 0.035
     cardDuration: 0.32
     cardStartingScale: 0.78
+    cardSlideDistance: 42
+    cardTilt: 5
+    cardUnfoldAngle: 0
+    unfold: 0
+    unfoldAngle: 82
+    unfoldFromTop: 1
   closingAnimation:
     enabled: 1
     duration: 0.3

@@ -278,7 +278,7 @@ namespace CatBlockPuzzle.Tests
             Assert.That(Field("loadedLevel"),Is.SameAs(loaded),"Restart rebuilt the current level prefab");
             Invoke(system,"GoHome");float remaining=(float)Field("levelRemainingSeconds");yield return new WaitForSecondsRealtime(.2f);
             Assert.That(Field("timerRunning"),Is.EqualTo(false));Assert.That((float)Field("levelRemainingSeconds"),Is.EqualTo(remaining));
-            Invoke(navigation,"ShowLevels");yield return null;CaptureAssignedCamera(canvas,"ReferenceUI_LevelSelection.png");
+            Invoke(navigation,"ShowLevels");yield return new WaitForSecondsRealtime(1.2f);CaptureAssignedCamera(canvas,"ReferenceUI_LevelSelection.png");
         }
 
         [UnityTest]

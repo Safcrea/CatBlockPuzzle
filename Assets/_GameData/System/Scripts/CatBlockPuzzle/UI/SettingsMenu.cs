@@ -21,6 +21,21 @@ namespace CatBlockPuzzle
         [SerializeField] private Text musicStateText;
         [SerializeField] private Text sfxStateText;
         [SerializeField] private Text hapticsStateText;
+        [Header("Opening Animation")]
+        [Tooltip("Optional. What pops in, in order - assign the whole rows to carry their labels along. " +
+                 "Left empty, only the toggle buttons animate.")]
+        [SerializeField] private Transform[] animatedItems;
+        [SerializeField] private MenuTransition.EntranceSettings openingAnimation = new MenuTransition.EntranceSettings
+        {
+            duration = .34f,
+            slideDistance = 30f,
+            cardDelay = .06f,
+            cardStagger = .08f,
+            cardDuration = .3f,
+            cardStartingScale = .7f,
+            cardSlideDistance = 48f,
+            overshoot = 2f
+        };
         private bool returnToPause;
 
         public static bool HapticsEnabled => PlayerPrefs.GetInt(HapticsEnabledKey, 1) != 0;
@@ -34,7 +49,10 @@ namespace CatBlockPuzzle
         {
             if (root == null) return;
             returnToPause = openedFromPause;
-            MenuTransition.Show(root);
+            // Order here is the order the toggles pop in.
+            MenuTransition.Show(root, true, openingAnimation, animatedItems != null && animatedItems.Length > 0
+                ? MenuTransition.Cards(animatedItems)
+                : MenuTransition.Cards(musicButton, sfxButton, hapticsButton, closeButton));
             RefreshVisuals();
         }
 

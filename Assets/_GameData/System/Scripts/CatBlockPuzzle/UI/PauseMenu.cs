@@ -18,6 +18,20 @@ namespace CatBlockPuzzle
         [SerializeField] private Text levelText;
         [SerializeField] private Text starsText;
         [SerializeField] private Text coinsText;
+        [Header("Opening Animation")]
+        [Tooltip("Optional. What pops in, in order. Left empty, the buttons themselves animate.")]
+        [SerializeField] private Transform[] animatedItems;
+        [SerializeField] private MenuTransition.EntranceSettings openingAnimation = new MenuTransition.EntranceSettings
+        {
+            duration = .34f,
+            slideDistance = 30f,
+            cardDelay = .06f,
+            cardStagger = .07f,
+            cardDuration = .3f,
+            cardStartingScale = .7f,
+            cardSlideDistance = 48f,
+            overshoot = 2f
+        };
 
         public bool IsConfigured => root != null;
         public bool IsOpen => root != null && root.activeInHierarchy;
@@ -31,7 +45,10 @@ namespace CatBlockPuzzle
             if (levelText != null) levelText.text = "Level " + Mathf.Max(1, levelNumber);
             if (starsText != null) starsText.text = new string('★', Mathf.Clamp(stars, 0, 3)) + new string('☆', 3 - Mathf.Clamp(stars, 0, 3));
             if (coinsText != null) coinsText.text = Mathf.Max(0, coins).ToString();
-            MenuTransition.Show(root);
+            // Order here is the order the buttons pop in.
+            MenuTransition.Show(root, true, openingAnimation, animatedItems != null && animatedItems.Length > 0
+                ? MenuTransition.Cards(animatedItems)
+                : MenuTransition.Cards(resumeButton, restartButton, settingsButton, homeButton, closeButton));
         }
 
         public void Hide() => MenuTransition.Hide(root, null, false);

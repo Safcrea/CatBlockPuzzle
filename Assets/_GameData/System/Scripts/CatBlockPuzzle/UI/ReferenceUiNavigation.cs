@@ -26,6 +26,7 @@ namespace CatBlockPuzzle
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button[] auxiliaryBackButtons;
         private ComingSoonPopup comingSoonInstance;
+        private LevelSelectionScreen levelSelection;
         [Header("Startup Daily Reward")]
         [SerializeField] private bool showDailyRewardOnStartup = true;
         [SerializeField, Min(0f)] private float startupRewardDelay = 0.25f;
@@ -83,7 +84,21 @@ namespace CatBlockPuzzle
             dailyReward.Show();
             if (dailyReward.IsOpen) dailyRewardShownThisSession = true;
         }
-        public void ShowLevels() => ShowPage(levelSelectionScreen);
+        public void ShowLevels()
+        {
+            LevelSelectionScreen levels = ResolveLevelSelection();
+            if (levels == null) { ShowPage(levelSelectionScreen); return; }
+            HidePages();
+            levels.Show();
+        }
+
+        /// <summary>The page root carries the screen component; kept optional so an older scene still works.</summary>
+        private LevelSelectionScreen ResolveLevelSelection()
+        {
+            if (levelSelection == null && levelSelectionScreen != null)
+                levelSelection = levelSelectionScreen.GetComponent<LevelSelectionScreen>();
+            return levelSelection;
+        }
         public void ShowGameplay() => ShowPage(gameplayScreen);
         public void ShowCollection()
         {
@@ -136,7 +151,9 @@ namespace CatBlockPuzzle
             home?.Hide();
             shop?.Hide();
             dailyReward?.Hide();
-            if (levelSelectionScreen != null) levelSelectionScreen.SetActive(false);
+            LevelSelectionScreen levels = ResolveLevelSelection();
+            if (levels != null) levels.Hide();
+            else if (levelSelectionScreen != null) levelSelectionScreen.SetActive(false);
             if (gameplayScreen != null) gameplayScreen.SetActive(false);
             if (collectionScreen != null) collectionScreen.SetActive(false);
             if (roomsScreen != null) roomsScreen.SetActive(false);
