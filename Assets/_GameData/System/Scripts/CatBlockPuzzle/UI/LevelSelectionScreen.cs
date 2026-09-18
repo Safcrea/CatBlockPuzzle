@@ -32,6 +32,9 @@ namespace CatBlockPuzzle
         [SerializeField] private RectTransform chapterBoard;
         [Tooltip("On: each chapter panel swings open in turn. Off: the screen just springs in.")]
         [SerializeField] private bool unfoldChapters = true;
+        [Tooltip("Only the chapters near the top of the scroll view are on screen; unfolding the rest just " +
+                 "holds the screen non-interactable for longer.")]
+        [SerializeField, Min(1)] private int unfoldingChapterLimit = 4;
         [SerializeField] private MenuTransition.EntranceSettings openingAnimation = new MenuTransition.EntranceSettings
         {
             duration = .4f,
@@ -39,9 +42,9 @@ namespace CatBlockPuzzle
             slideDistance = 26f,
             overshoot = 1.5f,
             // Chapters begin swinging open while the board is still settling.
-            cardDelay = .16f,
-            cardStagger = .11f,
-            cardDuration = .46f,
+            cardDelay = .14f,
+            cardStagger = .09f,
+            cardDuration = .4f,
             cardStartingScale = .84f,
             cardSlideDistance = 34f,
             cardTilt = 0f,
@@ -89,7 +92,10 @@ namespace CatBlockPuzzle
             RectTransform content = ResolveChapterContent();
             // The tiles themselves are never cards: a hundred of them would stagger for several seconds.
             if (unfoldChapters && content != null)
-                for (int i = 0; i < content.childCount; i++) parts.Add(content.GetChild(i));
+            {
+                int count = Mathf.Min(content.childCount, Mathf.Max(1, unfoldingChapterLimit));
+                for (int i = 0; i < count; i++) parts.Add(content.GetChild(i));
+            }
             if (playButton != null) parts.Add(playButton);
             cards = MenuTransition.Cards(parts.ToArray());
             return cards;
