@@ -319,6 +319,7 @@ namespace CatBlockPuzzle
             RegisterValidPlacement(state, countForCombo);
             TutorialPiecePlaced(state);
             CheckWin();
+            TryShowMovePieceTip(state);
         }
 
         private void RestoreInvalidDrop(DragState endedDrag)
@@ -352,7 +353,6 @@ namespace CatBlockPuzzle
             state.Col = -1;
             PlayShelfReturnFeedback();
             StartCoroutine(AnimateToTray(state));
-            TutorialPieceReturned(state);
         }
 
         private IEnumerator AnimateToBoard(PieceState state, int row, int col)

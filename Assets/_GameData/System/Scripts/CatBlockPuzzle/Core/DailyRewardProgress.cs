@@ -12,12 +12,24 @@ namespace CatBlockPuzzle
         public int lastClaimDay;
         public int freezeCount;
         public int hintCount;
+        // True only for a save created on a brand-new install. Cleared the next time the
+        // app process is launched, so a new player's very first session never offers a
+        // reward and the count-up only starts from their second session onward.
+        public bool firstSessionPending;
     }
 
     internal static class DailyRewardProgress
     {
         private const string SaveKey = "CatBlockPuzzle.DailyReward.State.v1";
         private const string DateFormat = "yyyy-MM-dd";
+        // Latched true once per real app/Editor-Play process launch, then consumed the first
+        // time it is checked. Existing saves (including every save PlayMode tests seed) are
+        // never marked firstSessionPending, so this flag only ever matters for a fresh install.
+        private static bool isNewProcessLaunch;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void MarkProcessLaunch() => isNewProcessLaunch = true;
+
         // The Home badge reminds players to claim, even after viewing and dismissing the screen.
         internal static bool HasUnreadReward(DailyRewardConfig config, DateTime utcNow) =>
             GetAvailableDay(config, utcNow) > 0;
@@ -72,6 +84,15 @@ namespace CatBlockPuzzle
         {
             if (config == null || config.DayCount == 0) return 0;
             DailyRewardSave save = Load();
+            if (save.firstSessionPending)
+            {
+                if (!isNewProcessLaunch) return 0;
+                // A later process launch found the flag still set: this is the player's
+                // second (or later) session, so let the counter start from here.
+                isNewProcessLaunch = false;
+                save.firstSessionPending = false;
+                Save(save);
+            }
             if (!DateTime.TryParseExact(save.lastClaimUtcDate, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime last)) return 1;
             int elapsed = (utcNow.Date - last.Date).Days;
             if (elapsed <= 0) return 0;
@@ -98,7 +119,9 @@ namespace CatBlockPuzzle
         {
             if (!PlayerPrefs.HasKey(SaveKey))
             {
-                var startingSave = new DailyRewardSave { hintCount = 5, freezeCount = 5 };
+                var startingSave = new DailyRewardSave { hintCount = 5, freezeCount = 5, firstSessionPending = true };
+                // This process is the one creating the save, so it never counts as "a later launch".
+                isNewProcessLaunch = false;
                 Save(startingSave);
                 return startingSave;
             }

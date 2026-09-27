@@ -261,9 +261,10 @@ namespace CatBlockPuzzle
 
         private IEnumerator WinSequence()
         {
+            // The piece that completed the board already turned happy in RegisterValidPlacement,
+            // and stays that way while input is locked; other pieces keep their own mood.
             for (int i = 0; i < pieces.Count; i++)
             {
-                SetCatMood(pieces[i], CatMood.Happy);
                 StartCoroutine(PopTransform(pieces[i].Rect, 1.08f));
             }
 
@@ -346,6 +347,7 @@ namespace CatBlockPuzzle
 
         private void StopHint()
         {
+            StopMovePieceTip();
             if (hintRoutine != null)
             {
                 StopCoroutine(hintRoutine);

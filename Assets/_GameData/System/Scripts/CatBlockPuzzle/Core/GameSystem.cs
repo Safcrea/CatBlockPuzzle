@@ -146,6 +146,7 @@ namespace CatBlockPuzzle
             }
 
             Instance = this;
+            Application.targetFrameRate = 60;
             if (home == null) home = GetComponent<HomeController>();
             SoundManager.EnsureInstance();
         }

@@ -214,15 +214,6 @@ namespace CatBlockPuzzle
                 {
                     cellView.Image.color = Color.Lerp(TargetColor, valid ? ValidColor : InvalidColor, 0.42f);
                     cellView.Rect.localScale = Vector3.one * (valid ? 1.045f : 1.03f);
-                    if (cellView.Preview != null)
-                    {
-                        cellView.Preview.sprite = CatPortrait(valid ? CatMood.Happy : CatMood.Worried, state.AtlasIndex);
-                        cellView.Preview.color = valid
-                            ? new Color(1f, 1f, 1f, 0.58f)
-                            : new Color(1f, 0.62f, 0.62f, 0.72f);
-                        cellView.Preview.gameObject.SetActive(cellView.Preview.sprite != null);
-                    }
-
                     previewCells.Add(cellView);
                 }
             }

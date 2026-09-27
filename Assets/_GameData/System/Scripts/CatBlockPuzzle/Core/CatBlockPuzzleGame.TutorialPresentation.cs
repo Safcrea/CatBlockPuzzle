@@ -8,6 +8,7 @@ namespace CatBlockPuzzle
         private Vector2 tutorialCelebrationPosition;
         private Image tutorialCoachCat;
         private readonly System.Collections.Generic.List<Image> tutorialCoachGrid = new System.Collections.Generic.List<Image>();
+        private const int TutorialProgressStepCount = 2;
 
         private void CreateTutorialCoach()
         {
@@ -42,84 +43,42 @@ namespace CatBlockPuzzle
                     new Vector2(33f + (i % 2) * 23f, 20f - (i / 2) * 23f), new Vector2(19f, 19f)));
             TutorialImage(tutorialCoachPictures, "Happy Home", pawSprite, GoldColor,
                 new Vector2(110f, 8f), new Vector2(46f, 46f));
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < TutorialProgressStepCount; i++)
                 tutorialProgressDots.Add(TutorialImage(tutorialCoach, "Learning Progress", circleSprite, TargetColor,
-                    new Vector2((i - 3) * 32f, -35f), new Vector2(12f, 12f)));
+                    new Vector2((i - (TutorialProgressStepCount - 1) * .5f) * 32f, -35f), new Vector2(12f, 12f)));
         }
 
-        private int TutorialProgressIndex()
-        {
-            switch (tutorialStep)
-            {
-                case TutorialStep.GoalDemo: return 0;
-                case TutorialStep.FitDemo: return 1;
-                case TutorialStep.EdgeDemo: return 2;
-                case TutorialStep.PlaceFirst: return 3;
-                case TutorialStep.ReturnFirst:
-                case TutorialStep.ReplaceFirst: return 4;
-                case TutorialStep.OverlapDemo: return 5;
-                default: return 6;
-            }
-        }
+        private int TutorialProgressIndex() => tutorialStep == TutorialStep.PlaceFirst ? 0 : 1;
 
         private void SetTutorialContext()
         {
             if (tutorialCoachTitle == null) return;
             string title;
             string detail;
-            switch (tutorialStep)
+            if (tutorialStep == TutorialStep.PlaceFirst)
             {
-                case TutorialStep.GoalDemo:
-                    title = "Give every cat a home";
-                    detail = "Fill every grey space. Your timer is paused while we practise.";
-                    break;
-                case TutorialStep.FitDemo:
-                    title = "Watch a purrfect fit";
-                    detail = "Pick up the whole group, slide to its home, then let go.";
-                    break;
-                case TutorialStep.EdgeDemo:
-                    title = "Keep the whole group inside";
-                    detail = "Every cat needs a grey space. Outside the shape? It bounces back.";
-                    break;
-                case TutorialStep.ReturnFirst:
-                    title = "You can change your mind";
-                    detail = "Pick up the placed group and drag it back to the shelf.";
-                    break;
-                case TutorialStep.ReplaceFirst:
-                    title = "Try that fit again";
-                    detail = "Drag the group back into its glowing home. No penalty for practising!";
-                    break;
-                case TutorialStep.OverlapDemo:
-                    title = "One cat per space";
-                    detail = "Groups cannot overlap. Red means this spot is already taken.";
-                    break;
-                case TutorialStep.FillBoard:
-                    title = "Finish their cosy home";
-                    detail = "Fit the remaining group into the empty spaces to complete the level.";
-                    break;
-                default:
-                    title = "Your turn!";
-                    detail = "Pick up the glowing group and follow the paw trail.";
-                    break;
+                title = "Give this cat a home";
+                detail = "Pick up the glowing group and drag it into its matching space.";
+            }
+            else
+            {
+                title = "Now the second one";
+                detail = "Pick up this glowing group and drag it into its matching space.";
             }
             if (tutorialCelebrationRemaining > 0f)
             { title = "Purrfect!"; detail = "That's it! You're ready for the next move."; }
             else if (drag != null && drag.Piece == tutorialPiece)
             {
-                title = drag.ReturnToShelf ? "Let go to return it" : drag.Valid ? "Green means it fits!" : "Keep sliding";
-                detail = drag.ReturnToShelf ? "The shelf is glowing. Release to put this group back." : drag.Valid
-                    ? "Release now and the whole group will snap into place." : tutorialStep == TutorialStep.ReturnFirst
-                    ? "Bring the group down to the shelf. You can always try again." : "Follow the glowing spaces. Red spots won't accept the group.";
+                title = drag.Valid ? "Green means it fits!" : "Keep sliding";
+                detail = drag.Valid ? "Release now and the whole group will snap into place." : "Follow the glowing spaces. Red spots won't accept the group.";
             }
             tutorialCoachTitle.text = title;
             tutorialCoachBody.text = detail;
             tutorialCoachTitle.gameObject.SetActive(showTutorialCaptions);
             tutorialCoachBody.gameObject.SetActive(showTutorialCaptions);
             tutorialCoachPictures.gameObject.SetActive(!showTutorialCaptions);
-            tutorialCoachPictures.localScale = new Vector3(tutorialStep == TutorialStep.ReturnFirst ? -1f : 1f, 1f, 1f);
-            bool caution = tutorialStep == TutorialStep.EdgeDemo || tutorialStep == TutorialStep.OverlapDemo;
-            tutorialCoachCat.sprite = CatPortrait(caution ? CatMood.Worried : CatMood.Happy, tutorialPiece.AtlasIndex);
-            foreach (var space in tutorialCoachGrid) space.color = caution ? InvalidColor : ValidColor;
+            tutorialCoachCat.sprite = CatPortrait(CatMood.Happy, tutorialPiece.AtlasIndex);
+            foreach (var space in tutorialCoachGrid) space.color = ValidColor;
             int progress = TutorialProgressIndex();
             for (int i = 0; i < tutorialProgressDots.Count; i++)
             {

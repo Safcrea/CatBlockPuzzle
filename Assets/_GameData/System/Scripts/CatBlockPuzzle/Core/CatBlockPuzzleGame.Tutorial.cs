@@ -12,12 +12,12 @@ namespace CatBlockPuzzle
         [SerializeField] private bool enableLevelOneTutorial = true;
         [Tooltip("Add short contextual captions alongside the visual demonstrations.")]
         [SerializeField] private bool showTutorialCaptions;
-        private enum TutorialStep { Off, GoalDemo, FitDemo, EdgeDemo, PlaceFirst, ReturnFirst, ReplaceFirst, OverlapDemo, FillBoard }
+        // Kept intentionally short: place the first cat for real, then the second, then
+        // hand the rest of the level back to the player.
+        private enum TutorialStep { Off, PlaceFirst, PlaceSecond }
         private TutorialStep tutorialStep;
         private RectTransform tutorialRoot;
-        private RectTransform tutorialGhost;
         private RectTransform tutorialHand;
-        private RectTransform tutorialMark;
         private RectTransform tutorialCheck;
         private RectTransform tutorialCoach;
         private RectTransform tutorialCoachPictures;
@@ -29,11 +29,10 @@ namespace CatBlockPuzzle
         private Button tutorialSkipButton;
         private readonly List<Image> tutorialTargets = new List<Image>();
         private readonly List<Image> tutorialDots = new List<Image>();
-        private readonly List<Image> tutorialGhostCats = new List<Image>();
         private PieceState tutorialPiece;
         private float tutorialElapsed;
         private float tutorialCelebrationRemaining;
-        private bool tutorialDemoFeedbackPlayed;
+        private bool tutorialPendingFinish;
         public bool IsLevelOneTutorialOpen => tutorialStep != TutorialStep.Off;
         public bool LevelOneTutorialEnabled => enableLevelOneTutorial;
 
@@ -97,12 +96,6 @@ namespace CatBlockPuzzle
                 new Vector2(0f, -13f), new Vector2(15f, 49f));
             TutorialImage(tutorialHand, "Thumb", roundedBoxSprite, PanelColor,
                 new Vector2(37f, -30f), new Vector2(17f, 35f));
-            tutorialMark = RuntimeUiFactory.CreateRect(tutorialRoot, "Invalid Cross");
-            TutorialImage(tutorialMark, "Badge", circleSprite, PanelColor, Vector2.zero, new Vector2(74f, 74f));
-            var a = TutorialImage(tutorialMark, "Cross A", roundedBoxSprite, InvalidColor, Vector2.zero, new Vector2(44f, 10f));
-            var b = TutorialImage(tutorialMark, "Cross B", roundedBoxSprite, InvalidColor, Vector2.zero, new Vector2(44f, 10f));
-            a.rectTransform.localEulerAngles = new Vector3(0, 0, 45);
-            b.rectTransform.localEulerAngles = new Vector3(0, 0, -45);
             tutorialCheck = RuntimeUiFactory.CreateRect(tutorialRoot, "Successful Fit Check");
             TutorialImage(tutorialCheck, "Badge", circleSprite, PanelColor, Vector2.zero, new Vector2(78f, 78f));
             var checkA = TutorialImage(tutorialCheck, "Check Short", roundedBoxSprite, TargetDeepColor, new Vector2(-12f, -5f), new Vector2(27f, 11f));
@@ -110,7 +103,7 @@ namespace CatBlockPuzzle
             checkA.rectTransform.localEulerAngles = new Vector3(0, 0, -45);
             checkB.rectTransform.localEulerAngles = new Vector3(0, 0, 45);
             CreateTutorialCoach();
-            SetTutorialStep(TutorialStep.GoalDemo, pieces[0]);
+            SetTutorialStep(TutorialStep.PlaceFirst, pieces[0]);
             tutorialSkipButton = RuntimeUiFactory.CreateButton(tutorialRoot, "Skip Tutorial", "Skip tutorial",
                 Vector2.zero, new Vector2(180f, 58f), PanelColor);
             var skipImage = (Image)tutorialSkipButton.targetGraphic;
@@ -141,93 +134,65 @@ namespace CatBlockPuzzle
             tutorialStep = step;
             tutorialPiece = piece;
             tutorialElapsed = 0f;
-            tutorialDemoFeedbackPlayed = false;
-            if (tutorialGhost != null) { tutorialGhost.gameObject.SetActive(false); Destroy(tutorialGhost.gameObject); }
             foreach (var image in tutorialTargets) { image.gameObject.SetActive(false); Destroy(image.gameObject); }
             tutorialTargets.Clear();
             tutorialTargetCoordinates.Clear();
-            tutorialGhostCats.Clear();
-            tutorialGhost = RuntimeUiFactory.CreateRect(tutorialRoot, "Demonstration Cat Group");
             foreach (var cell in piece.Definition.Cells)
+                tutorialTargetCoordinates.Add(new Vector2Int(piece.Definition.SolutionRow + cell.Row, piece.Definition.SolutionCol + cell.Col));
+            foreach (var coordinate in tutorialTargetCoordinates)
             {
-                Vector2 position = new Vector2(cell.Col * (boardCellWidth + BoardGap), -cell.Row * (boardCellHeight + BoardGap));
-                var image = TutorialImage(tutorialGhost, "Ghost Cat", CatPortrait(CatMood.Neutral, piece.AtlasIndex),
-                    new Color(1f, 1f, 1f, .62f), position, new Vector2(boardCellWidth, boardCellHeight));
-                image.preserveAspect = true;
-                tutorialGhostCats.Add(image);
-            }
-            if (step == TutorialStep.ReturnFirst)
-            {
-                tutorialTargets.Add(TutorialImage(tutorialRoot, "Shelf Target", roundedBoxSprite,
-                    new Color(ValidColor.r, ValidColor.g, ValidColor.b, .22f)));
-            }
-            else
-            {
-                if (step == TutorialStep.GoalDemo)
-                    foreach (var coordinate in activeLevel.ActiveCells) tutorialTargetCoordinates.Add(coordinate);
-                else foreach (var cell in piece.Definition.Cells)
-                    tutorialTargetCoordinates.Add(new Vector2Int(piece.Definition.SolutionRow + cell.Row, piece.Definition.SolutionCol + cell.Col));
-                foreach (var coordinate in tutorialTargetCoordinates)
-                {
-                    var image = TutorialImage(tutorialRoot, "Placement Target", roundedBoxSprite,
-                        new Color(ValidColor.r, ValidColor.g, ValidColor.b, .25f), Vector2.zero,
-                        new Vector2(boardCellWidth - 8f, boardCellHeight - 8f));
-                    var outline = image.gameObject.AddComponent<Outline>();
-                    outline.effectColor = ValidColor;
-                    outline.effectDistance = new Vector2(4f, -4f);
-                    if (step == TutorialStep.GoalDemo)
-                    {
-                        foreach (var goalPiece in pieces)
-                            foreach (var cell in goalPiece.Definition.Cells)
-                                if (coordinate == new Vector2Int(goalPiece.Definition.SolutionRow + cell.Row, goalPiece.Definition.SolutionCol + cell.Col))
-                                {
-                                    image.sprite = CatPortrait(CatMood.Happy, goalPiece.AtlasIndex);
-                                    image.preserveAspect = true;
-                                }
-                    }
-                    tutorialTargets.Add(image);
-                }
+                var image = TutorialImage(tutorialRoot, "Placement Target", roundedBoxSprite,
+                    new Color(ValidColor.r, ValidColor.g, ValidColor.b, .25f), Vector2.zero,
+                    new Vector2(boardCellWidth - 8f, boardCellHeight - 8f));
+                var outline = image.gameObject.AddComponent<Outline>();
+                outline.effectColor = ValidColor;
+                outline.effectDistance = new Vector2(4f, -4f);
+                tutorialTargets.Add(image);
             }
             SetTutorialContext();
             if (tutorialCoach != null && !reducedMotion) StartCoroutine(PopTransform(tutorialCoach, 1.045f));
         }
 
-        private bool TutorialIsDemo => tutorialStep == TutorialStep.GoalDemo || tutorialStep == TutorialStep.FitDemo ||
-            tutorialStep == TutorialStep.EdgeDemo || tutorialStep == TutorialStep.OverlapDemo;
         private bool TutorialAllowsPickup(PieceState piece) => !IsLevelOneTutorialOpen ||
-            (!TutorialIsDemo && tutorialCelebrationRemaining <= 0f && piece == tutorialPiece);
-        private bool TutorialAllowsShelfReturn(PieceState piece) => !IsLevelOneTutorialOpen ||
-            (tutorialStep == TutorialStep.ReturnFirst && piece == tutorialPiece);
+            (tutorialCelebrationRemaining <= 0f && piece == tutorialPiece);
+        // Undo/relocate is taught contextually after this level via TryShowMovePieceTip, not in this walkthrough.
+        private bool TutorialAllowsShelfReturn(PieceState piece) => !IsLevelOneTutorialOpen;
         private bool TutorialAllowsPlacement(PieceState piece, int row, int col) => !IsLevelOneTutorialOpen ||
-            (!TutorialIsDemo && tutorialStep != TutorialStep.ReturnFirst && piece == tutorialPiece &&
-             row == piece.Definition.SolutionRow && col == piece.Definition.SolutionCol);
+            (piece == tutorialPiece && row == piece.Definition.SolutionRow && col == piece.Definition.SolutionCol);
 
         private void TutorialPiecePlaced(PieceState piece)
         {
             if (!IsLevelOneTutorialOpen || piece != tutorialPiece) return;
             CelebrateTutorialAction(piece);
-            if (tutorialStep == TutorialStep.PlaceFirst) SetTutorialStep(TutorialStep.ReturnFirst, piece);
-            else if (tutorialStep == TutorialStep.ReplaceFirst) SetTutorialStep(TutorialStep.OverlapDemo, pieces[1]);
-            else if (tutorialStep == TutorialStep.FillBoard)
-            {
-                foreach (var remaining in pieces)
-                    if (!remaining.Placed) { SetTutorialStep(TutorialStep.FillBoard, remaining); return; }
-                if (!levelNavigationTesting)
-                {
-                    PlayerPrefs.SetInt(LevelOneTutorialSeenKey, 1);
-                    PlayerPrefs.Save();
-                }
-                CancelLevelOneTutorial();
-            }
+            if (tutorialStep == TutorialStep.PlaceFirst) SetTutorialStep(TutorialStep.PlaceSecond, pieces[1]);
+            // If this second placement also completes the board, CheckWin (called right after
+            // this method returns) locks input before UpdateLevelOneTutorial gets another turn,
+            // so the deferred finish below would never run. Finish immediately instead and let
+            // the bigger win celebration take over; otherwise finish once the "Purrfect!" beat
+            // (see UpdateLevelOneTutorial) has played out.
+            else if (WillCompleteLevel()) FinishLevelOneTutorial(resumeTimer: false);
+            else tutorialPendingFinish = true;
         }
 
-        private void TutorialPieceReturned(PieceState piece)
+        private bool WillCompleteLevel()
         {
-            if (tutorialStep == TutorialStep.ReturnFirst && piece == tutorialPiece)
+            if (occupancy.Count != activeLevel.ActiveCells.Count) return false;
+            foreach (var candidate in pieces)
+                if (!candidate.Placed) return false;
+            return true;
+        }
+
+        // Onboarding is done: the rest of the board is finished through ordinary,
+        // unrestricted gameplay.
+        private void FinishLevelOneTutorial(bool resumeTimer = true)
+        {
+            if (!levelNavigationTesting)
             {
-                CelebrateTutorialAction(piece);
-                SetTutorialStep(TutorialStep.ReplaceFirst, piece);
+                PlayerPrefs.SetInt(LevelOneTutorialSeenKey, 1);
+                PlayerPrefs.Save();
             }
+            CancelLevelOneTutorial();
+            if (resumeTimer) StartLevelTimer();
         }
 
         private Vector2 TutorialLocal(Vector3 world) => tutorialRoot.InverseTransformPoint(world);
@@ -305,45 +270,28 @@ namespace CatBlockPuzzle
             if (hidden || inputLocked) return;
             if (tutorialCelebrationRemaining > 0f) tutorialCelebrationRemaining = Mathf.Max(0f, tutorialCelebrationRemaining - Time.unscaledDeltaTime);
             else tutorialElapsed += Time.unscaledDeltaTime;
-            float demoDuration = tutorialStep == TutorialStep.GoalDemo ? 1.8f : tutorialStep == TutorialStep.FitDemo ? 3.3f : 3.6f;
-            if (TutorialIsDemo && tutorialElapsed >= demoDuration)
+            if (tutorialPendingFinish && tutorialCelebrationRemaining <= 0f)
             {
-                SetTutorialStep(tutorialStep == TutorialStep.GoalDemo ? TutorialStep.FitDemo : tutorialStep == TutorialStep.FitDemo
-                    ? TutorialStep.EdgeDemo : tutorialStep == TutorialStep.EdgeDemo ? TutorialStep.PlaceFirst : TutorialStep.FillBoard, tutorialPiece);
+                FinishLevelOneTutorial();
+                return;
             }
             SetTutorialContext();
-            bool demo = TutorialIsDemo;
-            bool goal = tutorialStep == TutorialStep.GoalDemo;
-            bool invalidDemo = tutorialStep == TutorialStep.EdgeDemo || tutorialStep == TutorialStep.OverlapDemo;
-            bool returning = tutorialStep == TutorialStep.ReturnFirst;
             Vector2 startScreen = TutorialPickupScreen(tutorialPiece);
             Vector2 start = TutorialScreenLocal(startScreen);
-            CellGrab grip = TutorialGrip(tutorialPiece, startScreen);
             int destinationRow = tutorialPiece.Definition.SolutionRow;
             int destinationCol = tutorialPiece.Definition.SolutionCol;
-            // Use a cell shared with the already placed group to make the overlap explicit.
-            if (tutorialStep == TutorialStep.OverlapDemo)
-            {
-                var firstCell = pieces[0].Definition.Cells[0];
-                destinationRow = pieces[0].Row + firstCell.Row;
-                destinationCol = pieces[0].Col + firstCell.Col;
-            }
-            else if (tutorialStep == TutorialStep.EdgeDemo)
-                destinationCol = -1;
-            Vector2 destinationScreen = returning ? TutorialPointerForAnchor(startScreen,
-                RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, trayRoot.TransformPoint(trayRoot.rect.center))) :
-                TutorialPointerDestination(tutorialPiece, destinationRow, destinationCol);
+            Vector2 destinationScreen = TutorialPointerDestination(tutorialPiece, destinationRow, destinationCol);
             Vector2 destination = TutorialScreenLocal(destinationScreen);
 
             float wave = reducedMotion ? .5f : .5f + .5f * Mathf.Sin(tutorialElapsed * 4f);
             tutorialHalo.rectTransform.anchoredPosition = start;
             tutorialHalo.rectTransform.sizeDelta = new Vector2(104f, 104f) * (1f + .12f * wave);
             tutorialHalo.color = new Color(GoldColor.r, GoldColor.g, GoldColor.b, .2f + .15f * wave);
-            tutorialHalo.gameObject.SetActive(drag == null && !goal && tutorialCelebrationRemaining <= 0f);
+            tutorialHalo.gameObject.SetActive(drag == null && tutorialCelebrationRemaining <= 0f);
             for (int i = 0; i < tutorialDots.Count; i++)
             {
                 var dot = tutorialDots[i];
-                dot.gameObject.SetActive(drag == null && !goal && tutorialCelebrationRemaining <= 0f);
+                dot.gameObject.SetActive(drag == null && tutorialCelebrationRemaining <= 0f);
                 dot.rectTransform.anchoredPosition = Vector2.Lerp(start, destination, (i + 1f) / (tutorialDots.Count + 1f));
                 float travel = reducedMotion ? .5f : Mathf.Repeat(tutorialElapsed * .8f - i * .1f, 1f);
                 dot.color = new Color(GoldColor.r, GoldColor.g, GoldColor.b, .24f + .65f * travel);
@@ -353,86 +301,28 @@ namespace CatBlockPuzzle
             {
                 var image = tutorialTargets[i];
                 image.gameObject.SetActive(tutorialCelebrationRemaining <= 0f);
-                if (returning)
-                {
-                    image.rectTransform.anchoredPosition = destination;
-                    image.rectTransform.sizeDelta = trayRoot.rect.size;
-                }
-                else
-                {
-                    var coordinate = tutorialTargetCoordinates[i];
-                    if (invalidDemo)
-                    {
-                        var cell = tutorialPiece.Definition.Cells[i];
-                        coordinate = new Vector2Int(destinationRow + cell.Row, destinationCol + cell.Col);
-                    }
-                    image.rectTransform.anchoredPosition = TutorialCell(coordinate.x, coordinate.y);
-                }
-                Color accent = invalidDemo ? InvalidColor : ValidColor;
-                image.color = goal ? new Color(1f, 1f, 1f, .45f + .35f * wave) : new Color(accent.r, accent.g, accent.b, .14f + .18f * wave);
+                var coordinate = tutorialTargetCoordinates[i];
+                image.rectTransform.anchoredPosition = TutorialCell(coordinate.x, coordinate.y);
+                image.color = new Color(ValidColor.r, ValidColor.g, ValidColor.b, .14f + .18f * wave);
                 var outline = image.GetComponent<Outline>();
-                if (outline != null) outline.effectColor = accent;
+                if (outline != null) outline.effectColor = ValidColor;
                 image.rectTransform.localScale = Vector3.one * (reducedMotion ? 1f : 1f + .025f * wave);
             }
             // A pickup pause, a smooth slide, and a release beat make the gesture legible.
-            float cycle = demo ? tutorialElapsed : tutorialElapsed % 3.1f;
+            float cycle = tutorialElapsed % 3.1f;
             float t = Mathf.Clamp01((cycle - .45f) / 1.15f);
             Vector2 pointerScreen = reducedMotion ? destinationScreen : Vector2.Lerp(startScreen, destinationScreen, EaseOutCubic(t));
-            tutorialHand.gameObject.SetActive(drag == null && !goal && tutorialCelebrationRemaining <= 0f);
+            tutorialHand.gameObject.SetActive(drag == null && tutorialCelebrationRemaining <= 0f);
             tutorialHand.anchoredPosition = TutorialScreenLocal(pointerScreen);
             tutorialHand.localScale = Vector3.one * (reducedMotion ? 1f : 1f - .08f * Mathf.Sin(Mathf.Clamp01(cycle / .45f) * Mathf.PI));
-            tutorialGhost.gameObject.SetActive(demo && !goal);
-            if (demo)
-            {
-                // The ghost is presentation only: demonstrations never occupy board cells.
-                float returnT = reducedMotion ? 0f : Mathf.Clamp01((tutorialElapsed - 2.5f) / .7f);
-                float growth = reducedMotion ? 1f : t * (1f - returnT);
-                float width = Mathf.Lerp(tutorialPiece.CellWidth, boardCellWidth, growth);
-                float height = Mathf.Lerp(tutorialPiece.CellHeight, boardCellHeight, growth);
-                float gapX = Mathf.Lerp(tutorialPiece.GapX, BoardGap, growth);
-                float gapY = Mathf.Lerp(tutorialPiece.GapY, BoardGap, growth);
-                Vector2 anchorScreen = AssistedAnchorScreen(pointerScreen, startScreen, TutorialUsesTouch,
-                    TutorialLift() * (reducedMotion ? 1f : Mathf.Clamp01(cycle / .45f)));
-                Vector2 gripOffset = new Vector2(-grip.Col * (width + gapX) + (.5f - grip.OffsetX) * width,
-                    grip.Row * (height + gapY) + (grip.OffsetY - .5f) * height);
-                Vector2 ghostPosition = TutorialScreenLocal(anchorScreen) + gripOffset;
-                tutorialGhost.anchoredPosition = Vector2.Lerp(ghostPosition, start, EaseOutCubic(returnT));
-                tutorialGhost.localScale = Vector3.one;
-                if (invalidDemo && cycle >= 1.6f && cycle < 2.1f && !reducedMotion)
-                    tutorialGhost.anchoredPosition += new Vector2(Mathf.Sin((cycle - 1.6f) * 55f) * 9f * (1f - (cycle - 1.6f) / .5f), 0f);
-                tutorialHand.anchoredPosition = Vector2.Lerp(TutorialScreenLocal(pointerScreen), start, EaseOutCubic(returnT));
-                for (int i = 0; i < tutorialGhostCats.Count; i++)
-                {
-                    var cat = tutorialGhostCats[i];
-                    var cell = tutorialPiece.Definition.Cells[i];
-                    cat.rectTransform.anchoredPosition = new Vector2(cell.Col * (width + gapX), -cell.Row * (height + gapY));
-                    cat.rectTransform.sizeDelta = new Vector2(width, height);
-                    cat.sprite = CatPortrait(cycle >= 1.6f ? invalidDemo ? CatMood.Worried : CatMood.Happy : CatMood.Neutral, tutorialPiece.AtlasIndex);
-                    cat.color = invalidDemo && cycle >= 1.6f ? new Color(1f, .5f, .5f, .85f) : new Color(1f, 1f, 1f, .82f);
-                }
-            }
-            if (demo && !tutorialDemoFeedbackPlayed && cycle >= (goal ? .9f : 1.6f))
-            {
-                tutorialDemoFeedbackPlayed = true;
-                PlaySfx(invalidDemo ? "Wrong" : "Snap");
-                if (invalidDemo) haptics?.PlayWrongMove();
-                else
-                {
-                    haptics?.PlaySnap();
-                    Vector2 screen = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, boardRoot.position);
-                    SpawnSnapRing(screen, GoldColor);
-                    SpawnFixedBurst(screen, reducedMotion ? 2 : 10, GoldColor);
-                }
-            }
-            Vector2 markerPosition = goal ? TutorialLocal(boardRoot.position) : TutorialCell(destinationRow, destinationCol) + new Vector2(0f, 65f);
-            tutorialMark.gameObject.SetActive(invalidDemo && cycle >= 1.6f && cycle < 2.6f);
-            tutorialMark.anchoredPosition = markerPosition;
-            tutorialCheck.gameObject.SetActive(tutorialCelebrationRemaining > 0f || (demo && !invalidDemo && cycle >= (goal ? .9f : 1.6f)));
+
+            Vector2 markerPosition = TutorialCell(destinationRow, destinationCol) + new Vector2(0f, 65f);
+            tutorialCheck.gameObject.SetActive(tutorialCelebrationRemaining > 0f);
             tutorialCheck.anchoredPosition = tutorialCelebrationRemaining > 0f ? tutorialCelebrationPosition : markerPosition;
-            float markerScale = reducedMotion ? 1f : 1f + Mathf.Sin(Mathf.Clamp01((cycle - 1.6f) / .3f) * Mathf.PI) * .22f;
-            tutorialMark.localScale = tutorialCheck.localScale = Vector3.one * markerScale;
+            float celebrationT = 1f - Mathf.Clamp01(tutorialCelebrationRemaining / .7f);
+            float markerScale = reducedMotion ? 1f : 1f + Mathf.Sin(celebrationT * Mathf.PI) * .22f;
+            tutorialCheck.localScale = Vector3.one * markerScale;
             tutorialHand.SetAsLastSibling();
-            tutorialMark.SetAsLastSibling();
             tutorialCheck.SetAsLastSibling();
             tutorialCoach.SetAsLastSibling();
             if (tutorialSkipButton != null) tutorialSkipButton.transform.SetAsLastSibling();
@@ -442,9 +332,9 @@ namespace CatBlockPuzzle
         {
             tutorialStep = TutorialStep.Off;
             tutorialPiece = null;
+            tutorialPendingFinish = false;
             tutorialTargets.Clear();
             tutorialDots.Clear();
-            tutorialGhostCats.Clear();
             tutorialTargetCoordinates.Clear();
             tutorialProgressDots.Clear();
             tutorialCoachGrid.Clear();

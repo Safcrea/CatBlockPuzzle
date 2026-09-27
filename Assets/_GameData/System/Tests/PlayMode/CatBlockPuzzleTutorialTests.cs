@@ -25,24 +25,13 @@ namespace CatBlockPuzzle.Tests
             Call("PlacePiece", piece, row, col, false);
         }
 
-        private void FinishDemo(float seconds)
-        {
-            Game.GetType().GetField("tutorialElapsed", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, seconds);
-            Call("UpdateLevelOneTutorial");
-        }
-
         [UnityTest]
         public IEnumerator GuidedHandDestination_ProducesARealValidPlacement()
         {
             PlayerPrefs.DeleteKey(SeenKey);
             Call("PreviewLevelForTesting", 0);
             yield return new WaitForSecondsRealtime(.85f);
-            FinishDemo(1.81f);
-            Assert.That(Step, Is.EqualTo("FitDemo"));
-            FinishDemo(3.31f);
-            Assert.That(Step, Is.EqualTo("EdgeDemo"));
-            FinishDemo(3.61f);
-            Assert.That(Step, Is.EqualTo("PlaceFirst"));
+            Assert.That(Step, Is.EqualTo("PlaceFirst"), "The shortened tutorial should ask for a real placement immediately.");
             object piece = Pieces[0];
             var definition = Member(piece, "Definition");
             int row = (int)Member(definition, "SolutionRow");
@@ -58,31 +47,30 @@ namespace CatBlockPuzzle.Tests
             Assert.That(Member(piece, "Placed"), Is.EqualTo(true), "Following the animated hand must produce a valid real drop.");
             Assert.That(Member(piece, "Row"), Is.EqualTo(row));
             Assert.That(Member(piece, "Col"), Is.EqualTo(col));
-            Assert.That(Step, Is.EqualTo("ReturnFirst"));
+            Assert.That(Step, Is.EqualTo("PlaceSecond"));
         }
 
         [UnityTest]
-        public IEnumerator OptionalContext_ExplainsGoalAndGhostFitsExactBoardCells()
+        public IEnumerator OptionalContext_ExplainsFirstPlacementAndTargetsMatchBoardCells()
         {
             PlayerPrefs.DeleteKey(SeenKey);
             Game.GetType().GetField("showTutorialCaptions", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, true);
             Call("PreviewLevelForTesting", 0);
             yield return new WaitForSecondsRealtime(.85f);
+            Assert.That(Step, Is.EqualTo("PlaceFirst"));
             var title = (Text)Field("tutorialCoachTitle");
             Assert.That(title.gameObject.activeInHierarchy, Is.True);
-            Assert.That(title.text, Does.Contain("every cat"));
-            Assert.That(((Text)Field("tutorialCoachBody")).text, Does.Contain("timer is paused"));
-            FinishDemo(1.81f);
-            Game.GetType().GetField("tutorialElapsed", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, 1.8f);
-            Call("UpdateLevelOneTutorial");
-            var ghost = (RectTransform)Field("tutorialGhost");
-            var first = ghost.GetChild(0) as RectTransform;
-            Vector2 actual = (Vector2)Call("TutorialLocal", first.TransformPoint(first.rect.center));
-            var definition = Member(Pieces[0], "Definition");
-            Vector2 expected = (Vector2)Call("TutorialCell", (int)Member(definition, "SolutionRow"), (int)Member(definition, "SolutionCol"));
-            Assert.That(Vector2.Distance(actual, expected), Is.LessThan(.1f), "Demonstration cats must align with their logical board cells.");
-            Assert.That((ICollection)Field("occupancy"), Is.Empty, "The successful fit demonstration must remain presentation only.");
-            Assert.That(((RectTransform)Field("tutorialCheck")).gameObject.activeSelf, Is.True);
+            Assert.That(title.text, Does.Contain("cat"));
+            Assert.That(((Text)Field("tutorialCoachBody")).text, Does.Contain("glowing"));
+            var targets = (IList)Field("tutorialTargets");
+            var coordinates = (IList)Field("tutorialTargetCoordinates");
+            Assert.That(targets.Count, Is.GreaterThan(0));
+            var firstTarget = (Image)targets[0];
+            Vector2Int coordinate = (Vector2Int)coordinates[0];
+            Vector2 expected = (Vector2)Call("TutorialCell", coordinate.x, coordinate.y);
+            Assert.That(Vector2.Distance(firstTarget.rectTransform.anchoredPosition, expected), Is.LessThan(.1f),
+                "Placement targets must align with their logical board cells.");
+            Assert.That((ICollection)Field("occupancy"), Is.Empty, "The first step must not move real pieces before the player drags them.");
             CaptureAssignedCamera((Canvas)Game.GetType().GetProperty("PreparedCanvas").GetValue(Game), "level-one-tutorial-context.png");
         }
 
@@ -122,12 +110,12 @@ namespace CatBlockPuzzle.Tests
         }
 
         [UnityTest]
-        public IEnumerator FullTutorial_PracticesPlacementReturnAndOverlapWithoutSpendingTime()
+        public IEnumerator FullTutorial_PracticesTwoRealPlacementsWithoutSpendingTime()
         {
             PlayerPrefs.DeleteKey(SeenKey);
             Call("PreviewLevelForTesting", 0);
             yield return new WaitForSecondsRealtime(.85f);
-            Assert.That(Step, Is.EqualTo("GoalDemo"));
+            Assert.That(Step, Is.EqualTo("PlaceFirst"));
             var root = (RectTransform)Field("tutorialRoot");
             Assert.That(root.GetComponentsInChildren<Text>().Length, Is.EqualTo(1), "Visual-only onboarding should show only the skip label.");
             Assert.That(root.GetComponent<CanvasGroup>().blocksRaycasts, Is.False);
@@ -135,40 +123,19 @@ namespace CatBlockPuzzle.Tests
             Assert.That((ICollection)Field("occupancy"), Is.Empty);
             object first = Pieces[0];
             object second = Pieces[1];
-            Assert.That((bool)Call("TutorialAllowsPickup", first), Is.False, "Demo must not move real pieces.");
-            yield return new WaitForSecondsRealtime(8.9f);
-            Assert.That(Step, Is.EqualTo("PlaceFirst"));
-            Assert.That((float)Field("levelRemainingSeconds"), Is.EqualTo(time).Within(.001f));
-            Assert.That((ICollection)Field("occupancy"), Is.Empty, "Demo modified real occupancy.");
-            Assert.That((bool)Call("TutorialAllowsPickup", second), Is.False);
+            Assert.That((bool)Call("TutorialAllowsPickup", second), Is.False, "Only the active piece can be picked up.");
             CaptureAssignedCamera((Canvas)Game.GetType().GetProperty("PreparedCanvas").GetValue(Game), "level-one-tutorial-placement.png");
             Assert.That((bool)Call("TutorialAllowsPlacement", first, 0, 1), Is.False, "Off-target placements can strand onboarding.");
             Place(first);
-            Assert.That(Step, Is.EqualTo("ReturnFirst"));
-            Assert.That((bool)Call("TutorialAllowsPlacement", first, 0, 0), Is.False);
-            yield return new WaitForSecondsRealtime(.8f);
-
-            var rect = (RectTransform)Member(first, "Rect");
-            var canvas = (Canvas)Game.GetType().GetProperty("PreparedCanvas").GetValue(Game);
-            var pointer = new PointerEventData(EventSystem.current) { pointerId = -1,
-                position = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, rect.position) };
-            Assert.That((bool)Call("BeginPieceDrag", first, pointer), Is.True);
-            var tray = (RectTransform)Field("trayRoot");
-            pointer.position = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, tray.position);
-            Call("DragPiece", first, pointer);
-            Call("EndPieceDrag", first, pointer);
-            yield return new WaitForSecondsRealtime(.8f);
-            Assert.That(Step, Is.EqualTo("ReplaceFirst"));
-            Assert.That((bool)Member(first, "Placed"), Is.False);
-            Assert.That((ICollection)Field("occupancy"), Is.Empty);
-            Place(first);
-            Assert.That(Step, Is.EqualTo("OverlapDemo"));
-            yield return new WaitForSecondsRealtime(4.5f);
-            Assert.That(Step, Is.EqualTo("FillBoard"));
-            Assert.That((bool)Call("CanPlace", second, 0, 0), Is.False, "Overlapping cats must stay invalid.");
-            Assert.That((float)Field("levelRemainingSeconds"), Is.EqualTo(time).Within(.001f));
+            Assert.That(Step, Is.EqualTo("PlaceSecond"));
+            Assert.That((float)Field("levelRemainingSeconds"), Is.EqualTo(time).Within(.001f), "Onboarding must not spend the timer.");
+            Assert.That((bool)Call("TutorialAllowsPickup", second), Is.True, "The second step lets the player pick up the second group for real.");
+            Assert.That((bool)Call("TutorialAllowsPlacement", second, 0, 1), Is.False, "Off-target placements can strand onboarding.");
             Place(second);
-            Assert.That(IsOpen, Is.False);
+            // This level's two pieces fill the whole board, so the second placement also wins:
+            // onboarding must finish immediately rather than linger open under the result screen.
+            Assert.That(IsOpen, Is.False, "Onboarding ends as soon as the second real placement lands.");
+            Assert.That((float)Field("levelRemainingSeconds"), Is.EqualTo(time).Within(.001f), "No time should have been spent while onboarding was open.");
             yield return new WaitForSecondsRealtime(1f);
             Assert.That((bool)Field("inputLocked"), Is.True, "Completion should open normal results.");
             Assert.That(PlayerPrefs.GetInt(SeenKey, 0), Is.Zero, "Developer previews must not change onboarding saves.");
@@ -192,6 +159,31 @@ namespace CatBlockPuzzle.Tests
             Call("PreviewLevelForTesting", 1);
             yield return new WaitForSecondsRealtime(.85f);
             Assert.That(IsOpen, Is.False);
+        }
+
+        [UnityTest]
+        public IEnumerator MisplacedPiece_ShowsMovePieceTipOnce()
+        {
+            PlayerPrefs.DeleteKey(SeenKey);
+            PlayerPrefs.DeleteKey("CatBlockPuzzle.Tutorial.MovePiece.v1");
+            Call("SetLevelOneTutorialEnabled", false);
+            Call("PreviewLevelForTesting", 1);
+            yield return new WaitForSecondsRealtime(.85f);
+            object piece = Pieces[0];
+            object definition = Member(piece, "Definition");
+            int row = (int)Member(definition, "SolutionRow");
+            int col = (int)Member(definition, "SolutionCol");
+            int wrongRow = row + 100;
+            int wrongCol = col + 100;
+            // Force an out-of-solution but structurally valid placement to simulate a "wrong spot" drop.
+            definition.GetType().GetField("SolutionRow").SetValue(definition, wrongRow);
+            definition.GetType().GetField("SolutionCol").SetValue(definition, wrongCol);
+            Call("PlacePiece", piece, row, col, false);
+            Assert.That(Field("movePieceTipBubble"), Is.Not.Null, "First-ever wrong placement should surface the move tip.");
+            Assert.That(PlayerPrefs.GetInt("CatBlockPuzzle.Tutorial.MovePiece.v1", 0), Is.Zero,
+                "Developer previews must not burn the one-time flag.");
+            Call("StopHint");
+            Assert.That(Field("movePieceTipBubble"), Is.Null, "Clearing the hint must also clear the tip bubble.");
         }
     }
 }
