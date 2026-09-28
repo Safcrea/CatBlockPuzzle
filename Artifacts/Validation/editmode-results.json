@@ -1,0 +1,399 @@
+{
+  "success": true,
+  "command": "command test_status",
+  "data": {
+    "command": "test_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 12.42,
+      "summary": {
+        "total": 53,
+        "passed": 50,
+        "failed": 3,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaAssetTests.CatalogResources_AllRoomAndDecorationTexturesExist",
+          "Status": "Passed",
+          "Duration": 0.1467625,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.Catalog_HasExactChapterStoriesAndDecorationEconomy",
+          "Status": "Passed",
+          "Duration": 0.0127317,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.Catalog_IdsAndResourcePathsAreUnique",
+          "Status": "Passed",
+          "Duration": 0.0048378,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.Catalog_MapsEveryLevelToOneTenLevelChapter",
+          "Status": "Passed",
+          "Duration": 0.0079413,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.EveryDecoration_IsAffordableFromItsPrecedingTwoFirstClearRewards",
+          "Status": "Passed",
+          "Duration": 0.0070833,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.FirstClear_IsIdempotentAndUnlocksTheConfiguredMilestone",
+          "Status": "Passed",
+          "Duration": 0.0099027,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.LegacyMigration_FurnishesOnlyStrictlyPriorChaptersAndPreservesCoins",
+          "Status": "Passed",
+          "Duration": 0.0105582,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.Progress_PersistsRoundTripWithCoinsAndStoryFlags",
+          "Status": "Passed",
+          "Duration": 0.0072024,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.PurchaseInstallAndStore_CompleteRoomAndKeepNextChapterUnlocked",
+          "Status": "Passed",
+          "Duration": 0.0102445,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.PurchaseValidation_RejectsLockedUnknownAndUnaffordableItems",
+          "Status": "Passed",
+          "Duration": 0.010288,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.Skipping_PersistsUnlocksWithoutAwardingClearRewards",
+          "Status": "Passed",
+          "Duration": 0.0109151,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatMetaProgressionTests.Validator_RejectsAnUnaffordableDecoration",
+          "Status": "Passed",
+          "Duration": 0.0071882,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPlacementResolverTests.ProfileValidation_ClampsUnsafeEditorValues",
+          "Status": "Passed",
+          "Duration": 0.0007315,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPlacementResolverTests.Resolve_MapsEveryCatToItsCorrespondingAvailableCell",
+          "Status": "Passed",
+          "Duration": 0.0006999,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPlacementResolverTests.Resolve_RejectsGroupWhenAnyCatMissesThreshold",
+          "Status": "Passed",
+          "Duration": 0.0003566,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPlacementResolverTests.Resolve_RejectsOccupiedOrInactiveTargetCell",
+          "Status": "Passed",
+          "Duration": 0.0004402,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPlacementResolverTests.Resolve_SelectsLowestDistanceCandidate",
+          "Status": "Passed",
+          "Duration": 0.0004554,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleBoardLayoutTests.AllHundredLevels_FitInsideBoardWithSquareCellsAndMargins",
+          "Status": "Passed",
+          "Duration": 0.0055822,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzlePreparedSerializationTests.EditorPreview_LoadsOnlyOneTemporaryPrefab",
+          "Status": "Failed",
+          "Duration": 0.3635866,
+          "Message": "System.ArgumentOutOfRangeException : Grid gaps exceed the available space.\r\nParameter name: available",
+          "StackTrace": "  at CatBlockPuzzle.CatPuzzleBoardLayout.Fit (System.Int32 rows, System.Int32 cols, UnityEngine.Vector2 available, System.Single gap) [0x00068] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Scripts\\CatBlockPuzzle\\Gameplay\\CatPuzzleBoardLayout.cs:15 \r\n  at CatBlockPuzzle.CatBlockPuzzleGame.LayoutPreparedLevel () [0x0001d] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Scripts\\CatBlockPuzzle\\Core\\CatBlockPuzzleGame.Prepared.cs:235 \r\n  at CatBlockPuzzle.CatBlockPuzzleGame.PreviewPreparedLevelInEditor (System.Int32 index) [0x000f2] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Scripts\\CatBlockPuzzle\\EditorTools\\CatBlockPuzzleGame.EditorPreparation.cs:239 \r\n  at CatBlockPuzzle.Tests.CatPuzzlePreparedSerializationTests.EditorPreview_LoadsOnlyOneTemporaryPrefab () [0x0003c] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\Editor\\CatPuzzlePreparedSerializationTests.cs:51 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 "
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzlePreparedSerializationTests.SavedScene_ReopensWithAllLevelAssetsAndEventsAssigned",
+          "Status": "Failed",
+          "Duration": 10.3613911,
+          "Message": "  Settings\r\n  Expected: 1\r\n  But was:  0\r\n",
+          "StackTrace": "at CatBlockPuzzle.Tests.CatPuzzlePreparedSerializationTests.SavedScene_ReopensWithAllLevelAssetsAndEventsAssigned () [0x002e4] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\Editor\\CatPuzzlePreparedSerializationTests.cs:106\r\n"
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzlePreparedSerializationTests.SourceValidation_AllowsOldScriptFingerprintButRejectsChangedLevelData",
+          "Status": "Passed",
+          "Duration": 0.3478645,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.CalculateStars_UsesStrictThresholds(60.01f,120.0f,3)",
+          "Status": "Passed",
+          "Duration": 0.0006432,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.CalculateStars_UsesStrictThresholds(60.0f,120.0f,2)",
+          "Status": "Passed",
+          "Duration": 0.000121,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.CalculateStars_UsesStrictThresholds(24.01f,120.0f,2)",
+          "Status": "Passed",
+          "Duration": 0.0001128,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.CalculateStars_UsesStrictThresholds(24.0f,120.0f,1)",
+          "Status": "Passed",
+          "Duration": 0.0001089,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.CalculateStars_UsesStrictThresholds(0.0f,120.0f,1)",
+          "Status": "Passed",
+          "Duration": 0.0001083,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.CalculateStars_UsesStrictThresholds(120.0f,0.0f,1)",
+          "Status": "Passed",
+          "Duration": 0.0001221,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.LevelResult_RetainsBestStars",
+          "Status": "Passed",
+          "Duration": 0.000397,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_DrainsSequentiallyAtScoreThresholds(120.0f,1.0f,1.0f,1.0f)",
+          "Status": "Passed",
+          "Duration": 0.000717,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_DrainsSequentiallyAtScoreThresholds(90.0f,1.0f,1.0f,0.5f)",
+          "Status": "Passed",
+          "Duration": 0.0001298,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_DrainsSequentiallyAtScoreThresholds(60.0f,1.0f,1.0f,0.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001184,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_DrainsSequentiallyAtScoreThresholds(42.0f,1.0f,0.5f,0.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001198,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_DrainsSequentiallyAtScoreThresholds(24.0f,1.0f,0.0f,0.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001167,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_DrainsSequentiallyAtScoreThresholds(12.0f,0.5f,0.0f,0.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001165,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_DrainsSequentiallyAtScoreThresholds(0.0f,0.0f,0.0f,0.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001154,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_HandlesInvalidInput(-1,120.0f,120.0f)",
+          "Status": "Passed",
+          "Duration": 0.0005923,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_HandlesInvalidInput(3,120.0f,120.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001513,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_HandlesInvalidInput(0,120.0f,0.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001113,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleResultCalculatorTests.StarFill_HandlesInvalidInput(2,-10.0f,120.0f)",
+          "Status": "Passed",
+          "Duration": 0.0001131,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleThemeCatalogTests.FirstTwentyFiveLevels_ShowcaseEveryThemeInOrder",
+          "Status": "Passed",
+          "Duration": 0.0005776,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleThemeCatalogTests.HundredLevelSequence_IsSeededBalancedAndChangesEveryFiveLevels",
+          "Status": "Passed",
+          "Duration": 0.0019749,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatPuzzleThemeCatalogTests.Themes_HaveUniqueAtlasPanelsAndNames",
+          "Status": "Passed",
+          "Duration": 0.0005469,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Hint,100,3,250,2,Success,150,5)",
+          "Status": "Passed",
+          "Duration": 0.0011513,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Freeze,150,1,150,0,Success,0,1)",
+          "Status": "Passed",
+          "Duration": 0.0002169,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Hint,100,1,99,0,InsufficientCoins,99,0)",
+          "Status": "Passed",
+          "Duration": 0.0002045,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Freeze,150,1,-1,0,InsufficientCoins,-1,0)",
+          "Status": "Passed",
+          "Duration": 0.0002013,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Hint,0,1,100,0,InvalidOffer,100,0)",
+          "Status": "Passed",
+          "Duration": 0.0002006,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Hint,-10,1,100,0,InvalidOffer,100,0)",
+          "Status": "Passed",
+          "Duration": 0.0002041,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Hint,100,0,100,0,InvalidOffer,100,0)",
+          "Status": "Passed",
+          "Duration": 0.0001995,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(Hint,100,2,100,2147483646,InventoryFull,100,2147483646)",
+          "Status": "Passed",
+          "Duration": 0.0001986,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.Purchase_ChargesOnlyValidAffordablePacks(99,100,1,100,0,InvalidOffer,100,0)",
+          "Status": "Passed",
+          "Duration": 0.0002001,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.PowerUpShopConfigTests.ResourceConfig_HasEditableOffersForBothPowerUps",
+          "Status": "Passed",
+          "Duration": 0.0010733,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.ReferenceGameUiTests.SavedGameScene_UsesAuthoredHudAndContainsAllLevelSlots",
+          "Status": "Failed",
+          "Duration": 0.3331854,
+          "Message": "System.NullReferenceException : Object reference not set to an instance of an object",
+          "StackTrace": "  at CatBlockPuzzle.Tests.ReferenceGameUiTests.SavedGameScene_UsesAuthoredHudAndContainsAllLevelSlots () [0x00287] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\Editor\\ReferenceGameUiTests.cs:40 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 "
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -12,11 +12,14 @@ namespace CatBlockPuzzle
         [SerializeField] private bool enableLevelOneTutorial = true;
         [Tooltip("Add short contextual captions alongside the visual demonstrations.")]
         [SerializeField] private bool showTutorialCaptions;
+        [Tooltip("Optional artwork for the animated tutorial pointer.")]
+        [SerializeField] private Sprite tutorialHandSprite;
         // Kept intentionally short: place the first cat for real, then the second, then
         // hand the rest of the level back to the player.
         private enum TutorialStep { Off, PlaceFirst, PlaceSecond }
         private TutorialStep tutorialStep;
         private RectTransform tutorialRoot;
+        private RectTransform tutorialTargetRoot;
         private RectTransform tutorialHand;
         private RectTransform tutorialCheck;
         private RectTransform tutorialCoach;
@@ -81,21 +84,16 @@ namespace CatBlockPuzzle
             var group = tutorialRoot.gameObject.AddComponent<CanvasGroup>();
             group.blocksRaycasts = false;
             group.interactable = false;
+            // Board cells draw first; landed pieces are appended above these guides.
+            // The separate piece layer also keeps dragged cats above the targets.
+            tutorialTargetRoot = RuntimeUiFactory.CreateRect(boardRoot, "Tutorial Placement Targets");
+            RuntimeUiFactory.Stretch(tutorialTargetRoot);
             tutorialHalo = TutorialImage(tutorialRoot, "Pickup Halo", circleSprite, GoldColor);
             for (int i = 0; i < 9; i++)
                 tutorialDots.Add(TutorialImage(tutorialRoot, "Drag Path", i % 2 == 0 ? pawSprite : circleSprite, GoldColor,
                     Vector2.zero, new Vector2(i % 2 == 0 ? 24f : 14f, i % 2 == 0 ? 24f : 14f)));
             tutorialHand = RuntimeUiFactory.CreateRect(tutorialRoot, "Animated Hand");
-            TutorialImage(tutorialHand, "Palm Outline", roundedBoxSprite, InkColor,
-                new Vector2(15f, -38f), new Vector2(52f, 60f));
-            TutorialImage(tutorialHand, "Palm", roundedBoxSprite, PanelColor,
-                new Vector2(15f, -37f), new Vector2(43f, 51f));
-            TutorialImage(tutorialHand, "Finger Outline", roundedBoxSprite, InkColor,
-                new Vector2(0f, -13f), new Vector2(23f, 57f));
-            TutorialImage(tutorialHand, "Finger", roundedBoxSprite, PanelColor,
-                new Vector2(0f, -13f), new Vector2(15f, 49f));
-            TutorialImage(tutorialHand, "Thumb", roundedBoxSprite, PanelColor,
-                new Vector2(37f, -30f), new Vector2(17f, 35f));
+            CreateTutorialHand();
             tutorialCheck = RuntimeUiFactory.CreateRect(tutorialRoot, "Successful Fit Check");
             TutorialImage(tutorialCheck, "Badge", circleSprite, PanelColor, Vector2.zero, new Vector2(78f, 78f));
             var checkA = TutorialImage(tutorialCheck, "Check Short", roundedBoxSprite, TargetDeepColor, new Vector2(-12f, -5f), new Vector2(27f, 11f));
@@ -115,6 +113,30 @@ namespace CatBlockPuzzle
             skipGroup.blocksRaycasts = true;
             skipGroup.interactable = true;
             tutorialSkipButton.onClick.AddListener(SkipLevelOneTutorial);
+        }
+
+        private void CreateTutorialHand()
+        {
+            if (tutorialHandSprite != null)
+            {
+                var hand = TutorialImage(tutorialHand, "Hand Pointer", tutorialHandSprite, Color.white,
+                    Vector2.zero, new Vector2(100f, 100f));
+                hand.preserveAspect = true;
+                // The fingertip, rather than the artwork's center, follows the drag path.
+                hand.rectTransform.pivot = new Vector2(.14f, .88f);
+                return;
+            }
+
+            TutorialImage(tutorialHand, "Palm Outline", roundedBoxSprite, InkColor,
+                new Vector2(15f, -38f), new Vector2(52f, 60f));
+            TutorialImage(tutorialHand, "Palm", roundedBoxSprite, PanelColor,
+                new Vector2(15f, -37f), new Vector2(43f, 51f));
+            TutorialImage(tutorialHand, "Finger Outline", roundedBoxSprite, InkColor,
+                new Vector2(0f, -13f), new Vector2(23f, 57f));
+            TutorialImage(tutorialHand, "Finger", roundedBoxSprite, PanelColor,
+                new Vector2(0f, -13f), new Vector2(15f, 49f));
+            TutorialImage(tutorialHand, "Thumb", roundedBoxSprite, PanelColor,
+                new Vector2(37f, -30f), new Vector2(17f, 35f));
         }
 
         private Image TutorialImage(Transform parent, string name, Sprite sprite, Color color,
@@ -141,13 +163,14 @@ namespace CatBlockPuzzle
                 tutorialTargetCoordinates.Add(new Vector2Int(piece.Definition.SolutionRow + cell.Row, piece.Definition.SolutionCol + cell.Col));
             foreach (var coordinate in tutorialTargetCoordinates)
             {
-                var image = TutorialImage(tutorialRoot, "Placement Target", roundedBoxSprite,
-                    new Color(ValidColor.r, ValidColor.g, ValidColor.b, .25f), Vector2.zero,
+                var image = TutorialImage(tutorialTargetRoot, "Placement Target", roundedBoxSprite,
+                    new Color(ValidColor.r, ValidColor.g, ValidColor.b, .25f), TutorialTargetCell(coordinate.x, coordinate.y),
                     new Vector2(boardCellWidth - 8f, boardCellHeight - 8f));
                 var outline = image.gameObject.AddComponent<Outline>();
                 outline.effectColor = ValidColor;
                 outline.effectDistance = new Vector2(4f, -4f);
                 tutorialTargets.Add(image);
+                image.gameObject.SetActive(tutorialCelebrationRemaining <= 0f);
             }
             SetTutorialContext();
             if (tutorialCoach != null && !reducedMotion) StartCoroutine(PopTransform(tutorialCoach, 1.045f));
@@ -198,6 +221,8 @@ namespace CatBlockPuzzle
         private Vector2 TutorialLocal(Vector3 world) => tutorialRoot.InverseTransformPoint(world);
         private Vector2 TutorialCell(int row, int col) => TutorialLocal(boardRoot.TransformPoint(
             BoardAnchoredToLocal(CellPosition(row, col))));
+        private Vector2 TutorialTargetCell(int row, int col) => tutorialTargetRoot.InverseTransformPoint(
+            boardRoot.TransformPoint(BoardAnchoredToLocal(CellPosition(row, col))));
 
         private bool TutorialUsesTouch => Application.isMobilePlatform;
 
@@ -259,6 +284,7 @@ namespace CatBlockPuzzle
             bool hidden = IsMetaUiOpen || IsResultScreenOpen || (GameSystem.Instance != null &&
                 (GameSystem.Instance.IsPaused || GameSystem.Instance.IsSettingsOpen || !GameSystem.Instance.IsGameplayOpen));
             tutorialRoot.gameObject.SetActive(!hidden);
+            tutorialTargetRoot.gameObject.SetActive(!hidden);
             if (tutorialSkipButton != null)
             {
                 Vector2 boardBottom = TutorialLocal(boardRoot.TransformPoint(new Vector3(0f, boardRoot.rect.yMin, 0f)));
@@ -302,7 +328,7 @@ namespace CatBlockPuzzle
                 var image = tutorialTargets[i];
                 image.gameObject.SetActive(tutorialCelebrationRemaining <= 0f);
                 var coordinate = tutorialTargetCoordinates[i];
-                image.rectTransform.anchoredPosition = TutorialCell(coordinate.x, coordinate.y);
+                image.rectTransform.anchoredPosition = TutorialTargetCell(coordinate.x, coordinate.y);
                 image.color = new Color(ValidColor.r, ValidColor.g, ValidColor.b, .14f + .18f * wave);
                 var outline = image.GetComponent<Outline>();
                 if (outline != null) outline.effectColor = ValidColor;
@@ -340,7 +366,9 @@ namespace CatBlockPuzzle
             tutorialCoachGrid.Clear();
             tutorialCelebrationRemaining = 0f;
             if (tutorialRoot != null) { tutorialRoot.gameObject.SetActive(false); Destroy(tutorialRoot.gameObject); }
+            if (tutorialTargetRoot != null) { tutorialTargetRoot.gameObject.SetActive(false); Destroy(tutorialTargetRoot.gameObject); }
             tutorialRoot = null;
+            tutorialTargetRoot = null;
             tutorialSkipButton = null;
         }
     }
