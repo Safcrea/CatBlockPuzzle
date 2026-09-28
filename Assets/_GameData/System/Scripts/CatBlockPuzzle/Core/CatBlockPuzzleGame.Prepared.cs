@@ -156,6 +156,7 @@ namespace CatBlockPuzzle
             foreach (var state in old.Pieces)
             {
                 state.SizeRoutine = null;
+                state.SlotMoveRoutine = null;
                 state.Row = -1; state.Col = -1; state.HasGridLayout = false;
                 AttachPieceToTray(state);
                 SetCatMood(state, CatMood.Neutral);

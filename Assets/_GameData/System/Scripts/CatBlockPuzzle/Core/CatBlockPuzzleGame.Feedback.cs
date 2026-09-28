@@ -408,10 +408,10 @@ namespace CatBlockPuzzle
         private void PlayWrongFeedback(PieceState state)
         {
             ShowWorriedMood(state);
-            PlaySfx("Wrong");
+            PlaySfx("InvalidPlacement");
             haptics.PlayWrongMove();
             SpawnFixedBurst(RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, state.Rect.position), 12, InvalidColor);
-            StartCoroutine(ShakeTransform(boardRoot));
+            StartCoroutine(ShakeTransform(state.Rect));
         }
 
         private void PlayShelfReturnFeedback()
@@ -530,22 +530,25 @@ namespace CatBlockPuzzle
 
         private IEnumerator ShakeTransform(RectTransform rect)
         {
-            if (reducedMotion)
+            if (reducedMotion || rect == null)
             {
                 yield break;
             }
 
-            Vector2 start = rect.anchoredPosition;
+            Quaternion startRotation = rect.localRotation;
             float elapsed = 0f;
-            while (elapsed < 0.25f)
+            const float duration = 0.2f;
+            while (elapsed < duration && rect != null)
             {
                 elapsed += Time.unscaledDeltaTime;
-                float falloff = 1f - Mathf.Clamp01(elapsed / 0.25f);
-                rect.anchoredPosition = start + new Vector2(Mathf.Sin(elapsed * 90f) * 16f * falloff, Mathf.Sin(elapsed * 52f) * 4f * falloff);
+                float t = Mathf.Clamp01(elapsed / duration);
+                float falloff = 1f - t;
+                float angle = Mathf.Sin(t * Mathf.PI * 5f) * 4.5f * falloff;
+                rect.localRotation = startRotation * Quaternion.Euler(0f, 0f, angle);
                 yield return null;
             }
 
-            rect.anchoredPosition = start;
+            if (rect != null) rect.localRotation = startRotation;
         }
 
         private void SpawnDragTrail(Vector2 screenPosition, Color color)

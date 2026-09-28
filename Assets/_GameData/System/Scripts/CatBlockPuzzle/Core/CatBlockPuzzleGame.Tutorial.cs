@@ -29,7 +29,6 @@ namespace CatBlockPuzzle
         private readonly List<Image> tutorialProgressDots = new List<Image>();
         private readonly List<Vector2Int> tutorialTargetCoordinates = new List<Vector2Int>();
         private Image tutorialHalo;
-        private Button tutorialSkipButton;
         private readonly List<Image> tutorialTargets = new List<Image>();
         private readonly List<Image> tutorialDots = new List<Image>();
         private PieceState tutorialPiece;
@@ -46,17 +45,6 @@ namespace CatBlockPuzzle
         }
 
         public void DisableLevelOneTutorial() => SetLevelOneTutorialEnabled(false);
-
-        public void SkipLevelOneTutorial()
-        {
-            if (!IsLevelOneTutorialOpen) return;
-            if (!levelNavigationTesting)
-            {
-                PlayerPrefs.SetInt(LevelOneTutorialSeenKey, 1);
-                PlayerPrefs.Save();
-            }
-            EndLevelOneTutorialEarly();
-        }
 
         private void EndLevelOneTutorialEarly()
         {
@@ -102,17 +90,6 @@ namespace CatBlockPuzzle
             checkB.rectTransform.localEulerAngles = new Vector3(0, 0, 45);
             CreateTutorialCoach();
             SetTutorialStep(TutorialStep.PlaceFirst, pieces[0]);
-            tutorialSkipButton = RuntimeUiFactory.CreateButton(tutorialRoot, "Skip Tutorial", "Skip tutorial",
-                Vector2.zero, new Vector2(180f, 58f), PanelColor);
-            var skipImage = (Image)tutorialSkipButton.targetGraphic;
-            skipImage.sprite = roundedBoxSprite;
-            skipImage.type = Image.Type.Sliced;
-            tutorialSkipButton.GetComponentInChildren<Text>().raycastTarget = false;
-            var skipGroup = tutorialSkipButton.gameObject.AddComponent<CanvasGroup>();
-            skipGroup.ignoreParentGroups = true;
-            skipGroup.blocksRaycasts = true;
-            skipGroup.interactable = true;
-            tutorialSkipButton.onClick.AddListener(SkipLevelOneTutorial);
         }
 
         private void CreateTutorialHand()
@@ -285,14 +262,10 @@ namespace CatBlockPuzzle
                 (GameSystem.Instance.IsPaused || GameSystem.Instance.IsSettingsOpen || !GameSystem.Instance.IsGameplayOpen));
             tutorialRoot.gameObject.SetActive(!hidden);
             tutorialTargetRoot.gameObject.SetActive(!hidden);
-            if (tutorialSkipButton != null)
-            {
-                Vector2 boardBottom = TutorialLocal(boardRoot.TransformPoint(new Vector3(0f, boardRoot.rect.yMin, 0f)));
-                Vector2 shelfTop = TutorialLocal(trayRoot.TransformPoint(new Vector3(0f, trayRoot.rect.yMax, 0f)));
-                float gapCenter = (boardBottom.y + shelfTop.y) * .5f;
-                tutorialSkipButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(boardBottom.x + 250f, gapCenter);
-                tutorialCoach.anchoredPosition = new Vector2(boardBottom.x - 110f, gapCenter);
-            }
+            Vector2 boardBottom = TutorialLocal(boardRoot.TransformPoint(new Vector3(0f, boardRoot.rect.yMin, 0f)));
+            Vector2 shelfTop = TutorialLocal(trayRoot.TransformPoint(new Vector3(0f, trayRoot.rect.yMax, 0f)));
+            float gapCenter = (boardBottom.y + shelfTop.y) * .5f;
+            tutorialCoach.anchoredPosition = new Vector2(boardBottom.x - 110f, gapCenter);
             if (hidden || inputLocked) return;
             if (tutorialCelebrationRemaining > 0f) tutorialCelebrationRemaining = Mathf.Max(0f, tutorialCelebrationRemaining - Time.unscaledDeltaTime);
             else tutorialElapsed += Time.unscaledDeltaTime;
@@ -351,7 +324,6 @@ namespace CatBlockPuzzle
             tutorialHand.SetAsLastSibling();
             tutorialCheck.SetAsLastSibling();
             tutorialCoach.SetAsLastSibling();
-            if (tutorialSkipButton != null) tutorialSkipButton.transform.SetAsLastSibling();
         }
 
         private void CancelLevelOneTutorial()
@@ -369,7 +341,6 @@ namespace CatBlockPuzzle
             if (tutorialTargetRoot != null) { tutorialTargetRoot.gameObject.SetActive(false); Destroy(tutorialTargetRoot.gameObject); }
             tutorialRoot = null;
             tutorialTargetRoot = null;
-            tutorialSkipButton = null;
         }
     }
 }

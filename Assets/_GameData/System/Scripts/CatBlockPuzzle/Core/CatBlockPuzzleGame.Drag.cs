@@ -13,6 +13,10 @@ namespace CatBlockPuzzle
 {
     public sealed partial class CatBlockPuzzleGame
     {
+        // Created at runtime on the full gameplay root. The serialized FX reference is also
+        // used by authored power-up artwork, so it is not a safe parent for dragged pieces.
+        private RectTransform dragOverlayLayer;
+
         private bool BeginPieceDrag(PieceState state, PointerEventData eventData)
         {
             if (state == null || eventData == null || inputLocked || levelFailed || IsResultScreenOpen || !TutorialAllowsPickup(state))
@@ -39,6 +43,11 @@ namespace CatBlockPuzzle
             {
                 StopCoroutine(state.SizeRoutine);
                 state.SizeRoutine = null;
+            }
+            if (state.SlotMoveRoutine != null)
+            {
+                StopCoroutine(state.SlotMoveRoutine);
+                state.SlotMoveRoutine = null;
             }
 
             if (state.Placed)
@@ -81,8 +90,7 @@ namespace CatBlockPuzzle
                 LastPointerScreen = eventData.position
             };
 
-            state.Rect.SetParent(pieceLayer, true);
-            state.Rect.SetAsLastSibling();
+            MovePieceToOverlayLayer(state);
             Vector2 startScreen = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, state.Rect.position);
             Vector2 startRoot = ScreenCenterToRootLocal(startScreen);
             SetPieceCenterRoot(state, startRoot);
@@ -365,7 +373,7 @@ namespace CatBlockPuzzle
             SetPieceGrid(state, boardCellWidth, BoardGap, boardCellHeight, BoardGap);
             Vector2 end = BoardPieceCenterInRoot(state, row, col);
             SetPieceGrid(state, startCellWidth, startGapX, startCellHeight, startGapY);
-            state.Rect.SetParent(pieceLayer, false);
+            MovePieceToOverlayLayer(state);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
@@ -386,7 +394,7 @@ namespace CatBlockPuzzle
             float trayCellSize = TrayCellSize(state);
             Vector2 start = ScreenCenterToRootLocal(RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, state.Rect.position));
             Vector2 end = SlotCenterInRoot(state);
-            state.Rect.SetParent(pieceLayer, false);
+            MovePieceToOverlayLayer(state);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
@@ -605,7 +613,7 @@ namespace CatBlockPuzzle
 
         private void SetPieceCenterScreen(PieceState state, Vector2 screen)
         {
-            state.Rect.SetParent(pieceLayer, false);
+            MovePieceToOverlayLayer(state);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
@@ -614,7 +622,7 @@ namespace CatBlockPuzzle
 
         private void SetPieceCenterRoot(PieceState state, Vector2 rootLocal)
         {
-            state.Rect.SetParent(pieceLayer, false);
+            MovePieceToOverlayLayer(state);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
@@ -623,7 +631,7 @@ namespace CatBlockPuzzle
 
         private void SetDraggedPieceTarget(PieceState state, Vector2 rootLocal)
         {
-            state.Rect.SetParent(pieceLayer, false);
+            MovePieceToOverlayLayer(state);
             state.Rect.anchorMin = new Vector2(0.5f, 0.5f);
             state.Rect.anchorMax = new Vector2(0.5f, 0.5f);
             state.Rect.pivot = new Vector2(0.5f, 0.5f);
@@ -636,6 +644,40 @@ namespace CatBlockPuzzle
             {
                 state.Rect.anchoredPosition = rootLocal;
             }
+        }
+
+        // Dragged pieces need a full-screen layer above the authored HUD. Do not use fxLayer
+        // here: some scenes bind that field to a small button-local effect transform.
+        private void MovePieceToOverlayLayer(PieceState state)
+        {
+            if (state?.Rect == null) return;
+            RectTransform overlayLayer = EnsureDragOverlayLayer();
+            if (overlayLayer == null) overlayLayer = pieceLayer;
+            if (overlayLayer == null) return;
+            // Preserve the tray-space world position for the pickup frame. The existing
+            // SmoothDamp follow can then carry the piece to the pointer without a pop.
+            if (state.Rect.parent != overlayLayer) state.Rect.SetParent(overlayLayer, true);
+            state.Rect.SetAsLastSibling();
+        }
+
+        private RectTransform EnsureDragOverlayLayer()
+        {
+            if (dragOverlayLayer != null) return dragOverlayLayer;
+            if (root == null) return null;
+
+            var overlay = new GameObject("Dragged Piece Overlay", typeof(RectTransform), typeof(CanvasGroup));
+            overlay.layer = root.gameObject.layer;
+            dragOverlayLayer = overlay.GetComponent<RectTransform>();
+            dragOverlayLayer.SetParent(root, false);
+            dragOverlayLayer.anchorMin = Vector2.zero;
+            dragOverlayLayer.anchorMax = Vector2.one;
+            dragOverlayLayer.offsetMin = Vector2.zero;
+            dragOverlayLayer.offsetMax = Vector2.zero;
+            var canvasGroup = overlay.GetComponent<CanvasGroup>();
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+            dragOverlayLayer.SetAsLastSibling();
+            return dragOverlayLayer;
         }
 
         private Rect PieceScreenRectFromAnchor(Vector2 anchorScreen, PieceState state, CellGrab grab, float cellWidth, float cellHeight, float gapX, float gapY)

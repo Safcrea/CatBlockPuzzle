@@ -133,6 +133,18 @@ namespace CatBlockPuzzle
             }
 
             float previousScroll = trayScrollRect != null ? trayScrollRect.horizontalNormalizedPosition : 0f;
+            var previousSlotPositions = new Dictionary<PieceState, Vector2>();
+            if (animateCatSizes)
+            {
+                for (int i = 0; i < pieces.Count; i++)
+                {
+                    PieceState state = pieces[i];
+                    if (state?.Slot != null && state.Slot.gameObject.activeSelf)
+                    {
+                        previousSlotPositions[state] = state.Slot.anchoredPosition;
+                    }
+                }
+            }
             ConfigureTrayForPieceCount(VisibleTrayCardCount());
             for (int i = 0; i < pieces.Count; i++)
             {
@@ -177,7 +189,42 @@ namespace CatBlockPuzzle
                 {
                     SetPieceGrid(state, targetCellSize, TrayGap, targetCellSize, TrayGap);
                 }
+
+                if (state.SlotMoveRoutine != null)
+                {
+                    StopCoroutine(state.SlotMoveRoutine);
+                    state.SlotMoveRoutine = null;
+                }
+
+                if (animateCatSizes && previousSlotPositions.TryGetValue(state, out Vector2 startPosition) &&
+                    (!Mathf.Approximately(startPosition.x, state.Slot.anchoredPosition.x) ||
+                     !Mathf.Approximately(startPosition.y, state.Slot.anchoredPosition.y)))
+                {
+                    Vector2 targetPosition = state.Slot.anchoredPosition;
+                    state.Slot.anchoredPosition = startPosition;
+                    state.SlotMoveRoutine = StartCoroutine(AnimateTraySlotPosition(state, startPosition, targetPosition));
+                }
             }
+        }
+
+        private IEnumerator AnimateTraySlotPosition(PieceState state, Vector2 start, Vector2 end)
+        {
+            if (state?.Slot == null) yield break;
+            const float duration = 0.22f;
+            float elapsed = 0f;
+            while (elapsed < duration && state != null && state.Slot != null && state.Slot.gameObject.activeSelf)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = EaseOutCubic(Mathf.Clamp01(elapsed / duration));
+                state.Slot.anchoredPosition = Vector2.Lerp(start, end, t);
+                yield return null;
+            }
+
+            if (state?.Slot != null && state.Slot.gameObject.activeSelf)
+            {
+                state.Slot.anchoredPosition = end;
+            }
+            if (state != null) state.SlotMoveRoutine = null;
         }
 
         private IEnumerator AnimateTrayPieceSize(PieceState state, float targetCellSize)
@@ -621,6 +668,7 @@ namespace CatBlockPuzzle
             public bool RestingLayout;
             public int AtlasIndex;
             public Coroutine SizeRoutine;
+            public Coroutine SlotMoveRoutine;
             public readonly Vector2Int[] PlacementOffsets;
             public readonly Vector2[] GridCenters;
 

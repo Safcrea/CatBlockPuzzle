@@ -125,24 +125,13 @@ namespace CatBlockPuzzle.Tests
         }
 
         [UnityTest]
-        public IEnumerator SkipButton_EndsTutorialAndRemembersDismissalOnNormalAttempts()
+        public IEnumerator Tutorial_HasNoSkipButton()
         {
             PlayerPrefs.DeleteKey(SeenKey);
             Call("StartSelectedLevel", 0);
             yield return new WaitForSecondsRealtime(.85f);
             Assert.That(IsOpen, Is.True);
-            var skip = (Button)Field("tutorialSkipButton");
-            Assert.That(skip.GetComponent<CanvasGroup>().ignoreParentGroups, Is.True);
-            Assert.That(skip.interactable, Is.True);
-            skip.onClick.Invoke();
-            Assert.That(IsOpen, Is.False);
-            Assert.That(Field("inputLocked"), Is.EqualTo(false));
-            Assert.That(Field("timerRunning"), Is.EqualTo(true));
-            Assert.That(Game.GetType().GetProperty("CurrentLevelNumber").GetValue(Game), Is.EqualTo(1));
-            Assert.That(PlayerPrefs.GetInt(SeenKey, 0), Is.EqualTo(1));
-            Call("RestartCurrentLevel");
-            yield return new WaitForSecondsRealtime(.85f);
-            Assert.That(IsOpen, Is.False, "Restarting must not show a tutorial the player skipped.");
+            Assert.That(Game.GetType().GetField("tutorialSkipButton", BindingFlags.Instance | BindingFlags.NonPublic), Is.Null);
         }
 
         [UnityTest]
@@ -224,9 +213,10 @@ namespace CatBlockPuzzle.Tests
             system.GetType().GetMethod("ResumeGame").Invoke(system, null);
             yield return new WaitForSecondsRealtime(.5f);
             Assert.That(targets.gameObject.activeInHierarchy, Is.True);
-            Call("SkipLevelOneTutorial");
+            Call("SetLevelOneTutorialEnabled", false);
             yield return null;
             Assert.That(targets == null, Is.True);
+            Call("SetLevelOneTutorialEnabled", true);
             Call("PreviewLevelForTesting", 0);
             yield return new WaitForSecondsRealtime(.85f);
             Assert.That(IsOpen, Is.True);
