@@ -5134,9 +5134,9 @@ RectTransform:
   - {fileID: 1587117944}
   m_Father: {fileID: 1221868247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 199}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 83, y: -263}
   m_SizeDelta: {x: 171, y: 154}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &55735542
@@ -16026,6 +16026,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 1
+      m_Priority: 0
     - m_Name: Look
       m_Type: 0
       m_ExpectedControlType: Vector2
@@ -16034,6 +16035,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 1
+      m_Priority: 0
     - m_Name: Fire
       m_Type: 1
       m_ExpectedControlType: Button
@@ -16042,6 +16044,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     m_Bindings:
     - m_Name: 
       m_Id: 978bfe49-cc26-4a3d-ab7b-7d7a29327403
@@ -16215,6 +16218,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     - m_Name: Submit
       m_Type: 1
       m_ExpectedControlType: Button
@@ -16223,6 +16227,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     - m_Name: Cancel
       m_Type: 1
       m_ExpectedControlType: Button
@@ -16231,6 +16236,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     - m_Name: Point
       m_Type: 2
       m_ExpectedControlType: Vector2
@@ -16239,6 +16245,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 1
+      m_Priority: 0
     - m_Name: Click
       m_Type: 2
       m_ExpectedControlType: Button
@@ -16247,6 +16254,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 1
+      m_Priority: 0
     - m_Name: ScrollWheel
       m_Type: 2
       m_ExpectedControlType: Vector2
@@ -16255,6 +16263,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     - m_Name: MiddleClick
       m_Type: 2
       m_ExpectedControlType: Button
@@ -16263,6 +16272,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     - m_Name: RightClick
       m_Type: 2
       m_ExpectedControlType: Button
@@ -16271,6 +16281,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     - m_Name: TrackedDevicePosition
       m_Type: 2
       m_ExpectedControlType: Vector3
@@ -16279,6 +16290,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     - m_Name: TrackedDeviceOrientation
       m_Type: 2
       m_ExpectedControlType: Quaternion
@@ -16287,6 +16299,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+      m_Priority: 0
     m_Bindings:
     - m_Name: Gamepad
       m_Id: 809f371f-c5e2-4e7a-83a1-d867598f40dd
@@ -16711,7 +16724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &173603489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39480,14 +39493,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -57744,9 +57757,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1221868247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -29}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -192, y: -263.99994}
   m_SizeDelta: {x: 165, y: 148}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &647702646
@@ -105994,7 +106007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -305.7211}
+  m_AnchoredPosition: {x: 0, y: -151}
   m_SizeDelta: {x: 0, y: 711.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1222001726
@@ -119019,9 +119032,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1221868247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 199}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -91, y: -253.99994}
   m_SizeDelta: {x: 171, y: 159}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1376592144
@@ -131326,9 +131339,9 @@ RectTransform:
   - {fileID: 2147000102}
   m_Father: {fileID: 86341001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 75, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506195015
@@ -140717,7 +140730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -406}
+  m_AnchoredPosition: {x: 0, y: -325}
   m_SizeDelta: {x: 605, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1609420976
@@ -148828,9 +148841,9 @@ RectTransform:
   - {fileID: 2089321822}
   m_Father: {fileID: 86341001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 415, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1727233363
@@ -168077,9 +168090,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1221868247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -29}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 180, y: -262.99994}
   m_SizeDelta: {x: 166, y: 150}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1945198971
@@ -184731,7 +184744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2116504854
 RectTransform:
   m_ObjectHideFlags: 0
