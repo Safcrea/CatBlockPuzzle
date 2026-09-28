@@ -199,7 +199,7 @@ namespace CatBlockPuzzle
             inputLocked = true;
             StopHint();
             CancelActiveDragToRest();
-            PlaySfx("Wrong");
+            PlaySfxWithMusicDuck("Wrong");
             GameSystem.Instance?.ShowLevelFailed("Try Again", "Complete the puzzle before the timer ends.");
         }
 
@@ -422,7 +422,7 @@ namespace CatBlockPuzzle
 
         private void PlayWinSound()
         {
-            PlaySfx("Win");
+            PlaySfxWithMusicDuck("Win");
         }
 
         private void FlashPlacedCells(PieceState state, int row, int col)

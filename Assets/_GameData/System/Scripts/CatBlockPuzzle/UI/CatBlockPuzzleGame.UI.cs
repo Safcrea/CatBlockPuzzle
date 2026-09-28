@@ -60,6 +60,12 @@ namespace CatBlockPuzzle
             if (manager != null) manager.PlaySfx(id);
         }
 
+        private void PlaySfxWithMusicDuck(string id)
+        {
+            SoundManager manager = SoundManager.EnsureInstance();
+            if (manager != null) manager.PlaySfxWithMusicDuck(id);
+        }
+
         private void UseRoundedSprite(Image image)
         {
             if (image == null || roundedBoxSprite == null)
