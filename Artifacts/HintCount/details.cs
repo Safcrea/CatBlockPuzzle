@@ -1,0 +1,4 @@
+var go=UnityEditor.EditorUtility.InstanceIDToObject(472588) as UnityEngine.GameObject;
+var canvas=go.GetComponent<UnityEngine.Canvas>(); var txt=go.GetComponent<UnityEngine.UI.Text>();
+var hud=UnityEngine.Object.FindFirstObjectByType<CatBlockPuzzle.GameplayHudView>(UnityEngine.FindObjectsInactive.Include); var so=new UnityEditor.SerializedObject(hud);
+return new {canvas=new {canvas.overrideSorting,canvas.sortingOrder,canvas.sortingLayerID,canvas.renderMode,canvas.enabled},text=new{txt.horizontalOverflow,txt.verticalOverflow,txt.resizeTextForBestFit,txt.preferredHeight,txt.preferredWidth},boundText=so.FindProperty("hintCountText").objectReferenceValue.GetInstanceID(),actualText=txt.GetInstanceID(),parents=go.GetComponentsInParent<UnityEngine.Canvas>(true).Select(c=>new {c.name,c.overrideSorting,c.sortingOrder,c.renderMode}).ToArray()};
