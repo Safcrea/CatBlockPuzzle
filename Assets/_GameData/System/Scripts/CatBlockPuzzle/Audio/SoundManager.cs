@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace CatBlockPuzzle
@@ -17,7 +18,13 @@ namespace CatBlockPuzzle
         [SerializeField] private AudioSource sfxAudioSourceA;
         [SerializeField] private AudioSource sfxAudioSourceB;
 
+        [Header("Music Ducking")]
+        [SerializeField, Range(0f, 1f)] private float duckMusicLevel = 0.35f;
+        [SerializeField, Min(0f)] private float duckFadeOutSeconds = 0.15f;
+        [SerializeField, Min(0f)] private float duckFadeInSeconds = 0.8f;
+
         private bool useFirstSfxSource = true;
+        private Coroutine duckRoutine;
 
         public bool MusicEnabled { get; private set; } = true;
         public bool SfxEnabled { get; private set; } = true;
@@ -120,6 +127,85 @@ namespace CatBlockPuzzle
             source.Play();
         }
 
+        /// <summary>
+        /// Plays an SFX and fades the background music down while it plays, then fades it back up.
+        /// Used for the level complete and level fail stingers so they sit on top of the music.
+        /// </summary>
+        public void PlaySfxWithMusicDuck(string id)
+        {
+            if (!SfxEnabled || bank == null || !bank.TryGet(id, out SoundBank.SoundEntry entry) || entry.Clip == null)
+            {
+                return;
+            }
+
+            PlaySfx(entry.Clip, entry.Volume);
+            DuckMusic(entry.Clip.length);
+        }
+
+        public void DuckMusic(float holdSeconds)
+        {
+            if (!MusicEnabled || bgmAudioSource == null || !bgmAudioSource.isPlaying || !isActiveAndEnabled)
+            {
+                return;
+            }
+
+            if (duckRoutine != null)
+            {
+                StopCoroutine(duckRoutine);
+            }
+
+            duckRoutine = StartCoroutine(DuckMusicRoutine(Mathf.Max(0f, holdSeconds)));
+        }
+
+        private IEnumerator DuckMusicRoutine(float holdSeconds)
+        {
+            float fullVolume = FullMusicVolume;
+            float duckedVolume = fullVolume * duckMusicLevel;
+
+            yield return FadeMusicTo(duckedVolume, duckFadeOutSeconds);
+
+            // Keep the music ducked for the rest of the stinger, then ease back up.
+            float hold = Mathf.Max(0f, holdSeconds - duckFadeOutSeconds);
+            if (hold > 0f)
+            {
+                yield return new WaitForSecondsRealtime(hold);
+            }
+
+            yield return FadeMusicTo(FullMusicVolume, duckFadeInSeconds);
+            duckRoutine = null;
+        }
+
+        private IEnumerator FadeMusicTo(float target, float duration)
+        {
+            float start = bgmAudioSource.volume;
+            if (duration <= 0f || Mathf.Approximately(start, target))
+            {
+                bgmAudioSource.volume = target;
+                yield break;
+            }
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                bgmAudioSource.volume = Mathf.Lerp(start, target, Mathf.SmoothStep(0f, 1f, elapsed / duration));
+                yield return null;
+            }
+
+            bgmAudioSource.volume = target;
+        }
+
+        private float FullMusicVolume => (bank != null ? bank.MusicVolume : 1f) * (bank != null ? bank.MasterVolume : 1f);
+
+        private void CancelMusicDuck()
+        {
+            if (duckRoutine != null)
+            {
+                StopCoroutine(duckRoutine);
+                duckRoutine = null;
+            }
+        }
+
         public void PlayMusic()
         {
             if (!MusicEnabled || bank == null || bank.MusicTrack == null)
@@ -134,7 +220,11 @@ namespace CatBlockPuzzle
             }
 
             bgmAudioSource.loop = true;
-            bgmAudioSource.volume = bank.MusicVolume * bank.MasterVolume;
+            if (duckRoutine == null)
+            {
+                bgmAudioSource.volume = bank.MusicVolume * bank.MasterVolume;
+            }
+
             if (!bgmAudioSource.isPlaying)
             {
                 bgmAudioSource.Play();
@@ -143,6 +233,7 @@ namespace CatBlockPuzzle
 
         public void StopMusic()
         {
+            CancelMusicDuck();
             if (bgmAudioSource != null)
             {
                 bgmAudioSource.Stop();
@@ -202,6 +293,7 @@ namespace CatBlockPuzzle
 
         private void ApplyVolumes()
         {
+            CancelMusicDuck();
             float master = bank != null ? bank.MasterVolume : 1f;
             if (bgmAudioSource != null)
             {
