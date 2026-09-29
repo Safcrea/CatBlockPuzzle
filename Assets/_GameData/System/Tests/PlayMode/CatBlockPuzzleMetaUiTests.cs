@@ -1,6 +1,4 @@
 using System.Collections;
-using System.IO;
-using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -33,25 +31,14 @@ namespace CatBlockPuzzle.Tests
             }
 
             Assert.That(game, Is.Not.Null, "Runtime game was not created.");
-            System.Type gameType = game.GetType();
-            MethodInfo previewLevel = gameType.GetMethod(
-                "PreviewLevelForTesting",
-                BindingFlags.Instance | BindingFlags.Public);
-            Assert.That(previewLevel, Is.Not.Null);
-            previewLevel.Invoke(game, new object[] { 0 });
+            Call("PreviewLevelForTesting", 0);
             yield return new WaitForSecondsRealtime(0.8f);
 
-            Image gameplayBackground = (Image)gameType
-                .GetField("backgroundImage", BindingFlags.Instance | BindingFlags.NonPublic)
-                .GetValue(game);
+            Image gameplayBackground = (Image)Field("backgroundImage");
             Assert.That(gameplayBackground.sprite, Is.Not.Null);
             Assert.That(gameplayBackground.sprite.texture.name, Is.EqualTo("room_01"));
 
-            MethodInfo openHub = gameType.GetMethod(
-                "OpenRoomHub",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            Assert.That(openHub, Is.Not.Null);
-            openHub.Invoke(game, null);
+            Call("OpenRoomHub");
             yield return null;
             Canvas.ForceUpdateCanvases();
 
@@ -74,11 +61,7 @@ namespace CatBlockPuzzle.Tests
 
             CaptureCanvas(canvas, "meta-hub-540x960.png");
 
-            MethodInfo openRoom = gameType.GetMethod(
-                "OpenRoomDetail",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            Assert.That(openRoom, Is.Not.Null);
-            openRoom.Invoke(game, new object[] { 0 });
+            Call("OpenRoomDetail", 0);
             yield return null;
             Canvas.ForceUpdateCanvases();
 
@@ -92,7 +75,7 @@ namespace CatBlockPuzzle.Tests
 
             CaptureCanvas(canvas, "meta-room-01-540x960.png");
 
-            previewLevel.Invoke(game, new object[] { 0 });
+            Call("PreviewLevelForTesting", 0);
         }
 
         private static void CaptureCanvas(Canvas canvas, string fileName)

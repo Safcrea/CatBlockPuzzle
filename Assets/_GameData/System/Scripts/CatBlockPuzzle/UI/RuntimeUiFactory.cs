@@ -74,6 +74,19 @@ namespace CatBlockPuzzle
             return button;
         }
 
+        /// <summary>A non-interactive sprite at a centred position; the default size suits small guide markers.</summary>
+        public static Image CreateImage(Transform parent, string name, Sprite sprite, Color color,
+            Vector2 position = default, Vector2 size = default)
+        {
+            RectTransform rect = CreateRect(parent, name);
+            SetRect(rect, position, size == Vector2.zero ? new Vector2(22f, 22f) : size);
+            Image image = rect.gameObject.AddComponent<Image>();
+            image.sprite = sprite;
+            image.color = color;
+            image.raycastTarget = false;
+            return image;
+        }
+
         public static RectTransform CreateRect(Transform parent, string name)
         {
             GameObject go = new GameObject(name, typeof(RectTransform));

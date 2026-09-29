@@ -89,7 +89,7 @@ namespace CatBlockPuzzle.Tests
         public IEnumerator OptionalContext_ExplainsFirstPlacementAndTargetsMatchBoardCells()
         {
             PlayerPrefs.DeleteKey(SeenKey);
-            Game.GetType().GetField("showTutorialCaptions", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, true);
+            SetField("showTutorialCaptions", true);
             Call("PreviewLevelForTesting", 0);
             yield return new WaitForSecondsRealtime(.85f);
             Assert.That(Step, Is.EqualTo("PlaceFirst"));
@@ -194,7 +194,7 @@ namespace CatBlockPuzzle.Tests
         public IEnumerator ReducedMotion_PauseAndReplayKeepGuidesVisibleOnlyDuringGameplay()
         {
             PlayerPrefs.DeleteKey(SeenKey);
-            Game.GetType().GetField("reducedMotion", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, true);
+            SetField("reducedMotion", true);
             Call("PreviewLevelForTesting", 0);
             yield return new WaitForSecondsRealtime(.85f);
             var hand = (RectTransform)Field("tutorialHand");

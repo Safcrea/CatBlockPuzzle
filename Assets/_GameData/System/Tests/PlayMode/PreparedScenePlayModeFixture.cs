@@ -86,12 +86,80 @@ namespace CatBlockPuzzle.Tests
 #endif
         }
 
-        protected object Field(string name) => Game.GetType().GetField(name,BindingFlags.Instance|BindingFlags.NonPublic).GetValue(Game);
+        private const BindingFlags Members = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+        /// <summary>
+        /// The game is a composition root over single-purpose services (PuzzleSession, LevelTimer,
+        /// LevelOneTutorial, ...). Tests address state and behaviour by member name, so lookups walk
+        /// that graph: the session first, then the plain C# services, then the root itself, then the
+        /// scene views it references (HUD, meta view, result screens), then one more level down
+        /// (e.g. the meta controller's progress store).
+        /// </summary>
+        private IEnumerable<object> Targets()
+        {
+            var firstLevel = new List<object>();
+            foreach (var field in Game.GetType().GetFields(Members))
+            {
+                if (!IsProjectType(field.FieldType)) continue;
+                object value = field.GetValue(Game);
+                if (value != null && !(value is UnityEngine.Object o && o == null)) firstLevel.Add(value);
+            }
+            var session = firstLevel.FirstOrDefault(o => o.GetType().Name == "PuzzleSession");
+            if (session != null) yield return session;
+            foreach (var service in firstLevel) if (service != session && !(service is UnityEngine.Object)) yield return service;
+            yield return Game;
+            foreach (var component in firstLevel) if (component is UnityEngine.Object) yield return component;
+            foreach (var service in firstLevel)
+                foreach (var field in service.GetType().GetFields(Members))
+                {
+                    if (!IsProjectType(field.FieldType)) continue;
+                    object value = field.GetValue(service);
+                    if (value != null && !(value is UnityEngine.Object o && o == null)) yield return value;
+                }
+        }
+
+        private static bool IsProjectType(Type type) =>
+            type.Namespace != null && type.Namespace.StartsWith("CatBlockPuzzle", StringComparison.Ordinal) && !type.IsEnum;
+
+        private static MemberInfo FindMember(object target, string name)
+        {
+            FieldInfo field = target.GetType().GetField(name, Members);
+            if (field != null) return field;
+            PropertyInfo property = target.GetType().GetProperty(name, Members);
+            return property != null && property.GetIndexParameters().Length == 0 ? property : null;
+        }
+
+        protected object Field(string name)
+        {
+            foreach (var target in Targets())
+            {
+                MemberInfo member = FindMember(target, name);
+                if (member is FieldInfo field) return field.GetValue(target);
+                if (member is PropertyInfo property) return property.GetValue(target);
+            }
+            throw new MissingMemberException("No field or property named '" + name + "' on the game or its services.");
+        }
+
+        protected void SetField(string name, object value)
+        {
+            foreach (var target in Targets())
+            {
+                MemberInfo member = FindMember(target, name);
+                if (member is FieldInfo field) { field.SetValue(target, value); return; }
+                if (member is PropertyInfo property && property.CanWrite) { property.SetValue(target, value); return; }
+            }
+            throw new MissingMemberException("No field or property named '" + name + "' on the game or its services.");
+        }
+
         protected object Call(string name, params object[] arguments)
         {
-            var method = Game.GetType().GetMethods(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic)
-                .Single(m => m.Name == name && m.GetParameters().Length == arguments.Length);
-            return method.Invoke(Game,arguments);
+            foreach (var target in Targets())
+            {
+                var method = target.GetType().GetMethods(Members)
+                    .FirstOrDefault(m => m.Name == name && m.GetParameters().Length == arguments.Length);
+                if (method != null) return method.Invoke(target, arguments);
+            }
+            throw new MissingMethodException("No method named '" + name + "' taking " + arguments.Length + " argument(s) on the game or its services.");
         }
 
         protected static void CaptureAssignedCamera(UnityEngine.Canvas canvas, string fileName, int width=540, int height=960)

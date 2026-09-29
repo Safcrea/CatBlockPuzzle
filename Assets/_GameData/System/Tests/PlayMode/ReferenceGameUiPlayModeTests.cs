@@ -22,8 +22,8 @@ namespace CatBlockPuzzle.Tests
             yield return new WaitForSecondsRealtime(1.2f);
             var hud = (Component)Field("gameplayHud");
             var stars = (UnityEngine.UI.Image[])hud.GetType().GetField("progressStars", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(hud);
-            Game.GetType().GetField("levelRemainingSeconds", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, 90.5f);
-            Game.GetType().GetField("lastTimerSecond", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(Game, 91);
+            SetField("levelRemainingSeconds", 90.5f);
+            SetField("lastTimerSecond", 91);
             Call("UpdateTimerDisplay");
             Assert.That(stars[2].type, Is.EqualTo(UnityEngine.UI.Image.Type.Filled));
             Assert.That(stars[0].fillAmount, Is.EqualTo(1f));
@@ -159,7 +159,7 @@ namespace CatBlockPuzzle.Tests
         public IEnumerator Freeze_PreservesPieceInteractionPausesExpiresAndResetsOnRestart()
         {
             var system=Screen("GameSystem");Invoke(system,"ShowGameplayPage");Call("PreviewLevelForTesting",4);yield return new WaitForSecondsRealtime(1.2f);
-            Game.GetType().GetField("freezeDurationSeconds",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(Game,.35f);
+            SetField("freezeDurationSeconds",.35f);
             var hud=(Component)Field("gameplayHud");
             var button=(UnityEngine.UI.Button)hud.GetType().GetField("freezeButton",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
             float timer=(float)Field("levelRemainingSeconds");button.onClick.Invoke();
