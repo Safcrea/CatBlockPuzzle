@@ -273,7 +273,6 @@ namespace CatBlockPuzzle
             int awardedCoins = RecordMetaFirstClear(activeLevel.Reward);
             float coinFlightDuration = awardedCoins > 0 ? FlyCoins(awardedCoins) : 0f;
 
-            PlayWinSound();
             yield return new WaitForSecondsRealtime(Mathf.Max(0.75f, coinFlightDuration));
             coinText.text = coins.ToString();
             LevelResult result = SaveLevelResult();
@@ -418,11 +417,6 @@ namespace CatBlockPuzzle
         {
             PlaySfx("Button");
             StartCoroutine(PopTransform(trayRoot, 1.02f));
-        }
-
-        private void PlayWinSound()
-        {
-            PlaySfxWithMusicDuck("Win");
         }
 
         private void FlashPlacedCells(PieceState state, int row, int col)

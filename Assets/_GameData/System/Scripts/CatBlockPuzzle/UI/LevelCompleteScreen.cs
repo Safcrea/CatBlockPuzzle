@@ -130,6 +130,7 @@ namespace CatBlockPuzzle
             // Ensure the first frame is prepared even if optional bindings are missing.
             yield return null;
             yield return Pop(titleArtwork, popDuration * .8f * timing);
+            SoundManager.EnsureInstance().PlaySfxWithMusicDuck("Win");
             for (int i = 0; i < stars.Length; i++)
             {
                 if (stars[i] == null) continue;
