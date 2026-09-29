@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "command": "command test_status",
+  "data": {
+    "command": "test_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 36.44,
+      "summary": {
+        "total": 7,
+        "passed": 6,
+        "failed": 1,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.DisabledTutorial_LeavesNormalLevelOnePlayable",
+          "Status": "Passed",
+          "Duration": 4.9805485,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.FullTutorial_PracticesTwoRealPlacementsWithoutSpendingTime",
+          "Status": "Failed",
+          "Duration": 4.4872782,
+          "Message": "  Off-target placements can strand onboarding.\r\n  Expected: False\r\n  But was:  True\r\n",
+          "StackTrace": "at CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests+<FullTutorial_PracticesTwoRealPlacementsWithoutSpendingTime>d__16.MoveNext () [0x002a8] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\PlayMode\\CatBlockPuzzleTutorialTests.cs:161\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@aebcb98460c6\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.GuidedHandDestination_ProducesARealValidPlacement",
+          "Status": "Passed",
+          "Duration": 4.9160001,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.MisplacedPiece_ShowsMovePieceTipOnce",
+          "Status": "Passed",
+          "Duration": 3.5327878,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.NavigationAndPause_DoNotLeaveTutorialCuesOrAdvanceDemo",
+          "Status": "Passed",
+          "Duration": 4.7297408,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.OptionalContext_ExplainsFirstPlacementAndTargetsMatchBoardCells",
+          "Status": "Passed",
+          "Duration": 3.4504837,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.SkipButton_EndsTutorialAndRemembersDismissalOnNormalAttempts",
+          "Status": "Passed",
+          "Duration": 10.2565631,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

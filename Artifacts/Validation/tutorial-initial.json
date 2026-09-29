@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "command": "command test_status",
+  "data": {
+    "command": "test_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 28.48,
+      "summary": {
+        "total": 7,
+        "passed": 3,
+        "failed": 4,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.DisabledTutorial_LeavesNormalLevelOnePlayable",
+          "Status": "Failed",
+          "Duration": 4.8759443,
+          "Message": "  Expected: True\r\n  But was:  False\r\n",
+          "StackTrace": "at CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests+<DisabledTutorial_LeavesNormalLevelOnePlayable>d__13.MoveNext () [0x000a9] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\PlayMode\\CatBlockPuzzleTutorialTests.cs:102\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@aebcb98460c6\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.FullTutorial_PracticesTwoRealPlacementsWithoutSpendingTime",
+          "Status": "Failed",
+          "Duration": 3.5158322,
+          "Message": "  The second step lets the player pick up the second group for real.\r\n  Expected: True\r\n  But was:  False\r\n",
+          "StackTrace": "at CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests+<FullTutorial_PracticesTwoRealPlacementsWithoutSpendingTime>d__15.MoveNext () [0x0020c] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\PlayMode\\CatBlockPuzzleTutorialTests.cs:148\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@aebcb98460c6\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.GuidedHandDestination_ProducesARealValidPlacement",
+          "Status": "Failed",
+          "Duration": 3.934575,
+          "Message": "  Expected: greater than or equal to 0\r\n  But was:  -1\r\n",
+          "StackTrace": "at CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests+<GuidedHandDestination_ProducesARealValidPlacement>d__11.MoveNext () [0x002c8] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\PlayMode\\CatBlockPuzzleTutorialTests.cs:54\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@aebcb98460c6\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.MisplacedPiece_ShowsMovePieceTipOnce",
+          "Status": "Passed",
+          "Duration": 3.6480168,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.NavigationAndPause_DoNotLeaveTutorialCuesOrAdvanceDemo",
+          "Status": "Passed",
+          "Duration": 4.6988663,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.OptionalContext_ExplainsFirstPlacementAndTargetsMatchBoardCells",
+          "Status": "Failed",
+          "Duration": 3.3381882,
+          "Message": "  Expected: True\r\n  But was:  False\r\n",
+          "StackTrace": "at CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests+<OptionalContext_ExplainsFirstPlacementAndTargetsMatchBoardCells>d__12.MoveNext () [0x000b0] in C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle\\Assets\\_GameData\\System\\Tests\\PlayMode\\CatBlockPuzzleTutorialTests.cs:77\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@aebcb98460c6\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+        },
+        {
+          "FullName": "CatBlockPuzzle.Tests.CatBlockPuzzleTutorialTests.SkipButton_EndsTutorialAndRemembersDismissalOnNormalAttempts",
+          "Status": "Passed",
+          "Duration": 4.3633713,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\Safi\\CatBlockPuzzle\\CatBlockPuzzle"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

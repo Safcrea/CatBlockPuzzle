@@ -124,7 +124,7 @@ namespace CatBlockPuzzle
                 AnimatePose(sadCatArtwork, new Vector2(1f + slump, 1f - slump),
                     new Vector2(0f, 35f * (1f - EaseOut(catT)) - 10f * Mathf.Sin(catT * Mathf.PI)),
                     3f * Mathf.Sin(catT * Mathf.PI * 2f) * (1f - catT));
-                AnimateButton(retryButton, elapsed, .35f);
+                AnimateRetryButton(elapsed, .28f);
                 AnimateButton(homeButton, elapsed, .45f);
                 AnimateButton(skipButton, elapsed, .55f);
                 elapsed += Time.unscaledDeltaTime;
@@ -156,6 +156,15 @@ namespace CatBlockPuzzle
             float t = Mathf.Clamp01((elapsed - delay) / .35f);
             float scale = Mathf.Lerp(.88f, 1f, EaseOut(t)) + Mathf.Sin(t * Mathf.PI) * .07f;
             AnimatePose(button.transform as RectTransform, Vector2.one * scale, Vector2.zero, 0f);
+        }
+
+        private void AnimateRetryButton(float elapsed, float delay)
+        {
+            if (retryButton == null) return;
+            float t = Mathf.Clamp01((elapsed - delay) / .34f);
+            float grow = Mathf.Lerp(.68f, 1f, EaseOut(t));
+            float pop = Mathf.Sin(t * Mathf.PI) * .13f;
+            AnimatePose(retryButton.transform as RectTransform, Vector2.one * (grow + pop), Vector2.zero, 0f);
         }
 
         private void RememberPose(RectTransform target)

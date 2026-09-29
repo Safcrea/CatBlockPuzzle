@@ -25,6 +25,9 @@ MonoBehaviour:
   - id: Win
     clip: {fileID: 8300000, guid: b56d64b7ae1a9c743bfde18d4cadf5ce, type: 3}
     volume: 1
+  - id: InvalidPlacement
+    clip: {fileID: 8300000, guid: 4134d45fd0e333544baf28220f2056b7, type: 3}
+    volume: 0.8
   masterVolume: 1
   musicTrack: {fileID: 8300000, guid: 99b68cddc774a4345ae2a7e19e618bc7, type: 3}
   musicVolume: 0.45

@@ -33,6 +33,8 @@ namespace CatBlockPuzzle
         [SerializeField, Min(0.1f)] private float popDuration = 0.45f;
         [SerializeField, Min(0.1f)] private float coinCountDuration = 0.9f;
         [SerializeField, Min(0f)] private float starPause = 0.08f;
+        [Tooltip("Multiplier for the complete-screen sequence. Lower values play faster.")]
+        [SerializeField, Range(0.35f, 1f)] private float sequenceTimeScale = 0.62f;
 
         private readonly Dictionary<Transform, Vector3> restingScales = new Dictionary<Transform, Vector3>();
         private Image[] winStarOverlays;
@@ -104,6 +106,7 @@ namespace CatBlockPuzzle
 
         private IEnumerator PlayEntrance(int earnedStars, int reward)
         {
+            float timing = Mathf.Clamp(sequenceTimeScale, 0.35f, 1f);
             EnsureWinStarOverlays();
             SetOverlaysVisible(false);
             HideForEntrance(titleArtwork);
@@ -126,21 +129,23 @@ namespace CatBlockPuzzle
             SetReward(0);
             // Ensure the first frame is prepared even if optional bindings are missing.
             yield return null;
-            yield return Pop(titleArtwork, popDuration);
+            yield return Pop(titleArtwork, popDuration * .8f * timing);
             for (int i = 0; i < stars.Length; i++)
-                if (stars[i] != null) RestoreScale(stars[i].transform);
-            for (int i = 0; i < earnedStars; i++)
             {
-                if (winStarOverlays[i] == null) continue;
-                winStarOverlays[i].gameObject.SetActive(true);
-                yield return Pop(winStarOverlays[i].transform, popDuration, true);
-                yield return new WaitForSecondsRealtime(Mathf.Max(0f, starPause));
+                if (stars[i] == null) continue;
+                yield return Pop(stars[i].transform, popDuration * .42f * timing);
+                if (i < earnedStars && winStarOverlays[i] != null)
+                {
+                    winStarOverlays[i].gameObject.SetActive(true);
+                    yield return Pop(winStarOverlays[i].transform, popDuration * .56f * timing, true);
+                }
+                yield return new WaitForSecondsRealtime(Mathf.Max(0f, starPause * timing));
             }
             // Reveal the parent board, then wait for its pop to finish before counting.
             if (coinBoard != null) coinBoard.gameObject.SetActive(true);
             if (coinReward != null) coinReward.gameObject.SetActive(true);
-            yield return Pop(coinBoard, popDuration * 0.7f);
-            float duration = Mathf.Max(0.1f, coinCountDuration);
+            yield return Pop(coinBoard, popDuration * 0.7f * timing);
+            float duration = Mathf.Max(0.1f, coinCountDuration * timing);
             float elapsed = 0f;
             while (reward > 0 && elapsed < duration)
             {
@@ -148,15 +153,15 @@ namespace CatBlockPuzzle
                 float t = Mathf.Clamp01(elapsed / duration);
                 SetReward(Mathf.RoundToInt(Mathf.Lerp(0f, reward, 1f - Mathf.Pow(1f - t, 3f))));
                 if (coinReward != null)
-                    coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI * 8f) * 0.045f);
+                    coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI) * 0.04f);
                 yield return null;
             }
             SetReward(reward);
             RestoreScale(coinReward);
-            yield return new WaitForSecondsRealtime(0.15f);
+            yield return new WaitForSecondsRealtime(0.15f * timing);
             if (continueButton != null)
             {
-                yield return Pop(continueButton.transform, popDuration);
+                yield return Pop(continueButton.transform, popDuration * timing);
                 continueButton.interactable = continueWasInteractable;
             }
             entrance = null;
@@ -174,8 +179,8 @@ namespace CatBlockPuzzle
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                float grow = 1f - Mathf.Pow(1f - Mathf.Clamp01(t / 0.35f), 3f);
-                float spring = Mathf.Sin(t * Mathf.PI * 4f) * (1f - t) * 0.28f;
+                float grow = 1f - Mathf.Pow(1f - t, 3f);
+                float spring = Mathf.Sin(t * Mathf.PI) * (1f - t) * 0.16f;
                 target.localScale = Vector3.Scale(scale, jelly
                     ? new Vector3(grow * (1f + spring), grow * (1f - spring * 0.75f), 1f)
                     : Vector3.one * (grow * (1f + spring)));
