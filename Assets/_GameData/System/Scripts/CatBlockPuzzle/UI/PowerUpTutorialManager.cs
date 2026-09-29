@@ -80,6 +80,7 @@ namespace CatBlockPuzzle
             bool finished = false;
             okay.onClick.AddListener(() =>
             {
+                ButtonSfx.PlayClick();
                 okay.interactable = false;
                 if (PowerUpInventory.GetCount(kind) == 0) PowerUpInventory.Add(kind);
                 PlayerPrefs.SetInt(key, 1);

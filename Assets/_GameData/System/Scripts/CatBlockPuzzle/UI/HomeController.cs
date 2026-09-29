@@ -46,17 +46,18 @@ namespace CatBlockPuzzle
 
         public void Play()
         {
+            ButtonSfx.PlayClick();
             if (GameSystem.Instance != null) GameSystem.Instance.StartGameplay();
             else LoadingSceneController.LoadScene(gameplayBuildIndex);
         }
 
         public void Continue() => Play();
-        public void OpenSettings() => GameSystem.Instance?.OpenSettings(false);
-        private void OpenLevels() => navigation?.ShowLevels();
-        private void OpenShop() => navigation?.ShowShop();
-        private void OpenDailyReward() => navigation?.ShowDailyReward();
-        private void OpenCollection() => navigation?.ShowCollection();
-        private void OpenRooms() => GameSystem.Instance?.OpenRooms();
+        public void OpenSettings() { ButtonSfx.PlayClick(); GameSystem.Instance?.OpenSettings(false); }
+        private void OpenLevels() { ButtonSfx.PlayClick(); navigation?.ShowLevels(); }
+        private void OpenShop() { ButtonSfx.PlayClick(); navigation?.ShowShop(); }
+        private void OpenDailyReward() { ButtonSfx.PlayClick(); navigation?.ShowDailyReward(); }
+        private void OpenCollection() { ButtonSfx.PlayClick(); navigation?.ShowCollection(); }
+        private void OpenRooms() { ButtonSfx.PlayClick(); GameSystem.Instance?.OpenRooms(); }
 
         private void Update()
         {
@@ -77,6 +78,7 @@ namespace CatBlockPuzzle
 
         public void Quit()
         {
+            ButtonSfx.PlayClick();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else

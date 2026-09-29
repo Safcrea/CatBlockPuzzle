@@ -137,8 +137,8 @@ namespace CatBlockPuzzle
 
         private void Start() => RefreshPowerUpCounts();
 
-        private void Freeze() => GameSystem.Instance?.TryUseFreezePowerUp();
-        private void Hint() => GameSystem.Instance?.TryUseHintPowerUp();
+        private void Freeze() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseFreezePowerUp(); }
+        private void Hint() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseHintPowerUp(); }
 
         /// <summary>Updates the authored HUD labels and availability from the saved inventory.</summary>
         public void RefreshPowerUpCounts()

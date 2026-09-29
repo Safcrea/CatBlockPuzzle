@@ -175,8 +175,8 @@ namespace CatBlockPuzzle
             if (bind) button.onClick.AddListener(action);
         }
 
-        private void Back() => GameSystem.Instance?.GoHome();
-        private void Play() => GameSystem.Instance?.StartGameplay();
-        private void Pause() => GameSystem.Instance?.OpenPause();
+        private void Back() { ButtonSfx.PlayClick(); GameSystem.Instance?.GoHome(); }
+        private void Play() { ButtonSfx.PlayClick(); GameSystem.Instance?.StartGameplay(); }
+        private void Pause() { ButtonSfx.PlayClick(); GameSystem.Instance?.OpenPause(); }
     }
 }

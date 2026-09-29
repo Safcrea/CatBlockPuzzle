@@ -9,8 +9,8 @@ namespace CatBlockPuzzle
         [SerializeField] private GameObject root;
         [SerializeField] private Button okayButton;
 
-        private void Awake() { if (okayButton != null) okayButton.onClick.AddListener(Hide); }
-        private void OnDestroy() { if (okayButton != null) okayButton.onClick.RemoveListener(Hide); }
+        private void Awake() { if (okayButton != null) okayButton.onClick.AddListener(OnOkayClicked); }
+        private void OnDestroy() { if (okayButton != null) okayButton.onClick.RemoveListener(OnOkayClicked); }
         public void Show()
         {
             if (root == null) return;
@@ -18,5 +18,6 @@ namespace CatBlockPuzzle
             root.transform.SetAsLastSibling();
         }
         public void Hide() { if (root != null) root.SetActive(false); }
+        private void OnOkayClicked() { ButtonSfx.PlayClick(); Hide(); }
     }
 }

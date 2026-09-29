@@ -221,13 +221,14 @@ namespace CatBlockPuzzle
             message.text = $"Added x{displayedOffer.quantity} to your bag!\nTap {item} after closing to use one.";
             wallet.text = $"Your coins: {system.CurrentCoins}";
             closeLabel.text = "Continue";
-            SoundManager.Instance?.PlaySfx("Button");
+            ButtonSfx.PlayClick();
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
         }
 
         public void Close()
         {
             if (!sessionOpen || closing) return;
+            ButtonSfx.PlayClick();
             closing = true;
             MenuTransition.Hide(gameObject, null, !ReducedMotion);
         }

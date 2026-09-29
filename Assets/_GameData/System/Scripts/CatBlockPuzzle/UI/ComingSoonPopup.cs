@@ -51,7 +51,7 @@ namespace CatBlockPuzzle
             if (EventSystem.current != null && dismiss != null) EventSystem.current.SetSelectedGameObject(dismiss.gameObject);
         }
 
-        public void Close() => MenuTransition.Hide(gameObject, RestoreSelection);
+        public void Close() { ButtonSfx.PlayClick(); MenuTransition.Hide(gameObject, RestoreSelection); }
         public void HideImmediately() => MenuTransition.Hide(gameObject, null, false);
         private void RestoreSelection()
         {

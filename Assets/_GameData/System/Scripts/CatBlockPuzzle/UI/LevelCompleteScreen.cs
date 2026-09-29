@@ -282,8 +282,8 @@ namespace CatBlockPuzzle
                 if (skipButton.onClick.GetPersistentEventCount() == 0) skipButton.onClick.AddListener(SkipLevel);
             }
         }
-        public void SkipLevel() => GameSystem.Instance?.SkipLevel();
-        private void Next() => GameSystem.Instance?.NextLevel();
+        public void SkipLevel() { ButtonSfx.PlayClick(); GameSystem.Instance?.SkipLevel(); }
+        private void Next() { ButtonSfx.PlayClick(); GameSystem.Instance?.NextLevel(); }
         private static Button FindButton(Transform parent, string name)
         {
             Transform found = FindChild(parent, name);

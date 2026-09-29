@@ -37,7 +37,7 @@ namespace CatBlockPuzzle
             {
                 OfferView offer = offers[i];
                 if (offer == null || offer.button == null) continue;
-                purchaseActions[i] = offer.purchaseRequested.Invoke;
+                purchaseActions[i] = () => { ButtonSfx.PlayClick(); offer.purchaseRequested.Invoke(); };
                 offer.button.onClick.AddListener(purchaseActions[i]);
             }
             if (backButton != null) backButton.onClick.AddListener(Back);
@@ -104,6 +104,6 @@ namespace CatBlockPuzzle
             displayedBalance = balance;
             coinLabel.text = balance.ToString();
         }
-        private void Back() => GameSystem.Instance?.GoHome();
+        private void Back() { ButtonSfx.PlayClick(); GameSystem.Instance?.GoHome(); }
     }
 }

@@ -63,15 +63,15 @@ namespace CatBlockPuzzle
                 if (day.claimButton != day.cardButton) Bind(day.claimButton, claimActions[i], true);
                 ApplyClaimedState(day);
             }
-            Bind(closeButton, Close, true);
-            Bind(okayButton, Close, true);
+            Bind(closeButton, CloseButtonClicked, true);
+            Bind(okayButton, CloseButtonClicked, true);
             RefreshPresentation();
         }
 
         private void OnDisable()
         {
-            Bind(closeButton, Close, false);
-            Bind(okayButton, Close, false);
+            Bind(closeButton, CloseButtonClicked, false);
+            Bind(okayButton, CloseButtonClicked, false);
             if (claimActions == null) return;
             for (int i = 0; i < days.Length; i++)
             {
@@ -90,6 +90,7 @@ namespace CatBlockPuzzle
 
         public void RequestClaim(int dayNumber)
         {
+            ButtonSfx.PlayClick();
             DailyRewardConfig config = Config;
             int availableDay = config != null ? DailyRewardProgress.GetAvailableDay(config, DateTime.UtcNow) : 0;
             if (availableDay != dayNumber) return;
@@ -140,6 +141,7 @@ namespace CatBlockPuzzle
         public void Hide() => MenuTransition.Hide(root, null, false);
         public void HideAnimated(Action completed) => MenuTransition.Hide(root, completed, true, closingAnimation);
         private void Close() => GameSystem.Instance?.GoHome();
+        private void CloseButtonClicked() { ButtonSfx.PlayClick(); Close(); }
 
         private string RewardLabelFor(DailyRewardConfig.DayReward reward, int dayNumber)
         {

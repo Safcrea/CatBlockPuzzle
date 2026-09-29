@@ -69,9 +69,9 @@ namespace CatBlockPuzzle
             if (bind) button.onClick.AddListener(action);
         }
 
-        private void Resume() => MenuTransition.Hide(root, () => GameSystem.Instance?.ResumeGame());
-        private void Restart() => GameSystem.Instance?.RestartLevel();
-        private void Home() => GameSystem.Instance?.GoHome();
-        private void Settings() => GameSystem.Instance?.OpenSettings(true);
+        private void Resume() { ButtonSfx.PlayClick(); MenuTransition.Hide(root, () => GameSystem.Instance?.ResumeGame()); }
+        private void Restart() { ButtonSfx.PlayClick(); GameSystem.Instance?.RestartLevel(); }
+        private void Home() { ButtonSfx.PlayClick(); GameSystem.Instance?.GoHome(); }
+        private void Settings() { ButtonSfx.PlayClick(); GameSystem.Instance?.OpenSettings(true); }
     }
 }

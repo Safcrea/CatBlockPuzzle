@@ -137,6 +137,7 @@ namespace CatBlockPuzzle
         public void Select(int index)
         {
             if (gameplay == null || !gameplay.IsLevelAvailable(index)) return;
+            ButtonSfx.PlayClick();
             selectedLevel = index;
             Refresh();
         }
@@ -165,7 +166,7 @@ namespace CatBlockPuzzle
             selectionText.text = selectedLevel >= 0 ? "Level " + (selectedLevel + 1) : "No level available";
             playButton.interactable = gameplay.IsLevelAvailable(selectedLevel);
         }
-        public void Play() => GameSystem.Instance?.StartLevel(selectedLevel);
+        public void Play() { ButtonSfx.PlayClick(); GameSystem.Instance?.StartLevel(selectedLevel); }
 
         private bool ValidateBindings(out string error)
         {

@@ -47,6 +47,7 @@ namespace CatBlockPuzzle
         public void SkipLevelOneTutorial()
         {
             if (!IsLevelOneTutorialOpen) return;
+            ButtonSfx.PlayClick();
             if (!levelNavigationTesting)
             {
                 PlayerPrefs.SetInt(LevelOneTutorialSeenKey, 1);
