@@ -23,11 +23,13 @@ namespace CatBlockPuzzle
         public const float PiecePickDragThreshold = 14f;
         public const float PiecePickVerticalBias = 0.65f;
         public const float TrayScrollHorizontalBias = 1.1f;
-        public const float DragFollowDelay = 0.075f;
-        public const float DragTiltAmount = 8f;
+        public const float DragVerticalGain = 1.1f;
+        public const float DragExtraReach = 80f;
+        public const float DragFollowDelay = 0.11f;
+        public const float DragTiltAmount = 4f;
         public const float DragTiltSpeed = 16f;
         public const float DragTiltVelocityScale = 900f;
-        public const float DragJellyAmount = 0.065f;
+        public const float DragJellyAmount = 0.035f;
         public const float DragJellySpeed = 18f;
         public const float DragJellyVelocityScale = 900f;
         public const float BoardRevealCellSeconds = 0.24f;

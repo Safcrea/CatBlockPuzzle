@@ -27,17 +27,17 @@ namespace CatBlockPuzzle
         [Range(0.8f, 2f)] public float TrayScrollHorizontalBias = 1.1f;
         [Range(0f, 120f)] public float TouchVisualLift = 42f;
         [Range(0f, 80f)] public float MouseVisualLift = 22f;
-        [Range(1f, 1.75f)] public float MaximumVerticalGain = 1.35f;
-        [Range(0f, 320f)] public float MaximumExtraReach = 180f;
+        [Range(1f, 1.75f)] public float MaximumVerticalGain = 1.1f;
+        [Range(0f, 320f)] public float MaximumExtraReach = 80f;
         [Range(0.1f, 0.75f)] public float CatSnapThreshold = 0.45f;
         [Range(0f, 180f)] public float BoardSnapPadding = 84f;
 
         [Header("Motion")]
         [Range(0.05f, 0.5f)] public float PieceSizeTransitionSeconds = 0.2f;
         [Range(0f, 0.12f)] public float DragScaleOvershoot = 0.05f;
-        [Range(0.02f, 0.18f)] public float DragFollowDelay = 0.075f;
-        [Range(0f, 12f)] public float DragTiltAmount = 8f;
-        [Range(0f, 0.14f)] public float DragJellyAmount = 0.065f;
+        [Range(0.02f, 0.18f)] public float DragFollowDelay = 0.11f;
+        [Range(0f, 12f)] public float DragTiltAmount = 4f;
+        [Range(0f, 0.14f)] public float DragJellyAmount = 0.035f;
 
         public void ResetToDefaults()
         {
@@ -59,15 +59,15 @@ namespace CatBlockPuzzle
             TrayScrollHorizontalBias = 1.1f;
             TouchVisualLift = 42f;
             MouseVisualLift = 22f;
-            MaximumVerticalGain = 1.35f;
-            MaximumExtraReach = 180f;
+            MaximumVerticalGain = 1.1f;
+            MaximumExtraReach = 80f;
             CatSnapThreshold = 0.45f;
             BoardSnapPadding = 84f;
             PieceSizeTransitionSeconds = 0.2f;
             DragScaleOvershoot = 0.05f;
-            DragFollowDelay = 0.075f;
-            DragTiltAmount = 8f;
-            DragJellyAmount = 0.065f;
+            DragFollowDelay = 0.11f;
+            DragTiltAmount = 4f;
+            DragJellyAmount = 0.035f;
         }
 
         public void ValidateValues()

@@ -275,13 +275,13 @@ namespace CatBlockPuzzle
             float extraReach = 0f;
             if (isTouch)
             {
+                // Reach grows in proportion to upward finger travel, so the cat keeps a steady
+                // ratio to the finger instead of accelerating away from it.
                 float upwardTravel = Mathf.Max(0f, pointerScreen.y - pointerStartScreen.y);
-                float rampDistance = Mathf.Max(1f, Screen.height * 0.35f);
-                float ramp = Mathf.Clamp01(upwardTravel / rampDistance);
-                float maximumGain = layoutProfile != null ? layoutProfile.MaximumVerticalGain : 1.35f;
-                float maximumExtra = layoutProfile != null ? layoutProfile.MaximumExtraReach : 180f;
+                float maximumGain = layoutProfile != null ? layoutProfile.MaximumVerticalGain : DragVerticalGain;
+                float maximumExtra = layoutProfile != null ? layoutProfile.MaximumExtraReach : DragExtraReach;
                 float canvasScale = space.ScaleFactor;
-                extraReach = Mathf.Min(maximumExtra * canvasScale, upwardTravel * (maximumGain - 1f) * ramp);
+                extraReach = Mathf.Min(maximumExtra * canvasScale, upwardTravel * (maximumGain - 1f));
             }
 
             return pointerScreen + (Vector2.up * (lift + extraReach));

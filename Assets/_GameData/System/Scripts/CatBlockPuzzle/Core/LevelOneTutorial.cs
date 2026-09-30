@@ -250,7 +250,7 @@ namespace CatBlockPuzzle
         private Vector2 TutorialPointerForAnchor(Vector2 start, Vector2 anchor)
         {
             // Invert the same monotonic lift/reach function used by real mouse and touch drags.
-            float low = anchor.y - TutorialLift() - (layoutProfile != null ? layoutProfile.MaximumExtraReach : 180f) *
+            float low = anchor.y - TutorialLift() - (layoutProfile != null ? layoutProfile.MaximumExtraReach : DragExtraReach) *
                 space.ScaleFactor - 1f;
             float high = anchor.y;
             for (int i = 0; i < 24; i++)
