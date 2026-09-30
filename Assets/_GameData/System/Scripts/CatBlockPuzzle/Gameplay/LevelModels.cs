@@ -53,8 +53,13 @@ namespace CatBlockPuzzle
         public readonly int Reward;
         public readonly PieceDefinition[] Pieces;
         public readonly HashSet<Vector2Int> ActiveCells;
+        /// <summary>Grid cells shown as sleeping cats: visibly part of the board, never placeable.</summary>
+        public readonly HashSet<Vector2Int> BlockedCells;
 
-        public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces)
+        public bool HasBlockedCells => BlockedCells.Count > 0;
+
+        public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
+            IEnumerable<Vector2Int> blockedCells = null)
         {
             Id = id;
             Title = title;
@@ -63,6 +68,7 @@ namespace CatBlockPuzzle
             Cols = cols;
             Reward = reward;
             Pieces = pieces;
+            BlockedCells = blockedCells != null ? new HashSet<Vector2Int>(blockedCells) : new HashSet<Vector2Int>();
             ActiveCells = new HashSet<Vector2Int>();
             for (int i = 0; i < pieces.Length; i++)
             {
@@ -95,6 +101,15 @@ namespace CatBlockPuzzle
         public int cols;
         public int reward;
         public PieceData[] pieces;
+        /// <summary>Optional. Free cells drawn as sleeping cats so the board reads as a full rectangle.</summary>
+        public BlockedCellData[] blocked;
+    }
+
+    [Serializable]
+    internal sealed class BlockedCellData
+    {
+        public int row;
+        public int col;
     }
 
     [Serializable]

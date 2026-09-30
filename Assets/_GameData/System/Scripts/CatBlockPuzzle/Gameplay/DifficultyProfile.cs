@@ -3,7 +3,7 @@ using UnityEngine;
 namespace CatBlockPuzzle
 {
     /// <summary>How much of the solution a hint gives away.</summary>
-    internal enum HintReveal
+    public enum HintReveal
     {
         /// <summary>Every cell of the piece's resting place lights up.</summary>
         FullShape,

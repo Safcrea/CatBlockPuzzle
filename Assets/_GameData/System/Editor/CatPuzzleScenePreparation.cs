@@ -59,6 +59,9 @@ public static class CatPuzzleScenePreparation
         Prepare();
     }
 
+    [MenuItem("Cat Block Puzzle/Refresh Level Data")]
+    public static void RefreshLevelData() => CatPuzzleScenePreparer.RefreshContentData();
+
     [MenuItem("Cat Block Puzzle/Validate Game Scene")]
     public static void Validate()
     {

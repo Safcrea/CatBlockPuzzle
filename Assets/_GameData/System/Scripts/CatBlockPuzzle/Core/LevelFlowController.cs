@@ -109,7 +109,9 @@ namespace CatBlockPuzzle
             Hud.levelText.text = "Level " + (levelIndex + 1).ToString();
             if (Hud.objectiveText != null)
             {
-                Hud.objectiveText.text = theme.ObjectiveTitle(activeLevel.Title);
+                Hud.objectiveText.text = activeLevel.HasBlockedCells
+                    ? "Sleepy cats block the way - fit around them"
+                    : theme.ObjectiveTitle(activeLevel.Title);
             }
 
             meta.ApplyMetaLevelPresentation(levelIndex);

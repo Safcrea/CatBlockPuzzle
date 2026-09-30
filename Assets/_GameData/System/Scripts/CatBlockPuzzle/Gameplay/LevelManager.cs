@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -62,7 +63,13 @@ namespace CatBlockPuzzle
                     pieces[p] = new PieceDefinition(piece.id, piece.name, piece.shape, cells, piece.row, piece.col);
                 }
 
-                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces);
+                List<Vector2Int> blocked = new List<Vector2Int>();
+                if (data[i].blocked != null)
+                {
+                    foreach (BlockedCellData cell in data[i].blocked) blocked.Add(new Vector2Int(cell.row, cell.col));
+                }
+
+                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces, blocked);
             }
 
             return converted;

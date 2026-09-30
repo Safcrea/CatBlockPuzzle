@@ -20,14 +20,16 @@ namespace CatBlockPuzzle
         private readonly PieceLayout pieceLayout;
         private readonly TrayLayout tray;
         private readonly PlayerSettings settings;
+        private readonly CatMoodPresenter mood;
 
-        public BoardController(IGameplayContext context, PuzzleSession session, CanvasSpace space, PieceLayout pieceLayout, TrayLayout tray, PlayerSettings settings) : base(context)
+        public BoardController(IGameplayContext context, PuzzleSession session, CanvasSpace space, PieceLayout pieceLayout, TrayLayout tray, PlayerSettings settings, CatMoodPresenter mood) : base(context)
         {
             this.session = session;
             this.space = space;
             this.pieceLayout = pieceLayout;
             this.tray = tray;
             this.settings = settings;
+            this.mood = mood;
         }
 
         private LevelDefinition activeLevel => session.activeLevel;
@@ -149,8 +151,26 @@ namespace CatBlockPuzzle
             {
                 var rect = cell.image.rectTransform;
                 SetTopLeft(rect, CellPosition(cell.row, cell.col), new Vector2(boardCellWidth, boardCellHeight));
-                cell.image.color = cell.active ? TargetColor : Color.clear;
-                rect.localScale = cell.active ? Vector3.zero : Vector3.one;
+                bool blocked = !cell.active && activeLevel.BlockedCells.Contains(new Vector2Int(cell.row, cell.col));
+                if (blocked)
+                {
+                    // A sleeping cat already owns this cell: it pops in with the board but never accepts a piece.
+                    cell.image.sprite = mood.Portrait(CatMood.Neutral, cell.row * activeLevel.Cols + cell.col);
+                    cell.image.type = Image.Type.Simple;
+                    cell.image.preserveAspect = true;
+                    cell.image.color = Color.white;
+                    rect.localScale = Vector3.zero;
+                    boardRevealCells.Add(new BoardRevealCell(rect, cell.row + cell.col));
+                }
+                else
+                {
+                    // Level prefabs are reused between loads, so undo any earlier cat dressing.
+                    cell.image.sprite = Assets.roundedBoxSprite;
+                    cell.image.type = Image.Type.Sliced;
+                    cell.image.preserveAspect = false;
+                    cell.image.color = cell.active ? TargetColor : Color.clear;
+                    rect.localScale = cell.active ? Vector3.zero : Vector3.one;
+                }
                 if (cell.active)
                 {
                     cell.preview.gameObject.SetActive(false);

@@ -127,6 +127,33 @@ namespace CatBlockPuzzle
                 return false;
             }
 
+            if (level.blocked != null)
+            {
+                HashSet<Vector2Int> blocked = new HashSet<Vector2Int>();
+                for (int b = 0; b < level.blocked.Length; b++)
+                {
+                    BlockedCellData cell = level.blocked[b];
+                    Vector2Int coord = new Vector2Int(cell.row, cell.col);
+                    if (cell == null || coord.x < 0 || coord.x >= level.rows || coord.y < 0 || coord.y >= level.cols)
+                    {
+                        error = level.id + " has a blocked cell outside the grid.";
+                        return false;
+                    }
+
+                    if (occupied.Contains(coord))
+                    {
+                        error = level.id + " blocks a cell its solution needs at " + coord + ".";
+                        return false;
+                    }
+
+                    if (!blocked.Add(coord))
+                    {
+                        error = level.id + " lists blocked cell " + coord + " twice.";
+                        return false;
+                    }
+                }
+            }
+
             error = string.Empty;
             return true;
         }

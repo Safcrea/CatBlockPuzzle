@@ -276,6 +276,36 @@ namespace CatBlockPuzzle
             game.Flow.UpdateTestLevelButtons();
         }
 
+        /// <summary>
+        /// Reloads the level and room JSON into the prepared catalog without rebuilding the scene.
+        /// Only valid while the grids and piece counts are unchanged, because the level prefabs
+        /// bake one cell per grid slot; anything else needs a full Prepare Game Scene.
+        /// </summary>
+        public static void RefreshContentData()
+        {
+            if (Application.isPlaying) throw new InvalidOperationException("Exit Play Mode first.");
+            CatPuzzleContentCatalog contentCatalog = AssetDatabase.LoadAssetAtPath<CatPuzzleContentCatalog>(PreparedAssetFolder + "/Content.asset");
+            if (contentCatalog == null) throw new InvalidOperationException("No prepared content catalog; run Prepare Game Scene first.");
+            var pack = JsonUtility.FromJson<LevelPackData>(File.ReadAllText(LevelsSourcePath));
+            if (!LevelValidator.TryValidatePack(pack, out string error)) throw new InvalidOperationException(error);
+            LevelData[] previous = contentCatalog.levelPack?.levels;
+            if (previous != null && previous.Length == pack.levels.Length)
+            {
+                for (int i = 0; i < pack.levels.Length; i++)
+                {
+                    if (pack.levels[i].rows != previous[i].rows || pack.levels[i].cols != previous[i].cols ||
+                        pack.levels[i].pieces.Length != previous[i].pieces.Length)
+                        throw new InvalidOperationException("Level " + (i + 1) + " changed its grid or piece count; the level prefabs must be regenerated with Prepare Game Scene.");
+                }
+            }
+            contentCatalog.levelPack = pack;
+            contentCatalog.metaData = JsonUtility.FromJson<CatMetaCatalogData>(File.ReadAllText(RoomsSourcePath));
+            contentCatalog.sourceFingerprint = PreparationFingerprint();
+            EditorUtility.SetDirty(contentCatalog);
+            AssetDatabase.SaveAssets();
+            Debug.Log("CAT_CONTENT_REFRESHED levels=" + pack.levels.Length);
+        }
+
         private static void PrepareContentAssets(CatBlockPuzzleGame game)
         {
             Directory.CreateDirectory(PreparedAssetFolder);

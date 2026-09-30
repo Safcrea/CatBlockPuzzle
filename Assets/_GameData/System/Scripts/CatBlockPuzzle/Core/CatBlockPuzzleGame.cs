@@ -143,8 +143,8 @@ namespace CatBlockPuzzle
             timer = new LevelTimer(this, session, this, gates);
             pieceLayout = new PieceLayout(session);
             tray = new TrayLayout(this, session, pieceLayout, settings, space);
-            board = new BoardController(this, session, space, pieceLayout, tray, settings);
             mood = new CatMoodPresenter(this, session, settings, gates);
+            board = new BoardController(this, session, space, pieceLayout, tray, settings, mood);
             combo = new ComboTracker(this, session, fx, space, settings);
             feedback = new PlacementFeedback(this, session, fx, haptics, space, board, mood, combo, settings);
             tip = new MovePieceTip(this, session, space, board, settings);
