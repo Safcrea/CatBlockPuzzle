@@ -44,6 +44,8 @@ namespace CatBlockPuzzle
         public IPlacementGate Gate { get; set; }
 
         public event Action<PieceState> PiecePlaced;
+        /// <summary>A cat was released over the board where it cannot land.</summary>
+        public event Action<PieceState> MissedDrop;
 
         public PieceDragController(IGameplayContext context, PuzzleSession session, CanvasSpace space, BoardController board,
             TrayLayout tray, PieceLayout pieceLayout, PlacementFeedback feedback, HintPresenter hint, FxSpawner fx,
@@ -366,6 +368,7 @@ namespace CatBlockPuzzle
             }
 
             RestoreInvalidDrop(endedDrag);
+            if (endedDrag.NearBoard) MissedDrop?.Invoke(state);
         }
 
         public void PlacePiece(PieceState state, int row, int col, bool countForCombo)

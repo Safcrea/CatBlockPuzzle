@@ -16,6 +16,7 @@ namespace CatBlockPuzzle
         private readonly BoardController board;
         private readonly CellLockController locks;
         private readonly MechanicIntroPresenter intro;
+        private readonly MistakeHearts hearts;
         private readonly TrayLayout tray;
         private readonly PieceDragController drag;
         private readonly LevelTimer timer;
@@ -39,8 +40,9 @@ namespace CatBlockPuzzle
             CellLockController locks, TrayLayout tray, PieceDragController drag, LevelTimer timer, HintPresenter hint, MovePieceTip tip, LevelOneTutorial tutorial,
             MetaProgressionController meta, ThemePresenter theme, PlayerProgress progress, ComboTracker combo, FxSpawner fx,
             HapticsController haptics, CatMoodPresenter mood, InteractionGates gates, IPuzzleConfig config,
-            MechanicIntroPresenter intro) : base(context)
+            MechanicIntroPresenter intro, MistakeHearts hearts) : base(context)
         {
+            this.hearts = hearts;
             this.intro = intro;
             this.session = session;
             this.loader = loader;
@@ -64,6 +66,8 @@ namespace CatBlockPuzzle
 
             drag.PiecePlaced += OnPiecePlaced;
             timer.Expired += FailLevel;
+            drag.MissedDrop += _ => hearts.LoseHeart();
+            hearts.OutOfHearts += () => FailLevel("Out of hearts! Place each cat carefully.");
         }
 
         private LevelManager levelManager => Context.Levels;
@@ -126,6 +130,7 @@ namespace CatBlockPuzzle
                 progress.SaveProgress();
             }
             timer.ResetLevelTimer();
+            hearts.ResetForLevel();
             combo.UpdateDisplay(false);
 
             board.LayoutCells(loader.LoadedLevel);
@@ -265,7 +270,9 @@ namespace CatBlockPuzzle
             GameSystem.Instance?.ShowLevelComplete(activeLevel.Title, result.Stars, awardedCoins, result.BestStars, session.bestCombo);
         }
 
-        public void FailLevel()
+        public void FailLevel() => FailLevel("Complete the puzzle before the timer ends.");
+
+        public void FailLevel(string message)
         {
             if (session.levelFailed || gates.LevelCompleteOpen)
             {
@@ -278,7 +285,7 @@ namespace CatBlockPuzzle
             hint.StopHint();
             drag.CancelActiveDragToRest();
             PuzzleAudio.PlayWithMusicDuck("Wrong");
-            GameSystem.Instance?.ShowLevelFailed("Try Again", "Complete the puzzle before the timer ends.");
+            GameSystem.Instance?.ShowLevelFailed("Try Again", message);
         }
 
         /// <summary>Freezes the level while another page owns the screen; the reveal is dropped without finishing.</summary>

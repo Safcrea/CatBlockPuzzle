@@ -34,7 +34,12 @@ namespace CatBlockPuzzle
             if (!Enabled || Hud == null || Hud.gameplayScreen == null) return;
 
             Transform stale = Hud.gameplayScreen.Find(BarName);
-            if (stale != null) Destroy(stale.gameObject);
+            if (stale != null)
+            {
+                stale.gameObject.SetActive(false);
+                stale.SetParent(null, false);
+                Destroy(stale.gameObject);
+            }
 
             const float buttonWidth = 72f, buttonHeight = 56f, gap = 8f, pad = 8f;
             float contentWidth = (Steps.Length * buttonWidth) + ((Steps.Length - 1) * gap);

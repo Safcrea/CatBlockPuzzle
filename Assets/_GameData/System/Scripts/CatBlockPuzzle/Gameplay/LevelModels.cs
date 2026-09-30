@@ -91,6 +91,10 @@ namespace CatBlockPuzzle
         public readonly PieceDefinition[] Spares;
         public bool HasSpares => Spares.Length > 0;
 
+        /// <summary>Mistake hearts for one attempt (0 = unlimited mistakes).</summary>
+        public readonly int Hearts;
+        public bool HasHearts => Hearts > 0;
+
         public bool HasBlockedCells => BlockedCells.Count > 0;
         public bool HasLockedCells => LockedCells.Count > 0;
 
@@ -105,8 +109,9 @@ namespace CatBlockPuzzle
 
         public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
             IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null, int trayWindow = 0,
-            IDictionary<Vector2Int, string> zoneCells = null, PieceDefinition[] spares = null)
+            IDictionary<Vector2Int, string> zoneCells = null, PieceDefinition[] spares = null, int hearts = 0)
         {
+            Hearts = Mathf.Max(0, hearts);
             Spares = spares ?? new PieceDefinition[0];
             ZoneCells = zoneCells != null ? new Dictionary<Vector2Int, string>(zoneCells) : new Dictionary<Vector2Int, string>();
             TrayWindow = Mathf.Max(0, trayWindow);
@@ -161,6 +166,8 @@ namespace CatBlockPuzzle
         public ZoneCellData[] zones;
         /// <summary>Optional. Decoy cats (id, name, shape; row/col unused) that do not belong in the solution.</summary>
         public PieceData[] spares;
+        /// <summary>Optional. Mistake hearts: bad drops on the board allowed before the level fails.</summary>
+        public int hearts;
     }
 
     [Serializable]

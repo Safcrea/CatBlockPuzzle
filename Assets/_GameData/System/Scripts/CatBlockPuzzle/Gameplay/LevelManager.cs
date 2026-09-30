@@ -89,7 +89,7 @@ namespace CatBlockPuzzle
                     foreach (LockedCellData cell in data[i].locked) locked[new Vector2Int(cell.row, cell.col)] = new CellLockRule(cell.after, cell.key);
                 }
 
-                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces, blocked, locked, data[i].trayWindow, zones, spares);
+                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces, blocked, locked, data[i].trayWindow, zones, spares, data[i].hearts);
             }
 
             return converted;

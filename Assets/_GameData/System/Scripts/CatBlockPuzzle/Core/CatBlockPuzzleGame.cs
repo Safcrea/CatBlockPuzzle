@@ -71,6 +71,7 @@ namespace CatBlockPuzzle
         private LevelFlowController flow;
         private TestLevelNavigator testNavigator;
         private MechanicIntroPresenter intro;
+        private MistakeHearts hearts;
 
         // ------------------------------------------------------------------ scene bindings
 
@@ -172,8 +173,9 @@ namespace CatBlockPuzzle
             meta = new MetaProgressionController(this, session, progress, settings, timer, hint, drag, tray, fx, mood, haptics, gates, this);
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this);
             intro = new MechanicIntroPresenter(this, session);
+            hearts = new MistakeHearts(this, session, settings);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
-                progress, combo, fx, haptics, mood, gates, this, intro);
+                progress, combo, fx, haptics, mood, gates, this, intro, hearts);
             testNavigator = new TestLevelNavigator(this, session, this);
             composed = true;
         }

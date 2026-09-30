@@ -219,6 +219,12 @@ namespace CatBlockPuzzle
                 }
             }
 
+            if (level.hearts < 0 || level.hearts > 5)
+            {
+                error = level.id + " hearts must be between 0 and 5.";
+                return false;
+            }
+
             if (level.trayWindow < 0)
             {
                 error = level.id + " has a negative tray window.";

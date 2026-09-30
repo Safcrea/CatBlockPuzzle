@@ -18,6 +18,7 @@ namespace CatBlockPuzzle
         public const string Shelf = "Shelf";
         public const string ColourZones = "ColourZones";
         public const string SpareCats = "SpareCats";
+        public const string Hearts = "Hearts";
 
         private readonly PuzzleSession session;
         private GameObject overlay;
@@ -52,6 +53,9 @@ namespace CatBlockPuzzle
             if (level.HasSpares)
                 yield return Show(SpareCats, "New: A spare cat!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 5 ? Assets.catPortraitSprites[5] : null,
                     "One cat on the shelf doesn't belong here.\n\nFill the whole board and you win, even with a cat left over. Work out which one to leave out!");
+            if (level.HasHearts)
+                yield return Show(Hearts, "New: Mistake hearts!", HeartArt.Heart,
+                    "You have " + level.Hearts + " hearts.\n\nDropping a cat on the board where it doesn't fit costs one. Lose them all and the level is over, so think before you drop!");
             if (level.HasTrayWindow)
                 yield return Show(Shelf, "New: Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
                     "Only " + level.TrayWindow + " cats fit on the shelf at once.\n\nPlace one and the next cat arrives, so think about the order.");
