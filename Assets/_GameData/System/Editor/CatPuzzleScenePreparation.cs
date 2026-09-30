@@ -132,6 +132,11 @@ public sealed class CatPuzzlePreparedSceneBuildCheck : IProcessSceneWithReport
     {
         // Unity also invokes scene processors during Play Mode; build validation only.
         if (report != null && scene.path == CatPuzzleScenePreparation.ScenePath)
+        {
             CatPuzzleScenePreparation.ValidateScene(scene);
+            var game = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<CatBlockPuzzleGame>(true)).FirstOrDefault();
+            if (game != null && game.ShowTestLevelNavigation)
+                Debug.LogWarning("This build includes the test level navigation bar (Show Test Level Navigation is ticked on the game component). Untick it before shipping.");
+        }
     }
 }

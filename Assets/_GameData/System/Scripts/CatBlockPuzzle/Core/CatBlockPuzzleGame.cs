@@ -29,6 +29,10 @@ namespace CatBlockPuzzle
         [SerializeField, HideInInspector] private CatPuzzleLevelView[] preparedLevels;
 #endif
 
+        [Header("Testing")]
+        [Tooltip("Shows the level navigation bar (<< < > >>) at the top of the gameplay screen in every build, release builds included. Turn this OFF before shipping: when it is off the bar is never created.")]
+        [SerializeField] private bool showTestLevelNavigation;
+
         [Header("Level 1 Tutorial")]
         [Tooltip("Turn off to play level 1 without the hands-on tutorial. Can also be changed during Play Mode.")]
         [SerializeField] private bool enableLevelOneTutorial = true;
@@ -94,6 +98,10 @@ namespace CatBlockPuzzle
         bool IPuzzleConfig.ShowTutorialCaptions => showTutorialCaptions;
         Sprite IPuzzleConfig.TutorialHandSprite => tutorialHandSprite;
         float IPuzzleConfig.FreezeDurationSeconds => freezeDurationSeconds;
+        bool IPuzzleConfig.ShowTestLevelNavigation => showTestLevelNavigation;
+
+        /// <summary>Read by the build check so it can warn when a build ships the testing bar.</summary>
+        internal bool ShowTestLevelNavigation => showTestLevelNavigation;
 
         // ------------------------------------------------------------------ level flow for the meta/power-up services
 
@@ -162,7 +170,7 @@ namespace CatBlockPuzzle
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
                 progress, combo, fx, haptics, mood, gates, this);
-            testNavigator = new TestLevelNavigator(this, session);
+            testNavigator = new TestLevelNavigator(this, session, this);
             composed = true;
         }
 

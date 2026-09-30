@@ -5,8 +5,9 @@ namespace CatBlockPuzzle
 {
     /// <summary>
     /// Testing-phase level browser: a slim bar at the top of the gameplay screen that jumps
-    /// 10 or 1 levels back and forward without awarding progress. It is only built in the
-    /// Editor and in Development builds, so release builds never contain it.
+    /// 10 or 1 levels back and forward without awarding progress. It exists only while the
+    /// "Show Test Level Navigation" checkbox on the game component is ticked; with it off,
+    /// no bar is created in any build.
     /// </summary>
     internal sealed class TestLevelNavigator : HostedService
     {
@@ -15,16 +16,18 @@ namespace CatBlockPuzzle
         private static readonly string[] Labels = { "<<", "<", ">", ">>" };
 
         private readonly PuzzleSession session;
+        private readonly IPuzzleConfig config;
         private readonly Button[] buttons = new Button[Steps.Length];
         private RectTransform bar;
         private int shownLevel = -1;
 
-        public TestLevelNavigator(IGameplayContext context, PuzzleSession session) : base(context)
+        public TestLevelNavigator(IGameplayContext context, PuzzleSession session, IPuzzleConfig config) : base(context)
         {
             this.session = session;
+            this.config = config;
         }
 
-        public static bool Enabled => Application.isEditor || Debug.isDebugBuild;
+        public bool Enabled => config.ShowTestLevelNavigation;
 
         public void Build()
         {
