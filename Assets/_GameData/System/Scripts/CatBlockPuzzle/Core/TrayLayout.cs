@@ -26,6 +26,7 @@ namespace CatBlockPuzzle
         private float traySlotMinWidth = 104f;
         private float traySlotMinHeight = 154f;
         private float trayCellMaxSize = 38f;
+        private Text queueLabel;
 
         public TrayLayout(IGameplayContext context, PuzzleSession session, PieceLayout pieceLayout, PlayerSettings settings, CanvasSpace space) : base(context)
         {
@@ -61,6 +62,78 @@ namespace CatBlockPuzzle
             RefreshTrayLayout(false);
             trayScrollRect.StopMovement();
             trayScrollRect.horizontalNormalizedPosition = 0f;
+        }
+
+        /// <summary>Re-applies the drip-fed shelf after a cat comes back to the tray outside a layout refresh.</summary>
+        public void ApplyShelfWindow()
+        {
+            if (activeLevel != null && activeLevel.HasTrayWindow) RefreshTrayLayout(!reducedMotion);
+        }
+
+        // Shows the first TrayWindow unplaced cats (in piece order) and hides the rest; a held cat is never hidden.
+        private void ApplyDripFeed(List<PieceState> revealed)
+        {
+            int window = activeLevel != null && activeLevel.HasTrayWindow ? activeLevel.TrayWindow : 0;
+            int rank = 0;
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState state = pieces[i];
+                if (state?.Slot == null || state.Placed) continue;
+                bool held = drag != null && drag.Piece == state;
+                bool show = window <= 0 || rank < window || held;
+                rank++;
+                if (state.Slot.gameObject.activeSelf == show) continue;
+                state.Slot.gameObject.SetActive(show);
+                if (show) revealed?.Add(state);
+            }
+
+            UpdateQueueLabel(window > 0 ? Mathf.Max(0, rank - window) : 0);
+        }
+
+        private void UpdateQueueLabel(int waiting)
+        {
+            if (trayRoot == null) return;
+            if (queueLabel == null || queueLabel.transform.parent != trayRoot)
+            {
+                Transform existing = trayRoot.Find("Waiting Cats");
+                queueLabel = existing != null ? existing.GetComponent<Text>() : null;
+            }
+            if (waiting <= 0)
+            {
+                if (queueLabel != null) queueLabel.gameObject.SetActive(false);
+                return;
+            }
+
+            if (queueLabel == null)
+            {
+                queueLabel = RuntimeUiFactory.CreateText(trayRoot, "Waiting Cats", "", 30, TextAnchor.MiddleRight);
+                if (Assets.defaultFont != null) queueLabel.font = Assets.defaultFont;
+                queueLabel.raycastTarget = false;
+                queueLabel.color = new Color(0.47f, 0.23f, 0.11f, 1f);
+                RectTransform rect = queueLabel.rectTransform;
+                rect.anchorMin = rect.anchorMax = new Vector2(1f, 1f);
+                rect.pivot = new Vector2(1f, 0f);
+                rect.sizeDelta = new Vector2(360f, 44f);
+                rect.anchoredPosition = new Vector2(-24f, 4f);
+            }
+
+            queueLabel.text = "+" + waiting + (waiting == 1 ? " cat waiting" : " cats waiting");
+            queueLabel.gameObject.SetActive(true);
+            queueLabel.transform.SetAsLastSibling();
+        }
+
+        private IEnumerator PopIn(RectTransform slot)
+        {
+            const float seconds = 0.28f;
+            float elapsed = 0f;
+            while (elapsed < seconds && slot != null)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / seconds);
+                slot.localScale = Vector3.one * (EaseOutCubic(t) * (1f + 0.12f * Mathf.Sin(t * Mathf.PI)));
+                yield return null;
+            }
+            if (slot != null) slot.localScale = Vector3.one;
         }
 
         public void ConfigureTrayForPieceCount(int visiblePieceCount)
@@ -180,6 +253,8 @@ namespace CatBlockPuzzle
                 return;
             }
 
+            var revealed = new List<PieceState>();
+            ApplyDripFeed(revealed);
             float previousScroll = trayScrollRect != null ? trayScrollRect.horizontalNormalizedPosition : 0f;
             var previousSlotPositions = new Dictionary<PieceState, Vector2>();
             if (animateCatSizes)
@@ -252,6 +327,11 @@ namespace CatBlockPuzzle
                     state.Slot.anchoredPosition = startPosition;
                     state.SlotMoveRoutine = StartCoroutine(AnimateTraySlotPosition(state, startPosition, targetPosition));
                 }
+            }
+
+            if (animateCatSizes && !reducedMotion && Host.gameObject.activeInHierarchy)
+            {
+                for (int i = 0; i < revealed.Count; i++) StartCoroutine(PopIn(revealed[i].Slot));
             }
         }
 

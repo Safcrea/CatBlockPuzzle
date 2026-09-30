@@ -15,6 +15,7 @@ namespace CatBlockPuzzle
         private readonly PreparedLevelLoader loader;
         private readonly BoardController board;
         private readonly CellLockController locks;
+        private readonly MechanicIntroPresenter intro;
         private readonly TrayLayout tray;
         private readonly PieceDragController drag;
         private readonly LevelTimer timer;
@@ -37,8 +38,10 @@ namespace CatBlockPuzzle
         public LevelFlowController(IGameplayContext context, PuzzleSession session, PreparedLevelLoader loader, BoardController board,
             CellLockController locks, TrayLayout tray, PieceDragController drag, LevelTimer timer, HintPresenter hint, MovePieceTip tip, LevelOneTutorial tutorial,
             MetaProgressionController meta, ThemePresenter theme, PlayerProgress progress, ComboTracker combo, FxSpawner fx,
-            HapticsController haptics, CatMoodPresenter mood, InteractionGates gates, IPuzzleConfig config) : base(context)
+            HapticsController haptics, CatMoodPresenter mood, InteractionGates gates, IPuzzleConfig config,
+            MechanicIntroPresenter intro) : base(context)
         {
+            this.intro = intro;
             this.session = session;
             this.loader = loader;
             this.board = board;
@@ -87,6 +90,7 @@ namespace CatBlockPuzzle
             if (nextPrefab == null) return;
             Hud?.CancelPowerUpTutorial();
             Hud?.CancelPowerUpPurchase(false);
+            intro.Cancel();
             tutorial.Cancel();
             session.ResetForLevelLoad();
             timer.timerRunning = false;
@@ -111,13 +115,7 @@ namespace CatBlockPuzzle
             Hud.levelText.text = "Level " + (levelIndex + 1).ToString();
             if (Hud.objectiveText != null)
             {
-                Hud.objectiveText.text = activeLevel.HasKeyLocks
-                    ? "Place the key cat to open its padlock"
-                    : activeLevel.HasLockedCells
-                    ? "Place cats to open the padlocked spots"
-                    : activeLevel.HasBlockedCells
-                        ? "Sleepy cats block the way - fit around them"
-                        : theme.ObjectiveTitle(activeLevel.Title);
+                Hud.objectiveText.text = theme.ObjectiveTitle(activeLevel.Title);
             }
 
             meta.ApplyMetaLevelPresentation(levelIndex);
@@ -147,6 +145,7 @@ namespace CatBlockPuzzle
             while (reveal.MoveNext()) yield return reveal.Current;
 
             if (Hud != null) yield return Hud.ShowPowerUpTutorials(config.FreezeDurationSeconds);
+            yield return intro.ShowNewMechanics(activeLevel);
             inputLocked = gates.MetaUiOpen || gates.SystemPaused;
             if (!gates.MetaUiOpen)
             {
@@ -285,6 +284,7 @@ namespace CatBlockPuzzle
         public void SuspendForNavigation()
         {
             tutorial.Cancel();
+            intro.Cancel();
             Hud?.CancelPowerUpTutorial();
             Hud?.CancelPowerUpPurchase(false);
             CancelReveal(snapCells: false);

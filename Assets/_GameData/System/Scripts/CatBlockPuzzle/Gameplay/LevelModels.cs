@@ -76,6 +76,10 @@ namespace CatBlockPuzzle
         /// <summary>Solution cells that start padlocked, mapped to the rule that opens each one.</summary>
         public readonly Dictionary<Vector2Int, CellLockRule> LockedCells;
 
+        /// <summary>Drip-fed tray: how many unplaced cats the shelf shows at once (0 = all of them).</summary>
+        public readonly int TrayWindow;
+        public bool HasTrayWindow => TrayWindow > 0 && TrayWindow < Pieces.Length;
+
         public bool HasBlockedCells => BlockedCells.Count > 0;
         public bool HasLockedCells => LockedCells.Count > 0;
 
@@ -89,8 +93,9 @@ namespace CatBlockPuzzle
         }
 
         public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
-            IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null)
+            IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null, int trayWindow = 0)
         {
+            TrayWindow = Mathf.Max(0, trayWindow);
             LockedCells = lockedCells != null ? new Dictionary<Vector2Int, CellLockRule>(lockedCells) : new Dictionary<Vector2Int, CellLockRule>();
             Id = id;
             Title = title;
@@ -136,6 +141,8 @@ namespace CatBlockPuzzle
         public BlockedCellData[] blocked;
         /// <summary>Optional. Solution cells that start locked. key opens once that piece is placed; otherwise after > 0 opens once that many cats are placed, and 0 opens once its free neighbours are filled.</summary>
         public LockedCellData[] locked;
+        /// <summary>Optional. Drip-fed tray: only this many unplaced cats are on the shelf at once, in piece order.</summary>
+        public int trayWindow;
     }
 
     [Serializable]

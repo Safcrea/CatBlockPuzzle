@@ -40,6 +40,7 @@ namespace CatBlockPuzzle
             {
                 PieceState state = pieces[i];
                 if (locks.BlocksSolution(state.Definition)) continue;
+                if (!state.Placed && state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
                 if (!state.Placed || state.Row != state.Definition.SolutionRow || state.Col != state.Definition.SolutionCol)
                 {
                     hinted = state;

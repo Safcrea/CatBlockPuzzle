@@ -408,10 +408,10 @@ namespace CatBlockPuzzle
         private void ReturnPieceToShelf(PieceState state)
         {
             inputLocked = true;
-            tray.SetPieceSlotVisible(state, true, true);
             state.Placed = false;
             state.Row = -1;
             state.Col = -1;
+            tray.SetPieceSlotVisible(state, true, true);
             feedback.PlayShelfReturn();
             StartCoroutine(AnimateToTray(state));
         }
@@ -460,6 +460,7 @@ namespace CatBlockPuzzle
                 TrayGap,
                 TrayGap);
             tray.AttachPieceToTray(state);
+            tray.ApplyShelfWindow();
             StartCoroutine(fx.PopTransform(state.Slot, 1.04f));
             inputLocked = false;
         }
@@ -775,6 +776,7 @@ namespace CatBlockPuzzle
             else
             {
                 tray.AttachPieceToTray(state);
+                tray.ApplyShelfWindow();
             }
         }
     }

@@ -162,6 +162,12 @@ namespace CatBlockPuzzle
                 }
             }
 
+            if (level.trayWindow < 0)
+            {
+                error = level.id + " has a negative tray window.";
+                return false;
+            }
+
             if (level.locked != null && level.locked.Length > 0 && !TryValidateLocks(level, occupied, owner, pieceIndex, pieceCells, out error))
             {
                 return false;
@@ -308,9 +314,21 @@ namespace CatBlockPuzzle
             while (progressed && placedCount < count)
             {
                 progressed = false;
+                int visibleRank = 0;
                 for (int i = 0; i < count; i++)
                 {
-                    if (placed[i] || !IsPlaceable(pieceCells[i], locked, open))
+                    if (placed[i])
+                    {
+                        continue;
+                    }
+
+                    // A drip-fed shelf only offers the first trayWindow unplaced cats.
+                    if (level.trayWindow > 0 && visibleRank++ >= level.trayWindow)
+                    {
+                        break;
+                    }
+
+                    if (!IsPlaceable(pieceCells[i], locked, open))
                     {
                         continue;
                     }
@@ -341,6 +359,8 @@ namespace CatBlockPuzzle
                             }
                         }
                     }
+
+                    break;
                 }
             }
 
