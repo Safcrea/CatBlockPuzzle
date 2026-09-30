@@ -64,6 +64,9 @@ namespace CatBlockPuzzle
                 Vector2 min = levelRoot.InverseTransformPoint(area.TransformPoint(area.rect.min));
                 Vector2 max = levelRoot.InverseTransformPoint(area.TransformPoint(area.rect.max));
                 Vector2 size = new Vector2(Mathf.Abs(max.x - min.x), Mathf.Abs(max.y - min.y));
+                // A canvas that has never been laid out (editor preview scenes) collapses the
+                // world-space measurement; the authored rect is the intended size in that case.
+                if (size.x < 1f || size.y < 1f) size = area.rect.size;
                 Vector2 padding = Hud.boardContentPadding;
                 return new Vector2(Mathf.Max(1f, size.x - Mathf.Clamp(padding.x, 0f, size.x * .4f) * 2f),
                     Mathf.Max(1f, size.y - Mathf.Clamp(padding.y, 0f, size.y * .4f) * 2f));

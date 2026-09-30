@@ -101,8 +101,11 @@ namespace CatBlockPuzzle.Tests
                 var dependencies = AssetDatabase.GetDependencies(CatPuzzleScenePreparation.ScenePath,true);
                 Assert.That(dependencies.Any(p=>p.StartsWith(CatBlockPuzzleGame.LevelPrefabFolder + "/")),Is.False,
                     "UI scene must not directly reference all level prefab assets.");
+                // Baked puzzle buttons are bound persistently through CatPuzzleUiAction; the
+                // reference UI screens (menu, pause, settings) wire their buttons at runtime.
                 foreach (var button in game.PreparedCanvas.GetComponentsInChildren<Button>(true))
                 {
+                    if (button.GetComponent<CatPuzzleUiAction>() == null) continue;
                     Assert.That(button.onClick.GetPersistentEventCount(),Is.EqualTo(1),button.name);
                     Assert.That(button.onClick.GetPersistentTarget(0),Is.Not.Null,button.name);
                 }
