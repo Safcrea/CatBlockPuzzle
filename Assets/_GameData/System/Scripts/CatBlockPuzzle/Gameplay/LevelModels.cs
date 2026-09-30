@@ -43,6 +43,23 @@ namespace CatBlockPuzzle
         }
     }
 
+    /// <summary>How a padlocked cell opens: when a named cat lands, when enough cats have landed, or when its neighbours are filled.</summary>
+    internal readonly struct CellLockRule
+    {
+        /// <summary>Counter rule: opens once this many cats are placed. Zero with no key means the neighbour rule.</summary>
+        public readonly int After;
+        /// <summary>Key rule: opens once the piece with this id is placed.</summary>
+        public readonly string KeyPieceId;
+
+        public CellLockRule(int after, string keyPieceId = null)
+        {
+            After = after;
+            KeyPieceId = keyPieceId;
+        }
+
+        public bool IsKey => !string.IsNullOrEmpty(KeyPieceId);
+    }
+
     internal sealed class LevelDefinition
     {
         public readonly string Id;
@@ -56,16 +73,25 @@ namespace CatBlockPuzzle
         /// <summary>Grid cells shown as sleeping cats: visibly part of the board, never placeable.</summary>
         public readonly HashSet<Vector2Int> BlockedCells;
 
-        /// <summary>Solution cells that start padlocked, mapped to their unlock count (0 = neighbour rule).</summary>
-        public readonly Dictionary<Vector2Int, int> LockedCells;
+        /// <summary>Solution cells that start padlocked, mapped to the rule that opens each one.</summary>
+        public readonly Dictionary<Vector2Int, CellLockRule> LockedCells;
 
         public bool HasBlockedCells => BlockedCells.Count > 0;
         public bool HasLockedCells => LockedCells.Count > 0;
 
-        public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
-            IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, int> lockedCells = null)
+        public bool HasKeyLocks
         {
-            LockedCells = lockedCells != null ? new Dictionary<Vector2Int, int>(lockedCells) : new Dictionary<Vector2Int, int>();
+            get
+            {
+                foreach (CellLockRule rule in LockedCells.Values) if (rule.IsKey) return true;
+                return false;
+            }
+        }
+
+        public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
+            IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null)
+        {
+            LockedCells = lockedCells != null ? new Dictionary<Vector2Int, CellLockRule>(lockedCells) : new Dictionary<Vector2Int, CellLockRule>();
             Id = id;
             Title = title;
             Difficulty = difficulty;
@@ -108,7 +134,7 @@ namespace CatBlockPuzzle
         public PieceData[] pieces;
         /// <summary>Optional. Free cells drawn as sleeping cats so the board reads as a full rectangle.</summary>
         public BlockedCellData[] blocked;
-        /// <summary>Optional. Solution cells that start locked; after > 0 opens once that many cats are placed, 0 opens once its free neighbours are filled.</summary>
+        /// <summary>Optional. Solution cells that start locked. key opens once that piece is placed; otherwise after > 0 opens once that many cats are placed, and 0 opens once its free neighbours are filled.</summary>
         public LockedCellData[] locked;
     }
 
@@ -118,6 +144,7 @@ namespace CatBlockPuzzle
         public int row;
         public int col;
         public int after;
+        public string key;
     }
 
     [Serializable]

@@ -8,30 +8,38 @@ namespace CatBlockPuzzle
 {
     /// <summary>
     /// Locked board cells: solution cells that start padlocked and open during the level.
-    /// A counter lock opens once enough cats are on the board; a neighbour lock opens once
-    /// every free cell beside it (belonging to other pieces) is filled. Opening is permanent.
+    /// A key lock opens when its named cat is placed; a counter lock opens once enough cats
+    /// are on the board; a neighbour lock opens once every free cell beside it (belonging to
+    /// other pieces) is filled. Opening is permanent for the rest of the attempt.
     /// </summary>
     internal sealed class CellLockController : HostedService
     {
+        private static readonly Color Cocoa = new Color(0.36f, 0.19f, 0.10f, 1f);
+
         private sealed class Lock
         {
             public Vector2Int Cell;
-            public int After;                      // > 0: counter rule, else neighbour rule
+            public int After;                      // counter rule when > 0
+            public string KeyId;                   // key rule when set
             public List<Vector2Int> Unlockers;     // neighbour rule: cells that must be occupied
             public bool Open;
             public RectTransform Overlay;
             public Text Counter;
+
+            public bool IsKey => !string.IsNullOrEmpty(KeyId);
         }
 
         private readonly PuzzleSession session;
         private readonly PlayerSettings settings;
+        private readonly CatMoodPresenter mood;
         private readonly List<Lock> locks = new List<Lock>();
         private readonly Dictionary<Vector2Int, Lock> byCell = new Dictionary<Vector2Int, Lock>();
 
-        public CellLockController(IGameplayContext context, PuzzleSession session, PlayerSettings settings) : base(context)
+        public CellLockController(IGameplayContext context, PuzzleSession session, PlayerSettings settings, CatMoodPresenter mood) : base(context)
         {
             this.session = session;
             this.settings = settings;
+            this.mood = mood;
         }
 
         public bool HasLocks => locks.Count > 0;
@@ -65,11 +73,11 @@ namespace CatBlockPuzzle
             if (level == null || level.LockedCells.Count == 0) return;
 
             Dictionary<Vector2Int, string> owner = OwnerMap(level);
-            foreach (KeyValuePair<Vector2Int, int> entry in level.LockedCells)
+            foreach (KeyValuePair<Vector2Int, CellLockRule> entry in level.LockedCells)
             {
                 if (!session.boardCells.TryGetValue(entry.Key, out CellView view)) continue;
-                Lock l = new Lock { Cell = entry.Key, After = entry.Value, Unlockers = new List<Vector2Int>() };
-                if (l.After <= 0)
+                Lock l = new Lock { Cell = entry.Key, After = entry.Value.After, KeyId = entry.Value.KeyPieceId, Unlockers = new List<Vector2Int>() };
+                if (!l.IsKey && l.After <= 0)
                 {
                     string self = owner[entry.Key];
                     foreach (Vector2Int n in Neighbours(entry.Key))
@@ -108,7 +116,11 @@ namespace CatBlockPuzzle
                 {
                     Lock l = locks[i];
                     if (l.Open) continue;
-                    if (l.After > 0)
+                    if (l.IsKey)
+                    {
+                        if (!IsPlaced(l.KeyId)) continue;
+                    }
+                    else if (l.After > 0)
                     {
                         if (l.Counter != null) l.Counter.text = Mathf.Max(0, l.After - placed).ToString();
                         if (placed < l.After) continue;
@@ -118,6 +130,24 @@ namespace CatBlockPuzzle
                     changed = true;
                 }
             }
+        }
+
+        private bool IsPlaced(string pieceId)
+        {
+            for (int i = 0; i < session.pieces.Count; i++)
+            {
+                if (session.pieces[i].Placed && session.pieces[i].Definition.Id == pieceId) return true;
+            }
+            return false;
+        }
+
+        private PieceState FindPiece(string pieceId)
+        {
+            for (int i = 0; i < session.pieces.Count; i++)
+            {
+                if (session.pieces[i].Definition.Id == pieceId) return session.pieces[i];
+            }
+            return null;
         }
 
         private bool AllOccupied(List<Vector2Int> cells)
@@ -140,8 +170,7 @@ namespace CatBlockPuzzle
         {
             const float seconds = 0.32f;
             float elapsed = 0f;
-            Image icon = overlay.GetComponent<Image>();
-            Color start = icon != null ? icon.color : Color.white;
+            CanvasGroup group = overlay.GetComponent<CanvasGroup>();
             while (elapsed < seconds)
             {
                 elapsed += Time.unscaledDeltaTime;
@@ -149,7 +178,7 @@ namespace CatBlockPuzzle
                 float pop = 1f + 0.35f * Mathf.Sin(t * Mathf.PI);
                 overlay.localScale = Vector3.one * pop * (1f - t * 0.6f);
                 overlay.anchoredPosition = Vector2.up * (t * t * 40f);
-                if (icon != null) icon.color = new Color(start.r, start.g, start.b, 1f - t);
+                if (group != null) group.alpha = 1f - t;
                 if (cell != null) cell.localScale = Vector3.one * (1f + 0.08f * Mathf.Sin(t * Mathf.PI));
                 yield return null;
             }
@@ -186,10 +215,16 @@ namespace CatBlockPuzzle
                 label.horizontalOverflow = HorizontalWrapMode.Overflow;
                 label.verticalOverflow = VerticalWrapMode.Overflow;
                 Outline outline = label.gameObject.AddComponent<Outline>();
-                outline.effectColor = new Color(0.36f, 0.19f, 0.10f, 1f);
+                outline.effectColor = Cocoa;
                 outline.effectDistance = new Vector2(2f, -2f);
                 counter = label;
             }
+
+            CanvasGroup group = overlay.GetComponent<CanvasGroup>();
+            if (group == null) group = overlay.gameObject.AddComponent<CanvasGroup>();
+            group.alpha = 1f;
+            group.blocksRaycasts = false;
+            group.interactable = false;
 
             float size = Mathf.Min(session.boardCellWidth, session.boardCellHeight);
             overlay.anchorMin = overlay.anchorMax = new Vector2(0.5f, 0.5f);
@@ -203,14 +238,65 @@ namespace CatBlockPuzzle
             overlay.gameObject.SetActive(true);
 
             // Counter locks show how many more cats must land before they open.
+            bool showCount = !l.IsKey && l.After > 0;
             counter.rectTransform.anchorMin = counter.rectTransform.anchorMax = new Vector2(0.5f, 0.32f);
             counter.rectTransform.anchoredPosition = Vector2.zero;
             counter.rectTransform.sizeDelta = Vector2.one * size * 0.4f;
             counter.fontSize = Mathf.Max(12, Mathf.RoundToInt(size * 0.26f));
-            counter.text = l.After > 0 ? l.After.ToString() : string.Empty;
-            counter.gameObject.SetActive(l.After > 0);
+            counter.text = showCount ? l.After.ToString() : string.Empty;
+            counter.gameObject.SetActive(showCount);
             l.Overlay = overlay;
-            l.Counter = l.After > 0 ? counter : null;
+            l.Counter = showCount ? counter : null;
+
+            BuildKeyBadge(l, overlay, size * 0.62f);
+        }
+
+        // Key locks carry the face of the cat that opens them, matching the face on its tray card.
+        private void BuildKeyBadge(Lock l, RectTransform overlay, float overlaySize)
+        {
+            Transform existing = overlay.Find("Key");
+            PieceState keyPiece = l.IsKey ? FindPiece(l.KeyId) : null;
+            if (keyPiece == null)
+            {
+                if (existing != null) existing.gameObject.SetActive(false);
+                return;
+            }
+
+            RectTransform badge;
+            Image face;
+            if (existing != null)
+            {
+                badge = (RectTransform)existing;
+                face = badge.Find("Face").GetComponent<Image>();
+            }
+            else
+            {
+                badge = new GameObject("Key", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image)).GetComponent<RectTransform>();
+                badge.SetParent(overlay, false);
+                Image disc = badge.GetComponent<Image>();
+                disc.sprite = Assets.circleSprite;
+                disc.color = new Color(1f, 0.96f, 0.86f, 1f);
+                disc.raycastTarget = false;
+                Outline ring = badge.gameObject.AddComponent<Outline>();
+                ring.effectColor = Cocoa;
+                ring.effectDistance = new Vector2(2f, -2f);
+                face = new GameObject("Face", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image)).GetComponent<Image>();
+                face.rectTransform.SetParent(badge, false);
+                face.preserveAspect = true;
+                face.raycastTarget = false;
+                face.rectTransform.anchorMin = new Vector2(0.08f, 0.08f);
+                face.rectTransform.anchorMax = new Vector2(0.92f, 0.92f);
+                face.rectTransform.offsetMin = face.rectTransform.offsetMax = Vector2.zero;
+            }
+
+            float badgeSize = overlaySize * 0.66f;
+            badge.anchorMin = badge.anchorMax = new Vector2(1f, 0f);
+            badge.pivot = new Vector2(0.5f, 0.5f);
+            badge.sizeDelta = Vector2.one * badgeSize;
+            badge.anchoredPosition = new Vector2(-badgeSize * 0.12f, badgeSize * 0.18f);
+            badge.localScale = Vector3.one;
+            face.sprite = mood.Portrait(CatMood.Happy, keyPiece.AtlasIndex);
+            badge.gameObject.SetActive(true);
         }
 
         private static IEnumerable<Vector2Int> Neighbours(Vector2Int c)

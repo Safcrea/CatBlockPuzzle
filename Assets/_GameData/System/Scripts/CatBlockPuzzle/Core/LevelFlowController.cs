@@ -111,7 +111,9 @@ namespace CatBlockPuzzle
             Hud.levelText.text = "Level " + (levelIndex + 1).ToString();
             if (Hud.objectiveText != null)
             {
-                Hud.objectiveText.text = activeLevel.HasLockedCells
+                Hud.objectiveText.text = activeLevel.HasKeyLocks
+                    ? "Place the key cat to open its padlock"
+                    : activeLevel.HasLockedCells
                     ? "Place cats to open the padlocked spots"
                     : activeLevel.HasBlockedCells
                         ? "Sleepy cats block the way - fit around them"

@@ -78,6 +78,8 @@ namespace CatBlockPuzzle
             }
 
             HashSet<string> pieceIds = new HashSet<string>();
+            Dictionary<string, int> pieceIndex = new Dictionary<string, int>();
+            List<Vector2Int>[] pieceCells = new List<Vector2Int>[level.pieces.Length];
             HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
             Dictionary<Vector2Int, int> owner = new Dictionary<Vector2Int, int>();
             int cellTotal = 0;
@@ -97,6 +99,8 @@ namespace CatBlockPuzzle
                     return false;
                 }
 
+                pieceIndex[piece.id] = p;
+                pieceCells[p] = new List<Vector2Int>();
                 if (!ShapeLibrary.TryGetShape(piece.shape, out CellOffset[] cells))
                 {
                     error = level.id + " uses unknown shape " + piece.shape + ".";
@@ -119,6 +123,7 @@ namespace CatBlockPuzzle
                     }
 
                     owner[coord] = p;
+                    pieceCells[p].Add(coord);
 
                     cellTotal++;
                 }
@@ -157,7 +162,7 @@ namespace CatBlockPuzzle
                 }
             }
 
-            if (level.locked != null && level.locked.Length > 0 && !TryValidateLocks(level, occupied, owner, out error))
+            if (level.locked != null && level.locked.Length > 0 && !TryValidateLocks(level, occupied, owner, pieceIndex, pieceCells, out error))
             {
                 return false;
             }
@@ -169,9 +174,11 @@ namespace CatBlockPuzzle
         // Locks must sit on solution cells and be openable: a counter lock needs enough
         // unlocked pieces to reach its count, a neighbour lock needs at least one free
         // neighbour that belongs to another piece (its own piece can never fill them).
-        private static bool TryValidateLocks(LevelData level, HashSet<Vector2Int> occupied, Dictionary<Vector2Int, int> owner, out string error)
+        private static bool TryValidateLocks(LevelData level, HashSet<Vector2Int> occupied, Dictionary<Vector2Int, int> owner,
+            Dictionary<string, int> pieceIndex, List<Vector2Int>[] pieceCells, out string error)
         {
             Dictionary<Vector2Int, int> locked = new Dictionary<Vector2Int, int>();
+            Dictionary<Vector2Int, int> keys = new Dictionary<Vector2Int, int>();
             HashSet<int> lockedPieces = new HashSet<int>();
             for (int i = 0; i < level.locked.Length; i++)
             {
@@ -201,6 +208,23 @@ namespace CatBlockPuzzle
                     return false;
                 }
 
+                if (!string.IsNullOrEmpty(cell.key))
+                {
+                    if (!pieceIndex.TryGetValue(cell.key, out int keyPiece))
+                    {
+                        error = level.id + " lock " + coord + " names unknown key piece " + cell.key + ".";
+                        return false;
+                    }
+
+                    if (keyPiece == owner[coord])
+                    {
+                        error = level.id + " lock " + coord + " is opened by its own piece " + cell.key + ".";
+                        return false;
+                    }
+
+                    keys[coord] = keyPiece;
+                }
+
                 locked[coord] = cell.after;
                 lockedPieces.Add(owner[coord]);
             }
@@ -214,10 +238,9 @@ namespace CatBlockPuzzle
 
             foreach (KeyValuePair<Vector2Int, int> entry in locked)
             {
-                if (entry.Value > freePieces)
+                if (keys.ContainsKey(entry.Key))
                 {
-                    error = level.id + " lock " + entry.Key + " needs " + entry.Value + " placements but only " + freePieces + " pieces are unlocked.";
-                    return false;
+                    continue;
                 }
 
                 if (entry.Value > 0)
@@ -248,8 +271,116 @@ namespace CatBlockPuzzle
                 }
             }
 
-            error = string.Empty;
+            return CanComplete(level, owner, pieceCells, locked, keys, out error);
+        }
+
+        // Opening is monotonic (placing more cats never closes a lock), so a greedy pass that
+        // places whatever is placeable completes the level exactly when some order does.
+        private static bool CanComplete(LevelData level, Dictionary<Vector2Int, int> owner, List<Vector2Int>[] pieceCells,
+            Dictionary<Vector2Int, int> locked, Dictionary<Vector2Int, int> keys, out string error)
+        {
+            int count = level.pieces.Length;
+            Dictionary<Vector2Int, List<Vector2Int>> unlockers = new Dictionary<Vector2Int, List<Vector2Int>>();
+            foreach (KeyValuePair<Vector2Int, int> entry in locked)
+            {
+                if (keys.ContainsKey(entry.Key) || entry.Value > 0)
+                {
+                    continue;
+                }
+
+                List<Vector2Int> beside = new List<Vector2Int>();
+                foreach (Vector2Int n in Neighbours(entry.Key))
+                {
+                    if (owner.TryGetValue(n, out int neighbourOwner) && neighbourOwner != owner[entry.Key] && !locked.ContainsKey(n))
+                    {
+                        beside.Add(n);
+                    }
+                }
+
+                unlockers[entry.Key] = beside;
+            }
+
+            HashSet<Vector2Int> open = new HashSet<Vector2Int>();
+            HashSet<Vector2Int> filled = new HashSet<Vector2Int>();
+            bool[] placed = new bool[count];
+            int placedCount = 0;
+            bool progressed = true;
+            while (progressed && placedCount < count)
+            {
+                progressed = false;
+                for (int i = 0; i < count; i++)
+                {
+                    if (placed[i] || !IsPlaceable(pieceCells[i], locked, open))
+                    {
+                        continue;
+                    }
+
+                    placed[i] = true;
+                    placedCount++;
+                    progressed = true;
+                    filled.UnionWith(pieceCells[i]);
+                    bool changed = true;
+                    while (changed)
+                    {
+                        changed = false;
+                        foreach (KeyValuePair<Vector2Int, int> entry in locked)
+                        {
+                            if (open.Contains(entry.Key))
+                            {
+                                continue;
+                            }
+
+                            bool opens;
+                            if (keys.TryGetValue(entry.Key, out int keyPiece)) opens = placed[keyPiece];
+                            else if (entry.Value > 0) opens = placedCount >= entry.Value;
+                            else opens = AllFilled(unlockers[entry.Key], filled);
+                            if (opens)
+                            {
+                                open.Add(entry.Key);
+                                changed = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (placedCount == count)
+            {
+                error = string.Empty;
+                return true;
+            }
+
+            error = level.id + " cannot be completed: its locks wait on each other (" + (count - placedCount) + " cats could never be placed).";
+            return false;
+        }
+
+        private static bool IsPlaceable(List<Vector2Int> cells, Dictionary<Vector2Int, int> locked, HashSet<Vector2Int> open)
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                if (locked.ContainsKey(cells[i]) && !open.Contains(cells[i]))
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
+
+        private static bool AllFilled(List<Vector2Int> cells, HashSet<Vector2Int> filled)
+        {
+            for (int i = 0; i < cells.Count; i++)
+            {
+                if (!filled.Contains(cells[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static Vector2Int[] Neighbours(Vector2Int c) =>
+            new[] { new Vector2Int(c.x - 1, c.y), new Vector2Int(c.x + 1, c.y), new Vector2Int(c.x, c.y - 1), new Vector2Int(c.x, c.y + 1) };
     }
 }

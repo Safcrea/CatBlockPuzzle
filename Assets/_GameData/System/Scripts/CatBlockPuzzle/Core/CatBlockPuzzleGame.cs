@@ -146,7 +146,7 @@ namespace CatBlockPuzzle
             pieceLayout = new PieceLayout(session);
             tray = new TrayLayout(this, session, pieceLayout, settings, space);
             mood = new CatMoodPresenter(this, session, settings, gates);
-            locks = new CellLockController(this, session, settings);
+            locks = new CellLockController(this, session, settings, mood);
             board = new BoardController(this, session, space, pieceLayout, tray, settings, mood, locks);
             combo = new ComboTracker(this, session, fx, space, settings);
             feedback = new PlacementFeedback(this, session, fx, haptics, space, board, mood, combo, settings);
