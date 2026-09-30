@@ -16,6 +16,7 @@ namespace CatBlockPuzzle
         public const string Padlocks = "Padlocks";
         public const string KeyCats = "KeyCats";
         public const string Shelf = "Shelf";
+        public const string ColourZones = "ColourZones";
 
         private readonly PuzzleSession session;
         private GameObject overlay;
@@ -44,6 +45,9 @@ namespace CatBlockPuzzle
             if (level.HasKeyLocks)
                 yield return Show(KeyCats, "New: Key cats!", CellLockArt.Key,
                     "A padlock with a cat face opens when THAT cat is placed.\n\nFind the cat with the key on its card and place it first.");
+            if (level.HasZones)
+                yield return Show(ColourZones, "New: Colour spots!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 3 ? Assets.catPortraitSprites[3] : null,
+                    "Tinted spots show a cat's face.\n\nOnly the cat with that face and colour can sit there, every other cat is turned away.");
             if (level.HasTrayWindow)
                 yield return Show(Shelf, "New: Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
                     "Only " + level.TrayWindow + " cats fit on the shelf at once.\n\nPlace one and the next cat arrives, so think about the order.");

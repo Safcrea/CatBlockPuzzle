@@ -162,6 +162,34 @@ namespace CatBlockPuzzle
                 }
             }
 
+            if (level.zones != null)
+            {
+                HashSet<Vector2Int> zoned = new HashSet<Vector2Int>();
+                for (int z = 0; z < level.zones.Length; z++)
+                {
+                    ZoneCellData zone = level.zones[z];
+                    Vector2Int coord = zone != null ? new Vector2Int(zone.row, zone.col) : default;
+                    if (zone == null || !pieceIndex.TryGetValue(zone.piece ?? "", out int zonePiece))
+                    {
+                        error = level.id + " has a colour zone for an unknown piece.";
+                        return false;
+                    }
+
+                    // The solution must still work, so a zone may only sit on its own piece's cells.
+                    if (!owner.TryGetValue(coord, out int coordOwner) || coordOwner != zonePiece)
+                    {
+                        error = level.id + " colour zone " + coord + " is not part of " + zone.piece + "'s spot.";
+                        return false;
+                    }
+
+                    if (!zoned.Add(coord))
+                    {
+                        error = level.id + " lists colour zone " + coord + " twice.";
+                        return false;
+                    }
+                }
+            }
+
             if (level.trayWindow < 0)
             {
                 error = level.id + " has a negative tray window.";

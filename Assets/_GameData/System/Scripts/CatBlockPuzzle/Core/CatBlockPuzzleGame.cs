@@ -56,6 +56,7 @@ namespace CatBlockPuzzle
         private TrayLayout tray;
         private BoardController board;
         private CellLockController locks;
+        private CellZoneController zones;
         private CatMoodPresenter mood;
         private ComboTracker combo;
         private PlacementFeedback feedback;
@@ -157,7 +158,8 @@ namespace CatBlockPuzzle
             tray = new TrayLayout(this, session, pieceLayout, settings, space);
             mood = new CatMoodPresenter(this, session, settings, gates);
             locks = new CellLockController(this, session, settings, mood);
-            board = new BoardController(this, session, space, pieceLayout, tray, settings, mood, locks);
+            zones = new CellZoneController(this, session, mood);
+            board = new BoardController(this, session, space, pieceLayout, tray, settings, mood, locks, zones);
             combo = new ComboTracker(this, session, fx, space, settings);
             feedback = new PlacementFeedback(this, session, fx, haptics, space, board, mood, combo, settings);
             tip = new MovePieceTip(this, session, space, board, settings);

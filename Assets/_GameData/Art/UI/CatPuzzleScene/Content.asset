@@ -35,6 +35,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_002
       title: Window Stretch
       difficulty: 1
@@ -55,6 +56,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_003
       title: Shelf Tunnel
       difficulty: 1
@@ -75,6 +77,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_004
       title: Cardboard Cove
       difficulty: 1
@@ -100,6 +103,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_005
       title: Moonlit Loft
       difficulty: 1
@@ -125,6 +129,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_006
       title: Cozy Corner
       difficulty: 2
@@ -150,6 +155,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_007
       title: Tiny Basket
       difficulty: 2
@@ -175,6 +181,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_008
       title: Soft Cushion
       difficulty: 2
@@ -200,6 +207,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_009
       title: Yarn Nook
       difficulty: 2
@@ -230,6 +238,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_010
       title: Sunny Mat
       difficulty: 2
@@ -260,6 +269,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_011
       title: Nap Shelf
       difficulty: 2
@@ -290,6 +300,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_012
       title: First Real Fit
       difficulty: 3
@@ -320,6 +331,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_013
       title: Window 3
       difficulty: 3
@@ -350,6 +362,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_014
       title: Window 4
       difficulty: 3
@@ -380,6 +393,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_015
       title: Window 5
       difficulty: 3
@@ -410,6 +424,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_016
       title: Window 6
       difficulty: 3
@@ -440,6 +455,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_017
       title: Window 7
       difficulty: 3
@@ -470,6 +486,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_018
       title: Window 8
       difficulty: 3
@@ -500,6 +517,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_019
       title: Window 9
       difficulty: 4
@@ -530,6 +548,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_020
       title: Window 10
       difficulty: 4
@@ -560,6 +579,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_021
       title: Shelf 1
       difficulty: 4
@@ -606,6 +626,7 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 0
+      zones: []
     - id: level_022
       title: Shelf 2
       difficulty: 4
@@ -640,6 +661,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_023
       title: Shelf 3
       difficulty: 4
@@ -674,6 +696,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_024
       title: Shelf 4
       difficulty: 4
@@ -704,6 +727,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_025
       title: Shelf 5
       difficulty: 4
@@ -734,6 +758,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_026
       title: Shelf 6
       difficulty: 4
@@ -768,6 +793,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_027
       title: Shelf 7
       difficulty: 4
@@ -814,6 +840,7 @@ MonoBehaviour:
         after: 1
         key: 
       trayWindow: 0
+      zones: []
     - id: level_028
       title: Shelf 8
       difficulty: 4
@@ -860,6 +887,7 @@ MonoBehaviour:
         after: 1
         key: 
       trayWindow: 0
+      zones: []
     - id: level_029
       title: Shelf 9
       difficulty: 4
@@ -902,6 +930,7 @@ MonoBehaviour:
         after: 2
         key: 
       trayWindow: 0
+      zones: []
     - id: level_030
       title: Shelf 10
       difficulty: 4
@@ -936,6 +965,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_031
       title: Cardboard 1
       difficulty: 4
@@ -966,6 +996,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_032
       title: Cardboard 2
       difficulty: 4
@@ -996,6 +1027,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_033
       title: Cardboard 3
       difficulty: 4
@@ -1026,6 +1058,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_034
       title: Cardboard 4
       difficulty: 4
@@ -1061,6 +1094,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_035
       title: Cardboard 5
       difficulty: 4
@@ -1096,6 +1130,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_036
       title: Cardboard 6
       difficulty: 5
@@ -1135,6 +1170,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_037
       title: Cardboard 7
       difficulty: 5
@@ -1170,6 +1206,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_038
       title: Cardboard 8
       difficulty: 5
@@ -1213,6 +1250,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_039
       title: Cardboard 9
       difficulty: 5
@@ -1272,6 +1310,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_040
       title: Cardboard 10
       difficulty: 5
@@ -1315,6 +1354,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_041
       title: Moonlit 1
       difficulty: 5
@@ -1366,6 +1406,7 @@ MonoBehaviour:
         after: 0
         key: l041_p5
       trayWindow: 0
+      zones: []
     - id: level_042
       title: Moonlit 2
       difficulty: 5
@@ -1417,6 +1458,7 @@ MonoBehaviour:
         after: 0
         key: l042_p5
       trayWindow: 0
+      zones: []
     - id: level_043
       title: Moonlit 3
       difficulty: 5
@@ -1472,6 +1514,7 @@ MonoBehaviour:
         after: 0
         key: l043_p5
       trayWindow: 0
+      zones: []
     - id: level_044
       title: Moonlit 4
       difficulty: 5
@@ -1523,6 +1566,7 @@ MonoBehaviour:
         after: 0
         key: l044_p2
       trayWindow: 0
+      zones: []
     - id: level_045
       title: Moonlit 5
       difficulty: 5
@@ -1570,6 +1614,7 @@ MonoBehaviour:
         after: 0
         key: l045_p1
       trayWindow: 0
+      zones: []
     - id: level_046
       title: Moonlit 6
       difficulty: 5
@@ -1625,6 +1670,7 @@ MonoBehaviour:
         after: 0
         key: l046_p4
       trayWindow: 0
+      zones: []
     - id: level_047
       title: Moonlit 7
       difficulty: 5
@@ -1680,6 +1726,7 @@ MonoBehaviour:
         after: 0
         key: l047_p5
       trayWindow: 0
+      zones: []
     - id: level_048
       title: Moonlit 8
       difficulty: 5
@@ -1731,6 +1778,7 @@ MonoBehaviour:
         after: 0
         key: l048_p4
       trayWindow: 0
+      zones: []
     - id: level_049
       title: Moonlit 9
       difficulty: 5
@@ -1814,6 +1862,7 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 0
+      zones: []
     - id: level_050
       title: Moonlit 10
       difficulty: 5
@@ -1877,6 +1926,7 @@ MonoBehaviour:
         after: 0
         key: l050_p5
       trayWindow: 0
+      zones: []
     - id: level_051
       title: Cafe 1
       difficulty: 5
@@ -1948,6 +1998,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_052
       title: Cafe 2
       difficulty: 5
@@ -2027,6 +2078,7 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 0
+      zones: []
     - id: level_053
       title: Cafe 3
       difficulty: 5
@@ -2110,6 +2162,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_054
       title: Cafe 4
       difficulty: 5
@@ -2181,6 +2234,7 @@ MonoBehaviour:
         after: 0
         key: l054_p3
       trayWindow: 0
+      zones: []
     - id: level_055
       title: Cafe 5
       difficulty: 6
@@ -2252,6 +2306,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_056
       title: Cafe 6
       difficulty: 6
@@ -2332,6 +2387,7 @@ MonoBehaviour:
         after: 0
         key: l056_p6
       trayWindow: 0
+      zones: []
     - id: level_057
       title: Cafe 7
       difficulty: 6
@@ -2396,6 +2452,7 @@ MonoBehaviour:
         after: 0
         key: l057_p6
       trayWindow: 0
+      zones: []
     - id: level_058
       title: Cafe 8
       difficulty: 6
@@ -2468,6 +2525,7 @@ MonoBehaviour:
         after: 0
         key: l058_p3
       trayWindow: 0
+      zones: []
     - id: level_059
       title: Cafe 9
       difficulty: 6
@@ -2548,6 +2606,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_060
       title: Cafe 10
       difficulty: 6
@@ -2596,6 +2655,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_061
       title: Garden 1
       difficulty: 6
@@ -2636,6 +2696,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 3
+      zones: []
     - id: level_062
       title: Garden 2
       difficulty: 6
@@ -2704,6 +2765,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 3
+      zones: []
     - id: level_063
       title: Garden 3
       difficulty: 6
@@ -2772,6 +2834,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 4
+      zones: []
     - id: level_064
       title: Garden 4
       difficulty: 6
@@ -2844,6 +2907,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 3
+      zones: []
     - id: level_065
       title: Garden 5
       difficulty: 6
@@ -2912,6 +2976,7 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 3
+      zones: []
     - id: level_066
       title: Garden 6
       difficulty: 6
@@ -2976,6 +3041,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 3
+      zones: []
     - id: level_067
       title: Garden 7
       difficulty: 6
@@ -3044,6 +3110,7 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 4
+      zones: []
     - id: level_068
       title: Garden 8
       difficulty: 6
@@ -3112,6 +3179,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 4
+      zones: []
     - id: level_069
       title: Garden 9
       difficulty: 6
@@ -3180,6 +3248,7 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 3
+      zones: []
     - id: level_070
       title: Garden 10
       difficulty: 6
@@ -3252,6 +3321,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 4
+      zones: []
     - id: level_071
       title: Rooftop 1
       difficulty: 6
@@ -3290,32 +3360,21 @@ MonoBehaviour:
         row: 6
         col: 0
       blocked: []
-      locked:
-      - row: 2
-        col: 5
-        after: 0
-        key: 
-      - row: 3
-        col: 3
-        after: 3
-        key: 
-      - row: 4
-        col: 3
-        after: 3
-        key: 
-      - row: 4
-        col: 4
-        after: 3
-        key: 
-      - row: 5
-        col: 4
-        after: 3
-        key: 
-      - row: 5
-        col: 5
-        after: 3
-        key: 
+      locked: []
       trayWindow: 0
+      zones:
+      - row: 2
+        col: 6
+        piece: l071_p4
+      - row: 4
+        col: 6
+        piece: l071_p4
+      - row: 6
+        col: 1
+        piece: l071_p6
+      - row: 6
+        col: 4
+        piece: l071_p6
     - id: level_072
       title: Rooftop 2
       difficulty: 7
@@ -3388,6 +3447,16 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 3
+      zones:
+      - row: 0
+        col: 3
+        piece: l072_p3
+      - row: 1
+        col: 3
+        piece: l072_p3
+      - row: 4
+        col: 6
+        piece: l072_p5
     - id: level_073
       title: Rooftop 3
       difficulty: 7
@@ -3464,6 +3533,16 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 3
+      zones:
+      - row: 1
+        col: 5
+        piece: l073_p6
+      - row: 2
+        col: 3
+        piece: l073_p1
+      - row: 4
+        col: 3
+        piece: l073_p1
     - id: level_074
       title: Rooftop 4
       difficulty: 7
@@ -3504,6 +3583,16 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones:
+      - row: 2
+        col: 2
+        piece: l074_p1
+      - row: 5
+        col: 4
+        piece: l074_p5
+      - row: 5
+        col: 6
+        piece: l074_p5
     - id: level_075
       title: Rooftop 5
       difficulty: 7
@@ -3576,6 +3665,13 @@ MonoBehaviour:
         after: 3
         key: 
       trayWindow: 0
+      zones:
+      - row: 0
+        col: 5
+        piece: l075_p6
+      - row: 4
+        col: 0
+        piece: l075_p1
     - id: level_076
       title: Rooftop 6
       difficulty: 7
@@ -3645,6 +3741,19 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones:
+      - row: 1
+        col: 2
+        piece: l076_p4
+      - row: 3
+        col: 5
+        piece: l076_p3
+      - row: 4
+        col: 3
+        piece: l076_p4
+      - row: 4
+        col: 4
+        piece: l076_p3
     - id: level_077
       title: Rooftop 7
       difficulty: 7
@@ -3718,6 +3827,13 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 3
+      zones:
+      - row: 1
+        col: 4
+        piece: l077_p5
+      - row: 6
+        col: 1
+        piece: l077_p1
     - id: level_078
       title: Rooftop 8
       difficulty: 7
@@ -3791,6 +3907,16 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 0
+      zones:
+      - row: 1
+        col: 1
+        piece: l078_p1
+      - row: 2
+        col: 7
+        piece: l078_p5
+      - row: 3
+        col: 7
+        piece: l078_p5
     - id: level_079
       title: Rooftop 9
       difficulty: 7
@@ -3864,6 +3990,16 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones:
+      - row: 2
+        col: 0
+        piece: l079_p6
+      - row: 2
+        col: 1
+        piece: l079_p6
+      - row: 5
+        col: 0
+        piece: l079_p1
     - id: level_080
       title: Rooftop 10
       difficulty: 7
@@ -3941,6 +4077,19 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 4
+      zones:
+      - row: 2
+        col: 5
+        piece: l080_p4
+      - row: 2
+        col: 6
+        piece: l080_p4
+      - row: 5
+        col: 2
+        piece: l080_p3
+      - row: 5
+        col: 3
+        piece: l080_p3
     - id: level_081
       title: Basket 1
       difficulty: 7
@@ -4014,6 +4163,13 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 0
+      zones:
+      - row: 0
+        col: 6
+        piece: l081_p6
+      - row: 3
+        col: 2
+        piece: l081_p1
     - id: level_082
       title: Basket 2
       difficulty: 8
@@ -4087,6 +4243,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_083
       title: Basket 3
       difficulty: 8
@@ -4132,6 +4289,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_084
       title: Basket 4
       difficulty: 8
@@ -4201,6 +4359,7 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 0
+      zones: []
     - id: level_085
       title: Basket 5
       difficulty: 8
@@ -4274,6 +4433,7 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 0
+      zones: []
     - id: level_086
       title: Basket 6
       difficulty: 8
@@ -4319,6 +4479,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 3
+      zones: []
     - id: level_087
       title: Basket 7
       difficulty: 8
@@ -4392,6 +4553,7 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 3
+      zones: []
     - id: level_088
       title: Basket 8
       difficulty: 8
@@ -4465,6 +4627,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_089
       title: Basket 9
       difficulty: 8
@@ -4534,6 +4697,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 4
+      zones: []
     - id: level_090
       title: Basket 10
       difficulty: 8
@@ -4579,6 +4743,22 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones:
+      - row: 2
+        col: 4
+        piece: l090_p5
+      - row: 3
+        col: 0
+        piece: l090_p3
+      - row: 3
+        col: 5
+        piece: l090_p5
+      - row: 5
+        col: 0
+        piece: l090_p4
+      - row: 5
+        col: 1
+        piece: l090_p4
     - id: level_091
       title: Yarn 1
       difficulty: 9
@@ -4648,6 +4828,19 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 3
+      zones:
+      - row: 2
+        col: 4
+        piece: l091_p2
+      - row: 3
+        col: 5
+        piece: l091_p6
+      - row: 4
+        col: 5
+        piece: l091_p6
+      - row: 5
+        col: 2
+        piece: l091_p4
     - id: level_092
       title: Yarn 2
       difficulty: 9
@@ -4721,6 +4914,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_093
       title: Yarn 3
       difficulty: 9
@@ -4766,6 +4960,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 0
+      zones: []
     - id: level_094
       title: Yarn 4
       difficulty: 9
@@ -4843,6 +5038,7 @@ MonoBehaviour:
         after: 4
         key: 
       trayWindow: 0
+      zones: []
     - id: level_095
       title: Yarn 5
       difficulty: 9
@@ -4920,6 +5116,22 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones:
+      - row: 1
+        col: 0
+        piece: l095_p5
+      - row: 1
+        col: 4
+        piece: l095_p5
+      - row: 4
+        col: 0
+        piece: l095_p6
+      - row: 4
+        col: 1
+        piece: l095_p6
+      - row: 6
+        col: 7
+        piece: l095_p4
     - id: level_096
       title: Yarn 6
       difficulty: 9
@@ -4993,6 +5205,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 3
+      zones: []
     - id: level_097
       title: Yarn 7
       difficulty: 9
@@ -5066,6 +5279,7 @@ MonoBehaviour:
         after: 0
         key: 
       trayWindow: 0
+      zones: []
     - id: level_098
       title: Yarn 8
       difficulty: 9
@@ -5148,6 +5362,7 @@ MonoBehaviour:
         after: 5
         key: 
       trayWindow: 0
+      zones: []
     - id: level_099
       title: Yarn 9
       difficulty: 10
@@ -5198,6 +5413,7 @@ MonoBehaviour:
       blocked: []
       locked: []
       trayWindow: 3
+      zones: []
     - id: level_100
       title: Rooftop Finale
       difficulty: 10
@@ -5276,6 +5492,7 @@ MonoBehaviour:
         after: 5
         key: 
       trayWindow: 0
+      zones: []
   metaData:
     version: 1
     chapters:
@@ -5804,7 +6021,7 @@ MonoBehaviour:
         hotspot: {x: 0.56, y: 0.7}
         size: {x: 0.3, y: 0.28}
         sortOrder: 5
-  sourceFingerprint: 17bbc9b178119384b000f1447fc60e9b
+  sourceFingerprint: 07dc56ba998c12c16a03e82e9e4d71df
   roomBackgrounds:
   - {fileID: 21300000, guid: 021220472a35be047929af3cd5241120, type: 3}
   - {fileID: 21300000, guid: 5eb1d7ecfe5b87540b8e73806155635b, type: 3}

@@ -4355,36 +4355,26 @@
                                           "col":  0
                                       }
                                   ],
-                       "locked":  [
+                       "zones":  [
                                       {
                                           "row":  2,
-                                          "col":  5,
-                                          "after":  0
-                                      },
-                                      {
-                                          "row":  3,
-                                          "col":  3,
-                                          "after":  3
+                                          "col":  6,
+                                          "piece":  "l071_p4"
                                       },
                                       {
                                           "row":  4,
-                                          "col":  3,
-                                          "after":  3
+                                          "col":  6,
+                                          "piece":  "l071_p4"
                                       },
                                       {
-                                          "row":  4,
+                                          "row":  6,
+                                          "col":  1,
+                                          "piece":  "l071_p6"
+                                      },
+                                      {
+                                          "row":  6,
                                           "col":  4,
-                                          "after":  3
-                                      },
-                                      {
-                                          "row":  5,
-                                          "col":  4,
-                                          "after":  3
-                                      },
-                                      {
-                                          "row":  5,
-                                          "col":  5,
-                                          "after":  3
+                                          "piece":  "l071_p6"
                                       }
                                   ]
                    },
@@ -4480,6 +4470,23 @@
                                           "row":  4,
                                           "col":  2,
                                           "after":  3
+                                      }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  0,
+                                          "col":  3,
+                                          "piece":  "l072_p3"
+                                      },
+                                      {
+                                          "row":  1,
+                                          "col":  3,
+                                          "piece":  "l072_p3"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  6,
+                                          "piece":  "l072_p5"
                                       }
                                   ]
                    },
@@ -4581,6 +4588,23 @@
                                           "col":  2,
                                           "after":  0
                                       }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  1,
+                                          "col":  5,
+                                          "piece":  "l073_p6"
+                                      },
+                                      {
+                                          "row":  2,
+                                          "col":  3,
+                                          "piece":  "l073_p1"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  3,
+                                          "piece":  "l073_p1"
+                                      }
                                   ]
                    },
                    {
@@ -4632,6 +4656,23 @@
                                           "shape":  "stair5",
                                           "row":  4,
                                           "col":  0
+                                      }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  2,
+                                          "col":  2,
+                                          "piece":  "l074_p1"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  4,
+                                          "piece":  "l074_p5"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  6,
+                                          "piece":  "l074_p5"
                                       }
                                   ]
                    },
@@ -4727,6 +4768,18 @@
                                           "col":  5,
                                           "after":  3
                                       }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  0,
+                                          "col":  5,
+                                          "piece":  "l075_p6"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  0,
+                                          "piece":  "l075_p1"
+                                      }
                                   ]
                    },
                    {
@@ -4817,6 +4870,28 @@
                                           "row":  5,
                                           "col":  1,
                                           "after":  0
+                                      }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  1,
+                                          "col":  2,
+                                          "piece":  "l076_p4"
+                                      },
+                                      {
+                                          "row":  3,
+                                          "col":  5,
+                                          "piece":  "l076_p3"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  3,
+                                          "piece":  "l076_p4"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  4,
+                                          "piece":  "l076_p3"
                                       }
                                   ]
                    },
@@ -4915,6 +4990,18 @@
                                           "col":  3,
                                           "after":  4
                                       }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  1,
+                                          "col":  4,
+                                          "piece":  "l077_p5"
+                                      },
+                                      {
+                                          "row":  6,
+                                          "col":  1,
+                                          "piece":  "l077_p1"
+                                      }
                                   ]
                    },
                    {
@@ -5011,6 +5098,23 @@
                                           "col":  2,
                                           "after":  4
                                       }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  1,
+                                          "col":  1,
+                                          "piece":  "l078_p1"
+                                      },
+                                      {
+                                          "row":  2,
+                                          "col":  7,
+                                          "piece":  "l078_p5"
+                                      },
+                                      {
+                                          "row":  3,
+                                          "col":  7,
+                                          "piece":  "l078_p5"
+                                      }
                                   ]
                    },
                    {
@@ -5106,6 +5210,23 @@
                                           "row":  5,
                                           "col":  5,
                                           "after":  0
+                                      }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  2,
+                                          "col":  0,
+                                          "piece":  "l079_p6"
+                                      },
+                                      {
+                                          "row":  2,
+                                          "col":  1,
+                                          "piece":  "l079_p6"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  0,
+                                          "piece":  "l079_p1"
                                       }
                                   ]
                    },
@@ -5209,6 +5330,28 @@
                                           "col":  1,
                                           "after":  0
                                       }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  2,
+                                          "col":  5,
+                                          "piece":  "l080_p4"
+                                      },
+                                      {
+                                          "row":  2,
+                                          "col":  6,
+                                          "piece":  "l080_p4"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  2,
+                                          "piece":  "l080_p3"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  3,
+                                          "piece":  "l080_p3"
+                                      }
                                   ]
                    },
                    {
@@ -5304,6 +5447,18 @@
                                           "row":  6,
                                           "col":  1,
                                           "after":  4
+                                      }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  0,
+                                          "col":  6,
+                                          "piece":  "l081_p6"
+                                      },
+                                      {
+                                          "row":  3,
+                                          "col":  2,
+                                          "piece":  "l081_p1"
                                       }
                                   ]
                    },
@@ -6051,6 +6206,33 @@
                                           "row":  2,
                                           "col":  1
                                       }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  2,
+                                          "col":  4,
+                                          "piece":  "l090_p5"
+                                      },
+                                      {
+                                          "row":  3,
+                                          "col":  0,
+                                          "piece":  "l090_p3"
+                                      },
+                                      {
+                                          "row":  3,
+                                          "col":  5,
+                                          "piece":  "l090_p5"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  0,
+                                          "piece":  "l090_p4"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  1,
+                                          "piece":  "l090_p4"
+                                      }
                                   ]
                    },
                    {
@@ -6142,6 +6324,28 @@
                                           "row":  4,
                                           "col":  3,
                                           "after":  4
+                                      }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  2,
+                                          "col":  4,
+                                          "piece":  "l091_p2"
+                                      },
+                                      {
+                                          "row":  3,
+                                          "col":  5,
+                                          "piece":  "l091_p6"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  5,
+                                          "piece":  "l091_p6"
+                                      },
+                                      {
+                                          "row":  5,
+                                          "col":  2,
+                                          "piece":  "l091_p4"
                                       }
                                   ]
                    },
@@ -6499,6 +6703,33 @@
                                           "row":  4,
                                           "col":  3,
                                           "after":  0
+                                      }
+                                  ],
+                       "zones":  [
+                                      {
+                                          "row":  1,
+                                          "col":  0,
+                                          "piece":  "l095_p5"
+                                      },
+                                      {
+                                          "row":  1,
+                                          "col":  4,
+                                          "piece":  "l095_p5"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  0,
+                                          "piece":  "l095_p6"
+                                      },
+                                      {
+                                          "row":  4,
+                                          "col":  1,
+                                          "piece":  "l095_p6"
+                                      },
+                                      {
+                                          "row":  6,
+                                          "col":  7,
+                                          "piece":  "l095_p4"
                                       }
                                   ]
                    },

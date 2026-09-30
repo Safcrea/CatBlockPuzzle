@@ -80,6 +80,10 @@ namespace CatBlockPuzzle
         public readonly int TrayWindow;
         public bool HasTrayWindow => TrayWindow > 0 && TrayWindow < Pieces.Length;
 
+        /// <summary>Colour zones: cells only the named piece may occupy.</summary>
+        public readonly Dictionary<Vector2Int, string> ZoneCells;
+        public bool HasZones => ZoneCells.Count > 0;
+
         public bool HasBlockedCells => BlockedCells.Count > 0;
         public bool HasLockedCells => LockedCells.Count > 0;
 
@@ -93,8 +97,10 @@ namespace CatBlockPuzzle
         }
 
         public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
-            IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null, int trayWindow = 0)
+            IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null, int trayWindow = 0,
+            IDictionary<Vector2Int, string> zoneCells = null)
         {
+            ZoneCells = zoneCells != null ? new Dictionary<Vector2Int, string>(zoneCells) : new Dictionary<Vector2Int, string>();
             TrayWindow = Mathf.Max(0, trayWindow);
             LockedCells = lockedCells != null ? new Dictionary<Vector2Int, CellLockRule>(lockedCells) : new Dictionary<Vector2Int, CellLockRule>();
             Id = id;
@@ -143,6 +149,16 @@ namespace CatBlockPuzzle
         public LockedCellData[] locked;
         /// <summary>Optional. Drip-fed tray: only this many unplaced cats are on the shelf at once, in piece order.</summary>
         public int trayWindow;
+        /// <summary>Optional. Colour zones: each cell only accepts the named piece, which must cover it in the solution.</summary>
+        public ZoneCellData[] zones;
+    }
+
+    [Serializable]
+    internal sealed class ZoneCellData
+    {
+        public int row;
+        public int col;
+        public string piece;
     }
 
     [Serializable]
