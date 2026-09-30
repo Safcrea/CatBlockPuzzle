@@ -13,8 +13,8 @@ namespace CatBlockPuzzle
     internal sealed class MistakeHearts : HostedService
     {
         private const string RowName = "Mistake Hearts";
-        private static readonly Color Full = new Color(0.95f, 0.36f, 0.42f, 1f);
-        private static readonly Color Empty = new Color(0.55f, 0.47f, 0.5f, 0.45f);
+        private static readonly Color Full = Color.white;
+        private static readonly Color Empty = new Color(0.45f, 0.42f, 0.44f, 0.5f);
 
         private readonly PuzzleSession session;
         private readonly PlayerSettings settings;
@@ -126,32 +126,54 @@ namespace CatBlockPuzzle
             }
         }
 
+        // A pink heart with a soft highlight and a cocoa outline. Classic construction: a square
+        // rotated 45 degrees with a circle on each upper edge, as an anti-aliased distance field.
+        private const float Half = 0.55f;
+        private const float CenterY = -0.1f;
+
         private static Sprite Create(int size)
         {
             Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false) { name = "Mistake Heart" };
             texture.wrapMode = TextureWrapMode.Clamp;
             Color32[] pixels = new Color32[size * size];
             Color outline = new Color(0.36f, 0.19f, 0.10f, 1f);
-            float outlineWidth = 0.05f;
+            Color top = new Color(1f, 0.55f, 0.62f, 1f);
+            Color bottom = new Color(0.88f, 0.27f, 0.36f, 1f);
+            float scale = 2.4f / size;
+            const float outlineWidth = 0.08f;
             for (int y = 0; y < size; y++)
             {
                 for (int x = 0; x < size; x++)
                 {
-                    // Classic implicit heart, scaled to fill the texture.
-                    float u = (x + 0.5f) / size * 2.6f - 1.3f;
-                    float v = (y + 0.5f) / size * 2.6f - 1.15f;
-                    float f = Mathf.Pow(u * u + v * v - 1f, 3f) - u * u * v * v * v;
-                    float inside = f <= 0f ? 1f : 0f;
-                    float edge = Mathf.Clamp01(-f / outlineWidth);
-                    // White fill so the Image colour tints it; the outline stays cocoa.
-                    Color c = Color.Lerp(outline, Color.white, edge);
-                    c.a = inside;
+                    float u = (x + 0.5f) * scale - 1.2f;
+                    float v = (y + 0.5f) * scale - 1.2f;
+                    float d = Distance(u, v);
+                    float coverage = Mathf.Clamp01(0.5f - d / scale);
+                    float fill = Mathf.Clamp01(0.5f - (d + outlineWidth) / scale);
+                    Color body = Color.Lerp(bottom, top, Mathf.Clamp01((v + 0.9f) / 1.8f));
+                    float shine = Mathf.Clamp01(1f - Vector2.Distance(new Vector2(u, v), new Vector2(-0.4f, 0.45f)) / 0.24f);
+                    body = Color.Lerp(body, Color.white, shine * 0.6f);
+                    Color c = Color.Lerp(outline, body, fill);
+                    c.a = coverage;
                     pixels[y * size + x] = c;
                 }
             }
             texture.SetPixels32(pixels);
             texture.Apply(false, true);
             return Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect);
+        }
+
+        private static float Distance(float u, float v)
+        {
+            float k = Half / Mathf.Sqrt(2f);
+            float leftLobe = Vector2.Distance(new Vector2(u, v), new Vector2(-k, CenterY + k)) - Half;
+            float rightLobe = Vector2.Distance(new Vector2(u, v), new Vector2(k, CenterY + k)) - Half;
+            const float c45 = 0.70710678f;
+            float rx = (u + (v - CenterY)) * c45;
+            float ry = (-u + (v - CenterY)) * c45;
+            float qx = Mathf.Abs(rx) - Half, qy = Mathf.Abs(ry) - Half;
+            float square = new Vector2(Mathf.Max(qx, 0f), Mathf.Max(qy, 0f)).magnitude + Mathf.Min(Mathf.Max(qx, qy), 0f);
+            return Mathf.Min(Mathf.Min(leftLobe, rightLobe), square);
         }
     }
 }

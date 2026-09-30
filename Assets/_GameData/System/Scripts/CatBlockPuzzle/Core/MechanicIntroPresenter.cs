@@ -43,22 +43,22 @@ namespace CatBlockPuzzle
 
             if (hasCounterOrNeighbourLock)
                 yield return Show(Padlocks, "New: Padlocks!", CellLockArt.Padlock,
-                    "Padlocked spots can't take a cat yet.\n\nA number means: place that many cats first.\nNo number: fill the spots next to it first.");
+                    "Locked spots can't take a cat yet.\nA number: place that many cats first.\nNo number: fill the spots beside it.");
             if (level.HasKeyLocks)
                 yield return Show(KeyCats, "New: Key cats!", CellLockArt.Key,
-                    "A padlock with a cat face opens when THAT cat is placed.\n\nFind the cat with the key on its card and place it first.");
+                    "A padlock with a cat face opens\nwhen that cat is placed.\nPlace the cat with the key first!");
             if (level.HasZones)
                 yield return Show(ColourZones, "New: Colour spots!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 3 ? Assets.catPortraitSprites[3] : null,
-                    "Tinted spots show a cat's face.\n\nOnly the cat with that face and colour can sit there, every other cat is turned away.");
+                    "A tinted spot shows a cat's face.\nOnly that cat can sit there.");
             if (level.HasSpares)
                 yield return Show(SpareCats, "New: A spare cat!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 5 ? Assets.catPortraitSprites[5] : null,
-                    "One cat on the shelf doesn't belong here.\n\nFill the whole board and you win, even with a cat left over. Work out which one to leave out!");
+                    "One cat on the shelf doesn't belong.\nFill the board to win, even with\na cat left over!");
             if (level.HasHearts)
                 yield return Show(Hearts, "New: Mistake hearts!", HeartArt.Heart,
-                    "You have " + level.Hearts + " hearts.\n\nDropping a cat on the board where it doesn't fit costs one. Lose them all and the level is over, so think before you drop!");
+                    "You have " + level.Hearts + " hearts.\nA wrong drop costs one heart.\nLose them all and the level ends.");
             if (level.HasTrayWindow)
                 yield return Show(Shelf, "New: Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
-                    "Only " + level.TrayWindow + " cats fit on the shelf at once.\n\nPlace one and the next cat arrives, so think about the order.");
+                    "Only " + level.TrayWindow + " cats fit on the shelf.\nPlace one and the next arrives,\nso plan the order!");
         }
 
         public void Cancel()
@@ -77,30 +77,22 @@ namespace CatBlockPuzzle
             if (PlayerPrefs.GetInt(key, 0) != 0) yield break;
             while (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || GameSystem.Instance.IsSettingsOpen)) yield return null;
 
-            RectTransform root = RuntimeUiFactory.CreateOverlay(Hud.Canvas.transform, "Mechanic Intro");
-            float width = Mathf.Min(760f, ((RectTransform)Hud.Canvas.transform).rect.width - 48f);
-            RectTransform panel = RuntimeUiFactory.CreatePanel(root, "Panel", new Vector2(width, 640f));
-            Text title = RuntimeUiFactory.CreateText(panel, "Title", heading, 44, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(title.rectTransform, new Vector2(0f, 240f), new Vector2(width - 40f, 75f));
-            Image icon = RuntimeUiFactory.CreateImage(panel, "Icon", iconSprite, Color.white, new Vector2(0f, 128f), new Vector2(120f, 120f));
-            icon.preserveAspect = true;
-            icon.enabled = iconSprite != null;
-            Text body = RuntimeUiFactory.CreateText(panel, "Instructions", message, 30, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(body.rectTransform, new Vector2(0f, -40f), new Vector2(width - 64f, 230f));
-            Button okay = RuntimeUiFactory.CreateButton(panel, "Continue", "Got it!", new Vector2(0f, -235f), new Vector2(280f, 78f), RuntimeUiFactory.Coral);
-
-            overlay = root.gameObject;
-            bool finished = false;
-            okay.onClick.AddListener(() =>
+            // The card is the MechanicIntroPopup prefab, styled like the power-up purchase popup.
+            MechanicIntroPopup popup = MechanicIntroPopup.Create((RectTransform)Hud.Canvas.transform, Hud.levelText != null ? Hud.levelText.font : null);
+            if (popup == null)
             {
-                ButtonSfx.PlayClick();
-                okay.interactable = false;
+                Debug.LogWarning("MechanicIntroPopup prefab missing; skipping the '" + mechanic + "' intro.", Host);
+                yield break;
+            }
+
+            overlay = popup.gameObject;
+            bool finished = false;
+            popup.Show(heading, message, iconSprite, () =>
+            {
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
-                MenuTransition.Hide(root.gameObject, () => finished = true);
+                finished = true;
             });
-            root.gameObject.SetActive(false);
-            MenuTransition.Show(root.gameObject);
             while (!finished && overlay != null) yield return null;
             Cancel();
         }
