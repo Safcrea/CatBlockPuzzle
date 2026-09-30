@@ -252,6 +252,12 @@ namespace CatBlockPuzzle
             rect.localScale = Vector3.one;
         }
 
+        /// <summary>True when a cat could land on this cell right now: it is part of the board, empty, and not padlocked.</summary>
+        public bool IsCellFree(Vector2Int coord)
+        {
+            return activeLevel.ActiveCells.Contains(coord) && !occupancy.ContainsKey(coord) && !locks.IsLocked(coord);
+        }
+
         public bool CanPlace(PieceState state, int row, int col)
         {
             for (int i = 0; i < state.Definition.Cells.Length; i++)
@@ -263,7 +269,7 @@ namespace CatBlockPuzzle
                     return false;
                 }
 
-                if (!activeLevel.ActiveCells.Contains(coord) || occupancy.ContainsKey(coord) || locks.IsLocked(coord))
+                if (!IsCellFree(coord))
                 {
                     return false;
                 }

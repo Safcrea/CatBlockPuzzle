@@ -295,7 +295,7 @@ namespace CatBlockPuzzle
                 for (int col = 0; col < activeLevel.Cols; col++)
                 {
                     Vector2Int coordinate = new Vector2Int(row, col);
-                    placementAvailability[row, col] = activeLevel.ActiveCells.Contains(coordinate) && !session.occupancy.ContainsKey(coordinate);
+                    placementAvailability[row, col] = board.IsCellFree(coordinate);
                 }
             }
 
