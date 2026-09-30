@@ -64,6 +64,7 @@ namespace CatBlockPuzzle
         private MetaProgressionController meta;
         private PowerUpController powerUps;
         private LevelFlowController flow;
+        private TestLevelNavigator testNavigator;
 
         // ------------------------------------------------------------------ scene bindings
 
@@ -161,6 +162,7 @@ namespace CatBlockPuzzle
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
                 progress, combo, fx, haptics, mood, gates, this);
+            testNavigator = new TestLevelNavigator(this, session);
             composed = true;
         }
 
@@ -191,6 +193,7 @@ namespace CatBlockPuzzle
             settings.Load();
             settings.Apply();
             fx.ResetPool();
+            testNavigator.Build();
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
             if (gameplayHud.previousTestButton != null) gameplayHud.previousTestButton.gameObject.SetActive(false);
             if (gameplayHud.nextTestButton != null) gameplayHud.nextTestButton.gameObject.SetActive(false);
@@ -224,6 +227,7 @@ namespace CatBlockPuzzle
         private void Update()
         {
             if (!composed) return;
+            testNavigator.Refresh();
             tutorial.Update();
             if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi && !GameSystem.Instance.IsGameplayOpen) return;
             drag.UpdateMotion();

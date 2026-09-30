@@ -49,9 +49,16 @@ namespace CatBlockPuzzle
             if (!HasGameplayController) return;
             int index = gameplayController.CurrentLevelNumber - 1 + direction;
             if (index < 0 || index >= gameplayController.LevelCount) return;
+            PreviewLevel(index);
+        }
+
+        /// <summary>Opens a level for testing (zero-based) without awarding progress.</summary>
+        public void PreviewLevel(int zeroBasedIndex)
+        {
+            if (!HasGameplayController) return;
             ResumeGame();
             ShowGameplayPage();
-            gameplayController.PreviewLevelForTesting(index);
+            gameplayController.PreviewLevelForTesting(Mathf.Clamp(zeroBasedIndex, 0, gameplayController.LevelCount - 1));
         }
         public bool AwardCoins(int amount)
         {
