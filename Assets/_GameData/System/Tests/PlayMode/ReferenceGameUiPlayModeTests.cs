@@ -24,6 +24,7 @@ namespace CatBlockPuzzle.Tests
             var stars = (UnityEngine.UI.Image[])hud.GetType().GetField("progressStars", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(hud);
             SetField("levelRemainingSeconds", 90.5f);
             SetField("lastTimerSecond", 91);
+            SetField("awaitingFirstTouch", false); // the countdown only starts once the player touches the level
             Call("UpdateTimerDisplay");
             Assert.That(stars[2].type, Is.EqualTo(UnityEngine.UI.Image.Type.Filled));
             Assert.That(stars[0].fillAmount, Is.EqualTo(1f));

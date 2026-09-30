@@ -46,6 +46,8 @@ namespace CatBlockPuzzle
         public event Action<PieceState> PiecePlaced;
         /// <summary>A cat was released over the board where it cannot land.</summary>
         public event Action<PieceState> MissedDrop;
+        /// <summary>A cat was picked up, from the shelf or the board.</summary>
+        public event Action<PieceState> PieceLifted;
 
         public PieceDragController(IGameplayContext context, PuzzleSession session, CanvasSpace space, BoardController board,
             TrayLayout tray, PieceLayout pieceLayout, PlacementFeedback feedback, HintPresenter hint, FxSpawner fx,
@@ -170,6 +172,7 @@ namespace CatBlockPuzzle
                 feedback.PlayPickup(state, startScreen);
             }
 
+            PieceLifted?.Invoke(state);
             return true;
         }
 

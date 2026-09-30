@@ -23,6 +23,8 @@ namespace CatBlockPuzzle
         internal int lastTimerSecond = -1;
         internal float freezeRemainingSeconds;
         internal bool freezeUsedThisAttempt;
+        /// <summary>True from level start until the player's first action; no time passes meanwhile.</summary>
+        internal bool awaitingFirstTouch = true;
         private Coroutine timerPulseRoutine;
         private Image[] progressStarBackgrounds;
         private DifficultyProfile profile = DifficultyProfile.Tutorial;
@@ -59,6 +61,7 @@ namespace CatBlockPuzzle
             Hud?.SetFreezeAvailable(true);
             timerRunning = false;
             session.levelFailed = false;
+            awaitingFirstTouch = true;
             profile = DifficultyProfile.For(session.activeLevel, session.levelIndex);
             levelRemainingSeconds = profile.DurationSeconds;
             lastTimerSecond = Mathf.CeilToInt(levelRemainingSeconds);
@@ -87,6 +90,12 @@ namespace CatBlockPuzzle
             UpdateTimerDisplay();
         }
 
+        /// <summary>The player touched the level (picked up a cat, or used Hint or Freeze): the countdown may begin.</summary>
+        public void BeginCounting()
+        {
+            awaitingFirstTouch = false;
+        }
+
         public void StopLevelTimer()
         {
             timerRunning = false;
@@ -111,7 +120,7 @@ namespace CatBlockPuzzle
         /// <summary>Advances the countdown for this frame. Onboarding never spends the timer.</summary>
         public void Tick(bool onboardingOpen)
         {
-            if (!timerRunning || levelFailed || onboardingOpen)
+            if (!timerRunning || levelFailed || onboardingOpen || awaitingFirstTouch)
             {
                 return;
             }

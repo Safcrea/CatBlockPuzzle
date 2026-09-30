@@ -67,6 +67,7 @@ namespace CatBlockPuzzle
             drag.PiecePlaced += OnPiecePlaced;
             timer.Expired += FailLevel;
             drag.MissedDrop += _ => hearts.LoseHeart();
+            drag.PieceLifted += _ => timer.BeginCounting();
             hearts.OutOfHearts += () => FailLevel("Out of hearts! Place each cat carefully.");
         }
 
