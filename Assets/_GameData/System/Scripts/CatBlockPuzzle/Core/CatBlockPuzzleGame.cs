@@ -162,7 +162,7 @@ namespace CatBlockPuzzle
             tip = new MovePieceTip(this, session, space, board, settings);
             hint = new HintPresenter(this, session, board, tip, locks);
             theme = new ThemePresenter(this, session);
-            drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates);
+            drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates, locks);
             tutorial = new LevelOneTutorial(this, session, this, space, board, drag, settings, fx, mood, timer, gates);
             drag.Gate = tutorial;
             loader = new PreparedLevelLoader(this, session, tray, mood, drag, this);

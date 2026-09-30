@@ -25,6 +25,7 @@ namespace CatBlockPuzzle
         private readonly PuzzleSession session;
         private readonly CanvasSpace space;
         private readonly BoardController board;
+        private readonly CellLockController locks;
         private readonly TrayLayout tray;
         private readonly PieceLayout pieceLayout;
         private readonly PlacementFeedback feedback;
@@ -46,11 +47,12 @@ namespace CatBlockPuzzle
 
         public PieceDragController(IGameplayContext context, PuzzleSession session, CanvasSpace space, BoardController board,
             TrayLayout tray, PieceLayout pieceLayout, PlacementFeedback feedback, HintPresenter hint, FxSpawner fx,
-            CatMoodPresenter mood, ThemePresenter theme, PlayerSettings settings, InteractionGates gates) : base(context)
+            CatMoodPresenter mood, ThemePresenter theme, PlayerSettings settings, InteractionGates gates, CellLockController locks) : base(context)
         {
             this.session = session;
             this.space = space;
             this.board = board;
+            this.locks = locks;
             this.tray = tray;
             this.pieceLayout = pieceLayout;
             this.feedback = feedback;
@@ -232,6 +234,7 @@ namespace CatBlockPuzzle
             bool overShelf = drag.PreviousPlaced && CanvasSpace.RectsOverlap(pieceScreenRect, space.ExpandedScreenRect(trayRoot, TrayReturnPadding));
             float snapPadding = layoutProfile != null ? layoutProfile.BoardSnapPadding : BoardSnapPadding;
             bool nearBoard = !overShelf && CanvasSpace.RectsOverlap(pieceScreenRect, space.ExpandedScreenRect(boardRoot, snapPadding));
+            drag.NearBoard = nearBoard;
             drag.ReturnToShelf = overShelf && (Gate == null || Gate.TutorialAllowsShelfReturn(state));
             if (trayImage != null)
             {
@@ -383,6 +386,8 @@ namespace CatBlockPuzzle
             inputLocked = true;
             PieceState state = endedDrag.Piece;
             feedback.PlayWrong(state);
+            // A cat refused because its own spot is still padlocked: show what opens it.
+            if (endedDrag.NearBoard && locks.BlocksSolution(state.Definition)) locks.Explain(state.Definition);
             if (endedDrag.PreviousPlaced)
             {
                 state.Placed = true;

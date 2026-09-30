@@ -9,6 +9,7 @@ namespace CatBlockPuzzle
     internal static class CellLockArt
     {
         private static Sprite padlock;
+        private static Sprite key;
 
         public static Sprite Padlock
         {
@@ -17,6 +18,70 @@ namespace CatBlockPuzzle
                 if (padlock == null) padlock = CreatePadlock(128);
                 return padlock;
             }
+        }
+
+        public static Sprite Key
+        {
+            get
+            {
+                if (key == null) key = CreateKey(128);
+                return key;
+            }
+        }
+
+        private static float Circle(Vector2 p, Vector2 center, float radius) => Vector2.Distance(p, center) - radius;
+
+        private static float Box(Vector2 p, Vector2 center, Vector2 half)
+        {
+            Vector2 q = new Vector2(Mathf.Abs(p.x - center.x), Mathf.Abs(p.y - center.y)) - half;
+            return new Vector2(Mathf.Max(q.x, 0f), Mathf.Max(q.y, 0f)).magnitude + Mathf.Min(Mathf.Max(q.x, q.y), 0f);
+        }
+
+        // A gold key lying horizontally: round bow with a hole on the left, a shaft with two teeth on the right.
+        private static Sprite CreateKey(int size)
+        {
+            Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false) { name = "Cell Key" };
+            texture.wrapMode = TextureWrapMode.Clamp;
+            texture.filterMode = FilterMode.Bilinear;
+            Color32[] pixels = new Color32[size * size];
+
+            Color outline = new Color(0.36f, 0.19f, 0.10f, 1f);
+            Color gold = new Color(1f, 0.82f, 0.32f, 1f);
+            Color goldShade = new Color(0.92f, 0.62f, 0.18f, 1f);
+
+            float s = size;
+            Vector2 bowCenter = new Vector2(0.27f, 0.5f) * s;
+            float bowRadius = 0.2f * s;
+            float holeRadius = 0.085f * s;
+            Vector2 shaftCenter = new Vector2(0.6f, 0.5f) * s;
+            Vector2 shaftHalf = new Vector2(0.3f, 0.055f) * s;
+            Vector2 toothHalf = new Vector2(0.04f, 0.09f) * s;
+            Vector2 tooth1 = new Vector2(0.7f, 0.41f) * s;
+            Vector2 tooth2 = new Vector2(0.84f, 0.41f) * s;
+            float outlineWidth = 0.045f * s;
+
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    Vector2 p = new Vector2(x + 0.5f, y + 0.5f);
+                    float d = Mathf.Min(Mathf.Min(Circle(p, bowCenter, bowRadius), Box(p, shaftCenter, shaftHalf)),
+                        Mathf.Min(Box(p, tooth1, toothHalf), Box(p, tooth2, toothHalf)));
+                    d = Mathf.Max(d, -Circle(p, bowCenter, holeRadius));
+
+                    float fill = 1f - Mathf.Clamp01(d);
+                    float inner = 1f - Mathf.Clamp01(d + outlineWidth);
+                    float shade = Mathf.InverseLerp(0.7f * s, 0.3f * s, p.y);
+                    Color body = Color.Lerp(gold, goldShade, shade * shade);
+                    Color color = Color.Lerp(outline, body, inner);
+                    color.a = fill;
+                    pixels[y * size + x] = color;
+                }
+            }
+
+            texture.SetPixels32(pixels);
+            texture.Apply(false, true);
+            return Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect);
         }
 
         private static Sprite CreatePadlock(int size)

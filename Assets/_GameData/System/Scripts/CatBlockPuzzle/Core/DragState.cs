@@ -20,6 +20,8 @@ namespace CatBlockPuzzle
         public bool IsTouch;
         public bool Valid;
         public bool ReturnToShelf;
+        /// <summary>True while the held cat overlaps the board area, whether or not it can land there.</summary>
+        public bool NearBoard;
         public int Row;
         public int Col;
         public Vector2 PointerStartScreen;

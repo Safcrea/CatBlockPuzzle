@@ -65,6 +65,7 @@ namespace CatBlockPuzzle
             locks.Clear();
             byCell.Clear();
             LevelDefinition level = session.activeLevel;
+            RefreshKeyTags();
             foreach (KeyValuePair<Vector2Int, CellView> cell in session.boardCells)
             {
                 Transform stale = cell.Value.Rect.Find("Lock");
@@ -89,6 +90,7 @@ namespace CatBlockPuzzle
                 locks.Add(l);
                 byCell[entry.Key] = l;
             }
+            RefreshKeyTags();
             RestoreColors();
         }
 
@@ -130,6 +132,66 @@ namespace CatBlockPuzzle
                     changed = true;
                 }
             }
+            RefreshKeyTags();
+        }
+
+        /// <summary>
+        /// Teaches why a cat was refused: the padlocks over its home wobble, and whatever opens
+        /// them (the key cat's tray tag and lock badge, or the counter number) pulses.
+        /// </summary>
+        public void Explain(PieceDefinition piece)
+        {
+            if (settings.ReducedMotion) return;
+            HashSet<string> keys = new HashSet<string>();
+            for (int i = 0; i < piece.Cells.Length; i++)
+            {
+                Vector2Int cell = new Vector2Int(piece.SolutionRow + piece.Cells[i].Row, piece.SolutionCol + piece.Cells[i].Col);
+                if (!byCell.TryGetValue(cell, out Lock l) || l.Open || l.Overlay == null) continue;
+                StartCoroutine(Wobble(l.Overlay));
+                if (l.IsKey)
+                {
+                    keys.Add(l.KeyId);
+                    Transform badge = l.Overlay.Find("Key");
+                    if (badge != null) StartCoroutine(Pulse((RectTransform)badge));
+                }
+                else if (l.Counter != null) StartCoroutine(Pulse(l.Counter.rectTransform));
+            }
+
+            foreach (string keyId in keys)
+            {
+                PieceState keyPiece = FindPiece(keyId);
+                Transform tag = keyPiece != null && keyPiece.Slot != null ? keyPiece.Slot.Find("Key Tag") : null;
+                if (tag != null && tag.gameObject.activeSelf) StartCoroutine(Pulse((RectTransform)tag));
+            }
+        }
+
+        private IEnumerator Wobble(RectTransform target)
+        {
+            const float seconds = 0.45f;
+            float elapsed = 0f;
+            while (elapsed < seconds && target != null && target.gameObject.activeInHierarchy)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float fade = 1f - Mathf.Clamp01(elapsed / seconds);
+                target.localEulerAngles = new Vector3(0f, 0f, Mathf.Sin(elapsed * 40f) * 16f * fade);
+                yield return null;
+            }
+            if (target != null) target.localEulerAngles = Vector3.zero;
+        }
+
+        private IEnumerator Pulse(RectTransform target)
+        {
+            const float seconds = 0.9f;
+            float elapsed = 0f;
+            Vector3 rest = target != null ? target.localScale : Vector3.one;
+            while (elapsed < seconds && target != null && target.gameObject.activeInHierarchy)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float beat = Mathf.Abs(Mathf.Sin(elapsed / seconds * Mathf.PI * 2f));
+                target.localScale = rest * (1f + (0.45f * beat));
+                yield return null;
+            }
+            if (target != null) target.localScale = rest;
         }
 
         private bool IsPlaced(string pieceId)
@@ -295,8 +357,71 @@ namespace CatBlockPuzzle
             badge.sizeDelta = Vector2.one * badgeSize;
             badge.anchoredPosition = new Vector2(-badgeSize * 0.12f, badgeSize * 0.18f);
             badge.localScale = Vector3.one;
-            face.sprite = mood.Portrait(CatMood.Happy, keyPiece.AtlasIndex);
+            // Same sprite the tray card shows (Neutral), so the two read as the same cat.
+            face.sprite = mood.Portrait(CatMood.Neutral, keyPiece.AtlasIndex);
+
+            // A small key on the badge says this cat OPENS the lock, it is not the cat that goes here.
+            Transform keyIcon = badge.Find("Key Icon");
+            if (keyIcon == null)
+            {
+                Image glyph = new GameObject("Key Icon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image)).GetComponent<Image>();
+                glyph.rectTransform.SetParent(badge, false);
+                glyph.sprite = CellLockArt.Key;
+                glyph.preserveAspect = true;
+                glyph.raycastTarget = false;
+                glyph.rectTransform.localEulerAngles = new Vector3(0f, 0f, 35f);
+                keyIcon = glyph.rectTransform;
+            }
+
+            RectTransform keyRect = (RectTransform)keyIcon;
+            keyRect.anchorMin = keyRect.anchorMax = new Vector2(0f, 0f);
+            keyRect.pivot = new Vector2(0.5f, 0.5f);
+            keyRect.sizeDelta = Vector2.one * badgeSize * 0.7f;
+            keyRect.anchoredPosition = new Vector2(badgeSize * 0.04f, badgeSize * 0.06f);
             badge.gameObject.SetActive(true);
+        }
+
+        // The key cat's tray card wears the same key until every lock it opens is open.
+        private void RefreshKeyTags()
+        {
+            for (int i = 0; i < session.pieces.Count; i++)
+            {
+                PieceState piece = session.pieces[i];
+                if (piece.Slot == null) continue;
+                Transform tag = piece.Slot.Find("Key Tag");
+                if (!HasClosedLockKeyedTo(piece.Definition.Id))
+                {
+                    if (tag != null) tag.gameObject.SetActive(false);
+                    continue;
+                }
+
+                if (tag == null) tag = CreateKeyTag(piece.Slot);
+                tag.gameObject.SetActive(true);
+            }
+        }
+
+        private bool HasClosedLockKeyedTo(string pieceId)
+        {
+            for (int i = 0; i < locks.Count; i++)
+            {
+                if (!locks[i].Open && locks[i].IsKey && locks[i].KeyId == pieceId) return true;
+            }
+            return false;
+        }
+
+        private static Transform CreateKeyTag(RectTransform slot)
+        {
+            Image tag = new GameObject("Key Tag", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image)).GetComponent<Image>();
+            tag.rectTransform.SetParent(slot, false);
+            tag.sprite = CellLockArt.Key;
+            tag.preserveAspect = true;
+            tag.raycastTarget = false;
+            tag.rectTransform.anchorMin = tag.rectTransform.anchorMax = new Vector2(1f, 1f);
+            tag.rectTransform.pivot = new Vector2(1f, 1f);
+            tag.rectTransform.sizeDelta = new Vector2(46f, 46f);
+            tag.rectTransform.anchoredPosition = new Vector2(-4f, -4f);
+            tag.rectTransform.localEulerAngles = new Vector3(0f, 0f, 35f);
+            return tag.rectTransform;
         }
 
         private static IEnumerable<Vector2Int> Neighbours(Vector2Int c)
