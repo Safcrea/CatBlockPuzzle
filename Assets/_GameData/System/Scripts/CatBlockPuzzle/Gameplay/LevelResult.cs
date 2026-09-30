@@ -25,26 +25,32 @@ namespace CatBlockPuzzle
         private const float ThreeStarThreshold = 0.5f;
         private const float TwoStarThreshold = 0.2f;
 
-        public static int CalculateStars(float remainingSeconds, float durationSeconds)
+        public static int CalculateStars(float remainingSeconds, float durationSeconds) =>
+            CalculateStars(remainingSeconds, durationSeconds, ThreeStarThreshold, TwoStarThreshold);
+
+        public static int CalculateStars(float remainingSeconds, float durationSeconds, float threeStarRatio, float twoStarRatio)
         {
             float ratio = durationSeconds > 0f ? Mathf.Clamp01(remainingSeconds / durationSeconds) : 0f;
-            if (ratio > ThreeStarThreshold)
+            if (ratio > threeStarRatio)
             {
                 return 3;
             }
 
-            return ratio > TwoStarThreshold ? 2 : 1;
+            return ratio > twoStarRatio ? 2 : 1;
         }
 
         // Drain the rightmost star first, reaching empty at the scoring thresholds.
-        public static float CalculateStarFill(int starIndex, float remainingSeconds, float durationSeconds)
+        public static float CalculateStarFill(int starIndex, float remainingSeconds, float durationSeconds) =>
+            CalculateStarFill(starIndex, remainingSeconds, durationSeconds, ThreeStarThreshold, TwoStarThreshold);
+
+        public static float CalculateStarFill(int starIndex, float remainingSeconds, float durationSeconds, float threeStarRatio, float twoStarRatio)
         {
             float ratio = durationSeconds > 0f ? Mathf.Clamp01(remainingSeconds / durationSeconds) : 0f;
             switch (starIndex)
             {
-                case 0: return Mathf.Clamp01(ratio / TwoStarThreshold);
-                case 1: return Mathf.Clamp01((ratio - TwoStarThreshold) / (ThreeStarThreshold - TwoStarThreshold));
-                case 2: return Mathf.Clamp01((ratio - ThreeStarThreshold) / (1f - ThreeStarThreshold));
+                case 0: return Mathf.Clamp01(ratio / twoStarRatio);
+                case 1: return Mathf.Clamp01((ratio - twoStarRatio) / (threeStarRatio - twoStarRatio));
+                case 2: return Mathf.Clamp01((ratio - threeStarRatio) / (1f - threeStarRatio));
                 default: return 0f;
             }
         }

@@ -58,8 +58,9 @@ namespace CatBlockPuzzle
         public LevelResult SaveLevelResult(float remainingSeconds)
         {
             LevelDefinition activeLevel = session.activeLevel;
-            float duration = PuzzleTuning.LevelDurationSeconds;
-            session.earnedStars = CatPuzzleResultCalculator.CalculateStars(remainingSeconds, duration);
+            DifficultyProfile profile = DifficultyProfile.For(activeLevel, session.levelIndex);
+            float duration = profile.DurationSeconds;
+            session.earnedStars = profile.Stars(remainingSeconds);
             int previousBest = GetBestStars(activeLevel.Id);
             int best = CatPuzzleResultCalculator.ClampStars(Mathf.Max(previousBest, session.earnedStars));
             if (session.levelNavigationTesting)

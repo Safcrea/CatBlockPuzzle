@@ -25,6 +25,7 @@ namespace CatBlockPuzzle
         internal bool freezeUsedThisAttempt;
         private Coroutine timerPulseRoutine;
         private Image[] progressStarBackgrounds;
+        private DifficultyProfile profile = DifficultyProfile.Tutorial;
 
         public event Action Expired;
 
@@ -40,6 +41,8 @@ namespace CatBlockPuzzle
         public bool IsFrozen => freezeRemainingSeconds > 0f;
         public float FreezeRemainingSeconds => freezeRemainingSeconds;
         public bool FreezeUsedThisAttempt => freezeUsedThisAttempt;
+        /// <summary>The time budget and star rules of the level the timer was last reset for.</summary>
+        public DifficultyProfile Profile => profile;
 
         private Text timerText => Hud.timerText;
         private Image[] progressStars => Hud.progressStars;
@@ -52,7 +55,8 @@ namespace CatBlockPuzzle
             Hud?.SetFreezeAvailable(true);
             timerRunning = false;
             session.levelFailed = false;
-            levelRemainingSeconds = LevelDurationSeconds;
+            profile = DifficultyProfile.For(session.activeLevel, session.levelIndex);
+            levelRemainingSeconds = profile.DurationSeconds;
             lastTimerSecond = Mathf.CeilToInt(levelRemainingSeconds);
             if (timerPulseRoutine != null)
             {
@@ -123,7 +127,15 @@ namespace CatBlockPuzzle
                 levelRemainingSeconds = 0f;
                 lastTimerSecond = 0;
                 UpdateTimerDisplay();
-                Expired?.Invoke();
+                if (profile.CanFail)
+                {
+                    Expired?.Invoke();
+                }
+                else
+                {
+                    // Easy levels never fail: the stars are gone, but the player can still finish.
+                    StopLevelTimer();
+                }
                 return;
             }
 
@@ -245,7 +257,7 @@ namespace CatBlockPuzzle
                 star.type = Image.Type.Filled;
                 star.fillMethod = Image.FillMethod.Vertical;
                 star.fillOrigin = (int)Image.OriginVertical.Bottom;
-                star.fillAmount = CatPuzzleResultCalculator.CalculateStarFill(i, levelRemainingSeconds, LevelDurationSeconds);
+                star.fillAmount = profile.StarFill(i, levelRemainingSeconds);
             }
         }
     }

@@ -75,7 +75,7 @@ namespace CatBlockPuzzle
 
         public int CurrentStarCount => session.earnedStars > 0
             ? session.earnedStars
-            : CatPuzzleResultCalculator.CalculateStars(timer.RemainingSeconds, PuzzleTuning.LevelDurationSeconds);
+            : timer.Profile.Stars(timer.RemainingSeconds);
 
         public void LoadLevel(int nextLevelIndex, bool persistProgress = true)
         {
