@@ -23,7 +23,9 @@ namespace CatBlockPuzzle
 
         private List<PieceState> pieces => session.pieces;
 
-        public void ShowHint()
+        public void ShowHint() => ShowHint(HintReveal.FullShape);
+
+        public void ShowHint(HintReveal reveal)
         {
             if (session.inputLocked)
             {
@@ -44,15 +46,18 @@ namespace CatBlockPuzzle
 
             if (hinted != null)
             {
-                hintRoutine = StartCoroutine(HintRoutine(hinted));
+                hintRoutine = StartCoroutine(HintRoutine(hinted, reveal));
             }
         }
 
-        private IEnumerator HintRoutine(PieceState state)
+        private IEnumerator HintRoutine(PieceState state, HintReveal reveal)
         {
             List<Image> hintedCells = new List<Image>();
-            foreach (CellOffset cell in state.Definition.Cells)
+            CellOffset[] cells = state.Definition.Cells;
+            int revealed = reveal == HintReveal.AnchorOnly ? Mathf.Min(1, cells.Length) : cells.Length;
+            for (int c = 0; c < revealed; c++)
             {
+                CellOffset cell = cells[c];
                 Vector2Int coord = new Vector2Int(state.Definition.SolutionRow + cell.Row, state.Definition.SolutionCol + cell.Col);
                 if (session.boardCells.TryGetValue(coord, out CellView cellView))
                 {

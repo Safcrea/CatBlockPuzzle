@@ -53,10 +53,13 @@ namespace CatBlockPuzzle
             return true;
         }
 
+        /// <summary>Hints spent by one use on the current level.</summary>
+        public int HintCost => timer.Profile.HintCost;
+
         public bool TryUseHintPowerUp()
         {
             if (!CanRequestPowerUp(PowerUpKind.Hint)) return false;
-            hint.ShowHint();
+            hint.ShowHint(timer.Profile.HintReveal);
             return true;
         }
 

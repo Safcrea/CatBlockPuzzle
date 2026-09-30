@@ -276,6 +276,7 @@ namespace CatBlockPuzzle
         public bool CanRequestPowerUp(PowerUpKind kind) => powerUps.CanRequestPowerUp(kind);
         public bool TryUseFreezePowerUp() => powerUps.TryUseFreezePowerUp();
         public bool TryUseHintPowerUp() => powerUps.TryUseHintPowerUp();
+        public int HintCost => powerUps != null ? powerUps.HintCost : 1;
         public bool OpenPowerUpPurchase(PowerUpKind kind) => powerUps.OpenPowerUpPurchase(kind);
         internal void SetPowerUpPurchaseOpen(bool open, bool resumeGameplay = true) => powerUps.SetPowerUpPurchaseOpen(open, resumeGameplay);
         internal PowerUpPurchaseStatus PurchasePowerUp(PowerUpKind kind, PowerUpShopConfig.Offer offer) => powerUps.PurchasePowerUp(kind, offer);

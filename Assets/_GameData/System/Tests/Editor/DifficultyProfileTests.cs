@@ -29,6 +29,19 @@ namespace CatBlockPuzzle.Tests
             Assert.That(profile.CanFail, Is.EqualTo(canFail));
         }
 
+        [TestCase(1, HintReveal.FullShape, 1)]
+        [TestCase(4, HintReveal.FullShape, 1)]
+        [TestCase(5, HintReveal.AnchorOnly, 1)]
+        [TestCase(7, HintReveal.AnchorOnly, 1)]
+        [TestCase(8, HintReveal.AnchorOnly, 2)]
+        [TestCase(10, HintReveal.AnchorOnly, 2)]
+        public void Hints_RevealLessAndCostMoreOnHardLevels(int difficulty, HintReveal reveal, int cost)
+        {
+            var profile = DifficultyProfile.For(Level(difficulty), 5);
+            Assert.That(profile.HintReveal, Is.EqualTo(reveal));
+            Assert.That(profile.HintCost, Is.EqualTo(cost));
+        }
+
         [Test]
         public void HarderLevels_NeedLessTimeLeftForThreeStars()
         {

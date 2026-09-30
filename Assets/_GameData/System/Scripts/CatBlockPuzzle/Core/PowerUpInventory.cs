@@ -19,5 +19,16 @@ namespace CatBlockPuzzle
             return DailyRewardProgress.TryConsumePowerUp(kind);
         }
 
+        /// <summary>Spends <paramref name="amount"/> at once; nothing is taken unless the whole amount is available.</summary>
+        public static bool TryConsume(PowerUpKind kind, int amount)
+        {
+            if (amount <= 0 || GetCount(kind) < amount) return false;
+            for (int i = 0; i < amount; i++)
+            {
+                if (!DailyRewardProgress.TryConsumePowerUp(kind)) return false;
+            }
+            return true;
+        }
+
     }
 }

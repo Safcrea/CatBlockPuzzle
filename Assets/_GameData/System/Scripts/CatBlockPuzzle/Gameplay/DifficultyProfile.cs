@@ -2,6 +2,15 @@ using UnityEngine;
 
 namespace CatBlockPuzzle
 {
+    /// <summary>How much of the solution a hint gives away.</summary>
+    internal enum HintReveal
+    {
+        /// <summary>Every cell of the piece's resting place lights up.</summary>
+        FullShape,
+        /// <summary>Only the piece's anchor cell lights up; the orientation is the player's job.</summary>
+        AnchorOnly
+    }
+
     /// <summary>
     /// The time budget, star thresholds and failure rule for a level, derived from the
     /// authored 1–10 difficulty. Tuning lives entirely in <see cref="Bands"/>.
@@ -13,13 +22,19 @@ namespace CatBlockPuzzle
         public readonly float TwoStarRatio;
         /// <summary>When false, running out of time only costs stars; the level never fails.</summary>
         public readonly bool CanFail;
+        public readonly HintReveal HintReveal;
+        /// <summary>How many hints one use spends.</summary>
+        public readonly int HintCost;
 
-        public DifficultyProfile(float durationSeconds, float threeStarRatio, float twoStarRatio, bool canFail)
+        public DifficultyProfile(float durationSeconds, float threeStarRatio, float twoStarRatio, bool canFail,
+            HintReveal hintReveal = HintReveal.FullShape, int hintCost = 1)
         {
             DurationSeconds = durationSeconds;
             ThreeStarRatio = threeStarRatio;
             TwoStarRatio = twoStarRatio;
             CanFail = canFail;
+            HintReveal = hintReveal;
+            HintCost = hintCost;
         }
 
         /// <summary>Level 1 hosts the hands-on tutorial and keeps the original relaxed rules.</summary>
@@ -47,8 +62,11 @@ namespace CatBlockPuzzle
 
             int difficulty = Mathf.Clamp(level.Difficulty, 1, 10);
             DifficultyProfile band = Bands[(difficulty - 1) / 2];
+            // Hints stay generous while the player learns, then reveal less and cost more.
+            HintReveal reveal = difficulty <= 4 ? HintReveal.FullShape : HintReveal.AnchorOnly;
+            int hintCost = difficulty >= 8 ? 2 : 1;
             return new DifficultyProfile(band.DurationSeconds, band.ThreeStarRatio, band.TwoStarRatio,
-                band.CanFail && difficulty >= FirstFailableDifficulty);
+                band.CanFail && difficulty >= FirstFailableDifficulty, reveal, hintCost);
         }
 
         public int Stars(float remainingSeconds) =>

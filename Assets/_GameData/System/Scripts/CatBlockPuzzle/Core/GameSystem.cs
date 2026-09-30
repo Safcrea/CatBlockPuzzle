@@ -77,13 +77,14 @@ namespace CatBlockPuzzle
         public bool TryUseHintPowerUp()
         {
             if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Hint)) return false;
-            if (PowerUpInventory.GetCount(PowerUpKind.Hint) <= 0)
+            int cost = gameplayController.HintCost;
+            if (PowerUpInventory.GetCount(PowerUpKind.Hint) < cost)
             {
                 gameplayController.OpenPowerUpPurchase(PowerUpKind.Hint);
                 return false;
             }
             if (!gameplayController.TryUseHintPowerUp()) return false;
-            bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Hint);
+            bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Hint, cost);
             if (consumed) gameplayController.RefreshPowerUpHud();
             return consumed;
         }
