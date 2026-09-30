@@ -285,6 +285,7 @@ namespace CatBlockPuzzle
             hint.StopHint();
             drag.CancelActiveDragToRest();
             PuzzleAudio.PlayWithMusicDuck("Wrong");
+            haptics?.Play(HapticKind.LevelFail);
             GameSystem.Instance?.ShowLevelFailed("Try Again", message);
         }
 

@@ -29,8 +29,12 @@ namespace CatBlockPuzzle
 
         public event Action Expired;
 
-        public LevelTimer(IGameplayContext context, PuzzleSession session, IPuzzleConfig config, InteractionGates gates) : base(context)
+        private readonly HapticsController haptics;
+
+        public LevelTimer(IGameplayContext context, PuzzleSession session, IPuzzleConfig config, InteractionGates gates,
+            HapticsController haptics) : base(context)
         {
+            this.haptics = haptics;
             this.session = session;
             this.config = config;
             this.gates = gates;
@@ -148,6 +152,8 @@ namespace CatBlockPuzzle
 
             lastTimerSecond = currentSecond;
             UpdateTimerDisplay();
+            // A tick for each of the final seconds, only on levels that can actually be lost.
+            if (currentSecond <= 5 && profile.CanFail) haptics?.Play(HapticKind.TimerTick);
             if (levelRemainingSeconds <= TimerWarningSeconds)
             {
                 StartTimerPulse();

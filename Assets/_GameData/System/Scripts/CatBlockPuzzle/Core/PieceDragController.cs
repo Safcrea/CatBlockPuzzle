@@ -253,10 +253,16 @@ namespace CatBlockPuzzle
                 drag.Valid = true;
                 drag.Row = placement.Row;
                 drag.Col = placement.Col;
+                // A light tick each time the cat lines up with a new valid spot (not on the pickup frame).
+                if (drag.HoverRow != -2 && (drag.HoverRow != placement.Row || drag.HoverCol != placement.Col)) feedback.PlayHover();
+                drag.HoverRow = placement.Row;
+                drag.HoverCol = placement.Col;
                 board.ShowPreview(state, placement.Row, placement.Col, true);
                 return;
             }
 
+            if (drag.HoverRow == -2) drag.HoverRow = -1;
+            else drag.HoverRow = drag.HoverCol = -1;
             if (nearBoard)
             {
                 GetBoardOriginFromGrab(anchorScreen, drag.Grabbed, out int row, out int col);

@@ -35,8 +35,12 @@ namespace CatBlockPuzzle
         private readonly List<Lock> locks = new List<Lock>();
         private readonly Dictionary<Vector2Int, Lock> byCell = new Dictionary<Vector2Int, Lock>();
 
-        public CellLockController(IGameplayContext context, PuzzleSession session, PlayerSettings settings, CatMoodPresenter mood) : base(context)
+        private readonly HapticsController haptics;
+
+        public CellLockController(IGameplayContext context, PuzzleSession session, PlayerSettings settings, CatMoodPresenter mood,
+            HapticsController haptics) : base(context)
         {
+            this.haptics = haptics;
             this.session = session;
             this.settings = settings;
             this.mood = mood;
@@ -223,6 +227,7 @@ namespace CatBlockPuzzle
             l.Open = true;
             if (session.boardCells.TryGetValue(l.Cell, out CellView view)) view.Image.color = TargetColor;
             PuzzleAudio.Play("Snap");
+            haptics?.Play(HapticKind.LockOpen);
             if (l.Overlay == null) return;
             if (settings.ReducedMotion) { l.Overlay.gameObject.SetActive(false); return; }
             StartCoroutine(Dismiss(l.Overlay, view.Rect));

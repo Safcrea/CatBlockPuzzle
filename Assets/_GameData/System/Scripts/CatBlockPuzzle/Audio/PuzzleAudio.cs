@@ -15,6 +15,10 @@ namespace CatBlockPuzzle
             if (manager != null) manager.PlaySfxWithMusicDuck(id);
         }
 
-        public static void PlayButton() => Play("Button");
+        public static void PlayButton()
+        {
+            Play("Button");
+            HapticsController.Current?.Play(HapticKind.UiTap);
+        }
     }
 }

@@ -80,6 +80,7 @@ namespace CatBlockPuzzle
         public void PlayShelfReturn()
         {
             PuzzleAudio.Play("Button");
+            haptics?.Play(HapticKind.Selection);
             StartCoroutine(fx.PopTransform(session.trayRoot, 1.02f));
         }
 
@@ -93,7 +94,11 @@ namespace CatBlockPuzzle
             }
 
             combo.Register();
+            if (session.comboCount >= 3) haptics?.Play(HapticKind.Combo);
         }
+
+        /// <summary>The held cat lined up with a new spot it can land on.</summary>
+        public void PlayHover() => haptics?.Play(HapticKind.Selection);
 
         private void FlashPlacedCells(PieceState state, int row, int col)
         {

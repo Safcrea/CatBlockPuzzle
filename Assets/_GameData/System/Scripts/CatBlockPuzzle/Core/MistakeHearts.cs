@@ -24,8 +24,11 @@ namespace CatBlockPuzzle
 
         public event Action OutOfHearts;
 
-        public MistakeHearts(IGameplayContext context, PuzzleSession session, PlayerSettings settings) : base(context)
+        private readonly HapticsController haptics;
+
+        public MistakeHearts(IGameplayContext context, PuzzleSession session, PlayerSettings settings, HapticsController haptics) : base(context)
         {
+            this.haptics = haptics;
             this.session = session;
             this.settings = settings;
         }
@@ -47,6 +50,7 @@ namespace CatBlockPuzzle
         {
             if (!Active || remaining <= 0 || session.levelFailed) return;
             remaining--;
+            haptics?.Play(remaining == 0 ? HapticKind.LevelFail : HapticKind.HeartLost);
             Image lost = remaining < icons.Length ? icons[remaining] : null;
             if (lost != null)
             {

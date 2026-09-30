@@ -22,6 +22,9 @@ namespace CatBlockPuzzle
         public bool ReturnToShelf;
         /// <summary>True while the held cat overlaps the board area, whether or not it can land there.</summary>
         public bool NearBoard;
+        /// <summary>The last valid spot the held cat lined up with, for the hover tick (-2 = not yet sampled).</summary>
+        public int HoverRow = -2;
+        public int HoverCol = -2;
         public int Row;
         public int Col;
         public Vector2 PointerStartScreen;

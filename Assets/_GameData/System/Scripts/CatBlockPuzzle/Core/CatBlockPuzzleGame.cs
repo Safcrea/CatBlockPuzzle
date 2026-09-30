@@ -154,11 +154,11 @@ namespace CatBlockPuzzle
             gates = new InteractionGates(this);
             space = new CanvasSpace(this);
             fx = new FxSpawner(this, space, settings);
-            timer = new LevelTimer(this, session, this, gates);
+            timer = new LevelTimer(this, session, this, gates, haptics);
             pieceLayout = new PieceLayout(session);
             tray = new TrayLayout(this, session, pieceLayout, settings, space);
             mood = new CatMoodPresenter(this, session, settings, gates);
-            locks = new CellLockController(this, session, settings, mood);
+            locks = new CellLockController(this, session, settings, mood, haptics);
             zones = new CellZoneController(this, session, mood);
             board = new BoardController(this, session, space, pieceLayout, tray, settings, mood, locks, zones);
             combo = new ComboTracker(this, session, fx, space, settings);
@@ -173,7 +173,7 @@ namespace CatBlockPuzzle
             meta = new MetaProgressionController(this, session, progress, settings, timer, hint, drag, tray, fx, mood, haptics, gates, this);
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this);
             intro = new MechanicIntroPresenter(this, session);
-            hearts = new MistakeHearts(this, session, settings);
+            hearts = new MistakeHearts(this, session, settings, haptics);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
                 progress, combo, fx, haptics, mood, gates, this, intro, hearts);
             testNavigator = new TestLevelNavigator(this, session, this);

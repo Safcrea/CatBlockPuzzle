@@ -5,6 +5,10 @@ namespace CatBlockPuzzle
     {
         internal const string ClickId = "Button";
 
-        internal static void PlayClick() => SoundManager.EnsureInstance().PlaySfx(ClickId);
+        internal static void PlayClick()
+        {
+            SoundManager.EnsureInstance().PlaySfx(ClickId);
+            HapticsController.Current?.Play(HapticKind.UiTap);
+        }
     }
 }
