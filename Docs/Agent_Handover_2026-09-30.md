@@ -116,11 +116,38 @@ editor menus):
 - **Mistake hearts (`MistakeHearts`).** A heart is lost only when a cat is released **over the board** and
   can't land (`PieceDragController.MissedDrop`). Releasing in empty space, returning to the shelf, or a
   system cancel is free. The heart row sits under the timer panel.
-- **Intro cards (`MechanicIntroPresenter`).** A one-time "New!" card appears per mechanic, before the timer
-  starts. Seen flags are PlayerPrefs `CatBlockPuzzle.Mechanic.<Padlocks|KeyCats|Shelf|ColourZones|SpareCats|Hearts>.v1`.
+- **Intro cards (`MechanicIntroPresenter` + `UI/MechanicIntroPopup`).** A one-time "New!" card appears per
+  mechanic, before the timer starts. The card is the prefab `Assets/Resources/CatBlockPuzzle/MechanicIntroPopup.prefab`,
+  built from the power-up purchase popup (same flowered panel, fonts and wooden button) by
+  **Cat Block Puzzle → Build Mechanic Intro Popup Prefab**. Re-run that menu after restyling the purchase popup. Seen flags are PlayerPrefs `CatBlockPuzzle.Mechanic.<Padlocks|KeyCats|Shelf|ColourZones|SpareCats|Hearts>.v1`.
   The HUD's objective text is disabled in the authored scene, so it can't be used for hints.
 
 ## 5. Other changes
+
+- **Power-up unlock tutorials (`UI/PowerUpTutorialManager` + `UI/PowerUpUnlockTutorial`).** Ported from the
+  ZombieRush `PowerupUnlockTutorial` / `PowerupController` flow, without DOTween or Febucci (coroutines instead):
+  1. The screen dims.
+  2. The power-up icon pops in at the centre with a typewriter-bounce message.
+  3. The icon flies onto the real Hint or Freeze button. This marks it seen and grants a free charge if the
+     bag is empty.
+  4. A hand points at the button while only that button can be tapped. The button is lifted above the dim
+     with a temporary override-sorting `Canvas` + `GraphicRaycaster`, dropped again on finish or cancel.
+  5. The tap is queued (`GameplayHudView.TryTakeTutorialUse`) and spent for real by `LevelFlowController`
+     once the level starts.
+
+  Hint unlocks on level 3 and Freeze on level 5 (`GameplayHudView.hintUnlockLevel/freezeUnlockLevel`); seen
+  flags are `CatBlockPuzzle.Tutorial.Hint/Freeze`. The overlay is the prefab
+  `Assets/Resources/CatBlockPuzzle/PowerUpUnlockTutorial.prefab`, built by
+  **Cat Block Puzzle → Build Power Up Unlock Tutorial Prefab**. The old `HintTutorial`/`FreezeTutorial`
+  card prefabs are no longer used.
+
+- **Timer starts on first touch.** `LevelTimer.awaitingFirstTouch` holds the countdown at full time until the
+  first cat pickup (`PieceDragController.PieceLifted`) or the first Hint or Freeze. The timer still counts as
+  "running" for pause/resume; it just spends no time.
+- **Coins on level complete** are only paid on a level's first clear in normal play
+  (`MetaProgressionController.RecordMetaFirstClear`). Levels opened with the test navigation bar run in
+  testing mode (`levelNavigationTesting`) and deliberately award nothing, so a "no coins" report while
+  browsing with the bar is expected.
 
 - **Haptics (`Services/HapticsController.cs`, iOS plugin `.mm`).**
   - Named moments via `HapticKind`: UiTap, Selection (the dragged cat lines up with a new valid spot),

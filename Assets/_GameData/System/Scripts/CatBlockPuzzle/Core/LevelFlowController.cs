@@ -160,6 +160,13 @@ namespace CatBlockPuzzle
 
             boardRevealRoutine = null;
             tutorial.Begin();
+
+            // The unlock tutorial ends with the player tapping the power-up: spend it now that play has started.
+            if (Hud != null && Hud.TryTakeTutorialUse(out PowerUpKind taught))
+            {
+                if (taught == PowerUpKind.Hint) GameSystem.Instance?.TryUseHintPowerUp();
+                else GameSystem.Instance?.TryUseFreezePowerUp();
+            }
         }
 
         /// <summary>Stops a running reveal, optionally showing every cell at full size.</summary>

@@ -4,15 +4,31 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle
 {
+    /// <summary>
+    /// Introduces each power-up the first time it unlocks, with the guided sequence from ZombieRush
+    /// (<see cref="PowerUpUnlockTutorial"/>): dim, icon pops in with a message, flies onto the real
+    /// HUD button (which unlocks and gets a free charge), a hand points at it, and the player taps it.
+    /// That tap is remembered and spent for real once the level starts.
+    /// </summary>
     [DisallowMultipleComponent]
     public sealed class PowerUpTutorialManager : MonoBehaviour
     {
         public const string HintSeenKey = "CatBlockPuzzle.Tutorial.Hint";
         public const string FreezeSeenKey = "CatBlockPuzzle.Tutorial.Freeze";
-        [SerializeField] private GameObject hintTutorialPrefab;
-        [SerializeField] private GameObject freezeTutorialPrefab;
-        private GameObject overlay;
-        public bool IsOpen => overlay != null && overlay.activeSelf;
+
+        private PowerUpUnlockTutorial overlay;
+        private PowerUpKind? pendingUse;
+
+        public bool IsOpen => overlay != null;
+
+        /// <summary>The power-up whose tutorial tap still has to be spent, if any; clears it.</summary>
+        public bool TryTakePendingUse(out PowerUpKind kind)
+        {
+            kind = pendingUse ?? default;
+            bool has = pendingUse.HasValue;
+            pendingUse = null;
+            return has;
+        }
 
         public IEnumerator ShowUnlockedTutorials(GameplayHudView hud, float freezeSeconds)
         {
@@ -20,85 +36,60 @@ namespace CatBlockPuzzle
                 yield return null;
             if (GameSystem.Instance != null && !GameSystem.Instance.IsGameplayOpen) yield break;
             if (hud.IsPowerUpUnlocked(PowerUpKind.Hint) && PlayerPrefs.GetInt(HintSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Hint, "Hint unlocked!",
-                    "Stuck? Tap Hint to highlight a cat and show where it fits.\n\nEach tap uses one Hint.", HintSeenKey);
+                yield return Show(hud, PowerUpKind.Hint, "Stuck? Hint shows where a cat fits.\nTap it!", HintSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Freeze, "Freeze unlocked!",
-                    $"Tap Freeze to stop the timer for {freezeSeconds:0.#} seconds. You can keep moving cats!\n\nUses one Freeze. Available once per attempt.", FreezeSeenKey, freezeSeconds);
+                yield return Show(hud, PowerUpKind.Freeze, $"Freeze stops the clock for {freezeSeconds:0.#} seconds.\nTap it!", FreezeSeenKey);
         }
 
-        private RectTransform CreateTutorial(GameplayHudView hud, PowerUpKind kind, string heading, string message, float freezeSeconds)
+        private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string message, string key)
         {
-            var prefab = kind == PowerUpKind.Hint ? hintTutorialPrefab : freezeTutorialPrefab;
-            if (prefab == null)
-                prefab = Resources.Load<GameObject>("CatBlockPuzzle/" + (kind == PowerUpKind.Hint ? "HintTutorial" : "FreezeTutorial"));
-            if (prefab != null)
+            Button button = hud.PowerUpButton(kind);
+            void MarkSeenAndGrant()
             {
-                var instance = Instantiate(prefab, hud.Canvas.transform, false);
-                instance.name = "Power Up Tutorial";
-                var instructions = instance.transform.Find("Panel/Instructions")?.GetComponent<Text>();
-                if (instructions != null)
-                    instructions.text = instructions.text.Replace("{freezeSeconds}", freezeSeconds.ToString("0.#"));
-                var powerUpIcon = instance.transform.Find("Panel/Power Up Icon")?.GetComponent<Image>();
-                if (powerUpIcon != null && powerUpIcon.sprite == null)
-                {
-                    powerUpIcon.sprite = hud.GetPowerUpSprite(kind);
-                    powerUpIcon.enabled = powerUpIcon.sprite != null;
-                }
-                return instance.GetComponent<RectTransform>();
-            }
-            var root = RuntimeUiFactory.CreateOverlay(hud.Canvas.transform, "Power Up Tutorial");
-            float width = Mathf.Min(760f, ((RectTransform)hud.Canvas.transform).rect.width - 48f);
-            var panel = RuntimeUiFactory.CreatePanel(root, "Panel", new Vector2(width, 620f));
-            var title = RuntimeUiFactory.CreateText(panel, "Title", heading, 44, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(title.rectTransform, new Vector2(0f, 235f), new Vector2(width - 40f, 75f));
-            var iconRect = RuntimeUiFactory.CreateRect(panel, "Power Up Icon");
-            RuntimeUiFactory.SetRect(iconRect, new Vector2(0f, 125f), new Vector2(110f, 110f));
-            var icon = iconRect.gameObject.AddComponent<Image>();
-            icon.sprite = hud.GetPowerUpSprite(kind);
-            icon.preserveAspect = true;
-            icon.raycastTarget = false;
-            icon.enabled = icon.sprite != null;
-            var body = RuntimeUiFactory.CreateText(panel, "Instructions", message, 30, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(body.rectTransform, new Vector2(0f, -35f), new Vector2(width - 64f, 210f));
-            var okay = RuntimeUiFactory.CreateButton(panel, "Continue", "Got it!", new Vector2(0f, -225f), new Vector2(280f, 78f), RuntimeUiFactory.Coral);
-            return root;
-        }
-
-        private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string heading, string message, string key, float freezeSeconds = 0f)
-        {
-            if (hud.Canvas == null) yield break;
-            var root = CreateTutorial(hud, kind, heading, message, freezeSeconds);
-            overlay = root.gameObject;
-            var okay = root.GetComponentInChildren<Button>(true);
-            if (okay == null)
-            {
-                Debug.LogError("Power up tutorial prefab requires a Continue button.", overlay);
-                Cancel();
-                yield break;
-            }
-            bool finished = false;
-            okay.onClick.AddListener(() =>
-            {
-                ButtonSfx.PlayClick();
-                okay.interactable = false;
-                if (PowerUpInventory.GetCount(kind) == 0) PowerUpInventory.Add(kind);
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
+                // The introduction tap is on the house, so the first use never opens the shop.
+                if (PowerUpInventory.GetCount(kind) == 0) PowerUpInventory.Add(kind);
                 hud.RefreshPowerUpCounts();
-                MenuTransition.Hide(root.gameObject, () => finished = true);
-            });
-            root.gameObject.SetActive(false);
-            MenuTransition.Show(root.gameObject);
-            while (!finished && overlay != null) yield return null;
-            Cancel();
+            }
+
+            if (button == null || !button.gameObject.activeInHierarchy || hud.Canvas == null)
+            {
+                MarkSeenAndGrant();
+                yield break;
+            }
+
+            overlay = PowerUpUnlockTutorial.Create(hud.Canvas, hud.levelText != null ? hud.levelText.font : null);
+            if (overlay == null)
+            {
+                Debug.LogWarning("PowerUpUnlockTutorial prefab missing; skipping the " + kind + " introduction.", this);
+                MarkSeenAndGrant();
+                yield break;
+            }
+
+            yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, MarkSeenAndGrant, () => pendingUse = kind);
+            CloseOverlay();
         }
 
+        /// <summary>Aborts any running introduction (level change, navigation) and forgets its pending tap.</summary>
         public void Cancel()
         {
-            if (overlay != null) { overlay.SetActive(false); Destroy(overlay); }
+            StopAllCoroutines();
+            pendingUse = null;
+            CloseOverlay();
+        }
+
+        private void CloseOverlay()
+        {
+            if (overlay != null)
+            {
+                overlay.Cancel();
+                overlay.gameObject.SetActive(false);
+                Destroy(overlay.gameObject);
+            }
             overlay = null;
         }
+
         private void OnDisable() => Cancel();
     }
 }

@@ -90,6 +90,15 @@ namespace CatBlockPuzzle
             return level >= Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : freezeUnlockLevel);
         }
 
+        internal Button PowerUpButton(PowerUpKind kind) => kind == PowerUpKind.Hint ? hintButton : freezeButton;
+
+        /// <summary>The power-up tapped at the end of its unlock tutorial, still to be spent; clears it.</summary>
+        internal bool TryTakeTutorialUse(out PowerUpKind kind)
+        {
+            kind = default;
+            return tutorialManager != null && tutorialManager.TryTakePendingUse(out kind);
+        }
+
         public Sprite GetPowerUpSprite(PowerUpKind kind)
         {
             var button = kind == PowerUpKind.Hint ? hintButton : freezeButton;

@@ -213,11 +213,18 @@ namespace CatBlockPuzzle.Tests
                 Assert.That(freeze.gameObject.activeSelf, Is.EqualTo(index == 4));
                 Assert.That(Field("timerRunning"), Is.EqualTo(false));
                 Assert.That(Field("inputLocked"), Is.EqualTo(true));
+                // Guided introduction: dim, icon flies to the button, then a hand points at it.
                 var canvas = (Canvas)Game.GetType().GetProperty("PreparedCanvas").GetValue(Game);
-                var popup = canvas.transform.Find("Power Up Tutorial");
-                Assert.That(popup, Is.Not.Null);
-                popup.GetComponentInChildren<UnityEngine.UI.Button>().onClick.Invoke();
-                yield return new WaitForSecondsRealtime(.3f);
+                var overlay = canvas.transform.Find("Power Up Unlock Tutorial");
+                Assert.That(overlay, Is.Not.Null);
+                var hand = overlay.Find("Hand");
+                for (float waited = 0f; waited < 6f && !hand.gameObject.activeSelf; waited += .1f)
+                    yield return new WaitForSecondsRealtime(.1f);
+                Assert.That(hand.gameObject.activeSelf, Is.True, "The hand should point at the unlocked power-up.");
+                Assert.That(Field("timerRunning"), Is.EqualTo(false));
+                var taught = index == 4 ? freeze : hint;
+                taught.onClick.Invoke();
+                yield return new WaitForSecondsRealtime(.6f);
                 Assert.That(Field("timerRunning"), Is.EqualTo(true));
                 Invoke(system, "RestartLevel");
                 yield return new WaitForSecondsRealtime(1.2f);
