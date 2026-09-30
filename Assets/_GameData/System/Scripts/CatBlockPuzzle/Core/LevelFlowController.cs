@@ -14,6 +14,7 @@ namespace CatBlockPuzzle
         private readonly PuzzleSession session;
         private readonly PreparedLevelLoader loader;
         private readonly BoardController board;
+        private readonly CellLockController locks;
         private readonly TrayLayout tray;
         private readonly PieceDragController drag;
         private readonly LevelTimer timer;
@@ -34,13 +35,14 @@ namespace CatBlockPuzzle
         private bool timerWasRunningBeforeSettings;
 
         public LevelFlowController(IGameplayContext context, PuzzleSession session, PreparedLevelLoader loader, BoardController board,
-            TrayLayout tray, PieceDragController drag, LevelTimer timer, HintPresenter hint, MovePieceTip tip, LevelOneTutorial tutorial,
+            CellLockController locks, TrayLayout tray, PieceDragController drag, LevelTimer timer, HintPresenter hint, MovePieceTip tip, LevelOneTutorial tutorial,
             MetaProgressionController meta, ThemePresenter theme, PlayerProgress progress, ComboTracker combo, FxSpawner fx,
             HapticsController haptics, CatMoodPresenter mood, InteractionGates gates, IPuzzleConfig config) : base(context)
         {
             this.session = session;
             this.loader = loader;
             this.board = board;
+            this.locks = locks;
             this.tray = tray;
             this.drag = drag;
             this.timer = timer;
@@ -109,9 +111,11 @@ namespace CatBlockPuzzle
             Hud.levelText.text = "Level " + (levelIndex + 1).ToString();
             if (Hud.objectiveText != null)
             {
-                Hud.objectiveText.text = activeLevel.HasBlockedCells
-                    ? "Sleepy cats block the way - fit around them"
-                    : theme.ObjectiveTitle(activeLevel.Title);
+                Hud.objectiveText.text = activeLevel.HasLockedCells
+                    ? "Place cats to open the padlocked spots"
+                    : activeLevel.HasBlockedCells
+                        ? "Sleepy cats block the way - fit around them"
+                        : theme.ObjectiveTitle(activeLevel.Title);
             }
 
             meta.ApplyMetaLevelPresentation(levelIndex);
@@ -215,6 +219,7 @@ namespace CatBlockPuzzle
         private void OnPiecePlaced(PieceState state)
         {
             tutorial.OnPiecePlaced(state);
+            locks.OnBoardChanged();
             CheckWin();
             if (tip.TryClaimShow(state, tutorial.IsOpen))
             {

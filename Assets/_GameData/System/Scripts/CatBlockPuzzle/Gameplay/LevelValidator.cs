@@ -79,6 +79,7 @@ namespace CatBlockPuzzle
 
             HashSet<string> pieceIds = new HashSet<string>();
             HashSet<Vector2Int> occupied = new HashSet<Vector2Int>();
+            Dictionary<Vector2Int, int> owner = new Dictionary<Vector2Int, int>();
             int cellTotal = 0;
 
             for (int p = 0; p < level.pieces.Length; p++)
@@ -117,6 +118,8 @@ namespace CatBlockPuzzle
                         return false;
                     }
 
+                    owner[coord] = p;
+
                     cellTotal++;
                 }
             }
@@ -151,6 +154,97 @@ namespace CatBlockPuzzle
                         error = level.id + " lists blocked cell " + coord + " twice.";
                         return false;
                     }
+                }
+            }
+
+            if (level.locked != null && level.locked.Length > 0 && !TryValidateLocks(level, occupied, owner, out error))
+            {
+                return false;
+            }
+
+            error = string.Empty;
+            return true;
+        }
+
+        // Locks must sit on solution cells and be openable: a counter lock needs enough
+        // unlocked pieces to reach its count, a neighbour lock needs at least one free
+        // neighbour that belongs to another piece (its own piece can never fill them).
+        private static bool TryValidateLocks(LevelData level, HashSet<Vector2Int> occupied, Dictionary<Vector2Int, int> owner, out string error)
+        {
+            Dictionary<Vector2Int, int> locked = new Dictionary<Vector2Int, int>();
+            HashSet<int> lockedPieces = new HashSet<int>();
+            for (int i = 0; i < level.locked.Length; i++)
+            {
+                LockedCellData cell = level.locked[i];
+                if (cell == null)
+                {
+                    error = level.id + " lock " + i + " is null.";
+                    return false;
+                }
+
+                Vector2Int coord = new Vector2Int(cell.row, cell.col);
+                if (!occupied.Contains(coord))
+                {
+                    error = level.id + " locks " + coord + ", which no piece fills.";
+                    return false;
+                }
+
+                if (cell.after < 0)
+                {
+                    error = level.id + " lock " + coord + " has a negative count.";
+                    return false;
+                }
+
+                if (locked.ContainsKey(coord))
+                {
+                    error = level.id + " lists lock " + coord + " twice.";
+                    return false;
+                }
+
+                locked[coord] = cell.after;
+                lockedPieces.Add(owner[coord]);
+            }
+
+            int freePieces = level.pieces.Length - lockedPieces.Count;
+            if (freePieces == 0)
+            {
+                error = level.id + " locks every piece; nothing can be placed first.";
+                return false;
+            }
+
+            foreach (KeyValuePair<Vector2Int, int> entry in locked)
+            {
+                if (entry.Value > freePieces)
+                {
+                    error = level.id + " lock " + entry.Key + " needs " + entry.Value + " placements but only " + freePieces + " pieces are unlocked.";
+                    return false;
+                }
+
+                if (entry.Value > 0)
+                {
+                    continue;
+                }
+
+                int self = owner[entry.Key];
+                bool hasUnlocker = false;
+                Vector2Int[] neighbours =
+                {
+                    new Vector2Int(entry.Key.x - 1, entry.Key.y), new Vector2Int(entry.Key.x + 1, entry.Key.y),
+                    new Vector2Int(entry.Key.x, entry.Key.y - 1), new Vector2Int(entry.Key.x, entry.Key.y + 1)
+                };
+                foreach (Vector2Int n in neighbours)
+                {
+                    if (occupied.Contains(n) && !locked.ContainsKey(n) && owner[n] != self)
+                    {
+                        hasUnlocker = true;
+                        break;
+                    }
+                }
+
+                if (!hasUnlocker)
+                {
+                    error = level.id + " neighbour lock " + entry.Key + " has no free neighbour from another piece to open it.";
+                    return false;
                 }
             }
 

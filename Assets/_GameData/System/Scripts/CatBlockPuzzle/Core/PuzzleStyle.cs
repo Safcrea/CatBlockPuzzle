@@ -14,6 +14,7 @@ namespace CatBlockPuzzle
         public static readonly Color TargetDeepColor = new Color(59f / 255f, 151f / 255f, 137f / 255f, 1f);
         public static readonly Color ValidColor = new Color(0.68f, 0.88f, 0.65f, 1f);
         public static readonly Color InvalidColor = new Color(1f, 0.55f, 0.58f, 1f);
+        public static readonly Color LockedColor = new Color(0.62f, 0.58f, 0.66f, 1f);
         public static readonly Color GoldColor = new Color(246f / 255f, 190f / 255f, 62f / 255f, 1f);
         public static readonly Color PanelOutlineColor = new Color(229f / 255f, 208f / 255f, 168f / 255f, 0.78f);
         public static readonly Color BoardFrameColor = new Color(251f / 255f, 241f / 255f, 221f / 255f, 1f);

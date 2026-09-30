@@ -51,6 +51,7 @@ namespace CatBlockPuzzle
         private PieceLayout pieceLayout;
         private TrayLayout tray;
         private BoardController board;
+        private CellLockController locks;
         private CatMoodPresenter mood;
         private ComboTracker combo;
         private PlacementFeedback feedback;
@@ -108,6 +109,7 @@ namespace CatBlockPuzzle
         internal PlayerSettings Settings => settings;
         internal PlayerProgress Progress => progress;
         internal BoardController Board => board;
+        internal CellLockController Locks => locks;
         internal TrayLayout Tray => tray;
         internal PieceLayout PieceLayout => pieceLayout;
         internal CatMoodPresenter Mood => mood;
@@ -144,11 +146,12 @@ namespace CatBlockPuzzle
             pieceLayout = new PieceLayout(session);
             tray = new TrayLayout(this, session, pieceLayout, settings, space);
             mood = new CatMoodPresenter(this, session, settings, gates);
-            board = new BoardController(this, session, space, pieceLayout, tray, settings, mood);
+            locks = new CellLockController(this, session, settings);
+            board = new BoardController(this, session, space, pieceLayout, tray, settings, mood, locks);
             combo = new ComboTracker(this, session, fx, space, settings);
             feedback = new PlacementFeedback(this, session, fx, haptics, space, board, mood, combo, settings);
             tip = new MovePieceTip(this, session, space, board, settings);
-            hint = new HintPresenter(this, session, board, tip);
+            hint = new HintPresenter(this, session, board, tip, locks);
             theme = new ThemePresenter(this, session);
             drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates);
             tutorial = new LevelOneTutorial(this, session, this, space, board, drag, settings, fx, mood, timer, gates);
@@ -156,7 +159,7 @@ namespace CatBlockPuzzle
             loader = new PreparedLevelLoader(this, session, tray, mood, drag, this);
             meta = new MetaProgressionController(this, session, progress, settings, timer, hint, drag, tray, fx, mood, haptics, gates, this);
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this);
-            flow = new LevelFlowController(this, session, loader, board, tray, drag, timer, hint, tip, tutorial, meta, theme,
+            flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
                 progress, combo, fx, haptics, mood, gates, this);
             composed = true;
         }

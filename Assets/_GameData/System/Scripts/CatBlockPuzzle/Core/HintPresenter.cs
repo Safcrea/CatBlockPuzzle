@@ -12,10 +12,12 @@ namespace CatBlockPuzzle
         private readonly PuzzleSession session;
         private readonly BoardController board;
         private readonly MovePieceTip tip;
+        private readonly CellLockController locks;
         private Coroutine hintRoutine;
 
-        public HintPresenter(IGameplayContext context, PuzzleSession session, BoardController board, MovePieceTip tip) : base(context)
+        public HintPresenter(IGameplayContext context, PuzzleSession session, BoardController board, MovePieceTip tip, CellLockController locks) : base(context)
         {
+            this.locks = locks;
             this.session = session;
             this.board = board;
             this.tip = tip;
@@ -37,6 +39,7 @@ namespace CatBlockPuzzle
             for (int i = 0; i < pieces.Count; i++)
             {
                 PieceState state = pieces[i];
+                if (locks.BlocksSolution(state.Definition)) continue;
                 if (!state.Placed || state.Row != state.Definition.SolutionRow || state.Col != state.Definition.SolutionCol)
                 {
                     hinted = state;

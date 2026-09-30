@@ -21,9 +21,11 @@ namespace CatBlockPuzzle
         private readonly TrayLayout tray;
         private readonly PlayerSettings settings;
         private readonly CatMoodPresenter mood;
+        private readonly CellLockController locks;
 
-        public BoardController(IGameplayContext context, PuzzleSession session, CanvasSpace space, PieceLayout pieceLayout, TrayLayout tray, PlayerSettings settings, CatMoodPresenter mood) : base(context)
+        public BoardController(IGameplayContext context, PuzzleSession session, CanvasSpace space, PieceLayout pieceLayout, TrayLayout tray, PlayerSettings settings, CatMoodPresenter mood, CellLockController locks) : base(context)
         {
+            this.locks = locks;
             this.session = session;
             this.space = space;
             this.pieceLayout = pieceLayout;
@@ -180,6 +182,7 @@ namespace CatBlockPuzzle
                 }
                 boardCells[new Vector2Int(cell.row, cell.col)] = new CellView(rect, cell.image, cell.preview, cell.image.color);
             }
+            locks.Layout();
         }
 
         // Diagonal "pop-in" reveal: every cell starts at scale 0 and springs to full
@@ -257,7 +260,7 @@ namespace CatBlockPuzzle
                     return false;
                 }
 
-                if (!activeLevel.ActiveCells.Contains(coord) || occupancy.ContainsKey(coord))
+                if (!activeLevel.ActiveCells.Contains(coord) || occupancy.ContainsKey(coord) || locks.IsLocked(coord))
                 {
                     return false;
                 }
@@ -274,7 +277,7 @@ namespace CatBlockPuzzle
                 Vector2Int coord = new Vector2Int(row + cell.Row, col + cell.Col);
                 if (boardCells.TryGetValue(coord, out CellView cellView) && activeLevel.ActiveCells.Contains(coord))
                 {
-                    cellView.Image.color = Color.Lerp(TargetColor, valid ? ValidColor : InvalidColor, 0.42f);
+                    cellView.Image.color = Color.Lerp(locks.BaseColor(coord), valid ? ValidColor : InvalidColor, 0.42f);
                     cellView.Rect.localScale = Vector3.one * (valid ? 1.045f : 1.03f);
                     previewCells.Add(cellView);
                 }
@@ -291,6 +294,7 @@ namespace CatBlockPuzzle
                     cell.Image.color = TargetColor;
                     cell.Rect.localScale = Vector3.one;
                 }
+                locks.RestoreColors();
 
                 if (cell.Preview != null)
                 {
@@ -337,7 +341,7 @@ namespace CatBlockPuzzle
             {
                 if (activeLevel != null && activeLevel.ActiveCells.Contains(cell.Key))
                 {
-                    cell.Value.Image.color = TargetColor;
+                    cell.Value.Image.color = locks.BaseColor(cell.Key);
                 }
             }
         }

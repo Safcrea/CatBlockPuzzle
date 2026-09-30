@@ -56,11 +56,16 @@ namespace CatBlockPuzzle
         /// <summary>Grid cells shown as sleeping cats: visibly part of the board, never placeable.</summary>
         public readonly HashSet<Vector2Int> BlockedCells;
 
+        /// <summary>Solution cells that start padlocked, mapped to their unlock count (0 = neighbour rule).</summary>
+        public readonly Dictionary<Vector2Int, int> LockedCells;
+
         public bool HasBlockedCells => BlockedCells.Count > 0;
+        public bool HasLockedCells => LockedCells.Count > 0;
 
         public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
-            IEnumerable<Vector2Int> blockedCells = null)
+            IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, int> lockedCells = null)
         {
+            LockedCells = lockedCells != null ? new Dictionary<Vector2Int, int>(lockedCells) : new Dictionary<Vector2Int, int>();
             Id = id;
             Title = title;
             Difficulty = difficulty;
@@ -103,6 +108,16 @@ namespace CatBlockPuzzle
         public PieceData[] pieces;
         /// <summary>Optional. Free cells drawn as sleeping cats so the board reads as a full rectangle.</summary>
         public BlockedCellData[] blocked;
+        /// <summary>Optional. Solution cells that start locked; after > 0 opens once that many cats are placed, 0 opens once its free neighbours are filled.</summary>
+        public LockedCellData[] locked;
+    }
+
+    [Serializable]
+    internal sealed class LockedCellData
+    {
+        public int row;
+        public int col;
+        public int after;
     }
 
     [Serializable]
