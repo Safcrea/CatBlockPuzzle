@@ -69,6 +69,14 @@ namespace CatBlockPuzzle
                     foreach (BlockedCellData cell in data[i].blocked) blocked.Add(new Vector2Int(cell.row, cell.col));
                 }
 
+                PieceDefinition[] spares = new PieceDefinition[data[i].spares != null ? data[i].spares.Length : 0];
+                for (int s = 0; s < spares.Length; s++)
+                {
+                    PieceData spare = data[i].spares[s];
+                    ShapeLibrary.TryGetShape(spare.shape, out CellOffset[] spareCells);
+                    spares[s] = new PieceDefinition(spare.id, spare.name, spare.shape, spareCells, -1, -1, true);
+                }
+
                 Dictionary<Vector2Int, string> zones = new Dictionary<Vector2Int, string>();
                 if (data[i].zones != null)
                 {
@@ -81,7 +89,7 @@ namespace CatBlockPuzzle
                     foreach (LockedCellData cell in data[i].locked) locked[new Vector2Int(cell.row, cell.col)] = new CellLockRule(cell.after, cell.key);
                 }
 
-                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces, blocked, locked, data[i].trayWindow, zones);
+                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces, blocked, locked, data[i].trayWindow, zones, spares);
             }
 
             return converted;

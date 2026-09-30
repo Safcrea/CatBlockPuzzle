@@ -17,6 +17,7 @@ namespace CatBlockPuzzle
         public const string KeyCats = "KeyCats";
         public const string Shelf = "Shelf";
         public const string ColourZones = "ColourZones";
+        public const string SpareCats = "SpareCats";
 
         private readonly PuzzleSession session;
         private GameObject overlay;
@@ -48,6 +49,9 @@ namespace CatBlockPuzzle
             if (level.HasZones)
                 yield return Show(ColourZones, "New: Colour spots!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 3 ? Assets.catPortraitSprites[3] : null,
                     "Tinted spots show a cat's face.\n\nOnly the cat with that face and colour can sit there, every other cat is turned away.");
+            if (level.HasSpares)
+                yield return Show(SpareCats, "New: A spare cat!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 5 ? Assets.catPortraitSprites[5] : null,
+                    "One cat on the shelf doesn't belong here.\n\nFill the whole board and you win, even with a cat left over. Work out which one to leave out!");
             if (level.HasTrayWindow)
                 yield return Show(Shelf, "New: Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
                     "Only " + level.TrayWindow + " cats fit on the shelf at once.\n\nPlace one and the next cat arrives, so think about the order.");

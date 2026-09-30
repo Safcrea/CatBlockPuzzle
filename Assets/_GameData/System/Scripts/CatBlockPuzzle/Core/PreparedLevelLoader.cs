@@ -101,10 +101,12 @@ namespace CatBlockPuzzle
         {
             var view = loadedLevel;
             var definition = Context.Levels.GetLevel(view.levelIndex);
+            int baked = view.pieces.Length;
+            int total = baked + definition.Spares.Length;
             var saved = new PreparedLevelState {
-                Pieces = new PieceState[view.pieces.Length],
-                PieceGestures = new PieceDragGesture[view.pieces.Length],
-                SlotGestures = new PieceDragGesture[view.pieces.Length]
+                Pieces = new PieceState[total],
+                PieceGestures = new PieceDragGesture[total],
+                SlotGestures = new PieceDragGesture[total]
             };
             for (int p = 0; p < view.pieces.Length; p++)
             {
@@ -126,7 +128,68 @@ namespace CatBlockPuzzle
                 saved.SlotGestures[p] = new PieceDragGesture();
                 saved.SlotGestures[p].Bind(drag, tray, state, true);
             }
+
+            int built = baked;
+            for (int s = 0; s < definition.Spares.Length; s++)
+            {
+                PieceState spare = BuildSpare(view, definition.Spares[s], built);
+                if (spare == null) continue;
+                saved.Pieces[built] = spare;
+                saved.PieceGestures[built] = new PieceDragGesture();
+                saved.PieceGestures[built].Bind(drag, tray, spare, false);
+                saved.SlotGestures[built] = new PieceDragGesture();
+                saved.SlotGestures[built].Bind(drag, tray, spare, true);
+                built++;
+            }
+
+            if (built < total)
+            {
+                System.Array.Resize(ref saved.Pieces, built);
+                System.Array.Resize(ref saved.PieceGestures, built);
+                System.Array.Resize(ref saved.SlotGestures, built);
+            }
             preparedState = saved;
+        }
+
+        // Spare cats are not baked into the level prefab: copy the tray card of a cat with the same
+        // number of cats (or the smallest larger one), hide the surplus cats and give it its own index.
+        private PieceState BuildSpare(CatPuzzleLevelView view, PieceDefinition spare, int index)
+        {
+            CatPuzzlePieceView donor = null;
+            foreach (var pv in view.pieces)
+            {
+                if (pv.cats.Length == spare.Cells.Length) { donor = pv; break; }
+                if (pv.cats.Length > spare.Cells.Length && (donor == null || pv.cats.Length < donor.cats.Length)) donor = pv;
+            }
+            if (donor == null)
+            {
+                Debug.LogWarning("Level " + (view.levelIndex + 1) + " spare " + spare.Id + " has no card to copy.", Host);
+                return null;
+            }
+
+            GameObject copy = Object.Instantiate(donor.slot.gameObject, donor.slot.parent, false);
+            copy.name = spare.Name + " Slot";
+            // A fixed but level-specific position, so the decoy is not always the last card.
+            copy.transform.SetSiblingIndex((view.levelIndex * 7 + index) % (view.pieces.Length + 1));
+            var card = copy.GetComponent<CatPuzzlePieceView>();
+            card.pieceIndex = index;
+            card.slotInput.pieceIndex = index; card.slotInput.controller = controller;
+            card.pieceInput.pieceIndex = index; card.pieceInput.controller = controller;
+            card.visual.name = spare.Name;
+
+            var state = new PieceState(spare, PieceColors[index % PieceColors.Length]) {
+                AtlasIndex = index % 8, FloatPhase = index * 0.83f,
+                Slot = card.slot, SlotImage = card.slotImage, SlotLayout = card.slotLayout, Rect = card.visual
+            };
+            for (int c = 0; c < card.cats.Length; c++)
+            {
+                bool used = c < spare.Cells.Length;
+                card.cats[c].gameObject.SetActive(used);
+                if (!used) continue;
+                state.CellImages.Add(card.cats[c]);
+                state.CatViews.Add(new CatCellView(card.cats[c].rectTransform, card.cats[c]));
+            }
+            return state;
         }
 
         /// <summary>Puts every piece of the loaded level back on the shelf and hides the level, ready to be laid out again.</summary>

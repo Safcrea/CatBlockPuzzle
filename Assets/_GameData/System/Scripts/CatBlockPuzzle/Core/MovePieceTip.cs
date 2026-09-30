@@ -39,7 +39,7 @@ namespace CatBlockPuzzle
         /// </summary>
         public bool TryClaimShow(PieceState state, bool onboardingOpen)
         {
-            if (onboardingOpen || session.inputLocked) return false;
+            if (onboardingOpen || session.inputLocked || state.Definition.IsSpare) return false;
             if (state.Row == state.Definition.SolutionRow && state.Col == state.Definition.SolutionCol) return false;
             if (PlayerPrefs.GetInt(PuzzleSaveKeys.MovePieceTipSeen, 0) != 0) return false;
             if (!session.levelNavigationTesting)

@@ -26,9 +26,12 @@ namespace CatBlockPuzzle
         public readonly int SolutionRow;
         public readonly int SolutionCol;
         public readonly string ShapeId;
+        /// <summary>A decoy cat: it is on the shelf but not part of the solution, so the level is won without it.</summary>
+        public readonly bool IsSpare;
 
-        public PieceDefinition(string id, string name, string shapeId, CellOffset[] cells, int solutionRow, int solutionCol)
+        public PieceDefinition(string id, string name, string shapeId, CellOffset[] cells, int solutionRow, int solutionCol, bool isSpare = false)
         {
+            IsSpare = isSpare;
             Id = id;
             Name = name;
             ShapeId = shapeId;
@@ -84,6 +87,10 @@ namespace CatBlockPuzzle
         public readonly Dictionary<Vector2Int, string> ZoneCells;
         public bool HasZones => ZoneCells.Count > 0;
 
+        /// <summary>Decoy cats added to the shelf at runtime; they never count towards the solution.</summary>
+        public readonly PieceDefinition[] Spares;
+        public bool HasSpares => Spares.Length > 0;
+
         public bool HasBlockedCells => BlockedCells.Count > 0;
         public bool HasLockedCells => LockedCells.Count > 0;
 
@@ -98,8 +105,9 @@ namespace CatBlockPuzzle
 
         public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
             IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null, int trayWindow = 0,
-            IDictionary<Vector2Int, string> zoneCells = null)
+            IDictionary<Vector2Int, string> zoneCells = null, PieceDefinition[] spares = null)
         {
+            Spares = spares ?? new PieceDefinition[0];
             ZoneCells = zoneCells != null ? new Dictionary<Vector2Int, string>(zoneCells) : new Dictionary<Vector2Int, string>();
             TrayWindow = Mathf.Max(0, trayWindow);
             LockedCells = lockedCells != null ? new Dictionary<Vector2Int, CellLockRule>(lockedCells) : new Dictionary<Vector2Int, CellLockRule>();
@@ -151,6 +159,8 @@ namespace CatBlockPuzzle
         public int trayWindow;
         /// <summary>Optional. Colour zones: each cell only accepts the named piece, which must cover it in the solution.</summary>
         public ZoneCellData[] zones;
+        /// <summary>Optional. Decoy cats (id, name, shape; row/col unused) that do not belong in the solution.</summary>
+        public PieceData[] spares;
     }
 
     [Serializable]

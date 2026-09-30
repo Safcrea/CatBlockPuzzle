@@ -5412,53 +5412,13 @@
                                           "col":  5
                                       }
                                   ],
-                       "locked":  [
+                       "spares":  [
                                       {
+                                          "id":  "l081_s1",
+                                          "name":  "Waffles",
+                                          "shape":  "u5",
                                           "row":  0,
-                                          "col":  4,
-                                          "after":  0
-                                      },
-                                      {
-                                          "row":  3,
-                                          "col":  3,
-                                          "after":  0
-                                      },
-                                      {
-                                          "row":  4,
-                                          "col":  3,
-                                          "after":  0
-                                      },
-                                      {
-                                          "row":  5,
-                                          "col":  0,
-                                          "after":  4
-                                      },
-                                      {
-                                          "row":  5,
-                                          "col":  1,
-                                          "after":  4
-                                      },
-                                      {
-                                          "row":  5,
-                                          "col":  2,
-                                          "after":  4
-                                      },
-                                      {
-                                          "row":  6,
-                                          "col":  1,
-                                          "after":  4
-                                      }
-                                  ],
-                       "zones":  [
-                                      {
-                                          "row":  0,
-                                          "col":  6,
-                                          "piece":  "l081_p6"
-                                      },
-                                      {
-                                          "row":  3,
-                                          "col":  2,
-                                          "piece":  "l081_p1"
+                                          "col":  0
                                       }
                                   ]
                    },
@@ -5556,6 +5516,15 @@
                                           "col":  2,
                                           "after":  0
                                       }
+                                  ],
+                       "spares":  [
+                                      {
+                                          "id":  "l082_s1",
+                                          "name":  "Pudding",
+                                          "shape":  "i5h",
+                                          "row":  0,
+                                          "col":  0
+                                      }
                                   ]
                    },
                    {
@@ -5614,6 +5583,15 @@
                                           "shape":  "l4",
                                           "row":  3,
                                           "col":  5
+                                      }
+                                  ],
+                       "spares":  [
+                                      {
+                                          "id":  "l083_s1",
+                                          "name":  "Clover",
+                                          "shape":  "u5",
+                                          "row":  0,
+                                          "col":  0
                                       }
                                   ]
                    },
@@ -5705,6 +5683,15 @@
                                           "row":  5,
                                           "col":  7,
                                           "after":  4
+                                      }
+                                  ],
+                       "spares":  [
+                                      {
+                                          "id":  "l084_s1",
+                                          "name":  "Marmalade",
+                                          "shape":  "s4",
+                                          "row":  0,
+                                          "col":  0
                                       }
                                   ]
                    },
@@ -5801,6 +5788,15 @@
                                           "row":  5,
                                           "col":  4,
                                           "after":  4
+                                      }
+                                  ],
+                       "spares":  [
+                                      {
+                                          "id":  "l085_s1",
+                                          "name":  "Marmalade",
+                                          "shape":  "l5",
+                                          "row":  0,
+                                          "col":  0
                                       }
                                   ]
                    },
@@ -6055,6 +6051,15 @@
                                           "col":  1,
                                           "after":  0
                                       }
+                                  ],
+                       "spares":  [
+                                      {
+                                          "id":  "l088_s1",
+                                          "name":  "Ziggy",
+                                          "shape":  "i5h",
+                                          "row":  0,
+                                          "col":  0
+                                      }
                                   ]
                    },
                    {
@@ -6232,6 +6237,15 @@
                                           "row":  5,
                                           "col":  1,
                                           "piece":  "l090_p4"
+                                      }
+                                  ],
+                       "spares":  [
+                                      {
+                                          "id":  "l090_s1",
+                                          "name":  "Ziggy",
+                                          "shape":  "t4",
+                                          "row":  0,
+                                          "col":  0
                                       }
                                   ]
                    },

@@ -231,7 +231,8 @@ namespace CatBlockPuzzle
 
         private void CheckWin()
         {
-            if (!session.IsBoardFilled || !session.AllPiecesPlaced)
+            // A full board wins; spare cats may be left on the shelf.
+            if (!session.IsBoardFilled)
             {
                 return;
             }

@@ -162,6 +162,35 @@ namespace CatBlockPuzzle
                 }
             }
 
+            if (level.spares != null)
+            {
+                int largest = 0;
+                foreach (PieceData piece in level.pieces)
+                    if (ShapeLibrary.TryGetShape(piece.shape, out CellOffset[] shapeCells)) largest = Mathf.Max(largest, shapeCells.Length);
+                for (int s = 0; s < level.spares.Length; s++)
+                {
+                    PieceData spare = level.spares[s];
+                    if (spare == null || string.IsNullOrWhiteSpace(spare.id) || !pieceIds.Add(spare.id))
+                    {
+                        error = level.id + " has a spare cat with a missing or duplicate id.";
+                        return false;
+                    }
+
+                    if (!ShapeLibrary.TryGetShape(spare.shape, out CellOffset[] spareCells))
+                    {
+                        error = level.id + " spare " + spare.id + " uses unknown shape " + spare.shape + ".";
+                        return false;
+                    }
+
+                    // The spare is built at runtime from a baked card with at least as many cats.
+                    if (spareCells.Length > largest)
+                    {
+                        error = level.id + " spare " + spare.id + " is bigger than every baked cat card.";
+                        return false;
+                    }
+                }
+            }
+
             if (level.zones != null)
             {
                 HashSet<Vector2Int> zoned = new HashSet<Vector2Int>();
