@@ -29,10 +29,6 @@ namespace CatBlockPuzzle
         [SerializeField, HideInInspector] private CatPuzzleLevelView[] preparedLevels;
 #endif
 
-        [Header("Testing")]
-        [Tooltip("Shows the level navigation bar (<< < > >>) at the top of the gameplay screen in every build, release builds included. Turn this OFF before shipping: when it is off the bar is never created.")]
-        [SerializeField] private bool showTestLevelNavigation;
-
         [Header("Level 1 Tutorial")]
         [Tooltip("Turn off to play level 1 without the hands-on tutorial. Can also be changed during Play Mode.")]
         [SerializeField] private bool enableLevelOneTutorial = true;
@@ -69,7 +65,6 @@ namespace CatBlockPuzzle
         private MetaProgressionController meta;
         private PowerUpController powerUps;
         private LevelFlowController flow;
-        private TestLevelNavigator testNavigator;
         private MechanicIntroPresenter intro;
         private MistakeHearts hearts;
 
@@ -101,10 +96,6 @@ namespace CatBlockPuzzle
         bool IPuzzleConfig.ShowTutorialCaptions => showTutorialCaptions;
         Sprite IPuzzleConfig.TutorialHandSprite => tutorialHandSprite;
         float IPuzzleConfig.FreezeDurationSeconds => freezeDurationSeconds;
-        bool IPuzzleConfig.ShowTestLevelNavigation => showTestLevelNavigation;
-
-        /// <summary>Read by the build check so it can warn when a build ships the testing bar.</summary>
-        internal bool ShowTestLevelNavigation => showTestLevelNavigation;
 
         // ------------------------------------------------------------------ level flow for the meta/power-up services
 
@@ -176,7 +167,6 @@ namespace CatBlockPuzzle
             hearts = new MistakeHearts(this, session, settings, haptics);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
                 progress, combo, fx, haptics, mood, gates, this, intro, hearts);
-            testNavigator = new TestLevelNavigator(this, session, this);
             composed = true;
         }
 
@@ -207,7 +197,6 @@ namespace CatBlockPuzzle
             settings.Load();
             settings.Apply();
             fx.ResetPool();
-            testNavigator.Build();
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
             if (gameplayHud.previousTestButton != null) gameplayHud.previousTestButton.gameObject.SetActive(false);
             if (gameplayHud.nextTestButton != null) gameplayHud.nextTestButton.gameObject.SetActive(false);
@@ -241,7 +230,6 @@ namespace CatBlockPuzzle
         private void Update()
         {
             if (!composed) return;
-            testNavigator.Refresh();
             tutorial.Update();
             if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi && !GameSystem.Instance.IsGameplayOpen) return;
             drag.UpdateMotion();

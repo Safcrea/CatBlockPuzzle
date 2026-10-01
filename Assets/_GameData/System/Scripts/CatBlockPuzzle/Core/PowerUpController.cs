@@ -49,7 +49,6 @@ namespace CatBlockPuzzle
         public bool TryUseFreezePowerUp()
         {
             if (!CanRequestPowerUp(PowerUpKind.Freeze)) return false;
-            timer.BeginCounting();
             timer.Freeze();
             return true;
         }
@@ -60,7 +59,6 @@ namespace CatBlockPuzzle
         public bool TryUseHintPowerUp()
         {
             if (!CanRequestPowerUp(PowerUpKind.Hint)) return false;
-            timer.BeginCounting();
             hint.ShowHint(timer.Profile.HintReveal);
             return true;
         }

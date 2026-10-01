@@ -24,7 +24,6 @@ namespace CatBlockPuzzle.Tests
             var stars = (UnityEngine.UI.Image[])hud.GetType().GetField("progressStars", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(hud);
             SetField("levelRemainingSeconds", 90.5f);
             SetField("lastTimerSecond", 91);
-            SetField("awaitingFirstTouch", false); // the countdown only starts once the player touches the level
             Call("UpdateTimerDisplay");
             Assert.That(stars[2].type, Is.EqualTo(UnityEngine.UI.Image.Type.Filled));
             Assert.That(stars[0].fillAmount, Is.EqualTo(1f));
@@ -104,14 +103,14 @@ namespace CatBlockPuzzle.Tests
             {
                 var button = (UnityEngine.UI.Button)home.GetType().GetField(field, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(home);
                 Assert.That(button.gameObject.activeInHierarchy, Is.True);
+                Assert.That(button.transform.Find("Lock"), Is.Not.Null, field + " must show a padlock while locked");
                 button.onClick.Invoke();
                 yield return new WaitForSecondsRealtime(.3f);
-                var popup = Screen("ComingSoonPopup");
-                Assert.That(popup.gameObject.activeInHierarchy, Is.True);
-                Assert.That(button.gameObject.activeInHierarchy, Is.True, "Opening a placeholder must preserve the home page.");
-                Invoke(popup, "Close");
-                yield return new WaitForSecondsRealtime(.25f);
-                Assert.That(popup.gameObject.activeSelf, Is.False);
+                // A locked feature only taps back: no popup, and the home page stays where it is.
+                var popups = Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .Where(m => m.GetType().Name == "ComingSoonPopup");
+                Assert.That(popups.All(p => !p.gameObject.activeInHierarchy), Is.True, field + " opened the coming-soon popup");
+                Assert.That((bool)home.GetType().GetProperty("IsOpen").GetValue(home), Is.True, "Tapping a locked button must keep the home page.");
             }
         }
 

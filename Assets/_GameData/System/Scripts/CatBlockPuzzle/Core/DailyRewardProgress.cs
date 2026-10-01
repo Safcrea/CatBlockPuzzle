@@ -96,7 +96,8 @@ namespace CatBlockPuzzle
             if (!DateTime.TryParseExact(save.lastClaimUtcDate, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime last)) return 1;
             int elapsed = (utcNow.Date - last.Date).Days;
             if (elapsed <= 0) return 0;
-            return elapsed == 1 ? (Mathf.Clamp(save.lastClaimDay, 0, config.DayCount - 1) % config.DayCount) + 1 : 1;
+            // The day after the last reward wraps back to day 1 so the week repeats.
+            return elapsed == 1 ? (Mathf.Max(0, save.lastClaimDay) % config.DayCount) + 1 : 1;
         }
 
         internal static int GetLastClaimDay() => Mathf.Max(0, Load().lastClaimDay);

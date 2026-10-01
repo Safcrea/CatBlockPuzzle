@@ -57,6 +57,7 @@ namespace CatBlockPuzzle
             CancelOpening();
             gameObject.SetActive(true);
             transform.SetAsLastSibling();
+            FocusCurrentLevel();
             if (MenuTransition.ReducedMotion)
             {
                 RestoreOpeningVisuals();
@@ -78,6 +79,42 @@ namespace CatBlockPuzzle
         {
             Hide();
             completed?.Invoke();
+        }
+
+        /// <summary>Selects the level the player should play next and scrolls its chapter into view.</summary>
+        private void FocusCurrentLevel()
+        {
+            if (gameplay == null) return;
+            int current = gameplay.RecommendedLevelIndex;
+            if (!gameplay.IsLevelAvailable(current)) return;
+            selectedLevel = current;
+            Refresh();
+            ScrollToLevel(current);
+        }
+
+        private void ScrollToLevel(int index)
+        {
+            if (levels == null || index < 0 || index >= levels.Length || levels[index].button == null) return;
+            RectTransform content = ResolveChapterContent();
+            if (content == null) return;
+            // The authored "chapter board" reference may be the scroll view or its content; the ScrollRect sits above the content either way.
+            ScrollRect scroll = content.GetComponentInParent<ScrollRect>(true);
+            if (scroll == null) return;
+            RectTransform viewport = scroll.viewport != null ? scroll.viewport : scroll.transform as RectTransform;
+
+            // The chapter card is the content child that holds this level's button.
+            RectTransform card = levels[index].button.transform as RectTransform;
+            while (card != null && card.parent != content) card = card.parent as RectTransform;
+            if (card == null) return;
+
+            Canvas.ForceUpdateCanvases();
+            float scrollable = content.rect.height - viewport.rect.height;
+            if (scrollable <= 0f) return;
+            Vector3 cardCenter = content.InverseTransformPoint(card.TransformPoint(card.rect.center));
+            float fromTop = content.rect.yMax - cardCenter.y;
+            float offset = Mathf.Clamp(fromTop - viewport.rect.height * 0.5f, 0f, scrollable);
+            scroll.StopMovement();
+            scroll.verticalNormalizedPosition = 1f - offset / scrollable;
         }
 
         private RectTransform ResolveChapterBoard()

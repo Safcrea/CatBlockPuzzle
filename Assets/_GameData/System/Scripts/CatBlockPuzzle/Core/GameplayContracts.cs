@@ -27,7 +27,6 @@ namespace CatBlockPuzzle
         bool ShowTutorialCaptions { get; }
         Sprite TutorialHandSprite { get; }
         float FreezeDurationSeconds { get; }
-        bool ShowTestLevelNavigation { get; }
     }
 
     /// <summary>Level navigation exposed to the room progression and power-up services.</summary>
