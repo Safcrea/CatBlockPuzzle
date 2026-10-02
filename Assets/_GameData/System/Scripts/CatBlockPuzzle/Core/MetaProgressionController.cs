@@ -931,10 +931,11 @@ namespace CatBlockPuzzle
             Image backgroundCrossfade = Hud.backgroundCrossfade;
             if (backgroundFadeRoutine != null) StopCoroutine(backgroundFadeRoutine);
             var previous = backgroundImage.sprite;
-            backgroundImage.sprite = nextSprite; backgroundImage.color = Color.white;
+            Color tint = Hud.BackgroundTint;
+            backgroundImage.sprite = nextSprite; backgroundImage.color = tint;
             backgroundCrossfade.gameObject.SetActive(false);
             if (reducedMotion || previous == null || previous == nextSprite) return;
-            backgroundCrossfade.sprite = previous; backgroundCrossfade.color = Color.white;
+            backgroundCrossfade.sprite = previous; backgroundCrossfade.color = tint;
             backgroundCrossfade.gameObject.SetActive(true);
             backgroundFadeRoutine = StartCoroutine(FadePreparedBackground());
         }
@@ -942,11 +943,12 @@ namespace CatBlockPuzzle
         private IEnumerator FadePreparedBackground()
         {
             Image backgroundCrossfade = Hud.backgroundCrossfade;
+            Color tint = Hud.BackgroundTint;
             float elapsed = 0;
             while (elapsed < .35f)
             {
                 elapsed += Time.unscaledDeltaTime;
-                backgroundCrossfade.color = new Color(1, 1, 1, 1 - Mathf.Clamp01(elapsed / .35f));
+                backgroundCrossfade.color = new Color(tint.r, tint.g, tint.b, tint.a * (1 - Mathf.Clamp01(elapsed / .35f)));
                 yield return null;
             }
             backgroundCrossfade.gameObject.SetActive(false);

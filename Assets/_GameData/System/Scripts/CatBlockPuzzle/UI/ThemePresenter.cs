@@ -36,7 +36,7 @@ namespace CatBlockPuzzle
             if (hud.backgroundImage != null && themeSprite != null && !hud.UsesAuthoredLayout)
             {
                 hud.backgroundImage.sprite = themeSprite;
-                hud.backgroundImage.color = Color.white;
+                hud.backgroundImage.color = hud.BackgroundTint;
             }
 
             if (hud.objectiveImage != null && !hud.UsesAuthoredLayout)

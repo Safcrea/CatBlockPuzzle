@@ -106,14 +106,14 @@ namespace CatBlockPuzzle
             RectTransform card = CardFor(index, content);
             if (card == null) return;
 
+            FitChapterContent();
             Canvas.ForceUpdateCanvases();
-            float scrollable = content.rect.height - viewport.rect.height;
-            if (scrollable <= 0f) return;
-            Vector3 cardCenter = content.InverseTransformPoint(card.TransformPoint(card.rect.center));
-            float fromTop = content.rect.yMax - cardCenter.y;
-            float offset = Mathf.Clamp(fromTop - viewport.rect.height * 0.5f, 0f, scrollable);
+            // Work in viewport space so a scaled content (narrow screens) still centres the card.
             scroll.StopMovement();
-            scroll.verticalNormalizedPosition = 1f - offset / scrollable;
+            float cardCentre = viewport.InverseTransformPoint(card.TransformPoint(card.rect.center)).y;
+            content.anchoredPosition += Vector2.up * (viewport.rect.center.y - cardCentre);
+            Canvas.ForceUpdateCanvases();
+            scroll.verticalNormalizedPosition = Mathf.Clamp01(scroll.verticalNormalizedPosition);
         }
 
         private RectTransform ResolveChapterBoard()
@@ -270,8 +270,28 @@ namespace CatBlockPuzzle
             playButton.onClick.RemoveListener(Play);
             playButton.onClick.AddListener(Play);
             InstallPageScrolling();
+            FitChapterContent();
             Refresh();
         }
+
+        /// <summary>
+        /// Chapter cards are authored 930 wide; on narrow phones the framed viewport is smaller,
+        /// so the whole list scales down uniformly instead of clipping at the frame.
+        /// </summary>
+        private void FitChapterContent()
+        {
+            RectTransform content = ResolveChapterContent();
+            ScrollRect scroll = content != null ? content.GetComponentInParent<ScrollRect>(true) : null;
+            if (scroll == null || content.childCount == 0) return;
+            RectTransform viewport = scroll.viewport != null ? scroll.viewport : scroll.transform as RectTransform;
+            float cardWidth = 0f;
+            for (int i = 0; i < content.childCount; i++) cardWidth = Mathf.Max(cardWidth, ((RectTransform)content.GetChild(i)).rect.width);
+            if (cardWidth <= 0f || viewport.rect.width <= 0f) return;
+            float scale = Mathf.Min(1f, (viewport.rect.width - ChapterSidePadding * 2f) / cardWidth);
+            content.localScale = new Vector3(scale, scale, 1f);
+        }
+
+        private const float ChapterSidePadding = 6f;
 
         /// <summary>
         /// The chapter list only fills the middle of the page; drags anywhere else (title, coins,
