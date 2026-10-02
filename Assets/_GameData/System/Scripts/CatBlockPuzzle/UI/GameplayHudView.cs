@@ -39,6 +39,7 @@ namespace CatBlockPuzzle
         [SerializeField] internal Image backgroundImage;
         [SerializeField, HideInInspector, UnityEngine.Serialization.FormerlySerializedAs("headerBandImage")]
         private Image legacyHeaderBand;
+        private Color? authoredBackgroundTint;
 
         public Canvas Canvas => canvas;
         public RectTransform GameplayScreen => gameplayScreen;
@@ -82,6 +83,17 @@ namespace CatBlockPuzzle
         private void Awake()
         {
             if (legacyHeaderBand != null) legacyHeaderBand.enabled = false;
+            if (backgroundImage != null) authoredBackgroundTint = backgroundImage.color;
+        }
+
+        /// <summary>The tint authored on the gameplay background in the scene; room and theme swaps keep it.</summary>
+        public Color BackgroundTint
+        {
+            get
+            {
+                if (!authoredBackgroundTint.HasValue) authoredBackgroundTint = backgroundImage != null ? backgroundImage.color : Color.white;
+                return authoredBackgroundTint.Value;
+            }
         }
 
         public bool IsPowerUpUnlocked(PowerUpKind kind)

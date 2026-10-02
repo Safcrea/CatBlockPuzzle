@@ -16,6 +16,9 @@ namespace CatBlockPuzzle
     internal sealed class MetaProgressionController : HostedService
     {
         private const string MetaTelemetryPrefix = "[CatMetaTelemetry] ";
+        /// <summary>Share of a level's reward paid again when an already-cleared level is cleared.</summary>
+        private const float ReplayRewardShare = 0.5f;
+        private const int MinimumReplayReward = 5;
 
         private readonly PuzzleSession session;
         private readonly PlayerProgress progress;
@@ -146,6 +149,7 @@ namespace CatBlockPuzzle
                 int savedCoins = PlayerPrefs.GetInt(PuzzleSaveKeys.SavedCoins, Mathf.Max(0, coins));
                 metaCatalog = contentCatalog.CreateMetaCatalog();
                 metaProgress = CatMetaProgressStore.Load(metaCatalog, savedLevel, savedCoins);
+                metaProgress.UseStarSource(BestStarsForLevel);
                 coins = metaProgress.CoinBalance;
                 if (coinText != null)
                 {
@@ -245,7 +249,7 @@ namespace CatBlockPuzzle
             else
             {
                 haptics?.PlayWrongMove();
-                ShowMetaStatus("Complete the room before this one to unlock it.");
+                ShowMetaStatus("Earn " + metaProgress.StarsRequiredForChapter(chapterIndex) + " stars to unlock this room.");
             }
         }
 
@@ -414,6 +418,11 @@ namespace CatBlockPuzzle
 
             int balance = coins;
             CatMetaOperationResult result = metaProgress.RecordFirstClear(levelIndex, reward, ref balance);
+            if (result.Status == CatMetaOperationStatus.NoChange)
+            {
+                // Replays still pay, at a reduced rate so farming an easy level stays modest.
+                result = metaProgress.RecordReplayClear(levelIndex, ReplayReward(reward), ref balance);
+            }
             coins = balance;
             metaLastAwardedCoins = Mathf.Max(0, result.CoinDelta);
             if (coinText != null)
@@ -485,6 +494,13 @@ namespace CatBlockPuzzle
                 if (chapter.Index >= metaCatalog.Chapters.Count - 1)
                 {
                     GameSystem.Instance?.GoHome();
+                    return;
+                }
+
+                if (!metaProgress.IsChapterUnlocked(chapter.Index + 1))
+                {
+                    // The next chapter still needs stars; send the player to pick a level to improve.
+                    GameSystem.Instance?.ShowLevelSelection();
                     return;
                 }
 
@@ -693,8 +709,8 @@ namespace CatBlockPuzzle
             }
 
             CatMetaChapterDefinition chapter = metaCatalog.GetChapterForLevel(absoluteLevelIndex);
+            if (!metaProgress.IsChapterUnlocked(chapter.Index)) return false;
             return absoluteLevelIndex == chapter.FirstLevelIndex
-                && chapter.Index == 0
                 || metaProgress.IsLevelPassed(absoluteLevelIndex)
                 || metaProgress.IsLevelPassed(absoluteLevelIndex - 1);
         }
@@ -711,8 +727,28 @@ namespace CatBlockPuzzle
                 }
             }
 
+            // Everything open is cleared: point at the first level still short of three stars,
+            // since those stars are what unlocks the next chapter.
+            for (int level = 0; level <= chapter.LastLevelIndex; level++)
+            {
+                if (BestStarsForLevel(level) < CatPuzzleResultCalculator.MaximumStars)
+                {
+                    return level;
+                }
+            }
+
             return chapter.LastLevelIndex;
         }
+
+        public bool IsChapterUnlocked(int chapterIndex) => metaProgress != null && metaProgress.IsChapterUnlocked(chapterIndex);
+        public int StarsRequiredForChapter(int chapterIndex) => metaProgress != null ? metaProgress.StarsRequiredForChapter(chapterIndex) : 0;
+        public int StarsEarnedBeforeChapter(int chapterIndex) => metaProgress != null ? metaProgress.StarsEarnedBeforeChapter(chapterIndex) : 0;
+
+        private int BestStarsForLevel(int absoluteLevelIndex) => levelManager != null && absoluteLevelIndex >= 0 && absoluteLevelIndex < levelManager.LevelCount
+            ? progress.GetBestStars(levelManager.GetLevel(absoluteLevelIndex).Id)
+            : 0;
+
+        private static int ReplayReward(int reward) => reward <= 0 ? 0 : Mathf.Max(MinimumReplayReward, Mathf.RoundToInt(reward * ReplayRewardShare));
 
         public bool AreAllChapterLevelsCleared(CatMetaChapterDefinition chapter)
         {
@@ -895,10 +931,11 @@ namespace CatBlockPuzzle
             Image backgroundCrossfade = Hud.backgroundCrossfade;
             if (backgroundFadeRoutine != null) StopCoroutine(backgroundFadeRoutine);
             var previous = backgroundImage.sprite;
-            backgroundImage.sprite = nextSprite; backgroundImage.color = Color.white;
+            Color tint = Hud.BackgroundTint;
+            backgroundImage.sprite = nextSprite; backgroundImage.color = tint;
             backgroundCrossfade.gameObject.SetActive(false);
             if (reducedMotion || previous == null || previous == nextSprite) return;
-            backgroundCrossfade.sprite = previous; backgroundCrossfade.color = Color.white;
+            backgroundCrossfade.sprite = previous; backgroundCrossfade.color = tint;
             backgroundCrossfade.gameObject.SetActive(true);
             backgroundFadeRoutine = StartCoroutine(FadePreparedBackground());
         }
@@ -906,11 +943,12 @@ namespace CatBlockPuzzle
         private IEnumerator FadePreparedBackground()
         {
             Image backgroundCrossfade = Hud.backgroundCrossfade;
+            Color tint = Hud.BackgroundTint;
             float elapsed = 0;
             while (elapsed < .35f)
             {
                 elapsed += Time.unscaledDeltaTime;
-                backgroundCrossfade.color = new Color(1, 1, 1, 1 - Mathf.Clamp01(elapsed / .35f));
+                backgroundCrossfade.color = new Color(tint.r, tint.g, tint.b, tint.a * (1 - Mathf.Clamp01(elapsed / .35f)));
                 yield return null;
             }
             backgroundCrossfade.gameObject.SetActive(false);
