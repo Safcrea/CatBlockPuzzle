@@ -39,6 +39,7 @@ namespace CatBlockPuzzle
         private float backgroundAlpha = 1f;
         private Coroutine openingRoutine;
         private readonly List<EntranceItem> entranceItems = new List<EntranceItem>();
+        private readonly List<ChapterLockBadge> chapterLocks = new List<ChapterLockBadge>();
 
         private sealed class EntranceItem
         {
@@ -102,9 +103,7 @@ namespace CatBlockPuzzle
             if (scroll == null) return;
             RectTransform viewport = scroll.viewport != null ? scroll.viewport : scroll.transform as RectTransform;
 
-            // The chapter card is the content child that holds this level's button.
-            RectTransform card = levels[index].button.transform as RectTransform;
-            while (card != null && card.parent != content) card = card.parent as RectTransform;
+            RectTransform card = CardFor(index, content);
             if (card == null) return;
 
             Canvas.ForceUpdateCanvases();
@@ -270,7 +269,64 @@ namespace CatBlockPuzzle
             }
             playButton.onClick.RemoveListener(Play);
             playButton.onClick.AddListener(Play);
+            InstallPageScrolling();
             Refresh();
+        }
+
+        /// <summary>
+        /// The chapter list only fills the middle of the page; drags anywhere else (title, coins,
+        /// bottom gradient, play button area) bubble up to the page root and scroll it too.
+        /// </summary>
+        private void InstallPageScrolling()
+        {
+            RectTransform content = ResolveChapterContent();
+            ScrollRect scroll = content != null ? content.GetComponentInParent<ScrollRect>(true) : null;
+            if (scroll == null) return;
+            if (!TryGetComponent(out ScrollDragForwarder forwarder)) forwarder = gameObject.AddComponent<ScrollDragForwarder>();
+            forwarder.Target = scroll;
+            // A transparent full-page hit surface makes sure empty areas receive the touch at all.
+            if (!TryGetComponent(out Graphic _))
+            {
+                var surface = gameObject.AddComponent<Image>();
+                surface.color = Color.clear;
+                surface.raycastTarget = true;
+            }
+        }
+
+        public ChapterLockBadge ChapterLock(int chapterIndex) => chapterIndex >= 0 && chapterIndex < chapterLocks.Count ? chapterLocks[chapterIndex] : null;
+
+        /// <summary>Puts a padlock and the stars still needed over every chapter card that is locked.</summary>
+        private void RefreshChapterLocks()
+        {
+            RectTransform content = ResolveChapterContent();
+            if (content == null) return;
+            int chapterCount = (levels.Length + CatMetaCatalog.LevelsPerChapter - 1) / CatMetaCatalog.LevelsPerChapter;
+            Image lockIcon = levels[0].locked.GetComponent<Image>();
+            for (int chapter = 0; chapter < chapterCount; chapter++)
+            {
+                if (chapterLocks.Count <= chapter) chapterLocks.Add(null);
+                if (chapterLocks[chapter] == null)
+                {
+                    RectTransform card = CardFor(chapter * CatMetaCatalog.LevelsPerChapter, content);
+                    if (card == null) continue;
+                    if (!card.TryGetComponent(out ChapterLockBadge badge)) badge = card.gameObject.AddComponent<ChapterLockBadge>();
+                    chapterLocks[chapter] = badge;
+                }
+
+                Text title = chapterLocks[chapter].transform.Find("Chapter Title")?.GetComponent<Text>();
+                chapterLocks[chapter].Show(!gameplay.IsChapterUnlocked(chapter),
+                    gameplay.StarsEarnedBeforeChapter(chapter), gameplay.StarsRequiredForChapter(chapter),
+                    lockIcon != null ? lockIcon.sprite : null, earnedStar, title != null ? title.font : null);
+            }
+        }
+
+        /// <summary>The chapter card is the content child that holds this level's button.</summary>
+        private RectTransform CardFor(int levelIndex, RectTransform content)
+        {
+            if (levelIndex < 0 || levelIndex >= levels.Length || levels[levelIndex].button == null) return null;
+            RectTransform card = levels[levelIndex].button.transform as RectTransform;
+            while (card != null && card.parent != content) card = card.parent as RectTransform;
+            return card;
         }
         private void OnDisable()
         {
@@ -306,6 +362,7 @@ namespace CatBlockPuzzle
                     slot.stars[s].color = Color.white;
                 }
             }
+            RefreshChapterLocks();
             coinText.text = gameplay.CurrentCoins.ToString();
             selectionText.text = selectedLevel >= 0 ? "Level " + (selectedLevel + 1) : "No level available";
             playButton.interactable = gameplay.IsLevelAvailable(selectedLevel);

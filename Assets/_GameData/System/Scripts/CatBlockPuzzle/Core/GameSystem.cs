@@ -102,6 +102,18 @@ namespace CatBlockPuzzle
         public bool IsGameplayOpen => referenceUi == null || referenceUi.IsGameplayOpen;
         public void ShowGameplayPage() => referenceUi?.ShowGameplay();
         public void ShowRoomsPage() => referenceUi?.ShowRooms();
+
+        /// <summary>Leaves gameplay for the level selection page (Home when the scene has no reference UI).</summary>
+        public void ShowLevelSelection()
+        {
+            if (referenceUi == null) { GoHome(); return; }
+            systemPaused = false;
+            Time.timeScale = 1f;
+            levelComplete?.Hide();
+            levelFail?.Hide();
+            gameplayController?.SuspendForNavigation();
+            referenceUi.ShowLevels();
+        }
         public void OpenRooms()
         {
             // Rooms are unavailable in the reference-menu release. Do not fall back

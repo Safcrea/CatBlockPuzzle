@@ -136,6 +136,7 @@ namespace CatBlockPuzzle
         private readonly HashSet<int> firstClearedLevelIndices = new HashSet<int>();
         private readonly HashSet<int> skippedLevelIndices = new HashSet<int>();
         private CatMetaSaveData data;
+        private Func<int, int> bestStarsForLevel;
 
         public int CoinBalance => preferences.GetInt(keys.CoinsKey, 0);
 
@@ -146,9 +147,9 @@ namespace CatBlockPuzzle
                 int highest = 0;
                 for (int chapterIndex = 0; chapterIndex < CatMetaCatalog.ChapterCount - 1; chapterIndex++)
                 {
-                    // Room decoration is optional. A chapter unlocks the next one when
-                    // its gameplay levels have been cleared or explicitly skipped.
-                    if (!AreAllChapterLevelsCleared(chapterIndex))
+                    // Room decoration is optional. With a star source, a chapter unlocks the next
+                    // one once every level in it has three stars; otherwise clearing is enough.
+                    if (bestStarsForLevel != null ? !AreAllChapterLevelsMastered(chapterIndex) : !AreAllChapterLevelsCleared(chapterIndex))
                     {
                         break;
                     }
@@ -199,6 +200,25 @@ namespace CatBlockPuzzle
             return new CatMetaProgressStore(catalog, preferences, keys);
         }
 
+        /// <summary>Gates chapters on best stars (zero-based level index → 0..3). Null keeps clear-based unlocking.</summary>
+        public void UseStarSource(Func<int, int> bestStars) => bestStarsForLevel = bestStars;
+
+        /// <summary>Three stars for every level before this chapter.</summary>
+        public int StarsRequiredForChapter(int chapterIndex)
+        {
+            if (chapterIndex <= 0 || chapterIndex >= CatMetaCatalog.ChapterCount) return 0;
+            return catalog.GetChapter(chapterIndex).FirstLevelIndex * CatPuzzleResultCalculator.MaximumStars;
+        }
+
+        /// <summary>Best stars banked on the levels before this chapter, i.e. progress toward unlocking it.</summary>
+        public int StarsEarnedBeforeChapter(int chapterIndex)
+        {
+            if (chapterIndex <= 0 || chapterIndex >= CatMetaCatalog.ChapterCount) return 0;
+            int earned = 0;
+            for (int level = 0; level < catalog.GetChapter(chapterIndex).FirstLevelIndex; level++) earned += BestStars(level);
+            return earned;
+        }
+
         public bool IsOwned(string decorationId)
         {
             return !string.IsNullOrEmpty(decorationId) && ownedDecorationIds.Contains(decorationId);
@@ -227,6 +247,20 @@ namespace CatBlockPuzzle
             skippedLevelIndices.Add(zeroBasedLevelIndex);
             Save();
             return Result(CatMetaOperationStatus.Success, CoinBalance);
+        }
+
+        /// <summary>Pays a reduced reward for clearing a level that was already cleared.</summary>
+        public CatMetaOperationResult RecordReplayClear(int zeroBasedLevelIndex, int reward, ref int coins)
+        {
+            if (zeroBasedLevelIndex < 0 || zeroBasedLevelIndex >= CatMetaCatalog.SupportedLevelCount)
+                return Result(CatMetaOperationStatus.InvalidLevel, coins);
+            if (reward < 0) return Result(CatMetaOperationStatus.InvalidReward, coins);
+            if (!IsLevelFirstCleared(zeroBasedLevelIndex)) return Result(CatMetaOperationStatus.NoChange, coins);
+            int safeCoins = Mathf.Max(0, coins);
+            long increased = (long)safeCoins + reward;
+            coins = increased > int.MaxValue ? int.MaxValue : (int)increased;
+            preferences.SetInt(keys.CoinsKey, coins);
+            return new CatMetaOperationResult(CatMetaOperationStatus.Success, coins, coins - safeCoins);
         }
 
         public bool HasViewedStory(string storyId)
@@ -650,6 +684,24 @@ namespace CatBlockPuzzle
 
             return true;
         }
+
+        private bool AreAllChapterLevelsMastered(int chapterIndex)
+        {
+            CatMetaChapterDefinition chapter = catalog.GetChapter(chapterIndex);
+            for (int levelIndex = chapter.FirstLevelIndex; levelIndex <= chapter.LastLevelIndex; levelIndex++)
+            {
+                if (BestStars(levelIndex) < CatPuzzleResultCalculator.MaximumStars)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private int BestStars(int levelIndex) => bestStarsForLevel != null
+            ? Mathf.Clamp(bestStarsForLevel(levelIndex), 0, CatPuzzleResultCalculator.MaximumStars)
+            : IsLevelPassed(levelIndex) ? CatPuzzleResultCalculator.MaximumStars : 0;
 
         private static List<string> SortedStrings(HashSet<string> values)
         {

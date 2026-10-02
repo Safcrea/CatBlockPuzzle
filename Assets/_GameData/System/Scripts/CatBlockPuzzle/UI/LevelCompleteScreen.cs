@@ -24,6 +24,8 @@ namespace CatBlockPuzzle
         [SerializeField] internal Image[] stars = new Image[3];
         [SerializeField] private Button continueButton;
         [SerializeField] private Button skipButton;
+        [Tooltip("Watch a rewarded ad to receive this level's coins a second time.")]
+        [SerializeField] private Button doubleCoinsButton;
         [Header("Sequence (auto-bound for the existing win screen)")]
         [SerializeField] private RectTransform titleArtwork;
         [Tooltip("The entire board to reveal after the earned stars.")]
@@ -40,6 +42,12 @@ namespace CatBlockPuzzle
         private Image[] winStarOverlays;
         private Coroutine entrance;
         private bool continueWasInteractable;
+        private int shownReward;
+        private bool doubleCoinsClaimed;
+
+        public const string DoubleCoinsPlacement = "level_complete_2x";
+        public bool IsDoubleCoinsOffered => doubleCoinsButton != null && doubleCoinsButton.gameObject.activeSelf && !doubleCoinsClaimed;
+        public int ShownReward => shownReward;
 
         public bool IsConfigured => root != null;
         public bool IsOpen => root != null && root.activeInHierarchy;
@@ -57,6 +65,7 @@ namespace CatBlockPuzzle
         {
             if (continueButton != null) continueButton.onClick.RemoveListener(Next);
             if (skipButton != null) skipButton.onClick.RemoveListener(SkipLevel);
+            if (doubleCoinsButton != null) doubleCoinsButton.onClick.RemoveListener(ClaimDoubleCoins);
         }
 
         public void CaptureExisting(GameObject screenRoot)
@@ -95,7 +104,15 @@ namespace CatBlockPuzzle
             root.SetActive(true);
             root.transform.SetAsLastSibling();
             if (continueButton != null) continueWasInteractable = continueButton.interactable;
-            entrance = StartCoroutine(PlayEntrance(Mathf.Clamp(starCount, 0, stars.Length), Mathf.Max(0, reward)));
+            shownReward = Mathf.Max(0, reward);
+            doubleCoinsClaimed = false;
+            // Nothing to double when the level paid nothing (e.g. the testing navigation buttons).
+            if (doubleCoinsButton != null)
+            {
+                doubleCoinsButton.gameObject.SetActive(shownReward > 0);
+                doubleCoinsButton.interactable = false;
+            }
+            entrance = StartCoroutine(PlayEntrance(Mathf.Clamp(starCount, 0, stars.Length), shownReward));
         }
 
         public void Hide()
@@ -126,6 +143,7 @@ namespace CatBlockPuzzle
                 continueButton.interactable = false;
                 HideForEntrance(continueButton.transform);
             }
+            if (doubleCoinsButton != null) HideForEntrance(doubleCoinsButton.transform);
             SetReward(0);
             // Ensure the first frame is prepared even if optional bindings are missing.
             yield return null;
@@ -160,6 +178,11 @@ namespace CatBlockPuzzle
             SetReward(reward);
             RestoreScale(coinReward);
             yield return new WaitForSecondsRealtime(0.15f * timing);
+            if (doubleCoinsButton != null && doubleCoinsButton.gameObject.activeSelf)
+            {
+                yield return Pop(doubleCoinsButton.transform, popDuration * timing);
+                doubleCoinsButton.interactable = true;
+            }
             if (continueButton != null)
             {
                 yield return Pop(continueButton.transform, popDuration * timing);
@@ -211,6 +234,7 @@ namespace CatBlockPuzzle
                 StopCoroutine(entrance);
                 entrance = null;
                 if (continueButton != null) continueButton.interactable = continueWasInteractable;
+                if (doubleCoinsButton != null) doubleCoinsButton.interactable = !doubleCoinsClaimed;
             }
             foreach (var entry in restingScales)
                 if (entry.Key != null) entry.Key.localScale = entry.Value;
@@ -237,6 +261,7 @@ namespace CatBlockPuzzle
             if (continueButton == null) continueButton = FindButton(root.transform, "Next Level");
             if (skipButton == null) skipButton = FindButton(root.transform, "Skip Level");
             if (skipButton == null) skipButton = FindButton(root.transform, "Skip");
+            if (doubleCoinsButton == null) doubleCoinsButton = FindButton(root.transform, "Double Coins");
         }
 
         private void EnsureWinStarOverlays()
@@ -287,6 +312,60 @@ namespace CatBlockPuzzle
                 skipButton.onClick.RemoveListener(SkipLevel);
                 if (skipButton.onClick.GetPersistentEventCount() == 0) skipButton.onClick.AddListener(SkipLevel);
             }
+            if (doubleCoinsButton != null)
+            {
+                doubleCoinsButton.onClick.RemoveListener(ClaimDoubleCoins);
+                doubleCoinsButton.onClick.AddListener(ClaimDoubleCoins);
+            }
+        }
+
+        /// <summary>Plays a rewarded ad, then pays the level's coins again and counts the board up to the doubled total.</summary>
+        public void ClaimDoubleCoins()
+        {
+            if (doubleCoinsClaimed || shownReward <= 0 || doubleCoinsButton == null || RewardedAds.IsRequestPending) return;
+            ButtonSfx.PlayClick();
+            // Lock both choices while the ad is up so Next cannot skip past an unpaid reward.
+            doubleCoinsButton.interactable = false;
+            bool continueReady = continueButton != null && continueButton.interactable;
+            if (continueButton != null) continueButton.interactable = false;
+            RewardedAds.Show(DoubleCoinsPlacement,
+                onRewarded: () =>
+                {
+                    doubleCoinsClaimed = true;
+                    GameSystem.Instance?.AwardCoins(shownReward);
+                    if (continueButton != null) continueButton.interactable = continueReady;
+                    if (IsOpen) StartCoroutine(PlayDoubledReward());
+                    else doubleCoinsButton.gameObject.SetActive(false);
+                },
+                onFailed: outcome =>
+                {
+                    // No ad or skipped: keep the offer so the player can try again.
+                    doubleCoinsButton.interactable = true;
+                    if (continueButton != null) continueButton.interactable = continueReady;
+                });
+        }
+
+        private IEnumerator PlayDoubledReward()
+        {
+            int from = shownReward, to = shownReward * 2;
+            float duration = Mathf.Max(0.1f, coinCountDuration * Mathf.Clamp(sequenceTimeScale, 0.35f, 1f));
+            CacheScale(doubleCoinsButton.transform);
+            Vector3 buttonScale = restingScales[doubleCoinsButton.transform];
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                SetReward(Mathf.RoundToInt(Mathf.Lerp(from, to, 1f - Mathf.Pow(1f - t, 3f))));
+                if (coinReward != null && restingScales.ContainsKey(coinReward))
+                    coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI) * 0.08f);
+                doubleCoinsButton.transform.localScale = buttonScale * (1f - t);
+                yield return null;
+            }
+            SetReward(to);
+            RestoreScale(coinReward);
+            doubleCoinsButton.transform.localScale = buttonScale;
+            doubleCoinsButton.gameObject.SetActive(false);
         }
         public void SkipLevel() { ButtonSfx.PlayClick(); GameSystem.Instance?.SkipLevel(); }
         private void Next() { ButtonSfx.PlayClick(); GameSystem.Instance?.NextLevel(); }

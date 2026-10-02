@@ -244,6 +244,9 @@ namespace CatBlockPuzzle
         public int LevelCount => levelManager != null ? levelManager.LevelCount : 0;
         public int RecommendedLevelIndex => meta != null && meta.Progress != null ? meta.GetRecommendedLevelIndex() : 0;
         public bool IsLevelAvailable(int index) => levelManager != null && index >= 0 && index < levelManager.LevelCount && meta.IsMetaLevelSelectable(index);
+        public bool IsChapterUnlocked(int chapterIndex) => meta != null && meta.IsChapterUnlocked(chapterIndex);
+        public int StarsRequiredForChapter(int chapterIndex) => meta != null ? meta.StarsRequiredForChapter(chapterIndex) : 0;
+        public int StarsEarnedBeforeChapter(int chapterIndex) => meta != null ? meta.StarsEarnedBeforeChapter(chapterIndex) : 0;
         public int GetLevelStars(int index) => levelManager != null && index >= 0 && index < LevelCount ? progress.GetBestStars(levelManager.GetLevel(index).Id) : 0;
         public string GetChapterTitle(int chapter) => meta.Catalog.GetChapter(chapter).Title;
         public Sprite GetChapterThumbnail(int chapter) => contentCatalog.roomThumbnails[chapter];

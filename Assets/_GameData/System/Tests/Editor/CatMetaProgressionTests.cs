@@ -313,6 +313,49 @@ namespace CatBlockPuzzle.Tests
             Assert.That(reloaded.RecordSkip(100).Succeeded, Is.False);
         }
 
+        [Test]
+        public void StarSource_UnlocksNextChapterOnlyWithThreeStarsOnEveryLevel()
+        {
+            var preferences = new InMemoryMetaPreferences();
+            CatMetaProgressStore store = CreateStore(preferences);
+            var stars = new Dictionary<int, int>();
+            store.UseStarSource(level => stars.TryGetValue(level, out int value) ? value : 0);
+            int coins = 0;
+            for (int level = 0; level < CatMetaCatalog.LevelsPerChapter; level++)
+            {
+                Assert.That(store.RecordFirstClear(level, 10, ref coins).Succeeded, Is.True);
+                stars[level] = 2;
+            }
+
+            Assert.That(store.IsChapterUnlocked(1), Is.False, "Clearing without three stars must not unlock the next chapter.");
+            Assert.That(store.StarsRequiredForChapter(1), Is.EqualTo(30));
+            Assert.That(store.StarsEarnedBeforeChapter(1), Is.EqualTo(20));
+            Assert.That(store.RecordFirstClear(CatMetaCatalog.LevelsPerChapter, 10, ref coins).Status, Is.EqualTo(CatMetaOperationStatus.ChapterLocked));
+
+            for (int level = 0; level < CatMetaCatalog.LevelsPerChapter - 1; level++) stars[level] = 3;
+            Assert.That(store.IsChapterUnlocked(1), Is.False, "One level short of three stars keeps the chapter locked.");
+            stars[CatMetaCatalog.LevelsPerChapter - 1] = 3;
+            Assert.That(store.IsChapterUnlocked(1), Is.True);
+            Assert.That(store.StarsEarnedBeforeChapter(1), Is.EqualTo(30));
+            Assert.That(store.IsChapterUnlocked(2), Is.False);
+            Assert.That(store.StarsRequiredForChapter(2), Is.EqualTo(60));
+            Assert.That(store.StarsRequiredForChapter(0), Is.Zero);
+        }
+
+        [Test]
+        public void ReplayClear_PaysOnlyForAlreadyClearedLevels()
+        {
+            var preferences = new InMemoryMetaPreferences();
+            CatMetaProgressStore store = CreateStore(preferences);
+            int coins = 0;
+            Assert.That(store.RecordReplayClear(0, 10, ref coins).Changed, Is.False, "A level that was never cleared is not a replay.");
+            Assert.That(store.RecordFirstClear(0, 25, ref coins).Succeeded, Is.True);
+            Assert.That(store.RecordReplayClear(0, 12, ref coins).CoinDelta, Is.EqualTo(12));
+            Assert.That(coins, Is.EqualTo(37));
+            Assert.That(store.CoinBalance, Is.EqualTo(37));
+            Assert.That(store.RecordReplayClear(0, -1, ref coins).Status, Is.EqualTo(CatMetaOperationStatus.InvalidReward));
+        }
+
         private CatMetaProgressStore CreateStore(InMemoryMetaPreferences preferences)
         {
             return CatMetaProgressStore.Load(catalog, preferences, TestKeys);
