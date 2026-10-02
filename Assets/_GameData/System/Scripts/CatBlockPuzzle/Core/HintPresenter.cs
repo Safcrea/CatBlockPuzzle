@@ -76,7 +76,7 @@ namespace CatBlockPuzzle
                 elapsed += Time.unscaledDeltaTime;
                 float wave = Mathf.Sin(elapsed * 11f) * 0.5f + 0.5f;
                 state.Rect.localScale = Vector3.one * Mathf.Lerp(1f, 1.06f, wave);
-                state.SlotImage.color = Color.Lerp(CardRestColor, new Color(1f, 0.92f, 0.55f, 0.92f), wave);
+                state.SlotImage.color = Color.Lerp(TraySlotSkin.RestColor, new Color(1f, 0.92f, 0.55f, 0.92f), wave);
                 for (int i = 0; i < hintedCells.Count; i++)
                 {
                     hintedCells[i].color = Color.Lerp(TargetColor, GoldColor, wave);
@@ -86,7 +86,7 @@ namespace CatBlockPuzzle
             }
 
             state.Rect.localScale = Vector3.one;
-            state.SlotImage.color = state.Placed ? CardDimColor : CardRestColor;
+            state.SlotImage.color = state.Placed ? TraySlotSkin.DimColor : TraySlotSkin.RestColor;
             for (int i = 0; i < hintedCells.Count; i++)
             {
                 hintedCells[i].color = TargetColor;
@@ -108,7 +108,7 @@ namespace CatBlockPuzzle
             for (int i = 0; i < pieces.Count; i++)
             {
                 pieces[i].Rect.localScale = Vector3.one;
-                pieces[i].SlotImage.color = pieces[i].Placed ? CardDimColor : CardRestColor;
+                pieces[i].SlotImage.color = pieces[i].Placed ? TraySlotSkin.DimColor : TraySlotSkin.RestColor;
             }
 
             board.ResetCellColors();

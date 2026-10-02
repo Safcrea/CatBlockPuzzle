@@ -117,6 +117,7 @@ namespace CatBlockPuzzle
                     AtlasIndex = p % 8, FloatPhase = p * 0.83f,
                     Slot = pv.slot, SlotImage = pv.slotImage, SlotLayout = pv.slotLayout, Rect = pv.visual
                 };
+                TraySlotSkin.Apply(pv.slot, pv.slotImage);
                 foreach (var cat in pv.cats)
                 {
                     state.CellImages.Add(cat);
@@ -181,6 +182,7 @@ namespace CatBlockPuzzle
                 AtlasIndex = index % 8, FloatPhase = index * 0.83f,
                 Slot = card.slot, SlotImage = card.slotImage, SlotLayout = card.slotLayout, Rect = card.visual
             };
+            TraySlotSkin.Apply(card.slot, card.slotImage);
             for (int c = 0; c < card.cats.Length; c++)
             {
                 bool used = c < spare.Cells.Length;

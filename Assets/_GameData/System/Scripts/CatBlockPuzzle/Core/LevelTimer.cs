@@ -174,6 +174,8 @@ namespace CatBlockPuzzle
         public void UpdateTimerDisplay()
         {
             UpdateStarDisplay();
+            TimerFreezeSkin freezeSkin = Hud != null ? Hud.timerFreezeSkin : null;
+            if (freezeSkin != null) freezeSkin.SetFrozen(IsFrozen);
             if (timerText == null)
             {
                 return;
@@ -183,7 +185,7 @@ namespace CatBlockPuzzle
             int minutes = totalSeconds / 60;
             int seconds = totalSeconds % 60;
             timerText.text = minutes.ToString() + ":" + seconds.ToString("00");
-            timerText.color = IsFrozen ? new Color(.08f, .55f, .85f) :
+            timerText.color = IsFrozen ? (freezeSkin != null ? freezeSkin.FrozenTextColor : new Color(.08f, .55f, .85f)) :
                 levelRemainingSeconds <= TimerWarningSeconds ? TimerWarningColor : TimerNormalColor;
         }
 

@@ -237,7 +237,7 @@ namespace CatBlockPuzzle
 
             if (state.SlotImage != null)
             {
-                state.SlotImage.color = visible ? CardRestColor : CardDimColor;
+                state.SlotImage.color = visible ? TraySlotSkin.RestColor : TraySlotSkin.DimColor;
             }
 
             if (refreshLayout)
@@ -399,7 +399,7 @@ namespace CatBlockPuzzle
             state.Rect.anchoredPosition = Vector2.zero;
             float trayCellSize = TrayCellSize(state);
             pieceLayout.SetPieceGrid(state, trayCellSize, TrayGap, trayCellSize, TrayGap);
-            state.SlotImage.color = CardRestColor;
+            state.SlotImage.color = TraySlotSkin.RestColor;
             state.Rect.localScale = Vector3.one;
             state.Rect.localEulerAngles = Vector3.zero;
         }

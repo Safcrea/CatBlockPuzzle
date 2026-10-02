@@ -20,6 +20,8 @@ namespace CatBlockPuzzle
         [SerializeField] internal Text levelText;
         [SerializeField] internal RectTransform timerPanel;
         [SerializeField] internal Text timerText;
+        [Tooltip("Icy look for the timer counter while Freeze holds the countdown.")]
+        [SerializeField] internal TimerFreezeSkin timerFreezeSkin;
         [SerializeField] internal Text objectiveText;
         [SerializeField] internal RectTransform objectivePanel;
         [SerializeField] internal Text coinText;

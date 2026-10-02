@@ -139,6 +139,7 @@ namespace CatBlockPuzzle
         private void Compose()
         {
             if (haptics == null) haptics = new HapticsController(this);
+            TraySlotSkin.Use(presentationAssets != null ? presentationAssets.traySlotSkin : null);
             session = new PuzzleSession();
             settings = new PlayerSettings(session, haptics);
             progress = new PlayerProgress(session);

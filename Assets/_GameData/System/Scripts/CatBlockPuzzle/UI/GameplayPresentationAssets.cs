@@ -32,6 +32,10 @@ namespace CatBlockPuzzle
         [SerializeField] internal CatVisualCatalog visualCatalog;
         [SerializeField] internal PortraitLayoutProfile layoutProfile;
 
+        [Header("Tray")]
+        [Tooltip("Skin copied onto every tray slot when a level loads (background, shadow, border, drag dots). Leave empty for the original cream cards.")]
+        [SerializeField] internal GameObject traySlotSkin;
+
         public bool Validate(out string error)
         {
             error = null;

@@ -185256,6 +185256,7 @@ MonoBehaviour:
   levelText: {fileID: 740451610}
   timerPanel: {fileID: 935374937}
   timerText: {fileID: 935374935}
+  timerFreezeSkin: {fileID: 2138261192}
   objectiveText: {fileID: 426184650}
   objectivePanel: {fileID: 426184648}
   coinText: {fileID: 1047144674}
@@ -187149,6 +187150,7 @@ GameObject:
   - component: {fileID: 2138261189}
   - component: {fileID: 2138261191}
   - component: {fileID: 2138261190}
+  - component: {fileID: 2138261192}
   m_Layer: 5
   m_Name: Time BG
   m_TagString: Untagged
@@ -187216,6 +187218,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138261188}
   m_CullTransparentMesh: 1
+--- !u!114 &2138261192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138261188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c643628e0c64209ada19975a7ad0be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CatBlockPuzzle.TimerFreezeSkin
+  background: {fileID: 2138261190}
+  icon: {fileID: 1387587422}
+  frozenBackground: {fileID: 21300000, guid: 50689f515e90abb46b86e1efd1fa5d62, type: 3}
+  frozenIcon: {fileID: 21300000, guid: aff109b5139b7ea4da4973bb075f2149, type: 3}
+  frozenTextColor: {r: 0.04, g: 0.27, b: 0.55, a: 1}
+  popDuration: 0.28
+  popScale: 1.12
 --- !u!1 &2140104749
 GameObject:
   m_ObjectHideFlags: 0
@@ -188727,6 +188748,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2d35959b60a09da4ba5f18295b0372c4, type: 2}
   visualCatalog: {fileID: 11400000, guid: d43f40fbd0ff2f246a07316ba3a6d1f3, type: 2}
   layoutProfile: {fileID: 11400000, guid: 7444de179f8aba94ca7ea9456e025e74, type: 2}
+  traySlotSkin: {fileID: 7466940221920178093, guid: dd63737a930b4e0439ab5258ca945812, type: 3}
 --- !u!114 &9400000003
 MonoBehaviour:
   m_ObjectHideFlags: 0

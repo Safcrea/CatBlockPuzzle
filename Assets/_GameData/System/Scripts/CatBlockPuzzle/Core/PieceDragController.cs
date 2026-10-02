@@ -125,7 +125,7 @@ namespace CatBlockPuzzle
 
             if (state.SlotImage != null)
             {
-                state.SlotImage.color = PuzzleStyle.CardDimColor;
+                state.SlotImage.color = TraySlotSkin.DimColor;
             }
 
             Vector2 local = space.ScreenToLocal(state.Rect, eventData.position);
