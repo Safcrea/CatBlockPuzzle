@@ -44,14 +44,14 @@ namespace CatBlockPuzzle.Tests
             for (int i = 0; i < images.Length; i++)
             {
                 Sprite sprite = images[i].sprite;
-                if (images[i].name == "Cat Cell" && sprite != null && sprite.texture != null && sprite.texture.name.StartsWith("cat_portraits"))
+                if (images[i].name == "Cat Cell" && sprite != null && sprite.texture != null && sprite.texture.name.StartsWith("Cat_"))
                 {
                     foundAuthoredCat = true;
                     break;
                 }
             }
 
-            Assert.That(foundAuthoredCat, Is.True, "Cat cells did not use the authored portrait atlas.");
+            Assert.That(foundAuthoredCat, Is.True, "Cat cells did not use the authored cat portraits.");
 
             string artifactDirectory = Path.GetFullPath(Path.Combine(Application.dataPath, "../TestArtifacts"));
             Directory.CreateDirectory(artifactDirectory);

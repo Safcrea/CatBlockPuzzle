@@ -5,6 +5,9 @@ namespace CatBlockPuzzle
     [DisallowMultipleComponent]
     public sealed class GameplayPresentationAssets : MonoBehaviour
     {
+        /// <summary>Distinct cat portraits; the sprite array holds this many per mood.</summary>
+        internal const int CatCount = 9;
+
         [Header("Shared UI")]
         [SerializeField] internal Font defaultFont;
         [SerializeField] internal Sprite whiteSprite;
@@ -27,7 +30,7 @@ namespace CatBlockPuzzle
         [SerializeField] internal Sprite closeIconSprite;
 
         [Header("Cats and Themes")]
-        [SerializeField] internal Sprite[] catPortraitSprites = new Sprite[24];
+        [SerializeField] internal Sprite[] catPortraitSprites = new Sprite[CatCount * 3];
         [SerializeField] internal Sprite[] themeBackgroundSprites = new Sprite[CatPuzzleThemeCatalog.ThemeCount];
         [SerializeField] internal CatVisualCatalog visualCatalog;
         [SerializeField] internal PortraitLayoutProfile layoutProfile;
@@ -41,7 +44,7 @@ namespace CatBlockPuzzle
             error = null;
             if (layoutProfile == null || defaultFont == null)
                 error = "the layout profile or default font is missing";
-            else if (catPortraitSprites == null || catPortraitSprites.Length != 24 ||
+            else if (catPortraitSprites == null || catPortraitSprites.Length != CatCount * 3 ||
                 themeBackgroundSprites == null || themeBackgroundSprites.Length != CatPuzzleThemeCatalog.ThemeCount ||
                 whiteSprite == null || roundedBoxSprite == null || circleSprite == null || coinSprite == null ||
                 pawSprite == null || starSprite == null || starOutlineSprite == null)

@@ -615,7 +615,7 @@ namespace CatBlockPuzzle
             {
                 PieceDefinition definition = activeLevel.Pieces[i];
                 PieceState state = new PieceState(definition, PieceColors[i % PieceColors.Length]);
-                state.AtlasIndex = i % 8;
+                state.AtlasIndex = i % GameplayPresentationAssets.CatCount;
                 state.FloatPhase = i * 0.83f;
                 state.Slot = CreatePanel(session.trayContent, definition.Name + " Slot", CardRestColor);
                 state.SlotImage = state.Slot.GetComponent<Image>();

@@ -70,8 +70,8 @@ namespace CatBlockPuzzle
         public Sprite Portrait(CatMood mood, int atlasIndex)
         {
             Sprite[] catPortraitSprites = Assets.catPortraitSprites;
-            int index = Mathf.Abs(atlasIndex) % 8;
-            Sprite requested = catPortraitSprites[(int)mood * 8 + index];
+            int index = Mathf.Abs(atlasIndex) % GameplayPresentationAssets.CatCount;
+            Sprite requested = catPortraitSprites[(int)mood * GameplayPresentationAssets.CatCount + index];
             return requested != null ? requested : catPortraitSprites[index];
         }
     }
