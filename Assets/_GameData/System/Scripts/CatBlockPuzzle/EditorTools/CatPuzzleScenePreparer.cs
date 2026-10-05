@@ -343,9 +343,6 @@ namespace CatBlockPuzzle
             const string art = "Assets/_GameData/System/Resources/CatBlockPuzzle/Art/";
             visualCatalog.CozyRoomBackground = AssetDatabase.LoadAssetAtPath<Texture2D>(art + "cozy_room_background.png");
             visualCatalog.ThemeAtlas = AssetDatabase.LoadAssetAtPath<Texture2D>(art + "Themes/theme_atlas.png");
-            visualCatalog.NeutralCatAtlas = AssetDatabase.LoadAssetAtPath<Texture2D>(art + "cat_portraits.png");
-            visualCatalog.HappyCatAtlas = AssetDatabase.LoadAssetAtPath<Texture2D>(art + "cat_portraits_happy.png");
-            visualCatalog.WorriedCatAtlas = AssetDatabase.LoadAssetAtPath<Texture2D>(art + "cat_portraits_worried.png");
             EditorUtility.SetDirty(visualCatalog);
             assets.whiteSprite = PersistSprite(CatPuzzleSpriteFactory.CreateSolidSprite(Color.white), "White");
             assets.roundedBoxSprite = PersistSprite(CatPuzzleSpriteFactory.CreateRoundedBoxSprite(), "RoundedBox");
