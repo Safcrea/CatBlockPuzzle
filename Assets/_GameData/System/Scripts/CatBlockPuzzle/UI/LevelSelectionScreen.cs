@@ -384,10 +384,15 @@ namespace CatBlockPuzzle
             }
             RefreshChapterLocks();
             coinText.text = gameplay.CurrentCoins.ToString();
-            selectionText.text = selectedLevel >= 0 ? "Level " + (selectedLevel + 1) : "No level available";
+            selectionText.text = selectedLevel >= 0 ? "Level " + SelectedLevelNumber() : "No level available";
             playButton.interactable = gameplay.IsLevelAvailable(selectedLevel);
         }
-        public void Play() { ButtonSfx.PlayClick(); GameSystem.Instance?.StartLevel(selectedLevel); }
+        public void Play() { ButtonSfx.PlayClick(); GameSystem.Instance?.StartLevelNumber(SelectedLevelNumber()); }
+
+        /// <summary>The recommended card stands for the next loop level once every authored level is beaten.</summary>
+        private int SelectedLevelNumber() => EndlessLevels.IsActive && selectedLevel == gameplay.RecommendedLevelIndex
+            ? gameplay.RecommendedLevelNumber
+            : selectedLevel + 1;
 
         private bool ValidateBindings(out string error)
         {

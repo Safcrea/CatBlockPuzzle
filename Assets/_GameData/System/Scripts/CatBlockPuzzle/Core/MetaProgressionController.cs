@@ -150,6 +150,7 @@ namespace CatBlockPuzzle
                 metaCatalog = contentCatalog.CreateMetaCatalog();
                 metaProgress = CatMetaProgressStore.Load(metaCatalog, savedLevel, savedCoins);
                 metaProgress.UseStarSource(BestStarsForLevel);
+                metaProgress.UseUnlockAllSource(() => GameSystem.Instance != null && GameSystem.Instance.UnlockAllLevels);
                 coins = metaProgress.CoinBalance;
                 if (coinText != null)
                 {
@@ -417,8 +418,15 @@ namespace CatBlockPuzzle
             }
 
             int balance = coins;
-            CatMetaOperationResult result = metaProgress.RecordFirstClear(levelIndex, reward, ref balance);
-            if (result.Status == CatMetaOperationStatus.NoChange)
+            int authored = levelManager != null ? levelManager.LevelCount : 0;
+            int levelNumber = session.levelNumber;
+            EndlessLevels.RecordWin(levelNumber, authored);
+            CatMetaOperationResult result;
+            if (EndlessLevels.IsLoopLevel(levelNumber, authored))
+                // A loop level is a new level to the player: full coins the first time its number is won.
+                result = metaProgress.AwardCoins(EndlessLevels.TryClaimFullReward(levelNumber) ? reward : ReplayReward(reward), ref balance);
+            else result = metaProgress.RecordFirstClear(levelIndex, reward, ref balance);
+            if (result.Status == CatMetaOperationStatus.NoChange && !EndlessLevels.IsLoopLevel(levelNumber, authored))
             {
                 // Replays still pay, at a reduced rate so farming an easy level stays modest.
                 result = metaProgress.RecordReplayClear(levelIndex, ReplayReward(reward), ref balance);
@@ -489,6 +497,13 @@ namespace CatBlockPuzzle
 
         private void ContinueAfterMetaWin(CatMetaChapterDefinition chapter, int chapterLevel)
         {
+            // Past the last authored level the puzzles loop and the next one is always open.
+            if (levelManager != null && session.levelNumber >= levelManager.LevelCount && EndlessLevels.IsActive)
+            {
+                PlayLevelNumber(EndlessLevels.NextLoopLevel);
+                return;
+            }
+
             if (chapterLevel >= CatMetaCatalog.LevelsPerChapter)
             {
                 if (chapter.Index >= metaCatalog.Chapters.Count - 1)
@@ -674,12 +689,25 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            int safeLevel = requestedLevelIndex;
-            if (metaProgress != null && !IsMetaLevelSelectable(safeLevel))
+            if (metaProgress != null && !IsMetaLevelSelectable(requestedLevelIndex))
             {
                 ShowMetaStatus("Clear the previous paw step first.");
                 return;
             }
+
+            StartMetaLevel(requestedLevelIndex, requestedLevelIndex + 1);
+        }
+
+        /// <summary>Plays a 1-based level number; numbers past the authored levels are loop levels and always open.</summary>
+        public void PlayLevelNumber(int levelNumber)
+        {
+            if (levelManager == null || levelManager.LevelCount <= 0) return;
+            if (!EndlessLevels.IsLoopLevel(levelNumber, levelManager.LevelCount)) { PlayMetaLevel(Mathf.Max(1, levelNumber) - 1); return; }
+            StartMetaLevel(EndlessLevels.PuzzleIndexFor(levelNumber, levelManager.LevelCount), levelNumber);
+        }
+
+        private void StartMetaLevel(int safeLevel, int levelNumber)
+        {
 
             if (metaOverlay != null)
             {
@@ -693,7 +721,7 @@ namespace CatBlockPuzzle
             metaRequiresRoomCompletion = false;
             GameSystem.Instance?.ShowGameplayPage();
             LogMetaEvent("level_start", "level=" + safeLevel + " chapter=" + (safeLevel / CatMetaCatalog.LevelsPerChapter));
-            flow.LoadLevel(safeLevel, true);
+            flow.LoadLevelNumber(levelNumber, true);
             ApplyMetaLevelPresentation(safeLevel);
         }
 
@@ -710,6 +738,7 @@ namespace CatBlockPuzzle
 
             CatMetaChapterDefinition chapter = metaCatalog.GetChapterForLevel(absoluteLevelIndex);
             if (!metaProgress.IsChapterUnlocked(chapter.Index)) return false;
+            if (metaProgress.UnlocksEverything) return true;
             return absoluteLevelIndex == chapter.FirstLevelIndex
                 || metaProgress.IsLevelPassed(absoluteLevelIndex)
                 || metaProgress.IsLevelPassed(absoluteLevelIndex - 1);
@@ -717,7 +746,10 @@ namespace CatBlockPuzzle
 
         public int GetRecommendedLevelIndex()
         {
-            int chapterIndex = Mathf.Clamp(metaProgress.HighestUnlockedChapter, 0, metaCatalog.Chapters.Count - 1);
+            if (EndlessLevels.IsActive && levelManager != null && levelManager.LevelCount > 0)
+                return EndlessLevels.PuzzleIndexFor(EndlessLevels.NextLoopLevel, levelManager.LevelCount);
+            // The real next level, even while the testing switch has every chapter open.
+            int chapterIndex = Mathf.Clamp(metaProgress.HighestEarnedChapter, 0, metaCatalog.Chapters.Count - 1);
             CatMetaChapterDefinition chapter = metaCatalog.GetChapter(chapterIndex);
             for (int level = chapter.FirstLevelIndex; level <= chapter.LastLevelIndex; level++)
             {

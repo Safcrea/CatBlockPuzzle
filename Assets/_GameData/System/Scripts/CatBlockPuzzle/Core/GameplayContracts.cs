@@ -33,6 +33,8 @@ namespace CatBlockPuzzle
     internal interface ILevelFlow
     {
         void LoadLevel(int levelIndex, bool persistProgress);
+        /// <summary>Loads a 1-based level number, looping the authored puzzles past the last one.</summary>
+        void LoadLevelNumber(int levelNumber, bool persistProgress);
         bool CanGoNextLevel { get; }
         void LoadNextLevel();
         void LoadNextLevelDirect();

@@ -100,6 +100,7 @@ namespace CatBlockPuzzle
         // ------------------------------------------------------------------ level flow for the meta/power-up services
 
         void ILevelFlow.LoadLevel(int levelIndex, bool persistProgress) => flow.LoadLevel(levelIndex, persistProgress);
+        void ILevelFlow.LoadLevelNumber(int levelNumber, bool persistProgress) => flow.LoadLevelNumber(levelNumber, persistProgress);
         bool ILevelFlow.CanGoNextLevel => flow.CanGoNextLevel;
         void ILevelFlow.LoadNextLevel() => flow.LoadNextLevel();
         void ILevelFlow.LoadNextLevelDirect() => flow.LoadNextLevelDirect();
@@ -241,6 +242,11 @@ namespace CatBlockPuzzle
         // ------------------------------------------------------------------ progress and levels
 
         public int CurrentLevelNumber => (session != null ? session.levelIndex : 0) + 1;
+        /// <summary>The number the player sees, which keeps counting past the authored levels.</summary>
+        public int DisplayLevelNumber => session != null ? Mathf.Max(1, session.levelNumber) : 1;
+        /// <summary>The level Play should start: the next loop level once the authored ones are beaten.</summary>
+        public int RecommendedLevelNumber => EndlessLevels.IsActive ? EndlessLevels.NextLoopLevel : RecommendedLevelIndex + 1;
+        public void StartLevelNumber(int levelNumber) => meta.PlayLevelNumber(levelNumber);
         public int CurrentCoins => progress != null ? progress.Coins : 0;
         public int LevelCount => levelManager != null ? levelManager.LevelCount : 0;
         public int RecommendedLevelIndex => meta != null && meta.Progress != null ? meta.GetRecommendedLevelIndex() : 0;

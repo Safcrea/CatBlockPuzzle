@@ -137,10 +137,14 @@ namespace CatBlockPuzzle
         private readonly HashSet<int> skippedLevelIndices = new HashSet<int>();
         private CatMetaSaveData data;
         private Func<int, int> bestStarsForLevel;
+        private Func<bool> unlockEverything;
 
         public int CoinBalance => preferences.GetInt(keys.CoinsKey, 0);
 
-        public int HighestUnlockedChapter
+        public int HighestUnlockedChapter => UnlocksEverything ? CatMetaCatalog.ChapterCount - 1 : HighestEarnedChapter;
+
+        /// <summary>The furthest chapter the player has actually opened, ignoring the testing switch.</summary>
+        public int HighestEarnedChapter
         {
             get
             {
@@ -203,6 +207,11 @@ namespace CatBlockPuzzle
         /// <summary>Gates chapters on best stars (zero-based level index → 0..3). Null keeps clear-based unlocking.</summary>
         public void UseStarSource(Func<int, int> bestStars) => bestStarsForLevel = bestStars;
 
+        /// <summary>Testing switch, read live: while it returns true every chapter counts as unlocked.</summary>
+        public void UseUnlockAllSource(Func<bool> unlockAll) => unlockEverything = unlockAll;
+
+        public bool UnlocksEverything => unlockEverything != null && unlockEverything();
+
         /// <summary>Three stars for every level before this chapter.</summary>
         public int StarsRequiredForChapter(int chapterIndex)
         {
@@ -256,6 +265,13 @@ namespace CatBlockPuzzle
                 return Result(CatMetaOperationStatus.InvalidLevel, coins);
             if (reward < 0) return Result(CatMetaOperationStatus.InvalidReward, coins);
             if (!IsLevelFirstCleared(zeroBasedLevelIndex)) return Result(CatMetaOperationStatus.NoChange, coins);
+            return AwardCoins(reward, ref coins);
+        }
+
+        /// <summary>Adds coins to the wallet (loop levels and other rewards not tied to a first clear).</summary>
+        public CatMetaOperationResult AwardCoins(int reward, ref int coins)
+        {
+            if (reward < 0) return Result(CatMetaOperationStatus.InvalidReward, coins);
             int safeCoins = Mathf.Max(0, coins);
             long increased = (long)safeCoins + reward;
             coins = increased > int.MaxValue ? int.MaxValue : (int)increased;

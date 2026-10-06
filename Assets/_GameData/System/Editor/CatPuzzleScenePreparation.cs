@@ -134,6 +134,10 @@ public sealed class CatPuzzlePreparedSceneBuildCheck : IProcessSceneWithReport
         if (report != null && scene.path == CatPuzzleScenePreparation.ScenePath)
         {
             CatPuzzleScenePreparation.ValidateScene(scene);
+            foreach (GameObject root in scene.GetRootGameObjects())
+                foreach (CatBlockPuzzle.GameSystem system in root.GetComponentsInChildren<CatBlockPuzzle.GameSystem>(true))
+                    if (system.UnlockAllLevels)
+                        Debug.LogWarning("This build has GameSystem > Testing > Unlock All Levels ticked: every level and chapter is open. Untick it before releasing.", system);
         }
     }
 }

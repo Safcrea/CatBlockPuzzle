@@ -30,6 +30,9 @@ namespace CatBlockPuzzle
         [SerializeField] private LevelFailScreen levelFail;
         [SerializeField] private ReferenceUiNavigation referenceUi;
         [SerializeField] private NoInternetScreen noInternet;
+        [Header("Testing")]
+        [Tooltip("Testing only: every level and chapter is playable, ignoring the star gates. Untick for the normal flow. A build made with this ticked logs a warning.")]
+        [SerializeField] private bool unlockAllLevels;
 
         private bool systemPaused;
         private float timeScaleBeforePause = 1f;
@@ -38,8 +41,11 @@ namespace CatBlockPuzzle
         public bool IsSettingsOpen => settingsMenu != null && settingsMenu.IsOpen;
         public bool HasReferenceUi => referenceUi != null;
         public bool IsPaused => systemPaused;
+        public bool UnlockAllLevels => unlockAllLevels;
         public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
         public int CurrentLevelNumber => gameplayController != null ? gameplayController.CurrentLevelNumber : 1;
+        /// <summary>The number the player sees (keeps counting past the authored levels).</summary>
+        public int DisplayLevelNumber => gameplayController != null ? gameplayController.DisplayLevelNumber : 1;
 
         // Button helpers for browsing levels without awarding progress or unlocking chapters.
         public void LoadNextLevel() => LoadAdjacentLevel(1);
@@ -126,6 +132,16 @@ namespace CatBlockPuzzle
 
             gameplayController?.ShowHomeFromSystem();
         }
+        /// <summary>Starts a 1-based level number; loop levels past the authored ones are always open.</summary>
+        public bool StartLevelNumber(int levelNumber)
+        {
+            if (!HasGameplayController) return false;
+            if (levelNumber <= gameplayController.LevelCount) return StartLevel(levelNumber - 1);
+            ResumeGame();
+            gameplayController.StartLevelNumber(levelNumber);
+            return true;
+        }
+
         public bool StartLevel(int index)
         {
             if (!HasGameplayController || !gameplayController.IsLevelAvailable(index)) return false;
@@ -192,7 +208,7 @@ namespace CatBlockPuzzle
                 if (HasGameplayController) gameplayController.SetSystemPaused(true);
                 Time.timeScale = 0f;
             }
-            pauseMenu.Show(gameplayController != null ? gameplayController.CurrentLevelNumber : 1,
+            pauseMenu.Show(gameplayController != null ? gameplayController.DisplayLevelNumber : 1,
                 gameplayController != null ? gameplayController.CurrentStarCount : 0,
                 gameplayController != null ? gameplayController.CurrentCoins : 0);
         }
@@ -209,7 +225,7 @@ namespace CatBlockPuzzle
 
         public void StartGameplay()
         {
-            if (HasReferenceUi) StartLevel(gameplayController != null ? gameplayController.RecommendedLevelIndex : 0);
+            if (HasReferenceUi) StartLevelNumber(gameplayController != null ? gameplayController.RecommendedLevelNumber : 1);
             else { home?.Hide(); ResumeGame(); }
         }
 

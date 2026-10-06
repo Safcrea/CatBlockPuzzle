@@ -100,7 +100,7 @@ namespace CatBlockPuzzle
 
         public bool IsPowerUpUnlocked(PowerUpKind kind)
         {
-            int level = GameSystem.Instance != null ? GameSystem.Instance.CurrentLevelNumber : 1;
+            int level = GameSystem.Instance != null ? GameSystem.Instance.DisplayLevelNumber : 1;
             return level >= Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : freezeUnlockLevel);
         }
 

@@ -86,7 +86,14 @@ namespace CatBlockPuzzle
             ? session.earnedStars
             : timer.Profile.Stars(timer.RemainingSeconds);
 
-        public void LoadLevel(int nextLevelIndex, bool persistProgress = true)
+        public void LoadLevelNumber(int levelNumber, bool persistProgress)
+        {
+            if (levelManager == null || levelManager.LevelCount <= 0) return;
+            LoadLevel(EndlessLevels.PuzzleIndexFor(levelNumber, levelManager.LevelCount), persistProgress, Mathf.Max(1, levelNumber));
+        }
+
+        /// <param name="levelNumber">The number shown to the player; 0 means the puzzle's own number.</param>
+        public void LoadLevel(int nextLevelIndex, bool persistProgress = true, int levelNumber = 0)
         {
             nextLevelIndex = Mathf.Clamp(nextLevelIndex, 0, levelManager.LevelCount - 1);
             // Resolve/validate before disturbing the current level, so a missing prefab is recoverable.
@@ -113,10 +120,11 @@ namespace CatBlockPuzzle
             GameSystem.Instance?.CloseSettings();
 
             levelIndex = Mathf.Clamp(nextLevelIndex, 0, levelManager.LevelCount - 1);
+            session.levelNumber = levelNumber > 0 ? levelNumber : levelIndex + 1;
             activeLevel = levelManager.GetLevel(levelIndex);
             loader.Activate(levelIndex, nextPrefab);
             theme.Apply(levelIndex, loader.LoadedLevel);
-            Hud.levelText.text = "Level " + (levelIndex + 1).ToString();
+            Hud.levelText.text = "Level " + session.levelNumber.ToString();
             if (Hud.objectiveText != null)
             {
                 Hud.objectiveText.text = theme.ObjectiveTitle(activeLevel.Title);
@@ -179,7 +187,7 @@ namespace CatBlockPuzzle
 
         public void ResetLevel()
         {
-            LoadLevel(levelIndex, !levelNavigationTesting);
+            LoadLevel(levelIndex, !levelNavigationTesting, session.levelNumber);
         }
 
         // UnityEvent helpers for freely browsing levels; previews do not award progress.

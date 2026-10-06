@@ -22,6 +22,8 @@ namespace CatBlockPuzzle
 
         internal LevelDefinition activeLevel;
         internal int levelIndex;
+        /// <summary>1-based number shown to the player; keeps counting past the authored levels (see EndlessLevels).</summary>
+        internal int levelNumber = 1;
         internal DragState drag;
         internal bool inputLocked;
         internal bool levelFailed;

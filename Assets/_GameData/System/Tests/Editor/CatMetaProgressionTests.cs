@@ -343,6 +343,26 @@ namespace CatBlockPuzzle.Tests
         }
 
         [Test]
+        public void UnlockAllSource_OpensEveryChapterWithoutChangingEarnedProgress()
+        {
+            var preferences = new InMemoryMetaPreferences();
+            CatMetaProgressStore store = CreateStore(preferences);
+            store.UseStarSource(level => 0);
+            bool unlockAll = true;
+            store.UseUnlockAllSource(() => unlockAll);
+            int coins = 0;
+
+            Assert.That(store.IsChapterUnlocked(CatMetaCatalog.ChapterCount - 1), Is.True);
+            Assert.That(store.HighestEarnedChapter, Is.Zero, "The switch must not fake real progress.");
+            Assert.That(store.RecordFirstClear(55, 30, ref coins).Status, Is.EqualTo(CatMetaOperationStatus.Success));
+            Assert.That(coins, Is.EqualTo(30), "Levels beaten in a normally locked chapter still pay.");
+
+            unlockAll = false;
+            Assert.That(store.IsChapterUnlocked(1), Is.False, "Unticking returns to the star-gated flow.");
+            Assert.That(store.HighestUnlockedChapter, Is.Zero);
+        }
+
+        [Test]
         public void ReplayClear_PaysOnlyForAlreadyClearedLevels()
         {
             var preferences = new InMemoryMetaPreferences();
