@@ -114,7 +114,7 @@ namespace CatBlockPuzzle
                 pv.slotInput.controller = controller;
                 pv.pieceInput.controller = controller;
                 var state = new PieceState(definition.Pieces[p], PieceColors[p % PieceColors.Length]) {
-                    AtlasIndex = p % 8, FloatPhase = p * 0.83f,
+                    AtlasIndex = p % GameplayPresentationAssets.CatCount, FloatPhase = p * 0.83f,
                     Slot = pv.slot, SlotImage = pv.slotImage, SlotLayout = pv.slotLayout, Rect = pv.visual
                 };
                 TraySlotSkin.Apply(pv.slot, pv.slotImage);
@@ -179,7 +179,7 @@ namespace CatBlockPuzzle
             card.visual.name = spare.Name;
 
             var state = new PieceState(spare, PieceColors[index % PieceColors.Length]) {
-                AtlasIndex = index % 8, FloatPhase = index * 0.83f,
+                AtlasIndex = index % GameplayPresentationAssets.CatCount, FloatPhase = index * 0.83f,
                 Slot = card.slot, SlotImage = card.slotImage, SlotLayout = card.slotLayout, Rect = card.visual
             };
             TraySlotSkin.Apply(card.slot, card.slotImage);

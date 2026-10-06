@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using static CatBlockPuzzle.PuzzleStyle;
 
@@ -177,41 +178,24 @@ namespace CatBlockPuzzle
         }
 
         /// <summary>Slices the three authored 4x2 portrait atlases into the presentation's 24 cat sprites.</summary>
+        private const string CatSpriteFolder = "Assets/Art/CatBlockPuzzleUI/UI/Slicing/Gameplay/NewCats/";
+
+        /// <summary>Fills every mood slot with the matching single-image cat (the new art has no mood variants).</summary>
         public static void LoadAuthoredCatPortraits(GameplayPresentationAssets assets)
         {
-            CatVisualCatalog visualCatalog = assets.visualCatalog;
-            if (visualCatalog == null)
+            int count = GameplayPresentationAssets.CatCount;
+            for (int index = 0; index < count; index++)
             {
-                return;
-            }
+                Sprite cat = AssetDatabase.LoadAssetAtPath<Sprite>(CatSpriteFolder + "Cat_ (" + (index + 1) + ").png");
+                if (cat == null)
+                {
+                    throw new System.InvalidOperationException("Cat sprite missing: " + CatSpriteFolder + "Cat_ (" + (index + 1) + ").png");
+                }
 
-            SliceCatAtlas(assets.catPortraitSprites, visualCatalog.NeutralCatAtlas, (int)CatMood.Neutral);
-            SliceCatAtlas(assets.catPortraitSprites, visualCatalog.HappyCatAtlas, (int)CatMood.Happy);
-            SliceCatAtlas(assets.catPortraitSprites, visualCatalog.WorriedCatAtlas, (int)CatMood.Worried);
-        }
-
-        private static void SliceCatAtlas(Sprite[] catPortraitSprites, Texture2D atlas, int moodIndex)
-        {
-            if (atlas == null || moodIndex < 0 || moodIndex >= 3)
-            {
-                return;
-            }
-
-            int cellWidth = Mathf.Max(1, atlas.width / 4);
-            int cellHeight = Mathf.Max(1, atlas.height / 2);
-            for (int index = 0; index < 8; index++)
-            {
-                int column = index % 4;
-                int rowFromTop = index / 4;
-                float x = column * cellWidth;
-                float y = rowFromTop == 0 ? atlas.height - cellHeight : 0f;
-                catPortraitSprites[moodIndex * 8 + index] = Sprite.Create(
-                    atlas,
-                    new Rect(x, y, cellWidth, cellHeight),
-                    new Vector2(0.5f, 0.5f),
-                    cellHeight,
-                    0,
-                    SpriteMeshType.FullRect);
+                for (int mood = 0; mood < 3; mood++)
+                {
+                    assets.catPortraitSprites[mood * count + index] = cat;
+                }
             }
         }
 
