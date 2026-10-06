@@ -74,19 +74,24 @@ namespace CatBlockPuzzle
         {
             HidePages();
             home?.Show();
+            UseMusic(MusicContext.Menu);
         }
 
-        public void ShowShop() { if (shop != null) { HidePages(); shop.Show(); } }
+        private static void UseMusic(MusicContext context) => SoundManager.EnsureInstance().SetMusicContext(context);
+
+        public void ShowShop() { if (shop != null) { HidePages(); shop.Show(); UseMusic(MusicContext.Menu); } }
         public void ShowDailyReward()
         {
             if (dailyReward == null) return;
             HidePages();
             dailyReward.Show();
+            UseMusic(MusicContext.Menu);
             if (dailyReward.IsOpen) dailyRewardShownThisSession = true;
         }
         public void ShowLevels()
         {
             LevelSelectionScreen levels = ResolveLevelSelection();
+            UseMusic(MusicContext.Menu);
             if (levels == null) { ShowPage(levelSelectionScreen); return; }
             HidePages();
             levels.Show();
@@ -99,7 +104,11 @@ namespace CatBlockPuzzle
                 levelSelection = levelSelectionScreen.GetComponent<LevelSelectionScreen>();
             return levelSelection;
         }
-        public void ShowGameplay() => ShowPage(gameplayScreen);
+        public void ShowGameplay()
+        {
+            ShowPage(gameplayScreen);
+            UseMusic(MusicContext.Gameplay);
+        }
         public void ShowCollection()
         {
             if (!HasCollection) { ShowComingSoon("Collection"); return; }

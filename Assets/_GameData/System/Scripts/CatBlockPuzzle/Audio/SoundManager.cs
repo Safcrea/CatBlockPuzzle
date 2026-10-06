@@ -17,6 +17,9 @@ namespace CatBlockPuzzle
         [SerializeField] private AudioSource bgmAudioSource;
         [SerializeField] private AudioSource sfxAudioSourceA;
         [SerializeField] private AudioSource sfxAudioSourceB;
+        [Tooltip("Overlapping one-shots (coin ticks) so rapid repeats never cut the stingers.")]
+        [SerializeField] private AudioSource sfxOneShotSource;
+        [SerializeField, Min(0f)] private float musicCrossfadeSeconds = 0.6f;
 
         [Header("Music Ducking")]
         [SerializeField, Range(0f, 1f)] private float duckMusicLevel = 0.35f;
@@ -25,6 +28,9 @@ namespace CatBlockPuzzle
 
         private bool useFirstSfxSource = true;
         private Coroutine duckRoutine;
+        private Coroutine musicSwapRoutine;
+        private AudioClip musicSwapTarget;
+        private MusicContext musicContext = MusicContext.Menu;
 
         public bool MusicEnabled { get; private set; } = true;
         public bool SfxEnabled { get; private set; } = true;
@@ -127,6 +133,60 @@ namespace CatBlockPuzzle
             source.Play();
         }
 
+        /// <summary>Plays a short SFX on its own channel, overlapping earlier ones instead of cutting them.</summary>
+        public void PlaySfxOneShot(string id)
+        {
+            if (!SfxEnabled || bank == null || !bank.TryGet(id, out SoundBank.SoundEntry entry) || entry.Clip == null)
+            {
+                return;
+            }
+
+            EnsureAudioSources();
+            sfxOneShotSource.PlayOneShot(entry.Clip, Mathf.Clamp01(entry.Volume) * bank.MasterVolume);
+        }
+
+        /// <summary>Switches between the menu and gameplay music, crossfading when the track changes.</summary>
+        public void SetMusicContext(MusicContext context)
+        {
+            musicContext = context;
+            if (!MusicEnabled || bank == null || CurrentTrack == null) return;
+            EnsureAudioSources();
+            AudioClip target = CurrentTrack;
+            if (musicSwapRoutine != null)
+            {
+                // Already fading towards this track: let it finish. Otherwise abandon that swap.
+                if (musicSwapTarget == target) return;
+                StopCoroutine(musicSwapRoutine);
+                musicSwapRoutine = null;
+            }
+
+            if (bgmAudioSource.clip == target) { PlayMusic(); return; }
+            if (!bgmAudioSource.isPlaying || !isActiveAndEnabled || musicCrossfadeSeconds <= 0f)
+            {
+                PlayMusic();
+                return;
+            }
+
+            CancelMusicDuck();
+            musicSwapTarget = target;
+            musicSwapRoutine = StartCoroutine(SwapMusicRoutine(target));
+        }
+
+        private AudioClip CurrentTrack => bank != null ? bank.MusicFor(musicContext) : null;
+
+        private IEnumerator SwapMusicRoutine(AudioClip next)
+        {
+            float half = musicCrossfadeSeconds * 0.5f;
+            yield return FadeMusicTo(0f, half);
+            bgmAudioSource.Stop();
+            bgmAudioSource.clip = next;
+            bgmAudioSource.volume = 0f;
+            if (MusicEnabled) bgmAudioSource.Play();
+            yield return FadeMusicTo(FullMusicVolume, half);
+            musicSwapRoutine = null;
+            musicSwapTarget = null;
+        }
+
         /// <summary>
         /// Plays an SFX and fades the background music down while it plays, then fades it back up.
         /// Used for the level complete and level fail stingers so they sit on top of the music.
@@ -208,19 +268,20 @@ namespace CatBlockPuzzle
 
         public void PlayMusic()
         {
-            if (!MusicEnabled || bank == null || bank.MusicTrack == null)
+            if (!MusicEnabled || bank == null || CurrentTrack == null)
             {
                 return;
             }
 
             EnsureAudioSources();
-            if (bgmAudioSource.clip != bank.MusicTrack)
+            if (bgmAudioSource.clip != CurrentTrack)
             {
-                bgmAudioSource.clip = bank.MusicTrack;
+                bgmAudioSource.Stop();
+                bgmAudioSource.clip = CurrentTrack;
             }
 
             bgmAudioSource.loop = true;
-            if (duckRoutine == null)
+            if (duckRoutine == null && musicSwapRoutine == null)
             {
                 bgmAudioSource.volume = bank.MusicVolume * bank.MasterVolume;
             }
@@ -234,6 +295,7 @@ namespace CatBlockPuzzle
         public void StopMusic()
         {
             CancelMusicDuck();
+            if (musicSwapRoutine != null) { StopCoroutine(musicSwapRoutine); musicSwapRoutine = null; musicSwapTarget = null; }
             if (bgmAudioSource != null)
             {
                 bgmAudioSource.Stop();
@@ -261,7 +323,9 @@ namespace CatBlockPuzzle
             bgmAudioSource = EnsureChildSource("BGM Audio", bgmAudioSource);
             sfxAudioSourceA = EnsureChildSource("SFX Audio A", sfxAudioSourceA);
             sfxAudioSourceB = EnsureChildSource("SFX Audio B", sfxAudioSourceB);
+            sfxOneShotSource = EnsureChildSource("SFX One Shots", sfxOneShotSource);
             bgmAudioSource.loop = true;
+            if (GetComponent<ButtonPressSfx>() == null) gameObject.AddComponent<ButtonPressSfx>();
         }
 
         private AudioSource EnsureChildSource(string childName, AudioSource current)
@@ -303,6 +367,7 @@ namespace CatBlockPuzzle
 
             if (sfxAudioSourceA != null) sfxAudioSourceA.mute = !SfxEnabled;
             if (sfxAudioSourceB != null) sfxAudioSourceB.mute = !SfxEnabled;
+            if (sfxOneShotSource != null) sfxOneShotSource.mute = !SfxEnabled;
         }
     }
 }

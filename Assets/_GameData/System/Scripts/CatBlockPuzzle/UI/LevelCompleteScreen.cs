@@ -145,6 +145,7 @@ namespace CatBlockPuzzle
             }
             if (doubleCoinsButton != null) HideForEntrance(doubleCoinsButton.transform);
             SetReward(0);
+            countedReward = 0;
             // Ensure the first frame is prepared even if optional bindings are missing.
             yield return null;
             yield return Pop(titleArtwork, popDuration * .8f * timing);
@@ -170,7 +171,7 @@ namespace CatBlockPuzzle
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                SetReward(Mathf.RoundToInt(Mathf.Lerp(0f, reward, 1f - Mathf.Pow(1f - t, 3f))));
+                SetCountedReward(Mathf.RoundToInt(Mathf.Lerp(0f, reward, 1f - Mathf.Pow(1f - t, 3f))));
                 if (coinReward != null)
                     coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI) * 0.04f);
                 yield return null;
@@ -240,6 +241,16 @@ namespace CatBlockPuzzle
                 if (entry.Key != null) entry.Key.localScale = entry.Value;
             SetOverlaysVisible(false);
         }
+        /// <summary>Shows a counting-up value and ticks the coin-count sound whenever the number changes.</summary>
+        private void SetCountedReward(int amount)
+        {
+            if (amount != countedReward && amount > 0) ButtonSfx.PlayCoinCountTick();
+            countedReward = amount;
+            SetReward(amount);
+        }
+
+        private int countedReward;
+
         private void SetReward(int amount)
         {
             if (rewardText != null) rewardText.text = "+" + amount + " coins";
@@ -356,7 +367,7 @@ namespace CatBlockPuzzle
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                SetReward(Mathf.RoundToInt(Mathf.Lerp(from, to, 1f - Mathf.Pow(1f - t, 3f))));
+                SetCountedReward(Mathf.RoundToInt(Mathf.Lerp(from, to, 1f - Mathf.Pow(1f - t, 3f))));
                 if (coinReward != null && restingScales.ContainsKey(coinReward))
                     coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI) * 0.08f);
                 doubleCoinsButton.transform.localScale = buttonScale * (1f - t);

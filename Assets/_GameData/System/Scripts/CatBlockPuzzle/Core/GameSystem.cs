@@ -70,6 +70,7 @@ namespace CatBlockPuzzle
         {
             if (gameplayController == null || amount <= 0) return false;
             gameplayController.AwardExternalCoins(amount);
+            ButtonSfx.PlayCoin();
             return true;
         }
         public int GetPowerUpCount(PowerUpKind kind) => PowerUpInventory.GetCount(kind);

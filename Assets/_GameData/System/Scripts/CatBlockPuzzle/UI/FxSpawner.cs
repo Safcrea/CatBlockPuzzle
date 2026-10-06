@@ -154,13 +154,13 @@ namespace CatBlockPuzzle
                 float arcSide = (i - ((count - 1) * 0.5f)) * 26f;
                 Vector2 arc = Vector2.Lerp(rootStart, rootEnd, 0.45f) + new Vector2(arcSide, 160f + ((i % 3) * 18f));
                 SetRect(coin.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), rootStart, new Vector2(28f, 28f));
-                StartCoroutine(AnimateCoin(coin, rootStart, arc, rootEnd, i * staggerSeconds, flightSeconds, i % 2 == 0 ? 1f : -1f));
+                StartCoroutine(AnimateCoin(coin, rootStart, arc, rootEnd, i * staggerSeconds, flightSeconds, i % 2 == 0 ? 1f : -1f, i == 0));
             }
 
             return ((count - 1) * staggerSeconds) + flightSeconds;
         }
 
-        private IEnumerator AnimateCoin(Image coin, Vector2 start, Vector2 arc, Vector2 end, float delay, float duration, float spinDirection)
+        private IEnumerator AnimateCoin(Image coin, Vector2 start, Vector2 arc, Vector2 end, float delay, float duration, float spinDirection, bool collectSound)
         {
             if (delay > 0f)
             {
@@ -180,6 +180,8 @@ namespace CatBlockPuzzle
                 yield return null;
             }
 
+            // One "collected" chime as the first coin reaches the wallet.
+            if (collectSound) ButtonSfx.PlayCoin();
             ReleaseFxImage(coin);
         }
 

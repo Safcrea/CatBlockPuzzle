@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace CatBlockPuzzle
 {
+    public enum MusicContext { Menu, Gameplay }
+
     [CreateAssetMenu(fileName = "SoundBank", menuName = "Cat Block Puzzle/Audio/Sound Bank")]
     public sealed class SoundBank : ScriptableObject
     {
@@ -22,7 +24,10 @@ namespace CatBlockPuzzle
         [SerializeField] private List<SoundEntry> entries = new List<SoundEntry>();
         [SerializeField, Range(0f, 1f)] private float masterVolume = 1f;
         [Header("Music")]
+        [Tooltip("Gameplay music.")]
         [SerializeField] private AudioClip musicTrack;
+        [Tooltip("Main menu, level selection, shop and other menu screens. Falls back to the gameplay track when empty.")]
+        [SerializeField] private AudioClip menuMusicTrack;
         [SerializeField, Range(0f, 1f)] private float musicVolume = 0.45f;
 
         private Dictionary<string, SoundEntry> lookup;
@@ -30,6 +35,8 @@ namespace CatBlockPuzzle
         public IReadOnlyList<SoundEntry> Entries => entries;
         public float MasterVolume => masterVolume;
         public AudioClip MusicTrack => musicTrack;
+        public AudioClip MenuMusicTrack => menuMusicTrack != null ? menuMusicTrack : musicTrack;
+        public AudioClip MusicFor(MusicContext context) => context == MusicContext.Menu ? MenuMusicTrack : musicTrack;
         public float MusicVolume => musicVolume;
 
         public bool TryGet(string id, out SoundEntry entry)
