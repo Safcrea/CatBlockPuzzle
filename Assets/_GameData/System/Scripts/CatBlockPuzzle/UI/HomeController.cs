@@ -93,14 +93,14 @@ namespace CatBlockPuzzle
         private void OpenDailyReward() { ButtonSfx.PlayClick(); navigation?.ShowDailyReward(); }
         private void OpenCollection()
         {
-            if (IsCollectionLocked) { PlayLockedTap(); return; }
+            if (IsCollectionLocked) { GameAnalytics.ComingSoonTap("collection"); PlayLockedTap(); return; }
             ButtonSfx.PlayClick();
             navigation?.ShowCollection();
         }
 
         private void OpenRooms()
         {
-            if (IsRoomsLocked) { PlayLockedTap(); return; }
+            if (IsRoomsLocked) { GameAnalytics.ComingSoonTap("rooms"); PlayLockedTap(); return; }
             ButtonSfx.PlayClick();
             GameSystem.Instance?.OpenRooms();
         }

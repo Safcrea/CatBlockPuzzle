@@ -27,11 +27,12 @@ namespace CatBlockPuzzle
 
         public void ShowHint() => ShowHint(HintReveal.FullShape);
 
-        public void ShowHint(HintReveal reveal)
+        /// <summary>Pulses the next cat to place and its spot; false when no cat could be pointed at.</summary>
+        public bool ShowHint(HintReveal reveal)
         {
             if (session.inputLocked)
             {
-                return;
+                return false;
             }
 
             StopHint();
@@ -53,6 +54,7 @@ namespace CatBlockPuzzle
             {
                 hintRoutine = StartCoroutine(HintRoutine(hinted, reveal));
             }
+            return hinted != null;
         }
 
         private IEnumerator HintRoutine(PieceState state, HintReveal reveal)

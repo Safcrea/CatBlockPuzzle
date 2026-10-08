@@ -46,6 +46,7 @@ namespace CatBlockPuzzle
         {
             UpdateListeners(true);
             ShowHomeImmediately();
+            GameAnalytics.LoadingComplete();
             // Run after every Start method has established the main-menu page.
             if (showDailyRewardOnStartup && !dailyRewardShownThisSession)
                 Invoke(nameof(ShowStartupDailyReward), Mathf.Max(0f, startupRewardDelay));
@@ -74,24 +75,38 @@ namespace CatBlockPuzzle
         {
             HidePages();
             home?.Show();
+            GameAnalytics.ScreenView("home");
             UseMusic(MusicContext.Menu);
         }
 
         private static void UseMusic(MusicContext context) => SoundManager.EnsureInstance().SetMusicContext(context);
 
-        public void ShowShop() { if (shop != null) { HidePages(); shop.Show(); UseMusic(MusicContext.Menu); } }
-        public void ShowDailyReward()
+        public void ShowShop()
+        {
+            if (shop == null) return;
+            HidePages();
+            shop.Show();
+            UseMusic(MusicContext.Menu);
+            GameAnalytics.ScreenView("shop");
+        }
+
+        public void ShowDailyReward() => OpenDailyReward(autoOpened: false);
+
+        private void OpenDailyReward(bool autoOpened)
         {
             if (dailyReward == null) return;
             HidePages();
             dailyReward.Show();
             UseMusic(MusicContext.Menu);
+            GameAnalytics.ScreenView("daily_reward");
+            GameAnalytics.DailyRewardShown(dailyReward.AvailableDay, autoOpened);
             if (dailyReward.IsOpen) dailyRewardShownThisSession = true;
         }
         public void ShowLevels()
         {
             LevelSelectionScreen levels = ResolveLevelSelection();
             UseMusic(MusicContext.Menu);
+            GameAnalytics.ScreenView("levels");
             if (levels == null) { ShowPage(levelSelectionScreen); return; }
             HidePages();
             levels.Show();
@@ -108,17 +123,20 @@ namespace CatBlockPuzzle
         {
             ShowPage(gameplayScreen);
             UseMusic(MusicContext.Gameplay);
+            GameAnalytics.ScreenView("gameplay");
         }
         public void ShowCollection()
         {
             if (!HasCollection) { ShowComingSoon("Collection"); return; }
             ShowPage(collectionScreen);
+            GameAnalytics.ScreenView("collection");
         }
 
         public void ShowRooms()
         {
             if (!HasRooms) { ShowComingSoon("Rooms"); return; }
             ShowPage(roomsScreen);
+            GameAnalytics.ScreenView("rooms");
         }
 
         private void ShowStartupDailyReward()
@@ -126,11 +144,12 @@ namespace CatBlockPuzzle
             // Do not interrupt a player who has already left Home during the delay.
             if (!dailyRewardShownThisSession && home != null && home.IsOpen &&
                 dailyReward != null && dailyReward.IsClaimAvailable)
-                ShowDailyReward();
+                OpenDailyReward(autoOpened: true);
         }
 
         private void ShowComingSoon(string feature)
         {
+            GameAnalytics.ComingSoonTap(feature.ToLowerInvariant());
             if (comingSoonInstance == null)
             {
                 Canvas canvas = GetComponentInParent<Canvas>();

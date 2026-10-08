@@ -295,6 +295,8 @@ namespace CatBlockPuzzle
         public bool CanRequestPowerUp(PowerUpKind kind) => powerUps.CanRequestPowerUp(kind);
         public bool TryUseFreezePowerUp() => powerUps.TryUseFreezePowerUp();
         public bool TryUseHintPowerUp() => powerUps.TryUseHintPowerUp();
+        internal void ReportPowerUpUsed(PowerUpKind kind, int cost, bool fromTutorial) => powerUps.ReportUse(kind, cost, fromTutorial);
+        internal float TimeLeftSeconds => timer != null ? timer.RemainingSeconds : 0f;
         public int HintCost => powerUps != null ? powerUps.HintCost : 1;
         public bool OpenPowerUpPurchase(PowerUpKind kind) => powerUps.OpenPowerUpPurchase(kind);
         internal void SetPowerUpPurchaseOpen(bool open, bool resumeGameplay = true) => powerUps.SetPowerUpPurchaseOpen(open, resumeGameplay);
@@ -327,12 +329,12 @@ namespace CatBlockPuzzle
                 case CatPuzzleUiAction.ActionKind.Pause: OpenPause(); break;
                 case CatPuzzleUiAction.ActionKind.Settings: OpenSettings(); break;
                 case CatPuzzleUiAction.ActionKind.Hint: GameSystem.Instance?.TryUseHintPowerUp(); break;
-                case CatPuzzleUiAction.ActionKind.Reset: flow.ResetLevel(); break;
+                case CatPuzzleUiAction.ActionKind.Reset: GameAnalytics.SetLevelStartSource(GameAnalytics.SourceHudReset); flow.ResetLevel(); break;
                 case CatPuzzleUiAction.ActionKind.PreviousTest: GameSystem.Instance?.LoadPreviousLevel(); break;
                 case CatPuzzleUiAction.ActionKind.NextTest:
                     if (levelManager != null && levelManager.LevelCount > 0) GameSystem.Instance?.LoadNextLevel();
                     break;
-                case CatPuzzleUiAction.ActionKind.NextLevel: meta.LoadNextLevelThroughMetaGate(); break;
+                case CatPuzzleUiAction.ActionKind.NextLevel: GameAnalytics.SetLevelStartSource(GameAnalytics.SourceNext); meta.LoadNextLevelThroughMetaGate(); break;
                 case CatPuzzleUiAction.ActionKind.Home: meta.OpenRoomHub(); break;
                 case CatPuzzleUiAction.ActionKind.SkipLevel: flow.SkipCurrentLevel(); break;
                 case CatPuzzleUiAction.ActionKind.CloseSettings: CloseSettings(); break;

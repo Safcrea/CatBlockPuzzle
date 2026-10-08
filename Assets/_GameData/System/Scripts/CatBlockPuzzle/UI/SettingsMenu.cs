@@ -78,6 +78,7 @@ namespace CatBlockPuzzle
             ButtonSfx.PlayClick();
             SoundManager manager = SoundManager.EnsureInstance();
             manager.SetMusicEnabled(!manager.MusicEnabled);
+            GameAnalytics.SettingsChanged("music", manager.MusicEnabled, returnToPause);
             RefreshVisuals();
         }
 
@@ -85,6 +86,7 @@ namespace CatBlockPuzzle
         {
             SoundManager manager = SoundManager.EnsureInstance();
             manager.SetSfxEnabled(!manager.SfxEnabled);
+            GameAnalytics.SettingsChanged("sfx", manager.SfxEnabled, returnToPause);
             ButtonSfx.PlayClick();
             RefreshVisuals();
         }
@@ -95,6 +97,7 @@ namespace CatBlockPuzzle
             PlayerPrefs.SetInt(HapticsEnabledKey, HapticsEnabled ? 0 : 1);
             PlayerPrefs.Save();
             GameSystem.Instance?.ApplyHapticsPreference();
+            GameAnalytics.SettingsChanged("haptics", HapticsEnabled, returnToPause);
             RefreshVisuals();
         }
 

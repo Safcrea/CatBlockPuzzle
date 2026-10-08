@@ -288,7 +288,12 @@ namespace CatBlockPuzzle
             if (button.onClick.GetPersistentEventCount() == 0) button.onClick.AddListener(action);
         }
 
-        private void Retry() { ButtonSfx.PlayClick(); GameSystem.Instance?.RestartLevel(); }
+        private void Retry()
+        {
+            ButtonSfx.PlayClick();
+            GameAnalytics.SetLevelStartSource(GameAnalytics.SourceRetry);
+            GameSystem.Instance?.RestartLevel();
+        }
         private void Home() { ButtonSfx.PlayClick(); GameSystem.Instance?.GoHome(); }
         public void SkipLevel() => GameSystem.Instance?.SkipLevel();
         private void Skip() { ButtonSfx.PlayClick(); SkipLevel(); }

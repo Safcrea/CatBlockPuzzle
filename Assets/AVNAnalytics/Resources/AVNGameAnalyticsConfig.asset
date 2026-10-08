@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1fa4558610b498082dca15a21e6066, type: 3}
+  m_Name: AVNGameAnalyticsConfig
+  m_EditorClassIdentifier: Assembly-CSharp::AVNGameAnalytics.Analytics.AVNGameAnalyticsConfig
+  Enabled: 1
+  Endpoint: 'https://gameanalytics.avns.site/v1/events '
+  ApiKey: avn_4gNRNOyfRwtnZGLb2rCr8oMouOdvjnGDFdWQDK1YK4U
+  BatchSize: 5
+  FlushIntervalSeconds: 30
+  CompressRequests: 1
+  MaxBatchBytes: 716800
+  PaceGapSeconds: 1
+  RequestTimeoutSeconds: 20
+  MinBackoffSeconds: 5
+  MaxBackoffSeconds: 300
+  AuthRetrySeconds: 1800
+  MaxQueuedEvents: 10000
+  MaxQueueBytes: 5242880
+  SessionTimeoutSeconds: 1800
+  AutoSessionEvents: 1
+  CorrectClockSkew: 1
+  DebugLogging: 1
+  Environment: 0
+  SendInEditor: 1
+  showAdvancedSettings: 0
+  buildNumber: 9

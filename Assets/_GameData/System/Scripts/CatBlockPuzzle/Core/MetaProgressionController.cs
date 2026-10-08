@@ -422,17 +422,28 @@ namespace CatBlockPuzzle
             int levelNumber = session.levelNumber;
             EndlessLevels.RecordWin(levelNumber, authored);
             CatMetaOperationResult result;
+            string earnSource;
             if (EndlessLevels.IsLoopLevel(levelNumber, authored))
+            {
                 // A loop level is a new level to the player: full coins the first time its number is won.
-                result = metaProgress.AwardCoins(EndlessLevels.TryClaimFullReward(levelNumber) ? reward : ReplayReward(reward), ref balance);
-            else result = metaProgress.RecordFirstClear(levelIndex, reward, ref balance);
+                bool fullReward = EndlessLevels.TryClaimFullReward(levelNumber);
+                earnSource = fullReward ? GameAnalytics.EarnLoopLevel : GameAnalytics.EarnReplay;
+                result = metaProgress.AwardCoins(fullReward ? reward : ReplayReward(reward), ref balance);
+            }
+            else
+            {
+                earnSource = GameAnalytics.EarnFirstClear;
+                result = metaProgress.RecordFirstClear(levelIndex, reward, ref balance);
+            }
             if (result.Status == CatMetaOperationStatus.NoChange && !EndlessLevels.IsLoopLevel(levelNumber, authored))
             {
                 // Replays still pay, at a reduced rate so farming an easy level stays modest.
+                earnSource = GameAnalytics.EarnReplay;
                 result = metaProgress.RecordReplayClear(levelIndex, ReplayReward(reward), ref balance);
             }
             coins = balance;
             metaLastAwardedCoins = Mathf.Max(0, result.CoinDelta);
+            GameAnalytics.CurrencyEarned(metaLastAwardedCoins, earnSource, balance);
             if (coinText != null)
             {
                 coinText.text = coins.ToString();
@@ -515,6 +526,8 @@ namespace CatBlockPuzzle
                 if (!metaProgress.IsChapterUnlocked(chapter.Index + 1))
                 {
                     // The next chapter still needs stars; send the player to pick a level to improve.
+                    GameAnalytics.ChapterGateBlocked(chapter.Index + 1, metaProgress.StarsEarnedBeforeChapter(chapter.Index + 1),
+                        metaProgress.StarsRequiredForChapter(chapter.Index + 1));
                     GameSystem.Instance?.ShowLevelSelection();
                     return;
                 }

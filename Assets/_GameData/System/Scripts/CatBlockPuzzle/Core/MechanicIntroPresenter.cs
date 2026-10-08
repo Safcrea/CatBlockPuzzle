@@ -87,10 +87,12 @@ namespace CatBlockPuzzle
 
             overlay = popup.gameObject;
             bool finished = false;
+            GameAnalytics.MechanicIntroShown(mechanic);
             popup.Show(heading, message, iconSprite, () =>
             {
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
+                GameAnalytics.MechanicIntroDismissed(mechanic);
                 finished = true;
             });
             while (!finished && overlay != null) yield return null;

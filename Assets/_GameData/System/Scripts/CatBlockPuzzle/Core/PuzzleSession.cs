@@ -31,6 +31,7 @@ namespace CatBlockPuzzle
         internal int comboCount;
         internal int bestCombo;
         internal int earnedStars;
+        internal readonly LevelAttemptStats stats = new LevelAttemptStats();
 
         internal float boardWidth;
         internal float boardHeight;
@@ -72,6 +73,7 @@ namespace CatBlockPuzzle
             comboCount = 0;
             bestCombo = 0;
             earnedStars = 0;
+            stats.Reset();
             drag = null;
             previewCells.Clear();
             occupancy.Clear();

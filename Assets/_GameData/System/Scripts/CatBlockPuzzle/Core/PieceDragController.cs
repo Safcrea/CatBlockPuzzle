@@ -182,6 +182,7 @@ namespace CatBlockPuzzle
 
             DragState cancelled = drag;
             drag = null;
+            session.stats.cancelledDrops++;
             tray.SetScrollEnabled(true);
             board.ClearPreview();
             if (trayImage != null)
@@ -363,16 +364,24 @@ namespace CatBlockPuzzle
 
             if (endedDrag.ReturnToShelf)
             {
+                session.stats.shelfReturns++;
                 ReturnPieceToShelf(state);
                 return;
             }
 
             if (endedDrag.Valid)
             {
+                session.stats.RecordPlacement(endedDrag.PreviousPlaced);
                 PlacePiece(state, endedDrag.Row, endedDrag.Col, !endedDrag.PreviousPlaced);
                 return;
             }
 
+            if (!endedDrag.NearBoard) session.stats.cancelledDrops++;
+            else
+            {
+                session.stats.misdrops++;
+                if (locks.BlocksSolution(state.Definition)) session.stats.lockBlockedDrops++;
+            }
             RestoreInvalidDrop(endedDrag);
             if (endedDrag.NearBoard) MissedDrop?.Invoke(state);
         }

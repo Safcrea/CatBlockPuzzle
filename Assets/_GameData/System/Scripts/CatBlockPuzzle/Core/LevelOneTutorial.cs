@@ -125,6 +125,7 @@ namespace CatBlockPuzzle
             checkA.rectTransform.localEulerAngles = new Vector3(0, 0, -45);
             checkB.rectTransform.localEulerAngles = new Vector3(0, 0, 45);
             CreateTutorialCoach();
+            GameAnalytics.TutorialStarted();
             SetTutorialStep(TutorialStep.PlaceFirst, pieces[0]);
         }
 
@@ -158,6 +159,7 @@ namespace CatBlockPuzzle
             tutorialStep = step;
             tutorialPiece = piece;
             tutorialElapsed = 0f;
+            GameAnalytics.TutorialStep((int)step);
             foreach (var image in tutorialTargets) { image.gameObject.SetActive(false); Destroy(image.gameObject); }
             tutorialTargets.Clear();
             tutorialTargetCoordinates.Clear();
@@ -216,6 +218,8 @@ namespace CatBlockPuzzle
                 PlayerPrefs.SetInt(PuzzleSaveKeys.LevelOneTutorialSeen, 1);
                 PlayerPrefs.Save();
             }
+            GameAnalytics.TutorialCompleted();
+            tutorialStep = TutorialStep.Off; // Finished, so the Cancel below does not count as an abort.
             Cancel();
             if (resumeTimer) timer.StartLevelTimer();
         }
@@ -352,6 +356,7 @@ namespace CatBlockPuzzle
 
         public void Cancel()
         {
+            if (IsOpen) GameAnalytics.TutorialAborted((int)tutorialStep);
             tutorialStep = TutorialStep.Off;
             tutorialPiece = null;
             tutorialPendingFinish = false;

@@ -17,6 +17,7 @@ namespace CatBlockPuzzle
         private bool powerUpPurchaseOwnsPause;
         private bool timerWasRunningBeforePurchase;
         private bool inputWasLockedBeforePurchase;
+        private bool lastHintFoundTarget;
 
         public PowerUpController(IGameplayContext context, PuzzleSession session, LevelTimer timer, HintPresenter hint,
             PieceDragController drag, PlayerProgress progress, MetaProgressionController meta, LevelOneTutorial tutorial,
@@ -59,8 +60,19 @@ namespace CatBlockPuzzle
         public bool TryUseHintPowerUp()
         {
             if (!CanRequestPowerUp(PowerUpKind.Hint)) return false;
-            hint.ShowHint(timer.Profile.HintReveal);
+            lastHintFoundTarget = hint.ShowHint(timer.Profile.HintReveal);
             return true;
+        }
+
+        /// <summary>Counts a spent power-up toward the attempt and reports it.</summary>
+        public void ReportUse(PowerUpKind kind, int cost, bool fromTutorial)
+        {
+            if (kind == PowerUpKind.Hint) session.stats.hintsUsed++;
+            else session.stats.freezesUsed++;
+            int piecesLeft = 0;
+            foreach (PieceState piece in session.pieces)
+                if (!piece.Placed && !piece.Definition.IsSpare) piecesLeft++;
+            GameAnalytics.PowerUpUsed(kind, cost, timer.RemainingSeconds, piecesLeft, fromTutorial, lastHintFoundTarget);
         }
 
         public bool OpenPowerUpPurchase(PowerUpKind kind)
@@ -100,6 +112,8 @@ namespace CatBlockPuzzle
             var status = DailyRewardProgress.TryPurchasePowerUp(kind, offer, progress.Coins, PuzzleSaveKeys.SavedCoins, out int remainingCoins);
             if (status != PowerUpPurchaseStatus.Success) return status;
             progress.Coins = remainingCoins;
+            GameAnalytics.CurrencySpent(offer.coinPrice, kind, remainingCoins);
+            GameAnalytics.ItemEarned(kind, offer.quantity, GameAnalytics.EarnPurchase);
             meta.RefreshCoinLabels();
             Hud?.RefreshPowerUpCounts();
             return status;

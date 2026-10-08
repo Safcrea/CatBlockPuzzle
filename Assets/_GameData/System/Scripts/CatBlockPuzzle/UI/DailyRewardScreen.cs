@@ -46,7 +46,9 @@ namespace CatBlockPuzzle
         private TMP_Text countdownLabel;
         private int countdownSecondsShown = -1;
 
-        public bool IsClaimAvailable => Config != null && DailyRewardProgress.GetAvailableDay(Config, DateTime.UtcNow) > 0;
+        public bool IsClaimAvailable => AvailableDay > 0;
+        /// <summary>The day that can be claimed right now, or 0 when today's reward is taken.</summary>
+        public int AvailableDay => Config != null ? DailyRewardProgress.GetAvailableDay(Config, DateTime.UtcNow) : 0;
         public bool IsOpen => root != null && root.activeInHierarchy;
         public bool HasUnreadReward => DailyRewardProgress.HasUnreadReward(Config, DateTime.UtcNow);
         private DailyRewardConfig Config => rewardConfig != null ? rewardConfig : DailyRewardConfig.Load();
@@ -107,14 +109,24 @@ namespace CatBlockPuzzle
                 if (day != null && day.day == dayNumber)
                 {
                     if (GameSystem.Instance == null) return;
+                    int previousDay = DailyRewardProgress.GetLastClaimDay();
                     if (config == null || !DailyRewardProgress.TryClaim(config, DateTime.UtcNow, dayNumber, out var reward)) return;
                     if (reward.coins > 0) GameSystem.Instance.AwardCoins(reward.coins);
+                    ReportClaim(config, dayNumber, previousDay, reward);
                     GameSystem.Instance.RefreshPowerUpHud();
                     day.claimRequested?.Invoke();
                     RefreshPresentation();
                     Close();
                     return;
                 }
+        }
+
+        private static void ReportClaim(DailyRewardConfig config, int dayNumber, int previousDay, DailyRewardConfig.DayReward reward)
+        {
+            GameAnalytics.DailyRewardClaimed(dayNumber, previousDay, config.DayCount, reward.coins, reward.hintCount, reward.freezeCount);
+            GameAnalytics.CurrencyEarned(reward.coins, GameAnalytics.EarnDailyReward, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
+            GameAnalytics.ItemEarned(PowerUpKind.Hint, reward.hintCount, GameAnalytics.EarnDailyReward);
+            GameAnalytics.ItemEarned(PowerUpKind.Freeze, reward.freezeCount, GameAnalytics.EarnDailyReward);
         }
 
         /// <summary>Called by the reward system after a claim succeeds, or while restoring its saved state.</summary>
@@ -158,7 +170,12 @@ namespace CatBlockPuzzle
             MenuTransition.Hide(root, completed, true, closingAnimation);
         }
         private void Close() => GameSystem.Instance?.GoHome();
-        private void CloseButtonClicked() { ButtonSfx.PlayClick(); Close(); }
+        private void CloseButtonClicked()
+        {
+            ButtonSfx.PlayClick();
+            GameAnalytics.DailyRewardDismissed(AvailableDay);
+            Close();
+        }
 
         private string RewardLabelFor(DailyRewardConfig.DayReward reward, int dayNumber)
         {

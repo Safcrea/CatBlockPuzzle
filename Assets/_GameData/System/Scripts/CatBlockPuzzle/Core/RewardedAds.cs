@@ -30,6 +30,7 @@ namespace CatBlockPuzzle
             }
 
             IsRequestPending = true;
+            GameAnalytics.RewardedAdRequested(placement);
             bool reported = false;
             void Report(Outcome outcome)
             {
@@ -37,6 +38,7 @@ namespace CatBlockPuzzle
                 reported = true;
                 IsRequestPending = false;
                 Debug.Log("[RewardedAds] " + placement + " -> " + outcome);
+                GameAnalytics.RewardedAdResult(placement, outcome);
                 if (outcome == Outcome.Rewarded) onRewarded?.Invoke();
                 else onFailed?.Invoke(outcome);
             }

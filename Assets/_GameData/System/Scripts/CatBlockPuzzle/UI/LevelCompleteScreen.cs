@@ -344,6 +344,7 @@ namespace CatBlockPuzzle
                 {
                     doubleCoinsClaimed = true;
                     GameSystem.Instance?.AwardCoins(shownReward);
+                    GameAnalytics.CurrencyEarned(shownReward, GameAnalytics.EarnAdDouble, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
                     if (continueButton != null) continueButton.interactable = continueReady;
                     if (IsOpen) StartCoroutine(PlayDoubledReward());
                     else doubleCoinsButton.gameObject.SetActive(false);

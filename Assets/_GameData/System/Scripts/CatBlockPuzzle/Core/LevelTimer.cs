@@ -111,12 +111,18 @@ namespace CatBlockPuzzle
         /// <summary>Advances the countdown for this frame. Onboarding never spends the timer.</summary>
         public void Tick(bool onboardingOpen)
         {
-            if (!timerRunning || levelFailed || onboardingOpen)
+            if (!timerRunning || levelFailed)
             {
                 return;
             }
 
             float elapsed = Time.unscaledDeltaTime;
+            session.stats.playSeconds += elapsed;
+            if (onboardingOpen)
+            {
+                return;
+            }
+
             if (freezeRemainingSeconds > 0f)
             {
                 float frozenElapsed = Mathf.Min(freezeRemainingSeconds, elapsed);
@@ -156,6 +162,7 @@ namespace CatBlockPuzzle
             if (currentSecond <= 5 && profile.CanFail) haptics?.Play(HapticKind.TimerTick);
             if (levelRemainingSeconds <= TimerWarningSeconds)
             {
+                session.stats.reachedLowTime = true;
                 StartTimerPulse();
             }
         }

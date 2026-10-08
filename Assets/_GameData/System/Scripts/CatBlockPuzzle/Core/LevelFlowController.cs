@@ -67,7 +67,7 @@ namespace CatBlockPuzzle
             drag.PiecePlaced += OnPiecePlaced;
             timer.Expired += FailLevel;
             drag.MissedDrop += _ => hearts.LoseHeart();
-            hearts.OutOfHearts += () => FailLevel("Out of hearts! Place each cat carefully.");
+            hearts.OutOfHearts += () => FailLevel("Out of hearts! Place each cat carefully.", "out_of_hearts");
         }
 
         private LevelManager levelManager => Context.Levels;
@@ -139,6 +139,7 @@ namespace CatBlockPuzzle
             }
             timer.ResetLevelTimer();
             hearts.ResetForLevel();
+            ReportLevelStart(persistProgress);
             combo.UpdateDisplay(false);
 
             board.LayoutCells(loader.LoadedLevel);
@@ -147,6 +148,15 @@ namespace CatBlockPuzzle
             UpdateTestLevelButtons();
             boardRevealRoutine = StartCoroutine(LevelStartSequence());
             if (loader.HasPendingUnusedRelease) StartCoroutine(loader.ReleaseUnusedLevelAssets());
+        }
+
+        private void ReportLevelStart(bool persistProgress)
+        {
+            bool loop = EndlessLevels.IsLoopLevel(session.levelNumber, levelManager.LevelCount);
+            int bestBefore = progress.GetBestStars(activeLevel.Id);
+            // A loop number is a replay once it has been beaten; an authored level once it has any stars.
+            bool replay = loop ? session.levelNumber < EndlessLevels.NextLoopLevel : bestBefore > 0;
+            GameAnalytics.LevelStarted(activeLevel, levelIndex, session.levelNumber, loop, replay, persistProgress, bestBefore, timer.Profile);
         }
 
         // Runs the board reveal inline so a reveal that finishes instantly (reduced motion)
@@ -171,8 +181,7 @@ namespace CatBlockPuzzle
             // The unlock tutorial ends with the player tapping the power-up: spend it now that play has started.
             if (Hud != null && Hud.TryTakeTutorialUse(out PowerUpKind taught))
             {
-                if (taught == PowerUpKind.Hint) GameSystem.Instance?.TryUseHintPowerUp();
-                else GameSystem.Instance?.TryUseFreezePowerUp();
+                GameSystem.Instance?.UseTaughtPowerUp(taught);
             }
         }
 
@@ -246,6 +255,7 @@ namespace CatBlockPuzzle
             {
                 hint.StopHint();
                 tip.Show(state);
+                GameAnalytics.MoveTipShown();
             }
         }
 
@@ -273,6 +283,8 @@ namespace CatBlockPuzzle
 
             fx.SpawnBoardBurst(session.boardRoot);
             haptics.PlayLevelComplete();
+            int chapterBefore = meta.Progress != null ? meta.Progress.HighestEarnedChapter : 0;
+            bool enteringEndless = !levelNavigationTesting && !EndlessLevels.IsActive && session.levelNumber == levelManager.LevelCount;
             int awardedCoins = meta.RecordMetaFirstClear(activeLevel.Reward);
             float coinFlightDuration = awardedCoins > 0 ? fx.FlyCoins(awardedCoins, board.BoardCenterScreen()) : 0f;
 
@@ -280,20 +292,43 @@ namespace CatBlockPuzzle
             Hud.coinText.text = progress.Coins.ToString();
             LevelResult result = progress.SaveLevelResult(timer.RemainingSeconds);
             progress.SaveProgress();
+            GameAnalytics.LevelCompleted(session.stats, timer.RemainingSeconds, result.Stars, result.BestStars, awardedCoins, session.bestCombo);
+            ReportProgressMilestones(chapterBefore, enteringEndless);
             StartCoroutine(fx.PopTransform(Hud.coinText.rectTransform.parent as RectTransform, 1.08f));
             meta.ConfigureMetaWinPresentation(awardedCoins);
             GameSystem.Instance?.ShowLevelComplete(activeLevel.Title, result.Stars, awardedCoins, result.BestStars, session.bestCombo);
         }
 
-        public void FailLevel() => FailLevel("Complete the puzzle before the timer ends.");
+        private void ReportProgressMilestones(int chapterBefore, bool enteredEndless)
+        {
+            if (levelNavigationTesting) return;
+            int chapterAfter = meta.Progress != null ? meta.Progress.HighestEarnedChapter : 0;
+            if (chapterAfter <= chapterBefore && !enteredEndless) return;
+            int totalStars = 0, levelsCleared = 0;
+            for (int i = 0; i < levelManager.LevelCount; i++)
+            {
+                int stars = progress.GetBestStars(levelManager.GetLevel(i).Id);
+                totalStars += stars;
+                if (stars > 0) levelsCleared++;
+            }
+            if (chapterAfter > chapterBefore) GameAnalytics.ChapterUnlocked(chapterAfter, totalStars, levelsCleared);
+            if (enteredEndless) GameAnalytics.EndlessEntered(totalStars);
+        }
 
-        public void FailLevel(string message)
+        public void FailLevel() => FailLevel("Complete the puzzle before the timer ends.", "timeout");
+
+        public void FailLevel(string message) => FailLevel(message, "other");
+
+        private void FailLevel(string message, string reason)
         {
             if (session.levelFailed || gates.LevelCompleteOpen)
             {
                 return;
             }
 
+            int cellCount = activeLevel != null ? activeLevel.ActiveCells.Count : 0;
+            GameAnalytics.LevelFailed(reason, session.stats, timer.RemainingSeconds,
+                cellCount > 0 ? session.occupancy.Count / (float)cellCount : 0f, session.bestCombo);
             session.levelFailed = true;
             timer.timerRunning = false;
             inputLocked = true;
@@ -339,6 +374,8 @@ namespace CatBlockPuzzle
             if (loader.LoadLevelPrefab(levelIndex + 1) == null) return;
             if (levelNavigationTesting) { LoadNextLevel(); return; }
             if (meta.Progress != null && !meta.Progress.RecordSkip(levelIndex).Succeeded) return;
+            GameAnalytics.LevelSkipped(session.levelFailed ? "fail_screen" : gates.LevelCompleteOpen ? "complete_screen" : "other");
+            GameAnalytics.SetLevelStartSource(GameAnalytics.SourceSkip);
             meta.ResetOverlayState();
             GameSystem.Instance?.ResumeGame();
             GameSystem.Instance?.ShowGameplayPage();

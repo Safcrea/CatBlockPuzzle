@@ -50,6 +50,7 @@ namespace CatBlockPuzzle
         {
             if (!Active || remaining <= 0 || session.levelFailed) return;
             remaining--;
+            session.stats.heartsLost++;
             haptics?.Play(remaining == 0 ? HapticKind.LevelFail : HapticKind.HeartLost);
             Image lost = remaining < icons.Length ? icons[remaining] : null;
             if (lost != null)

@@ -37,7 +37,13 @@ namespace CatBlockPuzzle
             {
                 OfferView offer = offers[i];
                 if (offer == null || offer.button == null) continue;
-                purchaseActions[i] = () => { ButtonSfx.PlayClick(); offer.purchaseRequested.Invoke(); };
+                int index = i;
+                purchaseActions[i] = () =>
+                {
+                    ButtonSfx.PlayClick();
+                    GameAnalytics.ShopOfferTapped(index, offer.productId, offer.priceLabel != null ? offer.priceLabel.text : null);
+                    offer.purchaseRequested.Invoke();
+                };
                 offer.button.onClick.AddListener(purchaseActions[i]);
             }
             if (backButton != null) backButton.onClick.AddListener(Back);

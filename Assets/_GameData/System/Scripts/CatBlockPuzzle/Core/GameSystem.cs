@@ -75,7 +75,12 @@ namespace CatBlockPuzzle
         }
         public int GetPowerUpCount(PowerUpKind kind) => PowerUpInventory.GetCount(kind);
         public bool CanRequestPowerUp(PowerUpKind kind) => HasGameplayController && gameplayController.CanRequestPowerUp(kind);
-        public bool TryUseFreezePowerUp()
+        public bool TryUseFreezePowerUp() => UseFreezePowerUp(fromTutorial: false);
+        public bool TryUseHintPowerUp() => UseHintPowerUp(fromTutorial: false);
+        /// <summary>Spends the power-up the unlock tutorial asked the player to tap.</summary>
+        internal bool UseTaughtPowerUp(PowerUpKind kind) => kind == PowerUpKind.Hint ? UseHintPowerUp(true) : UseFreezePowerUp(true);
+
+        private bool UseFreezePowerUp(bool fromTutorial)
         {
             if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Freeze)) return false;
             if (PowerUpInventory.GetCount(PowerUpKind.Freeze) <= 0)
@@ -85,10 +90,15 @@ namespace CatBlockPuzzle
             }
             if (!gameplayController.TryUseFreezePowerUp()) return false;
             bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Freeze);
-            if (consumed) gameplayController.RefreshPowerUpHud();
+            if (consumed)
+            {
+                gameplayController.RefreshPowerUpHud();
+                gameplayController.ReportPowerUpUsed(PowerUpKind.Freeze, 1, fromTutorial);
+            }
             return consumed;
         }
-        public bool TryUseHintPowerUp()
+
+        private bool UseHintPowerUp(bool fromTutorial)
         {
             if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Hint)) return false;
             int cost = gameplayController.HintCost;
@@ -99,7 +109,11 @@ namespace CatBlockPuzzle
             }
             if (!gameplayController.TryUseHintPowerUp()) return false;
             bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Hint, cost);
-            if (consumed) gameplayController.RefreshPowerUpHud();
+            if (consumed)
+            {
+                gameplayController.RefreshPowerUpHud();
+                gameplayController.ReportPowerUpUsed(PowerUpKind.Hint, cost, fromTutorial);
+            }
             return consumed;
         }
         public void RefreshPowerUpHud() => gameplayController?.RefreshPowerUpHud();
@@ -208,6 +222,7 @@ namespace CatBlockPuzzle
                 systemPaused = true;
                 if (HasGameplayController) gameplayController.SetSystemPaused(true);
                 Time.timeScale = 0f;
+                GameAnalytics.PauseOpened(gameplayController != null ? gameplayController.TimeLeftSeconds : 0f);
             }
             pauseMenu.Show(gameplayController != null ? gameplayController.DisplayLevelNumber : 1,
                 gameplayController != null ? gameplayController.CurrentStarCount : 0,
@@ -226,6 +241,7 @@ namespace CatBlockPuzzle
 
         public void StartGameplay()
         {
+            GameAnalytics.SetLevelStartSource(GameAnalytics.SourceHomePlay);
             if (HasReferenceUi) StartLevelNumber(gameplayController != null ? gameplayController.RecommendedLevelNumber : 1);
             else { home?.Hide(); ResumeGame(); }
         }
@@ -248,6 +264,7 @@ namespace CatBlockPuzzle
             systemPaused = false;
             Time.timeScale = 1f;
             levelComplete?.Hide();
+            GameAnalytics.SetLevelStartSource(GameAnalytics.SourceNext);
             if (HasGameplayController) gameplayController.LoadNextLevelFromSystem();
             else referenceUi?.ShowGameplay();
         }

@@ -49,7 +49,11 @@ namespace CatBlockPuzzle
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
                 // The introduction tap is on the house, so the first use never opens the shop.
-                if (PowerUpInventory.GetCount(kind) == 0) PowerUpInventory.Add(kind);
+                if (PowerUpInventory.GetCount(kind) == 0)
+                {
+                    PowerUpInventory.Add(kind);
+                    GameAnalytics.ItemEarned(kind, 1, GameAnalytics.EarnTutorialGrant);
+                }
                 hud.RefreshPowerUpCounts();
             }
 
@@ -67,7 +71,12 @@ namespace CatBlockPuzzle
                 yield break;
             }
 
-            yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, MarkSeenAndGrant, () => pendingUse = kind);
+            GameAnalytics.PowerUpTutorialShown(kind);
+            yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, MarkSeenAndGrant, () =>
+            {
+                pendingUse = kind;
+                GameAnalytics.PowerUpTutorialTapped(kind);
+            });
             CloseOverlay();
         }
 
