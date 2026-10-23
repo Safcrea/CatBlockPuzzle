@@ -59,6 +59,40 @@ public static class CatPuzzleScenePreparation
         Prepare();
     }
 
+    // Grid-size or piece-count changes need new level prefabs, but Prepare would replace the
+    // hand-authored UI. Run the full preparation on a throwaway copy of the scene instead, keep
+    // the prefabs and content data it bakes, and leave GameScene untouched.
+    [MenuItem("Cat Block Puzzle/Rebake Level Prefabs (Keep Scene)")]
+    public static void RebakeLevelPrefabsKeepingScene()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play Mode before rebaking.");
+        if (SceneManager.GetActiveScene().isDirty) throw new InvalidOperationException("Save or revert the open scene before rebaking.");
+        const string copyPath = "Assets/_GameData/System/Scenes/LevelBake_Temp.unity";
+        if (!AssetDatabase.CopyAsset(ScenePath, copyPath)) throw new IOException("Could not copy " + ScenePath);
+        try
+        {
+            var scene = EditorSceneManager.OpenScene(copyPath, OpenSceneMode.Single);
+            var camera = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<Camera>(true)).Single(c => c.CompareTag("MainCamera"));
+            EnsureUiSortingLayer();
+            var root = new GameObject("GameScene");
+            var logic = new GameObject("Game Logic"); logic.transform.SetParent(root.transform,false);
+            var controllers = new GameObject("Controllers"); controllers.transform.SetParent(root.transform,false);
+            var ui = new GameObject("UI"); ui.transform.SetParent(root.transform,false);
+            var host = new GameObject("GameSystems"); host.transform.SetParent(logic.transform,false);
+            var game = host.AddComponent<CatBlockPuzzleGame>();
+            // The generated HUD on the copy has no authored power-up labels; prefabs and content
+            // are already saved when that final check runs. GameScene keeps its own HUD.
+            try { game.PrepareInEditor(camera, ui.transform, controllers.transform); }
+            catch (InvalidOperationException e) when (e.Message == "power-up HUD controls or count labels are missing") { }
+            Debug.Log("CAT_LEVELS_REBAKED levelPrefabs=" + game.LevelPrefabResources.Length);
+        }
+        finally
+        {
+            EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+            AssetDatabase.DeleteAsset(copyPath);
+        }
+    }
+
     [MenuItem("Cat Block Puzzle/Refresh Level Data")]
     public static void RefreshLevelData() => CatPuzzleScenePreparer.RefreshContentData();
 
