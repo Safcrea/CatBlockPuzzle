@@ -74,7 +74,7 @@ namespace CatBlockPuzzle.Tests
                 Assert.That(game.LevelPrefabResources.Distinct().Count(),Is.EqualTo(100));
                 Assert.That(scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<CatPuzzleLevelView>(true)),Is.Empty);
                 var levels = game.LevelPrefabResources.Select(p=>AssetDatabase.LoadAssetAtPath<CatPuzzleLevelView>("Assets/_GameData/System/Resources/" + p + ".prefab")).ToArray();
-                Assert.That(levels.Sum(l=>l.pieces.Length),Is.EqualTo(529));
+                Assert.That(levels.Sum(l=>l.pieces.Length),Is.EqualTo(617));
                 foreach (var level in levels)
                 {
                     Assert.That(EditorUtility.IsPersistent(level),Is.True);

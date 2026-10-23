@@ -46,14 +46,19 @@ MonoBehaviour:
       reward: 20
       pieces:
       - id: l002_p1
-        name: Bean
-        shape: l4
+        name: Fudge
+        shape: i3h
+        row: 0
+        col: 0
+      - id: l002_p2
+        name: Chili
+        shape: j4
         row: 0
         col: 2
-      - id: l002_p2
-        name: Nori
-        shape: o4
-        row: 0
+      - id: l002_p3
+        name: Toast
+        shape: s4
+        row: 1
         col: 0
       blocked: []
       locked: []
@@ -64,20 +69,25 @@ MonoBehaviour:
     - id: level_003
       title: Shelf Tunnel
       difficulty: 1
-      rows: 4
+      rows: 3
       cols: 4
       reward: 25
       pieces:
       - id: l003_p1
-        name: Nori
+        name: Cocoa
+        shape: z4
+        row: 1
+        col: 1
+      - id: l003_p2
+        name: Ginger
         shape: i3h
         row: 0
         col: 0
-      - id: l003_p2
-        name: Waffle
-        shape: o4
-        row: 2
-        col: 2
+      - id: l003_p3
+        name: Boba
+        shape: l3
+        row: 1
+        col: 0
       blocked: []
       locked: []
       trayWindow: 0
@@ -88,22 +98,27 @@ MonoBehaviour:
       title: Cardboard Cove
       difficulty: 2
       rows: 4
-      cols: 4
+      cols: 5
       reward: 20
       pieces:
       - id: l004_p1
-        name: Waffle
-        shape: i3v
+        name: Berry
+        shape: i5h
         row: 0
         col: 0
       - id: l004_p2
-        name: Taffy
-        shape: l3
-        row: 2
-        col: 1
+        name: Peanut
+        shape: o4
+        row: 1
+        col: 2
       - id: l004_p3
-        name: Sunny
-        shape: t4
+        name: Cookie
+        shape: i3v
+        row: 1
+        col: 4
+      - id: l004_p4
+        name: Pebble
+        shape: l4
         row: 1
         col: 1
       blocked: []
@@ -115,24 +130,29 @@ MonoBehaviour:
     - id: level_005
       title: Moonlit Loft
       difficulty: 2
-      rows: 4
+      rows: 5
       cols: 5
       reward: 25
       pieces:
       - id: l005_p1
-        name: Taffy
-        shape: i4h
+        name: Peach
+        shape: o4
         row: 2
-        col: 0
+        col: 3
       - id: l005_p2
-        name: Sunny
-        shape: i3v
-        row: 0
-        col: 4
+        name: Taffy
+        shape: l5
+        row: 1
+        col: 2
       - id: l005_p3
-        name: Miso
-        shape: i3h
-        row: 3
+        name: Clover
+        shape: l3
+        row: 1
+        col: 0
+      - id: l005_p4
+        name: Mimi
+        shape: t4
+        row: 0
         col: 0
       blocked: []
       locked: []
@@ -144,24 +164,24 @@ MonoBehaviour:
       title: Cozy Corner
       difficulty: 1
       rows: 4
-      cols: 5
+      cols: 4
       reward: 20
       pieces:
       - id: l006_p1
-        name: Sunny
-        shape: i3v
-        row: 0
-        col: 4
-      - id: l006_p2
-        name: Miso
-        shape: l4Corner
-        row: 1
-        col: 1
-      - id: l006_p3
-        name: Biscuit
+        name: Kiki
         shape: i3v
         row: 0
         col: 0
+      - id: l006_p2
+        name: Waffle
+        shape: s4
+        row: 2
+        col: 0
+      - id: l006_p3
+        name: Cocoa
+        shape: u5
+        row: 0
+        col: 1
       blocked: []
       locked: []
       trayWindow: 0
@@ -176,20 +196,25 @@ MonoBehaviour:
       reward: 25
       pieces:
       - id: l007_p1
-        name: Miso
-        shape: i3h
-        row: 0
+        name: Boba
+        shape: l5Top
+        row: 2
         col: 0
       - id: l007_p2
-        name: Biscuit
-        shape: l3
+        name: Bean
+        shape: u5
         row: 0
-        col: 3
-      - id: l007_p3
-        name: Button
-        shape: o4
-        row: 1
         col: 0
+      - id: l007_p3
+        name: Ginger
+        shape: z4
+        row: 3
+        col: 1
+      - id: l007_p4
+        name: Tuna
+        shape: i4v
+        row: 1
+        col: 4
       blocked: []
       locked: []
       trayWindow: 0
@@ -204,20 +229,25 @@ MonoBehaviour:
       reward: 20
       pieces:
       - id: l008_p1
-        name: Biscuit
-        shape: i4h
-        row: 4
-        col: 0
+        name: Olive
+        shape: s4
+        row: 0
+        col: 2
       - id: l008_p2
-        name: Button
-        shape: i3v
-        row: 1
+        name: Kiki
+        shape: t4
+        row: 0
         col: 0
       - id: l008_p3
-        name: Pepper
-        shape: i3v
+        name: Plum
+        shape: j4
         row: 1
         col: 3
+      - id: l008_p4
+        name: Pudding
+        shape: z4
+        row: 3
+        col: 1
       blocked: []
       locked: []
       trayWindow: 0
@@ -232,25 +262,30 @@ MonoBehaviour:
       reward: 25
       pieces:
       - id: l009_p1
-        name: Button
+        name: Peanut
+        shape: u5
+        row: 2
+        col: 0
+      - id: l009_p2
+        name: Olive
+        shape: l3
+        row: 0
+        col: 0
+      - id: l009_p3
+        name: Pickle
+        shape: z5
+        row: 0
+        col: 1
+      - id: l009_p4
+        name: Pumpkin
+        shape: i5h
+        row: 4
+        col: 0
+      - id: l009_p5
+        name: Taco
         shape: i4v
         row: 0
         col: 4
-      - id: l009_p2
-        name: Pepper
-        shape: i4h
-        row: 3
-        col: 0
-      - id: l009_p3
-        name: Plum
-        shape: l4
-        row: 0
-        col: 0
-      - id: l009_p4
-        name: Olive
-        shape: i3v
-        row: 0
-        col: 2
       blocked: []
       locked: []
       trayWindow: 0
@@ -261,29 +296,34 @@ MonoBehaviour:
       title: Sunny Mat
       difficulty: 3
       rows: 5
-      cols: 5
+      cols: 6
       reward: 20
       pieces:
       - id: l010_p1
-        name: Pepper
-        shape: i3v
-        row: 2
-        col: 4
+        name: Pickle
+        shape: z4
+        row: 1
+        col: 1
       - id: l010_p2
-        name: Plum
-        shape: i4h
+        name: Sesame
+        shape: z5
         row: 2
         col: 0
       - id: l010_p3
-        name: Olive
-        shape: o4
-        row: 0
+        name: Muffin
+        shape: s5
+        row: 2
         col: 3
       - id: l010_p4
-        name: Fig
+        name: Pumpkin
         shape: l3
         row: 0
-        col: 0
+        col: 4
+      - id: l010_p5
+        name: Berry
+        shape: l4Top
+        row: 0
+        col: 1
       blocked: []
       locked: []
       trayWindow: 0
@@ -298,28 +338,28 @@ MonoBehaviour:
       reward: 25
       pieces:
       - id: l011_p1
-        name: Plum
-        shape: l3
-        row: 0
-        col: 0
-      - id: l011_p2
-        name: Olive
-        shape: l3
-        row: 2
+        name: Fudge
+        shape: u5
+        row: 3
         col: 1
-      - id: l011_p3
-        name: Fig
-        shape: i3v
-        row: 2
-        col: 0
-      - id: l011_p4
-        name: Maple
-        shape: t4
-        row: 2
+      - id: l011_p2
+        name: Mochi
+        shape: z5
+        row: 1
         col: 2
+      - id: l011_p3
+        name: Toast
+        shape: l4Top
+        row: 0
+        col: 2
+      - id: l011_p4
+        name: Fig
+        shape: l4Corner
+        row: 1
+        col: 0
       blocked: []
       locked:
-      - row: 2
+      - row: 1
         col: 2
         after: 2
         key: 
@@ -335,32 +375,37 @@ MonoBehaviour:
       reward: 25
       pieces:
       - id: l012_p1
-        name: Olive
-        shape: l4Corner
+        name: Muffin
+        shape: i4h
         row: 3
         col: 1
       - id: l012_p2
-        name: Fig
-        shape: o4
-        row: 2
-        col: 2
+        name: Mint
+        shape: stair5
+        row: 0
+        col: 1
       - id: l012_p3
-        name: Maple
-        shape: i4h
+        name: Pepper
+        shape: l4
         row: 0
         col: 0
       - id: l012_p4
-        name: Clover
-        shape: i3v
-        row: 1
+        name: Fudge
+        shape: l3
+        row: 3
         col: 0
+      - id: l012_p5
+        name: Pebble
+        shape: z5
+        row: 0
+        col: 2
       blocked: []
       locked:
-      - row: 3
+      - row: 0
         col: 1
         after: 2
         key: 
-      - row: 4
+      - row: 1
         col: 1
         after: 2
         key: 
@@ -371,34 +416,39 @@ MonoBehaviour:
     - id: level_013
       title: Window 3
       difficulty: 3
-      rows: 4
-      cols: 5
+      rows: 5
+      cols: 6
       reward: 30
       pieces:
       - id: l013_p1
-        name: Fig
-        shape: l4Top
-        row: 2
-        col: 0
-      - id: l013_p2
-        name: Maple
-        shape: i4h
-        row: 0
-        col: 1
-      - id: l013_p3
-        name: Clover
-        shape: t4
+        name: Fudge
+        shape: z4
         row: 1
-        col: 2
-      - id: l013_p4
-        name: Sprout
-        shape: l3
+        col: 3
+      - id: l013_p2
+        name: Fig
+        shape: l5Top
         row: 0
+        col: 2
+      - id: l013_p3
+        name: Cookie
+        shape: u5
+        row: 2
+        col: 1
+      - id: l013_p4
+        name: Ribbon
+        shape: z5
+        row: 0
+        col: 0
+      - id: l013_p5
+        name: Pebble
+        shape: i4h
+        row: 4
         col: 0
       blocked: []
       locked:
       - row: 0
-        col: 1
+        col: 2
         after: 0
         key: 
       trayWindow: 0
@@ -409,37 +459,42 @@ MonoBehaviour:
       title: Window 4
       difficulty: 3
       rows: 5
-      cols: 5
+      cols: 6
       reward: 35
       pieces:
       - id: l014_p1
-        name: Maple
-        shape: z4
-        row: 3
-        col: 0
-      - id: l014_p2
-        name: Clover
-        shape: l3
-        row: 0
+        name: Socks
+        shape: i3h
+        row: 4
         col: 2
+      - id: l014_p2
+        name: Basil
+        shape: s4
+        row: 2
+        col: 3
       - id: l014_p3
-        name: Sprout
-        shape: o4
-        row: 0
+        name: Boba
+        shape: p5
+        row: 2
         col: 0
       - id: l014_p4
-        name: Toast
-        shape: i4v
+        name: Fig
+        shape: s5
         row: 0
-        col: 4
+        col: 3
+      - id: l014_p5
+        name: Miso
+        shape: z5
+        row: 0
+        col: 0
       blocked: []
       locked:
-      - row: 0
-        col: 4
+      - row: 2
+        col: 0
         after: 2
         key: 
-      - row: 0
-        col: 1
+      - row: 1
+        col: 3
         after: 0
         key: 
       trayWindow: 0
@@ -449,42 +504,52 @@ MonoBehaviour:
     - id: level_015
       title: Window 5
       difficulty: 4
-      rows: 5
-      cols: 5
+      rows: 6
+      cols: 6
       reward: 25
       pieces:
       - id: l015_p1
-        name: Clover
-        shape: i3v
-        row: 2
-        col: 4
+        name: Cocoa
+        shape: u5
+        row: 1
+        col: 0
       - id: l015_p2
-        name: Sprout
-        shape: l4Corner
+        name: Pearl
+        shape: i5h
         row: 0
         col: 0
       - id: l015_p3
-        name: Toast
-        shape: l4Top
-        row: 3
-        col: 1
+        name: Sprout
+        shape: t4
+        row: 1
+        col: 3
       - id: l015_p4
-        name: Poppy
-        shape: j4
-        row: 0
-        col: 2
+        name: Berry
+        shape: z5
+        row: 3
+        col: 0
+      - id: l015_p5
+        name: Fig
+        shape: l4Corner
+        row: 2
+        col: 3
+      - id: l015_p6
+        name: Pudding
+        shape: o4
+        row: 4
+        col: 3
       blocked: []
       locked:
       - row: 0
         col: 0
         after: 2
         key: 
-      - row: 1
-        col: 0
+      - row: 0
+        col: 1
         after: 2
         key: 
       - row: 1
-        col: 3
+        col: 2
         after: 0
         key: 
       trayWindow: 0
@@ -494,34 +559,34 @@ MonoBehaviour:
     - id: level_016
       title: Window 6
       difficulty: 2
-      rows: 5
-      cols: 6
+      rows: 4
+      cols: 5
       reward: 30
       pieces:
       - id: l016_p1
-        name: Sprout
-        shape: t4
-        row: 2
-        col: 0
-      - id: l016_p2
-        name: Toast
-        shape: s4
+        name: Mango
+        shape: o4
         row: 1
-        col: 3
-      - id: l016_p3
-        name: Poppy
-        shape: z4
-        row: 3
         col: 2
-      - id: l016_p4
-        name: Mint
-        shape: i3v
+      - id: l016_p2
+        name: Maple
+        shape: i4v
+        row: 0
+        col: 4
+      - id: l016_p3
+        name: Fig
+        shape: l4Corner
         row: 2
-        col: 5
+        col: 1
+      - id: l016_p4
+        name: Basil
+        shape: i3h
+        row: 0
+        col: 0
       blocked: []
       locked:
-      - row: 2
-        col: 0
+      - row: 0
+        col: 4
         after: 2
         key: 
       trayWindow: 0
@@ -531,38 +596,43 @@ MonoBehaviour:
     - id: level_017
       title: Window 7
       difficulty: 3
-      rows: 4
+      rows: 5
       cols: 5
       reward: 35
       pieces:
       - id: l017_p1
-        name: Toast
-        shape: l3
-        row: 0
-        col: 0
-      - id: l017_p2
-        name: Poppy
-        shape: j4
-        row: 1
-        col: 3
-      - id: l017_p3
-        name: Mint
-        shape: l4
+        name: Yuzu
+        shape: z4
         row: 0
         col: 2
-      - id: l017_p4
-        name: Chili
-        shape: o4
+      - id: l017_p2
+        name: Nori
+        shape: i4h
         row: 2
+        col: 1
+      - id: l017_p3
+        name: Fig
+        shape: l5
+        row: 0
         col: 0
+      - id: l017_p4
+        name: Sunny
+        shape: l4Top
+        row: 3
+        col: 2
+      - id: l017_p5
+        name: Plum
+        shape: l3
+        row: 0
+        col: 1
       blocked: []
       locked:
-      - row: 2
-        col: 4
+      - row: 0
+        col: 0
         after: 0
         key: 
-      - row: 3
-        col: 3
+      - row: 1
+        col: 0
         after: 0
         key: 
       trayWindow: 0
@@ -572,42 +642,52 @@ MonoBehaviour:
     - id: level_018
       title: Window 8
       difficulty: 4
-      rows: 5
+      rows: 6
       cols: 5
       reward: 25
       pieces:
       - id: l018_p1
-        name: Poppy
-        shape: o4
-        row: 1
-        col: 0
-      - id: l018_p2
-        name: Mint
-        shape: s4
-        row: 3
-        col: 0
-      - id: l018_p3
-        name: Chili
-        shape: t4
-        row: 2
+        name: Muffin
+        shape: z5
+        row: 0
         col: 2
-      - id: l018_p4
-        name: Pearl
-        shape: i3h
+      - id: l018_p2
+        name: Ginger
+        shape: stair5
         row: 0
         col: 1
+      - id: l018_p3
+        name: Clover
+        shape: l5Top
+        row: 3
+        col: 1
+      - id: l018_p4
+        name: Fig
+        shape: i4v
+        row: 0
+        col: 0
+      - id: l018_p5
+        name: Poppy
+        shape: z4
+        row: 4
+        col: 2
+      - id: l018_p6
+        name: Honey
+        shape: o4
+        row: 4
+        col: 0
       blocked: []
       locked:
-      - row: 1
-        col: 0
+      - row: 0
+        col: 1
         after: 2
         key: 
       - row: 1
         col: 1
         after: 2
         key: 
-      - row: 2
-        col: 2
+      - row: 3
+        col: 1
         after: 0
         key: 
       trayWindow: 0
@@ -617,39 +697,53 @@ MonoBehaviour:
     - id: level_019
       title: Window 9
       difficulty: 4
-      rows: 5
-      cols: 5
+      rows: 6
+      cols: 6
       reward: 30
       pieces:
       - id: l019_p1
-        name: Mint
+        name: Pumpkin
         shape: l3
-        row: 0
-        col: 0
+        row: 1
+        col: 1
       - id: l019_p2
-        name: Chili
-        shape: l4Top
-        row: 3
+        name: Berry
+        shape: z4
+        row: 0
         col: 1
       - id: l019_p3
-        name: Pearl
+        name: Mimi
         shape: l4Corner
-        row: 3
+        row: 2
         col: 0
       - id: l019_p4
-        name: Socks
-        shape: i3v
-        row: 0
-        col: 3
+        name: Sesame
+        shape: i4h
+        row: 4
+        col: 1
+      - id: l019_p5
+        name: Taffy
+        shape: i5h
+        row: 5
+        col: 1
+      - id: l019_p6
+        name: Cocoa
+        shape: p5
+        row: 2
+        col: 4
       blocked: []
       locked:
-      - row: 3
+      - row: 5
         col: 1
         after: 2
         key: 
-      - row: 3
+      - row: 5
         col: 2
         after: 2
+        key: 
+      - row: 4
+        col: 1
+        after: 0
         key: 
       - row: 4
         col: 2
@@ -662,49 +756,59 @@ MonoBehaviour:
     - id: level_020
       title: Window 10
       difficulty: 5
-      rows: 5
+      rows: 6
       cols: 6
       reward: 35
       pieces:
       - id: l020_p1
-        name: Chili
+        name: Honey
         shape: o4
         row: 0
-        col: 2
+        col: 3
       - id: l020_p2
-        name: Pearl
-        shape: l4
+        name: Fudge
+        shape: t5
+        row: 1
+        col: 1
+      - id: l020_p3
+        name: Peanut
+        shape: l3
         row: 2
         col: 0
-      - id: l020_p3
-        name: Socks
-        shape: i4v
-        row: 0
-        col: 1
       - id: l020_p4
-        name: Ribbon
-        shape: l4Top
-        row: 3
-        col: 2
+        name: Kiki
+        shape: t4
+        row: 0
+        col: 0
+      - id: l020_p5
+        name: Fig
+        shape: l5Top
+        row: 4
+        col: 1
+      - id: l020_p6
+        name: Cocoa
+        shape: p5
+        row: 2
+        col: 4
       blocked: []
       locked:
-      - row: 2
-        col: 0
-        after: 2
-        key: 
-      - row: 3
-        col: 0
+      - row: 4
+        col: 1
         after: 2
         key: 
       - row: 4
-        col: 0
+        col: 2
         after: 2
         key: 
-      - row: 0
-        col: 1
-        after: 0
+      - row: 4
+        col: 3
+        after: 2
         key: 
       - row: 1
+        col: 2
+        after: 0
+        key: 
+      - row: 2
         col: 1
         after: 0
         key: 
@@ -715,40 +819,45 @@ MonoBehaviour:
     - id: level_021
       title: Shelf 1
       difficulty: 3
-      rows: 4
+      rows: 5
       cols: 5
       reward: 25
       pieces:
       - id: l021_p1
-        name: Pearl
-        shape: i3h
-        row: 0
-        col: 1
-      - id: l021_p2
-        name: Socks
-        shape: i3v
-        row: 0
-        col: 0
-      - id: l021_p3
-        name: Ribbon
-        shape: l4Top
+        name: Peanut
+        shape: stair5
         row: 2
         col: 1
+      - id: l021_p2
+        name: Poppy
+        shape: j4
+        row: 0
+        col: 2
+      - id: l021_p3
+        name: Taco
+        shape: i4v
+        row: 0
+        col: 4
       - id: l021_p4
-        name: Jelly
-        shape: i4h
+        name: Muffin
+        shape: l4
+        row: 2
+        col: 0
+      - id: l021_p5
+        name: Tuna
+        shape: i3h
         row: 1
-        col: 1
+        col: 0
       blocked: []
       locked:
-      - row: 1
+      - row: 2
         col: 1
         after: 0
-        key: l021_p1
-      - row: 1
-        col: 2
+        key: l021_p5
+      - row: 3
+        col: 1
         after: 0
-        key: l021_p1
+        key: l021_p5
       trayWindow: 0
       zones: []
       spares: []
@@ -756,42 +865,52 @@ MonoBehaviour:
     - id: level_022
       title: Shelf 2
       difficulty: 4
-      rows: 5
-      cols: 5
+      rows: 6
+      cols: 6
       reward: 30
       pieces:
       - id: l022_p1
-        name: Socks
-        shape: l3
-        row: 0
-        col: 0
+        name: Taco
+        shape: z5
+        row: 3
+        col: 2
       - id: l022_p2
-        name: Ribbon
-        shape: l4
-        row: 0
+        name: Poppy
+        shape: l4Top
+        row: 2
         col: 2
       - id: l022_p3
-        name: Jelly
-        shape: j4
-        row: 1
-        col: 3
+        name: Pepper
+        shape: i3v
+        row: 3
+        col: 5
       - id: l022_p4
-        name: Pumpkin
-        shape: o4
-        row: 2
+        name: Berry
+        shape: z4
+        row: 4
+        col: 1
+      - id: l022_p5
+        name: Cocoa
+        shape: p5
+        row: 1
         col: 0
+      - id: l022_p6
+        name: Sunny
+        shape: t4
+        row: 0
+        col: 1
       blocked: []
       locked:
-      - row: 0
+      - row: 3
         col: 2
         after: 0
-        key: l022_p1
-      - row: 1
-        col: 2
+        key: l022_p3
+      - row: 3
+        col: 3
         after: 0
-        key: l022_p1
+        key: l022_p3
       - row: 1
-        col: 4
+        col: 0
         after: 2
         key: 
       trayWindow: 0
@@ -801,45 +920,55 @@ MonoBehaviour:
     - id: level_023
       title: Shelf 3
       difficulty: 4
-      rows: 5
-      cols: 5
+      rows: 6
+      cols: 6
       reward: 35
       pieces:
       - id: l023_p1
-        name: Ribbon
-        shape: j4
-        row: 0
-        col: 3
-      - id: l023_p2
-        name: Jelly
-        shape: s4
-        row: 2
-        col: 0
-      - id: l023_p3
-        name: Pumpkin
-        shape: i3h
+        name: Kiki
+        shape: l4
         row: 1
         col: 0
-      - id: l023_p4
-        name: Mango
-        shape: i3h
+      - id: l023_p2
+        name: Pickle
+        shape: l4Corner
+        row: 1
+        col: 1
+      - id: l023_p3
+        name: Mint
+        shape: s5
         row: 3
+        col: 1
+      - id: l023_p4
+        name: Sprout
+        shape: o4
+        row: 4
+        col: 3
+      - id: l023_p5
+        name: Poppy
+        shape: u5
+        row: 0
         col: 2
+      - id: l023_p6
+        name: Socks
+        shape: i4v
+        row: 0
+        col: 5
       blocked: []
       locked:
-      - row: 2
-        col: 1
+      - row: 3
+        col: 2
         after: 0
         key: l023_p4
-      - row: 2
+      - row: 3
+        col: 3
+        after: 0
+        key: l023_p4
+      - row: 0
         col: 2
         after: 0
         key: l023_p4
       - row: 0
-        col: 4
-        after: 0
-        key: l023_p4
-      - row: 1
         col: 4
         after: 0
         key: l023_p4
@@ -850,42 +979,52 @@ MonoBehaviour:
     - id: level_024
       title: Shelf 4
       difficulty: 5
-      rows: 5
+      rows: 6
       cols: 6
       reward: 25
       pieces:
       - id: l024_p1
-        name: Jelly
-        shape: l4Corner
+        name: Boba
+        shape: l3
         row: 2
-        col: 2
+        col: 1
       - id: l024_p2
-        name: Pumpkin
-        shape: l4
-        row: 0
-        col: 0
+        name: Dumpling
+        shape: t5
+        row: 1
+        col: 2
       - id: l024_p3
-        name: Mango
-        shape: i3v
-        row: 0
-        col: 4
-      - id: l024_p4
-        name: Fudge
-        shape: t4
+        name: Ribbon
+        shape: l5Top
         row: 0
         col: 1
+      - id: l024_p4
+        name: Pebble
+        shape: l4Corner
+        row: 0
+        col: 0
+      - id: l024_p5
+        name: Peach
+        shape: l4Corner
+        row: 4
+        col: 1
+      - id: l024_p6
+        name: Sesame
+        shape: s4
+        row: 3
+        col: 3
       blocked: []
       locked:
       - row: 0
         col: 1
         after: 0
-        key: l024_p3
+        key: l024_p1
       - row: 0
         col: 2
         after: 0
-        key: l024_p3
-      - row: 2
-        col: 2
+        key: l024_p1
+      - row: 1
+        col: 3
         after: 0
         key: 
       trayWindow: 0
@@ -895,51 +1034,66 @@ MonoBehaviour:
     - id: level_025
       title: Shelf 5
       difficulty: 5
-      rows: 4
-      cols: 5
+      rows: 6
+      cols: 7
       reward: 30
       pieces:
       - id: l025_p1
-        name: Pumpkin
-        shape: s4
-        row: 0
+        name: Sprout
+        shape: z4
+        row: 3
         col: 0
       - id: l025_p2
-        name: Mango
-        shape: z4
+        name: Peanut
+        shape: l4
         row: 1
         col: 2
       - id: l025_p3
-        name: Fudge
-        shape: o4
+        name: Ribbon
+        shape: j4
         row: 2
-        col: 0
+        col: 3
       - id: l025_p4
-        name: Pebble
-        shape: i3h
-        row: 3
-        col: 2
+        name: Toast
+        shape: s5
+        row: 0
+        col: 0
+      - id: l025_p5
+        name: Poppy
+        shape: l5
+        row: 2
+        col: 5
+      - id: l025_p6
+        name: Miso
+        shape: o4
+        row: 0
+        col: 3
+      - id: l025_p7
+        name: Taffy
+        shape: l3
+        row: 0
+        col: 5
       blocked: []
       locked:
       - row: 0
         col: 1
         after: 0
-        key: l025_p4
+        key: l025_p7
       - row: 0
         col: 2
         after: 0
-        key: l025_p4
+        key: l025_p7
+      - row: 2
+        col: 5
+        after: 0
+        key: l025_p7
+      - row: 3
+        col: 5
+        after: 0
+        key: l025_p7
       - row: 1
         col: 2
-        after: 0
-        key: l025_p4
-      - row: 1
-        col: 3
-        after: 0
-        key: l025_p4
-      - row: 2
-        col: 0
-        after: 1
+        after: 2
         key: 
       trayWindow: 0
       zones: []
@@ -948,30 +1102,35 @@ MonoBehaviour:
     - id: level_026
       title: Shelf 6
       difficulty: 3
-      rows: 5
-      cols: 6
+      rows: 6
+      cols: 5
       reward: 45
       pieces:
       - id: l026_p1
-        name: Mango
-        shape: t5
-        row: 0
-        col: 0
+        name: Cocoa
+        shape: z4
+        row: 2
+        col: 1
       - id: l026_p2
-        name: Fudge
-        shape: s4
-        row: 3
-        col: 0
+        name: Mango
+        shape: o4
+        row: 0
+        col: 1
       - id: l026_p3
         name: Pebble
-        shape: z4
-        row: 3
-        col: 3
+        shape: s4
+        row: 4
+        col: 1
       - id: l026_p4
-        name: Noodle
-        shape: i3h
+        name: Yuzu
+        shape: i4v
         row: 0
-        col: 2
+        col: 0
+      - id: l026_p5
+        name: Mint
+        shape: l4
+        row: 0
+        col: 3
       blocked: []
       locked: []
       trayWindow: 2
@@ -981,34 +1140,44 @@ MonoBehaviour:
     - id: level_027
       title: Shelf 7
       difficulty: 4
-      rows: 6
-      cols: 5
+      rows: 5
+      cols: 7
       reward: 50
       pieces:
       - id: l027_p1
-        name: Fudge
-        shape: l4
-        row: 1
+        name: Boba
+        shape: z4
+        row: 2
         col: 1
       - id: l027_p2
-        name: Pebble
+        name: Mimi
         shape: l4
         row: 2
         col: 0
       - id: l027_p3
-        name: Noodle
-        shape: i4v
+        name: Dumpling
+        shape: i5h
+        row: 1
+        col: 0
+      - id: l027_p4
+        name: Sunny
+        shape: z4
         row: 0
         col: 4
-      - id: l027_p4
-        name: Tuna
-        shape: i4h
-        row: 0
-        col: 0
+      - id: l027_p5
+        name: Cocoa
+        shape: o4
+        row: 2
+        col: 5
+      - id: l027_p6
+        name: Sesame
+        shape: l3
+        row: 3
+        col: 4
       blocked: []
       locked:
-      - row: 0
-        col: 0
+      - row: 3
+        col: 4
         after: 2
         key: 
       trayWindow: 2
@@ -1019,37 +1188,47 @@ MonoBehaviour:
       title: Shelf 8
       difficulty: 5
       rows: 6
-      cols: 6
+      cols: 7
       reward: 35
       pieces:
       - id: l028_p1
-        name: Pebble
-        shape: o4
+        name: Latte
+        shape: stair5
         row: 0
-        col: 4
+        col: 2
       - id: l028_p2
-        name: Noodle
-        shape: l4Corner
-        row: 0
-        col: 0
-      - id: l028_p3
-        name: Tuna
-        shape: j4
+        name: Olive
+        shape: i5h
         row: 3
         col: 2
+      - id: l028_p3
+        name: Tuna
+        shape: t4
+        row: 0
+        col: 3
       - id: l028_p4
-        name: Boba
+        name: Miso
         shape: j4
-        row: 2
+        row: 0
+        col: 5
+      - id: l028_p5
+        name: Button
+        shape: t5
+        row: 1
         col: 0
+      - id: l028_p6
+        name: Fudge
+        shape: l4Top
+        row: 4
+        col: 3
       blocked: []
       locked:
-      - row: 2
-        col: 1
+      - row: 4
+        col: 3
         after: 0
         key: l028_p1
-      - row: 3
-        col: 1
+      - row: 4
+        col: 4
         after: 0
         key: l028_p1
       trayWindow: 2
@@ -1059,38 +1238,53 @@ MonoBehaviour:
     - id: level_029
       title: Shelf 9
       difficulty: 5
-      rows: 5
-      cols: 5
+      rows: 7
+      cols: 7
       reward: 40
       pieces:
       - id: l029_p1
-        name: Noodle
-        shape: z4
-        row: 0
-        col: 0
+        name: Bean
+        shape: l5Top
+        row: 2
+        col: 1
       - id: l029_p2
-        name: Tuna
+        name: Biscuit
+        shape: l4Top
+        row: 3
+        col: 1
+      - id: l029_p3
+        name: Fig
+        shape: l4Top
+        row: 1
+        col: 3
+      - id: l029_p4
+        name: Mango
         shape: s4
         row: 3
-        col: 0
-      - id: l029_p3
-        name: Boba
-        shape: i3h
-        row: 0
-        col: 2
-      - id: l029_p4
-        name: Sesame
-        shape: i3h
+        col: 4
+      - id: l029_p5
+        name: Socks
+        shape: z5
+        row: 4
+        col: 1
+      - id: l029_p6
+        name: Peanut
+        shape: l5
         row: 2
         col: 0
+      - id: l029_p7
+        name: Berry
+        shape: o4
+        row: 0
+        col: 1
       blocked: []
       locked:
-      - row: 2
-        col: 0
+      - row: 0
+        col: 1
         after: 2
         key: 
-      - row: 0
-        col: 2
+      - row: 2
+        col: 0
         after: 0
         key: 
       trayWindow: 3
@@ -1100,46 +1294,61 @@ MonoBehaviour:
     - id: level_030
       title: Shelf 10
       difficulty: 6
-      rows: 5
-      cols: 6
+      rows: 7
+      cols: 7
       reward: 45
       pieces:
       - id: l030_p1
-        name: Tuna
-        shape: l4Top
-        row: 1
-        col: 2
+        name: Poppy
+        shape: z5
+        row: 4
+        col: 3
       - id: l030_p2
         name: Boba
-        shape: p5
-        row: 0
-        col: 0
+        shape: stair5
+        row: 4
+        col: 2
       - id: l030_p3
-        name: Sesame
+        name: Sprout
         shape: l4Corner
         row: 2
-        col: 0
+        col: 2
       - id: l030_p4
-        name: Peanut
-        shape: i4h
+        name: Fig
+        shape: o4
         row: 0
         col: 2
+      - id: l030_p5
+        name: Sunny
+        shape: z4
+        row: 5
+        col: 0
+      - id: l030_p6
+        name: Berry
+        shape: l5
+        row: 1
+        col: 5
+      - id: l030_p7
+        name: Kiki
+        shape: p5
+        row: 2
+        col: 0
       blocked: []
       locked:
-      - row: 0
-        col: 2
-        after: 0
-        key: l030_p1
-      - row: 0
-        col: 3
-        after: 0
-        key: l030_p1
       - row: 2
         col: 0
         after: 0
         key: l030_p1
-      - row: 3
-        col: 0
+      - row: 2
+        col: 1
+        after: 0
+        key: l030_p1
+      - row: 1
+        col: 5
+        after: 0
+        key: l030_p1
+      - row: 2
+        col: 5
         after: 0
         key: l030_p1
       trayWindow: 2
@@ -1150,235 +1359,295 @@ MonoBehaviour:
       title: Cardboard 1
       difficulty: 4
       rows: 6
-      cols: 5
+      cols: 7
       reward: 50
       pieces:
       - id: l031_p1
-        name: Boba
+        name: Pudding
         shape: t4
+        row: 1
+        col: 1
+      - id: l031_p2
+        name: Jelly
+        shape: i5h
         row: 0
         col: 0
-      - id: l031_p2
-        name: Sesame
-        shape: o4
-        row: 1
-        col: 3
       - id: l031_p3
-        name: Peanut
-        shape: l5Top
-        row: 4
-        col: 0
+        name: Honey
+        shape: t5
+        row: 0
+        col: 4
       - id: l031_p4
-        name: Cookie
-        shape: l4Corner
+        name: Toast
+        shape: u5
         row: 2
-        col: 1
+        col: 4
+      - id: l031_p5
+        name: Tuna
+        shape: i4v
+        row: 2
+        col: 3
+      - id: l031_p6
+        name: Dumpling
+        shape: z5
+        row: 2
+        col: 0
       blocked: []
       locked: []
       trayWindow: 0
       zones:
       - row: 1
-        col: 3
-        piece: l031_p2
+        col: 1
+        piece: l031_p1
       - row: 1
-        col: 4
-        piece: l031_p2
+        col: 2
+        piece: l031_p1
       spares: []
       hearts: 0
     - id: level_032
       title: Cardboard 2
       difficulty: 5
-      rows: 6
-      cols: 6
+      rows: 7
+      cols: 7
       reward: 35
       pieces:
       - id: l032_p1
-        name: Sesame
+        name: Berry
+        shape: stair5
+        row: 2
+        col: 3
+      - id: l032_p2
+        name: Fig
+        shape: z5
+        row: 1
+        col: 3
+      - id: l032_p3
+        name: Mimi
+        shape: l4
+        row: 2
+        col: 2
+      - id: l032_p4
+        name: Miso
         shape: t5
         row: 0
         col: 0
-      - id: l032_p2
-        name: Peanut
-        shape: s4
-        row: 4
-        col: 0
-      - id: l032_p3
-        name: Cookie
-        shape: z4
-        row: 3
-        col: 2
-      - id: l032_p4
-        name: Cocoa
+      - id: l032_p5
+        name: Pepper
         shape: i3v
-        row: 1
-        col: 4
+        row: 3
+        col: 6
+      - id: l032_p6
+        name: Basil
+        shape: l5Top
+        row: 0
+        col: 2
+      - id: l032_p7
+        name: Pebble
+        shape: l4Top
+        row: 5
+        col: 3
       blocked: []
       locked:
       - row: 0
-        col: 1
+        col: 2
         after: 2
         key: 
       trayWindow: 0
       zones:
-      - row: 1
-        col: 4
-        piece: l032_p4
-      - row: 2
-        col: 4
-        piece: l032_p4
+      - row: 3
+        col: 6
+        piece: l032_p5
+      - row: 4
+        col: 6
+        piece: l032_p5
       spares: []
       hearts: 0
     - id: level_033
       title: Cardboard 3
       difficulty: 5
-      rows: 5
-      cols: 5
+      rows: 7
+      cols: 7
       reward: 40
       pieces:
       - id: l033_p1
-        name: Peanut
-        shape: l4Top
-        row: 0
-        col: 0
+        name: Clover
+        shape: l5
+        row: 3
+        col: 2
       - id: l033_p2
-        name: Cookie
-        shape: l4
-        row: 1
+        name: Pebble
+        shape: stair5
+        row: 4
         col: 3
       - id: l033_p3
-        name: Cocoa
-        shape: l4Corner
-        row: 3
-        col: 1
+        name: Ginger
+        shape: j4
+        row: 4
+        col: 0
       - id: l033_p4
-        name: Latte
-        shape: i4v
+        name: Noodle
+        shape: z5
+        row: 3
+        col: 3
+      - id: l033_p5
+        name: Dumpling
+        shape: p5
+        row: 0
+        col: 2
+      - id: l033_p6
+        name: Biscuit
+        shape: t5
         row: 1
         col: 0
+      - id: l033_p7
+        name: Basil
+        shape: stair5
+        row: 1
+        col: 4
       blocked: []
       locked:
-      - row: 0
-        col: 0
+      - row: 3
+        col: 2
         after: 0
-        key: l033_p4
-      - row: 0
-        col: 1
+        key: l033_p3
+      - row: 4
+        col: 2
         after: 0
-        key: l033_p4
+        key: l033_p3
       trayWindow: 0
       zones:
-      - row: 1
-        col: 0
-        piece: l033_p4
-      - row: 2
-        col: 0
-        piece: l033_p4
+      - row: 4
+        col: 1
+        piece: l033_p3
+      - row: 5
+        col: 1
+        piece: l033_p3
       spares: []
       hearts: 0
     - id: level_034
       title: Cardboard 4
       difficulty: 6
-      rows: 5
-      cols: 6
+      rows: 7
+      cols: 7
       reward: 45
       pieces:
       - id: l034_p1
-        name: Cookie
-        shape: o4
-        row: 1
-        col: 2
-      - id: l034_p2
         name: Cocoa
-        shape: s4
+        shape: s5
+        row: 2
+        col: 4
+      - id: l034_p2
+        name: Plum
+        shape: z5
         row: 3
         col: 1
       - id: l034_p3
-        name: Latte
+        name: Sprout
         shape: p5
         row: 1
-        col: 0
+        col: 2
       - id: l034_p4
-        name: Peach
-        shape: o4
-        row: 2
-        col: 4
-      - id: l034_p5
-        name: Berry
+        name: Toast
         shape: l3
+        row: 3
+        col: 0
+      - id: l034_p5
+        name: Jelly
+        shape: o4
+        row: 1
+        col: 0
+      - id: l034_p6
+        name: Peanut
+        shape: i5h
         row: 0
+        col: 0
+      - id: l034_p7
+        name: Pearl
+        shape: t5
+        row: 4
         col: 4
       blocked: []
       locked: []
       trayWindow: 3
       zones:
-      - row: 0
-        col: 4
-        piece: l034_p5
-      - row: 1
-        col: 4
-        piece: l034_p5
+      - row: 3
+        col: 0
+        piece: l034_p4
+      - row: 4
+        col: 0
+        piece: l034_p4
       spares: []
       hearts: 0
     - id: level_035
       title: Cardboard 5
       difficulty: 6
-      rows: 6
-      cols: 5
+      rows: 7
+      cols: 7
       reward: 50
       pieces:
       - id: l035_p1
-        name: Cocoa
-        shape: s4
+        name: Peach
+        shape: p5
         row: 4
         col: 0
       - id: l035_p2
-        name: Latte
-        shape: z4
-        row: 0
+        name: Pepper
+        shape: l4Top
+        row: 3
         col: 0
       - id: l035_p3
-        name: Peach
-        shape: i3h
-        row: 3
-        col: 0
+        name: Latte
+        shape: j4
+        row: 4
+        col: 2
       - id: l035_p4
-        name: Berry
-        shape: i3v
-        row: 3
-        col: 3
-      - id: l035_p5
-        name: Muffin
-        shape: i4v
+        name: Chili
+        shape: l4Corner
         row: 1
+        col: 0
+      - id: l035_p5
+        name: Ginger
+        shape: z5
+        row: 0
+        col: 1
+      - id: l035_p6
+        name: Cookie
+        shape: stair5
+        row: 1
+        col: 4
+      - id: l035_p7
+        name: Pudding
+        shape: l5
+        row: 3
         col: 4
       blocked: []
       locked:
-      - row: 1
+      - row: 3
         col: 4
         after: 0
-        key: l035_p3
-      - row: 2
-        col: 4
-        after: 0
-        key: l035_p3
+        key: l035_p4
       - row: 4
-        col: 1
+        col: 4
+        after: 0
+        key: l035_p4
+      - row: 4
+        col: 0
         after: 0
         key: 
       trayWindow: 0
       zones:
-      - row: 3
+      - row: 1
         col: 0
-        piece: l035_p3
-      - row: 3
-        col: 1
-        piece: l035_p3
-      - row: 3
-        col: 3
+        piece: l035_p4
+      - row: 2
+        col: 0
         piece: l035_p4
       - row: 4
         col: 3
-        piece: l035_p4
+        piece: l035_p3
+      - row: 5
+        col: 3
+        piece: l035_p3
       spares: []
       hearts: 0
     - id: level_036
@@ -1389,30 +1658,35 @@ MonoBehaviour:
       reward: 35
       pieces:
       - id: l036_p1
-        name: Latte
-        shape: i4v
-        row: 0
-        col: 0
-      - id: l036_p2
-        name: Peach
-        shape: i5h
-        row: 4
-        col: 0
-      - id: l036_p3
-        name: Berry
-        shape: i5h
-        row: 0
-        col: 1
-      - id: l036_p4
-        name: Muffin
-        shape: l4Top
-        row: 3
-        col: 3
-      - id: l036_p5
-        name: Dumpling
-        shape: l4Top
+        name: Cookie
+        shape: l5
         row: 1
         col: 1
+      - id: l036_p2
+        name: Pearl
+        shape: i5h
+        row: 5
+        col: 0
+      - id: l036_p3
+        name: Tuna
+        shape: l3
+        row: 2
+        col: 2
+      - id: l036_p4
+        name: Taco
+        shape: z5
+        row: 0
+        col: 1
+      - id: l036_p5
+        name: Mimi
+        shape: j4
+        row: 2
+        col: 4
+      - id: l036_p6
+        name: Button
+        shape: i3v
+        row: 1
+        col: 4
       blocked: []
       locked: []
       trayWindow: 0
@@ -1420,99 +1694,119 @@ MonoBehaviour:
       spares:
       - id: l036_s1
         name: Stray
-        shape: i3h
+        shape: o4
         row: 0
         col: 0
       hearts: 0
     - id: level_037
       title: Cardboard 7
       difficulty: 5
-      rows: 5
-      cols: 5
+      rows: 7
+      cols: 7
       reward: 40
       pieces:
       - id: l037_p1
-        name: Peach
+        name: Clover
         shape: z4
-        row: 3
-        col: 0
+        row: 5
+        col: 3
       - id: l037_p2
-        name: Berry
-        shape: t5
+        name: Maple
+        shape: j4
         row: 2
-        col: 2
-      - id: l037_p3
-        name: Muffin
-        shape: l5Top
-        row: 0
-        col: 0
-      - id: l037_p4
-        name: Dumpling
-        shape: t4
-        row: 1
-        col: 0
-      - id: l037_p5
-        name: Pudding
-        shape: i3v
-        row: 0
         col: 4
+      - id: l037_p3
+        name: Cookie
+        shape: l5Top
+        row: 2
+        col: 1
+      - id: l037_p4
+        name: Mint
+        shape: l5Top
+        row: 1
+        col: 3
+      - id: l037_p5
+        name: Plum
+        shape: o4
+        row: 3
+        col: 2
+      - id: l037_p6
+        name: Kiki
+        shape: s5
+        row: 0
+        col: 0
+      - id: l037_p7
+        name: Latte
+        shape: l4
+        row: 3
+        col: 1
       blocked: []
       locked: []
       trayWindow: 0
       zones:
-      - row: 0
-        col: 4
+      - row: 3
+        col: 2
         piece: l037_p5
-      - row: 1
-        col: 4
+      - row: 3
+        col: 3
         piece: l037_p5
       spares:
       - id: l037_s1
         name: Stray
-        shape: i3h
+        shape: l3
         row: 0
         col: 0
       hearts: 0
     - id: level_038
       title: Cardboard 8
       difficulty: 6
-      rows: 5
-      cols: 6
+      rows: 7
+      cols: 7
       reward: 45
       pieces:
       - id: l038_p1
-        name: Berry
-        shape: s4
+        name: Honey
+        shape: o4
+        row: 4
+        col: 0
+      - id: l038_p2
+        name: Pudding
+        shape: l5
         row: 3
         col: 2
-      - id: l038_p2
-        name: Muffin
-        shape: i3v
-        row: 0
-        col: 0
       - id: l038_p3
-        name: Dumpling
-        shape: i3v
+        name: Mint
+        shape: i5h
         row: 2
-        col: 5
-      - id: l038_p4
-        name: Pudding
-        shape: i3h
-        row: 2
-        col: 2
-      - id: l038_p5
-        name: Honey
-        shape: i4v
-        row: 0
         col: 1
+      - id: l038_p4
+        name: Ribbon
+        shape: s5
+        row: 3
+        col: 3
+      - id: l038_p5
+        name: Poppy
+        shape: l4
+        row: 4
+        col: 5
+      - id: l038_p6
+        name: Jelly
+        shape: i4h
+        row: 1
+        col: 2
+      - id: l038_p7
+        name: Biscuit
+        shape: l4Top
+        row: 0
+        col: 4
       blocked: []
       locked:
-      - row: 0
+      - row: 2
         col: 1
         after: 2
         key: 
-      - row: 1
-        col: 1
+      - row: 2
+        col: 2
         after: 2
         key: 
       trayWindow: 0
@@ -1520,7 +1814,7 @@ MonoBehaviour:
       spares:
       - id: l038_s1
         name: Stray
-        shape: l3
+        shape: i3v
         row: 0
         col: 0
       hearts: 0
@@ -1528,146 +1822,176 @@ MonoBehaviour:
       title: Cardboard 9
       difficulty: 6
       rows: 6
-      cols: 5
+      cols: 7
       reward: 50
       pieces:
       - id: l039_p1
-        name: Muffin
-        shape: l4Top
-        row: 4
-        col: 1
-      - id: l039_p2
-        name: Dumpling
-        shape: o4
-        row: 2
-        col: 0
-      - id: l039_p3
-        name: Pudding
-        shape: o4
-        row: 0
-        col: 0
-      - id: l039_p4
-        name: Honey
-        shape: j4
-        row: 0
-        col: 2
-      - id: l039_p5
-        name: Ginger
-        shape: i4v
+        name: Clover
+        shape: stair5
         row: 2
         col: 4
+      - id: l039_p2
+        name: Basil
+        shape: z5
+        row: 3
+        col: 2
+      - id: l039_p3
+        name: Pickle
+        shape: o4
+        row: 1
+        col: 1
+      - id: l039_p4
+        name: Biscuit
+        shape: stair5
+        row: 3
+        col: 1
+      - id: l039_p5
+        name: Boba
+        shape: z4
+        row: 1
+        col: 4
+      - id: l039_p6
+        name: Tuna
+        shape: l5
+        row: 2
+        col: 0
+      - id: l039_p7
+        name: Cookie
+        shape: l5Top
+        row: 0
+        col: 0
       blocked: []
       locked:
-      - row: 4
-        col: 1
-        after: 0
-        key: l039_p4
-      - row: 4
+      - row: 3
         col: 2
         after: 0
-        key: l039_p4
+        key: l039_p3
+      - row: 3
+        col: 3
+        after: 0
+        key: l039_p3
       trayWindow: 0
       zones: []
       spares:
       - id: l039_s1
         name: Stray
-        shape: i3v
+        shape: l3
         row: 0
         col: 0
       hearts: 0
     - id: level_040
       title: Cardboard 10
       difficulty: 7
-      rows: 6
-      cols: 6
+      rows: 7
+      cols: 8
       reward: 35
       pieces:
       - id: l040_p1
-        name: Dumpling
-        shape: o4
-        row: 0
-        col: 0
-      - id: l040_p2
-        name: Pudding
-        shape: o4
+        name: Muffin
+        shape: l4
         row: 4
-        col: 0
-      - id: l040_p3
-        name: Honey
-        shape: j4
-        row: 0
-        col: 4
-      - id: l040_p4
-        name: Ginger
-        shape: p5
-        row: 3
-        col: 2
-      - id: l040_p5
-        name: Basil
+        col: 6
+      - id: l040_p2
+        name: Maple
         shape: t4
+        row: 3
+        col: 4
+      - id: l040_p3
+        name: Miso
+        shape: z4
         row: 1
-        col: 2
+        col: 3
+      - id: l040_p4
+        name: Boba
+        shape: stair5
+        row: 0
+        col: 5
+      - id: l040_p5
+        name: Biscuit
+        shape: l4Top
+        row: 2
+        col: 1
+      - id: l040_p6
+        name: Ribbon
+        shape: l4Corner
+        row: 2
+        col: 0
+      - id: l040_p7
+        name: Yuzu
+        shape: z5
+        row: 4
+        col: 3
+      - id: l040_p8
+        name: Plum
+        shape: u5
+        row: 0
+        col: 0
       blocked: []
       locked:
-      - row: 3
-        col: 2
-        after: 0
-        key: l040_p2
-      - row: 3
+      - row: 4
         col: 3
         after: 0
-        key: l040_p2
+        key: l040_p3
+      - row: 4
+        col: 4
+        after: 0
+        key: l040_p3
       - row: 0
-        col: 5
+        col: 0
         after: 2
         key: 
       trayWindow: 0
       zones:
-      - row: 4
-        col: 0
-        piece: l040_p2
-      - row: 4
-        col: 1
-        piece: l040_p2
+      - row: 1
+        col: 3
+        piece: l040_p3
+      - row: 1
+        col: 4
+        piece: l040_p3
       spares:
       - id: l040_s1
         name: Stray
-        shape: i3h
+        shape: l3
         row: 0
         col: 0
       hearts: 0
     - id: level_041
       title: Moonlit 1
       difficulty: 5
-      rows: 5
-      cols: 5
+      rows: 6
+      cols: 7
       reward: 40
       pieces:
       - id: l041_p1
-        name: Pudding
-        shape: i4v
-        row: 0
-        col: 4
+        name: Waffle
+        shape: l4Corner
+        row: 3
+        col: 0
       - id: l041_p2
-        name: Honey
-        shape: i3h
-        row: 4
-        col: 0
-      - id: l041_p3
-        name: Ginger
-        shape: z4
-        row: 2
-        col: 0
-      - id: l041_p4
-        name: Basil
-        shape: i4h
-        row: 0
-        col: 0
-      - id: l041_p5
-        name: Taco
-        shape: l4
-        row: 2
+        name: Nori
+        shape: o4
+        row: 3
         col: 3
+      - id: l041_p3
+        name: Pumpkin
+        shape: l5
+        row: 0
+        col: 1
+      - id: l041_p4
+        name: Toast
+        shape: stair5
+        row: 1
+        col: 4
+      - id: l041_p5
+        name: Sesame
+        shape: o4
+        row: 0
+        col: 2
+      - id: l041_p6
+        name: Maple
+        shape: i5h
+        row: 5
+        col: 0
       blocked: []
       locked: []
       trayWindow: 0
@@ -1677,45 +2001,55 @@ MonoBehaviour:
     - id: level_042
       title: Moonlit 2
       difficulty: 6
-      rows: 5
-      cols: 6
+      rows: 7
+      cols: 7
       reward: 45
       pieces:
       - id: l042_p1
-        name: Honey
+        name: Cookie
         shape: l5
-        row: 0
-        col: 0
-      - id: l042_p2
-        name: Ginger
-        shape: l4Top
         row: 1
-        col: 1
+        col: 3
+      - id: l042_p2
+        name: Poppy
+        shape: t4
+        row: 3
+        col: 4
       - id: l042_p3
-        name: Basil
-        shape: j4
-        row: 0
+        name: Pudding
+        shape: u5
+        row: 1
         col: 4
       - id: l042_p4
-        name: Taco
-        shape: i4h
-        row: 0
-        col: 1
-      - id: l042_p5
-        name: Mimi
-        shape: l4Corner
-        row: 2
+        name: Kiki
+        shape: l4
+        row: 3
         col: 2
+      - id: l042_p5
+        name: Button
+        shape: t4
+        row: 0
+        col: 4
+      - id: l042_p6
+        name: Pepper
+        shape: z5
+        row: 0
+        col: 0
+      - id: l042_p7
+        name: Latte
+        shape: i5h
+        row: 6
+        col: 0
       blocked: []
       locked:
-      - row: 0
+      - row: 6
         col: 0
         after: 0
-        key: l042_p4
-      - row: 1
-        col: 0
+        key: l042_p5
+      - row: 6
+        col: 1
         after: 0
-        key: l042_p4
+        key: l042_p5
       trayWindow: 0
       zones: []
       spares: []
@@ -1723,35 +2057,45 @@ MonoBehaviour:
     - id: level_043
       title: Moonlit 3
       difficulty: 6
-      rows: 6
-      cols: 5
+      rows: 7
+      cols: 7
       reward: 50
       pieces:
       - id: l043_p1
-        name: Ginger
-        shape: t4
-        row: 4
+        name: Latte
+        shape: l5Top
+        row: 1
         col: 2
       - id: l043_p2
-        name: Basil
-        shape: p5
-        row: 1
-        col: 3
+        name: Ribbon
+        shape: s5
+        row: 3
+        col: 4
       - id: l043_p3
-        name: Taco
-        shape: o4
-        row: 2
-        col: 0
-      - id: l043_p4
-        name: Mimi
-        shape: z4
+        name: Tuna
+        shape: j4
         row: 4
-        col: 0
+        col: 2
+      - id: l043_p4
+        name: Honey
+        shape: stair5
+        row: 1
+        col: 1
       - id: l043_p5
-        name: Kiki
-        shape: s4
+        name: Lulu
+        shape: i4h
         row: 0
         col: 1
+      - id: l043_p6
+        name: Clover
+        shape: t4
+        row: 5
+        col: 0
+      - id: l043_p7
+        name: Maple
+        shape: z4
+        row: 3
+        col: 0
       blocked: []
       locked: []
       trayWindow: 3
@@ -1761,138 +2105,178 @@ MonoBehaviour:
     - id: level_044
       title: Moonlit 4
       difficulty: 7
-      rows: 6
-      cols: 6
+      rows: 7
+      cols: 8
       reward: 35
       pieces:
       - id: l044_p1
-        name: Basil
-        shape: i4h
-        row: 4
+        name: Waffle
+        shape: l5Top
+        row: 5
         col: 0
       - id: l044_p2
-        name: Taco
-        shape: z4
-        row: 0
+        name: Muffin
+        shape: o4
+        row: 3
         col: 0
       - id: l044_p3
-        name: Mimi
-        shape: i3v
-        row: 0
-        col: 5
-      - id: l044_p4
-        name: Kiki
-        shape: i3h
-        row: 3
+        name: Cocoa
+        shape: stair5
+        row: 2
         col: 2
-      - id: l044_p5
-        name: Lulu
-        shape: s4
+      - id: l044_p4
+        name: Pearl
+        shape: z4
         row: 1
         col: 2
+      - id: l044_p5
+        name: Pepper
+        shape: l5
+        row: 2
+        col: 5
+      - id: l044_p6
+        name: Miso
+        shape: p5
+        row: 3
+        col: 6
+      - id: l044_p7
+        name: Noodle
+        shape: stair5
+        row: 0
+        col: 5
+      - id: l044_p8
+        name: Tuna
+        shape: i4h
+        row: 6
+        col: 4
       blocked: []
       locked:
-      - row: 4
+      - row: 5
         col: 0
         after: 2
         key: 
       trayWindow: 0
       zones:
       - row: 3
-        col: 2
-        piece: l044_p4
+        col: 0
+        piece: l044_p2
       - row: 3
-        col: 3
-        piece: l044_p4
+        col: 1
+        piece: l044_p2
       spares: []
       hearts: 3
     - id: level_045
       title: Moonlit 5
       difficulty: 7
-      rows: 5
-      cols: 5
+      rows: 8
+      cols: 7
       reward: 40
       pieces:
       - id: l045_p1
-        name: Taco
-        shape: o4
-        row: 2
-        col: 1
-      - id: l045_p2
-        name: Mimi
-        shape: l4Corner
-        row: 0
-        col: 0
-      - id: l045_p3
-        name: Kiki
-        shape: i4v
+        name: Pickle
+        shape: stair5
         row: 0
         col: 4
-      - id: l045_p4
-        name: Lulu
-        shape: l4
+      - id: l045_p2
+        name: Honey
+        shape: z4
         row: 2
-        col: 0
-      - id: l045_p5
-        name: Yuzu
-        shape: i3v
-        row: 1
         col: 3
+      - id: l045_p3
+        name: Tuna
+        shape: t5
+        row: 2
+        col: 1
+      - id: l045_p4
+        name: Biscuit
+        shape: o4
+        row: 4
+        col: 3
+      - id: l045_p5
+        name: Sprout
+        shape: l5
+        row: 1
+        col: 0
+      - id: l045_p6
+        name: Pumpkin
+        shape: l4Top
+        row: 0
+        col: 1
+      - id: l045_p7
+        name: Toast
+        shape: z5
+        row: 5
+        col: 0
+      - id: l045_p8
+        name: Olive
+        shape: j4
+        row: 4
+        col: 4
       blocked: []
       locked:
       - row: 0
         col: 4
         after: 0
-        key: l045_p5
+        key: l045_p4
       - row: 1
         col: 4
         after: 0
-        key: l045_p5
+        key: l045_p4
       trayWindow: 0
       zones: []
       spares:
       - id: l045_s1
         name: Stray
-        shape: i3h
+        shape: i3v
         row: 0
         col: 0
       hearts: 2
     - id: level_046
       title: Moonlit 6
       difficulty: 5
-      rows: 5
+      rows: 7
       cols: 6
       reward: 55
       pieces:
       - id: l046_p1
-        name: Mimi
+        name: Ginger
+        shape: i3v
+        row: 3
+        col: 3
+      - id: l046_p2
+        name: Jelly
+        shape: j4
+        row: 3
+        col: 1
+      - id: l046_p3
+        name: Poppy
         shape: j4
         row: 2
-        col: 4
-      - id: l046_p2
-        name: Kiki
-        shape: s5
-        row: 1
-        col: 3
-      - id: l046_p3
-        name: Lulu
-        shape: u5
-        row: 0
         col: 0
       - id: l046_p4
-        name: Yuzu
-        shape: i4h
-        row: 4
-        col: 0
+        name: Clover
+        shape: z5
+        row: 0
+        col: 1
       - id: l046_p5
-        name: Mochi
-        shape: z4
+        name: Fig
+        shape: l5
         row: 2
+        col: 4
+      - id: l046_p6
+        name: Mango
+        shape: i5h
+        row: 6
         col: 0
+      - id: l046_p7
+        name: Honey
+        shape: p5
+        row: 0
+        col: 4
       blocked: []
       locked:
-      - row: 1
-        col: 4
+      - row: 6
+        col: 0
         after: 2
         key: 
       trayWindow: 0
@@ -1902,43 +2286,58 @@ MonoBehaviour:
     - id: level_047
       title: Moonlit 7
       difficulty: 6
-      rows: 6
-      cols: 6
+      rows: 7
+      cols: 7
       reward: 60
       pieces:
       - id: l047_p1
-        name: Kiki
-        shape: l4Top
+        name: Sesame
+        shape: l3
         row: 1
-        col: 2
+        col: 0
       - id: l047_p2
-        name: Lulu
-        shape: i4v
-        row: 0
+        name: Fig
+        shape: l5
+        row: 3
         col: 0
       - id: l047_p3
-        name: Yuzu
-        shape: i5h
-        row: 4
-        col: 0
-      - id: l047_p4
-        name: Mochi
-        shape: l4
-        row: 0
-        col: 1
-      - id: l047_p5
-        name: Pickle
+        name: Button
         shape: i4h
+        row: 6
+        col: 2
+      - id: l047_p4
+        name: Pudding
+        shape: o4
+        row: 4
+        col: 4
+      - id: l047_p5
+        name: Mimi
+        shape: stair5
+        row: 3
+        col: 1
+      - id: l047_p6
+        name: Noodle
+        shape: s4
+        row: 2
+        col: 2
+      - id: l047_p7
+        name: Muffin
+        shape: l5
+        row: 0
+        col: 5
+      - id: l047_p8
+        name: Sunny
+        shape: s5
         row: 0
         col: 2
       blocked: []
       locked:
       - row: 0
-        col: 2
+        col: 3
         after: 0
         key: l047_p1
       - row: 0
-        col: 3
+        col: 4
         after: 0
         key: l047_p1
       trayWindow: 3
@@ -1948,92 +2347,122 @@ MonoBehaviour:
     - id: level_048
       title: Moonlit 8
       difficulty: 7
-      rows: 6
-      cols: 7
+      rows: 7
+      cols: 8
       reward: 45
       pieces:
       - id: l048_p1
-        name: Lulu
-        shape: i4v
-        row: 0
-        col: 6
-      - id: l048_p2
-        name: Yuzu
-        shape: o4
+        name: Sprout
+        shape: j4
         row: 2
         col: 4
+      - id: l048_p2
+        name: Berry
+        shape: p5
+        row: 0
+        col: 5
       - id: l048_p3
-        name: Mochi
+        name: Cocoa
         shape: l5Top
-        row: 0
-        col: 1
+        row: 5
+        col: 3
       - id: l048_p4
-        name: Pickle
-        shape: l5Top
-        row: 4
-        col: 0
+        name: Honey
+        shape: t4
+        row: 2
+        col: 2
       - id: l048_p5
-        name: Bean
-        shape: l5
-        row: 0
+        name: Tuna
+        shape: z4
+        row: 3
+        col: 1
+      - id: l048_p6
+        name: Mochi
+        shape: stair5
+        row: 3
+        col: 0
+      - id: l048_p7
+        name: Waffle
+        shape: p5
+        row: 3
+        col: 6
+      - id: l048_p8
+        name: Boba
+        shape: i5h
+        row: 6
         col: 0
       blocked: []
       locked: []
       trayWindow: 0
       zones:
-      - row: 0
-        col: 6
+      - row: 2
+        col: 5
         piece: l048_p1
-      - row: 1
-        col: 6
+      - row: 3
+        col: 5
         piece: l048_p1
       spares:
       - id: l048_s1
         name: Stray
-        shape: i3v
+        shape: i3h
         row: 0
         col: 0
       hearts: 3
     - id: level_049
       title: Moonlit 9
       difficulty: 7
-      rows: 5
-      cols: 6
+      rows: 7
+      cols: 8
       reward: 50
       pieces:
       - id: l049_p1
-        name: Yuzu
-        shape: stair5
-        row: 0
-        col: 0
-      - id: l049_p2
-        name: Mochi
-        shape: t4
+        name: Fudge
+        shape: s5
         row: 3
+        col: 2
+      - id: l049_p2
+        name: Poppy
+        shape: t5
+        row: 2
         col: 0
       - id: l049_p3
-        name: Pickle
-        shape: s5
-        row: 2
-        col: 3
+        name: Chili
+        shape: l5Top
+        row: 1
+        col: 1
       - id: l049_p4
-        name: Bean
-        shape: p5
-        row: 0
-        col: 2
+        name: Dumpling
+        shape: s5
+        row: 4
+        col: 3
       - id: l049_p5
-        name: Nori
-        shape: o4
+        name: Pepper
+        shape: i5h
         row: 0
-        col: 4
+        col: 0
+      - id: l049_p6
+        name: Clover
+        shape: l4
+        row: 1
+        col: 5
+      - id: l049_p7
+        name: Bean
+        shape: l4Corner
+        row: 5
+        col: 5
+      - id: l049_p8
+        name: Taco
+        shape: p5
+        row: 1
+        col: 6
       blocked: []
       locked:
-      - row: 0
-        col: 4
+      - row: 1
+        col: 6
         after: 2
         key: 
-      - row: 1
-        col: 2
+      - row: 5
+        col: 5
         after: 0
         key: 
       trayWindow: 3
@@ -2043,61 +2472,76 @@ MonoBehaviour:
     - id: level_050
       title: Moonlit 10
       difficulty: 8
-      rows: 6
-      cols: 6
+      rows: 7
+      cols: 8
       reward: 55
       pieces:
       - id: l050_p1
-        name: Mochi
+        name: Clover
+        shape: s4
+        row: 2
+        col: 4
+      - id: l050_p2
+        name: Waffle
+        shape: t5
+        row: 0
+        col: 3
+      - id: l050_p3
+        name: Kiki
+        shape: p5
+        row: 0
+        col: 6
+      - id: l050_p4
+        name: Peanut
+        shape: l3
+        row: 1
+        col: 2
+      - id: l050_p5
+        name: Sprout
+        shape: l5
+        row: 0
+        col: 1
+      - id: l050_p6
+        name: Sunny
+        shape: l5Top
+        row: 4
+        col: 3
+      - id: l050_p7
+        name: Mango
         shape: u5
         row: 4
         col: 0
-      - id: l050_p2
-        name: Pickle
-        shape: l5Top
-        row: 0
-        col: 2
-      - id: l050_p3
-        name: Bean
-        shape: i4h
-        row: 3
-        col: 0
-      - id: l050_p4
-        name: Nori
-        shape: i4v
-        row: 1
-        col: 4
-      - id: l050_p5
-        name: Waffle
-        shape: l4Corner
-        row: 0
-        col: 0
+      - id: l050_p8
+        name: Fig
+        shape: l4Top
+        row: 5
+        col: 3
       blocked: []
       locked:
-      - row: 4
-        col: 0
-        after: 0
-        key: l050_p3
-      - row: 4
-        col: 2
-        after: 0
-        key: l050_p3
       - row: 0
-        col: 2
+        col: 4
         after: 0
-        key: l050_p3
-      - row: 0
+        key: l050_p4
+      - row: 1
         col: 3
         after: 0
-        key: l050_p3
+        key: l050_p4
+      - row: 0
+        col: 6
+        after: 0
+        key: l050_p4
+      - row: 0
+        col: 7
+        after: 0
+        key: l050_p4
       trayWindow: 0
       zones:
-      - row: 3
-        col: 0
-        piece: l050_p3
-      - row: 3
-        col: 1
-        piece: l050_p3
+      - row: 1
+        col: 2
+        piece: l050_p4
+      - row: 2
+        col: 2
+        piece: l050_p4
       spares:
       - id: l050_s1
         name: Stray
@@ -6264,29 +6708,29 @@ MonoBehaviour:
         hotspot: {x: 0.56, y: 0.7}
         size: {x: 0.3, y: 0.28}
         sortOrder: 5
-  sourceFingerprint: b0cf0d99ff703d6babdab499f90cd898
+  sourceFingerprint: 18fd037c75365fcd50014f27a25995f3
   roomBackgrounds:
-  - {fileID: 21300000, guid: 021220472a35be047929af3cd5241120, type: 3}
-  - {fileID: 21300000, guid: 5eb1d7ecfe5b87540b8e73806155635b, type: 3}
-  - {fileID: 21300000, guid: c6ce8586ccb53c84f8da0f9a83c0c28e, type: 3}
-  - {fileID: 21300000, guid: a274c658c8a72654885d329eee98a111, type: 3}
-  - {fileID: 21300000, guid: 1852f3d7da3ab114d971dddec695ee3a, type: 3}
-  - {fileID: 21300000, guid: 1a7e66e1ab16c9a40b8286164ee537f8, type: 3}
-  - {fileID: 21300000, guid: 8ad5cb6f809e8d347acb733d18816d8c, type: 3}
-  - {fileID: 21300000, guid: 95b2f71defc8c044eaf9220d1fba14f8, type: 3}
-  - {fileID: 21300000, guid: b2a75c919fa854448be976c5ddc8382c, type: 3}
-  - {fileID: 21300000, guid: c10d354ee6edd2b43b8a1709bcfb4aea, type: 3}
+  - {fileID: 21300000, guid: 584454aefd40caf44958837c992b0b01, type: 2}
+  - {fileID: 21300000, guid: ded8ee71baa2d58429de009adaffb17d, type: 2}
+  - {fileID: 21300000, guid: 7186c917c571d004980d79072d09d512, type: 2}
+  - {fileID: 21300000, guid: fb2bf6642851bad4fa0727a7fc10e98e, type: 2}
+  - {fileID: 21300000, guid: 4e658f2d123a87446aebfc6581b36ca3, type: 2}
+  - {fileID: 21300000, guid: 5451c2dd2f0feb54eac4448a17d8175f, type: 2}
+  - {fileID: 21300000, guid: 6296662bfd6f06f4d8365be141263b20, type: 2}
+  - {fileID: 21300000, guid: 9f2354b12114d794f9a945afd4f6912a, type: 2}
+  - {fileID: 21300000, guid: 2f5c518c18bec24468147ac51fa2f390, type: 2}
+  - {fileID: 21300000, guid: d7294d70c62eba044b15a7180cc42e3d, type: 2}
   roomThumbnails:
-  - {fileID: 21300000, guid: 021220472a35be047929af3cd5241120, type: 3}
-  - {fileID: 21300000, guid: 5eb1d7ecfe5b87540b8e73806155635b, type: 3}
-  - {fileID: 21300000, guid: c6ce8586ccb53c84f8da0f9a83c0c28e, type: 3}
-  - {fileID: 21300000, guid: a274c658c8a72654885d329eee98a111, type: 3}
-  - {fileID: 21300000, guid: 1852f3d7da3ab114d971dddec695ee3a, type: 3}
-  - {fileID: 21300000, guid: 1a7e66e1ab16c9a40b8286164ee537f8, type: 3}
-  - {fileID: 21300000, guid: 8ad5cb6f809e8d347acb733d18816d8c, type: 3}
-  - {fileID: 21300000, guid: 95b2f71defc8c044eaf9220d1fba14f8, type: 3}
-  - {fileID: 21300000, guid: b2a75c919fa854448be976c5ddc8382c, type: 3}
-  - {fileID: 21300000, guid: c10d354ee6edd2b43b8a1709bcfb4aea, type: 3}
+  - {fileID: 21300000, guid: c2589b03f3197494ca279b7c5c1bb7e7, type: 2}
+  - {fileID: 21300000, guid: 4b1ee4b324ddba64f9b97afcdbca4e58, type: 2}
+  - {fileID: 21300000, guid: d5e2b20a47a9b7947b97541bee0f61e8, type: 2}
+  - {fileID: 21300000, guid: 71acc06c6dc01b04096655b6d676cae5, type: 2}
+  - {fileID: 21300000, guid: bd24f95d7427fd5488a44c81db2f9d95, type: 2}
+  - {fileID: 21300000, guid: 3a6da0f0b2e170744b163134ad263896, type: 2}
+  - {fileID: 21300000, guid: b0b87dbae7eddb643a8656bd4ac96588, type: 2}
+  - {fileID: 21300000, guid: d2a1bacebaaaa7d42bc223370d3234af, type: 2}
+  - {fileID: 21300000, guid: 8adb73cba5b68294b815db854608b5a5, type: 2}
+  - {fileID: 21300000, guid: db2b91b35f2456b448166ce90a6220df, type: 2}
   decorations:
   - id: ch01_cloud_bed
     sprite: {fileID: 21300000, guid: e2301bec552057349a49afcee526efed, type: 2}
