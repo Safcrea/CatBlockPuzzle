@@ -33,6 +33,9 @@ namespace CatBlockPuzzle
         [Header("Testing")]
         [Tooltip("Testing only: every level and chapter is playable, ignoring the star gates. Untick for the normal flow. A build made with this ticked logs a warning.")]
         [SerializeField] private bool unlockAllLevels;
+        [Tooltip("Testing only: shows Previous / Next / Go-to-level buttons on the gameplay screen, in the Editor and in builds. Levels open as previews: no stars, coins or saved progress. A build made with this ticked logs a warning.")]
+        [SerializeField] private bool showLevelTestButtons;
+        [SerializeField] private LevelTestNavigator levelTestButtons;
 
         private bool systemPaused;
         private float timeScaleBeforePause = 1f;
@@ -42,6 +45,8 @@ namespace CatBlockPuzzle
         public bool HasReferenceUi => referenceUi != null;
         public bool IsPaused => systemPaused;
         public bool UnlockAllLevels => unlockAllLevels;
+        public bool ShowLevelTestButtons => showLevelTestButtons;
+        public int LevelCount => gameplayController != null ? gameplayController.LevelCount : 0;
         public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
         public int CurrentLevelNumber => gameplayController != null ? gameplayController.CurrentLevelNumber : 1;
         /// <summary>The number the player sees (keeps counting past the authored levels).</summary>
@@ -199,6 +204,7 @@ namespace CatBlockPuzzle
             Instance = this;
             Application.targetFrameRate = 60;
             if (home == null) home = GetComponent<HomeController>();
+            if (levelTestButtons != null) levelTestButtons.gameObject.SetActive(showLevelTestButtons);
             SoundManager.EnsureInstance();
         }
 
