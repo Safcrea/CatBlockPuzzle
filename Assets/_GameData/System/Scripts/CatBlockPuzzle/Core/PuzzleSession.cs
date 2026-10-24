@@ -31,6 +31,10 @@ namespace CatBlockPuzzle
         internal int comboCount;
         internal int bestCombo;
         internal int earnedStars;
+        /// <summary>Releases this attempt that landed a cat on the board (move-limit stars).</summary>
+        internal int drops;
+        /// <summary>This attempt starts with a free hint after repeated fails on the level.</summary>
+        internal bool freeHintPending;
         internal readonly LevelAttemptStats stats = new LevelAttemptStats();
 
         internal float boardWidth;
@@ -73,6 +77,8 @@ namespace CatBlockPuzzle
             comboCount = 0;
             bestCombo = 0;
             earnedStars = 0;
+            drops = 0;
+            freeHintPending = false;
             stats.Reset();
             drag = null;
             previewCells.Clear();

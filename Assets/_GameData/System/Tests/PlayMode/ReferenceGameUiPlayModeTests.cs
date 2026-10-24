@@ -18,18 +18,19 @@ namespace CatBlockPuzzle.Tests
         {
             var system = Screen("GameSystem");
             Invoke(system, "ShowGameplayPage");
-            Call("PreviewLevelForTesting", 0);
+            // Level 11 (60 seconds) is the first timed level; levels 1-10 keep three full stars.
+            Call("PreviewLevelForTesting", 10);
             yield return new WaitForSecondsRealtime(1.2f);
             var hud = (Component)Field("gameplayHud");
             var stars = (UnityEngine.UI.Image[])hud.GetType().GetField("progressStars", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(hud);
-            SetField("levelRemainingSeconds", 90.5f);
-            SetField("lastTimerSecond", 91);
+            SetField("levelRemainingSeconds", 50.5f);
+            SetField("lastTimerSecond", 51);
             Call("UpdateTimerDisplay");
             Assert.That(stars[2].type, Is.EqualTo(UnityEngine.UI.Image.Type.Filled));
             Assert.That(stars[0].fillAmount, Is.EqualTo(1f));
             float before = stars[2].fillAmount;
             yield return new WaitForSecondsRealtime(.1f);
-            Assert.That(Field("lastTimerSecond"), Is.EqualTo(91), "This must update before the timer label changes.");
+            Assert.That(Field("lastTimerSecond"), Is.EqualTo(51), "This must update before the timer label changes.");
             Assert.That(stars[2].fillAmount, Is.LessThan(before));
             Invoke(system, "OpenPause");
             float paused = stars[2].fillAmount;
@@ -158,7 +159,7 @@ namespace CatBlockPuzzle.Tests
         [UnityTest]
         public IEnumerator Freeze_PreservesPieceInteractionPausesExpiresAndResetsOnRestart()
         {
-            var system=Screen("GameSystem");Invoke(system,"ShowGameplayPage");Call("PreviewLevelForTesting",4);yield return new WaitForSecondsRealtime(1.2f);
+            var system=Screen("GameSystem");Invoke(system,"ShowGameplayPage");Call("PreviewLevelForTesting",10);yield return new WaitForSecondsRealtime(1.2f);
             SetField("freezeDurationSeconds",.35f);
             var hud=(Component)Field("gameplayHud");
             var button=(UnityEngine.UI.Button)hud.GetType().GetField("freezeButton",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
@@ -204,12 +205,13 @@ namespace CatBlockPuzzle.Tests
             Assert.That(freeze.gameObject.activeSelf, Is.False);
             Assert.That(Invoke(system, "TryUseHintPowerUp"), Is.EqualTo(false));
             Assert.That(Invoke(system, "TryUseFreezePowerUp"), Is.EqualTo(false));
-            foreach (int index in new[] { 2, 4 })
+            // Freeze waits for level 11, the first level with a timer.
+            foreach (int index in new[] { 2, 10 })
             {
                 Call("PreviewLevelForTesting", index);
                 yield return new WaitForSecondsRealtime(1.2f);
                 Assert.That(hint.gameObject.activeSelf, Is.True);
-                Assert.That(freeze.gameObject.activeSelf, Is.EqualTo(index == 4));
+                Assert.That(freeze.gameObject.activeSelf, Is.EqualTo(index == 10));
                 Assert.That(Field("timerRunning"), Is.EqualTo(false));
                 Assert.That(Field("inputLocked"), Is.EqualTo(true));
                 // Guided introduction: dim, icon flies to the button, then a hand points at it.
@@ -221,7 +223,7 @@ namespace CatBlockPuzzle.Tests
                     yield return new WaitForSecondsRealtime(.1f);
                 Assert.That(hand.gameObject.activeSelf, Is.True, "The hand should point at the unlocked power-up.");
                 Assert.That(Field("timerRunning"), Is.EqualTo(false));
-                var taught = index == 4 ? freeze : hint;
+                var taught = index == 10 ? freeze : hint;
                 taught.onClick.Invoke();
                 yield return new WaitForSecondsRealtime(.6f);
                 Assert.That(Field("timerRunning"), Is.EqualTo(true));
@@ -230,9 +232,9 @@ namespace CatBlockPuzzle.Tests
                 Assert.That(Game.GetType().GetProperty("IsPowerUpTutorialOpen").GetValue(Game), Is.EqualTo(false));
             }
             Invoke(system, "LoadPreviousLevel");
-            Assert.That(Game.GetType().GetProperty("CurrentLevelNumber").GetValue(Game), Is.EqualTo(4));
+            Assert.That(Game.GetType().GetProperty("CurrentLevelNumber").GetValue(Game), Is.EqualTo(10));
             Invoke(system, "LoadNextLevel");
-            Assert.That(Game.GetType().GetProperty("CurrentLevelNumber").GetValue(Game), Is.EqualTo(5));
+            Assert.That(Game.GetType().GetProperty("CurrentLevelNumber").GetValue(Game), Is.EqualTo(11));
             Assert.That(Field("levelNavigationTesting"), Is.EqualTo(true));
         }
 

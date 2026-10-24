@@ -24,7 +24,8 @@ namespace CatBlockPuzzle.Tests
         {
             PlayerPrefs.SetString("CatBlockPuzzle.DailyReward.State.v1", "{\"version\":1,\"hintCount\":0,\"freezeCount\":0}");
             Invoke(SystemScreen, "ShowGameplayPage");
-            Call("PreviewLevelForTesting", 4);
+            // Level 11: the first ten levels have no timer and no Freeze.
+            Call("PreviewLevelForTesting", 10);
             yield return new WaitForSecondsRealtime(1.2f);
             Invoke(Hud, "RefreshPowerUpCounts");
         }

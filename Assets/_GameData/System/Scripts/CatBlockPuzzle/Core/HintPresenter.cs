@@ -40,7 +40,7 @@ namespace CatBlockPuzzle
             for (int i = 0; i < pieces.Count; i++)
             {
                 PieceState state = pieces[i];
-                if (state.Definition.IsSpare) continue;
+                if (state.Definition.IsSpare || state.Definition.IsFixed) continue;
                 if (locks.BlocksSolution(state.Definition)) continue;
                 if (!state.Placed && state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
                 if (!state.Placed || state.Row != state.Definition.SolutionRow || state.Col != state.Definition.SolutionCol)

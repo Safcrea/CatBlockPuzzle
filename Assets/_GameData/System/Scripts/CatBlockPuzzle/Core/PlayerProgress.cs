@@ -60,7 +60,7 @@ namespace CatBlockPuzzle
             LevelDefinition activeLevel = session.activeLevel;
             DifficultyProfile profile = DifficultyProfile.For(activeLevel, session.levelIndex);
             float duration = profile.DurationSeconds;
-            session.earnedStars = profile.Stars(remainingSeconds);
+            session.earnedStars = profile.Stars(activeLevel, session.levelNumber, remainingSeconds, session.drops);
             int previousBest = GetBestStars(activeLevel.Id);
             int best = CatPuzzleResultCalculator.ClampStars(Mathf.Max(previousBest, session.earnedStars));
             if (session.levelNavigationTesting)

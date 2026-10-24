@@ -19,6 +19,9 @@ namespace CatBlockPuzzle
         public const string ColourZones = "ColourZones";
         public const string SpareCats = "SpareCats";
         public const string Hearts = "Hearts";
+        public const string FixedCat = "FixedCat";
+        public const string Fog = "Fog";
+        public const string Moves = "Moves";
 
         private readonly PuzzleSession session;
         private GameObject overlay;
@@ -56,6 +59,15 @@ namespace CatBlockPuzzle
             if (level.HasHearts)
                 yield return Show(Hearts, "New: Mistake hearts!", HeartArt.Heart,
                     "You have " + level.Hearts + " hearts.\nA wrong drop costs one heart.\nLose them all and the level ends.");
+            if (level.HasFixedPieces)
+                yield return Show(FixedCat, "New: A napping cat!", BoardMechanicArt.Pin,
+                    "This cat is already napping in its spot.\nBuild around it!");
+            if (level.HasFog)
+                yield return Show(Fog, "New: Foggy spots!", BoardMechanicArt.Cloud,
+                    "Foggy spots hide part of the board.\nPlace a cat next to them\nto clear the fog.");
+            if (level.HasMoves)
+                yield return Show(Moves, "New: Drop limit!", Assets.starSprite,
+                    "Fewer drops, more stars!\nSolve it in " + level.Moves + " drops for 3 stars.");
             if (level.HasTrayWindow)
                 yield return Show(Shelf, "New: Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
                     "Only " + level.TrayWindow + " cats fit on the shelf.\nPlace one and the next arrives,\nso plan the order!");

@@ -85,7 +85,8 @@ namespace CatBlockPuzzle
 
         public bool BeginPieceDrag(PieceState state, PointerEventData eventData)
         {
-            if (state == null || eventData == null || inputLocked || session.levelFailed || gates.ResultScreenOpen ||
+            // A fixed cat is settled in its spot for the whole level.
+            if (state == null || state.Definition.IsFixed || eventData == null || inputLocked || session.levelFailed || gates.ResultScreenOpen ||
                 (Gate != null && !Gate.TutorialAllowsPickup(state)))
             {
                 return false;

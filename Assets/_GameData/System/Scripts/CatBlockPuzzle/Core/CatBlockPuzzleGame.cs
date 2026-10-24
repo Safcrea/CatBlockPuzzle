@@ -67,6 +67,9 @@ namespace CatBlockPuzzle
         private LevelFlowController flow;
         private MechanicIntroPresenter intro;
         private MistakeHearts hearts;
+        private FogController fog;
+        private DropCounter drops;
+        private GameplayToast toast;
 
         // ------------------------------------------------------------------ scene bindings
 
@@ -121,6 +124,8 @@ namespace CatBlockPuzzle
         internal PreparedLevelLoader Loader => loader;
         internal ThemePresenter Theme => theme;
         internal LevelFlowController Flow => flow;
+        internal FogController Fog => fog;
+        internal GameplayToast Toast => toast;
         internal FxSpawner Fx => fx;
 
         /// <summary>Builds the service graph once. Safe in Edit Mode, where the authoring tools need it.</summary>
@@ -153,7 +158,8 @@ namespace CatBlockPuzzle
             mood = new CatMoodPresenter(this, session, settings, gates);
             locks = new CellLockController(this, session, settings, mood, haptics);
             zones = new CellZoneController(this, session, mood);
-            board = new BoardController(this, session, space, pieceLayout, tray, settings, mood, locks, zones);
+            fog = new FogController(this, session, settings);
+            board = new BoardController(this, session, space, pieceLayout, tray, settings, mood, locks, zones, fog);
             combo = new ComboTracker(this, session, fx, space, settings);
             feedback = new PlacementFeedback(this, session, fx, haptics, space, board, mood, combo, settings);
             tip = new MovePieceTip(this, session, space, board, settings);
@@ -167,8 +173,10 @@ namespace CatBlockPuzzle
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this);
             intro = new MechanicIntroPresenter(this, session);
             hearts = new MistakeHearts(this, session, settings, haptics);
+            drops = new DropCounter(this, session);
+            toast = new GameplayToast(this);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
-                progress, combo, fx, haptics, mood, gates, this, intro, hearts);
+                progress, combo, fx, haptics, mood, gates, this, intro, hearts, fog, drops, toast);
             composed = true;
         }
 

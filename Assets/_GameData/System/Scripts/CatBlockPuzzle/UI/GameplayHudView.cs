@@ -101,6 +101,8 @@ namespace CatBlockPuzzle
         public bool IsPowerUpUnlocked(PowerUpKind kind)
         {
             int level = GameSystem.Instance != null ? GameSystem.Instance.DisplayLevelNumber : 1;
+            // Untimed levels have no clock to freeze, so Freeze first appears (and is taught) on the first timed level.
+            if (kind == PowerUpKind.Freeze && DifficultyProfile.IsUntimed(level)) return false;
             return level >= Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : freezeUnlockLevel);
         }
 

@@ -20,12 +20,15 @@ namespace CatBlockPuzzle
         private readonly PieceLayout pieceLayout;
         private readonly TrayLayout tray;
         private readonly PlayerSettings settings;
-        private readonly CatMoodPresenter mood;
         private readonly CellLockController locks;
         private readonly CellZoneController zones;
+        private readonly FogController fog;
 
-        public BoardController(IGameplayContext context, PuzzleSession session, CanvasSpace space, PieceLayout pieceLayout, TrayLayout tray, PlayerSettings settings, CatMoodPresenter mood, CellLockController locks, CellZoneController zones) : base(context)
+        private const string SettledBadgeName = "Settled Badge";
+
+        public BoardController(IGameplayContext context, PuzzleSession session, CanvasSpace space, PieceLayout pieceLayout, TrayLayout tray, PlayerSettings settings, CatMoodPresenter mood, CellLockController locks, CellZoneController zones, FogController fog) : base(context)
         {
+            this.fog = fog;
             this.locks = locks;
             this.zones = zones;
             this.session = session;
@@ -33,7 +36,6 @@ namespace CatBlockPuzzle
             this.pieceLayout = pieceLayout;
             this.tray = tray;
             this.settings = settings;
-            this.mood = mood;
         }
 
         private LevelDefinition activeLevel => session.activeLevel;
@@ -161,11 +163,12 @@ namespace CatBlockPuzzle
                 bool blocked = !cell.active && activeLevel.BlockedCells.Contains(new Vector2Int(cell.row, cell.col));
                 if (blocked)
                 {
-                    // A sleeping cat already owns this cell: it pops in with the board but never accepts a piece.
-                    cell.image.sprite = mood.Portrait(CatMood.Neutral, cell.row * activeLevel.Cols + cell.col);
+                    // A cat food bowl sits in this grid slot: it pops in with the board but is not a board cell.
+                    cell.image.sprite = BoardMechanicArt.Bowl;
                     cell.image.type = Image.Type.Simple;
                     cell.image.preserveAspect = true;
                     cell.image.color = Color.white;
+                    cell.image.raycastTarget = false;
                     rect.localScale = Vector3.zero;
                     boardRevealCells.Add(new BoardRevealCell(rect, cell.row + cell.col));
                 }
@@ -189,6 +192,64 @@ namespace CatBlockPuzzle
             }
             locks.Layout();
             zones.Layout();
+            fog.Layout();
+        }
+
+        /// <summary>
+        /// Puts every fixed cat on its solution spot, off the shelf, with a pin showing it is settled.
+        /// Call after the tray is laid out; the caller re-evaluates locks and fog afterwards.
+        /// </summary>
+        public void PlaceFixedPieces()
+        {
+            foreach (PieceState state in session.pieces)
+            {
+                SetSettledBadge(state, state.Definition.IsFixed);
+                if (!state.Definition.IsFixed) continue;
+                state.Placed = true;
+                state.Row = state.Definition.SolutionRow;
+                state.Col = state.Definition.SolutionCol;
+                OccupyCells(state, state.Row, state.Col);
+                AttachPieceToBoard(state);
+            }
+        }
+
+        // The pin sits on the cat in the piece's top-right corner, scaled with the cell.
+        private static void SetSettledBadge(PieceState state, bool show)
+        {
+            int corner = -1;
+            for (int i = 0; i < state.Definition.Cells.Length && i < state.CellImages.Count; i++)
+            {
+                CellOffset cell = state.Definition.Cells[i];
+                if (corner < 0 || cell.Row < state.Definition.Cells[corner].Row ||
+                    (cell.Row == state.Definition.Cells[corner].Row && cell.Col > state.Definition.Cells[corner].Col)) corner = i;
+            }
+
+            Transform existing = null;
+            foreach (Image cat in state.CellImages)
+            {
+                Transform badge = cat.transform.Find(SettledBadgeName);
+                if (badge != null) { badge.gameObject.SetActive(false); existing = badge; }
+            }
+
+            if (!show || corner < 0) return;
+            RectTransform host = state.CellImages[corner].rectTransform;
+            RectTransform pin = existing != null && existing.parent == host ? (RectTransform)existing : null;
+            if (pin == null)
+            {
+                Image image = new GameObject(SettledBadgeName, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image)).GetComponent<Image>();
+                image.sprite = BoardMechanicArt.Pin;
+                image.preserveAspect = true;
+                image.raycastTarget = false;
+                pin = image.rectTransform;
+                pin.SetParent(host, false);
+            }
+
+            pin.anchorMin = new Vector2(0.58f, 0.58f);
+            pin.anchorMax = new Vector2(1.08f, 1.08f);
+            pin.offsetMin = pin.offsetMax = Vector2.zero;
+            pin.localEulerAngles = new Vector3(0f, 0f, -18f);
+            pin.SetAsLastSibling();
+            pin.gameObject.SetActive(true);
         }
 
         // Diagonal "pop-in" reveal: every cell starts at scale 0 and springs to full

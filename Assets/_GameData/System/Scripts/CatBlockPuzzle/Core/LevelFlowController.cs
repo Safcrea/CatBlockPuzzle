@@ -32,6 +32,9 @@ namespace CatBlockPuzzle
         private readonly CatMoodPresenter mood;
         private readonly InteractionGates gates;
         private readonly IPuzzleConfig config;
+        private readonly FogController fog;
+        private readonly DropCounter drops;
+        private readonly GameplayToast toast;
 
         private Coroutine boardRevealRoutine;
         private bool timerWasRunningBeforeSettings;
@@ -40,8 +43,11 @@ namespace CatBlockPuzzle
             CellLockController locks, TrayLayout tray, PieceDragController drag, LevelTimer timer, HintPresenter hint, MovePieceTip tip, LevelOneTutorial tutorial,
             MetaProgressionController meta, ThemePresenter theme, PlayerProgress progress, ComboTracker combo, FxSpawner fx,
             HapticsController haptics, CatMoodPresenter mood, InteractionGates gates, IPuzzleConfig config,
-            MechanicIntroPresenter intro, MistakeHearts hearts) : base(context)
+            MechanicIntroPresenter intro, MistakeHearts hearts, FogController fog, DropCounter drops, GameplayToast toast) : base(context)
         {
+            this.fog = fog;
+            this.drops = drops;
+            this.toast = toast;
             this.hearts = hearts;
             this.intro = intro;
             this.session = session;
@@ -84,7 +90,7 @@ namespace CatBlockPuzzle
 
         public int CurrentStarCount => session.earnedStars > 0
             ? session.earnedStars
-            : timer.Profile.Stars(timer.RemainingSeconds);
+            : timer.Profile.Stars(activeLevel, session.levelNumber, timer.RemainingSeconds, session.drops);
 
         public void LoadLevelNumber(int levelNumber, bool persistProgress)
         {
@@ -108,6 +114,7 @@ namespace CatBlockPuzzle
             levelNavigationTesting = !persistProgress;
             tray.SetScrollEnabled(true);
             hint.StopHint();
+            toast.Hide();
             haptics?.CancelLevelComplete();
             Host.StopAllCoroutines();
             boardRevealRoutine = null;
@@ -139,11 +146,19 @@ namespace CatBlockPuzzle
             }
             timer.ResetLevelTimer();
             hearts.ResetForLevel();
+            drops.ResetForLevel();
+            session.freeHintPending = LevelFailStreak.EarnsFreeHint(session.levelNumber);
             ReportLevelStart(persistProgress);
             combo.UpdateDisplay(false);
 
             board.LayoutCells(loader.LoadedLevel);
             tray.LayoutPieces();
+            board.PlaceFixedPieces();
+            if (activeLevel.HasFixedPieces)
+            {
+                locks.OnBoardChanged();
+                fog.OnBoardChanged();
+            }
             foreach (var state in session.pieces) mood.SetMood(state, CatMood.Neutral);
             UpdateTestLevelButtons();
             boardRevealRoutine = StartCoroutine(LevelStartSequence());
@@ -183,6 +198,17 @@ namespace CatBlockPuzzle
             {
                 GameSystem.Instance?.UseTaughtPowerUp(taught);
             }
+
+            if (session.freeHintPending) GiveFreeHint();
+        }
+
+        // After repeated fails the attempt opens with one hint on the house; it spends no charge.
+        private void GiveFreeHint()
+        {
+            if (!hint.ShowHint(timer.Profile.HintReveal)) return;
+            session.freeHintPending = false;
+            LevelFailStreak.Reset(session.levelNumber);
+            toast.Show("Here's a free hint!");
         }
 
         /// <summary>Stops a running reveal, optionally showing every cell at full size.</summary>
@@ -249,7 +275,9 @@ namespace CatBlockPuzzle
         private void OnPiecePlaced(PieceState state)
         {
             tutorial.OnPiecePlaced(state);
+            drops.RecordDrop();
             locks.OnBoardChanged();
+            fog.OnBoardChanged();
             CheckWin();
             if (tip.TryClaimShow(state, tutorial.IsOpen))
             {
@@ -269,6 +297,7 @@ namespace CatBlockPuzzle
 
             inputLocked = true;
             timer.StopLevelTimer();
+            LevelFailStreak.Reset(session.levelNumber);
             StartCoroutine(WinSequence());
         }
 
@@ -330,6 +359,7 @@ namespace CatBlockPuzzle
             GameAnalytics.LevelFailed(reason, session.stats, timer.RemainingSeconds,
                 cellCount > 0 ? session.occupancy.Count / (float)cellCount : 0f, session.bestCombo);
             session.levelFailed = true;
+            if (reason == "timeout" || reason == "out_of_hearts") LevelFailStreak.RecordFail(session.levelNumber);
             timer.timerRunning = false;
             inputLocked = true;
             hint.StopHint();

@@ -43,6 +43,14 @@ namespace CatBlockPuzzle
         /// <summary>The lowest difficulty at which the timer can fail the level.</summary>
         public const int FirstFailableDifficulty = 3;
 
+        /// <summary>Levels 1 to this number have no timer (and no Freeze); finishing them earns three stars.</summary>
+        public const int UntimedLevelCount = 10;
+
+        public static bool IsUntimed(int levelNumber) => levelNumber >= 1 && levelNumber <= UntimedLevelCount;
+
+        /// <summary>Move-limit stars: three within the limit, two for up to three extra drops, otherwise one.</summary>
+        public static int MoveStars(int drops, int moves) => drops <= moves ? 3 : drops <= moves + 3 ? 2 : 1;
+
         // Indexed by (difficulty - 1) / 2: 1–2, 3–4, 5–6, 7–8, 9–10.
         private static readonly DifficultyProfile[] Bands =
         {
@@ -67,6 +75,13 @@ namespace CatBlockPuzzle
             int hintCost = difficulty >= 8 ? 2 : 1;
             return new DifficultyProfile(band.DurationSeconds, band.ThreeStarRatio, band.TwoStarRatio,
                 band.CanFail && difficulty >= FirstFailableDifficulty, reveal, hintCost);
+        }
+
+        /// <summary>The stars a finished (or in-progress) attempt earns: drops on move-limit levels, three on untimed levels, else time.</summary>
+        public int Stars(LevelDefinition level, int levelNumber, float remainingSeconds, int drops)
+        {
+            if (level != null && level.HasMoves) return MoveStars(drops, level.Moves);
+            return IsUntimed(levelNumber) ? 3 : Stars(remainingSeconds);
         }
 
         public int Stars(float remainingSeconds) =>

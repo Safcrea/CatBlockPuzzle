@@ -47,6 +47,8 @@ namespace CatBlockPuzzle
         public bool FreezeUsedThisAttempt => freezeUsedThisAttempt;
         /// <summary>The time budget and star rules of the level the timer was last reset for.</summary>
         public DifficultyProfile Profile => profile;
+        /// <summary>The first levels have no countdown: the label is hidden and the clock never runs down.</summary>
+        public bool Untimed => DifficultyProfile.IsUntimed(session.levelNumber);
 
         private Text timerText => Hud.timerText;
         private Image[] progressStars => Hud.progressStars;
@@ -62,6 +64,11 @@ namespace CatBlockPuzzle
             profile = DifficultyProfile.For(session.activeLevel, session.levelIndex);
             levelRemainingSeconds = profile.DurationSeconds;
             lastTimerSecond = Mathf.CeilToInt(levelRemainingSeconds);
+            Transform timerLabel = Hud != null && Hud.timerPanel != null ? Hud.timerPanel : timerText != null ? timerText.transform : null;
+            // When the clock and the stars share one bar, the whole bar goes: untimed levels always earn three stars.
+            if (timerLabel != null && Hud.starPanel != null && timerLabel.parent == Hud.starPanel.parent && timerLabel.parent != Hud.root)
+                timerLabel = timerLabel.parent;
+            if (timerLabel != null) timerLabel.gameObject.SetActive(!Untimed);
             if (timerPulseRoutine != null)
             {
                 StopCoroutine(timerPulseRoutine);
@@ -118,7 +125,7 @@ namespace CatBlockPuzzle
 
             float elapsed = Time.unscaledDeltaTime;
             session.stats.playSeconds += elapsed;
-            if (onboardingOpen)
+            if (onboardingOpen || Untimed)
             {
                 return;
             }
@@ -272,7 +279,7 @@ namespace CatBlockPuzzle
                 star.type = Image.Type.Filled;
                 star.fillMethod = Image.FillMethod.Vertical;
                 star.fillOrigin = (int)Image.OriginVertical.Bottom;
-                star.fillAmount = profile.StarFill(i, levelRemainingSeconds);
+                star.fillAmount = Untimed ? 1f : profile.StarFill(i, levelRemainingSeconds);
             }
         }
     }
