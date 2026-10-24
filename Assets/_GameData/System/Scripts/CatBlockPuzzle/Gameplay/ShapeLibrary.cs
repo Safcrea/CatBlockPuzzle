@@ -28,7 +28,14 @@ namespace CatBlockPuzzle
             { "z5", Cells((0, 0), (0, 1), (1, 1), (1, 2), (2, 2)) },
             { "u5", Cells((0, 0), (0, 2), (1, 0), (1, 1), (1, 2)) },
             { "plus5", Cells((0, 1), (1, 0), (1, 1), (1, 2), (2, 1)) },
-            { "stair5", Cells((0, 0), (1, 0), (1, 1), (2, 1), (2, 2)) }
+            { "stair5", Cells((0, 0), (1, 0), (1, 1), (2, 1), (2, 2)) },
+            { "l3Top", Cells((0, 0), (0, 1), (1, 0)) },
+            { "l3TopRight", Cells((0, 0), (0, 1), (1, 1)) },
+            { "j3", Cells((0, 1), (1, 0), (1, 1)) },
+            { "l4TopLeft", Cells((0, 0), (0, 1), (1, 0), (2, 0)) },
+            { "j4Top", Cells((0, 0), (0, 1), (1, 1), (2, 1)) },
+            { "s4v", Cells((0, 0), (1, 0), (1, 1), (2, 1)) },
+            { "t4Left", Cells((0, 1), (1, 0), (1, 1), (2, 1)) }
         };
 
         public static bool TryGetShape(string id, out CellOffset[] cells)
