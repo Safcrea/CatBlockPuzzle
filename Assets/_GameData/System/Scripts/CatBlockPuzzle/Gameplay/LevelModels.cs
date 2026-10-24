@@ -28,10 +28,14 @@ namespace CatBlockPuzzle
         public readonly string ShapeId;
         /// <summary>A decoy cat: it is on the shelf but not part of the solution, so the level is won without it.</summary>
         public readonly bool IsSpare;
+        /// <summary>A cat that starts on the board at its solution spot and can never be picked up.</summary>
+        public readonly bool IsFixed;
 
-        public PieceDefinition(string id, string name, string shapeId, CellOffset[] cells, int solutionRow, int solutionCol, bool isSpare = false)
+        public PieceDefinition(string id, string name, string shapeId, CellOffset[] cells, int solutionRow, int solutionCol, bool isSpare = false,
+            bool isFixed = false)
         {
             IsSpare = isSpare;
+            IsFixed = isFixed;
             Id = id;
             Name = name;
             ShapeId = shapeId;
@@ -43,6 +47,21 @@ namespace CatBlockPuzzle
                 Rows = Mathf.Max(Rows, cells[i].Row + 1);
                 Cols = Mathf.Max(Cols, cells[i].Col + 1);
             }
+        }
+
+        /// <summary>The same cat turned 90 degrees clockwise, normalised to a top-left of (0,0). Cell order is kept.</summary>
+        public PieceDefinition RotatedClockwise()
+        {
+            CellOffset[] turned = new CellOffset[Cells.Length];
+            int minRow = int.MaxValue, minCol = int.MaxValue;
+            for (int i = 0; i < Cells.Length; i++)
+            {
+                turned[i] = new CellOffset(Cells[i].Col, Rows - 1 - Cells[i].Row);
+                minRow = Mathf.Min(minRow, turned[i].Row);
+                minCol = Mathf.Min(minCol, turned[i].Col);
+            }
+            for (int i = 0; i < turned.Length; i++) turned[i] = new CellOffset(turned[i].Row - minRow, turned[i].Col - minCol);
+            return new PieceDefinition(Id, Name, ShapeId, turned, SolutionRow, SolutionCol, IsSpare, IsFixed);
         }
     }
 
@@ -95,6 +114,23 @@ namespace CatBlockPuzzle
         public readonly int Hearts;
         public bool HasHearts => Hearts > 0;
 
+        /// <summary>Foggy grid cells: a cloud hides whatever is there until a cat lands beside it.</summary>
+        public readonly HashSet<Vector2Int> FogCells;
+        public bool HasFog => FogCells.Count > 0;
+
+        /// <summary>Move-limit stars: three stars for this many drops or fewer (0 = stars come from the timer).</summary>
+        public readonly int Moves;
+        public bool HasMoves => Moves > 0;
+
+        public bool HasFixedPieces
+        {
+            get
+            {
+                foreach (PieceDefinition piece in Pieces) if (piece.IsFixed) return true;
+                return false;
+            }
+        }
+
         public bool HasBlockedCells => BlockedCells.Count > 0;
         public bool HasLockedCells => LockedCells.Count > 0;
 
@@ -109,8 +145,11 @@ namespace CatBlockPuzzle
 
         public LevelDefinition(string id, string title, int difficulty, int rows, int cols, int reward, PieceDefinition[] pieces,
             IEnumerable<Vector2Int> blockedCells = null, IDictionary<Vector2Int, CellLockRule> lockedCells = null, int trayWindow = 0,
-            IDictionary<Vector2Int, string> zoneCells = null, PieceDefinition[] spares = null, int hearts = 0)
+            IDictionary<Vector2Int, string> zoneCells = null, PieceDefinition[] spares = null, int hearts = 0,
+            IEnumerable<Vector2Int> fogCells = null, int moves = 0)
         {
+            FogCells = fogCells != null ? new HashSet<Vector2Int>(fogCells) : new HashSet<Vector2Int>();
+            Moves = Mathf.Max(0, moves);
             Hearts = Mathf.Max(0, hearts);
             Spares = spares ?? new PieceDefinition[0];
             ZoneCells = zoneCells != null ? new Dictionary<Vector2Int, string>(zoneCells) : new Dictionary<Vector2Int, string>();
@@ -168,6 +207,10 @@ namespace CatBlockPuzzle
         public PieceData[] spares;
         /// <summary>Optional. Mistake hearts: bad drops on the board allowed before the level fails.</summary>
         public int hearts;
+        /// <summary>Optional. Foggy cells inside the grid (board cells, bowls or empty space); a cat landing beside one clears it.</summary>
+        public BlockedCellData[] fog;
+        /// <summary>Optional. Move-limit stars: 3 stars for this many drops or fewer, 2 for up to three more, else 1.</summary>
+        public int moves;
     }
 
     [Serializable]
@@ -202,6 +245,8 @@ namespace CatBlockPuzzle
         public string shape;
         public int row;
         public int col;
+        /// <summary>Optional. The cat starts on the board at row/col and never goes to the shelf.</summary>
+        public bool @fixed;
     }
 
     #pragma warning restore 0649

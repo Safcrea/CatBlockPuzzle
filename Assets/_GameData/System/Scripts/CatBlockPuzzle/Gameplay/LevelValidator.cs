@@ -176,6 +176,12 @@ namespace CatBlockPuzzle
                         return false;
                     }
 
+                    if (spare.@fixed)
+                    {
+                        error = level.id + " spare " + spare.id + " cannot start fixed on the board.";
+                        return false;
+                    }
+
                     if (!ShapeLibrary.TryGetShape(spare.shape, out CellOffset[] spareCells))
                     {
                         error = level.id + " spare " + spare.id + " uses unknown shape " + spare.shape + ".";
@@ -223,6 +229,40 @@ namespace CatBlockPuzzle
             {
                 error = level.id + " hearts must be between 0 and 5.";
                 return false;
+            }
+
+            int movable = 0;
+            for (int p = 0; p < level.pieces.Length; p++) if (!level.pieces[p].@fixed) movable++;
+            if (movable == 0)
+            {
+                error = level.id + " fixes every cat; nothing is left to place.";
+                return false;
+            }
+
+            if (level.moves < 0 || (level.moves > 0 && level.moves < movable))
+            {
+                error = level.id + " moves must be 0 (timer stars) or at least its " + movable + " cats to place.";
+                return false;
+            }
+
+            if (level.fog != null)
+            {
+                HashSet<Vector2Int> fogged = new HashSet<Vector2Int>();
+                for (int f = 0; f < level.fog.Length; f++)
+                {
+                    BlockedCellData cell = level.fog[f];
+                    if (cell == null || cell.row < 0 || cell.row >= level.rows || cell.col < 0 || cell.col >= level.cols)
+                    {
+                        error = level.id + " has a foggy cell outside the grid.";
+                        return false;
+                    }
+
+                    if (!fogged.Add(new Vector2Int(cell.row, cell.col)))
+                    {
+                        error = level.id + " lists foggy cell (" + cell.row + ", " + cell.col + ") twice.";
+                        return false;
+                    }
+                }
             }
 
             if (level.trayWindow < 0)
@@ -292,6 +332,19 @@ namespace CatBlockPuzzle
                     }
 
                     keys[coord] = keyPiece;
+                }
+
+                // A fixed cat is already on the board, so it can neither wait on a lock nor be placed to open one.
+                if (level.pieces[owner[coord]].@fixed)
+                {
+                    error = level.id + " locks " + coord + ", which belongs to fixed cat " + level.pieces[owner[coord]].id + ".";
+                    return false;
+                }
+
+                if (keys.TryGetValue(coord, out int key) && level.pieces[key].@fixed)
+                {
+                    error = level.id + " lock " + coord + " is keyed to fixed cat " + cell.key + ".";
+                    return false;
                 }
 
                 locked[coord] = cell.after;
@@ -373,6 +426,43 @@ namespace CatBlockPuzzle
             HashSet<Vector2Int> filled = new HashSet<Vector2Int>();
             bool[] placed = new bool[count];
             int placedCount = 0;
+
+            void OpenLocks()
+            {
+                bool changed = true;
+                while (changed)
+                {
+                    changed = false;
+                    foreach (KeyValuePair<Vector2Int, int> entry in locked)
+                    {
+                        if (open.Contains(entry.Key))
+                        {
+                            continue;
+                        }
+
+                        bool opens;
+                        if (keys.TryGetValue(entry.Key, out int keyPiece)) opens = placed[keyPiece];
+                        else if (entry.Value > 0) opens = placedCount >= entry.Value;
+                        else opens = AllFilled(unlockers[entry.Key], filled);
+                        if (opens)
+                        {
+                            open.Add(entry.Key);
+                            changed = true;
+                        }
+                    }
+                }
+            }
+
+            // Fixed cats are on the board before the first move.
+            for (int i = 0; i < count; i++)
+            {
+                if (!level.pieces[i].@fixed) continue;
+                placed[i] = true;
+                placedCount++;
+                filled.UnionWith(pieceCells[i]);
+            }
+            OpenLocks();
+
             bool progressed = true;
             while (progressed && placedCount < count)
             {
@@ -400,29 +490,7 @@ namespace CatBlockPuzzle
                     placedCount++;
                     progressed = true;
                     filled.UnionWith(pieceCells[i]);
-                    bool changed = true;
-                    while (changed)
-                    {
-                        changed = false;
-                        foreach (KeyValuePair<Vector2Int, int> entry in locked)
-                        {
-                            if (open.Contains(entry.Key))
-                            {
-                                continue;
-                            }
-
-                            bool opens;
-                            if (keys.TryGetValue(entry.Key, out int keyPiece)) opens = placed[keyPiece];
-                            else if (entry.Value > 0) opens = placedCount >= entry.Value;
-                            else opens = AllFilled(unlockers[entry.Key], filled);
-                            if (opens)
-                            {
-                                open.Add(entry.Key);
-                                changed = true;
-                            }
-                        }
-                    }
-
+                    OpenLocks();
                     break;
                 }
             }

@@ -60,7 +60,7 @@ namespace CatBlockPuzzle
                 {
                     PieceData piece = data[i].pieces[p];
                     ShapeLibrary.TryGetShape(piece.shape, out CellOffset[] cells);
-                    pieces[p] = new PieceDefinition(piece.id, piece.name, piece.shape, cells, piece.row, piece.col);
+                    pieces[p] = new PieceDefinition(piece.id, piece.name, piece.shape, cells, piece.row, piece.col, false, piece.@fixed);
                 }
 
                 List<Vector2Int> blocked = new List<Vector2Int>();
@@ -77,6 +77,12 @@ namespace CatBlockPuzzle
                     spares[s] = new PieceDefinition(spare.id, spare.name, spare.shape, spareCells, -1, -1, true);
                 }
 
+                List<Vector2Int> fog = new List<Vector2Int>();
+                if (data[i].fog != null)
+                {
+                    foreach (BlockedCellData cell in data[i].fog) fog.Add(new Vector2Int(cell.row, cell.col));
+                }
+
                 Dictionary<Vector2Int, string> zones = new Dictionary<Vector2Int, string>();
                 if (data[i].zones != null)
                 {
@@ -89,7 +95,7 @@ namespace CatBlockPuzzle
                     foreach (LockedCellData cell in data[i].locked) locked[new Vector2Int(cell.row, cell.col)] = new CellLockRule(cell.after, cell.key);
                 }
 
-                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces, blocked, locked, data[i].trayWindow, zones, spares, data[i].hearts);
+                converted[i] = new LevelDefinition(data[i].id, data[i].title, data[i].difficulty, data[i].rows, data[i].cols, data[i].reward, pieces, blocked, locked, data[i].trayWindow, zones, spares, data[i].hearts, fog, data[i].moves);
             }
 
             return converted;
