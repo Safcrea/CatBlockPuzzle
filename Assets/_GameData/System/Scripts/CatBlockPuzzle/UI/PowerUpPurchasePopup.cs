@@ -155,7 +155,7 @@ namespace CatBlockPuzzle
             resumeOnClose = true;
             sessionOpen = true;
             if (EventSystem.current != null) previousSelection = EventSystem.current.currentSelectedGameObject;
-            heading.text = kind == PowerUpKind.Hint ? "Out of Hints!" : "Out of Freezes!";
+            heading.text = "Out of " + Plural(kind) + "!";
             closeLabel.text = "Not now";
             icon.sprite = hud.GetPowerUpSprite(kind);
             icon.enabled = icon.sprite != null;
@@ -184,8 +184,8 @@ namespace CatBlockPuzzle
                 buyButton.interactable = false;
                 return;
             }
-            string item = Kind == PowerUpKind.Hint ? "Hint" : "Freeze";
-            string items = offer.quantity == 1 ? item : item + "s";
+            string item = ItemName(Kind);
+            string items = offer.quantity == 1 ? item : Plural(Kind);
             message.text = coins >= offer.coinPrice
                 ? $"Get {offer.quantity} {items} for {offer.coinPrice} coins.\nBuy now, then tap {item} to use one."
                 : $"Get {offer.quantity} {items} for {offer.coinPrice} coins.\nYou need {offer.coinPrice - coins} more coins.";
@@ -218,14 +218,17 @@ namespace CatBlockPuzzle
             purchased = true;
             buyButton.interactable = false;
             buyLabel.text = "Purchased!";
-            heading.text = Kind == PowerUpKind.Hint ? "Hints ready!" : "Freezes ready!";
-            string item = Kind == PowerUpKind.Hint ? "Hint" : "Freeze";
+            heading.text = Plural(Kind) + " ready!";
+            string item = ItemName(Kind);
             message.text = $"Added x{displayedOffer.quantity} to your bag!\nTap {item} after closing to use one.";
             wallet.text = $"Your coins: {system.CurrentCoins}";
             closeLabel.text = "Continue";
             ButtonSfx.PlayClick();
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
         }
+
+        private static string ItemName(PowerUpKind kind) => kind == PowerUpKind.Hint ? "Hint" : kind == PowerUpKind.Rotate ? "Rotate" : "Freeze";
+        private static string Plural(PowerUpKind kind) => kind == PowerUpKind.Freeze ? "Freezes" : ItemName(kind) + "s";
 
         public void Close()
         {

@@ -70,6 +70,7 @@ namespace CatBlockPuzzle
         private FogController fog;
         private DropCounter drops;
         private GameplayToast toast;
+        private RotateController rotate;
 
         // ------------------------------------------------------------------ scene bindings
 
@@ -126,6 +127,7 @@ namespace CatBlockPuzzle
         internal LevelFlowController Flow => flow;
         internal FogController Fog => fog;
         internal GameplayToast Toast => toast;
+        internal RotateController Rotate => rotate;
         internal FxSpawner Fx => fx;
 
         /// <summary>Builds the service graph once. Safe in Edit Mode, where the authoring tools need it.</summary>
@@ -166,17 +168,18 @@ namespace CatBlockPuzzle
             hint = new HintPresenter(this, session, board, tip, locks);
             theme = new ThemePresenter(this, session);
             drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates, locks);
+            toast = new GameplayToast(this);
+            rotate = new RotateController(this, session, tray, drag, settings, toast);
             tutorial = new LevelOneTutorial(this, session, this, space, board, drag, settings, fx, mood, timer, gates);
             drag.Gate = tutorial;
             loader = new PreparedLevelLoader(this, session, tray, mood, drag, this);
             meta = new MetaProgressionController(this, session, progress, settings, timer, hint, drag, tray, fx, mood, haptics, gates, this);
-            powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this);
+            powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this, rotate);
             intro = new MechanicIntroPresenter(this, session);
             hearts = new MistakeHearts(this, session, settings, haptics);
             drops = new DropCounter(this, session);
-            toast = new GameplayToast(this);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
-                progress, combo, fx, haptics, mood, gates, this, intro, hearts, fog, drops, toast);
+                progress, combo, fx, haptics, mood, gates, this, intro, hearts, fog, drops, toast, rotate);
             composed = true;
         }
 
@@ -283,6 +286,8 @@ namespace CatBlockPuzzle
         public void LoadPreviousLevel() => flow.LoadPreviousLevel();
         public void LoadNextLevel() => flow.LoadNextLevel();
         public void PreviewLevelForTesting(int zeroBasedLevelIndex) => flow.PreviewLevelForTesting(zeroBasedLevelIndex);
+        public void StartDailyPuzzle() => flow.PlayDailyPuzzle(DailyPuzzle.LevelIndexFor(System.DateTime.UtcNow, LevelCount));
+        public bool IsDailyPuzzleUnlocked => GetLevelStars(DailyPuzzle.UnlockAfterLevel - 1) > 0;
 
         public void AwardExternalCoins(int amount)
         {
@@ -303,6 +308,8 @@ namespace CatBlockPuzzle
         public bool CanRequestPowerUp(PowerUpKind kind) => powerUps.CanRequestPowerUp(kind);
         public bool TryUseFreezePowerUp() => powerUps.TryUseFreezePowerUp();
         public bool TryUseHintPowerUp() => powerUps.TryUseHintPowerUp();
+        public bool TryUseRotatePowerUp() => powerUps.TryUseRotatePowerUp();
+        public bool IsRotateActive => rotate != null && rotate.Active;
         internal void ReportPowerUpUsed(PowerUpKind kind, int cost, bool fromTutorial) => powerUps.ReportUse(kind, cost, fromTutorial);
         internal float TimeLeftSeconds => timer != null ? timer.RemainingSeconds : 0f;
         public int HintCost => powerUps != null ? powerUps.HintCost : 1;

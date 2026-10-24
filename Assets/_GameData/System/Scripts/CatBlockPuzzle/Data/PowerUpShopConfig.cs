@@ -20,7 +20,10 @@ namespace CatBlockPuzzle
 
         [SerializeField] private Offer hint = new Offer { coinPrice = 100, quantity = 1 };
         [SerializeField] private Offer freeze = new Offer { coinPrice = 150, quantity = 1 };
-        public Offer GetOffer(PowerUpKind kind) => kind == PowerUpKind.Hint ? hint : kind == PowerUpKind.Freeze ? freeze : default;
+        [Tooltip("Priced like Freeze.")]
+        [SerializeField] private Offer rotate = new Offer { coinPrice = 150, quantity = 1 };
+        public Offer GetOffer(PowerUpKind kind) =>
+            kind == PowerUpKind.Hint ? hint : kind == PowerUpKind.Freeze ? freeze : kind == PowerUpKind.Rotate ? rotate : default;
         public static PowerUpShopConfig Load() => Resources.Load<PowerUpShopConfig>(ResourcePath);
 
         public static PowerUpPurchaseStatus CalculatePurchase(PowerUpKind kind, Offer offer, int coins, int inventory,
@@ -28,7 +31,7 @@ namespace CatBlockPuzzle
         {
             remainingCoins = coins;
             updatedInventory = inventory;
-            if ((kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze) || !offer.IsValid || inventory < 0)
+            if ((kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze && kind != PowerUpKind.Rotate) || !offer.IsValid || inventory < 0)
                 return PowerUpPurchaseStatus.InvalidOffer;
             if (coins < offer.coinPrice) return PowerUpPurchaseStatus.InsufficientCoins;
             if ((long)inventory + offer.quantity > int.MaxValue) return PowerUpPurchaseStatus.InventoryFull;

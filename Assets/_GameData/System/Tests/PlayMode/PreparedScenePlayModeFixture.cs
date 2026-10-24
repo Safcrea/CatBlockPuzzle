@@ -35,7 +35,7 @@ namespace CatBlockPuzzle.Tests
             foreach (var key in keys) ints[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null;
             foreach (var key in new[] { "CatBlockPuzzle.Tutorial.Hint", "CatBlockPuzzle.Tutorial.Freeze", "CatBlockPuzzle.Tutorial.Rotate", "CatBlockPuzzle.Tutorial.LevelOne.v1",
                          "CatBlockPuzzle.Mechanic.Padlocks.v1", "CatBlockPuzzle.Mechanic.KeyCats.v1", "CatBlockPuzzle.Mechanic.Shelf.v1", "CatBlockPuzzle.Mechanic.ColourZones.v1", "CatBlockPuzzle.Mechanic.SpareCats.v1", "CatBlockPuzzle.Mechanic.Hearts.v1",
-                         "CatBlockPuzzle.Mechanic.FixedCat.v1", "CatBlockPuzzle.Mechanic.Fog.v1", "CatBlockPuzzle.Mechanic.Moves.v1" })
+                         "CatBlockPuzzle.Mechanic.FixedCat.v1", "CatBlockPuzzle.Mechanic.Fog.v1", "CatBlockPuzzle.Mechanic.Moves.v1", "CatBlockPuzzle.DailyPuzzle.LastWonDay" })
                 ints[key] = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null;
             hadRewardSave = PlayerPrefs.HasKey("CatBlockPuzzle.DailyReward.State.v1");
             rewardSave = PlayerPrefs.GetString("CatBlockPuzzle.DailyReward.State.v1", "");
@@ -51,7 +51,7 @@ namespace CatBlockPuzzle.Tests
             PlayerPrefs.SetInt("CatBlockPuzzle.Tutorial.Rotate", 1);
             PlayerPrefs.SetInt("CatBlockPuzzle.Tutorial.LevelOne.v1", 1);
             foreach (var mechanic in new[] { "Padlocks", "KeyCats", "Shelf", "ColourZones", "SpareCats", "Hearts", "FixedCat", "Fog", "Moves" }) PlayerPrefs.SetInt("CatBlockPuzzle.Mechanic." + mechanic + ".v1", 1);
-            PlayerPrefs.SetString("CatBlockPuzzle.DailyReward.State.v1", "{\"version\":1,\"hintCount\":10,\"freezeCount\":10}");
+            PlayerPrefs.SetString("CatBlockPuzzle.DailyReward.State.v1", "{\"version\":1,\"hintCount\":10,\"freezeCount\":10,\"rotateCount\":10}");
             PlayerPrefs.DeleteKey("CatBlockPuzzle.Meta.Progress");
 #if UNITY_EDITOR
             hadPreview = UnityEditor.EditorPrefs.HasKey("CatBlockPuzzle.EditorPreviewLevel");

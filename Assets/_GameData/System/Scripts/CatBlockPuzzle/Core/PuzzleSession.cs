@@ -28,6 +28,8 @@ namespace CatBlockPuzzle
         internal bool inputLocked;
         internal bool levelFailed;
         internal bool levelNavigationTesting;
+        /// <summary>This preview is the Daily Puzzle: its first win of the day pays a bonus.</summary>
+        internal bool dailyPuzzle;
         internal int comboCount;
         internal int bestCombo;
         internal int earnedStars;

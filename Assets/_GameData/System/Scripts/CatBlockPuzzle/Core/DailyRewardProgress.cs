@@ -12,6 +12,7 @@ namespace CatBlockPuzzle
         public int lastClaimDay;
         public int freezeCount;
         public int hintCount;
+        public int rotateCount;
         // True only for a save created on a brand-new install. Cleared the next time the
         // app process is launched, so a new player's very first session never offers a
         // reward and the count-up only starts from their second session onward.
@@ -34,46 +35,43 @@ namespace CatBlockPuzzle
         internal static bool HasUnreadReward(DailyRewardConfig config, DateTime utcNow) =>
             GetAvailableDay(config, utcNow) > 0;
 
-        internal static int GetPowerUpCount(PowerUpKind kind)
-        {
-            DailyRewardSave save = Load();
-            return kind == PowerUpKind.Freeze ? save.freezeCount : save.hintCount;
-        }
+        internal static int GetPowerUpCount(PowerUpKind kind) => Count(Load(), kind);
 
         internal static void AddPowerUp(PowerUpKind kind, int amount)
         {
             if (amount <= 0) return;
             DailyRewardSave save = Load();
-            if (kind == PowerUpKind.Freeze) save.freezeCount = AddClamped(save.freezeCount, amount);
-            else save.hintCount = AddClamped(save.hintCount, amount);
+            SetCount(save, kind, AddClamped(Count(save, kind), amount));
             Save(save);
         }
 
         internal static bool TryConsumePowerUp(PowerUpKind kind)
         {
             DailyRewardSave save = Load();
-            if (kind == PowerUpKind.Freeze)
-            {
-                if (save.freezeCount <= 0) return false;
-                save.freezeCount--;
-            }
-            else
-            {
-                if (save.hintCount <= 0) return false;
-                save.hintCount--;
-            }
+            int count = Count(save, kind);
+            if (count <= 0) return false;
+            SetCount(save, kind, count - 1);
             Save(save); return true;
+        }
+
+        private static int Count(DailyRewardSave save, PowerUpKind kind) =>
+            kind == PowerUpKind.Freeze ? save.freezeCount : kind == PowerUpKind.Rotate ? save.rotateCount : save.hintCount;
+
+        private static void SetCount(DailyRewardSave save, PowerUpKind kind, int value)
+        {
+            if (kind == PowerUpKind.Freeze) save.freezeCount = value;
+            else if (kind == PowerUpKind.Rotate) save.rotateCount = value;
+            else save.hintCount = value;
         }
 
         internal static PowerUpPurchaseStatus TryPurchasePowerUp(PowerUpKind kind, PowerUpShopConfig.Offer offer,
             int coins, string coinsKey, out int remainingCoins)
         {
             DailyRewardSave save = Load();
-            int inventory = kind == PowerUpKind.Freeze ? save.freezeCount : save.hintCount;
+            int inventory = Count(save, kind);
             var status = PowerUpShopConfig.CalculatePurchase(kind, offer, coins, inventory, out remainingCoins, out int updatedInventory);
             if (status != PowerUpPurchaseStatus.Success) return status;
-            if (kind == PowerUpKind.Freeze) save.freezeCount = updatedInventory;
-            else save.hintCount = updatedInventory;
+            SetCount(save, kind, updatedInventory);
             // Persist the wallet and inventory together, then refresh their live views.
             PlayerPrefs.SetInt(coinsKey, remainingCoins);
             Save(save);

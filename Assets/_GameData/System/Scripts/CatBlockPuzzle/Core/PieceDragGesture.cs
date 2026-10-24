@@ -191,6 +191,11 @@ namespace CatBlockPuzzle
             {
                 tray.EndForwardedScroll(eventData);
             }
+            else if (gestureMode == GestureMode.Pending && drag != null)
+            {
+                // Released without moving far enough to drag or scroll: a tap.
+                drag.TapPiece(state);
+            }
 
             ResetGesture();
         }

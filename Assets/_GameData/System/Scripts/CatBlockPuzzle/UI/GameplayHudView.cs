@@ -59,10 +59,19 @@ namespace CatBlockPuzzle
         [SerializeField] private Text freezeCountText;
         [SerializeField] private GameObject hintCountBoard;
         [SerializeField] private GameObject freezeCountBoard;
+        [Tooltip("Optional. Turns one shelf cat 90 degrees clockwise.")]
+        [SerializeField] private Button rotateButton;
+        [SerializeField] private Text rotateCountText;
+        [SerializeField] private GameObject rotateCountBoard;
         private bool freezeAvailable = true;
+        [Tooltip("Gap between power-up buttons once Rotate joins Hint and Freeze.")]
+        [SerializeField, Min(0f)] private float threeButtonSpacing = 265f;
+        // Hint and Freeze as authored; Rotate shifts them only while it is shown.
+        private Vector2[] authoredButtonPositions;
         [Header("Power Up Unlock Levels")]
         [SerializeField, Min(1)] private int hintUnlockLevel = 3;
         [SerializeField, Min(1)] private int freezeUnlockLevel = 5;
+        [SerializeField, Min(1)] private int rotateUnlockLevel = 21;
         [Header("Power Up Purchase")]
         [Tooltip("Popup spawned when a power-up is tapped with an empty bag. Falls back to Resources/" + PowerUpPurchasePopup.PrefabResourcePath + ", then to a code-built layout.")]
         [SerializeField] private GameObject purchasePopupPrefab;
@@ -103,10 +112,12 @@ namespace CatBlockPuzzle
             int level = GameSystem.Instance != null ? GameSystem.Instance.DisplayLevelNumber : 1;
             // Untimed levels have no clock to freeze, so Freeze first appears (and is taught) on the first timed level.
             if (kind == PowerUpKind.Freeze && DifficultyProfile.IsUntimed(level)) return false;
-            return level >= Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : freezeUnlockLevel);
+            if (kind == PowerUpKind.Rotate && rotateButton == null) return false;
+            int unlock = kind == PowerUpKind.Hint ? hintUnlockLevel : kind == PowerUpKind.Rotate ? rotateUnlockLevel : freezeUnlockLevel;
+            return level >= Mathf.Max(1, unlock);
         }
 
-        internal Button PowerUpButton(PowerUpKind kind) => kind == PowerUpKind.Hint ? hintButton : freezeButton;
+        internal Button PowerUpButton(PowerUpKind kind) => kind == PowerUpKind.Hint ? hintButton : kind == PowerUpKind.Rotate ? rotateButton : freezeButton;
 
         /// <summary>The power-up tapped at the end of its unlock tutorial, still to be spent; clears it.</summary>
         internal bool TryTakeTutorialUse(out PowerUpKind kind)
@@ -117,7 +128,13 @@ namespace CatBlockPuzzle
 
         public Sprite GetPowerUpSprite(PowerUpKind kind)
         {
-            var button = kind == PowerUpKind.Hint ? hintButton : freezeButton;
+            var button = PowerUpButton(kind);
+            if (kind == PowerUpKind.Rotate && button != null)
+            {
+                // The Rotate button reuses the Freeze button's frame; its arrow is a child icon.
+                Transform icon = button.transform.Find("Rotate Icon");
+                if (icon != null && icon.GetComponent<Image>() != null) return icon.GetComponent<Image>().sprite;
+            }
             return button != null && button.targetGraphic is Image image ? image.sprite : null;
         }
 
@@ -145,6 +162,12 @@ namespace CatBlockPuzzle
                 hintButton.onClick.RemoveListener(Hint);
                 if (hintButton.onClick.GetPersistentEventCount() == 0) hintButton.onClick.AddListener(Hint);
             }
+
+            if (rotateButton != null)
+            {
+                rotateButton.onClick.RemoveListener(Rotate);
+                rotateButton.onClick.AddListener(Rotate);
+            }
             RefreshPowerUpCounts();
         }
         private void OnDisable()
@@ -153,6 +176,7 @@ namespace CatBlockPuzzle
             CancelPowerUpPurchase(false);
             if (freezeButton != null) freezeButton.onClick.RemoveListener(Freeze);
             if (hintButton != null) hintButton.onClick.RemoveListener(Hint);
+            if (rotateButton != null) rotateButton.onClick.RemoveListener(Rotate);
         }
         private void OnDestroy()
         {
@@ -164,6 +188,7 @@ namespace CatBlockPuzzle
 
         private void Freeze() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseFreezePowerUp(); }
         private void Hint() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseHintPowerUp(); }
+        private void Rotate() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseRotatePowerUp(); }
 
         /// <summary>Updates the authored HUD labels and availability from the saved inventory.</summary>
         public void RefreshPowerUpCounts()
@@ -185,6 +210,42 @@ namespace CatBlockPuzzle
             {
                 freezeButton.gameObject.SetActive(freezeUnlocked);
                 freezeButton.interactable = freezeUnlocked && freezeAvailable;
+            }
+
+            if (rotateButton != null)
+            {
+                bool rotateUnlocked = IsPowerUpUnlocked(PowerUpKind.Rotate);
+                UpdateCountPresentation(rotateCountText, rotateCountBoard, system != null ? system.GetPowerUpCount(PowerUpKind.Rotate) : 0);
+                rotateButton.gameObject.SetActive(rotateUnlocked);
+                // While a Rotate is in progress the button rests until that cat lands.
+                rotateButton.interactable = rotateUnlocked && (system == null || !system.IsRotateActive);
+            }
+            ArrangePowerUpButtons();
+        }
+
+        // The row's buttons are placed by hand. From level 21 Rotate joins them, so the shown
+        // buttons spread evenly around the centre of the authored Hint/Freeze pair.
+        private void ArrangePowerUpButtons()
+        {
+            if (hintButton == null || freezeButton == null || rotateButton == null) return;
+            var rects = new[] { (RectTransform)hintButton.transform, (RectTransform)freezeButton.transform, (RectTransform)rotateButton.transform };
+            if (authoredButtonPositions == null) authoredButtonPositions = new[] { rects[0].anchoredPosition, rects[1].anchoredPosition };
+            if (!rotateButton.gameObject.activeSelf)
+            {
+                rects[0].anchoredPosition = authoredButtonPositions[0];
+                rects[1].anchoredPosition = authoredButtonPositions[1];
+                return;
+            }
+
+            Vector2 centre = (authoredButtonPositions[0] + authoredButtonPositions[1]) * 0.5f;
+            int shown = 0;
+            foreach (RectTransform rect in rects) if (rect.gameObject.activeSelf) shown++;
+            float x = centre.x - (shown - 1) * 0.5f * threeButtonSpacing;
+            foreach (RectTransform rect in rects)
+            {
+                if (!rect.gameObject.activeSelf) continue;
+                rect.anchoredPosition = new Vector2(x, centre.y);
+                x += threeButtonSpacing;
             }
         }
 

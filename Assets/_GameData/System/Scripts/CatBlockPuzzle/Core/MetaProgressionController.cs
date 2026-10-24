@@ -487,6 +487,12 @@ namespace CatBlockPuzzle
         /// <summary>Advances directly through gameplay; room furnishing is optional UI.</summary>
         public void LoadNextLevelThroughMetaGate()
         {
+            // The Daily Puzzle is a one-off: Next goes back home instead of browsing on.
+            if (session.dailyPuzzle)
+            {
+                GameSystem.Instance?.GoHome();
+                return;
+            }
             if (levelNavigationTesting)
             {
                 if (flow.CanGoNextLevel) flow.LoadNextLevel();

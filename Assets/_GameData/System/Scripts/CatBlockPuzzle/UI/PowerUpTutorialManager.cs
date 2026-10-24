@@ -15,6 +15,7 @@ namespace CatBlockPuzzle
     {
         public const string HintSeenKey = "CatBlockPuzzle.Tutorial.Hint";
         public const string FreezeSeenKey = "CatBlockPuzzle.Tutorial.Freeze";
+        public const string RotateSeenKey = "CatBlockPuzzle.Tutorial.Rotate";
 
         private PowerUpUnlockTutorial overlay;
         private PowerUpKind? pendingUse;
@@ -39,6 +40,8 @@ namespace CatBlockPuzzle
                 yield return Show(hud, PowerUpKind.Hint, "Stuck? Hint shows where a cat fits.\nTap it!", HintSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Freeze, $"Freeze stops the clock for {freezeSeconds:0.#} seconds.\nTap it!", FreezeSeenKey);
+            if (hud.IsPowerUpUnlocked(PowerUpKind.Rotate) && PlayerPrefs.GetInt(RotateSeenKey, 0) == 0)
+                yield return Show(hud, PowerUpKind.Rotate, "Rotate turns a cat on the shelf.\nTap it, then tap a cat!", RotateSeenKey);
         }
 
         private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string message, string key)

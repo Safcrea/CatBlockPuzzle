@@ -7,7 +7,10 @@ namespace CatBlockPuzzle
     /// <summary>Runtime state of one puzzle piece: its definition, tray card, visual root and grid metrics.</summary>
     internal sealed class PieceState
     {
-        public readonly PieceDefinition Definition;
+        /// <summary>The cat as it is now: the Rotate power-up can turn it away from its authored shape.</summary>
+        public PieceDefinition Definition;
+        /// <summary>The cat as authored; its cells at SolutionRow/SolutionCol are its spot in the solution.</summary>
+        public readonly PieceDefinition Solution;
         public readonly Color Color;
         public readonly List<Image> CellImages = new List<Image>();
         public readonly List<CatCellView> CatViews = new List<CatCellView>();
@@ -34,6 +37,7 @@ namespace CatBlockPuzzle
         public PieceState(PieceDefinition definition, Color color)
         {
             Definition = definition;
+            Solution = definition;
             Color = color;
             PlacementOffsets = new Vector2Int[definition.Cells.Length];
             GridCenters = new Vector2[definition.Cells.Length];
@@ -41,6 +45,24 @@ namespace CatBlockPuzzle
             {
                 PlacementOffsets[i] = new Vector2Int(definition.Cells[i].Row, definition.Cells[i].Col);
             }
+        }
+
+        public bool IsRotated => Definition != Solution;
+
+        /// <summary>Turns the cat 90 degrees clockwise; its cat images keep their order, so a re-layout moves them.</summary>
+        public void RotateClockwise() => UseShape(Definition.RotatedClockwise());
+
+        /// <summary>Back to the authored shape, for a fresh attempt.</summary>
+        public void ResetRotation()
+        {
+            if (IsRotated) UseShape(Solution);
+        }
+
+        private void UseShape(PieceDefinition shape)
+        {
+            Definition = shape;
+            HasGridLayout = false;
+            for (int i = 0; i < shape.Cells.Length; i++) PlacementOffsets[i] = new Vector2Int(shape.Cells[i].Row, shape.Cells[i].Col);
         }
     }
 

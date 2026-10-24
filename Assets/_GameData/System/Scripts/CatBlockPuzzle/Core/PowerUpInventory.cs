@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CatBlockPuzzle
 {
-    public enum PowerUpKind { Freeze, Hint }
+    public enum PowerUpKind { Freeze, Hint, Rotate }
 
     /// <summary>Persistent inventory for consumable gameplay power-ups.</summary>
     public static class PowerUpInventory

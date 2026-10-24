@@ -28,6 +28,7 @@ namespace CatBlockPuzzle
         public const string EarnLoopLevel = "loop_level";
         public const string EarnAdDouble = "ad_double";
         public const string EarnDailyReward = "daily_reward";
+        public const string EarnDailyPuzzle = "daily_puzzle";
         public const string EarnPurchase = "purchase";
         public const string EarnTutorialGrant = "tutorial_grant";
 
@@ -150,6 +151,7 @@ namespace CatBlockPuzzle
             p["coins"] = Coins;
             p["hints_owned"] = PowerUpInventory.GetCount(PowerUpKind.Hint);
             p["freezes_owned"] = PowerUpInventory.GetCount(PowerUpKind.Freeze);
+            p["rotates_owned"] = PowerUpInventory.GetCount(PowerUpKind.Rotate);
             Send("level_start", p);
         }
 
@@ -466,10 +468,13 @@ namespace CatBlockPuzzle
             if (definition.HasZones) names.Add("zones");
             if (definition.HasSpares) names.Add("spares");
             if (definition.HasHearts) names.Add("hearts");
+            if (definition.HasFixedPieces) names.Add("fixed");
+            if (definition.HasFog) names.Add("fog");
+            if (definition.HasMoves) names.Add("moves");
             return names.Count > 0 ? string.Join(",", names) : "none";
         }
 
-        private static string Name(PowerUpKind kind) => kind == PowerUpKind.Hint ? "hint" : "freeze";
+        private static string Name(PowerUpKind kind) => kind == PowerUpKind.Hint ? "hint" : kind == PowerUpKind.Rotate ? "rotate" : "freeze";
 
         private static string StatusName(PowerUpPurchaseStatus status)
         {

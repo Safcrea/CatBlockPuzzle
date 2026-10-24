@@ -71,6 +71,17 @@ namespace CatBlockPuzzle
             ShowGameplayPage();
             gameplayController.PreviewLevelForTesting(Mathf.Clamp(zeroBasedIndex, 0, gameplayController.LevelCount - 1));
         }
+        /// <summary>The Daily Puzzle opens once level 20 is won (or every level is unlocked for testing).</summary>
+        public bool IsDailyPuzzleUnlocked => gameplayController != null && (unlockAllLevels || gameplayController.IsDailyPuzzleUnlocked);
+
+        public void StartDailyPuzzle()
+        {
+            if (gameplayController == null || gameplayController.LevelCount <= 0 || !IsDailyPuzzleUnlocked) return;
+            ResumeGame();
+            ShowGameplayPage();
+            gameplayController.StartDailyPuzzle();
+        }
+
         public bool AwardCoins(int amount)
         {
             if (gameplayController == null || amount <= 0) return false;
@@ -82,8 +93,29 @@ namespace CatBlockPuzzle
         public bool CanRequestPowerUp(PowerUpKind kind) => HasGameplayController && gameplayController.CanRequestPowerUp(kind);
         public bool TryUseFreezePowerUp() => UseFreezePowerUp(fromTutorial: false);
         public bool TryUseHintPowerUp() => UseHintPowerUp(fromTutorial: false);
+        public bool TryUseRotatePowerUp() => UseRotatePowerUp(fromTutorial: false);
+        public bool IsRotateActive => HasGameplayController && gameplayController.IsRotateActive;
         /// <summary>Spends the power-up the unlock tutorial asked the player to tap.</summary>
-        internal bool UseTaughtPowerUp(PowerUpKind kind) => kind == PowerUpKind.Hint ? UseHintPowerUp(true) : UseFreezePowerUp(true);
+        internal bool UseTaughtPowerUp(PowerUpKind kind) =>
+            kind == PowerUpKind.Hint ? UseHintPowerUp(true) : kind == PowerUpKind.Rotate ? UseRotatePowerUp(true) : UseFreezePowerUp(true);
+
+        private bool UseRotatePowerUp(bool fromTutorial)
+        {
+            if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Rotate)) return false;
+            if (PowerUpInventory.GetCount(PowerUpKind.Rotate) <= 0)
+            {
+                gameplayController.OpenPowerUpPurchase(PowerUpKind.Rotate);
+                return false;
+            }
+            if (!gameplayController.TryUseRotatePowerUp()) return false;
+            bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Rotate);
+            if (consumed)
+            {
+                gameplayController.RefreshPowerUpHud();
+                gameplayController.ReportPowerUpUsed(PowerUpKind.Rotate, 1, fromTutorial);
+            }
+            return consumed;
+        }
 
         private bool UseFreezePowerUp(bool fromTutorial)
         {

@@ -152,6 +152,74 @@ namespace CatBlockPuzzle.Tests
             }
         }
 
+        [UnityTest]
+        public IEnumerator Rotate_TurnsOneShelfCatUntilThatCatLands()
+        {
+            yield return Open(20);
+            object rotateKind = Enum("PowerUpKind", "Rotate");
+            int charges = (int)SystemScreen.GetType().GetMethod("GetPowerUpCount").Invoke(SystemScreen, new[] { rotateKind });
+            Assert.That(SystemScreen.GetType().GetMethod("TryUseRotatePowerUp").Invoke(SystemScreen, null), Is.EqualTo(true));
+            Assert.That(SystemScreen.GetType().GetMethod("GetPowerUpCount").Invoke(SystemScreen, new[] { rotateKind }), Is.EqualTo(charges - 1));
+            object rotate = Field("rotate");
+            Assert.That(Get(rotate, "Active"), Is.EqualTo(true));
+            Assert.That(SystemScreen.GetType().GetMethod("TryUseRotatePowerUp").Invoke(SystemScreen, null), Is.EqualTo(false), "One Rotate at a time.");
+
+            object[] shelf = Pieces.Where(p => !IsFixed(p) && !(bool)Get(p, "Placed")).ToArray();
+            object cat = shelf[0], other = shelf[1];
+            var authored = Cells(Definition(cat));
+            var turned = Cells(Definition(cat).GetType().GetMethod("RotatedClockwise").Invoke(Get(cat, "Solution"), null));
+            Call("TapPiece", cat);
+            Assert.That(Get(cat, "IsRotated"), Is.EqualTo(true));
+            Assert.That(Cells(Definition(cat)), Is.EquivalentTo(turned));
+            Call("TapPiece", other);
+            Assert.That(Get(other, "IsRotated"), Is.EqualTo(false), "This use belongs to the first cat tapped.");
+
+            // Three more turns bring it back round, so it still fits its own solution spot.
+            for (int i = 0; i < 3; i++) Call("TapPiece", cat);
+            Assert.That(Cells(Definition(cat)), Is.EquivalentTo(authored));
+            PlaceAtSolution(cat);
+            Assert.That(Get(rotate, "Active"), Is.EqualTo(false), "The mode ends when the turned cat lands.");
+
+            Invoke("RestartLevel");
+            yield return new WaitForSecondsRealtime(1.4f);
+            Assert.That(Pieces.Any(p => (bool)Get(p, "IsRotated")), Is.False, "A retry starts from the authored shapes.");
+        }
+
+        [UnityTest]
+        public IEnumerator DailyPuzzle_PlaysTodaysLevelAndPaysItsBonusOncePerDay()
+        {
+            int today = (int)System.Math.Floor((System.DateTime.UtcNow - new System.DateTime(2026, 1, 1, 0, 0, 0, System.DateTimeKind.Utc)).TotalDays);
+            int expected = 50 + ((today % 50) + 50) % 50;
+            const int bonus = 50;
+            SystemScreen.GetType().GetMethod("StartDailyPuzzle").Invoke(SystemScreen, null);
+            yield return new WaitForSecondsRealtime(1.4f);
+            Assert.That(Field("levelIndex"), Is.EqualTo(expected));
+            Assert.That(Field("dailyPuzzle"), Is.EqualTo(true));
+            Assert.That(Field("levelNavigationTesting"), Is.EqualTo(true), "The daily level plays as a preview.");
+            string bestKey = "CatBlockPuzzle.BestStars." + (string)Get(Field("activeLevel"), "Id");
+
+            int coins = (int)Field("Coins");
+            yield return SolveBoard();
+            Assert.That((int)Field("Coins"), Is.EqualTo(coins + bonus));
+            Assert.That(PlayerPrefs.GetInt("CatBlockPuzzle.DailyPuzzle.LastWonDay", -1), Is.EqualTo(today));
+            Assert.That(PlayerPrefs.HasKey(bestKey), Is.False, "No stars are saved for the daily level.");
+
+            Invoke("RestartLevel");
+            yield return new WaitForSecondsRealtime(1.4f);
+            Assert.That(Field("dailyPuzzle"), Is.EqualTo(true), "A retry is still the Daily Puzzle.");
+            yield return SolveBoard();
+            Assert.That((int)Field("Coins"), Is.EqualTo(coins + bonus), "Only the first win of the day pays.");
+        }
+
+        private static (int, int)[] Cells(object definition) =>
+            ((System.Array)Get(definition, "Cells")).Cast<object>().Select(c => ((int)Get(c, "Row"), (int)Get(c, "Col"))).ToArray();
+
+        private IEnumerator SolveBoard()
+        {
+            foreach (object piece in Pieces.Where(p => !(bool)Get(p, "Placed") && !(bool)Get(Definition(p), "IsSpare"))) PlaceAtSolution(piece);
+            yield return new WaitForSecondsRealtime(2.5f);
+        }
+
         private void Invoke(string method) => SystemScreen.GetType().GetMethod(method).Invoke(SystemScreen, null);
 
         private object Enum(string type, string value) =>

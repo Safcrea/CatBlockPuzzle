@@ -21,6 +21,10 @@ namespace CatBlockPuzzle
         [SerializeField] private Button dailyRewardButton;
         [SerializeField] private Button collectionButton;
         [SerializeField] private Button roomsButton;
+        [Tooltip("Optional. Plays the day's hard puzzle; opens after level 20 is won.")]
+        [SerializeField] private Button dailyPuzzleButton;
+        [Tooltip("Shown on the Daily Puzzle button once today's puzzle is won.")]
+        [SerializeField] private GameObject dailyPuzzleDoneMark;
         [SerializeField] private int gameplayBuildIndex = 1;
         [Header("Locked Features")]
         [Tooltip("Padlock drawn over menu buttons whose feature is still coming soon.")]
@@ -49,6 +53,7 @@ namespace CatBlockPuzzle
             if (playButton != null) MenuAttentionPulse.Configure(playButton.transform, playPop);
             ApplyMenuMotion();
             RefreshDailyRewardDot();
+            RefreshDailyPuzzle();
         }
 
         // Each button gets a different idle so the menu feels alive without everything pulsing in step.
@@ -61,6 +66,7 @@ namespace CatBlockPuzzle
             Configure(collectionButton, MenuButtonMotion.Style.Breathe, 0.3f);
             Configure(roomsButton, MenuButtonMotion.Style.Breathe, 1.0f);
             Configure(continueButton, MenuButtonMotion.Style.Hop, 1.8f);
+            Configure(dailyPuzzleButton, MenuButtonMotion.Style.Sway, 2.2f);
             // The settings gear stays still; it is a utility control, not something to draw the eye.
             RemoveMotion(settingsButton);
         }
@@ -91,6 +97,13 @@ namespace CatBlockPuzzle
         private void OpenLevels() { ButtonSfx.PlayClick(); navigation?.ShowLevels(); }
         private void OpenShop() { ButtonSfx.PlayClick(); navigation?.ShowShop(); }
         private void OpenDailyReward() { ButtonSfx.PlayClick(); navigation?.ShowDailyReward(); }
+        private void OpenDailyPuzzle()
+        {
+            if (IsDailyPuzzleLocked) { PlayLockedTap(); return; }
+            ButtonSfx.PlayClick();
+            GameSystem.Instance.StartDailyPuzzle();
+        }
+
         private void OpenCollection()
         {
             if (IsCollectionLocked) { GameAnalytics.ComingSoonTap("collection"); PlayLockedTap(); return; }
@@ -107,6 +120,7 @@ namespace CatBlockPuzzle
 
         private bool IsCollectionLocked => navigation == null || !navigation.HasCollection;
         private bool IsRoomsLocked => navigation == null || !navigation.HasRooms;
+        private static bool IsDailyPuzzleLocked => GameSystem.Instance == null || !GameSystem.Instance.IsDailyPuzzleUnlocked;
 
         // A locked button only answers with a tap in the hand: no popup, no click sound.
         private static void PlayLockedTap() => HapticsController.Current?.Play(HapticKind.UiTap);
@@ -114,7 +128,23 @@ namespace CatBlockPuzzle
         private void Update()
         {
             if (homeScreen != null && homeScreen.activeInHierarchy && notificationDate != DateTime.UtcNow.Date)
+            {
                 RefreshDailyRewardDot();
+                RefreshDailyPuzzle();
+            }
+        }
+
+        // Padlocked until level 20 is won; a check mark once today's puzzle is beaten.
+        private void RefreshDailyPuzzle()
+        {
+            if (dailyPuzzleButton == null) return;
+            bool locked = IsDailyPuzzleLocked;
+            SetLocked(dailyPuzzleButton, locked);
+            if (dailyPuzzleDoneMark != null)
+            {
+                dailyPuzzleDoneMark.SetActive(!locked && DailyPuzzle.IsDoneToday(DateTime.UtcNow));
+                dailyPuzzleDoneMark.transform.SetAsLastSibling();
+            }
         }
 
         private void RefreshDailyRewardDot()
@@ -149,6 +179,7 @@ namespace CatBlockPuzzle
             Listen(dailyRewardButton, OpenDailyReward, bind);
             Listen(collectionButton, OpenCollection, bind);
             Listen(roomsButton, OpenRooms, bind);
+            Listen(dailyPuzzleButton, OpenDailyPuzzle, bind);
             if (bind) UpdateLockedFeatures();
         }
 

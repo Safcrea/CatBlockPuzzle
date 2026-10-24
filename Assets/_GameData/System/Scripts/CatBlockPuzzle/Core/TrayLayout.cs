@@ -404,6 +404,14 @@ namespace CatBlockPuzzle
             state.Rect.localEulerAngles = Vector3.zero;
         }
 
+        /// <summary>Re-lays a shelf cat after its shape changed (Rotate), keeping it on its card.</summary>
+        public void RelayoutTrayPiece(PieceState state)
+        {
+            if (state?.Rect == null || state.Placed) return;
+            float trayCellSize = TrayCellSize(state);
+            pieceLayout.SetPieceGrid(state, trayCellSize, TrayGap, trayCellSize, TrayGap);
+        }
+
         public void UpdateIdleMotion()
         {
             if (pieces.Count == 0 || reducedMotion)

@@ -205,6 +205,7 @@ namespace CatBlockPuzzle
                 state.SizeRoutine = null;
                 state.SlotMoveRoutine = null;
                 state.Row = -1; state.Col = -1; state.HasGridLayout = false;
+                state.ResetRotation();
                 tray.AttachPieceToTray(state);
                 mood.SetMood(state, CatMood.Neutral);
             }

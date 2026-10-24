@@ -1,6 +1,6 @@
 namespace CatBlockPuzzle
 {
-    /// <summary>Hint and Freeze power-ups: when they may be used, using them, and the purchase popup's pause.</summary>
+    /// <summary>Hint, Freeze and Rotate power-ups: when they may be used, using them, and the purchase popup's pause.</summary>
     internal sealed class PowerUpController
     {
         private readonly IGameplayContext context;
@@ -13,6 +13,7 @@ namespace CatBlockPuzzle
         private readonly LevelOneTutorial tutorial;
         private readonly InteractionGates gates;
         private readonly ILevelFlow flow;
+        private readonly RotateController rotate;
 
         private bool powerUpPurchaseOwnsPause;
         private bool timerWasRunningBeforePurchase;
@@ -21,8 +22,9 @@ namespace CatBlockPuzzle
 
         public PowerUpController(IGameplayContext context, PuzzleSession session, LevelTimer timer, HintPresenter hint,
             PieceDragController drag, PlayerProgress progress, MetaProgressionController meta, LevelOneTutorial tutorial,
-            InteractionGates gates, ILevelFlow flow)
+            InteractionGates gates, ILevelFlow flow, RotateController rotate)
         {
+            this.rotate = rotate;
             this.context = context;
             this.session = session;
             this.timer = timer;
@@ -39,12 +41,21 @@ namespace CatBlockPuzzle
 
         public bool CanRequestPowerUp(PowerUpKind kind)
         {
-            if (kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze) return false;
+            if (kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze && kind != PowerUpKind.Rotate) return false;
             if (Hud == null || !Hud.IsPowerUpUnlocked(kind)) return false;
             if (!timer.timerRunning || session.inputLocked || session.levelFailed || gates.ResultScreenOpen || gates.MetaUiOpen ||
                 tutorial.IsOpen || gates.PowerUpTutorialOpen || gates.PowerUpPurchaseOpen ||
                 gates.SystemPaused || gates.GameplayHidden) return false;
+            // One Rotate at a time, and only while a shelf cat is left to turn.
+            if (kind == PowerUpKind.Rotate) return !rotate.Active && rotate.HasTurnableCat;
             return kind != PowerUpKind.Freeze || !timer.FreezeUsedThisAttempt;
+        }
+
+        public bool TryUseRotatePowerUp()
+        {
+            if (!CanRequestPowerUp(PowerUpKind.Rotate)) return false;
+            rotate.Begin();
+            return true;
         }
 
         public bool TryUseFreezePowerUp()
@@ -68,6 +79,7 @@ namespace CatBlockPuzzle
         public void ReportUse(PowerUpKind kind, int cost, bool fromTutorial)
         {
             if (kind == PowerUpKind.Hint) session.stats.hintsUsed++;
+            else if (kind == PowerUpKind.Rotate) session.stats.rotatesUsed++;
             else session.stats.freezesUsed++;
             int piecesLeft = 0;
             foreach (PieceState piece in session.pieces)

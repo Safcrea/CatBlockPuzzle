@@ -199,6 +199,55 @@ namespace CatBlockPuzzle.Tests
             Assert.That(profile.Stars(level, 71, profile.DurationSeconds, 10), Is.EqualTo(1), "A full clock does not rescue too many drops.");
         }
 
+        [TestCase(2026, 1, 1, 50)]
+        [TestCase(2026, 2, 19, 99)]
+        [TestCase(2026, 2, 20, 50)]
+        [TestCase(2026, 10, 24, 96)]
+        [TestCase(2025, 12, 31, 99)]
+        public void DailyPuzzle_PicksOneOfLevels51To100ByUtcDate(int year, int month, int day, int expectedIndex)
+        {
+            var date = new System.DateTime(year, month, day, 23, 30, 0, System.DateTimeKind.Utc);
+            Assert.That(DailyPuzzle.LevelIndexFor(date, 100), Is.EqualTo(expectedIndex));
+        }
+
+        [Test]
+        public void DailyPuzzle_PaysItsBonusOnceEachUtcDay()
+        {
+            bool had = PlayerPrefs.HasKey(DailyPuzzle.LastWonDayKey);
+            int saved = PlayerPrefs.GetInt(DailyPuzzle.LastWonDayKey);
+            PlayerPrefs.DeleteKey(DailyPuzzle.LastWonDayKey);
+            try
+            {
+                var morning = new System.DateTime(2026, 10, 24, 0, 5, 0, System.DateTimeKind.Utc);
+                Assert.That(DailyPuzzle.IsDoneToday(morning), Is.False);
+                Assert.That(DailyPuzzle.TryClaimBonus(morning), Is.True);
+                Assert.That(DailyPuzzle.IsDoneToday(morning.AddHours(23)), Is.True);
+                Assert.That(DailyPuzzle.TryClaimBonus(morning.AddHours(23)), Is.False);
+                Assert.That(DailyPuzzle.IsDoneToday(morning.AddDays(1)), Is.False, "The check mark clears at the next UTC day.");
+                Assert.That(DailyPuzzle.TryClaimBonus(morning.AddDays(1)), Is.True);
+            }
+            finally
+            {
+                if (had) PlayerPrefs.SetInt(DailyPuzzle.LastWonDayKey, saved);
+                else PlayerPrefs.DeleteKey(DailyPuzzle.LastWonDayKey);
+            }
+        }
+
+        [Test]
+        public void Rotate_IsSoldInTheShopAtTheFreezePrice()
+        {
+            PowerUpShopConfig config = PowerUpShopConfig.Load();
+            Assert.That(config, Is.Not.Null);
+            PowerUpShopConfig.Offer rotate = config.GetOffer(PowerUpKind.Rotate);
+            PowerUpShopConfig.Offer freeze = config.GetOffer(PowerUpKind.Freeze);
+            Assert.That(rotate.coinPrice, Is.EqualTo(freeze.coinPrice));
+            Assert.That(rotate.quantity, Is.EqualTo(freeze.quantity));
+            Assert.That(PowerUpShopConfig.CalculatePurchase(PowerUpKind.Rotate, rotate, rotate.coinPrice, 0, out int left, out int owned),
+                Is.EqualTo(PowerUpPurchaseStatus.Success));
+            Assert.That(left, Is.Zero);
+            Assert.That(owned, Is.EqualTo(rotate.quantity));
+        }
+
         [Test]
         public void FailStreak_GrantsAFreeHintAfterThreeFailsAndResets()
         {

@@ -35,16 +35,20 @@ namespace CatBlockPuzzle
         private readonly FogController fog;
         private readonly DropCounter drops;
         private readonly GameplayToast toast;
+        private readonly RotateController rotate;
 
         private Coroutine boardRevealRoutine;
+        // The next LoadLevel is the Daily Puzzle (set by PlayDailyPuzzle and by a retry of one).
+        private bool loadAsDailyPuzzle;
         private bool timerWasRunningBeforeSettings;
 
         public LevelFlowController(IGameplayContext context, PuzzleSession session, PreparedLevelLoader loader, BoardController board,
             CellLockController locks, TrayLayout tray, PieceDragController drag, LevelTimer timer, HintPresenter hint, MovePieceTip tip, LevelOneTutorial tutorial,
             MetaProgressionController meta, ThemePresenter theme, PlayerProgress progress, ComboTracker combo, FxSpawner fx,
             HapticsController haptics, CatMoodPresenter mood, InteractionGates gates, IPuzzleConfig config,
-            MechanicIntroPresenter intro, MistakeHearts hearts, FogController fog, DropCounter drops, GameplayToast toast) : base(context)
+            MechanicIntroPresenter intro, MistakeHearts hearts, FogController fog, DropCounter drops, GameplayToast toast, RotateController rotate) : base(context)
         {
+            this.rotate = rotate;
             this.fog = fog;
             this.drops = drops;
             this.toast = toast;
@@ -104,7 +108,7 @@ namespace CatBlockPuzzle
             nextLevelIndex = Mathf.Clamp(nextLevelIndex, 0, levelManager.LevelCount - 1);
             // Resolve/validate before disturbing the current level, so a missing prefab is recoverable.
             var nextPrefab = loader.LoadLevelPrefab(nextLevelIndex);
-            if (nextPrefab == null) return;
+            if (nextPrefab == null) { loadAsDailyPuzzle = false; return; }
             Hud?.CancelPowerUpTutorial();
             Hud?.CancelPowerUpPurchase(false);
             intro.Cancel();
@@ -112,9 +116,12 @@ namespace CatBlockPuzzle
             session.ResetForLevelLoad();
             timer.timerRunning = false;
             levelNavigationTesting = !persistProgress;
+            session.dailyPuzzle = loadAsDailyPuzzle && !persistProgress;
+            loadAsDailyPuzzle = false;
             tray.SetScrollEnabled(true);
             hint.StopHint();
             toast.Hide();
+            rotate.Cancel();
             haptics?.CancelLevelComplete();
             Host.StopAllCoroutines();
             boardRevealRoutine = null;
@@ -131,7 +138,7 @@ namespace CatBlockPuzzle
             activeLevel = levelManager.GetLevel(levelIndex);
             loader.Activate(levelIndex, nextPrefab);
             theme.Apply(levelIndex, loader.LoadedLevel);
-            Hud.levelText.text = "Level " + session.levelNumber.ToString();
+            Hud.levelText.text = session.dailyPuzzle ? "Daily Puzzle" : "Level " + session.levelNumber.ToString();
             if (Hud.objectiveText != null)
             {
                 Hud.objectiveText.text = theme.ObjectiveTitle(activeLevel.Title);
@@ -222,6 +229,7 @@ namespace CatBlockPuzzle
 
         public void ResetLevel()
         {
+            loadAsDailyPuzzle = session.dailyPuzzle;
             LoadLevel(levelIndex, !levelNavigationTesting, session.levelNumber);
         }
 
@@ -249,6 +257,14 @@ namespace CatBlockPuzzle
 
             int maxLevelIndex = levelManager.LevelCount - 1;
             LoadLevel(CanGoNextLevel ? levelIndex + 1 : maxLevelIndex, !levelNavigationTesting);
+        }
+
+        /// <summary>Plays the day's puzzle as a preview; only its first win of the day pays a bonus.</summary>
+        public void PlayDailyPuzzle(int zeroBasedLevelIndex)
+        {
+            meta.ResetOverlayState();
+            loadAsDailyPuzzle = true;
+            LoadLevel(zeroBasedLevelIndex, false);
         }
 
         public void PreviewLevelForTesting(int zeroBasedLevelIndex)
@@ -315,6 +331,13 @@ namespace CatBlockPuzzle
             int chapterBefore = meta.Progress != null ? meta.Progress.HighestEarnedChapter : 0;
             bool enteringEndless = !levelNavigationTesting && !EndlessLevels.IsActive && session.levelNumber == levelManager.LevelCount;
             int awardedCoins = meta.RecordMetaFirstClear(activeLevel.Reward);
+            if (session.dailyPuzzle && DailyPuzzle.TryClaimBonus(System.DateTime.UtcNow))
+            {
+                progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + DailyPuzzle.BonusCoins);
+                progress.SaveCoins();
+                GameAnalytics.CurrencyEarned(DailyPuzzle.BonusCoins, GameAnalytics.EarnDailyPuzzle, progress.Coins);
+                awardedCoins += DailyPuzzle.BonusCoins;
+            }
             float coinFlightDuration = awardedCoins > 0 ? fx.FlyCoins(awardedCoins, board.BoardCenterScreen()) : 0f;
 
             yield return new WaitForSecondsRealtime(Mathf.Max(0.75f, coinFlightDuration));
@@ -363,6 +386,7 @@ namespace CatBlockPuzzle
             timer.timerRunning = false;
             inputLocked = true;
             hint.StopHint();
+            rotate.Cancel();
             drag.CancelActiveDragToRest();
             PuzzleAudio.PlayWithMusicDuck("Wrong");
             haptics?.Play(HapticKind.LevelFail);
@@ -377,7 +401,7 @@ namespace CatBlockPuzzle
             Hud?.CancelPowerUpTutorial();
             Hud?.CancelPowerUpPurchase(false);
             CancelReveal(snapCells: false);
-            timer.StopLevelTimer(); hint.StopHint(); drag.CancelActiveDragToRest(); inputLocked = true;
+            timer.StopLevelTimer(); hint.StopHint(); rotate.Cancel(); drag.CancelActiveDragToRest(); inputLocked = true;
         }
 
         public void SetSystemPaused(bool paused)
@@ -402,6 +426,7 @@ namespace CatBlockPuzzle
             if (!CanGoNextLevel) { GameSystem.Instance?.GoHome(); return; }
             // Validate the destination before changing either progress or the current screen.
             if (loader.LoadLevelPrefab(levelIndex + 1) == null) return;
+            if (session.dailyPuzzle) { GameSystem.Instance?.GoHome(); return; }
             if (levelNavigationTesting) { LoadNextLevel(); return; }
             if (meta.Progress != null && !meta.Progress.RecordSkip(levelIndex).Succeeded) return;
             GameAnalytics.LevelSkipped(session.levelFailed ? "fail_screen" : gates.LevelCompleteOpen ? "complete_screen" : "other");

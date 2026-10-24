@@ -41,9 +41,9 @@ namespace CatBlockPuzzle
             {
                 PieceState state = pieces[i];
                 if (state.Definition.IsSpare || state.Definition.IsFixed) continue;
-                if (locks.BlocksSolution(state.Definition)) continue;
+                if (locks.BlocksSolution(state.Solution)) continue;
                 if (!state.Placed && state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
-                if (!state.Placed || state.Row != state.Definition.SolutionRow || state.Col != state.Definition.SolutionCol)
+                if (!state.Placed || state.IsRotated || state.Row != state.Solution.SolutionRow || state.Col != state.Solution.SolutionCol)
                 {
                     hinted = state;
                     break;
@@ -60,12 +60,12 @@ namespace CatBlockPuzzle
         private IEnumerator HintRoutine(PieceState state, HintReveal reveal)
         {
             List<Image> hintedCells = new List<Image>();
-            CellOffset[] cells = state.Definition.Cells;
+            CellOffset[] cells = state.Solution.Cells;
             int revealed = reveal == HintReveal.AnchorOnly ? Mathf.Min(1, cells.Length) : cells.Length;
             for (int c = 0; c < revealed; c++)
             {
                 CellOffset cell = cells[c];
-                Vector2Int coord = new Vector2Int(state.Definition.SolutionRow + cell.Row, state.Definition.SolutionCol + cell.Col);
+                Vector2Int coord = new Vector2Int(state.Solution.SolutionRow + cell.Row, state.Solution.SolutionCol + cell.Col);
                 if (session.boardCells.TryGetValue(coord, out CellView cellView))
                 {
                     hintedCells.Add(cellView.Image);

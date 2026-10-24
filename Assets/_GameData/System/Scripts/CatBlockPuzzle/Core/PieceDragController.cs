@@ -44,6 +44,8 @@ namespace CatBlockPuzzle
         public IPlacementGate Gate { get; set; }
 
         public event Action<PieceState> PiecePlaced;
+        /// <summary>A cat (on the shelf or the board) was tapped without being dragged.</summary>
+        public event Action<PieceState> PieceTapped;
         /// <summary>A cat was released over the board where it cannot land.</summary>
         public event Action<PieceState> MissedDrop;
 
@@ -172,6 +174,12 @@ namespace CatBlockPuzzle
             }
 
             return true;
+        }
+
+        public void TapPiece(PieceState state)
+        {
+            if (state == null || inputLocked || session.levelFailed || drag != null) return;
+            PieceTapped?.Invoke(state);
         }
 
         public void CancelPieceInteraction(PieceState state)
@@ -381,7 +389,7 @@ namespace CatBlockPuzzle
             else
             {
                 session.stats.misdrops++;
-                if (locks.BlocksSolution(state.Definition)) session.stats.lockBlockedDrops++;
+                if (locks.BlocksSolution(state.Solution)) session.stats.lockBlockedDrops++;
             }
             RestoreInvalidDrop(endedDrag);
             if (endedDrag.NearBoard) MissedDrop?.Invoke(state);
@@ -406,7 +414,7 @@ namespace CatBlockPuzzle
             PieceState state = endedDrag.Piece;
             feedback.PlayWrong(state);
             // A cat refused because its own spot is still padlocked: show what opens it.
-            if (endedDrag.NearBoard && locks.BlocksSolution(state.Definition)) locks.Explain(state.Definition);
+            if (endedDrag.NearBoard && locks.BlocksSolution(state.Solution)) locks.Explain(state.Solution);
             if (endedDrag.PreviousPlaced)
             {
                 state.Placed = true;
