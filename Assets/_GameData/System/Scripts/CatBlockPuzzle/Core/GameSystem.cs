@@ -156,6 +156,8 @@ namespace CatBlockPuzzle
         public void RefreshPowerUpHud() => gameplayController?.RefreshPowerUpHud();
         public PowerUpPurchaseStatus PurchasePowerUp(PowerUpKind kind) => HasGameplayController && PowerUpShop != null
             ? gameplayController.PurchasePowerUp(kind, PowerUpShop.GetOffer(kind)) : PowerUpPurchaseStatus.Unavailable;
+        public PowerUpPurchaseStatus PurchasePowerUpFromShop(PowerUpKind kind) => HasGameplayController && PowerUpShop != null
+            ? gameplayController.PurchasePowerUpFromShop(kind, PowerUpShop.GetOffer(kind)) : PowerUpPurchaseStatus.Unavailable;
         internal void SetPowerUpPurchaseOpen(bool open, bool resumeGameplay = true) => gameplayController?.SetPowerUpPurchaseOpen(open, resumeGameplay);
         public bool IsGameplayOpen => referenceUi == null || referenceUi.IsGameplayOpen;
         public void ShowGameplayPage() => referenceUi?.ShowGameplay();

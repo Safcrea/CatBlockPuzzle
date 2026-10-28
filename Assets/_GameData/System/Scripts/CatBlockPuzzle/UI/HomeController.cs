@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ namespace CatBlockPuzzle
     {
         [SerializeField] private GameObject homeScreen;
         [SerializeField] private Text coinText;
+        [SerializeField] private TMP_Text coinLabel;
+        [SerializeField] private Button coinPlusButton;
         [SerializeField] private Button playButton;
         [SerializeField] private Button continueButton;
         [SerializeField] private Button settingsButton;
@@ -49,6 +52,7 @@ namespace CatBlockPuzzle
         public void Show()
         {
             if (coinText != null) coinText.text = (GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0).ToString();
+            if (coinLabel != null) coinLabel.text = (GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0).ToString();
             if (homeScreen != null) homeScreen.SetActive(true);
             if (playButton != null) MenuAttentionPulse.Configure(playButton.transform, playPop);
             ApplyMenuMotion();
@@ -176,6 +180,7 @@ namespace CatBlockPuzzle
             Listen(quitButton, Quit, bind);
             Listen(levelsButton, OpenLevels, bind);
             Listen(shopButton, OpenShop, bind);
+            Listen(coinPlusButton, OpenShop, bind);
             Listen(dailyRewardButton, OpenDailyReward, bind);
             Listen(collectionButton, OpenCollection, bind);
             Listen(roomsButton, OpenRooms, bind);

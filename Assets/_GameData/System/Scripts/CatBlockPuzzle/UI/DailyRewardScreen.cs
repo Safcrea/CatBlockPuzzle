@@ -25,6 +25,10 @@ namespace CatBlockPuzzle
             public Sprite availableClaimSprite;
             public Sprite claimedClaimSprite;
             public bool claimed;
+            public Transform motionRoot;
+            public GameObject claimedBadge;
+            public Sprite claimedCardSprite;
+            public Sprite lockedCardSprite;
             public UnityEvent claimRequested = new UnityEvent();
         }
 
@@ -32,6 +36,12 @@ namespace CatBlockPuzzle
         [SerializeField] private Button closeButton;
         [SerializeField] private Button okayButton;
         [SerializeField] private DayView[] days = Array.Empty<DayView>();
+        [SerializeField] private bool useAuthoredRewardIcons;
+        [SerializeField] private Button claimCurrentButton;
+        [SerializeField] private Button laterButton;
+        [SerializeField] private TMP_Text bonusCoinsLabel;
+        [SerializeField] private TMP_Text bonusHintLabel;
+        [SerializeField] private TMP_Text bonusFreezeLabel;
         [Header("Rewards")]
         [SerializeField] private DailyRewardConfig rewardConfig;
         [Header("Opening Animation")]
@@ -73,6 +83,8 @@ namespace CatBlockPuzzle
                 LockedButtonTapSfx.Ensure(day.claimButton);
                 ApplyClaimedState(day);
             }
+            Bind(claimCurrentButton, ClaimCurrent, true);
+            Bind(laterButton, CloseButtonClicked, true);
             Bind(closeButton, CloseButtonClicked, true);
             Bind(okayButton, CloseButtonClicked, true);
             RefreshPresentation();
@@ -80,6 +92,8 @@ namespace CatBlockPuzzle
 
         private void OnDisable()
         {
+            Bind(claimCurrentButton, ClaimCurrent, false);
+            Bind(laterButton, CloseButtonClicked, false);
             Bind(closeButton, CloseButtonClicked, false);
             Bind(okayButton, CloseButtonClicked, false);
             if (claimActions == null) return;
@@ -97,6 +111,8 @@ namespace CatBlockPuzzle
             button.onClick.RemoveListener(action);
             if (bind) button.onClick.AddListener(action);
         }
+
+        private void ClaimCurrent() => RequestClaim(AvailableDay);
 
         public void RequestClaim(int dayNumber)
         {
@@ -142,6 +158,9 @@ namespace CatBlockPuzzle
             // claim_day is reserved for today's available reward; all other standard
             // day cards use bg_day, whether they are future or already claimed.
             Sprite card = canClaim ? day.claimDaySprite : day.backgroundDaySprite;
+            if (day.claimed && day.claimedCardSprite != null) card = day.claimedCardSprite;
+            else if (!canClaim && !day.claimed && day.lockedCardSprite != null) card = day.lockedCardSprite;
+            if (day.claimedBadge != null) day.claimedBadge.SetActive(day.claimed);
             Sprite claim = day.claimed ? day.claimedClaimSprite : day.availableClaimSprite;
             if (day.cardImage != null && card != null) day.cardImage.sprite = card;
             if (day.claimImage != null && claim != null) day.claimImage.sprite = claim;
@@ -156,7 +175,7 @@ namespace CatBlockPuzzle
             RefreshPresentation();
             var cards = new Transform[days.Length];
             for (int i = 0; i < days.Length; i++)
-                if (days[i]?.cardImage != null) cards[i] = days[i].cardImage.transform;
+                if (days[i]?.cardImage != null) cards[i] = days[i].motionRoot != null ? days[i].motionRoot : days[i].cardImage.transform;
             MenuTransition.Show(root, true, openingAnimation, cards);
         }
         public void Hide()
@@ -203,12 +222,13 @@ namespace CatBlockPuzzle
             {
                 DayView day = days[i];
                 if (day == null) continue;
+                if (day.dayLabel != null) day.dayLabel.text = "Day " + day.day;
                 day.claimed = claimedToday ? day.day <= savedDay : day.day < availableDay;
                 bool highlighted = day.day == nextDay;
                 SetCardDimmed(day, !highlighted);
                 if (highlighted) nextView = day;
                 DailyRewardConfig.DayReward reward = config != null ? config.GetDay(day.day) : default;
-                if (day.rewardIcon != null && reward.rewardIcon != null) day.rewardIcon.sprite = reward.rewardIcon;
+                if (!useAuthoredRewardIcons && day.rewardIcon != null && reward.rewardIcon != null) day.rewardIcon.sprite = reward.rewardIcon;
                 if (day.amountLabel != null) day.amountLabel.text = RewardLabelFor(reward, day.day);
                 bool canClaim = day.day == availableDay;
                 ApplyClaimedState(day, canClaim);
@@ -216,6 +236,11 @@ namespace CatBlockPuzzle
                 if (day.claimButton != null) day.claimButton.interactable = canClaim;
             }
 
+            if (claimCurrentButton != null) claimCurrentButton.interactable = availableDay > 0;
+            DailyRewardConfig.DayReward bonus = config != null ? config.GetDay(7) : default;
+            if (bonusCoinsLabel != null) bonusCoinsLabel.text = bonus.coins.ToString();
+            if (bonusHintLabel != null) bonusHintLabel.text = "x" + bonus.hintCount;
+            if (bonusFreezeLabel != null) bonusFreezeLabel.text = "x" + bonus.freezeCount;
             if (claimedToday && nextView != null) StartCountdown(nextView);
             else StopCountdown();
         }
@@ -223,8 +248,9 @@ namespace CatBlockPuzzle
         private void SetCardDimmed(DayView day, bool dimmed)
         {
             if (day.cardImage == null) return;
-            CanvasGroup group = day.cardImage.GetComponent<CanvasGroup>();
-            if (group == null) group = day.cardImage.gameObject.AddComponent<CanvasGroup>();
+            GameObject card = day.motionRoot != null ? day.motionRoot.gameObject : day.cardImage.gameObject;
+            CanvasGroup group = card.GetComponent<CanvasGroup>();
+            if (group == null) group = card.AddComponent<CanvasGroup>();
             group.alpha = dimmed ? inactiveCardAlpha : 1f;
             // Dimmed cards still take taps so a locked tap can answer with a sound.
             group.interactable = true;

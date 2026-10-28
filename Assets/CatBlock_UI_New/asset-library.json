@@ -1,0 +1,4992 @@
+{
+  "specificationVersion": 2,
+  "assets": [
+    {
+      "id": "MainMenu_01Base",
+      "path": "UI/BG/MM_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/MM_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "6776f2ae25607f09e17c7c28683b63db8e8e6dd130d4c9e3e644897d890791fc",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/MM_BG.png",
+      "asset_id": "MainMenu_01Base",
+      "screens": [
+        "main_menu_01"
+      ]
+    },
+    {
+      "id": "MainMenu_01_PlayButton",
+      "path": "UI/btns/MM_Play_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Play_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 587,
+        "height": 228
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 571,
+        "height": 212,
+        "x": 8
+      },
+      "sha256": "3de399eeb7c462bc664a123389bb87010ecd73e48de4b1c58ceadb04e45fc568",
+      "placements": [
+        {
+          "instanceId": "PlayButton",
+          "screenRect": {
+            "x": 203.14558979808714,
+            "y": 1313.6842105263158,
+            "width": 673.7088204038257,
+            "height": 261.8181818181818
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 587,
+      "height": 228,
+      "native_size_px": {
+        "width": 587,
+        "height": 228
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 571,
+        "height": 212,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Play_btn.png",
+      "asset_id": "MainMenu_01_PlayButton",
+      "screens": [
+        "main_menu_01"
+      ]
+    },
+    {
+      "id": "MainMenu_01_LevelsButton",
+      "path": "UI/btns/MM_Levels_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Levels_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 273,
+        "height": 204
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "sha256": "b0d29d87e6caeb745396e44b3e9bbd0f8a2cf18c3ceb171aa45f7ec934efaf29",
+      "placements": [
+        {
+          "instanceId": "LevelsButton",
+          "screenRect": {
+            "x": 55.090329436769395,
+            "y": 1601.9138755980862,
+            "width": 313.32624867162593,
+            "height": 234.25837320574163
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 273,
+      "height": 204,
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Levels_btn.png",
+      "asset_id": "MainMenu_01_LevelsButton",
+      "screens": [
+        "main_menu_01"
+      ]
+    },
+    {
+      "id": "MainMenu_01_ShopButton",
+      "path": "UI/btns/MM_Shop_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Shop_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 273,
+        "height": 204
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "sha256": "c5abdcd7c6a15216ef59d51ad31155d1eb502b3f5cbbbfd0c9dc95fe35a7af27",
+      "placements": [
+        {
+          "instanceId": "ShopButton",
+          "screenRect": {
+            "x": 386.7800212539851,
+            "y": 1601.9138755980862,
+            "width": 313.32624867162593,
+            "height": 234.25837320574163
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 273,
+      "height": 204,
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Shop_btn.png",
+      "asset_id": "MainMenu_01_ShopButton",
+      "screens": [
+        "main_menu_01"
+      ]
+    },
+    {
+      "id": "MainMenu_01_SettingsButton",
+      "path": "UI/btns/MM_Settings_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Settings_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 273,
+        "height": 204
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "sha256": "74ef2b231d569b0c9caa4987deb804a6a0a39e61187b7f860bb009c94ee8743c",
+      "placements": [
+        {
+          "instanceId": "SettingsButton",
+          "screenRect": {
+            "x": 711.5834218916046,
+            "y": 1601.9138755980862,
+            "width": 313.32624867162593,
+            "height": 234.25837320574163
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 273,
+      "height": 204,
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Settings_btn.png",
+      "asset_id": "MainMenu_01_SettingsButton",
+      "screens": [
+        "main_menu_01"
+      ]
+    },
+    {
+      "id": "CatBlocksLogo",
+      "path": "UI/branding/MM_CatBlocks_logo.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/branding/MM_CatBlocks_logo.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1747,
+        "height": 999
+      },
+      "nativeVisibleBounds": {
+        "y": 63,
+        "width": 1683,
+        "height": 904,
+        "x": 32
+      },
+      "sha256": "9a8b8d79fd2b390246d699489e231dca61a8fac4647c9520df83a8fc40d14fe0",
+      "placements": [
+        {
+          "instanceId": "Logo",
+          "screenRect": {
+            "x": 162.2799729494735,
+            "y": 158.69856459330143,
+            "width": 789.871509999034,
+            "height": 458.8708133971292
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "branding",
+      "asset_role": "sprite",
+      "width": 1747,
+      "height": 999,
+      "native_size_px": {
+        "width": 1747,
+        "height": 999
+      },
+      "alpha_bounds_px": {
+        "y": 63,
+        "width": 1683,
+        "height": 904,
+        "x": 32
+      },
+      "asset_path": "UI/branding/MM_CatBlocks_logo.png",
+      "asset_id": "CatBlocksLogo",
+      "screens": [
+        "main_menu_01"
+      ]
+    },
+    {
+      "id": "CurrencyCreamBacking",
+      "path": "UI/bars/SH_CoinCream_bar.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 285,
+      "height": 115,
+      "opaque": false,
+      "filename": "UI/bars/SH_CoinCream_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 285,
+        "height": 115
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "sha256": "56934333c62be8003c3e1894eef03702093f0d708154ae1d266cee64701c93e2",
+      "placements": [
+        {
+          "instanceId": "CoinBarBackground",
+          "screenRect": {
+            "x": 33.28374070138151,
+            "y": 78.08612440191388,
+            "width": 327.0988310308183,
+            "height": 132.05741626794259
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinBarBackground",
+          "screenRect": {
+            "x": 768.9691817215728,
+            "y": 91.86602870813397,
+            "width": 301.8490967056323,
+            "height": 125.16746411483254
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 285,
+        "height": 115
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "asset_path": "UI/bars/SH_CoinCream_bar.png",
+      "asset_id": "CurrencyCreamBacking",
+      "screens": [
+        "main_menu_01",
+        "level_selection"
+      ]
+    },
+    {
+      "id": "CoinCat",
+      "path": "UI/icons/SH_CoinCat_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 89,
+      "height": 90,
+      "opaque": false,
+      "filename": "UI/icons/SH_CoinCat_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 89,
+        "height": 90
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "sha256": "f3b85e8e3b22fa95d2083aa337b53733ed078ecde401e646bcfdd914e3b1d9b0",
+      "placements": [
+        {
+          "instanceId": "CoinIcon",
+          "screenRect": {
+            "x": 47.05632306057386,
+            "y": 91.86602870813397,
+            "width": 102.14665249734325,
+            "height": 103.34928229665071
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinIcon",
+          "screenRect": {
+            "x": 782.7417640807652,
+            "y": 105.64593301435407,
+            "width": 102.14665249734325,
+            "height": 103.34928229665071
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 89,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "asset_path": "UI/icons/SH_CoinCat_icon.png",
+      "asset_id": "CoinCat",
+      "screens": [
+        "main_menu_01",
+        "level_selection"
+      ]
+    },
+    {
+      "id": "PlusGreen",
+      "path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 90,
+      "height": 90,
+      "opaque": false,
+      "filename": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 90,
+        "height": 90
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "sha256": "b2890a9bc4a543bb6f0daeb39f2ce7e8e87126aed32450365ce7813d6e1ebe52",
+      "placements": [
+        {
+          "instanceId": "PlusButton",
+          "screenRect": {
+            "x": 244.4633368756642,
+            "y": 91.86602870813397,
+            "width": 103.29436769394262,
+            "height": 103.34928229665071
+          },
+          "active": true
+        },
+        {
+          "instanceId": "PlusButton",
+          "screenRect": {
+            "x": 954.8990435706695,
+            "y": 105.64593301435407,
+            "width": 103.29436769394262,
+            "height": 103.34928229665071
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 90,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "asset_id": "PlusGreen",
+      "screens": [
+        "main_menu_01",
+        "level_selection"
+      ]
+    },
+    {
+      "id": "LoadingScreenBase",
+      "path": "UI/BG/LD_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/LD_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "a1240330ac8222bea44e4f4f7fb5392368108e6b0eda61f8d245f125ba6ecd8d",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/LD_BG.png",
+      "asset_id": "LoadingScreenBase",
+      "screens": [
+        "loading"
+      ]
+    },
+    {
+      "id": "LoadingText",
+      "path": "UI/titles/LD_Loading_title.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/titles/LD_Loading_title.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 497,
+        "height": 129
+      },
+      "nativeVisibleBounds": {
+        "y": 12,
+        "width": 474,
+        "height": 108,
+        "x": 13
+      },
+      "sha256": "284d4ef37c3bcd3328893801fd7a11a13aa33e49ca09dfe34bd305e616dbfe09",
+      "placements": [
+        {
+          "instanceId": "LoadingText",
+          "screenRect": {
+            "x": 281.1902231668438,
+            "y": 1224.1148325358852,
+            "width": 570.4144527098831,
+            "height": 148.13397129186603
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "titles",
+      "asset_role": "sprite",
+      "width": 497,
+      "height": 129,
+      "native_size_px": {
+        "width": 497,
+        "height": 129
+      },
+      "alpha_bounds_px": {
+        "y": 12,
+        "width": 474,
+        "height": 108,
+        "x": 13
+      },
+      "asset_path": "UI/titles/LD_Loading_title.png",
+      "asset_id": "LoadingText",
+      "screens": [
+        "loading"
+      ]
+    },
+    {
+      "id": "LoadingTrack",
+      "path": "UI/bars/LD_LoadingTrack_bar.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/bars/LD_LoadingTrack_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 781,
+        "height": 163
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 765,
+        "height": 147,
+        "x": 8
+      },
+      "sha256": "f91a914dac134f71bfce65931951b02e285d903f0300fcc6ff3fd71d6866c43a",
+      "placements": [
+        {
+          "instanceId": "LoadingTrack",
+          "screenRect": {
+            "x": 94.11264612114772,
+            "y": 1379.1387559808613,
+            "width": 896.3655685441021,
+            "height": 187.17703349282297
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "width": 781,
+      "height": 163,
+      "native_size_px": {
+        "width": 781,
+        "height": 163
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 765,
+        "height": 147,
+        "x": 8
+      },
+      "asset_path": "UI/bars/LD_LoadingTrack_bar.png",
+      "asset_id": "LoadingTrack",
+      "screens": [
+        "loading"
+      ]
+    },
+    {
+      "id": "LoadingGelFull",
+      "path": "UI/bars/LD_LoadingGelFull_bar.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 734,
+      "height": 119,
+      "opaque": false,
+      "filename": "UI/bars/LD_LoadingGelFull_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 734,
+        "height": 119
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 718,
+        "height": 103,
+        "x": 8
+      },
+      "sha256": "3d15b66037df3e248fc8d4219e475463e3fc7cc6d19e83606f835971e4bc48ab",
+      "placements": [
+        {
+          "instanceId": "LoadingGelFull",
+          "screenRect": {
+            "x": 119.36238044633369,
+            "y": 1405.5502392344497,
+            "width": 842.422954303932,
+            "height": 136.65071770334927
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 734,
+        "height": 119
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 718,
+        "height": 103,
+        "x": 8
+      },
+      "asset_path": "UI/bars/LD_LoadingGelFull_bar.png",
+      "asset_id": "LoadingGelFull",
+      "screens": [
+        "loading"
+      ]
+    },
+    {
+      "id": "LevelSelectionBase",
+      "path": "UI/BG/LV_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/LV_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "8363a3ba94f516380cb7c3ae194640001fcc7e73a361dd1e31a2b8da66b43688",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/LV_BG.png",
+      "asset_id": "LevelSelectionBase",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "LevelSelection_BackButton",
+      "path": "UI/btns/LV_Back_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/LV_Back_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 123,
+        "height": 125
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 107,
+        "height": 109,
+        "x": 8
+      },
+      "sha256": "0fe31697d562c8807e95ee127beb53daad8665e647beafde73d2972c4c3a3e10",
+      "placements": [
+        {
+          "instanceId": "BackButton",
+          "screenRect": {
+            "x": 32.13602550478215,
+            "y": 82.67942583732058,
+            "width": 141.16896918172156,
+            "height": 143.54066985645932
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 123,
+      "height": 125,
+      "native_size_px": {
+        "width": 123,
+        "height": 125
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 107,
+        "height": 109,
+        "x": 8
+      },
+      "asset_path": "UI/btns/LV_Back_btn.png",
+      "asset_id": "LevelSelection_BackButton",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "LevelsBoard",
+      "path": "UI/titles/LV_Levels_title.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/titles/LV_Levels_title.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 427,
+        "height": 124
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 411,
+        "height": 108,
+        "x": 8
+      },
+      "sha256": "9f77a25d682fb4350c7905f6a62e03cd898040aed5f704b66b12e5a35a3da1b5",
+      "placements": [
+        {
+          "instanceId": "LevelsBoard",
+          "screenRect": {
+            "x": 281.1902231668438,
+            "y": 84.97607655502392,
+            "width": 490.07438894792773,
+            "height": 142.39234449760767
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "titles",
+      "asset_role": "sprite",
+      "width": 427,
+      "height": 124,
+      "native_size_px": {
+        "width": 427,
+        "height": 124
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 411,
+        "height": 108,
+        "x": 8
+      },
+      "asset_path": "UI/titles/LV_Levels_title.png",
+      "asset_id": "LevelsBoard",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "StarFilledYellow",
+      "path": "UI/icons/LV_FilledStar_icon.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "pixelSize": {
+        "width": 70,
+        "height": 68
+      },
+      "nativeVisibleBounds": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "sha256": "a59cd4f8856b62efe8e167de8ba118a42941c008088a11b7871364ad79367884",
+      "placements": [
+        {
+          "instanceId": "LevelSlot1Star0",
+          "screenRect": {
+            "x": 122.80552603613178,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot1Star1",
+          "screenRect": {
+            "x": 193.96386822529223,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot1Star2",
+          "screenRect": {
+            "x": 265.1222104144527,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2Star0",
+          "screenRect": {
+            "x": 430.3931987247609,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2Star1",
+          "screenRect": {
+            "x": 501.5515409139214,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2Star2",
+          "screenRect": {
+            "x": 572.7098831030818,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3Star0",
+          "screenRect": {
+            "x": 737.98087141339,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3Star1",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3Star2",
+          "screenRect": {
+            "x": 880.2975557917109,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 70,
+      "height": 68,
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "asset_id": "StarFilledYellow",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "OrangePageDot",
+      "path": "UI/icons/LV_PageActive_dot.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/icons/LV_PageActive_dot.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 49,
+        "height": 49
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 33,
+        "height": 33,
+        "x": 8
+      },
+      "sha256": "bf7343e83bb845aa8c36a8f9ab044c965781ec2e7649421d4d5b22c2d525095e",
+      "placements": [
+        {
+          "instanceId": "PageDotActive",
+          "screenRect": {
+            "x": 454.4952178533475,
+            "y": 1663.9234449760766,
+            "width": 56.23804463336876,
+            "height": 56.26794258373206
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 49,
+      "height": 49,
+      "native_size_px": {
+        "width": 49,
+        "height": 49
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 33,
+        "height": 33,
+        "x": 8
+      },
+      "asset_path": "UI/icons/LV_PageActive_dot.png",
+      "asset_id": "OrangePageDot",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "BrownPageDot",
+      "path": "UI/icons/LV_PageInactive_dot.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/icons/LV_PageInactive_dot.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 45,
+        "height": 45
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 29,
+        "height": 29,
+        "x": 8
+      },
+      "sha256": "5120875256936cf9347ee8a4b323c9a9228e15b2754959964e6508aa513b5080",
+      "placements": [
+        {
+          "instanceId": "PageDot2",
+          "screenRect": {
+            "x": 514.1764080765143,
+            "y": 1666.22009569378,
+            "width": 51.64718384697131,
+            "height": 51.67464114832536
+          },
+          "active": true
+        },
+        {
+          "instanceId": "PageDot3",
+          "screenRect": {
+            "x": 570.4144527098831,
+            "y": 1666.22009569378,
+            "width": 51.64718384697131,
+            "height": 51.67464114832536
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 45,
+      "height": 45,
+      "native_size_px": {
+        "width": 45,
+        "height": 45
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 29,
+        "height": 29,
+        "x": 8
+      },
+      "asset_path": "UI/icons/LV_PageInactive_dot.png",
+      "asset_id": "BrownPageDot",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "LevelLockedCard",
+      "path": "UI/cards/LV_Level_Locked_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 258,
+      "height": 285,
+      "opaque": false,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "pixelSize": {
+        "width": 258,
+        "height": 285
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "sha256": "0297f3ab63d07af7d11f34525d0d0410d0d7d743bf14225d876a34a7c7b3a981",
+      "placements": [
+        {
+          "instanceId": "LevelSlot5",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 631.578947368421,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot6",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 631.578947368421,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot7",
+          "screenRect": {
+            "x": 83.78320935175346,
+            "y": 977.2248803827752,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot8",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 977.2248803827752,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot9",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 977.2248803827752,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot10",
+          "screenRect": {
+            "x": 83.78320935175346,
+            "y": 1318.2775119617224,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot11",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 1318.2775119617224,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot12",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 1318.2775119617224,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "asset_id": "LevelLockedCard",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "LevelCompletedCard",
+      "path": "UI/cards/LV_Level_Completed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 258,
+      "height": 285,
+      "opaque": false,
+      "filename": "UI/cards/LV_Level_Completed_card.png",
+      "state": "completed",
+      "pixelSize": {
+        "width": 258,
+        "height": 285
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "sha256": "acac019a7f04a94d9dcd88bedffaf3425479ca29994b2939f1dd0f857db12ad9",
+      "placements": [
+        {
+          "instanceId": "LevelSlot1",
+          "screenRect": {
+            "x": 83.78320935175346,
+            "y": 281.33971291866027,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 281.33971291866027,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 281.33971291866027,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "asset_path": "UI/cards/LV_Level_Completed_card.png",
+      "asset_id": "LevelCompletedCard",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "LevelSelectedCard",
+      "path": "UI/cards/LV_Level_Selected_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 351,
+      "height": 302,
+      "opaque": false,
+      "filename": "UI/cards/LV_Level_Selected_card.png",
+      "state": "selected",
+      "pixelSize": {
+        "width": 351,
+        "height": 302
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 335,
+        "height": 286,
+        "x": 8
+      },
+      "sha256": "9d8f8587a4f984ce0d46c41e59b984e2b72407695c5c3462e88dde83859e27fc",
+      "placements": [
+        {
+          "instanceId": "LevelSlot4",
+          "screenRect": {
+            "x": -1.1477151965993624,
+            "y": 599.4258373205741,
+            "width": 446.46121147715195,
+            "height": 383.5406698564593
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 351,
+        "height": 302
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 335,
+        "height": 286,
+        "x": 8
+      },
+      "asset_path": "UI/cards/LV_Level_Selected_card.png",
+      "asset_id": "LevelSelectedCard",
+      "screens": [
+        "level_selection"
+      ]
+    },
+    {
+      "id": "Shop_02Base",
+      "path": "UI/BG/SA_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/SA_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "6d163ff4a30bc280e2169c55720d73872b047698de5d873db7242eec663bb5ec",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/SA_BG.png",
+      "asset_id": "Shop_02Base",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "Shop02TitleBoard",
+      "path": "UI/titles/SA_Shop_title.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 465,
+      "height": 153,
+      "opaque": false,
+      "filename": "UI/titles/SA_Shop_title.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 465,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 449,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "ae9e7cedf69c12b1be40081666378993576817c14be31b485dceefa3a3243ce9",
+      "placements": [
+        {
+          "instanceId": "ShopTitleBoard",
+          "screenRect": {
+            "x": 286.9287991498406,
+            "y": 65.45454545454545,
+            "width": 533.6875664187035,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "titles",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 465,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 449,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/titles/SA_Shop_title.png",
+      "asset_id": "Shop02TitleBoard",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "CurrencyPeachBacking",
+      "path": "UI/bars/SA_Coin_bar.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 298,
+      "height": 98,
+      "opaque": false,
+      "filename": "UI/bars/SA_Coin_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 298,
+        "height": 98
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 282,
+        "height": 82,
+        "x": 8
+      },
+      "sha256": "fd41b41137f0905b5001c32a7c762f49df0835225e8c74547f05cb3c7dbda7c0",
+      "placements": [
+        {
+          "instanceId": "CoinBarBackground",
+          "screenRect": {
+            "x": 814.8777895855472,
+            "y": 42.48803827751196,
+            "width": 241.0201912858661,
+            "height": 101.05263157894737
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 298,
+        "height": 98
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 282,
+        "height": 82,
+        "x": 8
+      },
+      "asset_path": "UI/bars/SA_Coin_bar.png",
+      "asset_id": "CurrencyPeachBacking",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "CoinPaw",
+      "path": "UI/icons/SA_Coin_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 98,
+      "height": 98,
+      "opaque": false,
+      "filename": "UI/icons/SA_Coin_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 98,
+        "height": 98
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 82,
+        "height": 82,
+        "x": 8
+      },
+      "sha256": "73260b9046f78e79208fb14737ccce837d0702bf629016093bc379e1116174f6",
+      "placements": [
+        {
+          "instanceId": "CoinIcon",
+          "screenRect": {
+            "x": 814.8777895855472,
+            "y": 42.48803827751196,
+            "width": 112.47608926673752,
+            "height": 112.53588516746412
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 98,
+        "height": 98
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 82,
+        "height": 82,
+        "x": 8
+      },
+      "asset_path": "UI/icons/SA_Coin_icon.png",
+      "asset_id": "CoinPaw",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "PlusGreenWood",
+      "path": "UI/btns/SA_CoinPlus_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 91,
+      "height": 95,
+      "opaque": false,
+      "filename": "UI/btns/SA_CoinPlus_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 91,
+        "height": 95
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 75,
+        "height": 79,
+        "x": 8
+      },
+      "sha256": "729aef5e16e0297280f60a5e1d7484372841f1f00c6ba720687d2399b2846e57",
+      "placements": [
+        {
+          "instanceId": "RequestedPlusButton",
+          "screenRect": {
+            "x": 151.49840595111584,
+            "y": 1942.9665071770335,
+            "width": 104.44208289054198,
+            "height": 109.0909090909091
+          },
+          "active": false
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 91,
+        "height": 95
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 75,
+        "height": 79,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_CoinPlus_btn.png",
+      "asset_id": "PlusGreenWood",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "Shop02BackButton",
+      "path": "UI/btns/SA_Back_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/SA_Back_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 121,
+        "height": 117
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 105,
+        "height": 101,
+        "x": 8
+      },
+      "sha256": "1cdac905916a0007923cd2d80308be042c6a45e04ab164618bb6fc8b7e28d48d",
+      "placements": [
+        {
+          "instanceId": "RequestedBackButton",
+          "screenRect": {
+            "x": -9.181721572794899,
+            "y": 1942.9665071770335,
+            "width": 138.87353878852284,
+            "height": 134.35406698564594
+          },
+          "active": false
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 121,
+      "height": 117,
+      "native_size_px": {
+        "width": 121,
+        "height": 117
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 105,
+        "height": 101,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_Back_btn.png",
+      "asset_id": "Shop02BackButton",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "GreenBuyButton",
+      "path": "UI/btns/SA_BuyBlank_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/SA_BuyBlank_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 359,
+        "height": 114
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "sha256": "3dca69ef2eded9f504d5916b2c1ea57cf1bc22419972da1b85ee87713492fbea",
+      "placements": [
+        {
+          "instanceId": "HintPackBuyButton",
+          "screenRect": {
+            "x": 84.93092454835282,
+            "y": 745.2631578947369,
+            "width": 412.0297555791711,
+            "height": 107.94258373205741
+          },
+          "active": true
+        },
+        {
+          "instanceId": "UndoPackBuyButton",
+          "screenRect": {
+            "x": 589.9256110520722,
+            "y": 745.2631578947369,
+            "width": 412.0297555791711,
+            "height": 107.94258373205741
+          },
+          "active": true
+        },
+        {
+          "instanceId": "StarterBundleBuyButton",
+          "screenRect": {
+            "x": 84.93092454835282,
+            "y": 1326.3157894736842,
+            "width": 453.34750265674813,
+            "height": 101.05263157894737
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CatTileSkinBuyButton",
+          "screenRect": {
+            "x": 624.3570669500532,
+            "y": 1368.8038277511962,
+            "width": 387.92773645058446,
+            "height": 110.23923444976077
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 359,
+      "height": 114,
+      "native_size_px": {
+        "width": 359,
+        "height": 114
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_BuyBlank_btn.png",
+      "asset_id": "GreenBuyButton",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "HintPackCard",
+      "path": "UI/cards/SA_HintPack_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 442,
+      "height": 541,
+      "opaque": false,
+      "filename": "UI/cards/SA_HintPack_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 442,
+        "height": 541
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 426,
+        "height": 525,
+        "x": 8
+      },
+      "sha256": "0adf313d4059662fa655c23441d06a54e59d1b2fe2d29d957d85835dcbadeeed",
+      "placements": [
+        {
+          "instanceId": "HintPackCard",
+          "screenRect": {
+            "x": 34.43145589798087,
+            "y": 253.7799043062201,
+            "width": 507.29011689691816,
+            "height": 621.244019138756
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 442,
+        "height": 541
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 426,
+        "height": 525,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_HintPack_card.png",
+      "asset_id": "HintPackCard",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "UndoPackCard",
+      "path": "UI/cards/SA_UndoPack_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 441,
+      "height": 541,
+      "opaque": false,
+      "filename": "UI/cards/SA_UndoPack_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 441,
+        "height": 541
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 425,
+        "height": 525,
+        "x": 8
+      },
+      "sha256": "06b80d979a62da9a18b3dfda52a56e1675c11f1320ed6cd8c33aab179786ea20",
+      "placements": [
+        {
+          "instanceId": "UndoPackCard",
+          "screenRect": {
+            "x": 542.8692879914984,
+            "y": 253.7799043062201,
+            "width": 506.1424017003188,
+            "height": 621.244019138756
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 441,
+        "height": 541
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 425,
+        "height": 525,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_UndoPack_card.png",
+      "asset_id": "UndoPackCard",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "StarterBundleCard",
+      "path": "UI/cards/SA_StarterBundle_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 482,
+      "height": 535,
+      "opaque": false,
+      "filename": "UI/cards/SA_StarterBundle_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 482,
+        "height": 535
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 466,
+        "height": 519,
+        "x": 8
+      },
+      "sha256": "30795fe8d2481a410bb5949b99d0f813f529bccc1eba020ce4e4a02a5b2c7c62",
+      "placements": [
+        {
+          "instanceId": "StarterBundleCard",
+          "screenRect": {
+            "x": 34.43145589798087,
+            "y": 879.6172248803828,
+            "width": 553.1987247608927,
+            "height": 614.3540669856459
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 482,
+        "height": 535
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 466,
+        "height": 519,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_StarterBundle_card.png",
+      "asset_id": "StarterBundleCard",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "CatTileSkinCard",
+      "path": "UI/cards/SA_CatTileSkin_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 405,
+      "height": 534,
+      "opaque": false,
+      "filename": "UI/cards/SA_CatTileSkin_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 405,
+        "height": 534
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 389,
+        "height": 518,
+        "x": 8
+      },
+      "sha256": "3d48a6ffa5dc386ce840d6b0ffe9ecc6c96724859b6cc11dd51f401ee87ca891",
+      "placements": [
+        {
+          "instanceId": "CatTileSkinCard",
+          "screenRect": {
+            "x": 584.1870350690755,
+            "y": 880.7655502392345,
+            "width": 464.8246546227418,
+            "height": 613.2057416267943
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 405,
+        "height": 534
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 389,
+        "height": 518,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_CatTileSkin_card.png",
+      "asset_id": "CatTileSkinCard",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "CoinPackCard",
+      "path": "UI/cards/SA_CoinPack_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 884,
+      "height": 339,
+      "opaque": false,
+      "filename": "UI/cards/SA_CoinPack_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 884,
+        "height": 339
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 868,
+        "height": 323,
+        "x": 8
+      },
+      "sha256": "61265e4e75bafc878e75c58be55cdad345f002603efdf4360296a4647c9e7925",
+      "placements": [
+        {
+          "instanceId": "CoinPackCard",
+          "screenRect": {
+            "x": 34.43145589798087,
+            "y": 1493.9712918660287,
+            "width": 1014.5802337938363,
+            "height": 389.2822966507177
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 884,
+        "height": 339
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 868,
+        "height": 323,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_CoinPack_card.png",
+      "asset_id": "CoinPackCard",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "CoinPackBuyBlank",
+      "path": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "filename": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "button",
+      "state": "default",
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "placements": [
+        {
+          "instanceId": "CoinPack0Buy",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 1533.0143540669856,
+            "width": 203.14558979808714,
+            "height": 93.01435406698565
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack1Buy",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 1644.401913875598,
+            "width": 203.14558979808714,
+            "height": 93.01435406698565
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack2Buy",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 1755.7894736842106,
+            "width": 203.14558979808714,
+            "height": 93.01435406698565
+          },
+          "active": true
+        }
+      ],
+      "width": 190,
+      "height": 84,
+      "pixelSize": {
+        "width": 190,
+        "height": 84
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 174,
+        "height": 68,
+        "x": 8
+      },
+      "sha256": "6f04e68944691e30e47976ba9e08473f61d1b7c607cb9d53f102a251e7b83caf",
+      "native_size_px": {
+        "width": 190,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 174,
+        "height": 68,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "asset_id": "CoinPackBuyBlank",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "CoinPackRowCoin",
+      "path": "UI/icons/SA_CoinPackCoin_icon.png",
+      "filename": "UI/icons/SA_CoinPackCoin_icon.png",
+      "category": "icons",
+      "asset_role": "icon",
+      "state": "default",
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "placements": [
+        {
+          "instanceId": "CoinPack0CoinIcon",
+          "screenRect": {
+            "x": 556.6641870350691,
+            "y": 1545.688995215311,
+            "width": 78,
+            "height": 78
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack1CoinIcon",
+          "screenRect": {
+            "x": 556.6641870350691,
+            "y": 1653.6315789473683,
+            "width": 78,
+            "height": 78
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack2CoinIcon",
+          "screenRect": {
+            "x": 556.6641870350691,
+            "y": 1762.7224880382773,
+            "width": 78,
+            "height": 78
+          },
+          "active": true
+        }
+      ],
+      "width": 88,
+      "height": 88,
+      "pixelSize": {
+        "width": 88,
+        "height": 88
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 72,
+        "height": 72,
+        "x": 8
+      },
+      "sha256": "d04aa1dab0f8805cd9cd5a7a7f0a78e8fe44fb035ac491905d87f60e2979333d",
+      "native_size_px": {
+        "width": 88,
+        "height": 88
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 72,
+        "height": 72,
+        "x": 8
+      },
+      "asset_path": "UI/icons/SA_CoinPackCoin_icon.png",
+      "asset_id": "CoinPackRowCoin",
+      "screens": [
+        "shop_pack"
+      ]
+    },
+    {
+      "id": "PauseMenu_01PopupPanel",
+      "path": "UI/popups/PA_Pause_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 693,
+      "height": 986,
+      "opaque": false,
+      "filename": "UI/popups/PA_Pause_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 693,
+        "height": 986
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 677,
+        "height": 970,
+        "x": 8
+      },
+      "sha256": "06d795c887a488c9d3e30d8aa778eb2534394f15e5414d5d2ab6ae3d6afe50a4",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 142.31668437832093,
+            "y": 375.5023923444976,
+            "width": 795.3666312433581,
+            "height": 1132.248803827751
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 693,
+        "height": 986
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 677,
+        "height": 970,
+        "x": 8
+      },
+      "asset_path": "UI/popups/PA_Pause_popup.png",
+      "asset_id": "PauseMenu_01PopupPanel",
+      "screens": [
+        "popup_pause"
+      ]
+    },
+    {
+      "id": "PauseMenu_01_ResumeButton",
+      "path": "UI/btns/PA_Resume_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Resume_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "a844bfe67e78d92ddca90feab5666b73b1581d93234880b3cd92056511fb2f16",
+      "placements": [
+        {
+          "instanceId": "ResumeButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 745.2631578947369,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Resume_btn.png",
+      "asset_id": "PauseMenu_01_ResumeButton",
+      "screens": [
+        "popup_pause"
+      ]
+    },
+    {
+      "id": "PauseMenu_01_RestartButton",
+      "path": "UI/btns/PA_Restart_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Restart_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "ef4c59162fdfdf07bd2d4d39a87a5f6da9ce5035dd27a66e2fed247f2409bb52",
+      "placements": [
+        {
+          "instanceId": "RestartButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 924.4019138755981,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Restart_btn.png",
+      "asset_id": "PauseMenu_01_RestartButton",
+      "screens": [
+        "popup_pause"
+      ]
+    },
+    {
+      "id": "PauseMenu_01_SettingsButton",
+      "path": "UI/btns/PA_Settings_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Settings_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "0824262b59e788842742ee88dea53904683d9691617cb68ba3b148404202b52f",
+      "placements": [
+        {
+          "instanceId": "SettingsButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 1102.3923444976076,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Settings_btn.png",
+      "asset_id": "PauseMenu_01_SettingsButton",
+      "screens": [
+        "popup_pause"
+      ]
+    },
+    {
+      "id": "PauseMenu_01_HomeButton",
+      "path": "UI/btns/PA_Home_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Home_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "5a315b72488970ce7b98ef5bdb95014d0a636b01aab6e7c017b9c15a54135201",
+      "placements": [
+        {
+          "instanceId": "HomeButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 1276.9377990430621,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Home_btn.png",
+      "asset_id": "PauseMenu_01_HomeButton",
+      "screens": [
+        "popup_pause"
+      ]
+    },
+    {
+      "id": "PA_Paused_title",
+      "path": "UI/titles/PA_Paused_title.png",
+      "filename": "UI/titles/PA_Paused_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "PA_Paused_title",
+          "screenRect": {
+            "x": 245.61105207226353,
+            "y": 585.6459330143541,
+            "width": 588.7778958554729,
+            "height": 144.688995215311
+          },
+          "active": true
+        }
+      ],
+      "width": 513,
+      "height": 126,
+      "pixelSize": {
+        "width": 513,
+        "height": 126
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 497,
+        "height": 110,
+        "x": 8
+      },
+      "sha256": "c80b9a4fff64b6310896c424b069856f71da6a9ae7f08396e4a12f7890767bb7",
+      "native_size_px": {
+        "width": 513,
+        "height": 126
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 497,
+        "height": 110,
+        "x": 8
+      },
+      "asset_path": "UI/titles/PA_Paused_title.png",
+      "asset_id": "PA_Paused_title",
+      "screens": [
+        "popup_pause"
+      ]
+    },
+    {
+      "id": "Settings_01PopupPanel",
+      "path": "UI/popups/ST_Settings_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 850,
+      "height": 1249,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/popups/ST_Settings_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 850,
+        "height": 1249
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 828,
+        "height": 1233,
+        "x": 11
+      },
+      "sha256": "440750043362f64224d5b16ec5def6277876cccb32a0ffdb5556fd4a9dce9fd0",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 56.23804463336876,
+            "y": 235.78774489116236,
+            "width": 975.557917109458,
+            "height": 1433.4962805526036
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 850,
+        "height": 1249
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 828,
+        "height": 1233,
+        "x": 11
+      },
+      "asset_path": "UI/popups/ST_Settings_popup.png",
+      "asset_id": "Settings_01PopupPanel",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "Settings_01_BackButton",
+      "path": "UI/btns/ST_Back_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 446,
+      "height": 129,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/btns/ST_Back_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 446,
+        "height": 129
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 425,
+        "height": 113,
+        "x": 10
+      },
+      "sha256": "ad9b2d2a56b3fb184e1d69ca0068c850868d55f1af9d0671a6a1488d477e1394",
+      "placements": [
+        {
+          "instanceId": "BackButton",
+          "screenRect": {
+            "x": 284.63336875664186,
+            "y": 1474.4891162308245,
+            "width": 511.8809776833156,
+            "height": 148.05526036131775
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 446,
+        "height": 129
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 425,
+        "height": 113,
+        "x": 10
+      },
+      "asset_path": "UI/btns/ST_Back_btn.png",
+      "asset_id": "Settings_01_BackButton",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "CloseRedButton",
+      "path": "UI/btns/SH_CloseRed_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 116,
+      "height": 116,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/btns/SH_CloseRed_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 116,
+        "height": 116
+      },
+      "nativeVisibleBounds": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "sha256": "f4ae193e1e596fbf4d981dad9af81420a8d2eb171600a07fc508e45e3316bf4b",
+      "placements": [
+        {
+          "instanceId": "CloseButton",
+          "screenRect": {
+            "x": 881.4452709883103,
+            "y": 384.72438462594516,
+            "width": 133.13496280552604,
+            "height": 133.13496280552604
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CloseButton",
+          "screenRect": {
+            "x": 865.3772582359193,
+            "y": 372.0928056785767,
+            "width": 133.13496280552604,
+            "height": 133.13496280552604
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 116
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SH_CloseRed_btn.png",
+      "asset_id": "CloseRedButton",
+      "screens": [
+        "popup_settings",
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "SettingsMusicIcon",
+      "path": "UI/icons/ST_Music_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 103,
+      "height": 101,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Music_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 103,
+        "height": 101
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 85,
+        "height": 85,
+        "x": 9
+      },
+      "sha256": "fe2d41b2c39874536e7d8fd01c89ad3f915428a3a66c7ee5e7caa47794d20c1d",
+      "placements": [
+        {
+          "instanceId": "MusicIcon",
+          "screenRect": {
+            "x": 154.94155154091393,
+            "y": 629.3131098444595,
+            "width": 118.21466524973432,
+            "height": 115.9192348565356
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 103,
+        "height": 101
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 85,
+        "height": 85,
+        "x": 9
+      },
+      "asset_path": "UI/icons/ST_Music_icon.png",
+      "asset_id": "SettingsMusicIcon",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsSoundIcon",
+      "path": "UI/icons/ST_Sound_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 116,
+      "height": 101,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Sound_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 116,
+        "height": 101
+      },
+      "nativeVisibleBounds": {
+        "y": 13,
+        "width": 100,
+        "height": 75,
+        "x": 8
+      },
+      "sha256": "cafa93ff97df7e1cfbc87ef2a7672010dc94f7f06cb7444bb0c4b2367d9542a2",
+      "placements": [
+        {
+          "instanceId": "SoundIcon",
+          "screenRect": {
+            "x": 150.35069075451648,
+            "y": 801.5619136722107,
+            "width": 133.13496280552604,
+            "height": 115.9192348565356
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 101
+      },
+      "alpha_bounds_px": {
+        "y": 13,
+        "width": 100,
+        "height": 75,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Sound_icon.png",
+      "asset_id": "SettingsSoundIcon",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsVibrationIcon",
+      "path": "UI/icons/ST_Vibration_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 131,
+      "height": 104,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Vibration_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 131,
+        "height": 104
+      },
+      "nativeVisibleBounds": {
+        "y": 14,
+        "width": 115,
+        "height": 76,
+        "x": 8
+      },
+      "sha256": "a70a972c9e2f3b766c5c6f2fec7d19328f3e92d785ad0bc337fbfdd2ade2d44f",
+      "placements": [
+        {
+          "instanceId": "VibrationIcon",
+          "screenRect": {
+            "x": 138.87353878852284,
+            "y": 969.2183313079337,
+            "width": 150.35069075451648,
+            "height": 119.36238044633369
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 131,
+        "height": 104
+      },
+      "alpha_bounds_px": {
+        "y": 14,
+        "width": 115,
+        "height": 76,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Vibration_icon.png",
+      "asset_id": "SettingsVibrationIcon",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsNotificationsIcon",
+      "path": "UI/icons/ST_Notifications_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 103,
+      "height": 113,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Notifications_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 103,
+        "height": 113
+      },
+      "nativeVisibleBounds": {
+        "y": 10,
+        "width": 87,
+        "height": 93,
+        "x": 8
+      },
+      "sha256": "633dc3e48d156d648edaed428e45e315b1f4919fa220e1852c32022185d8433c",
+      "placements": [
+        {
+          "instanceId": "NotificationsIcon",
+          "screenRect": {
+            "x": 151.49840595111584,
+            "y": 1133.4316033538585,
+            "width": 118.21466524973432,
+            "height": 129.69181721572795
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 103,
+        "height": 113
+      },
+      "alpha_bounds_px": {
+        "y": 10,
+        "width": 87,
+        "height": 93,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Notifications_icon.png",
+      "asset_id": "SettingsNotificationsIcon",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsLanguageIcon",
+      "path": "UI/icons/ST_Language_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 109,
+      "height": 110,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Language_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 109,
+        "height": 110
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 93,
+        "height": 93,
+        "x": 8
+      },
+      "sha256": "82d5b0d7e9e836717167eb66484d569115361bb4bf85f8a5105e5aed6b6788b2",
+      "placements": [
+        {
+          "instanceId": "LanguageIcon",
+          "screenRect": {
+            "x": 149.2029755579171,
+            "y": 1304.5311665793795,
+            "width": 125.1009564293305,
+            "height": 126.24867162592986
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 109,
+        "height": 110
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 93,
+        "height": 93,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Language_icon.png",
+      "asset_id": "SettingsLanguageIcon",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsToggleBarEnabled",
+      "path": "UI/popups/ST_Bar_On_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 166,
+      "height": 100,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleBar",
+      "state": "enabled",
+      "filename": "UI/popups/ST_Bar_On_toggle.png",
+      "pixelSize": {
+        "width": 166,
+        "height": 100
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "sha256": "e77d7800fe40b0db95257d23b07d88a539885b74fbb1f0086e42874868606b06",
+      "placements": [
+        {
+          "instanceId": "MusicToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 632.7577808398884,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        },
+        {
+          "instanceId": "SoundToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 802.7099339499362,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        },
+        {
+          "instanceId": "VibrationToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 971.5137617011324,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        },
+        {
+          "instanceId": "NotificationsToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 1141.46591481118,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Bar_On_toggle.png",
+      "asset_id": "SettingsToggleBarEnabled",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsToggleBarDisabled",
+      "path": "UI/popups/ST_Bar_Off_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 166,
+      "height": 100,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleBar",
+      "state": "disabled",
+      "filename": "UI/popups/ST_Bar_Off_toggle.png",
+      "pixelSize": {
+        "width": 166,
+        "height": 100
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "sha256": "2f2312bd10fce0cd44395b01b355d3a91709cc4a67173e3ce675b83d4e4ed841",
+      "placements": [],
+      "placementStatus": "alternative-state",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Bar_Off_toggle.png",
+      "asset_id": "SettingsToggleBarDisabled",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsToggleKnobEnabled",
+      "path": "UI/popups/ST_Knob_On_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 84,
+      "height": 84,
+      "opaque": false,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleKnob",
+      "state": "enabled",
+      "filename": "UI/popups/ST_Knob_On_toggle.png",
+      "pixelSize": {
+        "width": 84,
+        "height": 84
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "sha256": "d802945d3f628033a00cf0965afaf44f5689d470aad7f57b413333ec5ba3f20c",
+      "placements": [
+        {
+          "instanceId": "MusicKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 641.9395024126833,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        },
+        {
+          "instanceId": "SoundKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 811.8916555227311,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        },
+        {
+          "instanceId": "VibrationKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 980.6954832739273,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        },
+        {
+          "instanceId": "NotificationsKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 1150.6476363839752,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Knob_On_toggle.png",
+      "asset_id": "SettingsToggleKnobEnabled",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "SettingsToggleKnobDisabled",
+      "path": "UI/popups/ST_Knob_Off_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 84,
+      "height": 84,
+      "opaque": false,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleKnob",
+      "state": "disabled",
+      "filename": "UI/popups/ST_Knob_Off_toggle.png",
+      "pixelSize": {
+        "width": 84,
+        "height": 84
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "sha256": "d802945d3f628033a00cf0965afaf44f5689d470aad7f57b413333ec5ba3f20c",
+      "placements": [],
+      "placementStatus": "alternative-state",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Knob_Off_toggle.png",
+      "asset_id": "SettingsToggleKnobDisabled",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "ST_Settings_title",
+      "path": "UI/titles/ST_Settings_title.png",
+      "filename": "UI/titles/ST_Settings_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "ST_Settings_title",
+          "screenRect": {
+            "x": 219.2136025504782,
+            "y": 461.88763862123676,
+            "width": 649.6068012752391,
+            "height": 142.31668437832093
+          },
+          "active": true
+        }
+      ],
+      "width": 566,
+      "height": 124,
+      "pixelSize": {
+        "width": 566,
+        "height": 124
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 550,
+        "height": 108,
+        "x": 8
+      },
+      "sha256": "07646c9bdc65f7c100242882a9bfa642c710166c30bb76eb6caf23face7c1634",
+      "native_size_px": {
+        "width": 566,
+        "height": 124
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 550,
+        "height": 108,
+        "x": 8
+      },
+      "asset_path": "UI/titles/ST_Settings_title.png",
+      "asset_id": "ST_Settings_title",
+      "screens": [
+        "popup_settings"
+      ]
+    },
+    {
+      "id": "NoWifiPopupPanel",
+      "path": "UI/popups/NW_NoWifi_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 703,
+      "height": 947,
+      "opaque": false,
+      "filename": "UI/popups/NW_NoWifi_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 703,
+        "height": 947
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 687,
+        "height": 931,
+        "x": 8
+      },
+      "sha256": "2065e6de8f06ec8b171b1420f2dcfbc347560d5f67d36d3f801b3b5cde6f6afe",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 136.57810839532414,
+            "y": 414.54545454545456,
+            "width": 806.8437832093517,
+            "height": 1087.4641148325359
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 703,
+        "height": 947
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 687,
+        "height": 931,
+        "x": 8
+      },
+      "asset_path": "UI/popups/NW_NoWifi_popup.png",
+      "asset_id": "NoWifiPopupPanel",
+      "screens": [
+        "popup_no_wifi"
+      ]
+    },
+    {
+      "id": "NoWifi_RetryButton",
+      "path": "UI/btns/NW_Retry_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/NW_Retry_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 545,
+        "height": 127
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "sha256": "b53bf12ac0eccfa68bee8923384a822a5ca38df6f75089be204d3b1ee79bc038",
+      "placements": [
+        {
+          "instanceId": "RetryButton",
+          "screenRect": {
+            "x": 229.5430393198725,
+            "y": 1196.5550239234449,
+            "width": 625.5047821466525,
+            "height": 130.9090909090909
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 545,
+      "height": 127,
+      "native_size_px": {
+        "width": 545,
+        "height": 127
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "asset_path": "UI/btns/NW_Retry_btn.png",
+      "asset_id": "NoWifi_RetryButton",
+      "screens": [
+        "popup_no_wifi"
+      ]
+    },
+    {
+      "id": "NoWifi_OkayButton",
+      "path": "UI/btns/NW_Okay_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/NW_Okay_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 545,
+        "height": 127
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "sha256": "e8ed163b8632d0a5d2996a5a294c49262e01508525f9469cb9416ea0c10c49f9",
+      "placements": [
+        {
+          "instanceId": "OkayButton",
+          "screenRect": {
+            "x": 229.5430393198725,
+            "y": 1326.3157894736842,
+            "width": 625.5047821466525,
+            "height": 130.9090909090909
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 545,
+      "height": 127,
+      "native_size_px": {
+        "width": 545,
+        "height": 127
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "asset_path": "UI/btns/NW_Okay_btn.png",
+      "asset_id": "NoWifi_OkayButton",
+      "screens": [
+        "popup_no_wifi"
+      ]
+    },
+    {
+      "id": "NW_NoInternet_title",
+      "path": "UI/titles/NW_NoInternet_title.png",
+      "filename": "UI/titles/NW_NoInternet_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "NW_NoInternet_title",
+          "screenRect": {
+            "x": 351.2008501594049,
+            "y": 935.8851674641148,
+            "width": 387.92773645058446,
+            "height": 155.02392344497608
+          },
+          "active": true
+        }
+      ],
+      "width": 338,
+      "height": 135,
+      "pixelSize": {
+        "width": 338,
+        "height": 135
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 322,
+        "height": 119,
+        "x": 8
+      },
+      "sha256": "96cb7a1d70bc5c222c61fb9179ea99b7f0fa3488aac6875d08ab41d4e91643c3",
+      "native_size_px": {
+        "width": 338,
+        "height": 135
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 322,
+        "height": 119,
+        "x": 8
+      },
+      "asset_path": "UI/titles/NW_NoInternet_title.png",
+      "asset_id": "NW_NoInternet_title",
+      "screens": [
+        "popup_no_wifi"
+      ]
+    },
+    {
+      "id": "DailyRewardsPopupPanel",
+      "path": "UI/popups/DRP_DailyRewards_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 40,
+        "y": 287,
+        "z": 40,
+        "w": 1020
+      },
+      "width": 771,
+      "height": 1311,
+      "opaque": false,
+      "filename": "UI/popups/DRP_DailyRewards_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 771,
+        "height": 1311
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 755,
+        "height": 1295,
+        "x": 8
+      },
+      "sha256": "19e0582892ac3ab3415b17fc2f6d4bdbe25bfa82fa20d62ddfb918d55d779431",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 98.70350690754516,
+            "y": 210.14354066985646,
+            "width": 884.8884165781084,
+            "height": 1625.4545454545455
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 771,
+        "height": 1311
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 755,
+        "height": 1295,
+        "x": 8
+      },
+      "asset_path": "UI/popups/DRP_DailyRewards_popup.png",
+      "asset_id": "DailyRewardsPopupPanel",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyDay1Card",
+      "path": "UI/cards/DRP_Day_Claimed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day1Card",
+          "screenRect": {
+            "x": 104.44208289054198,
+            "y": 550.0478468899521,
+            "width": 354.643995749203,
+            "height": 274.44976076555025
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "asset_id": "DailyDay1Card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyDay2Card",
+      "path": "UI/cards/DRP_Day_Claimed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day2Card",
+          "screenRect": {
+            "x": 361.53028692879917,
+            "y": 550.0478468899521,
+            "width": 354.643995749203,
+            "height": 274.44976076555025
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "asset_id": "DailyDay2Card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyDay3Card",
+      "path": "UI/cards/DRP_Day_Claimed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day3Card",
+          "screenRect": {
+            "x": 619.7662061636557,
+            "y": 550.0478468899521,
+            "width": 354.643995749203,
+            "height": 274.44976076555025
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "asset_id": "DailyDay3Card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyDay4Card",
+      "path": "UI/cards/DRP_Day_Current_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "selected",
+      "filename": "UI/cards/DRP_Day_Current_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 293,
+        "height": 223,
+        "x": 8
+      },
+      "sha256": "5c9a93cdf257e464492b47b49bbde1df1dece5b49b76c760806524c54e6cb916",
+      "placements": [
+        {
+          "instanceId": "Day4Card",
+          "screenRect": {
+            "x": 104.44208289054198,
+            "y": 788.976869871334,
+            "width": 354.643995749203,
+            "height": 290.37161910900664
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 293,
+        "height": 223,
+        "x": 8
+      },
+      "asset_path": "UI/cards/DRP_Day_Current_card.png",
+      "asset_id": "DailyDay4Card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyDay5Card",
+      "path": "UI/cards/DRP_Day_Default_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Default_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day5Card",
+          "screenRect": {
+            "x": 361.53028692879917,
+            "y": 788.976869871334,
+            "width": 354.643995749203,
+            "height": 290.37161910900664
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Default_card.png",
+      "asset_id": "DailyDay5Card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyDay6Card",
+      "path": "UI/cards/DRP_Day_Default_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Default_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day6Card",
+          "screenRect": {
+            "x": 619.7662061636557,
+            "y": 788.976869871334,
+            "width": 354.643995749203,
+            "height": 290.37161910900664
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Default_card.png",
+      "asset_id": "DailyDay6Card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyDay7Card",
+      "path": "UI/cards/DRP_Day7_Special_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 681,
+      "height": 303,
+      "stateFamily": "DailyBonusCard",
+      "state": "bonus",
+      "filename": "UI/cards/DRP_Day7_Special_card.png",
+      "pixelSize": {
+        "width": 681,
+        "height": 303
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 665,
+        "height": 287,
+        "x": 8
+      },
+      "sha256": "d996d9f9e9f83d181b84cfe6cd60982c86043ff2bd5e9108a8560a32d50d1160",
+      "placements": [
+        {
+          "instanceId": "Day7Card",
+          "screenRect": {
+            "x": 152.6461211477152,
+            "y": 1056.4593301435407,
+            "width": 781.5940488841658,
+            "height": 347.9425837320574
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 681,
+        "height": 303
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 665,
+        "height": 287,
+        "x": 8
+      },
+      "asset_path": "UI/cards/DRP_Day7_Special_card.png",
+      "asset_id": "DailyDay7Card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyClaimedBadge",
+      "path": "UI/icons/DRP_Claimed_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 76,
+      "height": 76,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 76,
+        "height": 76
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "sha256": "6b5dd5b0cedf6e623f89c8c2022bd78320841c6906811a106df2dc9e57039bfe",
+      "placements": [
+        {
+          "instanceId": "Day1ClaimedBadge",
+          "screenRect": {
+            "x": 330.54197662061637,
+            "y": 563.8277511961722,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day2ClaimedBadge",
+          "screenRect": {
+            "x": 587.6301806588735,
+            "y": 563.8277511961722,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day3ClaimedBadge",
+          "screenRect": {
+            "x": 845.86609989373,
+            "y": 563.8277511961722,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day5ClaimedBadge",
+          "screenRect": {
+            "x": 587.6301806588735,
+            "y": 803.8277511961721,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        },
+        {
+          "instanceId": "Day6ClaimedBadge",
+          "screenRect": {
+            "x": 845.86609989373,
+            "y": 803.8277511961721,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        },
+        {
+          "instanceId": "Day4ClaimedBadge",
+          "screenRect": {
+            "x": 330.54197662061637,
+            "y": 803.8277511961721,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        },
+        {
+          "instanceId": "Day7ClaimedBadge",
+          "screenRect": {
+            "x": 851.6046758767269,
+            "y": 1053.0143540669856,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "asset_id": "DailyClaimedBadge",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyCoinsSmall",
+      "path": "UI/icons/DRP_CoinsSmall_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 138,
+      "height": 97,
+      "opaque": false,
+      "filename": "UI/icons/DRP_CoinsSmall_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 138,
+        "height": 97
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 122,
+        "height": 81,
+        "x": 8
+      },
+      "sha256": "065a0c122cec4c345df843c5f89ef4f070a78eef60871d8366cb5653eb5b2b2a",
+      "placements": [
+        {
+          "instanceId": "Day1RewardIcon",
+          "screenRect": {
+            "x": 201.99787460148778,
+            "y": 633.8755980861245,
+            "width": 158.384697130712,
+            "height": 111.38755980861244
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 138,
+        "height": 97
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 122,
+        "height": 81,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_CoinsSmall_icon.png",
+      "asset_id": "DailyCoinsSmall",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyCoinsPile",
+      "path": "UI/icons/DRP_CoinsPile_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 152,
+      "height": 104,
+      "opaque": false,
+      "filename": "UI/icons/DRP_CoinsPile_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 152,
+        "height": 104
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 136,
+        "height": 88,
+        "x": 8
+      },
+      "sha256": "33b4233258ac2ba86a8811e23f0c37e699bc13a4a59e5208a4bb1226d3828020",
+      "placements": [
+        {
+          "instanceId": "Day3RewardIcon",
+          "screenRect": {
+            "x": 710.4357066950054,
+            "y": 631.578947368421,
+            "width": 174.45270988310307,
+            "height": 119.42583732057416
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 152,
+        "height": 104
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 136,
+        "height": 88,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_CoinsPile_icon.png",
+      "asset_id": "DailyCoinsPile",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyCoinsStack",
+      "path": "UI/icons/DRP_CoinsStack_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 139,
+      "height": 109,
+      "opaque": false,
+      "filename": "UI/icons/DRP_CoinsStack_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 139,
+        "height": 109
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 123,
+        "height": 93,
+        "x": 8
+      },
+      "sha256": "31efb43005bef1f5cf63fab5554a39e030eee35dd8aa49fac8e9728cc2368a88",
+      "placements": [
+        {
+          "instanceId": "Day5RewardIcon",
+          "screenRect": {
+            "x": 461.38150903294365,
+            "y": 877.3205741626793,
+            "width": 159.53241232731136,
+            "height": 125.16746411483254
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 139,
+        "height": 109
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 123,
+        "height": 93,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_CoinsStack_icon.png",
+      "asset_id": "DailyCoinsStack",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyBonusCoins",
+      "path": "UI/icons/DRP_BonusCoins_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 126,
+      "height": 106,
+      "opaque": false,
+      "filename": "UI/icons/DRP_BonusCoins_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 126,
+        "height": 106
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 110,
+        "height": 90,
+        "x": 8
+      },
+      "sha256": "9cbf887d40548237e4c61bf7b196a14ac4e3354b63c9da013f065070e5ec0e2e",
+      "placements": [
+        {
+          "instanceId": "Day7CoinReward",
+          "screenRect": {
+            "x": 580.7438894792774,
+            "y": 1129.952153110048,
+            "width": 144.61211477151966,
+            "height": 121.72248803827752
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 126,
+        "height": 106
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 110,
+        "height": 90,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_BonusCoins_icon.png",
+      "asset_id": "DailyBonusCoins",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyHintReward",
+      "path": "UI/icons/DRP_Hint_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 121,
+      "height": 110,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Hint_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 121,
+        "height": 110
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 105,
+        "height": 94,
+        "x": 8
+      },
+      "sha256": "30ac005656ceea0adbe9c4120f407f7c1e2896b6f31a889dd0e6c9ad99e80910",
+      "placements": [
+        {
+          "instanceId": "Day2RewardIcon",
+          "screenRect": {
+            "x": 463.6769394261424,
+            "y": 622.3923444976076,
+            "width": 138.87353878852284,
+            "height": 126.3157894736842
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day7HintReward",
+          "screenRect": {
+            "x": 603.6981934112646,
+            "y": 1247.0813397129186,
+            "width": 79.192348565356,
+            "height": 87.27272727272727
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 121,
+        "height": 110
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 105,
+        "height": 94,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Hint_icon.png",
+      "asset_id": "DailyHintReward",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyUndoReward",
+      "path": "UI/icons/DRP_Undo_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 122,
+      "height": 119,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Undo_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 122,
+        "height": 119
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 106,
+        "height": 103,
+        "x": 8
+      },
+      "sha256": "fe598eed8a50ae22348f02b203bc5ad39eb8093a89236f5d3f56d2c15600c78a",
+      "placements": [
+        {
+          "instanceId": "Day4RewardIcon",
+          "screenRect": {
+            "x": 213.4750265674814,
+            "y": 873.8755980861245,
+            "width": 140.0212539851222,
+            "height": 136.65071770334927
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day7UndoReward",
+          "screenRect": {
+            "x": 690.9245483528161,
+            "y": 1247.0813397129186,
+            "width": 89.52178533475026,
+            "height": 89.56937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 122,
+        "height": 119
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 106,
+        "height": 103,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Undo_icon.png",
+      "asset_id": "DailyUndoReward",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyShuffleReward",
+      "path": "UI/icons/DRP_Shuffle_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 129,
+      "height": 120,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Shuffle_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 129,
+        "height": 120
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 113,
+        "height": 104,
+        "x": 8
+      },
+      "sha256": "ad64d898c1f89299d360ca96d237085ba72625564c771b5259e4377db7ec70e4",
+      "placements": [
+        {
+          "instanceId": "Day6RewardIcon",
+          "screenRect": {
+            "x": 725.356004250797,
+            "y": 872.7272727272727,
+            "width": 148.05526036131775,
+            "height": 137.79904306220095
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day7ShuffleReward",
+          "screenRect": {
+            "x": 788.480340063762,
+            "y": 1247.0813397129186,
+            "width": 92.96493092454836,
+            "height": 89.56937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 129,
+        "height": 120
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 113,
+        "height": 104,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Shuffle_icon.png",
+      "asset_id": "DailyShuffleReward",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyTreasureCat",
+      "path": "UI/icons/DRP_TreasureCat_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 383,
+      "height": 286,
+      "opaque": false,
+      "filename": "UI/icons/DRP_TreasureCat_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 383,
+        "height": 286
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 367,
+        "height": 270,
+        "x": 8
+      },
+      "sha256": "fb4151d91f918b18e4f3c9811803d1e96f0c94ffeaa1b1a7b455890e86bf8faf",
+      "placements": [
+        {
+          "instanceId": "Day7TreasureReward",
+          "screenRect": {
+            "x": 168.71413390010628,
+            "y": 1073.6842105263158,
+            "width": 439.5749202975558,
+            "height": 328.42105263157896
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 383,
+        "height": 286
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 367,
+        "height": 270,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_TreasureCat_icon.png",
+      "asset_id": "DailyTreasureCat",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyClaimButton",
+      "path": "UI/btns/DRP_Claim_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 471,
+      "height": 158,
+      "opaque": false,
+      "filename": "UI/btns/DRP_Claim_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 471,
+        "height": 158
+      },
+      "nativeVisibleBounds": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "sha256": "945c2e3bb8d1764c66fb57c76a7deab2fd11de9fd28dd5b8f723dd369a344547",
+      "placements": [
+        {
+          "instanceId": "ClaimButton",
+          "screenRect": {
+            "x": 270.86078639744954,
+            "y": 1420,
+            "width": 540.5738575982997,
+            "height": 181.33900106269925
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 471,
+        "height": 158
+      },
+      "alpha_bounds_px": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "asset_path": "UI/btns/DRP_Claim_btn.png",
+      "asset_id": "DailyClaimButton",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DailyLaterButton",
+      "path": "UI/btns/DRP_Later_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 471,
+      "height": 158,
+      "opaque": false,
+      "filename": "UI/btns/DRP_Later_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 471,
+        "height": 158
+      },
+      "nativeVisibleBounds": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "sha256": "cfaaaac86110af82d9a176a65d63d2bcb2483bd9598f229948ac79c15c6e656f",
+      "placements": [
+        {
+          "instanceId": "LaterButton",
+          "screenRect": {
+            "x": 270.86078639744954,
+            "y": 1621.3390010626993,
+            "width": 540.5738575982997,
+            "height": 181.33900106269925
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 471,
+        "height": 158
+      },
+      "alpha_bounds_px": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "asset_path": "UI/btns/DRP_Later_btn.png",
+      "asset_id": "DailyLaterButton",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DRP_DailyRewards_title",
+      "path": "UI/titles/DRP_DailyRewards_title.png",
+      "filename": "UI/titles/DRP_DailyRewards_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "DRP_DailyRewards_title",
+          "screenRect": {
+            "x": 159.53241232731136,
+            "y": 376.6507177033493,
+            "width": 762.0828905419767,
+            "height": 200.95693779904306
+          },
+          "active": true
+        }
+      ],
+      "width": 664,
+      "height": 175,
+      "pixelSize": {
+        "width": 664,
+        "height": 175
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 648,
+        "height": 159,
+        "x": 8
+      },
+      "sha256": "b85c0a2eced8cb488b18917f193c46d131da7379c2d2815e6f435214a7b42676",
+      "native_size_px": {
+        "width": 664,
+        "height": 175
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 648,
+        "height": 159,
+        "x": 8
+      },
+      "asset_path": "UI/titles/DRP_DailyRewards_title.png",
+      "asset_id": "DRP_DailyRewards_title",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    },
+    {
+      "id": "DRP_Day_Locked_card",
+      "path": "UI/cards/DRP_Day_Locked_card.png",
+      "filename": "UI/cards/DRP_Day_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "state": "Locked",
+      "placements": [],
+      "width": 309,
+      "height": 239,
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "c79c186b271ce718da191b21d9fdac72782774a7a4f6fdcbfc9bd067bc9c8511",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Locked_card.png",
+      "asset_id": "DRP_Day_Locked_card",
+      "screens": [
+        "popup_daily_rewards"
+      ]
+    }
+  ]
+}

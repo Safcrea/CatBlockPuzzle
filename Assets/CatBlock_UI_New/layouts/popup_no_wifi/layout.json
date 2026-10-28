@@ -1,0 +1,930 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "NoWifi",
+  "source": "references/No wifi popup.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": true,
+  "assets": [
+    {
+      "id": "NoWifiPopupPanel",
+      "path": "UI/popups/NW_NoWifi_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 703,
+      "height": 947,
+      "opaque": false,
+      "filename": "UI/popups/NW_NoWifi_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 703,
+        "height": 947
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 687,
+        "height": 931,
+        "x": 8
+      },
+      "sha256": "2065e6de8f06ec8b171b1420f2dcfbc347560d5f67d36d3f801b3b5cde6f6afe",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 136.57810839532414,
+            "y": 414.54545454545456,
+            "width": 806.8437832093517,
+            "height": 1087.4641148325359
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 703,
+        "height": 947
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 687,
+        "height": 931,
+        "x": 8
+      },
+      "asset_path": "UI/popups/NW_NoWifi_popup.png",
+      "asset_id": "NoWifiPopupPanel"
+    },
+    {
+      "id": "NoWifi_RetryButton",
+      "path": "UI/btns/NW_Retry_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/NW_Retry_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 545,
+        "height": 127
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "sha256": "b53bf12ac0eccfa68bee8923384a822a5ca38df6f75089be204d3b1ee79bc038",
+      "placements": [
+        {
+          "instanceId": "RetryButton",
+          "screenRect": {
+            "x": 229.5430393198725,
+            "y": 1196.5550239234449,
+            "width": 625.5047821466525,
+            "height": 130.9090909090909
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 545,
+      "height": 127,
+      "native_size_px": {
+        "width": 545,
+        "height": 127
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "asset_path": "UI/btns/NW_Retry_btn.png",
+      "asset_id": "NoWifi_RetryButton"
+    },
+    {
+      "id": "NoWifi_OkayButton",
+      "path": "UI/btns/NW_Okay_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/NW_Okay_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 545,
+        "height": 127
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "sha256": "e8ed163b8632d0a5d2996a5a294c49262e01508525f9469cb9416ea0c10c49f9",
+      "placements": [
+        {
+          "instanceId": "OkayButton",
+          "screenRect": {
+            "x": 229.5430393198725,
+            "y": 1326.3157894736842,
+            "width": 625.5047821466525,
+            "height": 130.9090909090909
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 545,
+      "height": 127,
+      "native_size_px": {
+        "width": 545,
+        "height": 127
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "asset_path": "UI/btns/NW_Okay_btn.png",
+      "asset_id": "NoWifi_OkayButton"
+    },
+    {
+      "id": "NW_NoInternet_title",
+      "path": "UI/titles/NW_NoInternet_title.png",
+      "filename": "UI/titles/NW_NoInternet_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "NW_NoInternet_title",
+          "screenRect": {
+            "x": 351.2008501594049,
+            "y": 935.8851674641148,
+            "width": 387.92773645058446,
+            "height": 155.02392344497608
+          },
+          "active": true
+        }
+      ],
+      "width": 338,
+      "height": 135,
+      "pixelSize": {
+        "width": 338,
+        "height": 135
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 322,
+        "height": 119,
+        "x": 8
+      },
+      "sha256": "96cb7a1d70bc5c222c61fb9179ea99b7f0fa3488aac6875d08ab41d4e91643c3",
+      "native_size_px": {
+        "width": 338,
+        "height": 135
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 322,
+        "height": 119,
+        "x": 8
+      },
+      "asset_path": "UI/titles/NW_NoInternet_title.png",
+      "asset_id": "NW_NoInternet_title"
+    }
+  ],
+  "elements": [
+    {
+      "id": "Dimmer",
+      "parentId": "",
+      "assetId": "",
+      "kind": "overlay",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "color": "#2D1E0F64",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "ModalBackdrop",
+      "screenGroup": "NoWifi",
+      "popupGroup": null
+    },
+    {
+      "id": "PopupGroup",
+      "parentId": "",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 136.57810839532414,
+        "y": 414.54545454545456,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 136.57810839532414,
+        "y": 414.54545454545456,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "visibleBounds": {
+        "x": 136.57810839532414,
+        "y": 414.54545454545456,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 136.57810839532414,
+        "y": 414.54545454545456,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "NoWifi",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "PopupPanel",
+      "parentId": "PopupGroup",
+      "assetId": "NoWifiPopupPanel",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 3,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/popups/NW_NoWifi_popup.png",
+      "state": "default",
+      "layerOrder": 3,
+      "screenRect": {
+        "x": 136.57810839532414,
+        "y": 414.54545454545456,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "visibleBounds": {
+        "x": 145.75982996811905,
+        "y": 423.73205741626793,
+        "width": 788.480340063762,
+        "height": 1069.090909090909
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 145.75982996811905,
+        "y": 423.73205741626793,
+        "width": 788.4803400637619,
+        "height": 1069.090909090909
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "NoWifi",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "RetryButton",
+      "parentId": "PopupGroup",
+      "assetId": "NoWifi_RetryButton",
+      "kind": "button",
+      "rect": {
+        "x": 92.96493092454836,
+        "y": 782.0095693779904,
+        "width": 625.5047821466525,
+        "height": 130.9090909090909
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 5,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/NW_Retry_btn.png",
+      "state": "default",
+      "layerOrder": 5,
+      "screenRect": {
+        "x": 229.5430393198725,
+        "y": 1196.5550239234449,
+        "width": 625.5047821466525,
+        "height": 130.9090909090909
+      },
+      "visibleBounds": {
+        "x": 238.7247608926674,
+        "y": 1204.8012658704743,
+        "width": 607.1413390010626,
+        "height": 114.41660701503221
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 238.7247608926674,
+        "y": 1204.8012658704743,
+        "width": 607.1413390010626,
+        "height": 114.41660701503221
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "NoWifi",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "OkayButton",
+      "parentId": "PopupGroup",
+      "assetId": "NoWifi_OkayButton",
+      "kind": "button",
+      "rect": {
+        "x": 92.96493092454836,
+        "y": 911.7703349282297,
+        "width": 625.5047821466525,
+        "height": 130.9090909090909
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 6,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/NW_Okay_btn.png",
+      "state": "default",
+      "layerOrder": 6,
+      "screenRect": {
+        "x": 229.5430393198725,
+        "y": 1326.3157894736842,
+        "width": 625.5047821466525,
+        "height": 130.9090909090909
+      },
+      "visibleBounds": {
+        "x": 238.7247608926674,
+        "y": 1334.5620314207135,
+        "width": 607.1413390010626,
+        "height": 114.41660701503221
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 238.7247608926674,
+        "y": 1334.5620314207135,
+        "width": 607.1413390010626,
+        "height": 114.41660701503221
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "NoWifi",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "NW_NoInternet_title",
+      "parentId": "PopupGroup",
+      "assetId": "NW_NoInternet_title",
+      "kind": "image",
+      "rect": {
+        "x": 214.62274176408079,
+        "y": 521.3397129186603,
+        "width": 387.92773645058446,
+        "height": 155.02392344497608
+      },
+      "screenRect": {
+        "x": 351.2008501594049,
+        "y": 935.8851674641148,
+        "width": 387.92773645058446,
+        "height": 155.02392344497608
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "order": 4,
+      "layerOrder": 4,
+      "rotation": 0,
+      "active": true,
+      "preserveAspect": true,
+      "filename": "UI/titles/NW_NoInternet_title.png",
+      "placementGroup": "Titles",
+      "visibleBounds": {
+        "x": 360.38257173219984,
+        "y": 945.1080749889409,
+        "width": 369.5642933049947,
+        "height": 136.57810839532414
+      }
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/No wifi popup.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "NoWifi",
+    "type": "popup",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": "PopupGroup"
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "popup_no_wifi",
+  "schema_version": "3.2",
+  "screen_kind": "popup",
+  "reference_image": "references/No wifi popup.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": "active_screen",
+  "overlay": {
+    "color": "#000000",
+    "alpha": 0.35
+  },
+  "objects": [
+    {
+      "instance_id": "Dimmer",
+      "kind": "overlay",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 1,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "color": "#2D1E0F64"
+    },
+    {
+      "instance_id": "PopupGroup",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 136.57810839532414,
+        "y": 414.54545454545456,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "PopupPanel",
+      "kind": "sprite",
+      "asset_id": "NoWifiPopupPanel",
+      "parent_id": "PopupGroup",
+      "order": 3,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 136.57810839532414,
+        "y": 414.54545454545456,
+        "width": 806.8437832093517,
+        "height": 1087.4641148325359
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/NW_NoWifi_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 703,
+        "height": 947
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 687,
+        "height": 931,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "NW_NoInternet_title",
+      "kind": "sprite",
+      "asset_id": "NW_NoInternet_title",
+      "parent_id": "PopupGroup",
+      "order": 4,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 351.2008501594049,
+        "y": 935.8851674641148,
+        "width": 387.92773645058446,
+        "height": 155.02392344497608
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/titles/NW_NoInternet_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "native_size_px": {
+        "width": 338,
+        "height": 135
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 322,
+        "height": 119,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "RetryButton",
+      "kind": "sprite",
+      "asset_id": "NoWifi_RetryButton",
+      "parent_id": "PopupGroup",
+      "order": 5,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 229.5430393198725,
+        "y": 1196.5550239234449,
+        "width": 625.5047821466525,
+        "height": 130.9090909090909
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/NW_Retry_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 545,
+        "height": 127
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "RetryButton",
+      "hitbox_px": {
+        "x": 238.7247608926674,
+        "y": 1204.8012658704743,
+        "width": 607.1413390010626,
+        "height": 114.41660701503221
+      },
+      "button_size_group": "NW_Action"
+    },
+    {
+      "instance_id": "OkayButton",
+      "kind": "sprite",
+      "asset_id": "NoWifi_OkayButton",
+      "parent_id": "PopupGroup",
+      "order": 6,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 229.5430393198725,
+        "y": 1326.3157894736842,
+        "width": 625.5047821466525,
+        "height": 130.9090909090909
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/NW_Okay_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 545,
+        "height": 127
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "OkayButton",
+      "hitbox_px": {
+        "x": 238.7247608926674,
+        "y": 1334.5620314207135,
+        "width": 607.1413390010626,
+        "height": 114.41660701503221
+      },
+      "button_size_group": "NW_Action"
+    }
+  ],
+  "popup_action_button_groups": {
+    "NW_Action": {
+      "png_size_px": {
+        "width": 545,
+        "height": 127
+      },
+      "layout_size_px": {
+        "width": 625.5047821466525,
+        "height": 130.9090909090909
+      },
+      "visible_frame_px": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "members": [
+        "RetryButton",
+        "OkayButton"
+      ],
+      "status": "measured_export",
+      "alpha_bounds_by_member": {
+        "RetryButton": {
+          "y": 8,
+          "width": 529,
+          "height": 111,
+          "x": 8
+        },
+        "OkayButton": {
+          "y": 8,
+          "width": 529,
+          "height": 111,
+          "x": 8
+        }
+      },
+      "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member."
+    }
+  }
+}

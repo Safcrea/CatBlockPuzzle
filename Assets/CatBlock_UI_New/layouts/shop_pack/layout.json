@@ -1,0 +1,4629 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "Shop_02",
+  "source": "references/Shop menu.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": false,
+  "assets": [
+    {
+      "id": "Shop_02Base",
+      "path": "UI/BG/SA_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/SA_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "6d163ff4a30bc280e2169c55720d73872b047698de5d873db7242eec663bb5ec",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/SA_BG.png",
+      "asset_id": "Shop_02Base"
+    },
+    {
+      "id": "Shop02TitleBoard",
+      "path": "UI/titles/SA_Shop_title.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 465,
+      "height": 153,
+      "opaque": false,
+      "filename": "UI/titles/SA_Shop_title.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 465,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 449,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "ae9e7cedf69c12b1be40081666378993576817c14be31b485dceefa3a3243ce9",
+      "placements": [
+        {
+          "instanceId": "ShopTitleBoard",
+          "screenRect": {
+            "x": 286.9287991498406,
+            "y": 65.45454545454545,
+            "width": 533.6875664187035,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "titles",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 465,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 449,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/titles/SA_Shop_title.png",
+      "asset_id": "Shop02TitleBoard"
+    },
+    {
+      "id": "CurrencyPeachBacking",
+      "path": "UI/bars/SA_Coin_bar.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 298,
+      "height": 98,
+      "opaque": false,
+      "filename": "UI/bars/SA_Coin_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 298,
+        "height": 98
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 282,
+        "height": 82,
+        "x": 8
+      },
+      "sha256": "fd41b41137f0905b5001c32a7c762f49df0835225e8c74547f05cb3c7dbda7c0",
+      "placements": [
+        {
+          "instanceId": "CoinBarBackground",
+          "screenRect": {
+            "x": 814.8777895855472,
+            "y": 42.48803827751196,
+            "width": 241.0201912858661,
+            "height": 101.05263157894737
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 298,
+        "height": 98
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 282,
+        "height": 82,
+        "x": 8
+      },
+      "asset_path": "UI/bars/SA_Coin_bar.png",
+      "asset_id": "CurrencyPeachBacking"
+    },
+    {
+      "id": "CoinPaw",
+      "path": "UI/icons/SA_Coin_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 98,
+      "height": 98,
+      "opaque": false,
+      "filename": "UI/icons/SA_Coin_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 98,
+        "height": 98
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 82,
+        "height": 82,
+        "x": 8
+      },
+      "sha256": "73260b9046f78e79208fb14737ccce837d0702bf629016093bc379e1116174f6",
+      "placements": [
+        {
+          "instanceId": "CoinIcon",
+          "screenRect": {
+            "x": 814.8777895855472,
+            "y": 42.48803827751196,
+            "width": 112.47608926673752,
+            "height": 112.53588516746412
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 98,
+        "height": 98
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 82,
+        "height": 82,
+        "x": 8
+      },
+      "asset_path": "UI/icons/SA_Coin_icon.png",
+      "asset_id": "CoinPaw"
+    },
+    {
+      "id": "PlusGreenWood",
+      "path": "UI/btns/SA_CoinPlus_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 91,
+      "height": 95,
+      "opaque": false,
+      "filename": "UI/btns/SA_CoinPlus_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 91,
+        "height": 95
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 75,
+        "height": 79,
+        "x": 8
+      },
+      "sha256": "729aef5e16e0297280f60a5e1d7484372841f1f00c6ba720687d2399b2846e57",
+      "placements": [
+        {
+          "instanceId": "RequestedPlusButton",
+          "screenRect": {
+            "x": 151.49840595111584,
+            "y": 1942.9665071770335,
+            "width": 104.44208289054198,
+            "height": 109.0909090909091
+          },
+          "active": false
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 91,
+        "height": 95
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 75,
+        "height": 79,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_CoinPlus_btn.png",
+      "asset_id": "PlusGreenWood"
+    },
+    {
+      "id": "Shop02BackButton",
+      "path": "UI/btns/SA_Back_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/SA_Back_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 121,
+        "height": 117
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 105,
+        "height": 101,
+        "x": 8
+      },
+      "sha256": "1cdac905916a0007923cd2d80308be042c6a45e04ab164618bb6fc8b7e28d48d",
+      "placements": [
+        {
+          "instanceId": "RequestedBackButton",
+          "screenRect": {
+            "x": -9.181721572794899,
+            "y": 1942.9665071770335,
+            "width": 138.87353878852284,
+            "height": 134.35406698564594
+          },
+          "active": false
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 121,
+      "height": 117,
+      "native_size_px": {
+        "width": 121,
+        "height": 117
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 105,
+        "height": 101,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_Back_btn.png",
+      "asset_id": "Shop02BackButton"
+    },
+    {
+      "id": "GreenBuyButton",
+      "path": "UI/btns/SA_BuyBlank_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/SA_BuyBlank_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 359,
+        "height": 114
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "sha256": "3dca69ef2eded9f504d5916b2c1ea57cf1bc22419972da1b85ee87713492fbea",
+      "placements": [
+        {
+          "instanceId": "HintPackBuyButton",
+          "screenRect": {
+            "x": 84.93092454835282,
+            "y": 745.2631578947369,
+            "width": 412.0297555791711,
+            "height": 107.94258373205741
+          },
+          "active": true
+        },
+        {
+          "instanceId": "UndoPackBuyButton",
+          "screenRect": {
+            "x": 589.9256110520722,
+            "y": 745.2631578947369,
+            "width": 412.0297555791711,
+            "height": 107.94258373205741
+          },
+          "active": true
+        },
+        {
+          "instanceId": "StarterBundleBuyButton",
+          "screenRect": {
+            "x": 84.93092454835282,
+            "y": 1326.3157894736842,
+            "width": 453.34750265674813,
+            "height": 101.05263157894737
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CatTileSkinBuyButton",
+          "screenRect": {
+            "x": 624.3570669500532,
+            "y": 1368.8038277511962,
+            "width": 387.92773645058446,
+            "height": 110.23923444976077
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 359,
+      "height": 114,
+      "native_size_px": {
+        "width": 359,
+        "height": 114
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_BuyBlank_btn.png",
+      "asset_id": "GreenBuyButton"
+    },
+    {
+      "id": "HintPackCard",
+      "path": "UI/cards/SA_HintPack_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 442,
+      "height": 541,
+      "opaque": false,
+      "filename": "UI/cards/SA_HintPack_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 442,
+        "height": 541
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 426,
+        "height": 525,
+        "x": 8
+      },
+      "sha256": "0adf313d4059662fa655c23441d06a54e59d1b2fe2d29d957d85835dcbadeeed",
+      "placements": [
+        {
+          "instanceId": "HintPackCard",
+          "screenRect": {
+            "x": 34.43145589798087,
+            "y": 253.7799043062201,
+            "width": 507.29011689691816,
+            "height": 621.244019138756
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 442,
+        "height": 541
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 426,
+        "height": 525,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_HintPack_card.png",
+      "asset_id": "HintPackCard"
+    },
+    {
+      "id": "UndoPackCard",
+      "path": "UI/cards/SA_UndoPack_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 441,
+      "height": 541,
+      "opaque": false,
+      "filename": "UI/cards/SA_UndoPack_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 441,
+        "height": 541
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 425,
+        "height": 525,
+        "x": 8
+      },
+      "sha256": "06b80d979a62da9a18b3dfda52a56e1675c11f1320ed6cd8c33aab179786ea20",
+      "placements": [
+        {
+          "instanceId": "UndoPackCard",
+          "screenRect": {
+            "x": 542.8692879914984,
+            "y": 253.7799043062201,
+            "width": 506.1424017003188,
+            "height": 621.244019138756
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 441,
+        "height": 541
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 425,
+        "height": 525,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_UndoPack_card.png",
+      "asset_id": "UndoPackCard"
+    },
+    {
+      "id": "StarterBundleCard",
+      "path": "UI/cards/SA_StarterBundle_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 482,
+      "height": 535,
+      "opaque": false,
+      "filename": "UI/cards/SA_StarterBundle_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 482,
+        "height": 535
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 466,
+        "height": 519,
+        "x": 8
+      },
+      "sha256": "30795fe8d2481a410bb5949b99d0f813f529bccc1eba020ce4e4a02a5b2c7c62",
+      "placements": [
+        {
+          "instanceId": "StarterBundleCard",
+          "screenRect": {
+            "x": 34.43145589798087,
+            "y": 879.6172248803828,
+            "width": 553.1987247608927,
+            "height": 614.3540669856459
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 482,
+        "height": 535
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 466,
+        "height": 519,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_StarterBundle_card.png",
+      "asset_id": "StarterBundleCard"
+    },
+    {
+      "id": "CatTileSkinCard",
+      "path": "UI/cards/SA_CatTileSkin_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 405,
+      "height": 534,
+      "opaque": false,
+      "filename": "UI/cards/SA_CatTileSkin_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 405,
+        "height": 534
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 389,
+        "height": 518,
+        "x": 8
+      },
+      "sha256": "3d48a6ffa5dc386ce840d6b0ffe9ecc6c96724859b6cc11dd51f401ee87ca891",
+      "placements": [
+        {
+          "instanceId": "CatTileSkinCard",
+          "screenRect": {
+            "x": 584.1870350690755,
+            "y": 880.7655502392345,
+            "width": 464.8246546227418,
+            "height": 613.2057416267943
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 405,
+        "height": 534
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 389,
+        "height": 518,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_CatTileSkin_card.png",
+      "asset_id": "CatTileSkinCard"
+    },
+    {
+      "id": "CoinPackCard",
+      "path": "UI/cards/SA_CoinPack_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 884,
+      "height": 339,
+      "opaque": false,
+      "filename": "UI/cards/SA_CoinPack_card.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 884,
+        "height": 339
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 868,
+        "height": 323,
+        "x": 8
+      },
+      "sha256": "61265e4e75bafc878e75c58be55cdad345f002603efdf4360296a4647c9e7925",
+      "placements": [
+        {
+          "instanceId": "CoinPackCard",
+          "screenRect": {
+            "x": 34.43145589798087,
+            "y": 1493.9712918660287,
+            "width": 1014.5802337938363,
+            "height": 389.2822966507177
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 884,
+        "height": 339
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 868,
+        "height": 323,
+        "x": 8
+      },
+      "asset_path": "UI/cards/SA_CoinPack_card.png",
+      "asset_id": "CoinPackCard"
+    },
+    {
+      "id": "CoinPackBuyBlank",
+      "path": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "filename": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "button",
+      "state": "default",
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "placements": [
+        {
+          "instanceId": "CoinPack0Buy",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 1533.0143540669856,
+            "width": 203.14558979808714,
+            "height": 93.01435406698565
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack1Buy",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 1644.401913875598,
+            "width": 203.14558979808714,
+            "height": 93.01435406698565
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack2Buy",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 1755.7894736842106,
+            "width": 203.14558979808714,
+            "height": 93.01435406698565
+          },
+          "active": true
+        }
+      ],
+      "width": 190,
+      "height": 84,
+      "pixelSize": {
+        "width": 190,
+        "height": 84
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 174,
+        "height": 68,
+        "x": 8
+      },
+      "sha256": "6f04e68944691e30e47976ba9e08473f61d1b7c607cb9d53f102a251e7b83caf",
+      "native_size_px": {
+        "width": 190,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 174,
+        "height": 68,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "asset_id": "CoinPackBuyBlank"
+    },
+    {
+      "id": "CoinPackRowCoin",
+      "path": "UI/icons/SA_CoinPackCoin_icon.png",
+      "filename": "UI/icons/SA_CoinPackCoin_icon.png",
+      "category": "icons",
+      "asset_role": "icon",
+      "state": "default",
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "placements": [
+        {
+          "instanceId": "CoinPack0CoinIcon",
+          "screenRect": {
+            "x": 556.6641870350691,
+            "y": 1545.688995215311,
+            "width": 78,
+            "height": 78
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack1CoinIcon",
+          "screenRect": {
+            "x": 556.6641870350691,
+            "y": 1653.6315789473683,
+            "width": 78,
+            "height": 78
+          },
+          "active": true
+        },
+        {
+          "instanceId": "CoinPack2CoinIcon",
+          "screenRect": {
+            "x": 556.6641870350691,
+            "y": 1762.7224880382773,
+            "width": 78,
+            "height": 78
+          },
+          "active": true
+        }
+      ],
+      "width": 88,
+      "height": 88,
+      "pixelSize": {
+        "width": 88,
+        "height": 88
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 72,
+        "height": 72,
+        "x": 8
+      },
+      "sha256": "d04aa1dab0f8805cd9cd5a7a7f0a78e8fe44fb035ac491905d87f60e2979333d",
+      "native_size_px": {
+        "width": 88,
+        "height": 88
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 72,
+        "height": 72,
+        "x": 8
+      },
+      "asset_path": "UI/icons/SA_CoinPackCoin_icon.png",
+      "asset_id": "CoinPackRowCoin"
+    }
+  ],
+  "elements": [
+    {
+      "id": "ScreenBase",
+      "parentId": "",
+      "assetId": "Shop_02Base",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 0,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/BG/SA_BG.png",
+      "state": "default",
+      "layerOrder": 0,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1080.0,
+        "height": 1920.0
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Background",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "ShopTitleBoard",
+      "parentId": "",
+      "assetId": "Shop02TitleBoard",
+      "kind": "image",
+      "rect": {
+        "x": 286.9287991498406,
+        "y": 65.45454545454545,
+        "width": 533.6875664187035,
+        "height": 175.6937799043062
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/titles/SA_Shop_title.png",
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 286.9287991498406,
+        "y": 65.45454545454545,
+        "width": 533.6875664187035,
+        "height": 175.6937799043062
+      },
+      "visibleBounds": {
+        "x": 296.1105207226355,
+        "y": 74.64114832535886,
+        "width": 515.3241232731136,
+        "height": 157.32057416267943
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 296.1105207226355,
+        "y": 74.64114832535886,
+        "width": 515.3241232731136,
+        "height": 157.3205741626794
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinBarBackground",
+      "parentId": "",
+      "assetId": "CurrencyPeachBacking",
+      "kind": "image",
+      "rect": {
+        "x": 814.8777895855472,
+        "y": 42.48803827751196,
+        "width": 241.0201912858661,
+        "height": 101.05263157894737
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 4,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/bars/SA_Coin_bar.png",
+      "state": "default",
+      "layerOrder": 4,
+      "screenRect": {
+        "x": 814.8777895855472,
+        "y": 42.48803827751196,
+        "width": 241.0201912858661,
+        "height": 101.05263157894737
+      },
+      "visibleBounds": {
+        "x": 821.3481302912081,
+        "y": 50.73723269211991,
+        "width": 228.07950987454444,
+        "height": 84.55424274973147
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 821.3481302912081,
+        "y": 50.73723269211991,
+        "width": 228.07950987454444,
+        "height": 84.55424274973147
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinIcon",
+      "parentId": "",
+      "assetId": "CoinPaw",
+      "kind": "image",
+      "rect": {
+        "x": 814.8777895855472,
+        "y": 42.48803827751196,
+        "width": 112.47608926673752,
+        "height": 112.53588516746412
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 6,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/SA_Coin_icon.png",
+      "state": "default",
+      "layerOrder": 6,
+      "screenRect": {
+        "x": 814.8777895855472,
+        "y": 42.48803827751196,
+        "width": 112.47608926673752,
+        "height": 112.53588516746412
+      },
+      "visibleBounds": {
+        "x": 824.0595111583422,
+        "y": 51.67464114832536,
+        "width": 94.11264612114772,
+        "height": 94.16267942583733
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 824.0595111583422,
+        "y": 51.67464114832536,
+        "width": 94.11264612114772,
+        "height": 94.16267942583733
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinBalance",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 925.0584484590861,
+        "y": 65.45454545454545,
+        "width": 107.88522848034006,
+        "height": 52.822966507177036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 8,
+      "previewOnly": false,
+      "text": "",
+      "binding": "economy.coins",
+      "fontSize": 45.908607863974495,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 8,
+      "screenRect": {
+        "x": 925.0584484590861,
+        "y": 65.45454545454545,
+        "width": 107.88522848034006,
+        "height": 52.822966507177036
+      },
+      "visibleBounds": {
+        "x": 925.0584484590861,
+        "y": 65.45454545454545,
+        "width": 107.88522848034006,
+        "height": 52.822966507177036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 925.0584484590861,
+        "y": 65.45454545454545,
+        "width": 107.88522848034006,
+        "height": 52.822966507177036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "RequestedBackButton",
+      "parentId": "",
+      "assetId": "Shop02BackButton",
+      "kind": "button",
+      "rect": {
+        "x": -9.181721572794899,
+        "y": 1942.9665071770335,
+        "width": 138.87353878852284,
+        "height": 134.35406698564594
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 10,
+      "previewOnly": false,
+      "active": false,
+      "placementBasis": "off-canvas-staging-no-reference-position",
+      "filename": "UI/btns/SA_Back_btn.png",
+      "state": "default",
+      "layerOrder": 10,
+      "screenRect": {
+        "x": -9.181721572794899,
+        "y": 1942.9665071770335,
+        "width": 138.87353878852284,
+        "height": 134.35406698564594
+      },
+      "visibleBounds": {
+        "x": 0.0,
+        "y": 1952.153110047847,
+        "width": 120.51009564293305,
+        "height": 115.98086124401914
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 0.0,
+        "y": 1952.153110047847,
+        "width": 120.51009564293305,
+        "height": 115.98086124401914
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "RequestedPlusButton",
+      "parentId": "",
+      "assetId": "PlusGreenWood",
+      "kind": "button",
+      "rect": {
+        "x": 151.49840595111584,
+        "y": 1942.9665071770335,
+        "width": 104.44208289054198,
+        "height": 109.0909090909091
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 12,
+      "previewOnly": false,
+      "active": false,
+      "placementBasis": "off-canvas-staging-no-reference-position",
+      "filename": "UI/btns/SA_CoinPlus_btn.png",
+      "state": "default",
+      "layerOrder": 12,
+      "screenRect": {
+        "x": 151.49840595111584,
+        "y": 1942.9665071770335,
+        "width": 104.44208289054198,
+        "height": 109.0909090909091
+      },
+      "visibleBounds": {
+        "x": 160.68012752391076,
+        "y": 1952.153110047847,
+        "width": 86.07863974495218,
+        "height": 90.7177033492823
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 160.68012752391076,
+        "y": 1952.153110047847,
+        "width": 86.07863974495218,
+        "height": 90.7177033492823
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "HintPackCard",
+      "parentId": "",
+      "assetId": "HintPackCard",
+      "kind": "image",
+      "rect": {
+        "x": 34.43145589798087,
+        "y": 253.7799043062201,
+        "width": 507.29011689691816,
+        "height": 621.244019138756
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 14,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/SA_HintPack_card.png",
+      "state": "default",
+      "layerOrder": 14,
+      "screenRect": {
+        "x": 34.43145589798087,
+        "y": 253.7799043062201,
+        "width": 507.29011689691816,
+        "height": 621.244019138756
+      },
+      "visibleBounds": {
+        "x": 43.61317747077577,
+        "y": 262.96650717703346,
+        "width": 488.9266737513284,
+        "height": 602.8708133971292
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 43.61317747077577,
+        "y": 262.96650717703346,
+        "width": 488.9266737513284,
+        "height": 602.8708133971293
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "HintPackBuyButton",
+      "parentId": "",
+      "assetId": "GreenBuyButton",
+      "kind": "button",
+      "rect": {
+        "x": 84.93092454835282,
+        "y": 745.2631578947369,
+        "width": 412.0297555791711,
+        "height": 107.94258373205741
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 16,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SA_BuyBlank_btn.png",
+      "state": "default",
+      "layerOrder": 16,
+      "screenRect": {
+        "x": 84.93092454835282,
+        "y": 745.2631578947369,
+        "width": 412.0297555791711,
+        "height": 107.94258373205741
+      },
+      "visibleBounds": {
+        "x": 94.11264612114772,
+        "y": 752.8380760513725,
+        "width": 393.6663124335813,
+        "height": 92.79274741878619
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 94.11264612114772,
+        "y": 752.8380760513725,
+        "width": 393.6663124335813,
+        "height": 92.79274741878619
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "HintPackPrice",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 107.88522848034006,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 18,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.HintPack.price",
+      "fontSize": 48.204038257173224,
+      "color": "#FFFFFF",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 18,
+      "screenRect": {
+        "x": 107.88522848034006,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "visibleBounds": {
+        "x": 107.88522848034006,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 107.88522848034006,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "HintPackQuantity",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 126.24867162592986,
+        "y": 709.665071770335,
+        "width": 328.24654622741764,
+        "height": 34.44976076555024
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 20,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.HintPack.quantity",
+      "fontSize": 32.13602550478215,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 20,
+      "screenRect": {
+        "x": 126.24867162592986,
+        "y": 709.665071770335,
+        "width": 328.24654622741764,
+        "height": 34.44976076555024
+      },
+      "visibleBounds": {
+        "x": 126.24867162592986,
+        "y": 709.665071770335,
+        "width": 328.24654622741764,
+        "height": 34.44976076555024
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 126.24867162592986,
+        "y": 709.665071770335,
+        "width": 328.24654622741764,
+        "height": 34.44976076555024
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "UndoPackCard",
+      "parentId": "",
+      "assetId": "UndoPackCard",
+      "kind": "image",
+      "rect": {
+        "x": 542.8692879914984,
+        "y": 253.7799043062201,
+        "width": 506.1424017003188,
+        "height": 621.244019138756
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 22,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/SA_UndoPack_card.png",
+      "state": "default",
+      "layerOrder": 22,
+      "screenRect": {
+        "x": 542.8692879914984,
+        "y": 253.7799043062201,
+        "width": 506.1424017003188,
+        "height": 621.244019138756
+      },
+      "visibleBounds": {
+        "x": 552.0510095642933,
+        "y": 262.96650717703346,
+        "width": 487.778958554729,
+        "height": 602.8708133971292
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 552.0510095642933,
+        "y": 262.96650717703346,
+        "width": 487.778958554729,
+        "height": 602.8708133971293
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "UndoPackBuyButton",
+      "parentId": "",
+      "assetId": "GreenBuyButton",
+      "kind": "button",
+      "rect": {
+        "x": 589.9256110520722,
+        "y": 745.2631578947369,
+        "width": 412.0297555791711,
+        "height": 107.94258373205741
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 24,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SA_BuyBlank_btn.png",
+      "state": "default",
+      "layerOrder": 24,
+      "screenRect": {
+        "x": 589.9256110520722,
+        "y": 745.2631578947369,
+        "width": 412.0297555791711,
+        "height": 107.94258373205741
+      },
+      "visibleBounds": {
+        "x": 599.1073326248671,
+        "y": 752.8380760513725,
+        "width": 393.6663124335813,
+        "height": 92.79274741878619
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 599.1073326248671,
+        "y": 752.8380760513725,
+        "width": 393.6663124335813,
+        "height": 92.79274741878619
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "UndoPackPrice",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 612.8799149840595,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 26,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.UndoPack.price",
+      "fontSize": 48.204038257173224,
+      "color": "#FFFFFF",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 26,
+      "screenRect": {
+        "x": 612.8799149840595,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "visibleBounds": {
+        "x": 612.8799149840595,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 612.8799149840595,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "UndoPackQuantity",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 634.6865037194474,
+        "y": 709.665071770335,
+        "width": 331.6896918172157,
+        "height": 34.44976076555024
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 28,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.UndoPack.quantity",
+      "fontSize": 32.13602550478215,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 28,
+      "screenRect": {
+        "x": 634.6865037194474,
+        "y": 709.665071770335,
+        "width": 331.6896918172157,
+        "height": 34.44976076555024
+      },
+      "visibleBounds": {
+        "x": 634.6865037194474,
+        "y": 709.665071770335,
+        "width": 331.6896918172157,
+        "height": 34.44976076555024
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 634.6865037194474,
+        "y": 709.665071770335,
+        "width": 331.6896918172157,
+        "height": 34.44976076555024
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "StarterBundleCard",
+      "parentId": "",
+      "assetId": "StarterBundleCard",
+      "kind": "image",
+      "rect": {
+        "x": 34.43145589798087,
+        "y": 879.6172248803828,
+        "width": 553.1987247608927,
+        "height": 614.3540669856459
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 30,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/SA_StarterBundle_card.png",
+      "state": "default",
+      "layerOrder": 30,
+      "screenRect": {
+        "x": 34.43145589798087,
+        "y": 879.6172248803828,
+        "width": 553.1987247608927,
+        "height": 614.3540669856459
+      },
+      "visibleBounds": {
+        "x": 43.61317747077577,
+        "y": 888.8038277511962,
+        "width": 534.8352816153028,
+        "height": 595.9808612440191
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 43.61317747077577,
+        "y": 888.8038277511962,
+        "width": 534.8352816153028,
+        "height": 595.9808612440191
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "StarterBundleBuyButton",
+      "parentId": "",
+      "assetId": "GreenBuyButton",
+      "kind": "button",
+      "rect": {
+        "x": 84.93092454835282,
+        "y": 1326.3157894736842,
+        "width": 453.34750265674813,
+        "height": 101.05263157894737
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 32,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SA_BuyBlank_btn.png",
+      "state": "default",
+      "layerOrder": 32,
+      "screenRect": {
+        "x": 84.93092454835282,
+        "y": 1326.3157894736842,
+        "width": 453.34750265674813,
+        "height": 101.05263157894737
+      },
+      "visibleBounds": {
+        "x": 95.03337586103801,
+        "y": 1333.4072022160665,
+        "width": 433.14260003137775,
+        "height": 86.86980609418282
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 95.03337586103801,
+        "y": 1333.4072022160665,
+        "width": 433.14260003137775,
+        "height": 86.86980609418282
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "StarterBundlePrice",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 107.88522848034006,
+        "y": 1342.3923444976076,
+        "width": 407.4388947927736,
+        "height": 68.89952153110048
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 34,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.StarterBundle.price",
+      "fontSize": 48.204038257173224,
+      "color": "#FFFFFF",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 34,
+      "screenRect": {
+        "x": 107.88522848034006,
+        "y": 1342.3923444976076,
+        "width": 407.4388947927736,
+        "height": 68.89952153110048
+      },
+      "visibleBounds": {
+        "x": 107.88522848034006,
+        "y": 1342.3923444976076,
+        "width": 407.4388947927736,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 107.88522848034006,
+        "y": 1342.3923444976076,
+        "width": 407.4388947927736,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "StarterBundleQuantity",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 84.93092454835282,
+        "y": 1276.9377990430621,
+        "width": 465.9723698193411,
+        "height": 41.33971291866029
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 36,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.StarterBundle.quantity",
+      "fontSize": 29.840595111583422,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 36,
+      "screenRect": {
+        "x": 84.93092454835282,
+        "y": 1276.9377990430621,
+        "width": 465.9723698193411,
+        "height": 41.33971291866029
+      },
+      "visibleBounds": {
+        "x": 84.93092454835282,
+        "y": 1276.9377990430621,
+        "width": 465.9723698193411,
+        "height": 41.33971291866029
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 84.93092454835282,
+        "y": 1276.9377990430621,
+        "width": 465.9723698193411,
+        "height": 41.33971291866029
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CatTileSkinCard",
+      "parentId": "",
+      "assetId": "CatTileSkinCard",
+      "kind": "image",
+      "rect": {
+        "x": 584.1870350690755,
+        "y": 880.7655502392345,
+        "width": 464.8246546227418,
+        "height": 613.2057416267943
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 38,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/SA_CatTileSkin_card.png",
+      "state": "default",
+      "layerOrder": 38,
+      "screenRect": {
+        "x": 584.1870350690755,
+        "y": 880.7655502392345,
+        "width": 464.8246546227418,
+        "height": 613.2057416267943
+      },
+      "visibleBounds": {
+        "x": 593.3687566418704,
+        "y": 889.9521531100479,
+        "width": 446.46121147715195,
+        "height": 594.8325358851674
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 593.3687566418704,
+        "y": 889.9521531100479,
+        "width": 446.461211477152,
+        "height": 594.8325358851675
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CatTileSkinBuyButton",
+      "parentId": "",
+      "assetId": "GreenBuyButton",
+      "kind": "button",
+      "rect": {
+        "x": 624.3570669500532,
+        "y": 1368.8038277511962,
+        "width": 387.92773645058446,
+        "height": 110.23923444976077
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 40,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SA_BuyBlank_btn.png",
+      "state": "default",
+      "layerOrder": 40,
+      "screenRect": {
+        "x": 624.3570669500532,
+        "y": 1368.8038277511962,
+        "width": 387.92773645058446,
+        "height": 110.23923444976077
+      },
+      "visibleBounds": {
+        "x": 633.0016961745788,
+        "y": 1376.5399143792497,
+        "width": 370.6384780015334,
+        "height": 94.767061193654
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 633.0016961745788,
+        "y": 1376.5399143792497,
+        "width": 370.6384780015334,
+        "height": 94.767061193654
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CatTileSkinPrice",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 647.3113708820404,
+        "y": 1384.8803827751196,
+        "width": 342.01912858661,
+        "height": 78.08612440191388
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 42,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.CatTileSkin.price",
+      "fontSize": 48.204038257173224,
+      "color": "#FFFFFF",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 42,
+      "screenRect": {
+        "x": 647.3113708820404,
+        "y": 1384.8803827751196,
+        "width": 342.01912858661,
+        "height": 78.08612440191388
+      },
+      "visibleBounds": {
+        "x": 647.3113708820404,
+        "y": 1384.8803827751196,
+        "width": 342.01912858661,
+        "height": 78.08612440191388
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 647.3113708820404,
+        "y": 1384.8803827751196,
+        "width": 342.01912858661,
+        "height": 78.08612440191388
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPackCard",
+      "parentId": "",
+      "assetId": "CoinPackCard",
+      "kind": "image",
+      "rect": {
+        "x": 34.43145589798087,
+        "y": 1493.9712918660287,
+        "width": 1014.5802337938363,
+        "height": 389.2822966507177
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 44,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/SA_CoinPack_card.png",
+      "state": "default",
+      "layerOrder": 44,
+      "screenRect": {
+        "x": 34.43145589798087,
+        "y": 1493.9712918660287,
+        "width": 1014.5802337938363,
+        "height": 389.2822966507177
+      },
+      "visibleBounds": {
+        "x": 43.61317747077577,
+        "y": 1503.157894736842,
+        "width": 996.2167906482465,
+        "height": 370.90909090909093
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 43.61317747077577,
+        "y": 1503.157894736842,
+        "width": 996.2167906482465,
+        "height": 370.9090909090909
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPack0Buy",
+      "parentId": "",
+      "assetId": "CoinPackBuyBlank",
+      "kind": "button",
+      "rect": {
+        "x": 809.1392136025505,
+        "y": 1533.0143540669856,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 46,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "state": "default",
+      "layerOrder": 46,
+      "screenRect": {
+        "x": 809.1392136025505,
+        "y": 1533.0143540669856,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "visibleBounds": {
+        "x": 817.6927121203647,
+        "y": 1543.169162399768,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 817.6927121203647,
+        "y": 1543.169162399768,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null,
+      "preserveAspect": true
+    },
+    {
+      "id": "CoinPack0Amount",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 631.6641870350691,
+        "y": 1549.090909090909,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 48,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.coinPack0.amount",
+      "fontSize": 28.69287991498406,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 48,
+      "screenRect": {
+        "x": 631.6641870350691,
+        "y": 1549.090909090909,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "visibleBounds": {
+        "x": 631.6641870350691,
+        "y": 1549.090909090909,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 631.6641870350691,
+        "y": 1549.090909090909,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPack0Price",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 837.8320935175345,
+        "y": 1551.9617224880383,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 50,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.coinPack0.price",
+      "fontSize": 35.57917109458023,
+      "color": "#FFFFFF",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 50,
+      "screenRect": {
+        "x": 837.8320935175345,
+        "y": 1551.9617224880383,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "visibleBounds": {
+        "x": 837.8320935175345,
+        "y": 1551.9617224880383,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 837.8320935175345,
+        "y": 1551.9617224880383,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPack1Buy",
+      "parentId": "",
+      "assetId": "CoinPackBuyBlank",
+      "kind": "button",
+      "rect": {
+        "x": 809.1392136025505,
+        "y": 1644.401913875598,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 52,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "state": "default",
+      "layerOrder": 52,
+      "screenRect": {
+        "x": 809.1392136025505,
+        "y": 1644.401913875598,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "visibleBounds": {
+        "x": 817.6927121203647,
+        "y": 1654.5567222083805,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 817.6927121203647,
+        "y": 1654.5567222083805,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null,
+      "preserveAspect": true
+    },
+    {
+      "id": "CoinPack1Amount",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 631.6641870350691,
+        "y": 1660.4784688995214,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 54,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.coinPack1.amount",
+      "fontSize": 28.69287991498406,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 54,
+      "screenRect": {
+        "x": 631.6641870350691,
+        "y": 1660.4784688995214,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "visibleBounds": {
+        "x": 631.6641870350691,
+        "y": 1660.4784688995214,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 631.6641870350691,
+        "y": 1660.4784688995214,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPack1Price",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 837.8320935175345,
+        "y": 1663.3492822966507,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 56,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.coinPack1.price",
+      "fontSize": 35.57917109458023,
+      "color": "#FFFFFF",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 56,
+      "screenRect": {
+        "x": 837.8320935175345,
+        "y": 1663.3492822966507,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "visibleBounds": {
+        "x": 837.8320935175345,
+        "y": 1663.3492822966507,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 837.8320935175345,
+        "y": 1663.3492822966507,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPack2Buy",
+      "parentId": "",
+      "assetId": "CoinPackBuyBlank",
+      "kind": "button",
+      "rect": {
+        "x": 809.1392136025505,
+        "y": 1755.7894736842106,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 58,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "state": "default",
+      "layerOrder": 58,
+      "screenRect": {
+        "x": 809.1392136025505,
+        "y": 1755.7894736842106,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "visibleBounds": {
+        "x": 817.6927121203647,
+        "y": 1765.9442820169932,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 817.6927121203647,
+        "y": 1765.9442820169932,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null,
+      "preserveAspect": true
+    },
+    {
+      "id": "CoinPack2Amount",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 631.6641870350691,
+        "y": 1771.8660287081339,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 60,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.coinPack2.amount",
+      "fontSize": 28.69287991498406,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 60,
+      "screenRect": {
+        "x": 631.6641870350691,
+        "y": 1771.8660287081339,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "visibleBounds": {
+        "x": 631.6641870350691,
+        "y": 1771.8660287081339,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 631.6641870350691,
+        "y": 1771.8660287081339,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPack2Price",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 837.8320935175345,
+        "y": 1774.7368421052633,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 62,
+      "previewOnly": false,
+      "text": "",
+      "binding": "shop.coinPack2.price",
+      "fontSize": 35.57917109458023,
+      "color": "#FFFFFF",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 62,
+      "screenRect": {
+        "x": 837.8320935175345,
+        "y": 1774.7368421052633,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "visibleBounds": {
+        "x": 837.8320935175345,
+        "y": 1774.7368421052633,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 837.8320935175345,
+        "y": 1774.7368421052633,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "ShopCards",
+      "screenGroup": "Shop_02",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinPack0CoinIcon",
+      "parentId": "",
+      "assetId": "CoinPackRowCoin",
+      "kind": "image",
+      "rect": {
+        "x": 556.6641870350691,
+        "y": 1545.688995215311,
+        "width": 78,
+        "height": 78
+      },
+      "screenRect": {
+        "x": 556.6641870350691,
+        "y": 1545.688995215311,
+        "width": 78,
+        "height": 78
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 45,
+      "layerOrder": 45,
+      "active": true,
+      "preserveAspect": true,
+      "interactive": false,
+      "filename": "UI/icons/SA_CoinPackCoin_icon.png",
+      "placementGroup": "CoinPackRows",
+      "visibleBounds": {
+        "x": 563.7550961259782,
+        "y": 1552.77990430622,
+        "width": 63.81818181818182,
+        "height": 63.81818181818182
+      }
+    },
+    {
+      "id": "CoinPack1CoinIcon",
+      "parentId": "",
+      "assetId": "CoinPackRowCoin",
+      "kind": "image",
+      "rect": {
+        "x": 556.6641870350691,
+        "y": 1653.6315789473683,
+        "width": 78,
+        "height": 78
+      },
+      "screenRect": {
+        "x": 556.6641870350691,
+        "y": 1653.6315789473683,
+        "width": 78,
+        "height": 78
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 51,
+      "layerOrder": 51,
+      "active": true,
+      "preserveAspect": true,
+      "interactive": false,
+      "filename": "UI/icons/SA_CoinPackCoin_icon.png",
+      "placementGroup": "CoinPackRows",
+      "visibleBounds": {
+        "x": 563.7550961259782,
+        "y": 1660.7224880382773,
+        "width": 63.81818181818182,
+        "height": 63.81818181818182
+      }
+    },
+    {
+      "id": "CoinPack2CoinIcon",
+      "parentId": "",
+      "assetId": "CoinPackRowCoin",
+      "kind": "image",
+      "rect": {
+        "x": 556.6641870350691,
+        "y": 1762.7224880382773,
+        "width": 78,
+        "height": 78
+      },
+      "screenRect": {
+        "x": 556.6641870350691,
+        "y": 1762.7224880382773,
+        "width": 78,
+        "height": 78
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 57,
+      "layerOrder": 57,
+      "active": true,
+      "preserveAspect": true,
+      "interactive": false,
+      "filename": "UI/icons/SA_CoinPackCoin_icon.png",
+      "placementGroup": "CoinPackRows",
+      "visibleBounds": {
+        "x": 563.7550961259782,
+        "y": 1769.8133971291863,
+        "width": 63.81818181818182,
+        "height": 63.81818181818182
+      }
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/Shop menu.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "Shop_02",
+    "type": "full-screen",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": null
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "shop_pack",
+  "schema_version": "3.2",
+  "screen_kind": "full_screen",
+  "reference_image": "references/Shop menu.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": null,
+  "overlay": null,
+  "objects": [
+    {
+      "instance_id": "ScreenBase",
+      "kind": "sprite",
+      "asset_id": "Shop_02Base",
+      "parent_id": null,
+      "order": 0,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/BG/SA_BG.png",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "ShopTitleBoard",
+      "kind": "sprite",
+      "asset_id": "Shop02TitleBoard",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 286.9287991498406,
+        "y": 65.45454545454545,
+        "width": 533.6875664187035,
+        "height": 175.6937799043062
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/titles/SA_Shop_title.png",
+      "category": "titles",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 465,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 449,
+        "height": 137,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinBarBackground",
+      "kind": "sprite",
+      "asset_id": "CurrencyPeachBacking",
+      "parent_id": null,
+      "order": 4,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 814.8777895855472,
+        "y": 42.48803827751196,
+        "width": 241.0201912858661,
+        "height": 101.05263157894737
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/bars/SA_Coin_bar.png",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 298,
+        "height": 98
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 282,
+        "height": 82,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinIcon",
+      "kind": "sprite",
+      "asset_id": "CoinPaw",
+      "parent_id": null,
+      "order": 6,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 814.8777895855472,
+        "y": 42.48803827751196,
+        "width": 112.47608926673752,
+        "height": 112.53588516746412
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/SA_Coin_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 98,
+        "height": 98
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 82,
+        "height": 82,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinBalance",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 8,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 925.0584484590861,
+        "y": 65.45454545454545,
+        "width": 107.88522848034006,
+        "height": 52.822966507177036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "economy.coins",
+      "text": "",
+      "font_size_px": 45.908607863974495,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "RequestedBackButton",
+      "kind": "sprite",
+      "asset_id": "Shop02BackButton",
+      "parent_id": null,
+      "order": 10,
+      "enabled_by_default": false,
+      "rect_px": {
+        "x": -9.181721572794899,
+        "y": 1942.9665071770335,
+        "width": 138.87353878852284,
+        "height": 134.35406698564594
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_Back_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 121,
+        "height": 117
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 105,
+        "height": 101,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "RequestedBackButton",
+      "hitbox_px": {
+        "x": 0.0,
+        "y": 1952.153110047847,
+        "width": 120.51009564293305,
+        "height": 115.98086124401914
+      }
+    },
+    {
+      "instance_id": "RequestedPlusButton",
+      "kind": "sprite",
+      "asset_id": "PlusGreenWood",
+      "parent_id": null,
+      "order": 12,
+      "enabled_by_default": false,
+      "rect_px": {
+        "x": 151.49840595111584,
+        "y": 1942.9665071770335,
+        "width": 104.44208289054198,
+        "height": 109.0909090909091
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_CoinPlus_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 91,
+        "height": 95
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 75,
+        "height": 79,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "RequestedPlusButton",
+      "hitbox_px": {
+        "x": 160.68012752391076,
+        "y": 1952.153110047847,
+        "width": 86.07863974495218,
+        "height": 90.7177033492823
+      }
+    },
+    {
+      "instance_id": "HintPackCard",
+      "kind": "sprite",
+      "asset_id": "HintPackCard",
+      "parent_id": null,
+      "order": 14,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 34.43145589798087,
+        "y": 253.7799043062201,
+        "width": 507.29011689691816,
+        "height": 621.244019138756
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/SA_HintPack_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 442,
+        "height": 541
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 426,
+        "height": 525,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "HintPackBuyButton",
+      "kind": "sprite",
+      "asset_id": "GreenBuyButton",
+      "parent_id": null,
+      "order": 16,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 84.93092454835282,
+        "y": 745.2631578947369,
+        "width": 412.0297555791711,
+        "height": 107.94258373205741
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_BuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 359,
+        "height": 114
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "HintPackBuyButton",
+      "hitbox_px": {
+        "x": 94.11264612114772,
+        "y": 752.8380760513725,
+        "width": 393.6663124335813,
+        "height": 92.79274741878619
+      }
+    },
+    {
+      "instance_id": "HintPackPrice",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 18,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 107.88522848034006,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.HintPack.price",
+      "text": "",
+      "font_size_px": 48.204038257173224,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "HintPackQuantity",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 20,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 126.24867162592986,
+        "y": 709.665071770335,
+        "width": 328.24654622741764,
+        "height": 34.44976076555024
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.HintPack.quantity",
+      "text": "",
+      "font_size_px": 32.13602550478215,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "UndoPackCard",
+      "kind": "sprite",
+      "asset_id": "UndoPackCard",
+      "parent_id": null,
+      "order": 22,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 542.8692879914984,
+        "y": 253.7799043062201,
+        "width": 506.1424017003188,
+        "height": 621.244019138756
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/SA_UndoPack_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 441,
+        "height": 541
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 425,
+        "height": 525,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "UndoPackBuyButton",
+      "kind": "sprite",
+      "asset_id": "GreenBuyButton",
+      "parent_id": null,
+      "order": 24,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 589.9256110520722,
+        "y": 745.2631578947369,
+        "width": 412.0297555791711,
+        "height": 107.94258373205741
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_BuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 359,
+        "height": 114
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "UndoPackBuyButton",
+      "hitbox_px": {
+        "x": 599.1073326248671,
+        "y": 752.8380760513725,
+        "width": 393.6663124335813,
+        "height": 92.79274741878619
+      }
+    },
+    {
+      "instance_id": "UndoPackPrice",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 26,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 612.8799149840595,
+        "y": 761.3397129186603,
+        "width": 366.1211477151966,
+        "height": 75.78947368421052
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.UndoPack.price",
+      "text": "",
+      "font_size_px": 48.204038257173224,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "UndoPackQuantity",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 28,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 634.6865037194474,
+        "y": 709.665071770335,
+        "width": 331.6896918172157,
+        "height": 34.44976076555024
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.UndoPack.quantity",
+      "text": "",
+      "font_size_px": 32.13602550478215,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "StarterBundleCard",
+      "kind": "sprite",
+      "asset_id": "StarterBundleCard",
+      "parent_id": null,
+      "order": 30,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 34.43145589798087,
+        "y": 879.6172248803828,
+        "width": 553.1987247608927,
+        "height": 614.3540669856459
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/SA_StarterBundle_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 482,
+        "height": 535
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 466,
+        "height": 519,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "StarterBundleBuyButton",
+      "kind": "sprite",
+      "asset_id": "GreenBuyButton",
+      "parent_id": null,
+      "order": 32,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 84.93092454835282,
+        "y": 1326.3157894736842,
+        "width": 453.34750265674813,
+        "height": 101.05263157894737
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_BuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 359,
+        "height": 114
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "StarterBundleBuyButton",
+      "hitbox_px": {
+        "x": 95.03337586103801,
+        "y": 1333.4072022160665,
+        "width": 433.14260003137775,
+        "height": 86.86980609418282
+      }
+    },
+    {
+      "instance_id": "StarterBundlePrice",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 34,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 107.88522848034006,
+        "y": 1342.3923444976076,
+        "width": 407.4388947927736,
+        "height": 68.89952153110048
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.StarterBundle.price",
+      "text": "",
+      "font_size_px": 48.204038257173224,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "StarterBundleQuantity",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 36,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 84.93092454835282,
+        "y": 1276.9377990430621,
+        "width": 465.9723698193411,
+        "height": 41.33971291866029
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.StarterBundle.quantity",
+      "text": "",
+      "font_size_px": 29.840595111583422,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "CatTileSkinCard",
+      "kind": "sprite",
+      "asset_id": "CatTileSkinCard",
+      "parent_id": null,
+      "order": 38,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 584.1870350690755,
+        "y": 880.7655502392345,
+        "width": 464.8246546227418,
+        "height": 613.2057416267943
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/SA_CatTileSkin_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 405,
+        "height": 534
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 389,
+        "height": 518,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CatTileSkinBuyButton",
+      "kind": "sprite",
+      "asset_id": "GreenBuyButton",
+      "parent_id": null,
+      "order": 40,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 624.3570669500532,
+        "y": 1368.8038277511962,
+        "width": 387.92773645058446,
+        "height": 110.23923444976077
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_BuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 359,
+        "height": 114
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 343,
+        "height": 98,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "CatTileSkinBuyButton",
+      "hitbox_px": {
+        "x": 633.0016961745788,
+        "y": 1376.5399143792497,
+        "width": 370.6384780015334,
+        "height": 94.767061193654
+      }
+    },
+    {
+      "instance_id": "CatTileSkinPrice",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 42,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 647.3113708820404,
+        "y": 1384.8803827751196,
+        "width": 342.01912858661,
+        "height": 78.08612440191388
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.CatTileSkin.price",
+      "text": "",
+      "font_size_px": 48.204038257173224,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "CoinPackCard",
+      "kind": "sprite",
+      "asset_id": "CoinPackCard",
+      "parent_id": null,
+      "order": 44,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 34.43145589798087,
+        "y": 1493.9712918660287,
+        "width": 1014.5802337938363,
+        "height": 389.2822966507177
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/SA_CoinPack_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 884,
+        "height": 339
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 868,
+        "height": 323,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinPack0CoinIcon",
+      "kind": "sprite",
+      "asset_id": "CoinPackRowCoin",
+      "parent_id": null,
+      "order": 45,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 556.6641870350691,
+        "y": 1545.688995215311,
+        "width": 78,
+        "height": 78
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/SA_CoinPackCoin_icon.png",
+      "category": "icons",
+      "asset_role": "icon",
+      "native_size_px": {
+        "width": 88,
+        "height": 88
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 72,
+        "height": 72,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "CoinPack0Buy",
+      "kind": "sprite",
+      "asset_id": "CoinPackBuyBlank",
+      "parent_id": null,
+      "order": 46,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 809.1392136025505,
+        "y": 1533.0143540669856,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "button",
+      "native_size_px": {
+        "width": 190,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 174,
+        "height": 68,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "click_action": "CoinPack0Buy",
+      "hitbox_px": {
+        "x": 817.6927121203647,
+        "y": 1543.169162399768,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      }
+    },
+    {
+      "instance_id": "CoinPack0Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 48,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 631.6641870350691,
+        "y": 1549.090909090909,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.coinPack0.amount",
+      "text": "",
+      "font_size_px": 28.69287991498406,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "CoinPack0Price",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 50,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 837.8320935175345,
+        "y": 1551.9617224880383,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.coinPack0.price",
+      "text": "",
+      "font_size_px": 35.57917109458023,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "CoinPack1CoinIcon",
+      "kind": "sprite",
+      "asset_id": "CoinPackRowCoin",
+      "parent_id": null,
+      "order": 51,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 556.6641870350691,
+        "y": 1653.6315789473683,
+        "width": 78,
+        "height": 78
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/SA_CoinPackCoin_icon.png",
+      "category": "icons",
+      "asset_role": "icon",
+      "native_size_px": {
+        "width": 88,
+        "height": 88
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 72,
+        "height": 72,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "CoinPack1Buy",
+      "kind": "sprite",
+      "asset_id": "CoinPackBuyBlank",
+      "parent_id": null,
+      "order": 52,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 809.1392136025505,
+        "y": 1644.401913875598,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "button",
+      "native_size_px": {
+        "width": 190,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 174,
+        "height": 68,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "click_action": "CoinPack1Buy",
+      "hitbox_px": {
+        "x": 817.6927121203647,
+        "y": 1654.5567222083805,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      }
+    },
+    {
+      "instance_id": "CoinPack1Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 54,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 631.6641870350691,
+        "y": 1660.4784688995214,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.coinPack1.amount",
+      "text": "",
+      "font_size_px": 28.69287991498406,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "CoinPack1Price",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 56,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 837.8320935175345,
+        "y": 1663.3492822966507,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.coinPack1.price",
+      "text": "",
+      "font_size_px": 35.57917109458023,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "CoinPack2CoinIcon",
+      "kind": "sprite",
+      "asset_id": "CoinPackRowCoin",
+      "parent_id": null,
+      "order": 57,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 556.6641870350691,
+        "y": 1762.7224880382773,
+        "width": 78,
+        "height": 78
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/SA_CoinPackCoin_icon.png",
+      "category": "icons",
+      "asset_role": "icon",
+      "native_size_px": {
+        "width": 88,
+        "height": 88
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 72,
+        "height": 72,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "CoinPack2Buy",
+      "kind": "sprite",
+      "asset_id": "CoinPackBuyBlank",
+      "parent_id": null,
+      "order": 58,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 809.1392136025505,
+        "y": 1755.7894736842106,
+        "width": 203.14558979808714,
+        "height": 93.01435406698565
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SA_CoinPackBuyBlank_btn.png",
+      "category": "btns",
+      "asset_role": "button",
+      "native_size_px": {
+        "width": 190,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 174,
+        "height": 68,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "click_action": "CoinPack2Buy",
+      "hitbox_px": {
+        "x": 817.6927121203647,
+        "y": 1765.9442820169932,
+        "width": 186.03859276245876,
+        "height": 72.70473740142067
+      }
+    },
+    {
+      "instance_id": "CoinPack2Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 60,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 631.6641870350691,
+        "y": 1771.8660287081339,
+        "width": 180.9181721572795,
+        "height": 59.71291866028708
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.coinPack2.amount",
+      "text": "",
+      "font_size_px": 28.69287991498406,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "CoinPack2Price",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 62,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 837.8320935175345,
+        "y": 1774.7368421052633,
+        "width": 145.75982996811902,
+        "height": 55.119617224880386
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "shop.coinPack2.price",
+      "text": "",
+      "font_size_px": 35.57917109458023,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    }
+  ],
+  "popup_action_button_groups": {}
+}

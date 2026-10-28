@@ -121,6 +121,17 @@ namespace CatBlockPuzzle
         {
             if (!gates.PowerUpPurchaseOpen || Hud.PurchaseKind != kind || PowerUpInventory.GetCount(kind) > 0)
                 return PowerUpPurchaseStatus.Unavailable;
+            return CompletePurchase(kind, offer);
+        }
+
+        public PowerUpPurchaseStatus PurchasePowerUpFromShop(PowerUpKind kind, PowerUpShopConfig.Offer offer)
+        {
+            if (!gates.GameplayHidden || gates.ResultScreenOpen) return PowerUpPurchaseStatus.Unavailable;
+            return CompletePurchase(kind, offer);
+        }
+
+        private PowerUpPurchaseStatus CompletePurchase(PowerUpKind kind, PowerUpShopConfig.Offer offer)
+        {
             var status = DailyRewardProgress.TryPurchasePowerUp(kind, offer, progress.Coins, PuzzleSaveKeys.SavedCoins, out int remainingCoins);
             if (status != PowerUpPurchaseStatus.Success) return status;
             progress.Coins = remainingCoins;

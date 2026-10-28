@@ -1,0 +1,7351 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "DailyRewards",
+  "source": "references/Daily Reward Popup.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": true,
+  "assets": [
+    {
+      "id": "DailyRewardsPopupPanel",
+      "path": "UI/popups/DRP_DailyRewards_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 40,
+        "y": 287,
+        "z": 40,
+        "w": 1020
+      },
+      "width": 771,
+      "height": 1311,
+      "opaque": false,
+      "filename": "UI/popups/DRP_DailyRewards_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 771,
+        "height": 1311
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 755,
+        "height": 1295,
+        "x": 8
+      },
+      "sha256": "19e0582892ac3ab3415b17fc2f6d4bdbe25bfa82fa20d62ddfb918d55d779431",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 98.70350690754516,
+            "y": 210.14354066985646,
+            "width": 884.8884165781084,
+            "height": 1625.4545454545455
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 771,
+        "height": 1311
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 755,
+        "height": 1295,
+        "x": 8
+      },
+      "asset_path": "UI/popups/DRP_DailyRewards_popup.png",
+      "asset_id": "DailyRewardsPopupPanel"
+    },
+    {
+      "id": "DailyDay1Card",
+      "path": "UI/cards/DRP_Day_Claimed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day1Card",
+          "screenRect": {
+            "x": 104.44208289054198,
+            "y": 550.0478468899521,
+            "width": 354.643995749203,
+            "height": 274.44976076555025
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "asset_id": "DailyDay1Card"
+    },
+    {
+      "id": "DailyDay2Card",
+      "path": "UI/cards/DRP_Day_Claimed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day2Card",
+          "screenRect": {
+            "x": 361.53028692879917,
+            "y": 550.0478468899521,
+            "width": 354.643995749203,
+            "height": 274.44976076555025
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "asset_id": "DailyDay2Card"
+    },
+    {
+      "id": "DailyDay3Card",
+      "path": "UI/cards/DRP_Day_Claimed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day3Card",
+          "screenRect": {
+            "x": 619.7662061636557,
+            "y": 550.0478468899521,
+            "width": 354.643995749203,
+            "height": 274.44976076555025
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "asset_id": "DailyDay3Card"
+    },
+    {
+      "id": "DailyDay4Card",
+      "path": "UI/cards/DRP_Day_Current_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "selected",
+      "filename": "UI/cards/DRP_Day_Current_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 293,
+        "height": 223,
+        "x": 8
+      },
+      "sha256": "5c9a93cdf257e464492b47b49bbde1df1dece5b49b76c760806524c54e6cb916",
+      "placements": [
+        {
+          "instanceId": "Day4Card",
+          "screenRect": {
+            "x": 104.44208289054198,
+            "y": 788.976869871334,
+            "width": 354.643995749203,
+            "height": 290.37161910900664
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 293,
+        "height": 223,
+        "x": 8
+      },
+      "asset_path": "UI/cards/DRP_Day_Current_card.png",
+      "asset_id": "DailyDay4Card"
+    },
+    {
+      "id": "DailyDay5Card",
+      "path": "UI/cards/DRP_Day_Default_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Default_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day5Card",
+          "screenRect": {
+            "x": 361.53028692879917,
+            "y": 788.976869871334,
+            "width": 354.643995749203,
+            "height": 290.37161910900664
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Default_card.png",
+      "asset_id": "DailyDay5Card"
+    },
+    {
+      "id": "DailyDay6Card",
+      "path": "UI/cards/DRP_Day_Default_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 309,
+      "height": 239,
+      "stateFamily": "DailyRewardCard",
+      "state": "normal",
+      "filename": "UI/cards/DRP_Day_Default_card.png",
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "5a5dc2cc62b064250605f26e18a47c8098ccedc1d4f240d15986ebbcefa389ad",
+      "placements": [
+        {
+          "instanceId": "Day6Card",
+          "screenRect": {
+            "x": 619.7662061636557,
+            "y": 788.976869871334,
+            "width": 354.643995749203,
+            "height": 290.37161910900664
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Default_card.png",
+      "asset_id": "DailyDay6Card"
+    },
+    {
+      "id": "DailyDay7Card",
+      "path": "UI/cards/DRP_Day7_Special_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 681,
+      "height": 303,
+      "stateFamily": "DailyBonusCard",
+      "state": "bonus",
+      "filename": "UI/cards/DRP_Day7_Special_card.png",
+      "pixelSize": {
+        "width": 681,
+        "height": 303
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 665,
+        "height": 287,
+        "x": 8
+      },
+      "sha256": "d996d9f9e9f83d181b84cfe6cd60982c86043ff2bd5e9108a8560a32d50d1160",
+      "placements": [
+        {
+          "instanceId": "Day7Card",
+          "screenRect": {
+            "x": 152.6461211477152,
+            "y": 1056.4593301435407,
+            "width": 781.5940488841658,
+            "height": 347.9425837320574
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 681,
+        "height": 303
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 665,
+        "height": 287,
+        "x": 8
+      },
+      "asset_path": "UI/cards/DRP_Day7_Special_card.png",
+      "asset_id": "DailyDay7Card"
+    },
+    {
+      "id": "DailyClaimedBadge",
+      "path": "UI/icons/DRP_Claimed_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 76,
+      "height": 76,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 76,
+        "height": 76
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "sha256": "6b5dd5b0cedf6e623f89c8c2022bd78320841c6906811a106df2dc9e57039bfe",
+      "placements": [
+        {
+          "instanceId": "Day1ClaimedBadge",
+          "screenRect": {
+            "x": 330.54197662061637,
+            "y": 563.8277511961722,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day2ClaimedBadge",
+          "screenRect": {
+            "x": 587.6301806588735,
+            "y": 563.8277511961722,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day3ClaimedBadge",
+          "screenRect": {
+            "x": 845.86609989373,
+            "y": 563.8277511961722,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day5ClaimedBadge",
+          "screenRect": {
+            "x": 587.6301806588735,
+            "y": 803.8277511961721,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        },
+        {
+          "instanceId": "Day6ClaimedBadge",
+          "screenRect": {
+            "x": 845.86609989373,
+            "y": 803.8277511961721,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        },
+        {
+          "instanceId": "Day4ClaimedBadge",
+          "screenRect": {
+            "x": 330.54197662061637,
+            "y": 803.8277511961721,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        },
+        {
+          "instanceId": "Day7ClaimedBadge",
+          "screenRect": {
+            "x": 851.6046758767269,
+            "y": 1053.0143540669856,
+            "width": 87.22635494155153,
+            "height": 87.27272727272727
+          },
+          "active": false
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "asset_id": "DailyClaimedBadge"
+    },
+    {
+      "id": "DailyCoinsSmall",
+      "path": "UI/icons/DRP_CoinsSmall_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 138,
+      "height": 97,
+      "opaque": false,
+      "filename": "UI/icons/DRP_CoinsSmall_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 138,
+        "height": 97
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 122,
+        "height": 81,
+        "x": 8
+      },
+      "sha256": "065a0c122cec4c345df843c5f89ef4f070a78eef60871d8366cb5653eb5b2b2a",
+      "placements": [
+        {
+          "instanceId": "Day1RewardIcon",
+          "screenRect": {
+            "x": 201.99787460148778,
+            "y": 633.8755980861245,
+            "width": 158.384697130712,
+            "height": 111.38755980861244
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 138,
+        "height": 97
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 122,
+        "height": 81,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_CoinsSmall_icon.png",
+      "asset_id": "DailyCoinsSmall"
+    },
+    {
+      "id": "DailyCoinsPile",
+      "path": "UI/icons/DRP_CoinsPile_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 152,
+      "height": 104,
+      "opaque": false,
+      "filename": "UI/icons/DRP_CoinsPile_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 152,
+        "height": 104
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 136,
+        "height": 88,
+        "x": 8
+      },
+      "sha256": "33b4233258ac2ba86a8811e23f0c37e699bc13a4a59e5208a4bb1226d3828020",
+      "placements": [
+        {
+          "instanceId": "Day3RewardIcon",
+          "screenRect": {
+            "x": 710.4357066950054,
+            "y": 631.578947368421,
+            "width": 174.45270988310307,
+            "height": 119.42583732057416
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 152,
+        "height": 104
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 136,
+        "height": 88,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_CoinsPile_icon.png",
+      "asset_id": "DailyCoinsPile"
+    },
+    {
+      "id": "DailyCoinsStack",
+      "path": "UI/icons/DRP_CoinsStack_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 139,
+      "height": 109,
+      "opaque": false,
+      "filename": "UI/icons/DRP_CoinsStack_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 139,
+        "height": 109
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 123,
+        "height": 93,
+        "x": 8
+      },
+      "sha256": "31efb43005bef1f5cf63fab5554a39e030eee35dd8aa49fac8e9728cc2368a88",
+      "placements": [
+        {
+          "instanceId": "Day5RewardIcon",
+          "screenRect": {
+            "x": 461.38150903294365,
+            "y": 877.3205741626793,
+            "width": 159.53241232731136,
+            "height": 125.16746411483254
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 139,
+        "height": 109
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 123,
+        "height": 93,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_CoinsStack_icon.png",
+      "asset_id": "DailyCoinsStack"
+    },
+    {
+      "id": "DailyBonusCoins",
+      "path": "UI/icons/DRP_BonusCoins_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 126,
+      "height": 106,
+      "opaque": false,
+      "filename": "UI/icons/DRP_BonusCoins_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 126,
+        "height": 106
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 110,
+        "height": 90,
+        "x": 8
+      },
+      "sha256": "9cbf887d40548237e4c61bf7b196a14ac4e3354b63c9da013f065070e5ec0e2e",
+      "placements": [
+        {
+          "instanceId": "Day7CoinReward",
+          "screenRect": {
+            "x": 580.7438894792774,
+            "y": 1129.952153110048,
+            "width": 144.61211477151966,
+            "height": 121.72248803827752
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 126,
+        "height": 106
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 110,
+        "height": 90,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_BonusCoins_icon.png",
+      "asset_id": "DailyBonusCoins"
+    },
+    {
+      "id": "DailyHintReward",
+      "path": "UI/icons/DRP_Hint_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 121,
+      "height": 110,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Hint_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 121,
+        "height": 110
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 105,
+        "height": 94,
+        "x": 8
+      },
+      "sha256": "30ac005656ceea0adbe9c4120f407f7c1e2896b6f31a889dd0e6c9ad99e80910",
+      "placements": [
+        {
+          "instanceId": "Day2RewardIcon",
+          "screenRect": {
+            "x": 463.6769394261424,
+            "y": 622.3923444976076,
+            "width": 138.87353878852284,
+            "height": 126.3157894736842
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day7HintReward",
+          "screenRect": {
+            "x": 603.6981934112646,
+            "y": 1247.0813397129186,
+            "width": 79.192348565356,
+            "height": 87.27272727272727
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 121,
+        "height": 110
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 105,
+        "height": 94,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Hint_icon.png",
+      "asset_id": "DailyHintReward"
+    },
+    {
+      "id": "DailyUndoReward",
+      "path": "UI/icons/DRP_Undo_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 122,
+      "height": 119,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Undo_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 122,
+        "height": 119
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 106,
+        "height": 103,
+        "x": 8
+      },
+      "sha256": "fe598eed8a50ae22348f02b203bc5ad39eb8093a89236f5d3f56d2c15600c78a",
+      "placements": [
+        {
+          "instanceId": "Day4RewardIcon",
+          "screenRect": {
+            "x": 213.4750265674814,
+            "y": 873.8755980861245,
+            "width": 140.0212539851222,
+            "height": 136.65071770334927
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day7UndoReward",
+          "screenRect": {
+            "x": 690.9245483528161,
+            "y": 1247.0813397129186,
+            "width": 89.52178533475026,
+            "height": 89.56937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 122,
+        "height": 119
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 106,
+        "height": 103,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Undo_icon.png",
+      "asset_id": "DailyUndoReward"
+    },
+    {
+      "id": "DailyShuffleReward",
+      "path": "UI/icons/DRP_Shuffle_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 129,
+      "height": 120,
+      "opaque": false,
+      "filename": "UI/icons/DRP_Shuffle_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 129,
+        "height": 120
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 113,
+        "height": 104,
+        "x": 8
+      },
+      "sha256": "ad64d898c1f89299d360ca96d237085ba72625564c771b5259e4377db7ec70e4",
+      "placements": [
+        {
+          "instanceId": "Day6RewardIcon",
+          "screenRect": {
+            "x": 725.356004250797,
+            "y": 872.7272727272727,
+            "width": 148.05526036131775,
+            "height": 137.79904306220095
+          },
+          "active": true
+        },
+        {
+          "instanceId": "Day7ShuffleReward",
+          "screenRect": {
+            "x": 788.480340063762,
+            "y": 1247.0813397129186,
+            "width": 92.96493092454836,
+            "height": 89.56937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 129,
+        "height": 120
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 113,
+        "height": 104,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_Shuffle_icon.png",
+      "asset_id": "DailyShuffleReward"
+    },
+    {
+      "id": "DailyTreasureCat",
+      "path": "UI/icons/DRP_TreasureCat_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 383,
+      "height": 286,
+      "opaque": false,
+      "filename": "UI/icons/DRP_TreasureCat_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 383,
+        "height": 286
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 367,
+        "height": 270,
+        "x": 8
+      },
+      "sha256": "fb4151d91f918b18e4f3c9811803d1e96f0c94ffeaa1b1a7b455890e86bf8faf",
+      "placements": [
+        {
+          "instanceId": "Day7TreasureReward",
+          "screenRect": {
+            "x": 168.71413390010628,
+            "y": 1073.6842105263158,
+            "width": 439.5749202975558,
+            "height": 328.42105263157896
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 383,
+        "height": 286
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 367,
+        "height": 270,
+        "x": 8
+      },
+      "asset_path": "UI/icons/DRP_TreasureCat_icon.png",
+      "asset_id": "DailyTreasureCat"
+    },
+    {
+      "id": "DailyClaimButton",
+      "path": "UI/btns/DRP_Claim_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 471,
+      "height": 158,
+      "opaque": false,
+      "filename": "UI/btns/DRP_Claim_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 471,
+        "height": 158
+      },
+      "nativeVisibleBounds": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "sha256": "945c2e3bb8d1764c66fb57c76a7deab2fd11de9fd28dd5b8f723dd369a344547",
+      "placements": [
+        {
+          "instanceId": "ClaimButton",
+          "screenRect": {
+            "x": 270.86078639744954,
+            "y": 1420,
+            "width": 540.5738575982997,
+            "height": 181.33900106269925
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 471,
+        "height": 158
+      },
+      "alpha_bounds_px": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "asset_path": "UI/btns/DRP_Claim_btn.png",
+      "asset_id": "DailyClaimButton"
+    },
+    {
+      "id": "DailyLaterButton",
+      "path": "UI/btns/DRP_Later_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 471,
+      "height": 158,
+      "opaque": false,
+      "filename": "UI/btns/DRP_Later_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 471,
+        "height": 158
+      },
+      "nativeVisibleBounds": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "sha256": "cfaaaac86110af82d9a176a65d63d2bcb2483bd9598f229948ac79c15c6e656f",
+      "placements": [
+        {
+          "instanceId": "LaterButton",
+          "screenRect": {
+            "x": 270.86078639744954,
+            "y": 1621.3390010626993,
+            "width": 540.5738575982997,
+            "height": 181.33900106269925
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 471,
+        "height": 158
+      },
+      "alpha_bounds_px": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "asset_path": "UI/btns/DRP_Later_btn.png",
+      "asset_id": "DailyLaterButton"
+    },
+    {
+      "id": "CloseRedButton",
+      "path": "UI/btns/SH_CloseRed_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 116,
+      "height": 116,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/btns/SH_CloseRed_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 116,
+        "height": 116
+      },
+      "nativeVisibleBounds": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "sha256": "f4ae193e1e596fbf4d981dad9af81420a8d2eb171600a07fc508e45e3316bf4b",
+      "placements": [
+        {
+          "instanceId": "CloseButton",
+          "screenRect": {
+            "x": 865.3772582359193,
+            "y": 372.0928056785767,
+            "width": 133.13496280552604,
+            "height": 133.13496280552604
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 116
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SH_CloseRed_btn.png",
+      "asset_id": "CloseRedButton"
+    },
+    {
+      "id": "DRP_DailyRewards_title",
+      "path": "UI/titles/DRP_DailyRewards_title.png",
+      "filename": "UI/titles/DRP_DailyRewards_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "DRP_DailyRewards_title",
+          "screenRect": {
+            "x": 159.53241232731136,
+            "y": 376.6507177033493,
+            "width": 762.0828905419767,
+            "height": 200.95693779904306
+          },
+          "active": true
+        }
+      ],
+      "width": 664,
+      "height": 175,
+      "pixelSize": {
+        "width": 664,
+        "height": 175
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 648,
+        "height": 159,
+        "x": 8
+      },
+      "sha256": "b85c0a2eced8cb488b18917f193c46d131da7379c2d2815e6f435214a7b42676",
+      "native_size_px": {
+        "width": 664,
+        "height": 175
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 648,
+        "height": 159,
+        "x": 8
+      },
+      "asset_path": "UI/titles/DRP_DailyRewards_title.png",
+      "asset_id": "DRP_DailyRewards_title"
+    },
+    {
+      "id": "DRP_Day_Locked_card",
+      "path": "UI/cards/DRP_Day_Locked_card.png",
+      "filename": "UI/cards/DRP_Day_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "state": "Locked",
+      "placements": [],
+      "width": 309,
+      "height": 239,
+      "pixelSize": {
+        "width": 309,
+        "height": 239
+      },
+      "nativeVisibleBounds": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "sha256": "c79c186b271ce718da191b21d9fdac72782774a7a4f6fdcbfc9bd067bc9c8511",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "asset_path": "UI/cards/DRP_Day_Locked_card.png",
+      "asset_id": "DRP_Day_Locked_card"
+    }
+  ],
+  "elements": [
+    {
+      "id": "Dimmer",
+      "parentId": "",
+      "assetId": "",
+      "kind": "overlay",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "color": "#2D1E0F64",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "ModalBackdrop",
+      "screenGroup": "DailyRewards",
+      "popupGroup": null
+    },
+    {
+      "id": "PopupGroup",
+      "parentId": "",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 98.70350690754516,
+        "y": 210.14354066985646,
+        "width": 884.8884165781084,
+        "height": 1625.4545454545455
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 98.70350690754516,
+        "y": 210.14354066985646,
+        "width": 884.8884165781084,
+        "height": 1625.4545454545455
+      },
+      "visibleBounds": {
+        "x": 98.70350690754516,
+        "y": 210.14354066985646,
+        "width": 884.8884165781084,
+        "height": 1505.4545454545455
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 98.70350690754516,
+        "y": 210.14354066985646,
+        "width": 884.8884165781084,
+        "height": 1505.4545454545455
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "PopupPanel",
+      "parentId": "PopupGroup",
+      "assetId": "DailyRewardsPopupPanel",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 884.8884165781084,
+        "height": 1625.4545454545455
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 3,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/popups/DRP_DailyRewards_popup.png",
+      "state": "default",
+      "layerOrder": 3,
+      "screenRect": {
+        "x": 98.70350690754516,
+        "y": 210.14354066985646,
+        "width": 884.8884165781084,
+        "height": 1625.4545454545455
+      },
+      "visibleBounds": {
+        "x": 107.88522848034006,
+        "y": 219.32526224265138,
+        "width": 866.5249734325185,
+        "height": 1607.0911023089557
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 107.88522848034006,
+        "y": 219.33014354066987,
+        "width": 866.5249734325185,
+        "height": 1487.0813397129186
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "imageType": "sliced"
+    },
+    {
+      "id": "Day1Group",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 5.738575982996821,
+        "y": 339.90430622009563,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 5,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 5,
+      "screenRect": {
+        "x": 104.44208289054198,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "visibleBounds": {
+        "x": 104.44208289054198,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 104.44208289054198,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day1Card",
+      "parentId": "Day1Group",
+      "assetId": "DailyDay1Card",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 6,
+      "previewOnly": false,
+      "binding": "daily.day1.state",
+      "active": true,
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "state": "normal",
+      "layerOrder": 6,
+      "screenRect": {
+        "x": 104.44208289054198,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "visibleBounds": {
+        "x": 161.8278427205101,
+        "y": 576.4593301435406,
+        "width": 239.87247608926674,
+        "height": 221.6267942583732
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 113.62380446333688,
+        "y": 559.2344497607655,
+        "width": 336.28055260361316,
+        "height": 256.07655502392345
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "state_group": "Day1Card_backing",
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "id": "Day1RewardIcon",
+      "parentId": "Day1Group",
+      "assetId": "DailyCoinsSmall",
+      "kind": "image",
+      "rect": {
+        "x": 97.5557917109458,
+        "y": 83.82775119617236,
+        "width": 158.384697130712,
+        "height": 111.38755980861244
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 7,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_CoinsSmall_icon.png",
+      "state": "default",
+      "layerOrder": 7,
+      "screenRect": {
+        "x": 201.99787460148778,
+        "y": 633.8755980861245,
+        "width": 158.384697130712,
+        "height": 111.38755980861244
+      },
+      "visibleBounds": {
+        "x": 211.17959617428266,
+        "y": 643.0622009569379,
+        "width": 140.0212539851222,
+        "height": 93.01435406698565
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 211.17959617428266,
+        "y": 643.0622009569379,
+        "width": 140.0212539851222,
+        "height": 93.01435406698565
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day1Label",
+      "parentId": "Day1Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 86.07863974495218,
+        "y": 34.44976076555031,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 8,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.Day1Label",
+      "fontSize": 33.85759829968119,
+      "color": "#87431F",
+      "textRole": "day-label",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 8,
+      "screenRect": {
+        "x": 190.52072263549417,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 190.52072263549417,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 190.52072263549417,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day1Amount",
+      "parentId": "Day1Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 91.81721572794898,
+        "y": 186.02870813397135,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 9,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day1.amount",
+      "fontSize": 37.87460148777896,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 9,
+      "screenRect": {
+        "x": 196.25929861849096,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "visibleBounds": {
+        "x": 196.25929861849096,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 196.25929861849096,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day1ClaimedBadge",
+      "parentId": "Day1Group",
+      "assetId": "DailyClaimedBadge",
+      "kind": "image",
+      "rect": {
+        "x": 226.09989373007437,
+        "y": 13.779904306220146,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 10,
+      "previewOnly": false,
+      "active": true,
+      "binding": "daily.day1.claimed",
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "layerOrder": 10,
+      "screenRect": {
+        "x": 330.54197662061637,
+        "y": 563.8277511961722,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 339.7236981934113,
+        "y": 573.0143540669857,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 339.7236981934113,
+        "y": 573.0143540669857,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day2Group",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 262.826780021254,
+        "y": 339.90430622009563,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 11,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 11,
+      "screenRect": {
+        "x": 361.53028692879917,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "visibleBounds": {
+        "x": 361.53028692879917,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 361.53028692879917,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day2Card",
+      "parentId": "Day2Group",
+      "assetId": "DailyDay2Card",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 12,
+      "previewOnly": false,
+      "binding": "daily.day2.state",
+      "active": true,
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "state": "normal",
+      "layerOrder": 12,
+      "screenRect": {
+        "x": 361.53028692879917,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "visibleBounds": {
+        "x": 418.91604675876727,
+        "y": 576.4593301435406,
+        "width": 239.87247608926674,
+        "height": 221.6267942583732
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 370.7120085015941,
+        "y": 559.2344497607655,
+        "width": 336.28055260361316,
+        "height": 256.07655502392345
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "state_group": "Day2Card_backing",
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "id": "Day2RewardIcon",
+      "parentId": "Day2Group",
+      "assetId": "DailyHintReward",
+      "kind": "image",
+      "rect": {
+        "x": 102.14665249734321,
+        "y": 72.34449760765551,
+        "width": 138.87353878852284,
+        "height": 126.3157894736842
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 13,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_Hint_icon.png",
+      "state": "default",
+      "layerOrder": 13,
+      "screenRect": {
+        "x": 463.6769394261424,
+        "y": 622.3923444976076,
+        "width": 138.87353878852284,
+        "height": 126.3157894736842
+      },
+      "visibleBounds": {
+        "x": 472.8586609989373,
+        "y": 631.578947368421,
+        "width": 120.51009564293305,
+        "height": 107.94258373205741
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 472.8586609989373,
+        "y": 631.578947368421,
+        "width": 120.51009564293304,
+        "height": 107.94258373205741
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day2Label",
+      "parentId": "Day2Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 86.07863974495217,
+        "y": 34.44976076555031,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 14,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.Day2Label",
+      "fontSize": 33.85759829968119,
+      "color": "#87431F",
+      "textRole": "day-label",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 14,
+      "screenRect": {
+        "x": 447.60892667375134,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 447.60892667375134,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 447.60892667375134,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day2Amount",
+      "parentId": "Day2Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 91.81721572794896,
+        "y": 186.02870813397135,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 15,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day2.amount",
+      "fontSize": 37.87460148777896,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 15,
+      "screenRect": {
+        "x": 453.34750265674813,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "visibleBounds": {
+        "x": 453.34750265674813,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 453.34750265674813,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day2ClaimedBadge",
+      "parentId": "Day2Group",
+      "assetId": "DailyClaimedBadge",
+      "kind": "image",
+      "rect": {
+        "x": 226.09989373007437,
+        "y": 13.779904306220146,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 16,
+      "previewOnly": false,
+      "active": true,
+      "binding": "daily.day2.claimed",
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "layerOrder": 16,
+      "screenRect": {
+        "x": 587.6301806588735,
+        "y": 563.8277511961722,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 596.8119022316685,
+        "y": 573.0143540669857,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 596.8119022316685,
+        "y": 573.0143540669857,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day3Group",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 521.0626992561106,
+        "y": 339.90430622009563,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 17,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 17,
+      "screenRect": {
+        "x": 619.7662061636557,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "visibleBounds": {
+        "x": 619.7662061636557,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 619.7662061636557,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day3Card",
+      "parentId": "Day3Group",
+      "assetId": "DailyDay3Card",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 18,
+      "previewOnly": false,
+      "binding": "daily.day3.state",
+      "active": true,
+      "filename": "UI/cards/DRP_Day_Claimed_card.png",
+      "state": "normal",
+      "layerOrder": 18,
+      "screenRect": {
+        "x": 619.7662061636557,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "visibleBounds": {
+        "x": 677.1519659936239,
+        "y": 576.4593301435406,
+        "width": 239.87247608926674,
+        "height": 221.6267942583732
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 628.9479277364507,
+        "y": 559.2344497607655,
+        "width": 336.28055260361316,
+        "height": 256.07655502392345
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "state_group": "Day3Card_backing",
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "id": "Day3RewardIcon",
+      "parentId": "Day3Group",
+      "assetId": "DailyCoinsPile",
+      "kind": "image",
+      "rect": {
+        "x": 90.66950053134963,
+        "y": 81.53110047846894,
+        "width": 174.45270988310307,
+        "height": 119.42583732057416
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 19,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_CoinsPile_icon.png",
+      "state": "default",
+      "layerOrder": 19,
+      "screenRect": {
+        "x": 710.4357066950054,
+        "y": 631.578947368421,
+        "width": 174.45270988310307,
+        "height": 119.42583732057416
+      },
+      "visibleBounds": {
+        "x": 719.6174282678003,
+        "y": 640.7655502392345,
+        "width": 156.0892667375133,
+        "height": 101.05263157894737
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 719.6174282678003,
+        "y": 640.7655502392345,
+        "width": 156.08926673751327,
+        "height": 101.05263157894737
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day3Label",
+      "parentId": "Day3Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 86.07863974495217,
+        "y": 34.44976076555031,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 20,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.Day3Label",
+      "fontSize": 33.85759829968119,
+      "color": "#87431F",
+      "textRole": "day-label",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 20,
+      "screenRect": {
+        "x": 705.8448459086079,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 705.8448459086079,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 705.8448459086079,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day3Amount",
+      "parentId": "Day3Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 91.8172157279489,
+        "y": 186.02870813397135,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 21,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day3.amount",
+      "fontSize": 37.87460148777896,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 21,
+      "screenRect": {
+        "x": 711.5834218916046,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "visibleBounds": {
+        "x": 711.5834218916046,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 711.5834218916046,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day3ClaimedBadge",
+      "parentId": "Day3Group",
+      "assetId": "DailyClaimedBadge",
+      "kind": "image",
+      "rect": {
+        "x": 226.0998937300743,
+        "y": 13.779904306220146,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 22,
+      "previewOnly": false,
+      "active": true,
+      "binding": "daily.day3.claimed",
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "layerOrder": 22,
+      "screenRect": {
+        "x": 845.86609989373,
+        "y": 563.8277511961722,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 855.047821466525,
+        "y": 573.0143540669857,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 855.047821466525,
+        "y": 573.0143540669857,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day5Group",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 262.826780021254,
+        "y": 578.8333292014775,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 23,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 23,
+      "screenRect": {
+        "x": 361.53028692879917,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "visibleBounds": {
+        "x": 361.53028692879917,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 361.53028692879917,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day5Card",
+      "parentId": "Day5Group",
+      "assetId": "DailyDay5Card",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 24,
+      "previewOnly": false,
+      "binding": "daily.day5.state",
+      "active": true,
+      "filename": "UI/cards/DRP_Day_Default_card.png",
+      "state": "normal",
+      "layerOrder": 24,
+      "screenRect": {
+        "x": 361.53028692879917,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "visibleBounds": {
+        "x": 418.91604675876727,
+        "y": 816.920582170527,
+        "width": 239.87247608926674,
+        "height": 234.48419451062043
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 370.7120085015941,
+        "y": 798.6964219754011,
+        "width": 336.28055260361316,
+        "height": 270.9325149008723
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "state_group": "Day5Card_backing",
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "id": "Day5RewardIcon",
+      "parentId": "Day5Group",
+      "assetId": "DailyCoinsStack",
+      "kind": "image",
+      "rect": {
+        "x": 99.85122210414448,
+        "y": 88.34370429134549,
+        "width": 159.53241232731136,
+        "height": 125.16746411483254
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 25,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_CoinsStack_icon.png",
+      "state": "default",
+      "layerOrder": 25,
+      "screenRect": {
+        "x": 461.38150903294365,
+        "y": 877.3205741626793,
+        "width": 159.53241232731136,
+        "height": 125.16746411483254
+      },
+      "visibleBounds": {
+        "x": 470.56323060573857,
+        "y": 886.5071770334928,
+        "width": 141.16896918172156,
+        "height": 106.79425837320574
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 470.56323060573857,
+        "y": 886.5071770334928,
+        "width": 141.16896918172156,
+        "height": 106.79425837320575
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day5Label",
+      "parentId": "Day5Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 86.07863974495217,
+        "y": 35.52073778416843,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 26,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.Day5Label",
+      "fontSize": 33.85759829968119,
+      "color": "#87431F",
+      "textRole": "day-label",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 26,
+      "screenRect": {
+        "x": 447.60892667375134,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 447.60892667375134,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 447.60892667375134,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day5Amount",
+      "parentId": "Day5Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 91.81721572794896,
+        "y": 205.47289089421622,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 27,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day5.amount",
+      "fontSize": 37.87460148777896,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 27,
+      "screenRect": {
+        "x": 453.34750265674813,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "visibleBounds": {
+        "x": 453.34750265674813,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 453.34750265674813,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day5ClaimedBadge",
+      "parentId": "Day5Group",
+      "assetId": "DailyClaimedBadge",
+      "kind": "image",
+      "rect": {
+        "x": 226.09989373007437,
+        "y": 14.85088132483827,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 28,
+      "previewOnly": false,
+      "active": false,
+      "binding": "daily.day5.claimed",
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "layerOrder": 28,
+      "screenRect": {
+        "x": 587.6301806588735,
+        "y": 803.8277511961721,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 596.8119022316685,
+        "y": 813.0143540669856,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 596.8119022316685,
+        "y": 813.0143540669856,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day6Group",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 521.0626992561106,
+        "y": 578.8333292014775,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 29,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 29,
+      "screenRect": {
+        "x": 619.7662061636557,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "visibleBounds": {
+        "x": 619.7662061636557,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 619.7662061636557,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day6Card",
+      "parentId": "Day6Group",
+      "assetId": "DailyDay6Card",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 30,
+      "previewOnly": false,
+      "binding": "daily.day6.state",
+      "active": true,
+      "filename": "UI/cards/DRP_Day_Default_card.png",
+      "state": "normal",
+      "layerOrder": 30,
+      "screenRect": {
+        "x": 619.7662061636557,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "visibleBounds": {
+        "x": 677.1519659936239,
+        "y": 816.920582170527,
+        "width": 239.87247608926674,
+        "height": 234.48419451062043
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 628.9479277364507,
+        "y": 798.6964219754011,
+        "width": 336.28055260361316,
+        "height": 270.9325149008723
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "state_group": "Day6Card_backing",
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "id": "Day6RewardIcon",
+      "parentId": "Day6Group",
+      "assetId": "DailyShuffleReward",
+      "kind": "image",
+      "rect": {
+        "x": 105.58979808714128,
+        "y": 83.75040285593877,
+        "width": 148.05526036131775,
+        "height": 137.79904306220095
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 31,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_Shuffle_icon.png",
+      "state": "default",
+      "layerOrder": 31,
+      "screenRect": {
+        "x": 725.356004250797,
+        "y": 872.7272727272727,
+        "width": 148.05526036131775,
+        "height": 137.79904306220095
+      },
+      "visibleBounds": {
+        "x": 734.5377258235919,
+        "y": 881.9138755980862,
+        "width": 129.69181721572795,
+        "height": 119.42583732057416
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 734.5377258235919,
+        "y": 881.9138755980862,
+        "width": 129.69181721572795,
+        "height": 119.42583732057416
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day6Label",
+      "parentId": "Day6Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 86.07863974495217,
+        "y": 35.52073778416843,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 32,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.Day6Label",
+      "fontSize": 33.85759829968119,
+      "color": "#87431F",
+      "textRole": "day-label",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 32,
+      "screenRect": {
+        "x": 705.8448459086079,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 705.8448459086079,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 705.8448459086079,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day6Amount",
+      "parentId": "Day6Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 91.8172157279489,
+        "y": 205.47289089421622,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 33,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day6.amount",
+      "fontSize": 37.87460148777896,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 33,
+      "screenRect": {
+        "x": 711.5834218916046,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "visibleBounds": {
+        "x": 711.5834218916046,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 711.5834218916046,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day6ClaimedBadge",
+      "parentId": "Day6Group",
+      "assetId": "DailyClaimedBadge",
+      "kind": "image",
+      "rect": {
+        "x": 226.0998937300743,
+        "y": 14.85088132483827,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 34,
+      "previewOnly": false,
+      "active": false,
+      "binding": "daily.day6.claimed",
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "layerOrder": 34,
+      "screenRect": {
+        "x": 845.86609989373,
+        "y": 803.8277511961721,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 855.047821466525,
+        "y": 813.0143540669856,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 855.047821466525,
+        "y": 813.0143540669856,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day4Group",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 5.738575982996821,
+        "y": 578.8333292014775,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 35,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 35,
+      "screenRect": {
+        "x": 104.44208289054198,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "visibleBounds": {
+        "x": 104.44208289054198,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 104.44208289054198,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day4Card",
+      "parentId": "Day4Group",
+      "assetId": "DailyDay4Card",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 36,
+      "previewOnly": false,
+      "binding": "daily.day4.state",
+      "active": true,
+      "filename": "UI/cards/DRP_Day_Current_card.png",
+      "state": "selected",
+      "layerOrder": 36,
+      "screenRect": {
+        "x": 104.44208289054198,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "visibleBounds": {
+        "x": 113.62380446333688,
+        "y": 798.6964219754011,
+        "width": 336.28055260361316,
+        "height": 270.9325149008723
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 113.62380446333688,
+        "y": 798.6964219754011,
+        "width": 336.28055260361316,
+        "height": 270.9325149008723
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "state_group": "Day4Card_backing",
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "id": "Day4RewardIcon",
+      "parentId": "Day4Group",
+      "assetId": "DailyUndoReward",
+      "kind": "image",
+      "rect": {
+        "x": 109.03294367693941,
+        "y": 84.89872821479048,
+        "width": 140.0212539851222,
+        "height": 136.65071770334927
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 37,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_Undo_icon.png",
+      "state": "default",
+      "layerOrder": 37,
+      "screenRect": {
+        "x": 213.4750265674814,
+        "y": 873.8755980861245,
+        "width": 140.0212539851222,
+        "height": 136.65071770334927
+      },
+      "visibleBounds": {
+        "x": 222.6567481402763,
+        "y": 883.0622009569379,
+        "width": 121.65781083953242,
+        "height": 118.27751196172248
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 222.6567481402763,
+        "y": 883.0622009569379,
+        "width": 121.6578108395324,
+        "height": 118.27751196172248
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day4Label",
+      "parentId": "Day4Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 86.07863974495218,
+        "y": 35.52073778416843,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 38,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.Day4Label",
+      "fontSize": 33.85759829968119,
+      "color": "#6F1A20",
+      "textRole": "day-label",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 38,
+      "screenRect": {
+        "x": 190.52072263549417,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 190.52072263549417,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 190.52072263549417,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day4Amount",
+      "parentId": "Day4Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 91.81721572794898,
+        "y": 205.47289089421622,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 39,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day4.amount",
+      "fontSize": 37.87460148777896,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 39,
+      "screenRect": {
+        "x": 196.25929861849096,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "visibleBounds": {
+        "x": 196.25929861849096,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 196.25929861849096,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day4ClaimedBadge",
+      "parentId": "Day4Group",
+      "assetId": "DailyClaimedBadge",
+      "kind": "image",
+      "rect": {
+        "x": 226.09989373007437,
+        "y": 14.85088132483827,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 40,
+      "previewOnly": false,
+      "active": false,
+      "binding": "daily.day4.claimed",
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "layerOrder": 40,
+      "screenRect": {
+        "x": 330.54197662061637,
+        "y": 803.8277511961721,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 339.7236981934113,
+        "y": 813.0143540669856,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 339.7236981934113,
+        "y": 813.0143540669856,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7Group",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 53.942614240170045,
+        "y": 846.3157894736842,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 41,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 41,
+      "screenRect": {
+        "x": 152.6461211477152,
+        "y": 1056.4593301435407,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "visibleBounds": {
+        "x": 152.6461211477152,
+        "y": 1056.4593301435407,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 152.6461211477152,
+        "y": 1056.4593301435407,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7Card",
+      "parentId": "Day7Group",
+      "assetId": "DailyDay7Card",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 42,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/DRP_Day7_Special_card.png",
+      "state": "bonus",
+      "layerOrder": 42,
+      "screenRect": {
+        "x": 152.6461211477152,
+        "y": 1056.4593301435407,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "visibleBounds": {
+        "x": 161.8278427205101,
+        "y": 1065.6459330143541,
+        "width": 763.230605738576,
+        "height": 329.5693779904306
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 161.8278427205101,
+        "y": 1065.6459330143541,
+        "width": 763.230605738576,
+        "height": 329.5693779904306
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7TreasureReward",
+      "parentId": "Day7Group",
+      "assetId": "DailyTreasureCat",
+      "kind": "image",
+      "rect": {
+        "x": 16.06801275239107,
+        "y": 17.224880382775154,
+        "width": 439.5749202975558,
+        "height": 328.42105263157896
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 43,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_TreasureCat_icon.png",
+      "state": "default",
+      "layerOrder": 43,
+      "screenRect": {
+        "x": 168.71413390010628,
+        "y": 1073.6842105263158,
+        "width": 439.5749202975558,
+        "height": 328.42105263157896
+      },
+      "visibleBounds": {
+        "x": 177.8958554729012,
+        "y": 1082.8708133971293,
+        "width": 421.211477151966,
+        "height": 310.04784688995215
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 177.8958554729012,
+        "y": 1082.8708133971293,
+        "width": 421.21147715196605,
+        "height": 310.04784688995215
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7Label",
+      "parentId": "Day7Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 312.1785334750266,
+        "y": 17.224880382775154,
+        "width": 166.41870350690755,
+        "height": 49.377990430622006
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 44,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.Day7Label",
+      "fontSize": 42.46546227417641,
+      "color": "#FFFFFF",
+      "textRole": "day-label",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 44,
+      "screenRect": {
+        "x": 464.8246546227418,
+        "y": 1073.6842105263158,
+        "width": 166.41870350690755,
+        "height": 49.377990430622006
+      },
+      "visibleBounds": {
+        "x": 464.8246546227418,
+        "y": 1073.6842105263158,
+        "width": 166.41870350690755,
+        "height": 49.377990430622006
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 464.8246546227418,
+        "y": 1073.6842105263158,
+        "width": 166.41870350690755,
+        "height": 49.377990430622006
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7CoinReward",
+      "parentId": "Day7Group",
+      "assetId": "DailyBonusCoins",
+      "kind": "image",
+      "rect": {
+        "x": 428.0977683315622,
+        "y": 73.49282296650722,
+        "width": 144.61211477151966,
+        "height": 121.72248803827752
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 45,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_BonusCoins_icon.png",
+      "state": "default",
+      "layerOrder": 45,
+      "screenRect": {
+        "x": 580.7438894792774,
+        "y": 1129.952153110048,
+        "width": 144.61211477151966,
+        "height": 121.72248803827752
+      },
+      "visibleBounds": {
+        "x": 589.9256110520723,
+        "y": 1139.1387559808613,
+        "width": 126.24867162592986,
+        "height": 103.34928229665071
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 589.9256110520723,
+        "y": 1139.1387559808613,
+        "width": 126.24867162592986,
+        "height": 103.34928229665073
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7CoinAmount",
+      "parentId": "Day7Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 568.1190223166843,
+        "y": 99.90430622009558,
+        "width": 153.79383634431457,
+        "height": 74.64114832535886
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 46,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day7.coins",
+      "fontSize": 58.53347502656748,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 46,
+      "screenRect": {
+        "x": 720.7651434643996,
+        "y": 1156.3636363636363,
+        "width": 153.79383634431457,
+        "height": 74.64114832535886
+      },
+      "visibleBounds": {
+        "x": 720.7651434643996,
+        "y": 1156.3636363636363,
+        "width": 153.79383634431457,
+        "height": 74.64114832535886
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 720.7651434643996,
+        "y": 1156.3636363636363,
+        "width": 153.79383634431457,
+        "height": 74.64114832535886
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7HintReward",
+      "parentId": "Day7Group",
+      "assetId": "DailyHintReward",
+      "kind": "image",
+      "rect": {
+        "x": 451.05207226354935,
+        "y": 190.62200956937795,
+        "width": 79.192348565356,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 47,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_Hint_icon.png",
+      "state": "default",
+      "layerOrder": 47,
+      "screenRect": {
+        "x": 603.6981934112646,
+        "y": 1247.0813397129186,
+        "width": 79.192348565356,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 608.9340511676518,
+        "y": 1253.4284471509352,
+        "width": 68.72063305258165,
+        "height": 74.57851239669421
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 608.9340511676518,
+        "y": 1253.4284471509352,
+        "width": 68.72063305258165,
+        "height": 74.57851239669421
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7HintAmount",
+      "parentId": "Day7Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 454.4952178533474,
+        "y": 264.11483253588517,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 48,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day7.hint",
+      "fontSize": 33.28374070138151,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 48,
+      "screenRect": {
+        "x": 607.1413390010626,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 607.1413390010626,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 607.1413390010626,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7UndoReward",
+      "parentId": "Day7Group",
+      "assetId": "DailyUndoReward",
+      "kind": "image",
+      "rect": {
+        "x": 538.2784272051009,
+        "y": 190.62200956937795,
+        "width": 89.52178533475026,
+        "height": 89.56937799043062
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 49,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_Undo_icon.png",
+      "state": "default",
+      "layerOrder": 49,
+      "screenRect": {
+        "x": 690.9245483528161,
+        "y": 1247.0813397129186,
+        "width": 89.52178533475026,
+        "height": 89.56937799043062
+      },
+      "visibleBounds": {
+        "x": 696.7948293583736,
+        "y": 1253.1028105021912,
+        "width": 77.78122332363547,
+        "height": 77.52643641188533
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 696.7948293583736,
+        "y": 1253.1028105021912,
+        "width": 77.78122332363547,
+        "height": 77.52643641188533
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7UndoAmount",
+      "parentId": "Day7Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 546.3124335812964,
+        "y": 264.11483253588517,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 50,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day7.undo",
+      "fontSize": 33.28374070138151,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 50,
+      "screenRect": {
+        "x": 698.9585547290117,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 698.9585547290117,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 698.9585547290117,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7ShuffleReward",
+      "parentId": "Day7Group",
+      "assetId": "DailyShuffleReward",
+      "kind": "image",
+      "rect": {
+        "x": 635.8342189160468,
+        "y": 190.62200956937795,
+        "width": 92.96493092454836,
+        "height": 89.56937799043062
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 51,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/DRP_Shuffle_icon.png",
+      "state": "default",
+      "layerOrder": 51,
+      "screenRect": {
+        "x": 788.480340063762,
+        "y": 1247.0813397129186,
+        "width": 92.96493092454836,
+        "height": 89.56937799043062
+      },
+      "visibleBounds": {
+        "x": 794.2456070978425,
+        "y": 1253.0526315789473,
+        "width": 81.43439685638732,
+        "height": 77.62679425837321
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 794.2456070978425,
+        "y": 1253.0526315789473,
+        "width": 81.43439685638732,
+        "height": 77.62679425837321
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7ShuffleAmount",
+      "parentId": "Day7Group",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 643.8682252922423,
+        "y": 264.11483253588517,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 52,
+      "previewOnly": false,
+      "text": "",
+      "binding": "daily.day7.shuffle",
+      "fontSize": 33.28374070138151,
+      "color": "#591720",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 52,
+      "screenRect": {
+        "x": 796.5143464399575,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "visibleBounds": {
+        "x": 796.5143464399575,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 796.5143464399575,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "Day7ClaimedBadge",
+      "parentId": "Day7Group",
+      "assetId": "DailyClaimedBadge",
+      "kind": "image",
+      "rect": {
+        "x": 698.9585547290117,
+        "y": -3.444976076555122,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 53,
+      "previewOnly": false,
+      "active": false,
+      "binding": "daily.day7.claimed",
+      "filename": "UI/icons/DRP_Claimed_icon.png",
+      "state": "default",
+      "layerOrder": 53,
+      "screenRect": {
+        "x": 851.6046758767269,
+        "y": 1053.0143540669856,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "visibleBounds": {
+        "x": 860.7863974495218,
+        "y": 1062.200956937799,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 860.7863974495218,
+        "y": 1062.200956937799,
+        "width": 68.86291179596174,
+        "height": 68.89952153110048
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "ClaimButton",
+      "parentId": "PopupGroup",
+      "assetId": "DailyClaimButton",
+      "kind": "button",
+      "rect": {
+        "x": 172.1572794899044,
+        "y": 1209.8564593301435,
+        "width": 540.5738575982997,
+        "height": 181.33900106269925
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 54,
+      "previewOnly": false,
+      "binding": "daily.claim",
+      "active": true,
+      "filename": "UI/btns/DRP_Claim_btn.png",
+      "state": "default",
+      "layerOrder": 54,
+      "screenRect": {
+        "x": 270.86078639744954,
+        "y": 1420,
+        "width": 540.5738575982997,
+        "height": 181.33900106269925
+      },
+      "visibleBounds": {
+        "x": 280.04250797024446,
+        "y": 1438.3634431455898,
+        "width": 522.2104144527099,
+        "height": 144.61211477151966
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 280.04250797024446,
+        "y": 1438.3634431455898,
+        "width": 522.2104144527099,
+        "height": 144.61211477151966
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "preserveAspect": true
+    },
+    {
+      "id": "LaterButton",
+      "parentId": "PopupGroup",
+      "assetId": "DailyLaterButton",
+      "kind": "button",
+      "rect": {
+        "x": 172.1572794899044,
+        "y": 1411.1954603928427,
+        "width": 540.5738575982997,
+        "height": 181.33900106269925
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 55,
+      "previewOnly": false,
+      "binding": "daily.later",
+      "active": true,
+      "filename": "UI/btns/DRP_Later_btn.png",
+      "state": "default",
+      "layerOrder": 55,
+      "screenRect": {
+        "x": 270.86078639744954,
+        "y": 1621.3390010626993,
+        "width": 540.5738575982997,
+        "height": 181.33900106269925
+      },
+      "visibleBounds": {
+        "x": 280.04250797024446,
+        "y": 1639.702444208289,
+        "width": 522.2104144527099,
+        "height": 144.61211477151966
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 280.04250797024446,
+        "y": 1639.702444208289,
+        "width": 522.2104144527099,
+        "height": 144.61211477151966
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup",
+      "preserveAspect": true
+    },
+    {
+      "id": "CloseButton",
+      "parentId": "PopupGroup",
+      "assetId": "CloseRedButton",
+      "kind": "button",
+      "rect": {
+        "x": 766.6737513283741,
+        "y": 161.94926500872026,
+        "width": 133.13496280552604,
+        "height": 133.13496280552604
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 56,
+      "previewOnly": false,
+      "binding": "daily.close",
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/btns/SH_CloseRed_btn.png",
+      "state": "default",
+      "layerOrder": 56,
+      "screenRect": {
+        "x": 865.3772582359193,
+        "y": 372.0928056785767,
+        "width": 133.13496280552604,
+        "height": 133.13496280552604
+      },
+      "visibleBounds": {
+        "x": 874.5589798087142,
+        "y": 382.422242447971,
+        "width": 114.77151965993625,
+        "height": 112.47608926673752
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 874.5589798087142,
+        "y": 382.422242447971,
+        "width": 114.77151965993625,
+        "height": 112.47608926673752
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "DailyRewards",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "DRP_DailyRewards_title",
+      "parentId": "PopupGroup",
+      "assetId": "DRP_DailyRewards_title",
+      "kind": "image",
+      "rect": {
+        "x": 60.8289054197662,
+        "y": 166.50717703349284,
+        "width": 762.0828905419767,
+        "height": 200.95693779904306
+      },
+      "screenRect": {
+        "x": 159.53241232731136,
+        "y": 376.6507177033493,
+        "width": 762.0828905419767,
+        "height": 200.95693779904306
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "order": 4,
+      "layerOrder": 4,
+      "rotation": 0,
+      "active": true,
+      "preserveAspect": true,
+      "filename": "UI/titles/DRP_DailyRewards_title.png",
+      "placementGroup": "Titles",
+      "visibleBounds": {
+        "x": 168.71413390010628,
+        "y": 385.8858284732215,
+        "width": 743.7194473963868,
+        "height": 182.48671625929862
+      }
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/Daily Reward Popup.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "DailyRewards",
+    "type": "popup",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": "PopupGroup"
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "popup_daily_rewards",
+  "schema_version": "3.2",
+  "screen_kind": "popup",
+  "reference_image": "references/Daily Reward Popup.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": "active_screen",
+  "overlay": {
+    "color": "#000000",
+    "alpha": 0.35
+  },
+  "objects": [
+    {
+      "instance_id": "Dimmer",
+      "kind": "overlay",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 1,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "color": "#2D1E0F64"
+    },
+    {
+      "instance_id": "PopupGroup",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 98.70350690754516,
+        "y": 210.14354066985646,
+        "width": 884.8884165781084,
+        "height": 1625.4545454545455
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "PopupPanel",
+      "kind": "sprite",
+      "asset_id": "DailyRewardsPopupPanel",
+      "parent_id": "PopupGroup",
+      "order": 3,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 98.70350690754516,
+        "y": 210.14354066985646,
+        "width": 884.8884165781084,
+        "height": 1625.4545454545455
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/DRP_DailyRewards_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 771,
+        "height": 1311
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 755,
+        "height": 1295,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "slice_border_px": {
+        "x": 40,
+        "y": 287,
+        "z": 40,
+        "w": 1020
+      },
+      "fixed_region_scale": 1.1477151965993624,
+      "pixels_per_unit_multiplier": 0.8712962962962963,
+      "image_type": "sliced",
+      "fill_amount": 1
+    },
+    {
+      "instance_id": "DRP_DailyRewards_title",
+      "kind": "sprite",
+      "asset_id": "DRP_DailyRewards_title",
+      "parent_id": "PopupGroup",
+      "order": 4,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 159.53241232731136,
+        "y": 376.6507177033493,
+        "width": 762.0828905419767,
+        "height": 200.95693779904306
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/titles/DRP_DailyRewards_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "native_size_px": {
+        "width": 664,
+        "height": 175
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 648,
+        "height": 159,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "Day1Group",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": "PopupGroup",
+      "order": 5,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 104.44208289054198,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "Day1Card",
+      "kind": "sprite",
+      "asset_id": "DailyDay1Card",
+      "parent_id": "Day1Group",
+      "order": 6,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 104.44208289054198,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": "Day1Card_backing",
+      "state": "normal",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "preserve_aspect": false,
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "instance_id": "Day1RewardIcon",
+      "kind": "sprite",
+      "asset_id": "DailyCoinsSmall",
+      "parent_id": "Day1Group",
+      "order": 7,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 201.99787460148778,
+        "y": 633.8755980861245,
+        "width": 158.384697130712,
+        "height": 111.38755980861244
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_CoinsSmall_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 138,
+        "height": 97
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 122,
+        "height": 81,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day1Label",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day1Group",
+      "order": 8,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 190.52072263549417,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.Day1Label",
+      "text": "",
+      "font_size_px": 33.85759829968119,
+      "color": "#87431F",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day1Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day1Group",
+      "order": 9,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 196.25929861849096,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day1.amount",
+      "text": "",
+      "font_size_px": 37.87460148777896,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day1ClaimedBadge",
+      "kind": "sprite",
+      "asset_id": "DailyClaimedBadge",
+      "parent_id": "Day1Group",
+      "order": 10,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 330.54197662061637,
+        "y": 563.8277511961722,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day2Group",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": "PopupGroup",
+      "order": 11,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 361.53028692879917,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "Day2Card",
+      "kind": "sprite",
+      "asset_id": "DailyDay2Card",
+      "parent_id": "Day2Group",
+      "order": 12,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 361.53028692879917,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": "Day2Card_backing",
+      "state": "normal",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "preserve_aspect": false,
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "instance_id": "Day2RewardIcon",
+      "kind": "sprite",
+      "asset_id": "DailyHintReward",
+      "parent_id": "Day2Group",
+      "order": 13,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 463.6769394261424,
+        "y": 622.3923444976076,
+        "width": 138.87353878852284,
+        "height": 126.3157894736842
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Hint_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 121,
+        "height": 110
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 105,
+        "height": 94,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day2Label",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day2Group",
+      "order": 14,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 447.60892667375134,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.Day2Label",
+      "text": "",
+      "font_size_px": 33.85759829968119,
+      "color": "#87431F",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day2Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day2Group",
+      "order": 15,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 453.34750265674813,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day2.amount",
+      "text": "",
+      "font_size_px": 37.87460148777896,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day2ClaimedBadge",
+      "kind": "sprite",
+      "asset_id": "DailyClaimedBadge",
+      "parent_id": "Day2Group",
+      "order": 16,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 587.6301806588735,
+        "y": 563.8277511961722,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day3Group",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": "PopupGroup",
+      "order": 17,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 619.7662061636557,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "Day3Card",
+      "kind": "sprite",
+      "asset_id": "DailyDay3Card",
+      "parent_id": "Day3Group",
+      "order": 18,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 619.7662061636557,
+        "y": 550.0478468899521,
+        "width": 354.643995749203,
+        "height": 274.44976076555025
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": "Day3Card_backing",
+      "state": "normal",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/DRP_Day_Claimed_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "preserve_aspect": false,
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "instance_id": "Day3RewardIcon",
+      "kind": "sprite",
+      "asset_id": "DailyCoinsPile",
+      "parent_id": "Day3Group",
+      "order": 19,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 710.4357066950054,
+        "y": 631.578947368421,
+        "width": 174.45270988310307,
+        "height": 119.42583732057416
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_CoinsPile_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 152,
+        "height": 104
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 136,
+        "height": 88,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day3Label",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day3Group",
+      "order": 20,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 705.8448459086079,
+        "y": 584.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.Day3Label",
+      "text": "",
+      "font_size_px": 33.85759829968119,
+      "color": "#87431F",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day3Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day3Group",
+      "order": 21,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 711.5834218916046,
+        "y": 736.0765550239234,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day3.amount",
+      "text": "",
+      "font_size_px": 37.87460148777896,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day3ClaimedBadge",
+      "kind": "sprite",
+      "asset_id": "DailyClaimedBadge",
+      "parent_id": "Day3Group",
+      "order": 22,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 845.86609989373,
+        "y": 563.8277511961722,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day5Group",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": "PopupGroup",
+      "order": 23,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 361.53028692879917,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "Day5Card",
+      "kind": "sprite",
+      "asset_id": "DailyDay5Card",
+      "parent_id": "Day5Group",
+      "order": 24,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 361.53028692879917,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": "Day5Card_backing",
+      "state": "normal",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/DRP_Day_Default_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "preserve_aspect": false,
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "instance_id": "Day5RewardIcon",
+      "kind": "sprite",
+      "asset_id": "DailyCoinsStack",
+      "parent_id": "Day5Group",
+      "order": 25,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 461.38150903294365,
+        "y": 877.3205741626793,
+        "width": 159.53241232731136,
+        "height": 125.16746411483254
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_CoinsStack_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 139,
+        "height": 109
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 123,
+        "height": 93,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day5Label",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day5Group",
+      "order": 26,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 447.60892667375134,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.Day5Label",
+      "text": "",
+      "font_size_px": 33.85759829968119,
+      "color": "#87431F",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day5Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day5Group",
+      "order": 27,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 453.34750265674813,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day5.amount",
+      "text": "",
+      "font_size_px": 37.87460148777896,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day5ClaimedBadge",
+      "kind": "sprite",
+      "asset_id": "DailyClaimedBadge",
+      "parent_id": "Day5Group",
+      "order": 28,
+      "enabled_by_default": false,
+      "rect_px": {
+        "x": 587.6301806588735,
+        "y": 803.8277511961721,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day6Group",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": "PopupGroup",
+      "order": 29,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 619.7662061636557,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "Day6Card",
+      "kind": "sprite",
+      "asset_id": "DailyDay6Card",
+      "parent_id": "Day6Group",
+      "order": 30,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 619.7662061636557,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": "Day6Card_backing",
+      "state": "normal",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/DRP_Day_Default_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 23,
+        "width": 209,
+        "height": 193,
+        "x": 50
+      },
+      "preserve_aspect": false,
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "instance_id": "Day6RewardIcon",
+      "kind": "sprite",
+      "asset_id": "DailyShuffleReward",
+      "parent_id": "Day6Group",
+      "order": 31,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 725.356004250797,
+        "y": 872.7272727272727,
+        "width": 148.05526036131775,
+        "height": 137.79904306220095
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Shuffle_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 129,
+        "height": 120
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 113,
+        "height": 104,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day6Label",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day6Group",
+      "order": 32,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 705.8448459086079,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.Day6Label",
+      "text": "",
+      "font_size_px": 33.85759829968119,
+      "color": "#87431F",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day6Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day6Group",
+      "order": 33,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 711.5834218916046,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day6.amount",
+      "text": "",
+      "font_size_px": 37.87460148777896,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day6ClaimedBadge",
+      "kind": "sprite",
+      "asset_id": "DailyClaimedBadge",
+      "parent_id": "Day6Group",
+      "order": 34,
+      "enabled_by_default": false,
+      "rect_px": {
+        "x": 845.86609989373,
+        "y": 803.8277511961721,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day4Group",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": "PopupGroup",
+      "order": 35,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 104.44208289054198,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "Day4Card",
+      "kind": "sprite",
+      "asset_id": "DailyDay4Card",
+      "parent_id": "Day4Group",
+      "order": 36,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 104.44208289054198,
+        "y": 788.976869871334,
+        "width": 354.643995749203,
+        "height": 290.37161910900664
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": "Day4Card_backing",
+      "state": "selected",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/DRP_Day_Current_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 309,
+        "height": 239
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 293,
+        "height": 223,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "state_variants": {
+        "Default": "DailyDay5Card",
+        "Claimed": "DailyDay1Card",
+        "Current": "DailyDay4Card",
+        "Locked": "DRP_Day_Locked_card"
+      }
+    },
+    {
+      "instance_id": "Day4RewardIcon",
+      "kind": "sprite",
+      "asset_id": "DailyUndoReward",
+      "parent_id": "Day4Group",
+      "order": 37,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 213.4750265674814,
+        "y": 873.8755980861245,
+        "width": 140.0212539851222,
+        "height": 136.65071770334927
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Undo_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 122,
+        "height": 119
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 106,
+        "height": 103,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day4Label",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day4Group",
+      "order": 38,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 190.52072263549417,
+        "y": 824.4976076555024,
+        "width": 182.48671625929862,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.Day4Label",
+      "text": "",
+      "font_size_px": 33.85759829968119,
+      "color": "#6F1A20",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day4Amount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day4Group",
+      "order": 39,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 196.25929861849096,
+        "y": 994.4497607655501,
+        "width": 171.009564293305,
+        "height": 52.822966507177036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day4.amount",
+      "text": "",
+      "font_size_px": 37.87460148777896,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day4ClaimedBadge",
+      "kind": "sprite",
+      "asset_id": "DailyClaimedBadge",
+      "parent_id": "Day4Group",
+      "order": 40,
+      "enabled_by_default": false,
+      "rect_px": {
+        "x": 330.54197662061637,
+        "y": 803.8277511961721,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day7Group",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": "PopupGroup",
+      "order": 41,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 152.6461211477152,
+        "y": 1056.4593301435407,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "Day7Card",
+      "kind": "sprite",
+      "asset_id": "DailyDay7Card",
+      "parent_id": "Day7Group",
+      "order": 42,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 152.6461211477152,
+        "y": 1056.4593301435407,
+        "width": 781.5940488841658,
+        "height": 347.9425837320574
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "bonus",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/DRP_Day7_Special_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 681,
+        "height": 303
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 665,
+        "height": 287,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day7TreasureReward",
+      "kind": "sprite",
+      "asset_id": "DailyTreasureCat",
+      "parent_id": "Day7Group",
+      "order": 43,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 168.71413390010628,
+        "y": 1073.6842105263158,
+        "width": 439.5749202975558,
+        "height": 328.42105263157896
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_TreasureCat_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 383,
+        "height": 286
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 367,
+        "height": 270,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day7Label",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day7Group",
+      "order": 44,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 464.8246546227418,
+        "y": 1073.6842105263158,
+        "width": 166.41870350690755,
+        "height": 49.377990430622006
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.Day7Label",
+      "text": "",
+      "font_size_px": 42.46546227417641,
+      "color": "#FFFFFF",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day7CoinReward",
+      "kind": "sprite",
+      "asset_id": "DailyBonusCoins",
+      "parent_id": "Day7Group",
+      "order": 45,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 580.7438894792774,
+        "y": 1129.952153110048,
+        "width": 144.61211477151966,
+        "height": 121.72248803827752
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_BonusCoins_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 126,
+        "height": 106
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 110,
+        "height": 90,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day7CoinAmount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day7Group",
+      "order": 46,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 720.7651434643996,
+        "y": 1156.3636363636363,
+        "width": 153.79383634431457,
+        "height": 74.64114832535886
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day7.coins",
+      "text": "",
+      "font_size_px": 58.53347502656748,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day7HintReward",
+      "kind": "sprite",
+      "asset_id": "DailyHintReward",
+      "parent_id": "Day7Group",
+      "order": 47,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 603.6981934112646,
+        "y": 1247.0813397129186,
+        "width": 79.192348565356,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Hint_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 121,
+        "height": 110
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 105,
+        "height": 94,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day7HintAmount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day7Group",
+      "order": 48,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 607.1413390010626,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day7.hint",
+      "text": "",
+      "font_size_px": 33.28374070138151,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day7UndoReward",
+      "kind": "sprite",
+      "asset_id": "DailyUndoReward",
+      "parent_id": "Day7Group",
+      "order": 49,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 690.9245483528161,
+        "y": 1247.0813397129186,
+        "width": 89.52178533475026,
+        "height": 89.56937799043062
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Undo_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 122,
+        "height": 119
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 106,
+        "height": 103,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day7UndoAmount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day7Group",
+      "order": 50,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 698.9585547290117,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day7.undo",
+      "text": "",
+      "font_size_px": 33.28374070138151,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day7ShuffleReward",
+      "kind": "sprite",
+      "asset_id": "DailyShuffleReward",
+      "parent_id": "Day7Group",
+      "order": 51,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 788.480340063762,
+        "y": 1247.0813397129186,
+        "width": 92.96493092454836,
+        "height": 89.56937799043062
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Shuffle_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 129,
+        "height": 120
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 113,
+        "height": 104,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "Day7ShuffleAmount",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": "Day7Group",
+      "order": 52,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 796.5143464399575,
+        "y": 1320.5741626794259,
+        "width": 74.60148777895856,
+        "height": 45.933014354066984
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "daily.day7.shuffle",
+      "text": "",
+      "font_size_px": 33.28374070138151,
+      "color": "#591720",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "Day7ClaimedBadge",
+      "kind": "sprite",
+      "asset_id": "DailyClaimedBadge",
+      "parent_id": "Day7Group",
+      "order": 53,
+      "enabled_by_default": false,
+      "rect_px": {
+        "x": 851.6046758767269,
+        "y": 1053.0143540669856,
+        "width": 87.22635494155153,
+        "height": 87.27272727272727
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/DRP_Claimed_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 76,
+        "height": 76
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 60,
+        "height": 60,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "ClaimButton",
+      "kind": "sprite",
+      "asset_id": "DailyClaimButton",
+      "parent_id": "PopupGroup",
+      "order": 54,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 270.86078639744954,
+        "y": 1420,
+        "width": 540.5738575982997,
+        "height": 181.33900106269925
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/DRP_Claim_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 471,
+        "height": 158
+      },
+      "alpha_bounds_px": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "click_action": "daily.claim",
+      "hitbox_px": {
+        "x": 280.04250797024446,
+        "y": 1438.3634431455898,
+        "width": 522.2104144527099,
+        "height": 144.61211477151966
+      },
+      "button_size_group": "DRP_Action"
+    },
+    {
+      "instance_id": "LaterButton",
+      "kind": "sprite",
+      "asset_id": "DailyLaterButton",
+      "parent_id": "PopupGroup",
+      "order": 55,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 270.86078639744954,
+        "y": 1621.3390010626993,
+        "width": 540.5738575982997,
+        "height": 181.33900106269925
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/DRP_Later_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 471,
+        "height": 158
+      },
+      "alpha_bounds_px": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "click_action": "daily.later",
+      "hitbox_px": {
+        "x": 280.04250797024446,
+        "y": 1639.702444208289,
+        "width": 522.2104144527099,
+        "height": 144.61211477151966
+      },
+      "button_size_group": "DRP_Action"
+    },
+    {
+      "instance_id": "CloseButton",
+      "kind": "sprite",
+      "asset_id": "CloseRedButton",
+      "parent_id": "PopupGroup",
+      "order": 56,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 865.3772582359193,
+        "y": 372.0928056785767,
+        "width": 133.13496280552604,
+        "height": 133.13496280552604
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SH_CloseRed_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 116
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "click_action": "daily.close",
+      "hitbox_px": {
+        "x": 874.5589798087142,
+        "y": 382.422242447971,
+        "width": 114.77151965993625,
+        "height": 112.47608926673752
+      }
+    }
+  ],
+  "popup_action_button_groups": {
+    "DRP_Action": {
+      "png_size_px": {
+        "width": 471,
+        "height": 158
+      },
+      "layout_size_px": {
+        "width": 540.5738575982997,
+        "height": 181.33900106269925
+      },
+      "visible_frame_px": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "members": [
+        "ClaimButton",
+        "LaterButton"
+      ],
+      "status": "measured_export",
+      "alpha_bounds_by_member": {
+        "ClaimButton": {
+          "y": 16,
+          "width": 455,
+          "height": 126,
+          "x": 8
+        },
+        "LaterButton": {
+          "y": 16,
+          "width": 455,
+          "height": 126,
+          "x": 8
+        }
+      },
+      "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member.",
+      "scaling_policy": "uniform-only; never stretch text/icon to match an alpha envelope",
+      "alpha_envelope_tolerance_px": 0,
+      "stack_gap_px": 20
+    }
+  }
+}

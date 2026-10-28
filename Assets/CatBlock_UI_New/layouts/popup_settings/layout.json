@@ -1,0 +1,3050 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "Settings_01",
+  "source": "references/Settings Pop up.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": true,
+  "assets": [
+    {
+      "id": "Settings_01PopupPanel",
+      "path": "UI/popups/ST_Settings_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 850,
+      "height": 1249,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/popups/ST_Settings_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 850,
+        "height": 1249
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 828,
+        "height": 1233,
+        "x": 11
+      },
+      "sha256": "440750043362f64224d5b16ec5def6277876cccb32a0ffdb5556fd4a9dce9fd0",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 56.23804463336876,
+            "y": 235.78774489116236,
+            "width": 975.557917109458,
+            "height": 1433.4962805526036
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 850,
+        "height": 1249
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 828,
+        "height": 1233,
+        "x": 11
+      },
+      "asset_path": "UI/popups/ST_Settings_popup.png",
+      "asset_id": "Settings_01PopupPanel"
+    },
+    {
+      "id": "Settings_01_BackButton",
+      "path": "UI/btns/ST_Back_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 446,
+      "height": 129,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/btns/ST_Back_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 446,
+        "height": 129
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 425,
+        "height": 113,
+        "x": 10
+      },
+      "sha256": "ad9b2d2a56b3fb184e1d69ca0068c850868d55f1af9d0671a6a1488d477e1394",
+      "placements": [
+        {
+          "instanceId": "BackButton",
+          "screenRect": {
+            "x": 284.63336875664186,
+            "y": 1474.4891162308245,
+            "width": 511.8809776833156,
+            "height": 148.05526036131775
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 446,
+        "height": 129
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 425,
+        "height": 113,
+        "x": 10
+      },
+      "asset_path": "UI/btns/ST_Back_btn.png",
+      "asset_id": "Settings_01_BackButton"
+    },
+    {
+      "id": "CloseRedButton",
+      "path": "UI/btns/SH_CloseRed_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 116,
+      "height": 116,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/btns/SH_CloseRed_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 116,
+        "height": 116
+      },
+      "nativeVisibleBounds": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "sha256": "f4ae193e1e596fbf4d981dad9af81420a8d2eb171600a07fc508e45e3316bf4b",
+      "placements": [
+        {
+          "instanceId": "CloseButton",
+          "screenRect": {
+            "x": 881.4452709883103,
+            "y": 384.72438462594516,
+            "width": 133.13496280552604,
+            "height": 133.13496280552604
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 116
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SH_CloseRed_btn.png",
+      "asset_id": "CloseRedButton"
+    },
+    {
+      "id": "SettingsMusicIcon",
+      "path": "UI/icons/ST_Music_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 103,
+      "height": 101,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Music_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 103,
+        "height": 101
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 85,
+        "height": 85,
+        "x": 9
+      },
+      "sha256": "fe2d41b2c39874536e7d8fd01c89ad3f915428a3a66c7ee5e7caa47794d20c1d",
+      "placements": [
+        {
+          "instanceId": "MusicIcon",
+          "screenRect": {
+            "x": 154.94155154091393,
+            "y": 629.3131098444595,
+            "width": 118.21466524973432,
+            "height": 115.9192348565356
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 103,
+        "height": 101
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 85,
+        "height": 85,
+        "x": 9
+      },
+      "asset_path": "UI/icons/ST_Music_icon.png",
+      "asset_id": "SettingsMusicIcon"
+    },
+    {
+      "id": "SettingsSoundIcon",
+      "path": "UI/icons/ST_Sound_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 116,
+      "height": 101,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Sound_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 116,
+        "height": 101
+      },
+      "nativeVisibleBounds": {
+        "y": 13,
+        "width": 100,
+        "height": 75,
+        "x": 8
+      },
+      "sha256": "cafa93ff97df7e1cfbc87ef2a7672010dc94f7f06cb7444bb0c4b2367d9542a2",
+      "placements": [
+        {
+          "instanceId": "SoundIcon",
+          "screenRect": {
+            "x": 150.35069075451648,
+            "y": 801.5619136722107,
+            "width": 133.13496280552604,
+            "height": 115.9192348565356
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 101
+      },
+      "alpha_bounds_px": {
+        "y": 13,
+        "width": 100,
+        "height": 75,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Sound_icon.png",
+      "asset_id": "SettingsSoundIcon"
+    },
+    {
+      "id": "SettingsVibrationIcon",
+      "path": "UI/icons/ST_Vibration_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 131,
+      "height": 104,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Vibration_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 131,
+        "height": 104
+      },
+      "nativeVisibleBounds": {
+        "y": 14,
+        "width": 115,
+        "height": 76,
+        "x": 8
+      },
+      "sha256": "a70a972c9e2f3b766c5c6f2fec7d19328f3e92d785ad0bc337fbfdd2ade2d44f",
+      "placements": [
+        {
+          "instanceId": "VibrationIcon",
+          "screenRect": {
+            "x": 138.87353878852284,
+            "y": 969.2183313079337,
+            "width": 150.35069075451648,
+            "height": 119.36238044633369
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 131,
+        "height": 104
+      },
+      "alpha_bounds_px": {
+        "y": 14,
+        "width": 115,
+        "height": 76,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Vibration_icon.png",
+      "asset_id": "SettingsVibrationIcon"
+    },
+    {
+      "id": "SettingsNotificationsIcon",
+      "path": "UI/icons/ST_Notifications_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 103,
+      "height": 113,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Notifications_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 103,
+        "height": 113
+      },
+      "nativeVisibleBounds": {
+        "y": 10,
+        "width": 87,
+        "height": 93,
+        "x": 8
+      },
+      "sha256": "633dc3e48d156d648edaed428e45e315b1f4919fa220e1852c32022185d8433c",
+      "placements": [
+        {
+          "instanceId": "NotificationsIcon",
+          "screenRect": {
+            "x": 151.49840595111584,
+            "y": 1133.4316033538585,
+            "width": 118.21466524973432,
+            "height": 129.69181721572795
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 103,
+        "height": 113
+      },
+      "alpha_bounds_px": {
+        "y": 10,
+        "width": 87,
+        "height": 93,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Notifications_icon.png",
+      "asset_id": "SettingsNotificationsIcon"
+    },
+    {
+      "id": "SettingsLanguageIcon",
+      "path": "UI/icons/ST_Language_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 109,
+      "height": 110,
+      "opaque": false,
+      "preserveAspect": true,
+      "filename": "UI/icons/ST_Language_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 109,
+        "height": 110
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 93,
+        "height": 93,
+        "x": 8
+      },
+      "sha256": "82d5b0d7e9e836717167eb66484d569115361bb4bf85f8a5105e5aed6b6788b2",
+      "placements": [
+        {
+          "instanceId": "LanguageIcon",
+          "screenRect": {
+            "x": 149.2029755579171,
+            "y": 1304.5311665793795,
+            "width": 125.1009564293305,
+            "height": 126.24867162592986
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 109,
+        "height": 110
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 93,
+        "height": 93,
+        "x": 8
+      },
+      "asset_path": "UI/icons/ST_Language_icon.png",
+      "asset_id": "SettingsLanguageIcon"
+    },
+    {
+      "id": "SettingsToggleBarEnabled",
+      "path": "UI/popups/ST_Bar_On_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 166,
+      "height": 100,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleBar",
+      "state": "enabled",
+      "filename": "UI/popups/ST_Bar_On_toggle.png",
+      "pixelSize": {
+        "width": 166,
+        "height": 100
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "sha256": "e77d7800fe40b0db95257d23b07d88a539885b74fbb1f0086e42874868606b06",
+      "placements": [
+        {
+          "instanceId": "MusicToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 632.7577808398884,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        },
+        {
+          "instanceId": "SoundToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 802.7099339499362,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        },
+        {
+          "instanceId": "VibrationToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 971.5137617011324,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        },
+        {
+          "instanceId": "NotificationsToggle",
+          "screenRect": {
+            "x": 741.424017003188,
+            "y": 1141.46591481118,
+            "width": 190.52072263549417,
+            "height": 114.77151965993625
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Bar_On_toggle.png",
+      "asset_id": "SettingsToggleBarEnabled"
+    },
+    {
+      "id": "SettingsToggleBarDisabled",
+      "path": "UI/popups/ST_Bar_Off_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 166,
+      "height": 100,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleBar",
+      "state": "disabled",
+      "filename": "UI/popups/ST_Bar_Off_toggle.png",
+      "pixelSize": {
+        "width": 166,
+        "height": 100
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "sha256": "2f2312bd10fce0cd44395b01b355d3a91709cc4a67173e3ce675b83d4e4ed841",
+      "placements": [],
+      "placementStatus": "alternative-state",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Bar_Off_toggle.png",
+      "asset_id": "SettingsToggleBarDisabled"
+    },
+    {
+      "id": "SettingsToggleKnobEnabled",
+      "path": "UI/popups/ST_Knob_On_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 84,
+      "height": 84,
+      "opaque": false,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleKnob",
+      "state": "enabled",
+      "filename": "UI/popups/ST_Knob_On_toggle.png",
+      "pixelSize": {
+        "width": 84,
+        "height": 84
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "sha256": "d802945d3f628033a00cf0965afaf44f5689d470aad7f57b413333ec5ba3f20c",
+      "placements": [
+        {
+          "instanceId": "MusicKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 641.9395024126833,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        },
+        {
+          "instanceId": "SoundKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 811.8916555227311,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        },
+        {
+          "instanceId": "VibrationKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 980.6954832739273,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        },
+        {
+          "instanceId": "NotificationsKnob",
+          "screenRect": {
+            "x": 824.0595111583422,
+            "y": 1150.6476363839752,
+            "width": 96.40807651434645,
+            "height": 96.40807651434645
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Knob_On_toggle.png",
+      "asset_id": "SettingsToggleKnobEnabled"
+    },
+    {
+      "id": "SettingsToggleKnobDisabled",
+      "path": "UI/popups/ST_Knob_Off_toggle.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 84,
+      "height": 84,
+      "opaque": false,
+      "preserveAspect": true,
+      "stateFamily": "SettingsToggleKnob",
+      "state": "disabled",
+      "filename": "UI/popups/ST_Knob_Off_toggle.png",
+      "pixelSize": {
+        "width": 84,
+        "height": 84
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "sha256": "d802945d3f628033a00cf0965afaf44f5689d470aad7f57b413333ec5ba3f20c",
+      "placements": [],
+      "placementStatus": "alternative-state",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "asset_path": "UI/popups/ST_Knob_Off_toggle.png",
+      "asset_id": "SettingsToggleKnobDisabled"
+    },
+    {
+      "id": "ST_Settings_title",
+      "path": "UI/titles/ST_Settings_title.png",
+      "filename": "UI/titles/ST_Settings_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "ST_Settings_title",
+          "screenRect": {
+            "x": 219.2136025504782,
+            "y": 461.88763862123676,
+            "width": 649.6068012752391,
+            "height": 142.31668437832093
+          },
+          "active": true
+        }
+      ],
+      "width": 566,
+      "height": 124,
+      "pixelSize": {
+        "width": 566,
+        "height": 124
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 550,
+        "height": 108,
+        "x": 8
+      },
+      "sha256": "07646c9bdc65f7c100242882a9bfa642c710166c30bb76eb6caf23face7c1634",
+      "native_size_px": {
+        "width": 566,
+        "height": 124
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 550,
+        "height": 108,
+        "x": 8
+      },
+      "asset_path": "UI/titles/ST_Settings_title.png",
+      "asset_id": "ST_Settings_title"
+    }
+  ],
+  "elements": [
+    {
+      "id": "Dimmer",
+      "parentId": "",
+      "assetId": "",
+      "kind": "overlay",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "color": "#2D1E0F64",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "ModalBackdrop",
+      "screenGroup": "Settings_01",
+      "popupGroup": null
+    },
+    {
+      "id": "PopupGroup",
+      "parentId": "",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 56.23804463336876,
+        "y": 235.78774489116236,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 56.23804463336876,
+        "y": 235.78774489116236,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "visibleBounds": {
+        "x": 56.23804463336876,
+        "y": 235.78774489116236,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 56.23804463336876,
+        "y": 235.78774489116236,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "PopupPanel",
+      "parentId": "PopupGroup",
+      "assetId": "Settings_01PopupPanel",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 3,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/popups/ST_Settings_popup.png",
+      "state": "default",
+      "layerOrder": 3,
+      "screenRect": {
+        "x": 56.23804463336876,
+        "y": 235.78774489116236,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "visibleBounds": {
+        "x": 68.86291179596175,
+        "y": 244.96946646395725,
+        "width": 950.308182784272,
+        "height": 1415.1328374070138
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 65.41976620616366,
+        "y": 244.96946646395725,
+        "width": 957.1944739638682,
+        "height": 1415.1328374070138
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "BackButton",
+      "parentId": "PopupGroup",
+      "assetId": "Settings_01_BackButton",
+      "kind": "button",
+      "rect": {
+        "x": 228.3953241232731,
+        "y": 1238.701371339662,
+        "width": 511.8809776833156,
+        "height": 148.05526036131775
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 5,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "binding": "settings.back",
+      "active": true,
+      "filename": "UI/btns/ST_Back_btn.png",
+      "state": "default",
+      "layerOrder": 5,
+      "screenRect": {
+        "x": 284.63336875664186,
+        "y": 1474.4891162308245,
+        "width": 511.8809776833156,
+        "height": 148.05526036131775
+      },
+      "visibleBounds": {
+        "x": 296.1105207226355,
+        "y": 1483.6708378036194,
+        "width": 487.778958554729,
+        "height": 129.69181721572795
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 296.1105207226355,
+        "y": 1483.6708378036194,
+        "width": 487.778958554729,
+        "height": 129.69181721572795
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "CloseButton",
+      "parentId": "PopupGroup",
+      "assetId": "CloseRedButton",
+      "kind": "button",
+      "rect": {
+        "x": 825.2072263549416,
+        "y": 148.9366397347828,
+        "width": 133.13496280552604,
+        "height": 133.13496280552604
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 6,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "binding": "settings.close",
+      "active": true,
+      "filename": "UI/btns/SH_CloseRed_btn.png",
+      "state": "default",
+      "layerOrder": 6,
+      "screenRect": {
+        "x": 881.4452709883103,
+        "y": 384.72438462594516,
+        "width": 133.13496280552604,
+        "height": 133.13496280552604
+      },
+      "visibleBounds": {
+        "x": 890.6269925611052,
+        "y": 395.0538213953394,
+        "width": 114.77151965993625,
+        "height": 112.47608926673752
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 890.6269925611052,
+        "y": 395.0538213953394,
+        "width": 114.77151965993625,
+        "height": 112.47608926673752
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "MusicIcon",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsMusicIcon",
+      "kind": "image",
+      "rect": {
+        "x": 98.70350690754518,
+        "y": 393.5253649532972,
+        "width": 118.21466524973432,
+        "height": 115.9192348565356
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 7,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/icons/ST_Music_icon.png",
+      "state": "default",
+      "layerOrder": 7,
+      "screenRect": {
+        "x": 154.94155154091393,
+        "y": 629.3131098444595,
+        "width": 118.21466524973432,
+        "height": 115.9192348565356
+      },
+      "visibleBounds": {
+        "x": 165.27098831030818,
+        "y": 638.4948314172544,
+        "width": 97.5557917109458,
+        "height": 97.5557917109458
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 164.12327311370882,
+        "y": 638.4948314172544,
+        "width": 99.85122210414453,
+        "height": 97.5557917109458
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "SoundIcon",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsSoundIcon",
+      "kind": "image",
+      "rect": {
+        "x": 94.11264612114772,
+        "y": 565.7741687810484,
+        "width": 133.13496280552604,
+        "height": 115.9192348565356
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 8,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/icons/ST_Sound_icon.png",
+      "state": "default",
+      "layerOrder": 8,
+      "screenRect": {
+        "x": 150.35069075451648,
+        "y": 801.5619136722107,
+        "width": 133.13496280552604,
+        "height": 115.9192348565356
+      },
+      "visibleBounds": {
+        "x": 159.53241232731136,
+        "y": 816.4822112280025,
+        "width": 114.77151965993625,
+        "height": 86.07863974495218
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 159.53241232731136,
+        "y": 810.7436352450056,
+        "width": 114.77151965993625,
+        "height": 97.5557917109458
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "VibrationIcon",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsVibrationIcon",
+      "kind": "image",
+      "rect": {
+        "x": 82.63549415515408,
+        "y": 733.4305864167713,
+        "width": 150.35069075451648,
+        "height": 119.36238044633369
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 9,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/icons/ST_Vibration_icon.png",
+      "state": "default",
+      "layerOrder": 9,
+      "screenRect": {
+        "x": 138.87353878852284,
+        "y": 969.2183313079337,
+        "width": 150.35069075451648,
+        "height": 119.36238044633369
+      },
+      "visibleBounds": {
+        "x": 148.05526036131772,
+        "y": 985.2863440603247,
+        "width": 131.98724760892668,
+        "height": 87.22635494155153
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 148.05526036131772,
+        "y": 978.4000528807286,
+        "width": 131.98724760892668,
+        "height": 100.99893730074389
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "NotificationsIcon",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsNotificationsIcon",
+      "kind": "image",
+      "rect": {
+        "x": 95.26036131774708,
+        "y": 897.6438584626961,
+        "width": 118.21466524973432,
+        "height": 129.69181721572795
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 10,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/icons/ST_Notifications_icon.png",
+      "state": "default",
+      "layerOrder": 10,
+      "screenRect": {
+        "x": 151.49840595111584,
+        "y": 1133.4316033538585,
+        "width": 118.21466524973432,
+        "height": 129.69181721572795
+      },
+      "visibleBounds": {
+        "x": 160.68012752391076,
+        "y": 1144.9087553198522,
+        "width": 99.85122210414453,
+        "height": 106.7375132837407
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 160.68012752391076,
+        "y": 1142.6133249266534,
+        "width": 99.85122210414453,
+        "height": 111.32837407013815
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LanguageIcon",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsLanguageIcon",
+      "kind": "image",
+      "rect": {
+        "x": 92.96493092454836,
+        "y": 1068.743421688217,
+        "width": 125.1009564293305,
+        "height": 126.24867162592986
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 11,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/icons/ST_Language_icon.png",
+      "state": "default",
+      "layerOrder": 11,
+      "screenRect": {
+        "x": 149.2029755579171,
+        "y": 1304.5311665793795,
+        "width": 125.1009564293305,
+        "height": 126.24867162592986
+      },
+      "visibleBounds": {
+        "x": 158.38469713071203,
+        "y": 1313.7128881521744,
+        "width": 106.7375132837407,
+        "height": 106.7375132837407
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 158.38469713071203,
+        "y": 1313.7128881521744,
+        "width": 106.7375132837407,
+        "height": 107.88522848034006
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "MusicToggle",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsToggleBarEnabled",
+      "kind": "toggle",
+      "rect": {
+        "x": 685.1859723698193,
+        "y": 396.97003594872604,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 12,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "onAssetId": "SettingsToggleBarEnabled",
+      "offAssetId": "SettingsToggleBarDisabled",
+      "binding": "settings.music",
+      "isOn": true,
+      "knobElementId": "MusicKnob",
+      "onKnobAssetId": "SettingsToggleKnobEnabled",
+      "offKnobAssetId": "SettingsToggleKnobDisabled",
+      "knobEnabledRect": {
+        "x": 82.6354941551541,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "knobDisabledRect": {
+        "x": 6.886291179596185,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "active": true,
+      "filename": "UI/popups/ST_Bar_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 12,
+      "screenRect": {
+        "x": 741.424017003188,
+        "y": 632.7577808398884,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "visibleBounds": {
+        "x": 750.605738575983,
+        "y": 641.9395024126833,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 750.605738575983,
+        "y": 641.9395024126833,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "MusicKnob",
+      "parentId": "MusicToggle",
+      "assetId": "SettingsToggleKnobEnabled",
+      "kind": "image",
+      "rect": {
+        "x": 82.6354941551541,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 13,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/popups/ST_Knob_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 13,
+      "screenRect": {
+        "x": 824.0595111583422,
+        "y": 641.9395024126833,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "visibleBounds": {
+        "x": 833.2412327311371,
+        "y": 651.1212239854782,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 833.2412327311371,
+        "y": 651.1212239854782,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "SoundToggle",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsToggleBarEnabled",
+      "kind": "toggle",
+      "rect": {
+        "x": 685.1859723698193,
+        "y": 566.9221890587738,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 14,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "onAssetId": "SettingsToggleBarEnabled",
+      "offAssetId": "SettingsToggleBarDisabled",
+      "binding": "settings.sound",
+      "isOn": true,
+      "knobElementId": "SoundKnob",
+      "onKnobAssetId": "SettingsToggleKnobEnabled",
+      "offKnobAssetId": "SettingsToggleKnobDisabled",
+      "knobEnabledRect": {
+        "x": 82.6354941551541,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "knobDisabledRect": {
+        "x": 6.886291179596185,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "active": true,
+      "filename": "UI/popups/ST_Bar_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 14,
+      "screenRect": {
+        "x": 741.424017003188,
+        "y": 802.7099339499362,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "visibleBounds": {
+        "x": 750.605738575983,
+        "y": 811.8916555227311,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 750.605738575983,
+        "y": 811.8916555227311,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "SoundKnob",
+      "parentId": "SoundToggle",
+      "assetId": "SettingsToggleKnobEnabled",
+      "kind": "image",
+      "rect": {
+        "x": 82.6354941551541,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 15,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/popups/ST_Knob_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 15,
+      "screenRect": {
+        "x": 824.0595111583422,
+        "y": 811.8916555227311,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "visibleBounds": {
+        "x": 833.2412327311371,
+        "y": 821.073377095526,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 833.2412327311371,
+        "y": 821.073377095526,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "VibrationToggle",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsToggleBarEnabled",
+      "kind": "toggle",
+      "rect": {
+        "x": 685.1859723698193,
+        "y": 735.72601680997,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 16,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "onAssetId": "SettingsToggleBarEnabled",
+      "offAssetId": "SettingsToggleBarDisabled",
+      "binding": "settings.vibration",
+      "isOn": true,
+      "knobElementId": "VibrationKnob",
+      "onKnobAssetId": "SettingsToggleKnobEnabled",
+      "offKnobAssetId": "SettingsToggleKnobDisabled",
+      "knobEnabledRect": {
+        "x": 82.6354941551541,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "knobDisabledRect": {
+        "x": 6.886291179596185,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "active": true,
+      "filename": "UI/popups/ST_Bar_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 16,
+      "screenRect": {
+        "x": 741.424017003188,
+        "y": 971.5137617011324,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "visibleBounds": {
+        "x": 750.605738575983,
+        "y": 980.6954832739273,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 750.605738575983,
+        "y": 980.6954832739273,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "VibrationKnob",
+      "parentId": "VibrationToggle",
+      "assetId": "SettingsToggleKnobEnabled",
+      "kind": "image",
+      "rect": {
+        "x": 82.6354941551541,
+        "y": 9.181721572794913,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 17,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/popups/ST_Knob_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 17,
+      "screenRect": {
+        "x": 824.0595111583422,
+        "y": 980.6954832739273,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "visibleBounds": {
+        "x": 833.2412327311371,
+        "y": 989.8772048467222,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 833.2412327311371,
+        "y": 989.8772048467222,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "NotificationsToggle",
+      "parentId": "PopupGroup",
+      "assetId": "SettingsToggleBarEnabled",
+      "kind": "toggle",
+      "rect": {
+        "x": 685.1859723698193,
+        "y": 905.6781699200177,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 18,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "onAssetId": "SettingsToggleBarEnabled",
+      "offAssetId": "SettingsToggleBarDisabled",
+      "binding": "settings.notifications",
+      "isOn": true,
+      "knobElementId": "NotificationsKnob",
+      "onKnobAssetId": "SettingsToggleKnobEnabled",
+      "offKnobAssetId": "SettingsToggleKnobDisabled",
+      "knobEnabledRect": {
+        "x": 82.6354941551541,
+        "y": 9.18172157279514,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "knobDisabledRect": {
+        "x": 6.886291179596185,
+        "y": 9.18172157279514,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "active": true,
+      "filename": "UI/popups/ST_Bar_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 18,
+      "screenRect": {
+        "x": 741.424017003188,
+        "y": 1141.46591481118,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "visibleBounds": {
+        "x": 750.605738575983,
+        "y": 1150.647636383975,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 750.605738575983,
+        "y": 1150.647636383975,
+        "width": 172.15727948990437,
+        "height": 96.40807651434645
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "NotificationsKnob",
+      "parentId": "NotificationsToggle",
+      "assetId": "SettingsToggleKnobEnabled",
+      "kind": "image",
+      "rect": {
+        "x": 82.6354941551541,
+        "y": 9.18172157279514,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 19,
+      "previewOnly": false,
+      "preserveAspect": true,
+      "active": true,
+      "filename": "UI/popups/ST_Knob_On_toggle.png",
+      "state": "enabled",
+      "layerOrder": 19,
+      "screenRect": {
+        "x": 824.0595111583422,
+        "y": 1150.6476363839752,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "visibleBounds": {
+        "x": 833.2412327311371,
+        "y": 1159.82935795677,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 833.2412327311371,
+        "y": 1159.82935795677,
+        "width": 78.04463336875665,
+        "height": 78.04463336875665
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "Settings_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "ST_Settings_title",
+      "parentId": "PopupGroup",
+      "assetId": "ST_Settings_title",
+      "kind": "image",
+      "rect": {
+        "x": 162.97555791710946,
+        "y": 226.0998937300744,
+        "width": 649.6068012752391,
+        "height": 142.31668437832093
+      },
+      "screenRect": {
+        "x": 219.2136025504782,
+        "y": 461.88763862123676,
+        "width": 649.6068012752391,
+        "height": 142.31668437832093
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "order": 4,
+      "layerOrder": 4,
+      "rotation": 0,
+      "active": true,
+      "preserveAspect": true,
+      "filename": "UI/titles/ST_Settings_title.png",
+      "placementGroup": "Titles",
+      "visibleBounds": {
+        "x": 228.3953241232731,
+        "y": 471.0693601940317,
+        "width": 631.2433581296493,
+        "height": 123.95324123273113
+      }
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/Settings Pop up.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "Settings_01",
+    "type": "popup",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": "PopupGroup"
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "popup_settings",
+  "schema_version": "3.2",
+  "screen_kind": "popup",
+  "reference_image": "references/Settings Pop up.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": "active_screen",
+  "overlay": {
+    "color": "#000000",
+    "alpha": 0.35
+  },
+  "objects": [
+    {
+      "instance_id": "Dimmer",
+      "kind": "overlay",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 1,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "color": "#2D1E0F64"
+    },
+    {
+      "instance_id": "PopupGroup",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 56.23804463336876,
+        "y": 235.78774489116236,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "PopupPanel",
+      "kind": "sprite",
+      "asset_id": "Settings_01PopupPanel",
+      "parent_id": "PopupGroup",
+      "order": 3,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 56.23804463336876,
+        "y": 235.78774489116236,
+        "width": 975.557917109458,
+        "height": 1433.4962805526036
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Settings_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 850,
+        "height": 1249
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 828,
+        "height": 1233,
+        "x": 11
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "ST_Settings_title",
+      "kind": "sprite",
+      "asset_id": "ST_Settings_title",
+      "parent_id": "PopupGroup",
+      "order": 4,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 219.2136025504782,
+        "y": 461.88763862123676,
+        "width": 649.6068012752391,
+        "height": 142.31668437832093
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/titles/ST_Settings_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "native_size_px": {
+        "width": 566,
+        "height": 124
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 550,
+        "height": 108,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "BackButton",
+      "kind": "sprite",
+      "asset_id": "Settings_01_BackButton",
+      "parent_id": "PopupGroup",
+      "order": 5,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 284.63336875664186,
+        "y": 1474.4891162308245,
+        "width": 511.8809776833156,
+        "height": 148.05526036131775
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/ST_Back_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 446,
+        "height": 129
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 425,
+        "height": 113,
+        "x": 10
+      },
+      "preserve_aspect": true,
+      "click_action": "settings.back",
+      "hitbox_px": {
+        "x": 296.1105207226355,
+        "y": 1483.6708378036194,
+        "width": 487.778958554729,
+        "height": 129.69181721572795
+      },
+      "button_size_group": "ST_Action"
+    },
+    {
+      "instance_id": "CloseButton",
+      "kind": "sprite",
+      "asset_id": "CloseRedButton",
+      "parent_id": "PopupGroup",
+      "order": 6,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 881.4452709883103,
+        "y": 384.72438462594516,
+        "width": 133.13496280552604,
+        "height": 133.13496280552604
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SH_CloseRed_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 116
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 100,
+        "height": 98,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "click_action": "settings.close",
+      "hitbox_px": {
+        "x": 890.6269925611052,
+        "y": 395.0538213953394,
+        "width": 114.77151965993625,
+        "height": 112.47608926673752
+      }
+    },
+    {
+      "instance_id": "MusicIcon",
+      "kind": "sprite",
+      "asset_id": "SettingsMusicIcon",
+      "parent_id": "PopupGroup",
+      "order": 7,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 154.94155154091393,
+        "y": 629.3131098444595,
+        "width": 118.21466524973432,
+        "height": 115.9192348565356
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/ST_Music_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 103,
+        "height": 101
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 85,
+        "height": 85,
+        "x": 9
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "SoundIcon",
+      "kind": "sprite",
+      "asset_id": "SettingsSoundIcon",
+      "parent_id": "PopupGroup",
+      "order": 8,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 150.35069075451648,
+        "y": 801.5619136722107,
+        "width": 133.13496280552604,
+        "height": 115.9192348565356
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/ST_Sound_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 116,
+        "height": 101
+      },
+      "alpha_bounds_px": {
+        "y": 13,
+        "width": 100,
+        "height": 75,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "VibrationIcon",
+      "kind": "sprite",
+      "asset_id": "SettingsVibrationIcon",
+      "parent_id": "PopupGroup",
+      "order": 9,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 138.87353878852284,
+        "y": 969.2183313079337,
+        "width": 150.35069075451648,
+        "height": 119.36238044633369
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/ST_Vibration_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 131,
+        "height": 104
+      },
+      "alpha_bounds_px": {
+        "y": 14,
+        "width": 115,
+        "height": 76,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "NotificationsIcon",
+      "kind": "sprite",
+      "asset_id": "SettingsNotificationsIcon",
+      "parent_id": "PopupGroup",
+      "order": 10,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 151.49840595111584,
+        "y": 1133.4316033538585,
+        "width": 118.21466524973432,
+        "height": 129.69181721572795
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/ST_Notifications_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 103,
+        "height": 113
+      },
+      "alpha_bounds_px": {
+        "y": 10,
+        "width": 87,
+        "height": 93,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LanguageIcon",
+      "kind": "sprite",
+      "asset_id": "SettingsLanguageIcon",
+      "parent_id": "PopupGroup",
+      "order": 11,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 149.2029755579171,
+        "y": 1304.5311665793795,
+        "width": 125.1009564293305,
+        "height": 126.24867162592986
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/ST_Language_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 109,
+        "height": 110
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 93,
+        "height": 93,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "MusicToggle",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleBarEnabled",
+      "parent_id": "PopupGroup",
+      "order": 12,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 741.424017003188,
+        "y": 632.7577808398884,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Bar_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "binding": "settings.music",
+      "toggle": {
+        "onAssetId": "SettingsToggleBarEnabled",
+        "offAssetId": "SettingsToggleBarDisabled",
+        "knobElementId": "MusicKnob",
+        "onKnobAssetId": "SettingsToggleKnobEnabled",
+        "offKnobAssetId": "SettingsToggleKnobDisabled",
+        "knobEnabledRect": {
+          "x": 82.6354941551541,
+          "y": 9.181721572794913,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        },
+        "knobDisabledRect": {
+          "x": 6.886291179596185,
+          "y": 9.181721572794913,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        }
+      }
+    },
+    {
+      "instance_id": "MusicKnob",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleKnobEnabled",
+      "parent_id": "MusicToggle",
+      "order": 13,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 824.0595111583422,
+        "y": 641.9395024126833,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Knob_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "SoundToggle",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleBarEnabled",
+      "parent_id": "PopupGroup",
+      "order": 14,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 741.424017003188,
+        "y": 802.7099339499362,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Bar_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "binding": "settings.sound",
+      "toggle": {
+        "onAssetId": "SettingsToggleBarEnabled",
+        "offAssetId": "SettingsToggleBarDisabled",
+        "knobElementId": "SoundKnob",
+        "onKnobAssetId": "SettingsToggleKnobEnabled",
+        "offKnobAssetId": "SettingsToggleKnobDisabled",
+        "knobEnabledRect": {
+          "x": 82.6354941551541,
+          "y": 9.181721572794913,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        },
+        "knobDisabledRect": {
+          "x": 6.886291179596185,
+          "y": 9.181721572794913,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        }
+      }
+    },
+    {
+      "instance_id": "SoundKnob",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleKnobEnabled",
+      "parent_id": "SoundToggle",
+      "order": 15,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 824.0595111583422,
+        "y": 811.8916555227311,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Knob_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "VibrationToggle",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleBarEnabled",
+      "parent_id": "PopupGroup",
+      "order": 16,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 741.424017003188,
+        "y": 971.5137617011324,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Bar_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "binding": "settings.vibration",
+      "toggle": {
+        "onAssetId": "SettingsToggleBarEnabled",
+        "offAssetId": "SettingsToggleBarDisabled",
+        "knobElementId": "VibrationKnob",
+        "onKnobAssetId": "SettingsToggleKnobEnabled",
+        "offKnobAssetId": "SettingsToggleKnobDisabled",
+        "knobEnabledRect": {
+          "x": 82.6354941551541,
+          "y": 9.181721572794913,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        },
+        "knobDisabledRect": {
+          "x": 6.886291179596185,
+          "y": 9.181721572794913,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        }
+      }
+    },
+    {
+      "instance_id": "VibrationKnob",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleKnobEnabled",
+      "parent_id": "VibrationToggle",
+      "order": 17,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 824.0595111583422,
+        "y": 980.6954832739273,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Knob_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "NotificationsToggle",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleBarEnabled",
+      "parent_id": "PopupGroup",
+      "order": 18,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 741.424017003188,
+        "y": 1141.46591481118,
+        "width": 190.52072263549417,
+        "height": 114.77151965993625
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Bar_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 166,
+        "height": 100
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 150,
+        "height": 84,
+        "x": 8
+      },
+      "preserve_aspect": true,
+      "binding": "settings.notifications",
+      "toggle": {
+        "onAssetId": "SettingsToggleBarEnabled",
+        "offAssetId": "SettingsToggleBarDisabled",
+        "knobElementId": "NotificationsKnob",
+        "onKnobAssetId": "SettingsToggleKnobEnabled",
+        "offKnobAssetId": "SettingsToggleKnobDisabled",
+        "knobEnabledRect": {
+          "x": 82.6354941551541,
+          "y": 9.18172157279514,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        },
+        "knobDisabledRect": {
+          "x": 6.886291179596185,
+          "y": 9.18172157279514,
+          "width": 96.40807651434645,
+          "height": 96.40807651434645
+        }
+      }
+    },
+    {
+      "instance_id": "NotificationsKnob",
+      "kind": "sprite",
+      "asset_id": "SettingsToggleKnobEnabled",
+      "parent_id": "NotificationsToggle",
+      "order": 19,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 824.0595111583422,
+        "y": 1150.6476363839752,
+        "width": 96.40807651434645,
+        "height": 96.40807651434645
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "enabled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/ST_Knob_On_toggle.png",
+      "category": "popups",
+      "asset_role": "toggle",
+      "native_size_px": {
+        "width": 84,
+        "height": 84
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 68,
+        "height": 68,
+        "x": 8
+      },
+      "preserve_aspect": true
+    }
+  ],
+  "popup_action_button_groups": {
+    "ST_Action": {
+      "png_size_px": {
+        "width": 446,
+        "height": 129
+      },
+      "layout_size_px": {
+        "width": 511.8809776833156,
+        "height": 148.05526036131775
+      },
+      "visible_frame_px": {
+        "y": 8,
+        "width": 425,
+        "height": 113,
+        "x": 10
+      },
+      "members": [
+        "BackButton"
+      ],
+      "status": "measured_export",
+      "alpha_bounds_by_member": {
+        "BackButton": {
+          "y": 8,
+          "width": 425,
+          "height": 113,
+          "x": 10
+        }
+      },
+      "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member."
+    }
+  }
+}

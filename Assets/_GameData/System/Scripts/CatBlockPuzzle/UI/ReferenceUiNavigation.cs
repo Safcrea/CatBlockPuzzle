@@ -96,6 +96,7 @@ namespace CatBlockPuzzle
         {
             if (dailyReward == null) return;
             HidePages();
+            home?.Show();
             dailyReward.Show();
             UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("daily_reward");
@@ -104,6 +105,15 @@ namespace CatBlockPuzzle
         }
         public void ShowLevels()
         {
+            PagedLevelSelection paged = levelSelectionScreen != null ? levelSelectionScreen.GetComponent<PagedLevelSelection>() : null;
+            if (paged != null)
+            {
+                HidePages();
+                paged.Show();
+                UseMusic(MusicContext.Menu);
+                GameAnalytics.ScreenView("levels");
+                return;
+            }
             LevelSelectionScreen levels = ResolveLevelSelection();
             UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("levels");

@@ -1,0 +1,718 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "LoadingScreen",
+  "source": "references/LoadingScreen.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": false,
+  "assets": [
+    {
+      "id": "LoadingScreenBase",
+      "path": "UI/BG/LD_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/LD_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "a1240330ac8222bea44e4f4f7fb5392368108e6b0eda61f8d245f125ba6ecd8d",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/LD_BG.png",
+      "asset_id": "LoadingScreenBase"
+    },
+    {
+      "id": "LoadingText",
+      "path": "UI/titles/LD_Loading_title.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/titles/LD_Loading_title.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 497,
+        "height": 129
+      },
+      "nativeVisibleBounds": {
+        "y": 12,
+        "width": 474,
+        "height": 108,
+        "x": 13
+      },
+      "sha256": "284d4ef37c3bcd3328893801fd7a11a13aa33e49ca09dfe34bd305e616dbfe09",
+      "placements": [
+        {
+          "instanceId": "LoadingText",
+          "screenRect": {
+            "x": 281.1902231668438,
+            "y": 1224.1148325358852,
+            "width": 570.4144527098831,
+            "height": 148.13397129186603
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "titles",
+      "asset_role": "sprite",
+      "width": 497,
+      "height": 129,
+      "native_size_px": {
+        "width": 497,
+        "height": 129
+      },
+      "alpha_bounds_px": {
+        "y": 12,
+        "width": 474,
+        "height": 108,
+        "x": 13
+      },
+      "asset_path": "UI/titles/LD_Loading_title.png",
+      "asset_id": "LoadingText"
+    },
+    {
+      "id": "LoadingTrack",
+      "path": "UI/bars/LD_LoadingTrack_bar.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/bars/LD_LoadingTrack_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 781,
+        "height": 163
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 765,
+        "height": 147,
+        "x": 8
+      },
+      "sha256": "f91a914dac134f71bfce65931951b02e285d903f0300fcc6ff3fd71d6866c43a",
+      "placements": [
+        {
+          "instanceId": "LoadingTrack",
+          "screenRect": {
+            "x": 94.11264612114772,
+            "y": 1379.1387559808613,
+            "width": 896.3655685441021,
+            "height": 187.17703349282297
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "width": 781,
+      "height": 163,
+      "native_size_px": {
+        "width": 781,
+        "height": 163
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 765,
+        "height": 147,
+        "x": 8
+      },
+      "asset_path": "UI/bars/LD_LoadingTrack_bar.png",
+      "asset_id": "LoadingTrack"
+    },
+    {
+      "id": "LoadingGelFull",
+      "path": "UI/bars/LD_LoadingGelFull_bar.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 734,
+      "height": 119,
+      "opaque": false,
+      "filename": "UI/bars/LD_LoadingGelFull_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 734,
+        "height": 119
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 718,
+        "height": 103,
+        "x": 8
+      },
+      "sha256": "3d15b66037df3e248fc8d4219e475463e3fc7cc6d19e83606f835971e4bc48ab",
+      "placements": [
+        {
+          "instanceId": "LoadingGelFull",
+          "screenRect": {
+            "x": 119.36238044633369,
+            "y": 1405.5502392344497,
+            "width": 842.422954303932,
+            "height": 136.65071770334927
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 734,
+        "height": 119
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 718,
+        "height": 103,
+        "x": 8
+      },
+      "asset_path": "UI/bars/LD_LoadingGelFull_bar.png",
+      "asset_id": "LoadingGelFull"
+    }
+  ],
+  "elements": [
+    {
+      "id": "ScreenBase",
+      "parentId": "",
+      "assetId": "LoadingScreenBase",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 0,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/BG/LD_BG.png",
+      "state": "default",
+      "layerOrder": 0,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1080.0,
+        "height": 1920.0
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Background",
+      "screenGroup": "LoadingScreen",
+      "popupGroup": null
+    },
+    {
+      "id": "LoadingText",
+      "parentId": "",
+      "assetId": "LoadingText",
+      "kind": "image",
+      "rect": {
+        "x": 281.1902231668438,
+        "y": 1224.1148325358852,
+        "width": 570.4144527098831,
+        "height": 148.13397129186603
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/titles/LD_Loading_title.png",
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 281.1902231668438,
+        "y": 1224.1148325358852,
+        "width": 570.4144527098831,
+        "height": 148.13397129186603
+      },
+      "visibleBounds": {
+        "x": 296.1105207226355,
+        "y": 1237.8947368421052,
+        "width": 544.0170031880978,
+        "height": 124.01913875598086
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 290.3719447396387,
+        "y": 1233.3014354066986,
+        "width": 552.0510095642933,
+        "height": 129.76076555023923
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LoadingScreen",
+      "popupGroup": null
+    },
+    {
+      "id": "LoadingTrack",
+      "parentId": "",
+      "assetId": "LoadingTrack",
+      "kind": "image",
+      "rect": {
+        "x": 94.11264612114772,
+        "y": 1379.1387559808613,
+        "width": 896.3655685441021,
+        "height": 187.17703349282297
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/bars/LD_LoadingTrack_bar.png",
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 94.11264612114772,
+        "y": 1379.1387559808613,
+        "width": 896.3655685441021,
+        "height": 187.17703349282297
+      },
+      "visibleBounds": {
+        "x": 103.29436769394262,
+        "y": 1388.3253588516748,
+        "width": 878.0021253985122,
+        "height": 168.80382775119617
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 103.29436769394262,
+        "y": 1388.3253588516748,
+        "width": 878.0021253985122,
+        "height": 168.80382775119617
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LoadingScreen",
+      "popupGroup": null
+    },
+    {
+      "id": "LoadingGelFull",
+      "parentId": "",
+      "assetId": "LoadingGelFull",
+      "kind": "image",
+      "rect": {
+        "x": 119.36238044633369,
+        "y": 1405.5502392344497,
+        "width": 842.422954303932,
+        "height": 136.65071770334927
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 3,
+      "previewOnly": false,
+      "imageType": "filled",
+      "fillAmount": 1,
+      "active": true,
+      "filename": "UI/bars/LD_LoadingGelFull_bar.png",
+      "state": "default",
+      "layerOrder": 3,
+      "screenRect": {
+        "x": 119.36238044633369,
+        "y": 1405.5502392344497,
+        "width": 842.422954303932,
+        "height": 136.65071770334927
+      },
+      "visibleBounds": {
+        "x": 128.5441020191286,
+        "y": 1414.7368421052631,
+        "width": 824.0595111583422,
+        "height": 118.27751196172248
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 128.5441020191286,
+        "y": 1414.7368421052631,
+        "width": 824.0595111583422,
+        "height": 118.27751196172248
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LoadingScreen",
+      "popupGroup": null
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/LoadingScreen.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "LoadingScreen",
+    "type": "full-screen",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": null
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "loading",
+  "schema_version": "3.2",
+  "screen_kind": "full_screen",
+  "reference_image": "references/LoadingScreen.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": null,
+  "overlay": null,
+  "objects": [
+    {
+      "instance_id": "ScreenBase",
+      "kind": "sprite",
+      "asset_id": "LoadingScreenBase",
+      "parent_id": null,
+      "order": 0,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/BG/LD_BG.png",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LoadingText",
+      "kind": "sprite",
+      "asset_id": "LoadingText",
+      "parent_id": null,
+      "order": 1,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 281.1902231668438,
+        "y": 1224.1148325358852,
+        "width": 570.4144527098831,
+        "height": 148.13397129186603
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/titles/LD_Loading_title.png",
+      "category": "titles",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 497,
+        "height": 129
+      },
+      "alpha_bounds_px": {
+        "y": 12,
+        "width": 474,
+        "height": 108,
+        "x": 13
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LoadingTrack",
+      "kind": "sprite",
+      "asset_id": "LoadingTrack",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 94.11264612114772,
+        "y": 1379.1387559808613,
+        "width": 896.3655685441021,
+        "height": 187.17703349282297
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/bars/LD_LoadingTrack_bar.png",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 781,
+        "height": 163
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 765,
+        "height": 147,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LoadingGelFull",
+      "kind": "sprite",
+      "asset_id": "LoadingGelFull",
+      "parent_id": null,
+      "order": 3,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 119.36238044633369,
+        "y": 1405.5502392344497,
+        "width": 842.422954303932,
+        "height": 136.65071770334927
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/bars/LD_LoadingGelFull_bar.png",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 734,
+        "height": 119
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 718,
+        "height": 103,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "image_type": "filled",
+      "fill_amount": 1
+    }
+  ],
+  "popup_action_button_groups": {}
+}

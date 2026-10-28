@@ -84,6 +84,8 @@ namespace CatBlockPuzzle
             if (resolved == null && panel != null) return; // Keep the panel resolved on the first open.
             if (resolved == null) resolved = transform.Find("Overlay/PopUp");
             if (resolved == null) resolved = transform.Find("Panel");
+            if (resolved == null) resolved = GetComponentInChildren<CatBlocksUI.ScreenLayout>(true) != null
+                ? transform.Find("Safe Area/PopupGroup") : null;
             if (resolved == null && spring) resolved = transform.Find("BG/Board");
             if (resolved == null && spring) resolved = transform.Find("BG/Middle");
             if (resolved == null) resolved = transform;

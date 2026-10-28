@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "screens": [
+    {
+      "id": "MainMenu_01",
+      "screen_id": "main_menu_01",
+      "path": "layouts/main_menu_01/layout.json"
+    },
+    {
+      "id": "LoadingScreen",
+      "screen_id": "loading",
+      "path": "layouts/loading/layout.json"
+    },
+    {
+      "id": "LevelSelection",
+      "screen_id": "level_selection",
+      "path": "layouts/level_selection/layout.json"
+    },
+    {
+      "id": "Shop_02",
+      "screen_id": "shop_pack",
+      "path": "layouts/shop_pack/layout.json"
+    },
+    {
+      "id": "PauseMenu_01",
+      "screen_id": "popup_pause",
+      "path": "layouts/popup_pause/layout.json"
+    },
+    {
+      "id": "Settings_01",
+      "screen_id": "popup_settings",
+      "path": "layouts/popup_settings/layout.json"
+    },
+    {
+      "id": "NoWifi",
+      "screen_id": "popup_no_wifi",
+      "path": "layouts/popup_no_wifi/layout.json"
+    },
+    {
+      "id": "DailyRewards",
+      "screen_id": "popup_daily_rewards",
+      "path": "layouts/popup_daily_rewards/layout.json"
+    }
+  ]
+}

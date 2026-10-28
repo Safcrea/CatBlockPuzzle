@@ -1,0 +1,156 @@
+{
+  "PA_Action": {
+    "png_size_px": {
+      "width": 521,
+      "height": 153
+    },
+    "layout_size_px": {
+      "width": 597.9596174282678,
+      "height": 175.6937799043062
+    },
+    "visible_frame_px": {
+      "y": 8,
+      "width": 505,
+      "height": 137,
+      "x": 8
+    },
+    "members": [
+      "ResumeButton",
+      "RestartButton",
+      "SettingsButton",
+      "HomeButton"
+    ],
+    "status": "measured_export",
+    "alpha_bounds_by_member": {
+      "ResumeButton": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "RestartButton": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "SettingsButton": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "HomeButton": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      }
+    },
+    "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member."
+  },
+  "ST_Action": {
+    "png_size_px": {
+      "width": 446,
+      "height": 129
+    },
+    "layout_size_px": {
+      "width": 511.8809776833156,
+      "height": 148.05526036131775
+    },
+    "visible_frame_px": {
+      "y": 8,
+      "width": 425,
+      "height": 113,
+      "x": 10
+    },
+    "members": [
+      "BackButton"
+    ],
+    "status": "measured_export",
+    "alpha_bounds_by_member": {
+      "BackButton": {
+        "y": 8,
+        "width": 425,
+        "height": 113,
+        "x": 10
+      }
+    },
+    "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member."
+  },
+  "NW_Action": {
+    "png_size_px": {
+      "width": 545,
+      "height": 127
+    },
+    "layout_size_px": {
+      "width": 625.5047821466525,
+      "height": 130.9090909090909
+    },
+    "visible_frame_px": {
+      "y": 8,
+      "width": 529,
+      "height": 111,
+      "x": 8
+    },
+    "members": [
+      "RetryButton",
+      "OkayButton"
+    ],
+    "status": "measured_export",
+    "alpha_bounds_by_member": {
+      "RetryButton": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      },
+      "OkayButton": {
+        "y": 8,
+        "width": 529,
+        "height": 111,
+        "x": 8
+      }
+    },
+    "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member."
+  },
+  "DRP_Action": {
+    "png_size_px": {
+      "width": 471,
+      "height": 158
+    },
+    "layout_size_px": {
+      "width": 540.5738575982997,
+      "height": 181.33900106269925
+    },
+    "visible_frame_px": {
+      "y": 16,
+      "width": 455,
+      "height": 126,
+      "x": 8
+    },
+    "members": [
+      "ClaimButton",
+      "LaterButton"
+    ],
+    "status": "measured_export",
+    "alpha_bounds_by_member": {
+      "ClaimButton": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      },
+      "LaterButton": {
+        "y": 16,
+        "width": 455,
+        "height": 126,
+        "x": 8
+      }
+    },
+    "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member.",
+    "scaling_policy": "uniform-only; never stretch text/icon to match an alpha envelope",
+    "alpha_envelope_tolerance_px": 0,
+    "stack_gap_px": 20
+  }
+}

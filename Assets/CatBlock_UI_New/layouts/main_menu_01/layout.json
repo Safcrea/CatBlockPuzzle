@@ -1,0 +1,1665 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "MainMenu_01",
+  "source": "references/Main menu.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": false,
+  "assets": [
+    {
+      "id": "MainMenu_01Base",
+      "path": "UI/BG/MM_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/MM_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "6776f2ae25607f09e17c7c28683b63db8e8e6dd130d4c9e3e644897d890791fc",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/MM_BG.png",
+      "asset_id": "MainMenu_01Base"
+    },
+    {
+      "id": "MainMenu_01_PlayButton",
+      "path": "UI/btns/MM_Play_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Play_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 587,
+        "height": 228
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 571,
+        "height": 212,
+        "x": 8
+      },
+      "sha256": "3de399eeb7c462bc664a123389bb87010ecd73e48de4b1c58ceadb04e45fc568",
+      "placements": [
+        {
+          "instanceId": "PlayButton",
+          "screenRect": {
+            "x": 203.14558979808714,
+            "y": 1313.6842105263158,
+            "width": 673.7088204038257,
+            "height": 261.8181818181818
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 587,
+      "height": 228,
+      "native_size_px": {
+        "width": 587,
+        "height": 228
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 571,
+        "height": 212,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Play_btn.png",
+      "asset_id": "MainMenu_01_PlayButton"
+    },
+    {
+      "id": "MainMenu_01_LevelsButton",
+      "path": "UI/btns/MM_Levels_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Levels_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 273,
+        "height": 204
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "sha256": "b0d29d87e6caeb745396e44b3e9bbd0f8a2cf18c3ceb171aa45f7ec934efaf29",
+      "placements": [
+        {
+          "instanceId": "LevelsButton",
+          "screenRect": {
+            "x": 55.090329436769395,
+            "y": 1601.9138755980862,
+            "width": 313.32624867162593,
+            "height": 234.25837320574163
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 273,
+      "height": 204,
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Levels_btn.png",
+      "asset_id": "MainMenu_01_LevelsButton"
+    },
+    {
+      "id": "MainMenu_01_ShopButton",
+      "path": "UI/btns/MM_Shop_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Shop_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 273,
+        "height": 204
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "sha256": "c5abdcd7c6a15216ef59d51ad31155d1eb502b3f5cbbbfd0c9dc95fe35a7af27",
+      "placements": [
+        {
+          "instanceId": "ShopButton",
+          "screenRect": {
+            "x": 386.7800212539851,
+            "y": 1601.9138755980862,
+            "width": 313.32624867162593,
+            "height": 234.25837320574163
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 273,
+      "height": 204,
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Shop_btn.png",
+      "asset_id": "MainMenu_01_ShopButton"
+    },
+    {
+      "id": "MainMenu_01_SettingsButton",
+      "path": "UI/btns/MM_Settings_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/MM_Settings_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 273,
+        "height": 204
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "sha256": "74ef2b231d569b0c9caa4987deb804a6a0a39e61187b7f860bb009c94ee8743c",
+      "placements": [
+        {
+          "instanceId": "SettingsButton",
+          "screenRect": {
+            "x": 711.5834218916046,
+            "y": 1601.9138755980862,
+            "width": 313.32624867162593,
+            "height": 234.25837320574163
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 273,
+      "height": 204,
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "asset_path": "UI/btns/MM_Settings_btn.png",
+      "asset_id": "MainMenu_01_SettingsButton"
+    },
+    {
+      "id": "CatBlocksLogo",
+      "path": "UI/branding/MM_CatBlocks_logo.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/branding/MM_CatBlocks_logo.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1747,
+        "height": 999
+      },
+      "nativeVisibleBounds": {
+        "y": 63,
+        "width": 1683,
+        "height": 904,
+        "x": 32
+      },
+      "sha256": "9a8b8d79fd2b390246d699489e231dca61a8fac4647c9520df83a8fc40d14fe0",
+      "placements": [
+        {
+          "instanceId": "Logo",
+          "screenRect": {
+            "x": 162.2799729494735,
+            "y": 158.69856459330143,
+            "width": 789.871509999034,
+            "height": 458.8708133971292
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "branding",
+      "asset_role": "sprite",
+      "width": 1747,
+      "height": 999,
+      "native_size_px": {
+        "width": 1747,
+        "height": 999
+      },
+      "alpha_bounds_px": {
+        "y": 63,
+        "width": 1683,
+        "height": 904,
+        "x": 32
+      },
+      "asset_path": "UI/branding/MM_CatBlocks_logo.png",
+      "asset_id": "CatBlocksLogo"
+    },
+    {
+      "id": "CurrencyCreamBacking",
+      "path": "UI/bars/SH_CoinCream_bar.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 285,
+      "height": 115,
+      "opaque": false,
+      "filename": "UI/bars/SH_CoinCream_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 285,
+        "height": 115
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "sha256": "56934333c62be8003c3e1894eef03702093f0d708154ae1d266cee64701c93e2",
+      "placements": [
+        {
+          "instanceId": "CoinBarBackground",
+          "screenRect": {
+            "x": 33.28374070138151,
+            "y": 78.08612440191388,
+            "width": 327.0988310308183,
+            "height": 132.05741626794259
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 285,
+        "height": 115
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "asset_path": "UI/bars/SH_CoinCream_bar.png",
+      "asset_id": "CurrencyCreamBacking"
+    },
+    {
+      "id": "CoinCat",
+      "path": "UI/icons/SH_CoinCat_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 89,
+      "height": 90,
+      "opaque": false,
+      "filename": "UI/icons/SH_CoinCat_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 89,
+        "height": 90
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "sha256": "f3b85e8e3b22fa95d2083aa337b53733ed078ecde401e646bcfdd914e3b1d9b0",
+      "placements": [
+        {
+          "instanceId": "CoinIcon",
+          "screenRect": {
+            "x": 47.05632306057386,
+            "y": 91.86602870813397,
+            "width": 102.14665249734325,
+            "height": 103.34928229665071
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 89,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "asset_path": "UI/icons/SH_CoinCat_icon.png",
+      "asset_id": "CoinCat"
+    },
+    {
+      "id": "PlusGreen",
+      "path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 90,
+      "height": 90,
+      "opaque": false,
+      "filename": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 90,
+        "height": 90
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "sha256": "b2890a9bc4a543bb6f0daeb39f2ce7e8e87126aed32450365ce7813d6e1ebe52",
+      "placements": [
+        {
+          "instanceId": "PlusButton",
+          "screenRect": {
+            "x": 244.4633368756642,
+            "y": 91.86602870813397,
+            "width": 103.29436769394262,
+            "height": 103.34928229665071
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 90,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "asset_id": "PlusGreen"
+    }
+  ],
+  "elements": [
+    {
+      "id": "ScreenBase",
+      "parentId": "",
+      "assetId": "MainMenu_01Base",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 0,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/BG/MM_BG.png",
+      "state": "default",
+      "layerOrder": 0,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1080.0,
+        "height": 1920.0
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Background",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "PlayButton",
+      "parentId": "",
+      "assetId": "MainMenu_01_PlayButton",
+      "kind": "button",
+      "rect": {
+        "x": 203.14558979808714,
+        "y": 1313.6842105263158,
+        "width": 673.7088204038257,
+        "height": 261.8181818181818
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/MM_Play_btn.png",
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 203.14558979808714,
+        "y": 1313.6842105263158,
+        "width": 673.7088204038257,
+        "height": 261.8181818181818
+      },
+      "visibleBounds": {
+        "x": 212.32731137088206,
+        "y": 1322.8708133971293,
+        "width": 655.3453772582359,
+        "height": 243.44497607655504
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 212.32731137088206,
+        "y": 1322.8708133971293,
+        "width": 655.3453772582359,
+        "height": 243.44497607655504
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelsButton",
+      "parentId": "",
+      "assetId": "MainMenu_01_LevelsButton",
+      "kind": "button",
+      "rect": {
+        "x": 55.090329436769395,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/MM_Levels_btn.png",
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 55.090329436769395,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "visibleBounds": {
+        "x": 64.2720510095643,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 64.2720510095643,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "ShopButton",
+      "parentId": "",
+      "assetId": "MainMenu_01_ShopButton",
+      "kind": "button",
+      "rect": {
+        "x": 386.7800212539851,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 3,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/MM_Shop_btn.png",
+      "state": "default",
+      "layerOrder": 3,
+      "screenRect": {
+        "x": 386.7800212539851,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "visibleBounds": {
+        "x": 395.96174282678004,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 395.96174282678004,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "SettingsButton",
+      "parentId": "",
+      "assetId": "MainMenu_01_SettingsButton",
+      "kind": "button",
+      "rect": {
+        "x": 711.5834218916046,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 4,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/MM_Settings_btn.png",
+      "state": "default",
+      "layerOrder": 4,
+      "screenRect": {
+        "x": 711.5834218916046,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "visibleBounds": {
+        "x": 720.7651434643996,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 720.7651434643996,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "Logo",
+      "parentId": "",
+      "assetId": "CatBlocksLogo",
+      "kind": "image",
+      "rect": {
+        "x": 162.2799729494735,
+        "y": 158.69856459330143,
+        "width": 789.871509999034,
+        "height": 458.8708133971292
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 5,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/branding/MM_CatBlocks_logo.png",
+      "state": "default",
+      "layerOrder": 5,
+      "screenRect": {
+        "x": 162.2799729494735,
+        "y": 158.69856459330143,
+        "width": 789.871509999034,
+        "height": 458.8708133971292
+      },
+      "visibleBounds": {
+        "x": 176.74814027630183,
+        "y": 187.63636363636363,
+        "width": 760.9351753453774,
+        "height": 415.2344497607656
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 165.89701478118056,
+        "y": 162.37320574162678,
+        "width": 782.6374263356198,
+        "height": 451.5215311004785
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinBarBackground",
+      "parentId": "",
+      "assetId": "CurrencyCreamBacking",
+      "kind": "image",
+      "rect": {
+        "x": 33.28374070138151,
+        "y": 78.08612440191388,
+        "width": 327.0988310308183,
+        "height": 132.05741626794259
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 6,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/bars/SH_CoinCream_bar.png",
+      "state": "default",
+      "layerOrder": 6,
+      "screenRect": {
+        "x": 33.28374070138151,
+        "y": 78.08612440191388,
+        "width": 327.0988310308183,
+        "height": 132.05741626794259
+      },
+      "visibleBounds": {
+        "x": 42.46546227417641,
+        "y": 87.27272727272728,
+        "width": 308.7353878852285,
+        "height": 113.6842105263158
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 42.46546227417641,
+        "y": 87.27272727272728,
+        "width": 308.73538788522853,
+        "height": 113.6842105263158
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinIcon",
+      "parentId": "",
+      "assetId": "CoinCat",
+      "kind": "image",
+      "rect": {
+        "x": 47.05632306057386,
+        "y": 91.86602870813397,
+        "width": 102.14665249734325,
+        "height": 103.34928229665071
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 7,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/SH_CoinCat_icon.png",
+      "state": "default",
+      "layerOrder": 7,
+      "screenRect": {
+        "x": 47.05632306057386,
+        "y": 91.86602870813397,
+        "width": 102.14665249734325,
+        "height": 103.34928229665071
+      },
+      "visibleBounds": {
+        "x": 56.23804463336876,
+        "y": 101.05263157894737,
+        "width": 83.78320935175346,
+        "height": 84.97607655502392
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 56.23804463336876,
+        "y": 101.05263157894737,
+        "width": 83.78320935175346,
+        "height": 84.97607655502392
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "PlusButton",
+      "parentId": "",
+      "assetId": "PlusGreen",
+      "kind": "button",
+      "rect": {
+        "x": 244.4633368756642,
+        "y": 91.86602870813397,
+        "width": 103.29436769394262,
+        "height": 103.34928229665071
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 8,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "state": "default",
+      "layerOrder": 8,
+      "screenRect": {
+        "x": 244.4633368756642,
+        "y": 91.86602870813397,
+        "width": 103.29436769394262,
+        "height": 103.34928229665071
+      },
+      "visibleBounds": {
+        "x": 253.6450584484591,
+        "y": 101.05263157894737,
+        "width": 84.93092454835282,
+        "height": 84.97607655502392
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 253.6450584484591,
+        "y": 101.05263157894737,
+        "width": 84.93092454835282,
+        "height": 84.97607655502392
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinBalance",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 160.68012752391073,
+        "y": 119.42583732057416,
+        "width": 73.45377258235919,
+        "height": 51.67464114832536
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 9,
+      "previewOnly": false,
+      "text": "",
+      "binding": "economy.coins",
+      "fontSize": 45.908607863974495,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 9,
+      "screenRect": {
+        "x": 160.68012752391073,
+        "y": 119.42583732057416,
+        "width": 73.45377258235919,
+        "height": 51.67464114832536
+      },
+      "visibleBounds": {
+        "x": 160.68012752391073,
+        "y": 119.42583732057416,
+        "width": 73.45377258235919,
+        "height": 51.67464114832536
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 160.68012752391073,
+        "y": 119.42583732057416,
+        "width": 73.45377258235919,
+        "height": 51.67464114832536
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "MainMenu_01",
+      "popupGroup": null
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/Main menu.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "MainMenu_01",
+    "type": "full-screen",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": null
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "main_menu_01",
+  "schema_version": "3.2",
+  "screen_kind": "full_screen",
+  "reference_image": "references/Main menu.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": null,
+  "overlay": null,
+  "objects": [
+    {
+      "instance_id": "ScreenBase",
+      "kind": "sprite",
+      "asset_id": "MainMenu_01Base",
+      "parent_id": null,
+      "order": 0,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/BG/MM_BG.png",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "PlayButton",
+      "kind": "sprite",
+      "asset_id": "MainMenu_01_PlayButton",
+      "parent_id": null,
+      "order": 1,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 203.14558979808714,
+        "y": 1313.6842105263158,
+        "width": 673.7088204038257,
+        "height": 261.8181818181818
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/MM_Play_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 587,
+        "height": 228
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 571,
+        "height": 212,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "PlayButton",
+      "hitbox_px": {
+        "x": 212.32731137088206,
+        "y": 1322.8708133971293,
+        "width": 655.3453772582359,
+        "height": 243.44497607655504
+      }
+    },
+    {
+      "instance_id": "LevelsButton",
+      "kind": "sprite",
+      "asset_id": "MainMenu_01_LevelsButton",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 55.090329436769395,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/MM_Levels_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelsButton",
+      "hitbox_px": {
+        "x": 64.2720510095643,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      }
+    },
+    {
+      "instance_id": "ShopButton",
+      "kind": "sprite",
+      "asset_id": "MainMenu_01_ShopButton",
+      "parent_id": null,
+      "order": 3,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 386.7800212539851,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/MM_Shop_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "ShopButton",
+      "hitbox_px": {
+        "x": 395.96174282678004,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      }
+    },
+    {
+      "instance_id": "SettingsButton",
+      "kind": "sprite",
+      "asset_id": "MainMenu_01_SettingsButton",
+      "parent_id": null,
+      "order": 4,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 711.5834218916046,
+        "y": 1601.9138755980862,
+        "width": 313.32624867162593,
+        "height": 234.25837320574163
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/MM_Settings_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 273,
+        "height": 204
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 257,
+        "height": 188,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "SettingsButton",
+      "hitbox_px": {
+        "x": 720.7651434643996,
+        "y": 1611.1004784688996,
+        "width": 294.9628055260361,
+        "height": 215.88516746411483
+      }
+    },
+    {
+      "instance_id": "Logo",
+      "kind": "sprite",
+      "asset_id": "CatBlocksLogo",
+      "parent_id": null,
+      "order": 5,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 162.2799729494735,
+        "y": 158.69856459330143,
+        "width": 789.871509999034,
+        "height": 458.8708133971292
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/branding/MM_CatBlocks_logo.png",
+      "category": "branding",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1747,
+        "height": 999
+      },
+      "alpha_bounds_px": {
+        "y": 63,
+        "width": 1683,
+        "height": 904,
+        "x": 32
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinBarBackground",
+      "kind": "sprite",
+      "asset_id": "CurrencyCreamBacking",
+      "parent_id": null,
+      "order": 6,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 33.28374070138151,
+        "y": 78.08612440191388,
+        "width": 327.0988310308183,
+        "height": 132.05741626794259
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/bars/SH_CoinCream_bar.png",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 285,
+        "height": 115
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinIcon",
+      "kind": "sprite",
+      "asset_id": "CoinCat",
+      "parent_id": null,
+      "order": 7,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 47.05632306057386,
+        "y": 91.86602870813397,
+        "width": 102.14665249734325,
+        "height": 103.34928229665071
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/SH_CoinCat_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 89,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "PlusButton",
+      "kind": "sprite",
+      "asset_id": "PlusGreen",
+      "parent_id": null,
+      "order": 8,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 244.4633368756642,
+        "y": 91.86602870813397,
+        "width": 103.29436769394262,
+        "height": 103.34928229665071
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 90,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "PlusButton",
+      "hitbox_px": {
+        "x": 253.6450584484591,
+        "y": 101.05263157894737,
+        "width": 84.93092454835282,
+        "height": 84.97607655502392
+      }
+    },
+    {
+      "instance_id": "CoinBalance",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 9,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 160.68012752391073,
+        "y": 119.42583732057416,
+        "width": 73.45377258235919,
+        "height": 51.67464114832536
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "economy.coins",
+      "text": "",
+      "font_size_px": 45.908607863974495,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    }
+  ],
+  "popup_action_button_groups": {}
+}

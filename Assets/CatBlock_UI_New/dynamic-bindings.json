@@ -1,0 +1,227 @@
+[
+  {
+    "screen_id": "main_menu_01",
+    "instance_id": "CoinBalance",
+    "binding": "economy.coins"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "CoinBalance",
+    "binding": "economy.coins"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot1Number",
+    "binding": "levels.slot1.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot2Number",
+    "binding": "levels.slot2.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot3Number",
+    "binding": "levels.slot3.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot5Number",
+    "binding": "levels.slot5.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot6Number",
+    "binding": "levels.slot6.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot7Number",
+    "binding": "levels.slot7.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot8Number",
+    "binding": "levels.slot8.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot9Number",
+    "binding": "levels.slot9.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot10Number",
+    "binding": "levels.slot10.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot11Number",
+    "binding": "levels.slot11.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot12Number",
+    "binding": "levels.slot12.number"
+  },
+  {
+    "screen_id": "level_selection",
+    "instance_id": "LevelSlot4Number",
+    "binding": "levels.slot4.number"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CoinBalance",
+    "binding": "economy.coins"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "HintPackPrice",
+    "binding": "shop.HintPack.price"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "HintPackQuantity",
+    "binding": "shop.HintPack.quantity"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "UndoPackPrice",
+    "binding": "shop.UndoPack.price"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "UndoPackQuantity",
+    "binding": "shop.UndoPack.quantity"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "StarterBundlePrice",
+    "binding": "shop.StarterBundle.price"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "StarterBundleQuantity",
+    "binding": "shop.StarterBundle.quantity"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CatTileSkinPrice",
+    "binding": "shop.CatTileSkin.price"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CoinPack0Amount",
+    "binding": "shop.coinPack0.amount"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CoinPack0Price",
+    "binding": "shop.coinPack0.price"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CoinPack1Amount",
+    "binding": "shop.coinPack1.amount"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CoinPack1Price",
+    "binding": "shop.coinPack1.price"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CoinPack2Amount",
+    "binding": "shop.coinPack2.amount"
+  },
+  {
+    "screen_id": "shop_pack",
+    "instance_id": "CoinPack2Price",
+    "binding": "shop.coinPack2.price"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day1Label",
+    "binding": "daily.Day1Label"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day1Amount",
+    "binding": "daily.day1.amount"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day2Label",
+    "binding": "daily.Day2Label"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day2Amount",
+    "binding": "daily.day2.amount"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day3Label",
+    "binding": "daily.Day3Label"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day3Amount",
+    "binding": "daily.day3.amount"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day5Label",
+    "binding": "daily.Day5Label"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day5Amount",
+    "binding": "daily.day5.amount"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day6Label",
+    "binding": "daily.Day6Label"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day6Amount",
+    "binding": "daily.day6.amount"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day4Label",
+    "binding": "daily.Day4Label"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day4Amount",
+    "binding": "daily.day4.amount"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day7Label",
+    "binding": "daily.Day7Label"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day7CoinAmount",
+    "binding": "daily.day7.coins"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day7HintAmount",
+    "binding": "daily.day7.hint"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day7UndoAmount",
+    "binding": "daily.day7.undo"
+  },
+  {
+    "screen_id": "popup_daily_rewards",
+    "instance_id": "Day7ShuffleAmount",
+    "binding": "daily.day7.shuffle"
+  }
+]

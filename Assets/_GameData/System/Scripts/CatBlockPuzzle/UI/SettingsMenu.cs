@@ -36,6 +36,14 @@ namespace CatBlockPuzzle
             cardSlideDistance = 48f,
             overshoot = 2f
         };
+        [Header("Production Toggle Controls")]
+        [SerializeField] private Button backButton;
+        [SerializeField] private Toggle musicToggle;
+        [SerializeField] private Toggle soundToggle;
+        [SerializeField] private Toggle vibrationToggle;
+        [SerializeField] private Toggle notificationsToggle;
+        private bool refreshingToggles;
+        private const string NotificationsKey = "CatBlockPuzzle.Settings.Notifications";
         private bool returnToPause;
 
         public static bool HapticsEnabled => PlayerPrefs.GetInt(HapticsEnabledKey, 1) != 0;
@@ -61,6 +69,11 @@ namespace CatBlockPuzzle
         private void UpdateListeners(bool bind)
         {
             Listen(closeButton, Close, bind);
+            Listen(backButton, Close, bind);
+            ListenToggle(musicToggle, SetMusic, bind);
+            ListenToggle(soundToggle, SetSound, bind);
+            ListenToggle(vibrationToggle, SetVibration, bind);
+            ListenToggle(notificationsToggle, SetNotifications, bind);
             Listen(musicButton, ToggleMusic, bind);
             Listen(sfxButton, ToggleSfx, bind);
             Listen(hapticsButton, ToggleHaptics, bind);
@@ -71,6 +84,33 @@ namespace CatBlockPuzzle
             if (button == null) return;
             button.onClick.RemoveListener(action);
             if (bind) button.onClick.AddListener(action);
+        }
+
+        private static void ListenToggle(Toggle toggle, UnityAction<bool> action, bool bind)
+        {
+            if (toggle == null) return;
+            toggle.onValueChanged.RemoveListener(action);
+            if (bind) toggle.onValueChanged.AddListener(action);
+        }
+
+        private void SetMusic(bool value)
+        {
+            if (!refreshingToggles && value != SoundManager.EnsureInstance().MusicEnabled) ToggleMusic();
+        }
+        private void SetSound(bool value)
+        {
+            if (!refreshingToggles && value != SoundManager.EnsureInstance().SfxEnabled) ToggleSfx();
+        }
+        private void SetVibration(bool value)
+        {
+            if (!refreshingToggles && value != HapticsEnabled) ToggleHaptics();
+        }
+        private void SetNotifications(bool value)
+        {
+            if (refreshingToggles) return;
+            ButtonSfx.PlayClick();
+            PlayerPrefs.SetInt(NotificationsKey, value ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
         private void ToggleMusic()
@@ -108,6 +148,12 @@ namespace CatBlockPuzzle
             SetState(musicButton, musicStateText, manager.MusicEnabled);
             SetState(sfxButton, sfxStateText, manager.SfxEnabled);
             SetState(hapticsButton, hapticsStateText, HapticsEnabled);
+            refreshingToggles = true;
+            if (musicToggle != null) musicToggle.isOn = manager.MusicEnabled;
+            if (soundToggle != null) soundToggle.isOn = manager.SfxEnabled;
+            if (vibrationToggle != null) vibrationToggle.isOn = HapticsEnabled;
+            if (notificationsToggle != null) notificationsToggle.isOn = PlayerPrefs.GetInt(NotificationsKey, 1) != 0;
+            refreshingToggles = false;
         }
 
         private void SetState(Button button, Text text, bool enabled)

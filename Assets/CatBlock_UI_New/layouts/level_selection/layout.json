@@ -1,0 +1,5589 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "LevelSelection",
+  "source": "references/LevelSelection.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": false,
+  "assets": [
+    {
+      "id": "LevelSelectionBase",
+      "path": "UI/BG/LV_BG.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": true,
+      "width": 1080,
+      "height": 1920,
+      "filename": "UI/BG/LV_BG.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 1080,
+        "height": 1920
+      },
+      "nativeVisibleBounds": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "sha256": "8363a3ba94f516380cb7c3ae194640001fcc7e73a361dd1e31a2b8da66b43688",
+      "placements": [
+        {
+          "instanceId": "ScreenBase",
+          "screenRect": {
+            "x": 0,
+            "y": 0,
+            "width": 1080,
+            "height": 1920
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "asset_path": "UI/BG/LV_BG.png",
+      "asset_id": "LevelSelectionBase"
+    },
+    {
+      "id": "LevelSelection_BackButton",
+      "path": "UI/btns/LV_Back_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/LV_Back_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 123,
+        "height": 125
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 107,
+        "height": 109,
+        "x": 8
+      },
+      "sha256": "0fe31697d562c8807e95ee127beb53daad8665e647beafde73d2972c4c3a3e10",
+      "placements": [
+        {
+          "instanceId": "BackButton",
+          "screenRect": {
+            "x": 32.13602550478215,
+            "y": 82.67942583732058,
+            "width": 141.16896918172156,
+            "height": 143.54066985645932
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 123,
+      "height": 125,
+      "native_size_px": {
+        "width": 123,
+        "height": 125
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 107,
+        "height": 109,
+        "x": 8
+      },
+      "asset_path": "UI/btns/LV_Back_btn.png",
+      "asset_id": "LevelSelection_BackButton"
+    },
+    {
+      "id": "LevelsBoard",
+      "path": "UI/titles/LV_Levels_title.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/titles/LV_Levels_title.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 427,
+        "height": 124
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 411,
+        "height": 108,
+        "x": 8
+      },
+      "sha256": "9f77a25d682fb4350c7905f6a62e03cd898040aed5f704b66b12e5a35a3da1b5",
+      "placements": [
+        {
+          "instanceId": "LevelsBoard",
+          "screenRect": {
+            "x": 281.1902231668438,
+            "y": 84.97607655502392,
+            "width": 490.07438894792773,
+            "height": 142.39234449760767
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "titles",
+      "asset_role": "sprite",
+      "width": 427,
+      "height": 124,
+      "native_size_px": {
+        "width": 427,
+        "height": 124
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 411,
+        "height": 108,
+        "x": 8
+      },
+      "asset_path": "UI/titles/LV_Levels_title.png",
+      "asset_id": "LevelsBoard"
+    },
+    {
+      "id": "CurrencyCreamBacking",
+      "path": "UI/bars/SH_CoinCream_bar.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 285,
+      "height": 115,
+      "opaque": false,
+      "filename": "UI/bars/SH_CoinCream_bar.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 285,
+        "height": 115
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "sha256": "56934333c62be8003c3e1894eef03702093f0d708154ae1d266cee64701c93e2",
+      "placements": [
+        {
+          "instanceId": "CoinBarBackground",
+          "screenRect": {
+            "x": 768.9691817215728,
+            "y": 91.86602870813397,
+            "width": 301.8490967056323,
+            "height": 125.16746411483254
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 285,
+        "height": 115
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "asset_path": "UI/bars/SH_CoinCream_bar.png",
+      "asset_id": "CurrencyCreamBacking"
+    },
+    {
+      "id": "CoinCat",
+      "path": "UI/icons/SH_CoinCat_icon.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 89,
+      "height": 90,
+      "opaque": false,
+      "filename": "UI/icons/SH_CoinCat_icon.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 89,
+        "height": 90
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "sha256": "f3b85e8e3b22fa95d2083aa337b53733ed078ecde401e646bcfdd914e3b1d9b0",
+      "placements": [
+        {
+          "instanceId": "CoinIcon",
+          "screenRect": {
+            "x": 782.7417640807652,
+            "y": 105.64593301435407,
+            "width": 102.14665249734325,
+            "height": 103.34928229665071
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 89,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "asset_path": "UI/icons/SH_CoinCat_icon.png",
+      "asset_id": "CoinCat"
+    },
+    {
+      "id": "PlusGreen",
+      "path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 90,
+      "height": 90,
+      "opaque": false,
+      "filename": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 90,
+        "height": 90
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "sha256": "b2890a9bc4a543bb6f0daeb39f2ce7e8e87126aed32450365ce7813d6e1ebe52",
+      "placements": [
+        {
+          "instanceId": "PlusButton",
+          "screenRect": {
+            "x": 954.8990435706695,
+            "y": 105.64593301435407,
+            "width": 103.29436769394262,
+            "height": 103.34928229665071
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 90,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "asset_path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "asset_id": "PlusGreen"
+    },
+    {
+      "id": "StarFilledYellow",
+      "path": "UI/icons/LV_FilledStar_icon.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "pixelSize": {
+        "width": 70,
+        "height": 68
+      },
+      "nativeVisibleBounds": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "sha256": "a59cd4f8856b62efe8e167de8ba118a42941c008088a11b7871364ad79367884",
+      "placements": [
+        {
+          "instanceId": "LevelSlot1Star0",
+          "screenRect": {
+            "x": 122.80552603613178,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot1Star1",
+          "screenRect": {
+            "x": 193.96386822529223,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot1Star2",
+          "screenRect": {
+            "x": 265.1222104144527,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2Star0",
+          "screenRect": {
+            "x": 430.3931987247609,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2Star1",
+          "screenRect": {
+            "x": 501.5515409139214,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2Star2",
+          "screenRect": {
+            "x": 572.7098831030818,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3Star0",
+          "screenRect": {
+            "x": 737.98087141339,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3Star1",
+          "screenRect": {
+            "x": 809.1392136025505,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3Star2",
+          "screenRect": {
+            "x": 880.2975557917109,
+            "y": 512.1531100478469,
+            "width": 76.89691817215729,
+            "height": 79.23444976076556
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 70,
+      "height": 68,
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "asset_id": "StarFilledYellow"
+    },
+    {
+      "id": "OrangePageDot",
+      "path": "UI/icons/LV_PageActive_dot.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/icons/LV_PageActive_dot.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 49,
+        "height": 49
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 33,
+        "height": 33,
+        "x": 8
+      },
+      "sha256": "bf7343e83bb845aa8c36a8f9ab044c965781ec2e7649421d4d5b22c2d525095e",
+      "placements": [
+        {
+          "instanceId": "PageDotActive",
+          "screenRect": {
+            "x": 454.4952178533475,
+            "y": 1663.9234449760766,
+            "width": 56.23804463336876,
+            "height": 56.26794258373206
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 49,
+      "height": 49,
+      "native_size_px": {
+        "width": 49,
+        "height": 49
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 33,
+        "height": 33,
+        "x": 8
+      },
+      "asset_path": "UI/icons/LV_PageActive_dot.png",
+      "asset_id": "OrangePageDot"
+    },
+    {
+      "id": "BrownPageDot",
+      "path": "UI/icons/LV_PageInactive_dot.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/icons/LV_PageInactive_dot.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 45,
+        "height": 45
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 29,
+        "height": 29,
+        "x": 8
+      },
+      "sha256": "5120875256936cf9347ee8a4b323c9a9228e15b2754959964e6508aa513b5080",
+      "placements": [
+        {
+          "instanceId": "PageDot2",
+          "screenRect": {
+            "x": 514.1764080765143,
+            "y": 1666.22009569378,
+            "width": 51.64718384697131,
+            "height": 51.67464114832536
+          },
+          "active": true
+        },
+        {
+          "instanceId": "PageDot3",
+          "screenRect": {
+            "x": 570.4144527098831,
+            "y": 1666.22009569378,
+            "width": 51.64718384697131,
+            "height": 51.67464114832536
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 45,
+      "height": 45,
+      "native_size_px": {
+        "width": 45,
+        "height": 45
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 29,
+        "height": 29,
+        "x": 8
+      },
+      "asset_path": "UI/icons/LV_PageInactive_dot.png",
+      "asset_id": "BrownPageDot"
+    },
+    {
+      "id": "LevelLockedCard",
+      "path": "UI/cards/LV_Level_Locked_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 258,
+      "height": 285,
+      "opaque": false,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "pixelSize": {
+        "width": 258,
+        "height": 285
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "sha256": "0297f3ab63d07af7d11f34525d0d0410d0d7d743bf14225d876a34a7c7b3a981",
+      "placements": [
+        {
+          "instanceId": "LevelSlot5",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 631.578947368421,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot6",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 631.578947368421,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot7",
+          "screenRect": {
+            "x": 83.78320935175346,
+            "y": 977.2248803827752,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot8",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 977.2248803827752,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot9",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 977.2248803827752,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot10",
+          "screenRect": {
+            "x": 83.78320935175346,
+            "y": 1318.2775119617224,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot11",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 1318.2775119617224,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot12",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 1318.2775119617224,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "asset_id": "LevelLockedCard"
+    },
+    {
+      "id": "LevelCompletedCard",
+      "path": "UI/cards/LV_Level_Completed_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 258,
+      "height": 285,
+      "opaque": false,
+      "filename": "UI/cards/LV_Level_Completed_card.png",
+      "state": "completed",
+      "pixelSize": {
+        "width": 258,
+        "height": 285
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "sha256": "acac019a7f04a94d9dcd88bedffaf3425479ca29994b2939f1dd0f857db12ad9",
+      "placements": [
+        {
+          "instanceId": "LevelSlot1",
+          "screenRect": {
+            "x": 83.78320935175346,
+            "y": 281.33971291866027,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot2",
+          "screenRect": {
+            "x": 391.3708820403826,
+            "y": 281.33971291866027,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        },
+        {
+          "instanceId": "LevelSlot3",
+          "screenRect": {
+            "x": 698.9585547290117,
+            "y": 281.33971291866027,
+            "width": 296.1105207226355,
+            "height": 327.27272727272725
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "asset_path": "UI/cards/LV_Level_Completed_card.png",
+      "asset_id": "LevelCompletedCard"
+    },
+    {
+      "id": "LevelSelectedCard",
+      "path": "UI/cards/LV_Level_Selected_card.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 351,
+      "height": 302,
+      "opaque": false,
+      "filename": "UI/cards/LV_Level_Selected_card.png",
+      "state": "selected",
+      "pixelSize": {
+        "width": 351,
+        "height": 302
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 335,
+        "height": 286,
+        "x": 8
+      },
+      "sha256": "9d8f8587a4f984ce0d46c41e59b984e2b72407695c5c3462e88dde83859e27fc",
+      "placements": [
+        {
+          "instanceId": "LevelSlot4",
+          "screenRect": {
+            "x": -1.1477151965993624,
+            "y": 599.4258373205741,
+            "width": 446.46121147715195,
+            "height": 383.5406698564593
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 351,
+        "height": 302
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 335,
+        "height": 286,
+        "x": 8
+      },
+      "asset_path": "UI/cards/LV_Level_Selected_card.png",
+      "asset_id": "LevelSelectedCard"
+    }
+  ],
+  "elements": [
+    {
+      "id": "ScreenBase",
+      "parentId": "",
+      "assetId": "LevelSelectionBase",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 0,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/BG/LV_BG.png",
+      "state": "default",
+      "layerOrder": 0,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1080.0,
+        "height": 1920.0
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "Background",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "BackButton",
+      "parentId": "",
+      "assetId": "LevelSelection_BackButton",
+      "kind": "button",
+      "rect": {
+        "x": 32.13602550478215,
+        "y": 82.67942583732058,
+        "width": 141.16896918172156,
+        "height": 143.54066985645932
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/LV_Back_btn.png",
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 32.13602550478215,
+        "y": 82.67942583732058,
+        "width": 141.16896918172156,
+        "height": 143.54066985645932
+      },
+      "visibleBounds": {
+        "x": 41.317747077577046,
+        "y": 91.86602870813398,
+        "width": 122.80552603613178,
+        "height": 125.16746411483254
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 41.317747077577046,
+        "y": 91.86602870813398,
+        "width": 122.80552603613178,
+        "height": 125.16746411483254
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelsBoard",
+      "parentId": "",
+      "assetId": "LevelsBoard",
+      "kind": "image",
+      "rect": {
+        "x": 281.1902231668438,
+        "y": 84.97607655502392,
+        "width": 490.07438894792773,
+        "height": 142.39234449760767
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/titles/LV_Levels_title.png",
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 281.1902231668438,
+        "y": 84.97607655502392,
+        "width": 490.07438894792773,
+        "height": 142.39234449760767
+      },
+      "visibleBounds": {
+        "x": 290.3719447396387,
+        "y": 94.16267942583733,
+        "width": 471.71094580233796,
+        "height": 124.01913875598086
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 290.3719447396387,
+        "y": 94.16267942583733,
+        "width": 471.71094580233796,
+        "height": 124.01913875598088
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinBarBackground",
+      "parentId": "",
+      "assetId": "CurrencyCreamBacking",
+      "kind": "image",
+      "rect": {
+        "x": 768.9691817215728,
+        "y": 91.86602870813397,
+        "width": 301.8490967056323,
+        "height": 125.16746411483254
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 3,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/bars/SH_CoinCream_bar.png",
+      "state": "default",
+      "layerOrder": 3,
+      "screenRect": {
+        "x": 768.9691817215728,
+        "y": 91.86602870813397,
+        "width": 301.8490967056323,
+        "height": 125.16746411483254
+      },
+      "visibleBounds": {
+        "x": 777.4421388220818,
+        "y": 100.57333055960058,
+        "width": 284.90318250461434,
+        "height": 107.75286041189932
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 777.4421388220818,
+        "y": 100.57333055960058,
+        "width": 284.90318250461434,
+        "height": 107.75286041189932
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinIcon",
+      "parentId": "",
+      "assetId": "CoinCat",
+      "kind": "image",
+      "rect": {
+        "x": 782.7417640807652,
+        "y": 105.64593301435407,
+        "width": 102.14665249734325,
+        "height": 103.34928229665071
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 4,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/SH_CoinCat_icon.png",
+      "state": "default",
+      "layerOrder": 4,
+      "screenRect": {
+        "x": 782.7417640807652,
+        "y": 105.64593301435407,
+        "width": 102.14665249734325,
+        "height": 103.34928229665071
+      },
+      "visibleBounds": {
+        "x": 791.9234856535601,
+        "y": 114.83253588516747,
+        "width": 83.78320935175346,
+        "height": 84.97607655502392
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 791.9234856535601,
+        "y": 114.83253588516747,
+        "width": 83.78320935175346,
+        "height": 84.97607655502392
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "PlusButton",
+      "parentId": "",
+      "assetId": "PlusGreen",
+      "kind": "button",
+      "rect": {
+        "x": 954.8990435706695,
+        "y": 105.64593301435407,
+        "width": 103.29436769394262,
+        "height": 103.34928229665071
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 5,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "state": "default",
+      "layerOrder": 5,
+      "screenRect": {
+        "x": 954.8990435706695,
+        "y": 105.64593301435407,
+        "width": 103.29436769394262,
+        "height": 103.34928229665071
+      },
+      "visibleBounds": {
+        "x": 964.0807651434644,
+        "y": 114.83253588516747,
+        "width": 84.93092454835282,
+        "height": 84.97607655502392
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 964.0807651434644,
+        "y": 114.83253588516747,
+        "width": 84.93092454835282,
+        "height": 84.97607655502392
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "CoinBalance",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 884.8884165781084,
+        "y": 130.9090909090909,
+        "width": 71.15834218916046,
+        "height": 51.67464114832536
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 6,
+      "previewOnly": false,
+      "text": "",
+      "binding": "economy.coins",
+      "fontSize": 45.908607863974495,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 6,
+      "screenRect": {
+        "x": 884.8884165781084,
+        "y": 130.9090909090909,
+        "width": 71.15834218916046,
+        "height": 51.67464114832536
+      },
+      "visibleBounds": {
+        "x": 884.8884165781084,
+        "y": 130.9090909090909,
+        "width": 71.15834218916046,
+        "height": 51.67464114832536
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 884.8884165781084,
+        "y": 130.9090909090909,
+        "width": 71.15834218916046,
+        "height": 51.67464114832536
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Currency",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "PageDotActive",
+      "parentId": "",
+      "assetId": "OrangePageDot",
+      "kind": "image",
+      "rect": {
+        "x": 454.4952178533475,
+        "y": 1663.9234449760766,
+        "width": 56.23804463336876,
+        "height": 56.26794258373206
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 7,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_PageActive_dot.png",
+      "state": "default",
+      "layerOrder": 7,
+      "screenRect": {
+        "x": 454.4952178533475,
+        "y": 1663.9234449760766,
+        "width": 56.23804463336876,
+        "height": 56.26794258373206
+      },
+      "visibleBounds": {
+        "x": 463.67693942614244,
+        "y": 1673.11004784689,
+        "width": 37.87460148777896,
+        "height": 37.89473684210526
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 463.67693942614244,
+        "y": 1673.11004784689,
+        "width": 37.87460148777896,
+        "height": 37.89473684210526
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "PageDot2",
+      "parentId": "",
+      "assetId": "BrownPageDot",
+      "kind": "image",
+      "rect": {
+        "x": 514.1764080765143,
+        "y": 1666.22009569378,
+        "width": 51.64718384697131,
+        "height": 51.67464114832536
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 8,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_PageInactive_dot.png",
+      "state": "default",
+      "layerOrder": 8,
+      "screenRect": {
+        "x": 514.1764080765143,
+        "y": 1666.22009569378,
+        "width": 51.64718384697131,
+        "height": 51.67464114832536
+      },
+      "visibleBounds": {
+        "x": 523.3581296493093,
+        "y": 1675.4066985645934,
+        "width": 33.28374070138151,
+        "height": 33.301435406698566
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 523.3581296493093,
+        "y": 1675.4066985645934,
+        "width": 33.28374070138151,
+        "height": 33.30143540669856
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "PageDot3",
+      "parentId": "",
+      "assetId": "BrownPageDot",
+      "kind": "image",
+      "rect": {
+        "x": 570.4144527098831,
+        "y": 1666.22009569378,
+        "width": 51.64718384697131,
+        "height": 51.67464114832536
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 9,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_PageInactive_dot.png",
+      "state": "default",
+      "layerOrder": 9,
+      "screenRect": {
+        "x": 570.4144527098831,
+        "y": 1666.22009569378,
+        "width": 51.64718384697131,
+        "height": 51.67464114832536
+      },
+      "visibleBounds": {
+        "x": 579.596174282678,
+        "y": 1675.4066985645934,
+        "width": 33.28374070138151,
+        "height": 33.301435406698566
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 579.596174282678,
+        "y": 1675.4066985645934,
+        "width": 33.28374070138151,
+        "height": 33.30143540669856
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Controls",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot1",
+      "parentId": "",
+      "assetId": "LevelCompletedCard",
+      "kind": "button",
+      "rect": {
+        "x": 83.78320935175346,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 10,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Completed_card.png",
+      "state": "completed",
+      "layerOrder": 10,
+      "screenRect": {
+        "x": 83.78320935175346,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 92.96493092454836,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 92.96493092454836,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot1Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 175.60042507970243,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 11,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot1.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 11,
+      "screenRect": {
+        "x": 175.60042507970243,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 175.60042507970243,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 175.60042507970243,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot1Star0",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 122.80552603613178,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 12,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 12,
+      "screenRect": {
+        "x": 122.80552603613178,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 132.6922726582663,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 131.5937452558069,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot1Star1",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 193.96386822529223,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 13,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 13,
+      "screenRect": {
+        "x": 193.96386822529223,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 203.85061484742673,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 202.75208744496734,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot1Star2",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 265.1222104144527,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 14,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 14,
+      "screenRect": {
+        "x": 265.1222104144527,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 275.0089570365872,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 273.9104296341278,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot2",
+      "parentId": "",
+      "assetId": "LevelCompletedCard",
+      "kind": "button",
+      "rect": {
+        "x": 391.3708820403826,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 15,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Completed_card.png",
+      "state": "completed",
+      "layerOrder": 15,
+      "screenRect": {
+        "x": 391.3708820403826,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 400.5526036131775,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 400.5526036131775,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot2Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 483.18809776833155,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 16,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot2.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 16,
+      "screenRect": {
+        "x": 483.18809776833155,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 483.18809776833155,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 483.18809776833155,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot2Star0",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 430.3931987247609,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 17,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 17,
+      "screenRect": {
+        "x": 430.3931987247609,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 440.27994534689543,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 439.181417944436,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot2Star1",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 501.5515409139214,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 18,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 18,
+      "screenRect": {
+        "x": 501.5515409139214,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 511.4382875360559,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 510.3397601335965,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot2Star2",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 572.7098831030818,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 19,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 19,
+      "screenRect": {
+        "x": 572.7098831030818,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 582.5966297252163,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 581.498102322757,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot3",
+      "parentId": "",
+      "assetId": "LevelCompletedCard",
+      "kind": "button",
+      "rect": {
+        "x": 698.9585547290117,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 20,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Completed_card.png",
+      "state": "completed",
+      "layerOrder": 20,
+      "screenRect": {
+        "x": 698.9585547290117,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 708.1402763018066,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 708.1402763018066,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot3Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 790.7757704569607,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 21,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot3.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 21,
+      "screenRect": {
+        "x": 790.7757704569607,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 790.7757704569607,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 790.7757704569607,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot3Star0",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 737.98087141339,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 22,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 22,
+      "screenRect": {
+        "x": 737.98087141339,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 747.8676180355245,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 746.7690906330652,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot3Star1",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 809.1392136025505,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 23,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 23,
+      "screenRect": {
+        "x": 809.1392136025505,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 819.025960224685,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 817.9274328222257,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot3Star2",
+      "parentId": "",
+      "assetId": "StarFilledYellow",
+      "kind": "image",
+      "rect": {
+        "x": 880.2975557917109,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 24,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/icons/LV_FilledStar_icon.png",
+      "state": "filled",
+      "layerOrder": 24,
+      "screenRect": {
+        "x": 880.2975557917109,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 890.1843024138454,
+        "y": 522.6400225161835,
+        "width": 56.024897525428884,
+        "height": 58.260624824092325
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 889.0857750113861,
+        "y": 521.4748100197016,
+        "width": 59.320479732807044,
+        "height": 60.59104981705602
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot5",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 391.3708820403826,
+        "y": 631.578947368421,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 25,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 25,
+      "screenRect": {
+        "x": 391.3708820403826,
+        "y": 631.578947368421,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 400.5526036131775,
+        "y": 640.7655502392345,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 400.5526036131775,
+        "y": 640.7655502392345,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot5Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 483.18809776833155,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 26,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot5.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 26,
+      "screenRect": {
+        "x": 483.18809776833155,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 483.18809776833155,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 483.18809776833155,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot6",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 698.9585547290117,
+        "y": 631.578947368421,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 27,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 27,
+      "screenRect": {
+        "x": 698.9585547290117,
+        "y": 631.578947368421,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 708.1402763018066,
+        "y": 640.7655502392345,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 708.1402763018066,
+        "y": 640.7655502392345,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot6Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 790.7757704569607,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 28,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot6.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 28,
+      "screenRect": {
+        "x": 790.7757704569607,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 790.7757704569607,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 790.7757704569607,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot7",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 83.78320935175346,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 29,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 29,
+      "screenRect": {
+        "x": 83.78320935175346,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 92.96493092454836,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 92.96493092454836,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot7Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 175.60042507970243,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 30,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot7.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 30,
+      "screenRect": {
+        "x": 175.60042507970243,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 175.60042507970243,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 175.60042507970243,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot8",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 391.3708820403826,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 31,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 31,
+      "screenRect": {
+        "x": 391.3708820403826,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 400.5526036131775,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 400.5526036131775,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot8Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 483.18809776833155,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 32,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot8.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 32,
+      "screenRect": {
+        "x": 483.18809776833155,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 483.18809776833155,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 483.18809776833155,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot9",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 698.9585547290117,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 33,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 33,
+      "screenRect": {
+        "x": 698.9585547290117,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 708.1402763018066,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 708.1402763018066,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot9Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 790.7757704569607,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 34,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot9.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 34,
+      "screenRect": {
+        "x": 790.7757704569607,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 790.7757704569607,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 790.7757704569607,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot10",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 83.78320935175346,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 35,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 35,
+      "screenRect": {
+        "x": 83.78320935175346,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 92.96493092454836,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 92.96493092454836,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot10Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 175.60042507970243,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 36,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot10.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 36,
+      "screenRect": {
+        "x": 175.60042507970243,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 175.60042507970243,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 175.60042507970243,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot11",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 391.3708820403826,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 37,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 37,
+      "screenRect": {
+        "x": 391.3708820403826,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 400.5526036131775,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 400.5526036131775,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot11Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 483.18809776833155,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 38,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot11.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 38,
+      "screenRect": {
+        "x": 483.18809776833155,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 483.18809776833155,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 483.18809776833155,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot12",
+      "parentId": "",
+      "assetId": "LevelLockedCard",
+      "kind": "button",
+      "rect": {
+        "x": 698.9585547290117,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 39,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Locked_card.png",
+      "state": "locked",
+      "layerOrder": 39,
+      "screenRect": {
+        "x": 698.9585547290117,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "visibleBounds": {
+        "x": 708.1402763018066,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 708.1402763018066,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot12Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 790.7757704569607,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 40,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot12.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 40,
+      "screenRect": {
+        "x": 790.7757704569607,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 790.7757704569607,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 790.7757704569607,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot4",
+      "parentId": "",
+      "assetId": "LevelSelectedCard",
+      "kind": "button",
+      "rect": {
+        "x": -1.1477151965993624,
+        "y": 599.4258373205741,
+        "width": 446.46121147715195,
+        "height": 383.5406698564593
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 41,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/cards/LV_Level_Selected_card.png",
+      "state": "selected",
+      "layerOrder": 41,
+      "screenRect": {
+        "x": -1.1477151965993624,
+        "y": 599.4258373205741,
+        "width": 446.46121147715195,
+        "height": 383.5406698564593
+      },
+      "visibleBounds": {
+        "x": 9.028038911141993,
+        "y": 609.5858550651161,
+        "width": 426.1097032616692,
+        "height": 363.2206343673754
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 9.028038911141993,
+        "y": 609.5858550651161,
+        "width": 426.1097032616692,
+        "height": 363.2206343673754
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    },
+    {
+      "id": "LevelSlot4Number",
+      "parentId": "",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 175.60042507970243,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 42,
+      "previewOnly": false,
+      "text": "",
+      "binding": "levels.slot4.number",
+      "fontSize": 65.41976620616366,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 42,
+      "screenRect": {
+        "x": 175.60042507970243,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "visibleBounds": {
+        "x": 175.60042507970243,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 175.60042507970243,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "LevelCards",
+      "screenGroup": "LevelSelection",
+      "popupGroup": null
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/LevelSelection.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "LevelSelection",
+    "type": "full-screen",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": null
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "level_selection",
+  "schema_version": "3.2",
+  "screen_kind": "full_screen",
+  "reference_image": "references/LevelSelection.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": null,
+  "overlay": null,
+  "objects": [
+    {
+      "instance_id": "ScreenBase",
+      "kind": "sprite",
+      "asset_id": "LevelSelectionBase",
+      "parent_id": null,
+      "order": 0,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/BG/LV_BG.png",
+      "category": "BG",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 1080,
+        "height": 1920
+      },
+      "alpha_bounds_px": {
+        "y": 0,
+        "width": 1080,
+        "height": 1920,
+        "x": 0
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "BackButton",
+      "kind": "sprite",
+      "asset_id": "LevelSelection_BackButton",
+      "parent_id": null,
+      "order": 1,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 32.13602550478215,
+        "y": 82.67942583732058,
+        "width": 141.16896918172156,
+        "height": 143.54066985645932
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/LV_Back_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 123,
+        "height": 125
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 107,
+        "height": 109,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "BackButton",
+      "hitbox_px": {
+        "x": 41.317747077577046,
+        "y": 91.86602870813398,
+        "width": 122.80552603613178,
+        "height": 125.16746411483254
+      }
+    },
+    {
+      "instance_id": "LevelsBoard",
+      "kind": "sprite",
+      "asset_id": "LevelsBoard",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 281.1902231668438,
+        "y": 84.97607655502392,
+        "width": 490.07438894792773,
+        "height": 142.39234449760767
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/titles/LV_Levels_title.png",
+      "category": "titles",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 427,
+        "height": 124
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 411,
+        "height": 108,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinBarBackground",
+      "kind": "sprite",
+      "asset_id": "CurrencyCreamBacking",
+      "parent_id": null,
+      "order": 3,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 768.9691817215728,
+        "y": 91.86602870813397,
+        "width": 301.8490967056323,
+        "height": 125.16746411483254
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/bars/SH_CoinCream_bar.png",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 285,
+        "height": 115
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 269,
+        "height": 99,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "CoinIcon",
+      "kind": "sprite",
+      "asset_id": "CoinCat",
+      "parent_id": null,
+      "order": 4,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 782.7417640807652,
+        "y": 105.64593301435407,
+        "width": 102.14665249734325,
+        "height": 103.34928229665071
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/SH_CoinCat_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 89,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 73,
+        "height": 74,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "PlusButton",
+      "kind": "sprite",
+      "asset_id": "PlusGreen",
+      "parent_id": null,
+      "order": 5,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 954.8990435706695,
+        "y": 105.64593301435407,
+        "width": 103.29436769394262,
+        "height": 103.34928229665071
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/SH_CoinPlusGreen_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 90,
+        "height": 90
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 74,
+        "height": 74,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "PlusButton",
+      "hitbox_px": {
+        "x": 964.0807651434644,
+        "y": 114.83253588516747,
+        "width": 84.93092454835282,
+        "height": 84.97607655502392
+      }
+    },
+    {
+      "instance_id": "CoinBalance",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 6,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 884.8884165781084,
+        "y": 130.9090909090909,
+        "width": 71.15834218916046,
+        "height": 51.67464114832536
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "economy.coins",
+      "text": "",
+      "font_size_px": 45.908607863974495,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "PageDotActive",
+      "kind": "sprite",
+      "asset_id": "OrangePageDot",
+      "parent_id": null,
+      "order": 7,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 454.4952178533475,
+        "y": 1663.9234449760766,
+        "width": 56.23804463336876,
+        "height": 56.26794258373206
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_PageActive_dot.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 49,
+        "height": 49
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 33,
+        "height": 33,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "PageDot2",
+      "kind": "sprite",
+      "asset_id": "BrownPageDot",
+      "parent_id": null,
+      "order": 8,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 514.1764080765143,
+        "y": 1666.22009569378,
+        "width": 51.64718384697131,
+        "height": 51.67464114832536
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_PageInactive_dot.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 45,
+        "height": 45
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 29,
+        "height": 29,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "PageDot3",
+      "kind": "sprite",
+      "asset_id": "BrownPageDot",
+      "parent_id": null,
+      "order": 9,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 570.4144527098831,
+        "y": 1666.22009569378,
+        "width": 51.64718384697131,
+        "height": 51.67464114832536
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_PageInactive_dot.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 45,
+        "height": 45
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 29,
+        "height": 29,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot1",
+      "kind": "sprite",
+      "asset_id": "LevelCompletedCard",
+      "parent_id": null,
+      "order": 10,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 83.78320935175346,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "completed",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Completed_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot1",
+      "hitbox_px": {
+        "x": 92.96493092454836,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot1Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 11,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 175.60042507970243,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot1.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot1Star0",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 12,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 122.80552603613178,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot1Star1",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 13,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 193.96386822529223,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot1Star2",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 14,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 265.1222104144527,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot2",
+      "kind": "sprite",
+      "asset_id": "LevelCompletedCard",
+      "parent_id": null,
+      "order": 15,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 391.3708820403826,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "completed",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Completed_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot2",
+      "hitbox_px": {
+        "x": 400.5526036131775,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot2Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 16,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 483.18809776833155,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot2.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot2Star0",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 17,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 430.3931987247609,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot2Star1",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 18,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 501.5515409139214,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot2Star2",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 19,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 572.7098831030818,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot3",
+      "kind": "sprite",
+      "asset_id": "LevelCompletedCard",
+      "parent_id": null,
+      "order": 20,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 698.9585547290117,
+        "y": 281.33971291866027,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "completed",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Completed_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot3",
+      "hitbox_px": {
+        "x": 708.1402763018066,
+        "y": 290.52631578947364,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot3Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 21,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 790.7757704569607,
+        "y": 419.1387559808612,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot3.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot3Star0",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 22,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 737.98087141339,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot3Star1",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 23,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 809.1392136025505,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot3Star2",
+      "kind": "sprite",
+      "asset_id": "StarFilledYellow",
+      "parent_id": null,
+      "order": 24,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 880.2975557917109,
+        "y": 512.1531100478469,
+        "width": 76.89691817215729,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "filled",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/icons/LV_FilledStar_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 70,
+        "height": 68
+      },
+      "alpha_bounds_px": {
+        "y": 9,
+        "width": 51,
+        "height": 50,
+        "x": 9
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "LevelSlot5",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 25,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 391.3708820403826,
+        "y": 631.578947368421,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot5",
+      "hitbox_px": {
+        "x": 400.5526036131775,
+        "y": 640.7655502392345,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot5Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 26,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 483.18809776833155,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot5.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot6",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 27,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 698.9585547290117,
+        "y": 631.578947368421,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot6",
+      "hitbox_px": {
+        "x": 708.1402763018066,
+        "y": 640.7655502392345,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot6Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 28,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 790.7757704569607,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot6.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot7",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 29,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 83.78320935175346,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot7",
+      "hitbox_px": {
+        "x": 92.96493092454836,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot7Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 30,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 175.60042507970243,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot7.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot8",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 31,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 391.3708820403826,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot8",
+      "hitbox_px": {
+        "x": 400.5526036131775,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot8Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 32,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 483.18809776833155,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot8.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot9",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 33,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 698.9585547290117,
+        "y": 977.2248803827752,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot9",
+      "hitbox_px": {
+        "x": 708.1402763018066,
+        "y": 986.4114832535886,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot9Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 34,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 790.7757704569607,
+        "y": 1115.0239234449762,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot9.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot10",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 35,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 83.78320935175346,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot10",
+      "hitbox_px": {
+        "x": 92.96493092454836,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot10Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 36,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 175.60042507970243,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot10.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot11",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 37,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 391.3708820403826,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot11",
+      "hitbox_px": {
+        "x": 400.5526036131775,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot11Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 38,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 483.18809776833155,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot11.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot12",
+      "kind": "sprite",
+      "asset_id": "LevelLockedCard",
+      "parent_id": null,
+      "order": 39,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 698.9585547290117,
+        "y": 1318.2775119617224,
+        "width": 296.1105207226355,
+        "height": 327.27272727272725
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "locked",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Locked_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 258,
+        "height": 285
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 242,
+        "height": 269,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot12",
+      "hitbox_px": {
+        "x": 708.1402763018066,
+        "y": 1327.4641148325359,
+        "width": 277.7470775770457,
+        "height": 308.8995215311005
+      }
+    },
+    {
+      "instance_id": "LevelSlot12Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 40,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 790.7757704569607,
+        "y": 1456.0765550239234,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot12.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    },
+    {
+      "instance_id": "LevelSlot4",
+      "kind": "sprite",
+      "asset_id": "LevelSelectedCard",
+      "parent_id": null,
+      "order": 41,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": -1.1477151965993624,
+        "y": 599.4258373205741,
+        "width": 446.46121147715195,
+        "height": 383.5406698564593
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "selected",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/cards/LV_Level_Selected_card.png",
+      "category": "cards",
+      "asset_role": "card",
+      "native_size_px": {
+        "width": 351,
+        "height": 302
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 335,
+        "height": 286,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "LevelSlot4",
+      "hitbox_px": {
+        "x": 9.028038911141993,
+        "y": 609.5858550651161,
+        "width": 426.1097032616692,
+        "height": 363.2206343673754
+      }
+    },
+    {
+      "instance_id": "LevelSlot4Number",
+      "kind": "text",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 42,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 175.60042507970243,
+        "y": 769.377990430622,
+        "width": 119.36238044633369,
+        "height": 79.23444976076556
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "binding": "levels.slot4.number",
+      "text": "",
+      "font_size_px": 65.41976620616366,
+      "color": "#612703",
+      "alignment": null,
+      "font": "Fredoka-Bold; assign project TMP font"
+    }
+  ],
+  "popup_action_button_groups": {}
+}

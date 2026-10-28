@@ -1,0 +1,23 @@
+{
+  "production_pngs": 77,
+  "asset_ids": 80,
+  "layouts": 8,
+  "text_bindings": 45,
+  "source_offline_checks": 1718,
+  "unity_compile": {
+    "status": "passed",
+    "target": "Unity 6000.3.17f1",
+    "branches": [
+      "legacy input",
+      "ENABLE_INPUT_SYSTEM"
+    ],
+    "includes": "Updated sliced-image border import and pixel-per-unit handling"
+  },
+  "unity_execution": "not_run",
+  "integration_checks_remaining": [
+    "Unity rendering",
+    "UI interactions",
+    "Prefab behavior",
+    "Device safe areas"
+  ]
+}

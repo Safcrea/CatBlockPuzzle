@@ -1,0 +1,1284 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "PauseMenu_01",
+  "source": "references/Pause popo up.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "canvasMatch": 0.5,
+  "modal": true,
+  "assets": [
+    {
+      "id": "PauseMenu_01PopupPanel",
+      "path": "UI/popups/PA_Pause_popup.png",
+      "requested": true,
+      "repaired": true,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "width": 693,
+      "height": 986,
+      "opaque": false,
+      "filename": "UI/popups/PA_Pause_popup.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 693,
+        "height": 986
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 677,
+        "height": 970,
+        "x": 8
+      },
+      "sha256": "06d795c887a488c9d3e30d8aa778eb2534394f15e5414d5d2ab6ae3d6afe50a4",
+      "placements": [
+        {
+          "instanceId": "PopupPanel",
+          "screenRect": {
+            "x": 142.31668437832093,
+            "y": 375.5023923444976,
+            "width": 795.3666312433581,
+            "height": 1132.248803827751
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 693,
+        "height": 986
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 677,
+        "height": 970,
+        "x": 8
+      },
+      "asset_path": "UI/popups/PA_Pause_popup.png",
+      "asset_id": "PauseMenu_01PopupPanel"
+    },
+    {
+      "id": "PauseMenu_01_ResumeButton",
+      "path": "UI/btns/PA_Resume_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Resume_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "a844bfe67e78d92ddca90feab5666b73b1581d93234880b3cd92056511fb2f16",
+      "placements": [
+        {
+          "instanceId": "ResumeButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 745.2631578947369,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Resume_btn.png",
+      "asset_id": "PauseMenu_01_ResumeButton"
+    },
+    {
+      "id": "PauseMenu_01_RestartButton",
+      "path": "UI/btns/PA_Restart_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Restart_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "ef4c59162fdfdf07bd2d4d39a87a5f6da9ce5035dd27a66e2fed247f2409bb52",
+      "placements": [
+        {
+          "instanceId": "RestartButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 924.4019138755981,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Restart_btn.png",
+      "asset_id": "PauseMenu_01_RestartButton"
+    },
+    {
+      "id": "PauseMenu_01_SettingsButton",
+      "path": "UI/btns/PA_Settings_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Settings_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "0824262b59e788842742ee88dea53904683d9691617cb68ba3b148404202b52f",
+      "placements": [
+        {
+          "instanceId": "SettingsButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 1102.3923444976076,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Settings_btn.png",
+      "asset_id": "PauseMenu_01_SettingsButton"
+    },
+    {
+      "id": "PauseMenu_01_HomeButton",
+      "path": "UI/btns/PA_Home_btn.png",
+      "requested": true,
+      "repaired": false,
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "filename": "UI/btns/PA_Home_btn.png",
+      "state": "default",
+      "pixelSize": {
+        "width": 521,
+        "height": 153
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "sha256": "5a315b72488970ce7b98ef5bdb95014d0a636b01aab6e7c017b9c15a54135201",
+      "placements": [
+        {
+          "instanceId": "HomeButton",
+          "screenRect": {
+            "x": 241.0201912858661,
+            "y": 1276.9377990430621,
+            "width": 597.9596174282678,
+            "height": 175.6937799043062
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 521,
+      "height": 153,
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "asset_path": "UI/btns/PA_Home_btn.png",
+      "asset_id": "PauseMenu_01_HomeButton"
+    },
+    {
+      "id": "PA_Paused_title",
+      "path": "UI/titles/PA_Paused_title.png",
+      "filename": "UI/titles/PA_Paused_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "state": "default",
+      "placements": [
+        {
+          "instanceId": "PA_Paused_title",
+          "screenRect": {
+            "x": 245.61105207226353,
+            "y": 585.6459330143541,
+            "width": 588.7778958554729,
+            "height": 144.688995215311
+          },
+          "active": true
+        }
+      ],
+      "width": 513,
+      "height": 126,
+      "pixelSize": {
+        "width": 513,
+        "height": 126
+      },
+      "nativeVisibleBounds": {
+        "y": 8,
+        "width": 497,
+        "height": 110,
+        "x": 8
+      },
+      "sha256": "c80b9a4fff64b6310896c424b069856f71da6a9ae7f08396e4a12f7890767bb7",
+      "native_size_px": {
+        "width": 513,
+        "height": 126
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 497,
+        "height": 110,
+        "x": 8
+      },
+      "asset_path": "UI/titles/PA_Paused_title.png",
+      "asset_id": "PA_Paused_title"
+    }
+  ],
+  "elements": [
+    {
+      "id": "Dimmer",
+      "parentId": "",
+      "assetId": "",
+      "kind": "overlay",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "color": "#2D1E0F64",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "ModalBackdrop",
+      "screenGroup": "PauseMenu_01",
+      "popupGroup": null
+    },
+    {
+      "id": "PopupGroup",
+      "parentId": "",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 2,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 2,
+      "screenRect": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "visibleBounds": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "PauseMenu_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "PopupPanel",
+      "parentId": "PopupGroup",
+      "assetId": "PauseMenu_01PopupPanel",
+      "kind": "image",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 3,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/popups/PA_Pause_popup.png",
+      "state": "default",
+      "layerOrder": 3,
+      "screenRect": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "visibleBounds": {
+        "x": 151.49840595111584,
+        "y": 384.68899521531097,
+        "width": 777.0031880977683,
+        "height": 1113.8755980861245
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 151.49840595111584,
+        "y": 384.68899521531097,
+        "width": 777.0031880977683,
+        "height": 1113.8755980861242
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "PauseMenu_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "ResumeButton",
+      "parentId": "PopupGroup",
+      "assetId": "PauseMenu_01_ResumeButton",
+      "kind": "button",
+      "rect": {
+        "x": 98.70350690754518,
+        "y": 369.7607655502393,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 5,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/PA_Resume_btn.png",
+      "state": "default",
+      "layerOrder": 5,
+      "screenRect": {
+        "x": 241.0201912858661,
+        "y": 745.2631578947369,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "visibleBounds": {
+        "x": 250.201912858661,
+        "y": 754.4497607655503,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 250.201912858661,
+        "y": 754.4497607655503,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "PauseMenu_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "RestartButton",
+      "parentId": "PopupGroup",
+      "assetId": "PauseMenu_01_RestartButton",
+      "kind": "button",
+      "rect": {
+        "x": 98.70350690754518,
+        "y": 548.8995215311005,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 6,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/PA_Restart_btn.png",
+      "state": "default",
+      "layerOrder": 6,
+      "screenRect": {
+        "x": 241.0201912858661,
+        "y": 924.4019138755981,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "visibleBounds": {
+        "x": 250.201912858661,
+        "y": 933.5885167464115,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 250.201912858661,
+        "y": 933.5885167464115,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "PauseMenu_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "SettingsButton",
+      "parentId": "PopupGroup",
+      "assetId": "PauseMenu_01_SettingsButton",
+      "kind": "button",
+      "rect": {
+        "x": 98.70350690754518,
+        "y": 726.88995215311,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 7,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/PA_Settings_btn.png",
+      "state": "default",
+      "layerOrder": 7,
+      "screenRect": {
+        "x": 241.0201912858661,
+        "y": 1102.3923444976076,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "visibleBounds": {
+        "x": 250.201912858661,
+        "y": 1111.578947368421,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 250.201912858661,
+        "y": 1111.578947368421,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "PauseMenu_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "HomeButton",
+      "parentId": "PopupGroup",
+      "assetId": "PauseMenu_01_HomeButton",
+      "kind": "button",
+      "rect": {
+        "x": 98.70350690754518,
+        "y": 901.4354066985645,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 8,
+      "previewOnly": false,
+      "active": true,
+      "filename": "UI/btns/PA_Home_btn.png",
+      "state": "default",
+      "layerOrder": 8,
+      "screenRect": {
+        "x": 241.0201912858661,
+        "y": 1276.9377990430621,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "visibleBounds": {
+        "x": 250.201912858661,
+        "y": 1286.1244019138755,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 250.201912858661,
+        "y": 1286.1244019138755,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "PauseMenu_01",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "PA_Paused_title",
+      "parentId": "PopupGroup",
+      "assetId": "PA_Paused_title",
+      "kind": "image",
+      "rect": {
+        "x": 103.2943676939426,
+        "y": 210.14354066985652,
+        "width": 588.7778958554729,
+        "height": 144.688995215311
+      },
+      "screenRect": {
+        "x": 245.61105207226353,
+        "y": 585.6459330143541,
+        "width": 588.7778958554729,
+        "height": 144.688995215311
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "order": 4,
+      "layerOrder": 4,
+      "rotation": 0,
+      "active": true,
+      "preserveAspect": true,
+      "filename": "UI/titles/PA_Paused_title.png",
+      "placementGroup": "Titles",
+      "visibleBounds": {
+        "x": 254.79277364505845,
+        "y": 594.8660948090447,
+        "width": 570.4144527098831,
+        "height": 126.24867162592986
+      }
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "referenceImage": {
+    "filename": "references/Pause popo up.png",
+    "width": 1080,
+    "height": 1920
+  },
+  "grouping": {
+    "screen": "PauseMenu_01",
+    "type": "popup",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": "PopupGroup"
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "popup_pause",
+  "schema_version": "3.2",
+  "screen_kind": "popup",
+  "reference_image": "references/Pause popo up.png",
+  "reference_size_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "reference_transform": {
+    "scale": 1,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 0,
+  "popup_parent_screen": "active_screen",
+  "overlay": {
+    "color": "#000000",
+    "alpha": 0.35
+  },
+  "objects": [
+    {
+      "instance_id": "Dimmer",
+      "kind": "overlay",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 1,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "color": "#2D1E0F64"
+    },
+    {
+      "instance_id": "PopupGroup",
+      "kind": "runtime_anchor",
+      "asset_id": "",
+      "parent_id": null,
+      "order": 2,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution."
+    },
+    {
+      "instance_id": "PopupPanel",
+      "kind": "sprite",
+      "asset_id": "PauseMenu_01PopupPanel",
+      "parent_id": "PopupGroup",
+      "order": 3,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/popups/PA_Pause_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 693,
+        "height": 986
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 677,
+        "height": 970,
+        "x": 8
+      },
+      "preserve_aspect": false
+    },
+    {
+      "instance_id": "PA_Paused_title",
+      "kind": "sprite",
+      "asset_id": "PA_Paused_title",
+      "parent_id": "PopupGroup",
+      "order": 4,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 245.61105207226353,
+        "y": 585.6459330143541,
+        "width": 588.7778958554729,
+        "height": 144.688995215311
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/titles/PA_Paused_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "native_size_px": {
+        "width": 513,
+        "height": 126
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 497,
+        "height": 110,
+        "x": 8
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "ResumeButton",
+      "kind": "sprite",
+      "asset_id": "PauseMenu_01_ResumeButton",
+      "parent_id": "PopupGroup",
+      "order": 5,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 241.0201912858661,
+        "y": 745.2631578947369,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/PA_Resume_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "ResumeButton",
+      "hitbox_px": {
+        "x": 250.201912858661,
+        "y": 754.4497607655503,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "button_size_group": "PA_Action"
+    },
+    {
+      "instance_id": "RestartButton",
+      "kind": "sprite",
+      "asset_id": "PauseMenu_01_RestartButton",
+      "parent_id": "PopupGroup",
+      "order": 6,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 241.0201912858661,
+        "y": 924.4019138755981,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/PA_Restart_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "RestartButton",
+      "hitbox_px": {
+        "x": 250.201912858661,
+        "y": 933.5885167464115,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "button_size_group": "PA_Action"
+    },
+    {
+      "instance_id": "SettingsButton",
+      "kind": "sprite",
+      "asset_id": "PauseMenu_01_SettingsButton",
+      "parent_id": "PopupGroup",
+      "order": 7,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 241.0201912858661,
+        "y": 1102.3923444976076,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/PA_Settings_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "SettingsButton",
+      "hitbox_px": {
+        "x": 250.201912858661,
+        "y": 1111.578947368421,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "button_size_group": "PA_Action"
+    },
+    {
+      "instance_id": "HomeButton",
+      "kind": "sprite",
+      "asset_id": "PauseMenu_01_HomeButton",
+      "parent_id": "PopupGroup",
+      "order": 8,
+      "enabled_by_default": true,
+      "rect_px": {
+        "x": 241.0201912858661,
+        "y": 1276.9377990430621,
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "state_group": null,
+      "state": "default",
+      "verified": true,
+      "verification_scope": "File/geometry checks and offline composition; not Unity/Photoshop execution.",
+      "asset_path": "UI/btns/PA_Home_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "alpha_bounds_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "preserve_aspect": false,
+      "click_action": "HomeButton",
+      "hitbox_px": {
+        "x": 250.201912858661,
+        "y": 1286.1244019138755,
+        "width": 579.596174282678,
+        "height": 157.32057416267943
+      },
+      "button_size_group": "PA_Action"
+    }
+  ],
+  "popup_action_button_groups": {
+    "PA_Action": {
+      "png_size_px": {
+        "width": 521,
+        "height": 153
+      },
+      "layout_size_px": {
+        "width": 597.9596174282678,
+        "height": 175.6937799043062
+      },
+      "visible_frame_px": {
+        "y": 8,
+        "width": 505,
+        "height": 137,
+        "x": 8
+      },
+      "members": [
+        "ResumeButton",
+        "RestartButton",
+        "SettingsButton",
+        "HomeButton"
+      ],
+      "status": "measured_export",
+      "alpha_bounds_by_member": {
+        "ResumeButton": {
+          "y": 8,
+          "width": 505,
+          "height": 137,
+          "x": 8
+        },
+        "RestartButton": {
+          "y": 8,
+          "width": 505,
+          "height": 137,
+          "x": 8
+        },
+        "SettingsButton": {
+          "y": 8,
+          "width": 505,
+          "height": 137,
+          "x": 8
+        },
+        "HomeButton": {
+          "y": 8,
+          "width": 505,
+          "height": 137,
+          "x": 8
+        }
+      },
+      "note": "Visible bounds include soft shadows; native alpha bounds are recorded per member."
+    }
+  }
+}
