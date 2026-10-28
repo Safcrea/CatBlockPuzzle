@@ -37,6 +37,7 @@ namespace CatBlockPuzzle
                 {
                     view.gameObject.SetActive(false);
                     string path = LevelPrefabFolder + "/Level_" + (i + 1).ToString("000") + ".prefab";
+                    if (GameUiTheme.Active != null) GameUiTheme.Active.ApplyLevel(view);
                     var saved = PrefabUtility.SaveAsPrefabAsset(view.gameObject, path, out bool success);
                     if (!success || saved == null) throw new IOException("Could not export " + path);
                     if (!PreparedLevelLoader.ValidateLevelPrefab(contentCatalog, saved.GetComponent<CatPuzzleLevelView>(), i, out string error))

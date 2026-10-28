@@ -51,6 +51,7 @@ namespace CatBlockPuzzle.Editor
         public static string Build(int referenceId, int gameplayId, int selectionId)
         {
             if(Application.isPlaying) throw new InvalidOperationException("Build UI in Edit Mode.");
+            if(GameUiTheme.Active != null) throw new InvalidOperationException("This legacy UI builder is retired. Edit the saved production UI hierarchy or use the supplied layout importer.");
             var reference=((GameObject)EditorUtility.InstanceIDToObject(referenceId)).transform;
             var game=((GameObject)EditorUtility.InstanceIDToObject(gameplayId)).GetComponent<CatBlockPuzzleGame>();
             var selection=((GameObject)EditorUtility.InstanceIDToObject(selectionId)).transform;

@@ -42,7 +42,8 @@ namespace CatBlockPuzzle
                 entry.button.interactable = true;
                 entry.group.alpha = alpha;
                 entry.group.interactable = ready;
-                entry.group.blocksRaycasts = ready;
+                // Keep fading controls as hit surfaces so quick taps cannot reach the board beneath them.
+                entry.group.blocksRaycasts = true;
                 if (ready) entry.button.transition = entry.transition;
             }
         }

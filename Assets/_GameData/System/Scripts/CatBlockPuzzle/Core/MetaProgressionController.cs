@@ -352,7 +352,7 @@ namespace CatBlockPuzzle
             }
 
             CatMetaChapterDefinition chapter = metaCatalog.GetChapterForLevel(zeroBasedLevelIndex);
-            Sprite roomSprite = contentCatalog.roomBackgrounds[chapter.Index];
+            Sprite roomSprite = GameUiTheme.Active != null ? GameUiTheme.Active.background : contentCatalog.roomBackgrounds[chapter.Index];
             Image backgroundImage = Hud.backgroundImage;
             if (backgroundImage != null && roomSprite != null && backgroundImage.sprite != roomSprite)
             {

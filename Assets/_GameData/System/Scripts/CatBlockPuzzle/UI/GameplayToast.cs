@@ -75,7 +75,7 @@ namespace CatBlockPuzzle
                 ? (Vector2)parent.InverseTransformPoint(Hud.boardArea.TransformPoint(new Vector3(0f, Hud.boardArea.rect.yMax, 0f))) + new Vector2(0f, -40f)
                 : new Vector2(0f, 420f);
             Image background = toast.GetComponent<Image>();
-            background.sprite = Assets.roundedBoxSprite;
+            background.sprite = GameUiTheme.Active != null ? GameUiTheme.Active.panel : Assets.roundedBoxSprite;
             background.type = Image.Type.Sliced;
             background.color = new Color(1f, 0.97f, 0.88f, 0.97f);
             background.raycastTarget = false;

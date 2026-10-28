@@ -27,6 +27,7 @@ public static class LevelPlanV2SceneAuthoring
     [MenuItem("Cat Block Puzzle/Level Plan v2/Draw Button Art")]
     public static void DrawArt()
     {
+        if (GameUiTheme.Active != null) { Debug.Log("Production UI already supplies the power-up and daily puzzle artwork."); return; }
         DrawRotateIcon();
         DrawDailyPuzzleButton();
         DrawDoneMark();
@@ -36,6 +37,7 @@ public static class LevelPlanV2SceneAuthoring
     [MenuItem("Cat Block Puzzle/Level Plan v2/Add Rotate and Daily Puzzle Buttons (Keep Scene)")]
     public static void AddButtons()
     {
+        if (GameUiTheme.Active != null) { Debug.Log("The production scene already includes Rotate and Daily Puzzle controls."); return; }
         if (AssetDatabase.LoadAssetAtPath<Sprite>(RotateSpritePath) == null) DrawArt();
         var hud = UnityEngine.Object.FindFirstObjectByType<GameplayHudView>(FindObjectsInactive.Include);
         var home = UnityEngine.Object.FindFirstObjectByType<HomeController>(FindObjectsInactive.Include);

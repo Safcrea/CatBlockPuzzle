@@ -31,6 +31,13 @@ namespace CatBlockPuzzle
             activeThemeIndex = activeTheme.Index;
             activeTrayColor = activeTheme.TrayColor;
             activeTrayHoverColor = activeTheme.TrayHoverColor;
+            if (GameUiTheme.Active != null)
+            {
+                activeTrayColor = Color.white;
+                activeTrayHoverColor = new Color(1f, .94f, .8f);
+                GameUiTheme.Active.ApplyLevel(loadedLevel);
+                return;
+            }
 
             Sprite themeSprite = BackgroundSprite(activeTheme);
             if (hud.backgroundImage != null && themeSprite != null && !hud.UsesAuthoredLayout)
@@ -59,6 +66,7 @@ namespace CatBlockPuzzle
 
         public Sprite BackgroundSprite(CatPuzzleTheme theme)
         {
+            if (GameUiTheme.Active != null) return GameUiTheme.Active.background;
             Sprite[] themeBackgroundSprites = context.Assets.themeBackgroundSprites;
             return themeBackgroundSprites[Mathf.Clamp(theme.Index, 0, themeBackgroundSprites.Length - 1)];
         }

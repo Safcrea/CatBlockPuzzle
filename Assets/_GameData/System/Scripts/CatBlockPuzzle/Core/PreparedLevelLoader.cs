@@ -241,6 +241,7 @@ namespace CatBlockPuzzle
                 loadedLevelPrefab = prefab;
                 loadedLevel = Object.Instantiate(prefab, Hud.levelRoot, false);
                 loadedLevel.name = prefab.name;
+                if (GameUiTheme.Active != null) GameUiTheme.Active.ApplyLevel(loadedLevel);
                 InitializeLoadedLevel();
             }
             preparedLevelIndex = index;

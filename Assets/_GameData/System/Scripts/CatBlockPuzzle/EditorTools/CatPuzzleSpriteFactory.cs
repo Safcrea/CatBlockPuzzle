@@ -178,7 +178,7 @@ namespace CatBlockPuzzle
         }
 
         /// <summary>Slices the three authored 4x2 portrait atlases into the presentation's 24 cat sprites.</summary>
-        private const string CatSpriteFolder = "Assets/Art/CatBlockPuzzleUI/UI/Slicing/Gameplay/NewCats/";
+        private const string CatSpriteFolder = "Assets/CatBlock_UI_New/Characters/";
 
         /// <summary>Fills every mood slot with the matching single-image cat (the new art has no mood variants).</summary>
         public static void LoadAuthoredCatPortraits(GameplayPresentationAssets assets)

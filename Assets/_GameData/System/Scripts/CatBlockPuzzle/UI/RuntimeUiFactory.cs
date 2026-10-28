@@ -32,6 +32,7 @@ namespace CatBlockPuzzle
             panel.sizeDelta = size;
             Image image = panel.gameObject.AddComponent<Image>();
             image.color = Cream;
+            if (GameUiTheme.Active != null) GameUiTheme.Skin(image, GameUiTheme.Active.panel);
             Shadow shadow = panel.gameObject.AddComponent<Shadow>();
             shadow.effectColor = new Color(0.2f, 0.1f, 0.05f, 0.28f);
             shadow.effectDistance = new Vector2(0f, -12f);
@@ -42,12 +43,14 @@ namespace CatBlockPuzzle
         {
             RectTransform rect = CreateRect(parent, name);
             Text text = rect.gameObject.AddComponent<Text>();
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.font = GameUiTheme.Active != null && GameUiTheme.Active.font != null
+                ? GameUiTheme.Active.font : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             text.text = value;
             text.fontSize = size;
             text.fontStyle = FontStyle.Bold;
             text.alignment = anchor;
-            text.color = Ink;
+            text.color = GameUiTheme.Active != null ? GameUiTheme.Active.ink : Ink;
+            text.raycastTarget = false;
             text.resizeTextForBestFit = true;
             text.resizeTextMinSize = 16;
             text.resizeTextMaxSize = size;
@@ -67,6 +70,14 @@ namespace CatBlockPuzzle
             ColorBlock colors = button.colors;
             colors.highlightedColor = Color.Lerp(color, Color.white, 0.16f);
             colors.pressedColor = Color.Lerp(color, Color.black, 0.12f);
+            if (GameUiTheme.Active != null)
+            {
+                GameUiTheme.Skin(image, color == Coral ? GameUiTheme.Active.primaryButton : GameUiTheme.Active.secondaryButton);
+                colors.normalColor = Color.white;
+                colors.highlightedColor = new Color(1f, 1f, 1f, 1f);
+                colors.pressedColor = new Color(.9f, .93f, .85f, 1f);
+                colors.disabledColor = new Color(.82f, .82f, .78f, .65f);
+            }
             button.colors = colors;
             Text text = CreateText(rect, "Label", label, 34, TextAnchor.MiddleCenter);
             Stretch(text.rectTransform);

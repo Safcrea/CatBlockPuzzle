@@ -18,7 +18,7 @@ public static class PowerUpUnlockTutorialPrefabBuilder
     public static void Build()
     {
         Font font = AssetDatabase.LoadAssetAtPath<Font>(FontPath);
-        Sprite handSprite = AssetDatabase.LoadAssetAtPath<Sprite>(HandPath);
+        Sprite handSprite = GameUiTheme.Active != null ? GameUiTheme.Active.pointer : AssetDatabase.LoadAssetAtPath<Sprite>(HandPath);
         Sprite glow = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
         if (font == null || handSprite == null) throw new FileNotFoundException("Missing " + (font == null ? FontPath : HandPath));
 

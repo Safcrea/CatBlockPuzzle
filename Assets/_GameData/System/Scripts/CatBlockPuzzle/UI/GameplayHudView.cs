@@ -128,6 +128,8 @@ namespace CatBlockPuzzle
 
         public Sprite GetPowerUpSprite(PowerUpKind kind)
         {
+            if (GameUiTheme.Active != null)
+                return kind == PowerUpKind.Hint ? GameUiTheme.Active.hint : kind == PowerUpKind.Rotate ? GameUiTheme.Active.rotate : GameUiTheme.Active.freeze;
             var button = PowerUpButton(kind);
             if (kind == PowerUpKind.Rotate && button != null)
             {
@@ -229,6 +231,19 @@ namespace CatBlockPuzzle
         {
             if (hintButton == null || freezeButton == null || rotateButton == null) return;
             var rects = new[] { (RectTransform)hintButton.transform, (RectTransform)freezeButton.transform, (RectTransform)rotateButton.transform };
+            if (GameUiTheme.Active != null)
+            {
+                int visible = 0;
+                foreach (var rect in rects) if (rect.gameObject.activeSelf) visible++;
+                float themedX = -(visible - 1) * .5f * threeButtonSpacing;
+                foreach (var rect in rects)
+                {
+                    if (!rect.gameObject.activeSelf) continue;
+                    rect.anchoredPosition = new Vector2(themedX, 0f);
+                    themedX += threeButtonSpacing;
+                }
+                return;
+            }
             if (authoredButtonPositions == null) authoredButtonPositions = new[] { rects[0].anchoredPosition, rects[1].anchoredPosition };
             if (!rotateButton.gameObject.activeSelf)
             {
