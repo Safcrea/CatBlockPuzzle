@@ -423,7 +423,10 @@ namespace CatBlockPuzzle
             for (int i = 0; i < pieces.Count; i++)
             {
                 PieceState state = pieces[i];
-                if (state == null || state.Rect == null || state.Placed || (drag != null && drag.Piece == state))
+                // A released cat can still be travelling back in the full-screen drag overlay.
+                // Tray-local idle offsets would teleport it to that overlay's centre.
+                if (state == null || state.Rect == null || state.Placed || state.Slot == null ||
+                    state.Rect.parent != state.Slot || (drag != null && drag.Piece == state))
                 {
                     continue;
                 }

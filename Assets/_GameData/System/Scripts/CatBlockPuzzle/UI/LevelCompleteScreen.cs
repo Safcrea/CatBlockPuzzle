@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle
 {
-    /// <summary>Top-to-bottom win celebration: title, earned stars, coins, Continue.</summary>
+    /// <summary>Overlapping win celebration with fading result controls.</summary>
     public sealed class LevelCompleteScreen : MonoBehaviour
     {
         [System.Serializable]
@@ -28,7 +28,7 @@ namespace CatBlockPuzzle
         [SerializeField] private Button doubleCoinsButton;
         [Header("Sequence (auto-bound for the existing win screen)")]
         [SerializeField] private RectTransform titleArtwork;
-        [Tooltip("The entire board to reveal after the earned stars.")]
+        [Tooltip("The coin board, revealed alongside the stars and buttons.")]
         [SerializeField] private RectTransform coinBoard;
         [SerializeField] private RectTransform coinReward;
         [SerializeField] private Text rewardText;
@@ -41,7 +41,10 @@ namespace CatBlockPuzzle
         private readonly Dictionary<Transform, Vector3> restingScales = new Dictionary<Transform, Vector3>();
         private Image[] winStarOverlays;
         private Coroutine entrance;
-        private bool continueWasInteractable;
+        private readonly ResultScreenButtons buttons = new ResultScreenButtons();
+        private Coroutine action;
+        private bool actionPending;
+        private int presentationVersion;
         private int shownReward;
         private bool doubleCoinsClaimed;
 
@@ -103,15 +106,15 @@ namespace CatBlockPuzzle
             if (coinBoard != null) coinBoard.gameObject.SetActive(false);
             root.SetActive(true);
             root.transform.SetAsLastSibling();
-            if (continueButton != null) continueWasInteractable = continueButton.interactable;
+            presentationVersion++;
             shownReward = Mathf.Max(0, reward);
             doubleCoinsClaimed = false;
             // Nothing to double when the level paid nothing (e.g. the testing navigation buttons).
             if (doubleCoinsButton != null)
             {
                 doubleCoinsButton.gameObject.SetActive(shownReward > 0);
-                doubleCoinsButton.interactable = false;
             }
+            buttons.Prepare(continueButton, skipButton, doubleCoinsButton);
             entrance = StartCoroutine(PlayEntrance(Mathf.Clamp(starCount, 0, stars.Length), shownReward));
         }
 
@@ -123,7 +126,7 @@ namespace CatBlockPuzzle
 
         private IEnumerator PlayEntrance(int earnedStars, int reward)
         {
-            float timing = Mathf.Clamp(sequenceTimeScale, 0.35f, 1f);
+            float timing = Mathf.Clamp(sequenceTimeScale, 0.35f, 1f) * 1.35f;
             EnsureWinStarOverlays();
             SetOverlaysVisible(false);
             HideForEntrance(titleArtwork);
@@ -138,80 +141,54 @@ namespace CatBlockPuzzle
                 stars[i].gameObject.SetActive(true);
                 HideForEntrance(stars[i].transform);
             }
-            if (continueButton != null)
-            {
-                continueButton.interactable = false;
-                HideForEntrance(continueButton.transform);
-            }
-            if (doubleCoinsButton != null) HideForEntrance(doubleCoinsButton.transform);
             SetReward(0);
             countedReward = 0;
-            // Ensure the first frame is prepared even if optional bindings are missing.
-            yield return null;
-            yield return Pop(titleArtwork, popDuration * .8f * timing);
-            SoundManager.EnsureInstance().PlaySfxWithMusicDuck("Win");
-            for (int i = 0; i < stars.Length; i++)
-            {
-                if (stars[i] == null) continue;
-                yield return Pop(stars[i].transform, popDuration * .42f * timing);
-                if (i < earnedStars && winStarOverlays[i] != null)
-                {
-                    winStarOverlays[i].gameObject.SetActive(true);
-                    yield return Pop(winStarOverlays[i].transform, popDuration * .56f * timing, true);
-                }
-                yield return new WaitForSecondsRealtime(Mathf.Max(0f, starPause * timing));
-            }
-            // Reveal the parent board, then wait for its pop to finish before counting.
             if (coinBoard != null) coinBoard.gameObject.SetActive(true);
             if (coinReward != null) coinReward.gameObject.SetActive(true);
-            yield return Pop(coinBoard, popDuration * 0.7f * timing);
-            float duration = Mathf.Max(0.1f, coinCountDuration * timing);
+            SoundManager.EnsureInstance().PlaySfxWithMusicDuck("Win");
             float elapsed = 0f;
-            while (reward > 0 && elapsed < duration)
+            float countStart = .28f * timing;
+            float countDuration = Mathf.Max(.1f, coinCountDuration * timing);
+            float buttonStart = .30f * timing;
+            float buttonDuration = .28f * timing;
+            float end = Mathf.Max(countStart + countDuration, (.12f + stars.Length * .10f) * timing + popDuration * timing);
+            while (elapsed < end)
             {
                 elapsed += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsed / duration);
-                SetCountedReward(Mathf.RoundToInt(Mathf.Lerp(0f, reward, 1f - Mathf.Pow(1f - t, 3f))));
-                if (coinReward != null)
-                    coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI) * 0.04f);
+                AnimatePop(titleArtwork, elapsed, popDuration * .8f * timing);
+                for (int i = 0; i < stars.Length; i++)
+                {
+                    if (stars[i] == null) continue;
+                    float starTime = elapsed - (.08f + i * (.07f + starPause * .4f)) * timing;
+                    AnimatePop(stars[i].transform, starTime, popDuration * .65f * timing);
+                    if (i < earnedStars && winStarOverlays[i] != null)
+                    {
+                        winStarOverlays[i].gameObject.SetActive(starTime >= .04f * timing);
+                        AnimatePop(winStarOverlays[i].transform, starTime - .04f * timing, popDuration * .7f * timing, true);
+                    }
+                }
+                AnimatePop(coinBoard, elapsed - .18f * timing, popDuration * .7f * timing);
+                float countT = Mathf.Clamp01((elapsed - countStart) / countDuration);
+                SetCountedReward(Mathf.RoundToInt(Mathf.Lerp(0f, reward, 1f - Mathf.Pow(1f - countT, 3f))));
+                float buttonT = Mathf.Clamp01((elapsed - buttonStart) / buttonDuration);
+                buttons.Set(buttonT * buttonT * (3f - 2f * buttonT), buttonT >= 1f);
                 yield return null;
             }
             SetReward(reward);
-            RestoreScale(coinReward);
-            yield return new WaitForSecondsRealtime(0.15f * timing);
-            if (doubleCoinsButton != null && doubleCoinsButton.gameObject.activeSelf)
-            {
-                yield return Pop(doubleCoinsButton.transform, popDuration * timing);
-                doubleCoinsButton.interactable = true;
-            }
-            if (continueButton != null)
-            {
-                yield return Pop(continueButton.transform, popDuration * timing);
-                continueButton.interactable = continueWasInteractable;
-            }
+            buttons.Set(1f, true);
             entrance = null;
         }
 
-        private IEnumerator Pop(Transform target, float duration, bool jelly = false)
+        private void AnimatePop(Transform target, float elapsed, float duration, bool jelly = false)
         {
-            if (target == null) yield break;
+            if (target == null) return;
             CacheScale(target);
-            Vector3 scale = restingScales[target];
-            duration = Mathf.Max(0.1f, duration);
-            float elapsed = 0f;
-            target.localScale = Vector3.zero;
-            while (elapsed < duration)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                float t = Mathf.Clamp01(elapsed / duration);
-                float grow = 1f - Mathf.Pow(1f - t, 3f);
-                float spring = Mathf.Sin(t * Mathf.PI) * (1f - t) * 0.16f;
-                target.localScale = Vector3.Scale(scale, jelly
-                    ? new Vector3(grow * (1f + spring), grow * (1f - spring * 0.75f), 1f)
-                    : Vector3.one * (grow * (1f + spring)));
-                yield return null;
-            }
-            target.localScale = scale;
+            float t = Mathf.Clamp01(elapsed / Mathf.Max(.1f, duration));
+            float grow = 1f - Mathf.Pow(1f - t, 3f);
+            float spring = Mathf.Sin(t * Mathf.PI) * (1f - t) * .16f;
+            target.localScale = Vector3.Scale(restingScales[target], jelly
+                ? new Vector3(grow * (1f + spring), grow * (1f - spring * .75f), 1f)
+                : Vector3.one * (grow * (1f + spring)));
         }
 
         private void CacheScale(Transform target)
@@ -234,9 +211,11 @@ namespace CatBlockPuzzle
             {
                 StopCoroutine(entrance);
                 entrance = null;
-                if (continueButton != null) continueButton.interactable = continueWasInteractable;
-                if (doubleCoinsButton != null) doubleCoinsButton.interactable = !doubleCoinsClaimed;
             }
+            if (action != null) StopCoroutine(action);
+            action = null;
+            actionPending = false;
+            buttons.Restore();
             foreach (var entry in restingScales)
                 if (entry.Key != null) entry.Key.localScale = entry.Value;
             SetOverlaysVisible(false);
@@ -333,36 +312,56 @@ namespace CatBlockPuzzle
         /// <summary>Plays a rewarded ad, then pays the level's coins again and counts the board up to the doubled total.</summary>
         public void ClaimDoubleCoins()
         {
-            if (doubleCoinsClaimed || shownReward <= 0 || doubleCoinsButton == null || RewardedAds.IsRequestPending) return;
+            if (actionPending || !buttons.Ready || doubleCoinsClaimed || shownReward <= 0 || doubleCoinsButton == null || RewardedAds.IsRequestPending) return;
+            BeginAction(() =>
+            {
+                int version = presentationVersion;
+                int reward = shownReward;
+                RewardedAds.Show(DoubleCoinsPlacement,
+                    onRewarded: () =>
+                    {
+                        GameSystem.Instance?.AwardCoins(reward);
+                        GameAnalytics.CurrencyEarned(reward, GameAnalytics.EarnAdDouble, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
+                        if (!IsOpen || version != presentationVersion) return;
+                        doubleCoinsClaimed = true;
+                        doubleCoinsButton.gameObject.SetActive(false);
+                        actionPending = false;
+                        action = StartCoroutine(PlayDoubledReward());
+                    },
+                    onFailed: outcome =>
+                    {
+                        if (!IsOpen || version != presentationVersion) return;
+                        actionPending = false;
+                        action = StartCoroutine(buttons.Fade(true));
+                    });
+            });
+        }
+
+        private void BeginAction(System.Action callback)
+        {
+            if (actionPending || !buttons.Ready || !IsOpen) return;
+            actionPending = true;
+            if (action != null) StopCoroutine(action);
+            action = null;
             ButtonSfx.PlayClick();
-            // Lock both choices while the ad is up so Next cannot skip past an unpaid reward.
-            doubleCoinsButton.interactable = false;
-            bool continueReady = continueButton != null && continueButton.interactable;
-            if (continueButton != null) continueButton.interactable = false;
-            RewardedAds.Show(DoubleCoinsPlacement,
-                onRewarded: () =>
-                {
-                    doubleCoinsClaimed = true;
-                    GameSystem.Instance?.AwardCoins(shownReward);
-                    GameAnalytics.CurrencyEarned(shownReward, GameAnalytics.EarnAdDouble, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
-                    if (continueButton != null) continueButton.interactable = continueReady;
-                    if (IsOpen) StartCoroutine(PlayDoubledReward());
-                    else doubleCoinsButton.gameObject.SetActive(false);
-                },
-                onFailed: outcome =>
-                {
-                    // No ad or skipped: keep the offer so the player can try again.
-                    doubleCoinsButton.interactable = true;
-                    if (continueButton != null) continueButton.interactable = continueReady;
-                });
+            if (entrance != null) StopCoroutine(entrance);
+            entrance = null;
+            if (!doubleCoinsClaimed) SetReward(shownReward);
+            RestoreScale(coinReward);
+            action = StartCoroutine(FadeThenAct(callback));
+        }
+
+        private IEnumerator FadeThenAct(System.Action callback)
+        {
+            yield return buttons.Fade(false);
+            callback();
         }
 
         private IEnumerator PlayDoubledReward()
         {
             int from = shownReward, to = shownReward * 2;
             float duration = Mathf.Max(0.1f, coinCountDuration * Mathf.Clamp(sequenceTimeScale, 0.35f, 1f));
-            CacheScale(doubleCoinsButton.transform);
-            Vector3 buttonScale = restingScales[doubleCoinsButton.transform];
+            yield return buttons.Fade(true);
             float elapsed = 0f;
             while (elapsed < duration)
             {
@@ -371,16 +370,15 @@ namespace CatBlockPuzzle
                 SetCountedReward(Mathf.RoundToInt(Mathf.Lerp(from, to, 1f - Mathf.Pow(1f - t, 3f))));
                 if (coinReward != null && restingScales.ContainsKey(coinReward))
                     coinReward.localScale = restingScales[coinReward] * (1f + Mathf.Sin(t * Mathf.PI) * 0.08f);
-                doubleCoinsButton.transform.localScale = buttonScale * (1f - t);
+
                 yield return null;
             }
             SetReward(to);
             RestoreScale(coinReward);
-            doubleCoinsButton.transform.localScale = buttonScale;
-            doubleCoinsButton.gameObject.SetActive(false);
+            action = null;
         }
-        public void SkipLevel() { ButtonSfx.PlayClick(); GameSystem.Instance?.SkipLevel(); }
-        private void Next() { ButtonSfx.PlayClick(); GameSystem.Instance?.NextLevel(); }
+        public void SkipLevel() => BeginAction(() => GameSystem.Instance?.SkipLevel());
+        private void Next() => BeginAction(() => GameSystem.Instance?.NextLevel());
         private static Button FindButton(Transform parent, string name)
         {
             Transform found = FindChild(parent, name);

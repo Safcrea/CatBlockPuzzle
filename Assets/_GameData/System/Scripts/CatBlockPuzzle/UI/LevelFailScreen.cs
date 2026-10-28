@@ -25,6 +25,9 @@ namespace CatBlockPuzzle
         }
         private readonly Dictionary<RectTransform, RestingPose> restingPoses = new Dictionary<RectTransform, RestingPose>();
         private Coroutine presentation;
+        private Coroutine action;
+        private bool actionPending;
+        private readonly ResultScreenButtons buttons = new ResultScreenButtons();
         private Image[] tears;
         private static Sprite tearSprite;
         private bool ReducedMotion => PlayerPrefs.GetInt("CatBlockPuzzle.Settings.ReducedMotion", 0) != 0;
@@ -97,7 +100,9 @@ namespace CatBlockPuzzle
             RememberPose(skipButton != null ? skipButton.transform as RectTransform : null);
             root.SetActive(true);
             root.transform.SetAsLastSibling();
+            buttons.Prepare(retryButton, homeButton, skipButton);
             if (!ReducedMotion) presentation = StartCoroutine(PlayPresentation());
+            else buttons.Set(1f, true);
         }
 
         public void Hide()
@@ -110,27 +115,31 @@ namespace CatBlockPuzzle
         {
             EnsureTears();
             float elapsed = 0f;
-            const float duration = 1.05f;
+            const float duration = .65f;
             while (elapsed < duration && IsOpen)
             {
-                float panelT = Mathf.Clamp01(elapsed / .45f);
+                float panelT = Mathf.Clamp01(elapsed / .32f);
                 AnimatePose(panel, Vector2.one * Mathf.Lerp(.96f, 1f, EaseOut(panelT)),
                     new Vector2(0f, 24f * (1f - EaseOut(panelT))), -1.8f * Mathf.Sin(panelT * Mathf.PI * 2f) * (1f - panelT));
-                float titleT = Mathf.Clamp01(elapsed / .48f);
+                float titleT = Mathf.Clamp01(elapsed / .35f);
                 AnimatePose(titleArtwork, Vector2.one * Mathf.Lerp(.92f, 1f, EaseOut(titleT)),
                     new Vector2(0f, 12f * (1f - EaseOut(titleT))), -3f * Mathf.Sin(titleT * Mathf.PI) * (1f - titleT));
-                float catT = Mathf.Clamp01((elapsed - .12f) / .65f);
+                float catT = Mathf.Clamp01((elapsed - .04f) / .48f);
                 float slump = Mathf.Sin(catT * Mathf.PI) * .09f;
                 AnimatePose(sadCatArtwork, new Vector2(1f + slump, 1f - slump),
                     new Vector2(0f, 35f * (1f - EaseOut(catT)) - 10f * Mathf.Sin(catT * Mathf.PI)),
                     3f * Mathf.Sin(catT * Mathf.PI * 2f) * (1f - catT));
-                AnimateRetryButton(elapsed, .28f);
-                AnimateButton(homeButton, elapsed, .45f);
-                AnimateButton(skipButton, elapsed, .55f);
-                elapsed += Time.unscaledDeltaTime;
+                AnimateRetryButton(elapsed, .10f);
+                AnimateButton(homeButton, elapsed, .14f);
+                AnimateButton(skipButton, elapsed, .18f);
+                float buttonT = Mathf.Clamp01((elapsed - .10f) / .26f);
+                buttons.Set(buttonT * buttonT * (3f - 2f * buttonT), buttonT >= 1f);
+                // Give the overlapping reveal more breathing room without adding waits.
+                elapsed += Time.unscaledDeltaTime / 1.35f;
                 yield return null;
             }
             RestorePoses();
+            buttons.Set(1f, true);
             elapsed = 0f;
             while (IsOpen)
             {
@@ -196,6 +205,10 @@ namespace CatBlockPuzzle
         {
             if (presentation != null) StopCoroutine(presentation);
             presentation = null;
+            if (action != null) StopCoroutine(action);
+            action = null;
+            actionPending = false;
+            buttons.Restore();
             RestorePoses();
             HideTears();
         }
@@ -288,15 +301,30 @@ namespace CatBlockPuzzle
             if (button.onClick.GetPersistentEventCount() == 0) button.onClick.AddListener(action);
         }
 
-        private void Retry()
+        private void BeginAction(System.Action callback)
         {
+            if (actionPending || !buttons.Ready || !IsOpen) return;
+            actionPending = true;
             ButtonSfx.PlayClick();
+            if (presentation != null) StopCoroutine(presentation);
+            presentation = null;
+            action = StartCoroutine(FadeThenAct(callback));
+        }
+
+        private IEnumerator FadeThenAct(System.Action callback)
+        {
+            yield return buttons.Fade(false);
+            callback();
+        }
+
+        private void Retry() => BeginAction(() =>
+        {
             GameAnalytics.SetLevelStartSource(GameAnalytics.SourceRetry);
             GameSystem.Instance?.RestartLevel();
-        }
-        private void Home() { ButtonSfx.PlayClick(); GameSystem.Instance?.GoHome(); }
-        public void SkipLevel() => GameSystem.Instance?.SkipLevel();
-        private void Skip() { ButtonSfx.PlayClick(); SkipLevel(); }
+        });
+        private void Home() => BeginAction(() => GameSystem.Instance?.GoHome());
+        public void SkipLevel() => BeginAction(() => GameSystem.Instance?.SkipLevel());
+        private void Skip() => SkipLevel();
 
         private static Transform FindChild(Transform parent, string name)
         {
