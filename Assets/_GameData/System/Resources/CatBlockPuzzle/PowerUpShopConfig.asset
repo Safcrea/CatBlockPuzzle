@@ -18,3 +18,23 @@ MonoBehaviour:
   freeze:
     coinPrice: 150
     quantity: 1
+  rotate:
+    coinPrice: 150
+    quantity: 1
+  starterBundle:
+    available: 1
+    coinPrice: 250
+    hints: 3
+    freezes: 2
+    rotates: 0
+    bonusCoins: 0
+  coinPacks:
+  - available: 0
+    coins: 500
+    priceLabel: $0.99
+  - available: 0
+    coins: 1200
+    priceLabel: $1.99
+  - available: 0
+    coins: 3000
+    priceLabel: $4.99

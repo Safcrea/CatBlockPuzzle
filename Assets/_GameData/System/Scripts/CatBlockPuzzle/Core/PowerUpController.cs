@@ -130,6 +130,40 @@ namespace CatBlockPuzzle
             return CompletePurchase(kind, offer);
         }
 
+        /// <summary>Buys a coin-priced bundle from the shop: charges the price, adds every power-up and any bonus coins.</summary>
+        public PowerUpPurchaseStatus PurchaseBundleFromShop(PowerUpShopConfig.Bundle bundle)
+        {
+            if (!gates.GameplayHidden || gates.ResultScreenOpen) return PowerUpPurchaseStatus.Unavailable;
+            if (!bundle.IsValid) return PowerUpPurchaseStatus.InvalidOffer;
+            if (progress.Coins < bundle.coinPrice) return PowerUpPurchaseStatus.InsufficientCoins;
+            long grantedCoins = (long)progress.Coins - bundle.coinPrice + bundle.bonusCoins;
+            progress.Coins = (int)System.Math.Min(int.MaxValue, grantedCoins);
+            progress.SaveCoins();
+            Grant(PowerUpKind.Hint, bundle.hints);
+            Grant(PowerUpKind.Freeze, bundle.freezes);
+            Grant(PowerUpKind.Rotate, bundle.rotates);
+            meta.RefreshCoinLabels();
+            Hud?.RefreshPowerUpCounts();
+            return PowerUpPurchaseStatus.Success;
+        }
+
+        /// <summary>Adds coins to the wallet (used by the testing-only coin pack rows).</summary>
+        public bool GrantCoinsFromShop(int coins)
+        {
+            if (coins <= 0 || !gates.GameplayHidden || gates.ResultScreenOpen) return false;
+            progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + coins);
+            progress.SaveCoins();
+            meta.RefreshCoinLabels();
+            return true;
+        }
+
+        private void Grant(PowerUpKind kind, int amount)
+        {
+            if (amount <= 0) return;
+            PowerUpInventory.Add(kind, amount);
+            GameAnalytics.ItemEarned(kind, amount, GameAnalytics.EarnPurchase);
+        }
+
         private PowerUpPurchaseStatus CompletePurchase(PowerUpKind kind, PowerUpShopConfig.Offer offer)
         {
             var status = DailyRewardProgress.TryPurchasePowerUp(kind, offer, progress.Coins, PuzzleSaveKeys.SavedCoins, out int remainingCoins);

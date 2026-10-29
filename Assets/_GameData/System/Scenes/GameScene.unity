@@ -5632,7 +5632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 3000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -5641,7 +5641,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278396769
   m_fontColor: {r: 0.38039216, g: 0.15294118, b: 0.011764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5659,13 +5659,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.69288
+  m_fontSize: 49.3
   m_fontSizeBase: 28.69288
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 15.781085
-  m_fontSizeMax: 28.69288
-  m_fontStyle: 0
+  m_fontSizeMin: 32
+  m_fontSizeMax: 56
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -19435,7 +19435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 500
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -19444,7 +19444,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278396769
   m_fontColor: {r: 0.38039216, g: 0.15294118, b: 0.011764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -19462,13 +19462,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.69288
+  m_fontSize: 49.3
   m_fontSizeBase: 28.69288
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 15.781085
-  m_fontSizeMax: 28.69288
-  m_fontStyle: 0
+  m_fontSizeMin: 32
+  m_fontSizeMax: 56
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -31693,7 +31693,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Soon
+  m_text: $0.99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -59298,7 +59298,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 1200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -59307,7 +59307,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278396769
   m_fontColor: {r: 0.38039216, g: 0.15294118, b: 0.011764706, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -59325,13 +59325,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.69288
+  m_fontSize: 49.3
   m_fontSizeBase: 28.69288
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 15.781085
-  m_fontSizeMax: 28.69288
-  m_fontStyle: 0
+  m_fontSizeMin: 32
+  m_fontSizeMax: 56
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -67151,7 +67151,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 6.8862915, y: -110.81329}
-  m_SizeDelta: {x: 465.97238, y: 41.339714}
+  m_SizeDelta: {x: 420, y: 52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &915431795
 MonoBehaviour:
@@ -67173,7 +67173,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Coming soon
+  m_text: "3 Hints \xB7 2 Freezes"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -67200,13 +67200,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.840595
+  m_fontSize: 41.5
   m_fontSizeBase: 29.840595
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 16.412327
-  m_fontSizeMax: 29.840595
-  m_fontStyle: 0
+  m_fontSizeMin: 26
+  m_fontSizeMax: 44
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -73208,7 +73208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Soon
+  m_text: $4.99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -100623,7 +100623,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 2.2954102, y: -162.48816}
-  m_SizeDelta: {x: 328.24655, y: 34.44976}
+  m_SizeDelta: {x: 400, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1370532034
 MonoBehaviour:
@@ -100672,13 +100672,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.45
+  m_fontSize: 46.25
   m_fontSizeBase: 32.136024
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 17.674814
-  m_fontSizeMax: 32.136024
-  m_fontStyle: 0
+  m_fontSizeMin: 28
+  m_fontSizeMax: 50
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -121614,7 +121614,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 4.5909424, y: -162.48816}
-  m_SizeDelta: {x: 331.6897, y: 34.44976}
+  m_SizeDelta: {x: 400, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1675090129
 MonoBehaviour:
@@ -121663,13 +121663,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.45
+  m_fontSize: 46.25
   m_fontSizeBase: 32.136024
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 17.674814
-  m_fontSizeMax: 32.136024
-  m_fontStyle: 0
+  m_fontSizeMin: 28
+  m_fontSizeMax: 50
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -133720,7 +133720,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Soon
+  m_text: $1.99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -143471,7 +143471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Soon
+  m_text: 250 coins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
   m_sharedMaterial: {fileID: 8604530375329828972, guid: 5e4b24ffbffb7488298daabadcf3d8f3, type: 2}
@@ -156473,7 +156473,7 @@ MonoBehaviour:
   referenceUi: {fileID: 9700000100}
   noInternet: {fileID: 9700000098}
   dailyPuzzleUnlockAfterLevel: 10
-  unlockAllLevels: 1
+  unlockAllLevels: 0
   showLevelTestButtons: 0
   levelTestButtons: {fileID: 1196261877}
 --- !u!114 &9100000011
@@ -158050,14 +158050,14 @@ MonoBehaviour:
           m_CallState: 2
   - button: {fileID: 1014194219}
     priceLabel: {fileID: 1984136297}
-    productId: 
+    productId: starter_bundle
     purchaseRequested:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 9700000081}
           m_TargetAssemblyTypeName: CatBlockPuzzle.ProductionShopActions, Assembly-CSharp
-          m_MethodName: ComingSoon
-          m_Mode: 0
+          m_MethodName: BuyStarterBundle
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: 
@@ -158086,14 +158086,14 @@ MonoBehaviour:
           m_CallState: 2
   - button: {fileID: 571714353}
     priceLabel: {fileID: 391036466}
-    productId: 
+    productId: coin_pack_1
     purchaseRequested:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 9700000081}
           m_TargetAssemblyTypeName: CatBlockPuzzle.ProductionShopActions, Assembly-CSharp
-          m_MethodName: ComingSoon
-          m_Mode: 0
+          m_MethodName: BuyCoinPack0
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: 
@@ -158104,14 +158104,14 @@ MonoBehaviour:
           m_CallState: 2
   - button: {fileID: 20923859}
     priceLabel: {fileID: 1866217184}
-    productId: 
+    productId: coin_pack_2
     purchaseRequested:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 9700000081}
           m_TargetAssemblyTypeName: CatBlockPuzzle.ProductionShopActions, Assembly-CSharp
-          m_MethodName: ComingSoon
-          m_Mode: 0
+          m_MethodName: BuyCoinPack1
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: 
@@ -158122,14 +158122,14 @@ MonoBehaviour:
           m_CallState: 2
   - button: {fileID: 141329325}
     priceLabel: {fileID: 999822647}
-    productId: 
+    productId: coin_pack_3
     purchaseRequested:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 9700000081}
           m_TargetAssemblyTypeName: CatBlockPuzzle.ProductionShopActions, Assembly-CSharp
-          m_MethodName: ComingSoon
-          m_Mode: 0
+          m_MethodName: BuyCoinPack2
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: 
@@ -158217,6 +158217,16 @@ MonoBehaviour:
   hintQuantity: {fileID: 1370532034}
   freezePrice: {fileID: 182013838}
   freezeQuantity: {fileID: 1675090129}
+  starterContents: {fileID: 915431795}
+  starterPrice: {fileID: 1984136297}
+  coinPackAmounts:
+  - {fileID: 249226715}
+  - {fileID: 783731572}
+  - {fileID: 67305638}
+  coinPackPrices:
+  - {fileID: 391036466}
+  - {fileID: 1866217184}
+  - {fileID: 999822647}
 --- !u!114 &9700000082
 MonoBehaviour:
   m_ObjectHideFlags: 0
