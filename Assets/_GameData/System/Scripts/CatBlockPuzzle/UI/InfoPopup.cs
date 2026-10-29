@@ -28,6 +28,10 @@ namespace CatBlockPuzzle
 
         public bool IsOpen => gameObject.activeInHierarchy && !closing;
 
+        /// <summary>Raised once the popup has finished closing.</summary>
+        public event Action Closed;
+        private bool shown;
+
         /// <summary>Spawns the popup under <paramref name="parent"/>; null when the prefab is missing or broken.</summary>
         public static InfoPopup Create(Transform parent)
         {
@@ -74,6 +78,7 @@ namespace CatBlockPuzzle
             }
             closing = false;
             messageSource = messageLine;
+            shown = true;
             title.text = heading;
             icon.sprite = picture;
             icon.enabled = picture != null;
@@ -129,6 +134,9 @@ namespace CatBlockPuzzle
             motion = null;
             closing = false;
             if (icon != null) { icon.rectTransform.localScale = Vector3.one; icon.rectTransform.localRotation = Quaternion.identity; }
+            if (!shown) return;
+            shown = false;
+            Closed?.Invoke();
         }
 
         private static float EaseOutBack(float t)

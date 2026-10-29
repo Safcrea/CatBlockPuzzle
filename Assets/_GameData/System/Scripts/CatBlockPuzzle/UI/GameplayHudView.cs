@@ -69,9 +69,13 @@ namespace CatBlockPuzzle
         // Hint and Freeze as authored; Rotate shifts them only while it is shown.
         private Vector2[] authoredButtonPositions;
         [Header("Power Up Unlock Levels")]
-        [SerializeField, Min(1)] private int hintUnlockLevel = 3;
-        [SerializeField, Min(1)] private int freezeUnlockLevel = 5;
+        [Tooltip("Hint and Freeze are always on the HUD; until this level is reached they are greyed out and show it. Once reached they stay unlocked.")]
+        [SerializeField, Min(1)] private int hintUnlockLevel = 4;
+        [SerializeField, Min(1)] private int freezeUnlockLevel = 13;
         [SerializeField, Min(1)] private int rotateUnlockLevel = 21;
+        [Tooltip("Applied to the images of a locked power-up button (Cat Block Puzzle/UI Grayscale).")]
+        [SerializeField] private Material lockedMaterial;
+        private InfoPopup lockedInfo;
         [Header("Power Up Purchase")]
         [Tooltip("Popup spawned when a power-up is tapped with an empty bag. Falls back to Resources/" + PowerUpPurchasePopup.PrefabResourcePath + ", then to a code-built layout.")]
         [SerializeField] private GameObject purchasePopupPrefab;
@@ -107,14 +111,24 @@ namespace CatBlockPuzzle
             }
         }
 
-        public bool IsPowerUpUnlocked(PowerUpKind kind)
+        private enum PowerUpLock { None, Level, NoTimer }
+
+        /// <summary>True when the power-up can be used now: its unlock level was reached and, for Freeze, the level has a clock.</summary>
+        public bool IsPowerUpUnlocked(PowerUpKind kind) => LockOf(kind) == PowerUpLock.None;
+
+        public int UnlockLevelOf(PowerUpKind kind) =>
+            Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : kind == PowerUpKind.Rotate ? rotateUnlockLevel : freezeUnlockLevel);
+
+        // The furthest level the player has reached counts too, so an unlocked power-up stays unlocked when an earlier level is replayed.
+        private PowerUpLock LockOf(PowerUpKind kind)
         {
-            int level = GameSystem.Instance != null ? GameSystem.Instance.DisplayLevelNumber : 1;
-            // Untimed levels have no clock to freeze, so Freeze first appears (and is taught) on the first timed level.
-            if (kind == PowerUpKind.Freeze && DifficultyProfile.IsUntimed(level)) return false;
-            if (kind == PowerUpKind.Rotate && rotateButton == null) return false;
-            int unlock = kind == PowerUpKind.Hint ? hintUnlockLevel : kind == PowerUpKind.Rotate ? rotateUnlockLevel : freezeUnlockLevel;
-            return level >= Mathf.Max(1, unlock);
+            if (kind == PowerUpKind.Rotate && rotateButton == null) return PowerUpLock.Level;
+            GameSystem system = GameSystem.Instance;
+            int level = system != null ? Mathf.Max(system.DisplayLevelNumber, system.HighestLevelReached) : 1;
+            if (level < UnlockLevelOf(kind)) return PowerUpLock.Level;
+            // Untimed levels have no clock to freeze.
+            if (kind == PowerUpKind.Freeze && DifficultyProfile.IsUntimed(system != null ? system.DisplayLevelNumber : 1)) return PowerUpLock.NoTimer;
+            return PowerUpLock.None;
         }
 
         internal Button PowerUpButton(PowerUpKind kind) => kind == PowerUpKind.Hint ? hintButton : kind == PowerUpKind.Rotate ? rotateButton : freezeButton;
@@ -188,8 +202,47 @@ namespace CatBlockPuzzle
 
         private void Start() => RefreshPowerUpCounts();
 
-        private void Freeze() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseFreezePowerUp(); }
-        private void Hint() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseHintPowerUp(); }
+        private void Freeze() { ButtonSfx.PlayClick(); if (ShowLockedInfo(PowerUpKind.Freeze)) return; GameSystem.Instance?.TryUseFreezePowerUp(); }
+        private void Hint() { ButtonSfx.PlayClick(); if (ShowLockedInfo(PowerUpKind.Hint)) return; GameSystem.Instance?.TryUseHintPowerUp(); }
+
+        // A greyed-out power-up answers a tap with a short popup (and pauses the level behind it).
+        private bool ShowLockedInfo(PowerUpKind kind)
+        {
+            PowerUpLock state = LockOf(kind);
+            if (state == PowerUpLock.None) return false;
+            if (canvas == null || IsTutorialOpen || IsPurchaseOpen) return true;
+            if (lockedInfo == null)
+            {
+                lockedInfo = InfoPopup.Create(canvas.transform);
+                if (lockedInfo == null) return true;
+                lockedInfo.Closed += () => GameSystem.Instance?.SetPowerUpPurchaseOpen(false);
+            }
+            if (lockedInfo.IsOpen) return true;
+            string name = kind == PowerUpKind.Hint ? "Hint" : "Freeze";
+            string line = state == PowerUpLock.Level ? "Unlocks at\nlevel " + UnlockLevelOf(kind) : "No timer\non this level";
+            GameSystem.Instance?.SetPowerUpPurchaseOpen(true);
+            lockedInfo.Show(name, GetPowerUpSprite(kind), () => line, lockedMaterial);
+            return true;
+        }
+
+        // Always shown; locked ones are grey and their count pill reads the unlock level instead of a count.
+        private void ApplyPowerUpState(Button button, Text countText, GameObject board, PowerUpKind kind, bool available)
+        {
+            if (button == null) return;
+            PowerUpLock state = LockOf(kind);
+            bool locked = state != PowerUpLock.None;
+            button.gameObject.SetActive(true);
+            button.interactable = locked || available;
+            Material material = locked ? lockedMaterial : null;
+            foreach (Image image in button.GetComponentsInChildren<Image>(true)) image.material = material;
+            if (!locked) return;
+            if (board != null) board.SetActive(true);
+            if (countText != null)
+            {
+                countText.gameObject.SetActive(true);
+                countText.text = state == PowerUpLock.Level ? "Lv " + UnlockLevelOf(kind) : "No timer";
+            }
+        }
         private void Rotate() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseRotatePowerUp(); }
 
         /// <summary>Updates the authored HUD labels and availability from the saved inventory.</summary>
@@ -201,18 +254,8 @@ namespace CatBlockPuzzle
 
             UpdateCountPresentation(hintCountText, hintCountBoard, hintCount);
             UpdateCountPresentation(freezeCountText, freezeCountBoard, freezeCount);
-            bool hintUnlocked = IsPowerUpUnlocked(PowerUpKind.Hint);
-            bool freezeUnlocked = IsPowerUpUnlocked(PowerUpKind.Freeze);
-            if (hintButton != null)
-            {
-                hintButton.gameObject.SetActive(hintUnlocked);
-                hintButton.interactable = hintUnlocked;
-            }
-            if (freezeButton != null)
-            {
-                freezeButton.gameObject.SetActive(freezeUnlocked);
-                freezeButton.interactable = freezeUnlocked && freezeAvailable;
-            }
+            ApplyPowerUpState(hintButton, hintCountText, hintCountBoard, PowerUpKind.Hint, true);
+            ApplyPowerUpState(freezeButton, freezeCountText, freezeCountBoard, PowerUpKind.Freeze, freezeAvailable);
 
             if (rotateButton != null)
             {

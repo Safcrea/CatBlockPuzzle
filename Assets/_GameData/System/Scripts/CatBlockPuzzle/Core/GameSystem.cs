@@ -56,6 +56,8 @@ namespace CatBlockPuzzle
         public int CurrentLevelNumber => gameplayController != null ? gameplayController.CurrentLevelNumber : 1;
         /// <summary>The number the player sees (keeps counting past the authored levels).</summary>
         public int DisplayLevelNumber => gameplayController != null ? gameplayController.DisplayLevelNumber : 1;
+        /// <summary>The furthest level the player has reached (the next one to play), used to keep power-ups unlocked on replays.</summary>
+        public int HighestLevelReached => gameplayController != null ? gameplayController.RecommendedLevelNumber : 1;
 
         // Button helpers for browsing levels without awarding progress or unlocking chapters.
         public void LoadNextLevel() => LoadAdjacentLevel(1);

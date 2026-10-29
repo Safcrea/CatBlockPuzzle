@@ -42784,7 +42784,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 18
-    m_MaxSize: 44
+    m_MaxSize: 64
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -54059,7 +54059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 192.36433, y: -66}
+  m_AnchoredPosition: {x: 192.36432, y: -66}
   m_SizeDelta: {x: 312.72867, y: 132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &700968721
@@ -153845,7 +153845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2116504854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -154179,9 +154179,10 @@ MonoBehaviour:
   rotateCountText: {fileID: 399919688}
   rotateCountBoard: {fileID: 1427633439}
   threeButtonSpacing: 265
-  hintUnlockLevel: 3
-  freezeUnlockLevel: 5
+  hintUnlockLevel: 4
+  freezeUnlockLevel: 13
   rotateUnlockLevel: 21
+  lockedMaterial: {fileID: 2100000, guid: fb950cc7f53662845a7005abf8df6ae3, type: 2}
   purchasePopupPrefab: {fileID: 1000, guid: 2f509049234a42b3b1f24d3a64be71c9, type: 3}
 --- !u!114 &2116504856
 MonoBehaviour:
