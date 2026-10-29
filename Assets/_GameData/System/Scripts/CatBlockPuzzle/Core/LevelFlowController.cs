@@ -201,7 +201,7 @@ namespace CatBlockPuzzle
             tutorial.Begin();
 
             // The unlock tutorial ends with the player tapping the power-up: spend it now that play has started.
-            if (Hud != null && Hud.TryTakeTutorialUse(out PowerUpKind taught))
+            while (Hud != null && Hud.TryTakeTutorialUse(out PowerUpKind taught))
             {
                 GameSystem.Instance?.UseTaughtPowerUp(taught);
             }

@@ -127,6 +127,7 @@ namespace CatBlockPuzzle
         private bool UseFreezePowerUp(bool fromTutorial)
         {
             if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Freeze)) return false;
+            if (fromTutorial) return DemoUse(PowerUpKind.Freeze, 0, () => gameplayController.TryUseFreezePowerUp());
             if (PowerUpInventory.GetCount(PowerUpKind.Freeze) <= 0)
             {
                 gameplayController.OpenPowerUpPurchase(PowerUpKind.Freeze);
@@ -142,9 +143,19 @@ namespace CatBlockPuzzle
             return consumed;
         }
 
+        // The unlock tutorial's demo tap shows the effect but costs nothing, so the free power-ups granted on unlock stay intact.
+        private bool DemoUse(PowerUpKind kind, int cost, System.Func<bool> use)
+        {
+            if (!use()) return false;
+            gameplayController.RefreshPowerUpHud();
+            gameplayController.ReportPowerUpUsed(kind, cost, true);
+            return true;
+        }
+
         private bool UseHintPowerUp(bool fromTutorial)
         {
             if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Hint)) return false;
+            if (fromTutorial) return DemoUse(PowerUpKind.Hint, 0, () => gameplayController.TryUseHintPowerUp());
             int cost = gameplayController.HintCost;
             if (PowerUpInventory.GetCount(PowerUpKind.Hint) < cost)
             {

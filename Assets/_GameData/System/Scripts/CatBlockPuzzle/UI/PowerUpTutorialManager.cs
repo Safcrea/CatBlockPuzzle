@@ -18,17 +18,18 @@ namespace CatBlockPuzzle
         public const string RotateSeenKey = "CatBlockPuzzle.Tutorial.Rotate";
 
         private PowerUpUnlockTutorial overlay;
-        private PowerUpKind? pendingUse;
+        // Every power-up taught in one level start waits here, so none of the demo taps is lost.
+        private readonly System.Collections.Generic.Queue<PowerUpKind> pendingUses = new System.Collections.Generic.Queue<PowerUpKind>();
 
         public bool IsOpen => overlay != null;
 
         /// <summary>The power-up whose tutorial tap still has to be spent, if any; clears it.</summary>
         public bool TryTakePendingUse(out PowerUpKind kind)
         {
-            kind = pendingUse ?? default;
-            bool has = pendingUse.HasValue;
-            pendingUse = null;
-            return has;
+            kind = default;
+            if (pendingUses.Count == 0) return false;
+            kind = pendingUses.Dequeue();
+            return true;
         }
 
         public IEnumerator ShowUnlockedTutorials(GameplayHudView hud, float freezeSeconds)
@@ -47,13 +48,13 @@ namespace CatBlockPuzzle
         private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string message, string key)
         {
             Button button = hud.PowerUpButton(kind);
-            // Unlocking gives the player "Free On Unlock" power-ups to keep (Inspector, Gameplay HUD). When the
-            // introduction runs, its tap spends one more straight away, so that one is granted on top.
-            void MarkSeenAndGrant(bool demoWillSpendOne)
+            // Unlocking gives the player exactly "Free On Unlock" power-ups (Inspector, Gameplay HUD). The tutorial's
+            // demo tap is free, so the HUD shows that number as soon as the power-up unlocks and keeps showing it.
+            void MarkSeenAndGrant(bool unused)
             {
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
-                int grant = hud.FreeOnUnlock + (demoWillSpendOne ? 1 : 0);
+                int grant = hud.FreeOnUnlock;
                 if (grant > 0)
                 {
                     PowerUpInventory.Add(kind, grant);
@@ -79,7 +80,7 @@ namespace CatBlockPuzzle
             GameAnalytics.PowerUpTutorialShown(kind);
             yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, () => MarkSeenAndGrant(true), () =>
             {
-                pendingUse = kind;
+                pendingUses.Enqueue(kind);
                 GameAnalytics.PowerUpTutorialTapped(kind);
             });
             CloseOverlay();
@@ -89,7 +90,7 @@ namespace CatBlockPuzzle
         public void Cancel()
         {
             StopAllCoroutines();
-            pendingUse = null;
+            pendingUses.Clear();
             CloseOverlay();
         }
 

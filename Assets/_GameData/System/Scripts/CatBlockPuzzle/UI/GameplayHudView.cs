@@ -73,7 +73,7 @@ namespace CatBlockPuzzle
         [SerializeField, Min(1)] private int hintUnlockLevel = 4;
         [SerializeField, Min(1)] private int freezeUnlockLevel = 13;
         [SerializeField, Min(1)] private int rotateUnlockLevel = 21;
-        [Tooltip("Free Hints / Freezes the player keeps when each one unlocks. The unlock tutorial's demo tap spends one more, which is granted on top.")]
+        [Tooltip("Free Hints / Freezes granted when each one unlocks (the HUD shows exactly this number). The unlock tutorial's demo tap costs nothing.")]
         [SerializeField, Min(0)] private int freeOnUnlock = 2;
         internal int FreeOnUnlock => freeOnUnlock;
         [Tooltip("Applied to the images of a locked power-up button (Cat Block Puzzle/UI Grayscale).")]
