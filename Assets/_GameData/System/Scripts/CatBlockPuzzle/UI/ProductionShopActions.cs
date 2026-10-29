@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -17,11 +18,17 @@ namespace CatBlockPuzzle
         [Header("Coin Packs (top to bottom)")]
         [SerializeField] private TMP_Text[] coinPackAmounts = new TMP_Text[0];
         [SerializeField] private TMP_Text[] coinPackPrices = new TMP_Text[0];
-        private float clearAt;
+        [Header("Message toast")]
+        [Tooltip("Centred pill that holds the status label. Shown for Toast Seconds, then faded out.")]
+        [SerializeField] private CanvasGroup toast;
+        [SerializeField, Min(0.5f)] private float toastSeconds = 2f;
+        private Coroutine toastRoutine;
         private PowerUpShopConfig Config => GameSystem.Instance != null ? GameSystem.Instance.PowerUpShop : PowerUpShopConfig.Load();
         private void OnEnable()
         {
             if (statusLabel != null) statusLabel.text = string.Empty;
+            toastRoutine = null;
+            if (toast != null) toast.gameObject.SetActive(false);
             var config = Config;
             if (config == null) return;
             var offer = config.GetOffer(PowerUpKind.Hint);
@@ -91,18 +98,47 @@ namespace CatBlockPuzzle
             else if (result == PowerUpPurchaseStatus.InventoryFull) Message("Your " + plural.ToLowerInvariant() + " are full");
             else Message("This offer is unavailable");
         }
+        // A big centred toast: it pops in, stays for a couple of seconds, then fades away.
         private void Message(string text)
         {
             if (statusLabel != null) statusLabel.text = text;
-            clearAt = Time.unscaledTime + 2.5f;
+            if (toast == null) return;
+            if (toastRoutine != null) StopCoroutine(toastRoutine);
+            toastRoutine = StartCoroutine(ShowToast());
         }
-        private void Update()
+
+        private IEnumerator ShowToast()
         {
-            if (statusLabel != null && clearAt > 0f && Time.unscaledTime >= clearAt)
+            RectTransform rect = (RectTransform)toast.transform;
+            bool reduced = PlayerPrefs.GetInt("CatBlockPuzzle.Settings.ReducedMotion", 0) != 0;
+            toast.gameObject.SetActive(true);
+            toast.transform.SetAsLastSibling();
+            toast.alpha = 1f;
+            const float popTime = .28f, fadeTime = .4f;
+            for (float t = 0f; t < popTime && !reduced; t += Time.unscaledDeltaTime)
             {
-                statusLabel.text = string.Empty;
-                clearAt = 0f;
+                float k = Mathf.Clamp01(t / popTime);
+                rect.localScale = Vector3.one * Mathf.LerpUnclamped(.6f, 1f, EaseOutBack(k));
+                yield return null;
             }
+            rect.localScale = Vector3.one;
+            for (float t = 0f; t < toastSeconds; t += Time.unscaledDeltaTime) yield return null;
+            for (float t = 0f; t < fadeTime; t += Time.unscaledDeltaTime)
+            {
+                toast.alpha = 1f - Mathf.Clamp01(t / fadeTime);
+                if (!reduced) rect.localScale = Vector3.one * (1f + .06f * Mathf.Clamp01(t / fadeTime));
+                yield return null;
+            }
+            toast.alpha = 0f;
+            toast.gameObject.SetActive(false);
+            if (statusLabel != null) statusLabel.text = string.Empty;
+            toastRoutine = null;
+        }
+
+        private static float EaseOutBack(float t)
+        {
+            const float c1 = 1.70158f, c3 = c1 + 1f;
+            return 1f + c3 * Mathf.Pow(t - 1f, 3f) + c1 * Mathf.Pow(t - 1f, 2f);
         }
     }
 }
