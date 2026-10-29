@@ -9,6 +9,8 @@ namespace CatBlockPuzzle
         [SerializeField] private TMP_Text statusLabel;
         [SerializeField] private TMP_Text hintPrice;
         [SerializeField] private TMP_Text hintQuantity;
+        [SerializeField] private TMP_Text freezePrice;
+        [SerializeField] private TMP_Text freezeQuantity;
         private float clearAt;
         private void OnEnable()
         {
@@ -18,14 +20,19 @@ namespace CatBlockPuzzle
             var offer = config.GetOffer(PowerUpKind.Hint);
             if (hintPrice != null) hintPrice.text = offer.coinPrice + " coins";
             if (hintQuantity != null) hintQuantity.text = "x" + offer.quantity + " Hint";
+            offer = config.GetOffer(PowerUpKind.Freeze);
+            if (freezePrice != null) freezePrice.text = offer.coinPrice + " coins";
+            if (freezeQuantity != null) freezeQuantity.text = "x" + offer.quantity + " Freeze";
         }
-        public void BuyHint()
+        public void BuyHint() => Buy(PowerUpKind.Hint, "Hints");
+        public void BuyFreeze() => Buy(PowerUpKind.Freeze, "Freezes");
+        private void Buy(PowerUpKind kind, string plural)
         {
             var system = GameSystem.Instance;
-            PowerUpPurchaseStatus result = system != null ? system.PurchasePowerUpFromShop(PowerUpKind.Hint) : PowerUpPurchaseStatus.Unavailable;
-            if (result == PowerUpPurchaseStatus.Success) Message("Hints added!");
+            PowerUpPurchaseStatus result = system != null ? system.PurchasePowerUpFromShop(kind) : PowerUpPurchaseStatus.Unavailable;
+            if (result == PowerUpPurchaseStatus.Success) Message(plural + " added!");
             else if (result == PowerUpPurchaseStatus.InsufficientCoins) Message("Not enough coins");
-            else if (result == PowerUpPurchaseStatus.InventoryFull) Message("Your hints are full");
+            else if (result == PowerUpPurchaseStatus.InventoryFull) Message("Your " + plural.ToLowerInvariant() + " are full");
             else Message("This offer is unavailable");
         }
         public void ComingSoon() => Message("Coming soon");
