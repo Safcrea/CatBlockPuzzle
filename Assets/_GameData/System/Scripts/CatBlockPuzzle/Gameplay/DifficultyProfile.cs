@@ -73,8 +73,9 @@ namespace CatBlockPuzzle
             // Hints stay generous while the player learns, then reveal less and cost more.
             HintReveal reveal = difficulty <= 4 ? HintReveal.FullShape : HintReveal.AnchorOnly;
             int hintCost = difficulty >= 8 ? 2 : 1;
-            return new DifficultyProfile(band.DurationSeconds, band.ThreeStarRatio, band.TwoStarRatio,
-                band.CanFail && difficulty >= FirstFailableDifficulty, reveal, hintCost);
+            // Every timed level can fail; before that, a level can only fail once its difficulty reaches the failable band.
+            bool canFail = levelIndex >= UntimedLevelCount || (band.CanFail && difficulty >= FirstFailableDifficulty);
+            return new DifficultyProfile(band.DurationSeconds, band.ThreeStarRatio, band.TwoStarRatio, canFail, reveal, hintCost);
         }
 
         /// <summary>The stars a finished (or in-progress) attempt earns: drops on move-limit levels, three on untimed levels, else time.</summary>

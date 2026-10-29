@@ -29,6 +29,15 @@ namespace CatBlockPuzzle.Tests
             Assert.That(profile.CanFail, Is.EqualTo(canFail));
         }
 
+        [TestCase(9, 1, false)]
+        [TestCase(10, 1, true)]
+        [TestCase(10, 2, true)]
+        [TestCase(19, 2, true)]
+        public void TimedLevels_AlwaysCanFail(int levelIndex, int difficulty, bool canFail)
+        {
+            Assert.That(DifficultyProfile.For(Level(difficulty), levelIndex).CanFail, Is.EqualTo(canFail));
+        }
+
         [TestCase(1, HintReveal.FullShape, 1)]
         [TestCase(4, HintReveal.FullShape, 1)]
         [TestCase(5, HintReveal.AnchorOnly, 1)]
