@@ -1,0 +1,1810 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "LevelComplete",
+  "source": "references/LevelComplete.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 941,
+    "y": 1672
+  },
+  "canvasMatch": 0.5,
+  "modal": true,
+  "assets": [
+    {
+      "id": "LC_Caption_icon",
+      "asset_id": "LC_Caption_icon",
+      "path": "UI/icons/LC_Caption_icon.png",
+      "filename": "UI/icons/LC_Caption_icon.png",
+      "asset_path": "UI/icons/LC_Caption_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 586,
+      "height": 56,
+      "pixelSize": {
+        "width": 586,
+        "height": 56
+      },
+      "native_size_px": {
+        "width": 586,
+        "height": 56
+      },
+      "nativeVisibleBounds": {
+        "x": 14,
+        "y": 13,
+        "width": 558,
+        "height": 35
+      },
+      "alpha_bounds_px": {
+        "x": 14,
+        "y": 13,
+        "width": 558,
+        "height": 35
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "28d9ed197470744665b1344568f4bb308da4e383219558677ff08fa851b0181d",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_Caption_icon",
+          "screenRect": {
+            "x": 206.58873538788524,
+            "y": 1147.077577045696,
+            "width": 672.5611052072263,
+            "height": 64.2720510095643
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_Complete_popup",
+      "asset_id": "LC_Complete_popup",
+      "path": "UI/popups/LC_Complete_popup.png",
+      "filename": "UI/popups/LC_Complete_popup.png",
+      "asset_path": "UI/popups/LC_Complete_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "width": 774,
+      "height": 1122,
+      "pixelSize": {
+        "width": 774,
+        "height": 1122
+      },
+      "native_size_px": {
+        "width": 774,
+        "height": 1122
+      },
+      "nativeVisibleBounds": {
+        "x": 14,
+        "y": 10,
+        "width": 747,
+        "height": 1095
+      },
+      "alpha_bounds_px": {
+        "x": 14,
+        "y": 10,
+        "width": 747,
+        "height": 1095
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": true,
+      "state": "default",
+      "sha256": "6bbe3fdb3213b4d5b76100c9fca6a086c9b5a475772c8695d9fab85598b405b5",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_Complete_popup",
+          "screenRect": {
+            "x": 97.5557917109458,
+            "y": 351.7109458023379,
+            "width": 888.3315621679064,
+            "height": 1287.7364505844846
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_Complete_title",
+      "asset_id": "LC_Complete_title",
+      "path": "UI/titles/LC_Complete_title.png",
+      "filename": "UI/titles/LC_Complete_title.png",
+      "asset_path": "UI/titles/LC_Complete_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "width": 630,
+      "height": 160,
+      "pixelSize": {
+        "width": 630,
+        "height": 160
+      },
+      "native_size_px": {
+        "width": 630,
+        "height": 160
+      },
+      "nativeVisibleBounds": {
+        "x": 8,
+        "y": 22,
+        "width": 614,
+        "height": 117
+      },
+      "alpha_bounds_px": {
+        "x": 8,
+        "y": 22,
+        "width": 614,
+        "height": 117
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "7401659af6f8c168df38d4b6e010d8af38e6cee97c725e3d465e42d809dc56f3",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_Complete_title",
+          "screenRect": {
+            "x": 185.9298618490967,
+            "y": 597.3219978746015,
+            "width": 723.0605738575983,
+            "height": 183.63443145589798
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_Home_btn",
+      "asset_id": "LC_Home_btn",
+      "path": "UI/btns/LC_Home_btn.png",
+      "filename": "UI/btns/LC_Home_btn.png",
+      "asset_path": "UI/btns/LC_Home_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 576,
+      "height": 164,
+      "pixelSize": {
+        "width": 576,
+        "height": 164
+      },
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "nativeVisibleBounds": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "38b70f3932b7fbac566f544f6404863d7c4ecfbe33826fd7aa1e0644ddee476a",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_Home_btn",
+          "screenRect": {
+            "x": 208.88416578108396,
+            "y": 1380.0637619553665,
+            "width": 661.0839532412327,
+            "height": 188.22529224229544
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_Next_btn",
+      "asset_id": "LC_Next_btn",
+      "path": "UI/btns/LC_Next_btn.png",
+      "filename": "UI/btns/LC_Next_btn.png",
+      "asset_path": "UI/btns/LC_Next_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 576,
+      "height": 164,
+      "pixelSize": {
+        "width": 576,
+        "height": 164
+      },
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "nativeVisibleBounds": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "978a5297a098d87092606e811cfd548154d26e63b57b5a7417795c98c1b4c479",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_Next_btn",
+          "screenRect": {
+            "x": 208.88416578108396,
+            "y": 1210.201912858661,
+            "width": 661.0839532412327,
+            "height": 188.22529224229544
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_Reward_bar",
+      "asset_id": "LC_Reward_bar",
+      "path": "UI/bars/LC_Reward_bar.png",
+      "filename": "UI/bars/LC_Reward_bar.png",
+      "asset_path": "UI/bars/LC_Reward_bar.png",
+      "category": "bars",
+      "asset_role": "sprite",
+      "width": 323,
+      "height": 134,
+      "pixelSize": {
+        "width": 323,
+        "height": 134
+      },
+      "native_size_px": {
+        "width": 323,
+        "height": 134
+      },
+      "nativeVisibleBounds": {
+        "x": 9,
+        "y": 19,
+        "width": 306,
+        "height": 97
+      },
+      "alpha_bounds_px": {
+        "x": 9,
+        "y": 19,
+        "width": 306,
+        "height": 97
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": true,
+      "state": "default",
+      "sha256": "351b946e52d033e7f136884bf3865753bbacdb356004291ba3cb41fa918fc974",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_Reward_bar",
+          "screenRect": {
+            "x": 354.643995749203,
+            "y": 988.692879914984,
+            "width": 370.712008501594,
+            "height": 153.79383634431457
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_StarCenter_icon",
+      "asset_id": "LC_StarCenter_icon",
+      "path": "UI/icons/LC_StarCenter_icon.png",
+      "filename": "UI/icons/LC_StarCenter_icon.png",
+      "asset_path": "UI/icons/LC_StarCenter_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 199,
+      "height": 199,
+      "pixelSize": {
+        "width": 199,
+        "height": 199
+      },
+      "native_size_px": {
+        "width": 199,
+        "height": 199
+      },
+      "nativeVisibleBounds": {
+        "x": 11,
+        "y": 12,
+        "width": 174,
+        "height": 174
+      },
+      "alpha_bounds_px": {
+        "x": 11,
+        "y": 12,
+        "width": 174,
+        "height": 174
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "f75eecbda0ab88ec84de5b632ec0f75b9f178b98629f2e136401e5d30599b91b",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_StarCenter_icon",
+          "screenRect": {
+            "x": 426.9500531349628,
+            "y": 747.6726886291179,
+            "width": 228.39532412327313,
+            "height": 228.39532412327313
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_StarLeft_icon",
+      "asset_id": "LC_StarLeft_icon",
+      "path": "UI/icons/LC_StarLeft_icon.png",
+      "filename": "UI/icons/LC_StarLeft_icon.png",
+      "asset_path": "UI/icons/LC_StarLeft_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 189,
+      "height": 192,
+      "pixelSize": {
+        "width": 189,
+        "height": 192
+      },
+      "native_size_px": {
+        "width": 189,
+        "height": 192
+      },
+      "nativeVisibleBounds": {
+        "x": 13,
+        "y": 12,
+        "width": 163,
+        "height": 169
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 12,
+        "width": 163,
+        "height": 169
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "6fb0ee6f7a0b25a45927c563c0c5e165267c843ec175efaf954071c0244e482d",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_StarLeft_icon",
+          "screenRect": {
+            "x": 228.39532412327313,
+            "y": 780.9564293304994,
+            "width": 216.91817215727949,
+            "height": 220.36131774707758
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LC_StarRight_icon",
+      "asset_id": "LC_StarRight_icon",
+      "path": "UI/icons/LC_StarRight_icon.png",
+      "filename": "UI/icons/LC_StarRight_icon.png",
+      "asset_path": "UI/icons/LC_StarRight_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 189,
+      "height": 192,
+      "pixelSize": {
+        "width": 189,
+        "height": 192
+      },
+      "native_size_px": {
+        "width": 189,
+        "height": 192
+      },
+      "nativeVisibleBounds": {
+        "x": 12,
+        "y": 12,
+        "width": 165,
+        "height": 169
+      },
+      "alpha_bounds_px": {
+        "x": 12,
+        "y": 12,
+        "width": 165,
+        "height": 169
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "7e7f671a1136d7e0c4bc03c0e93d249f881d2c872615245b8dec689097b5b87e",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LC_StarRight_icon",
+          "screenRect": {
+            "x": 633.538788522848,
+            "y": 780.9564293304994,
+            "width": 216.91817215727949,
+            "height": 220.36131774707758
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    }
+  ],
+  "elements": [
+    {
+      "id": "Dimmer",
+      "parentId": "",
+      "assetId": "",
+      "kind": "overlay",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 0,
+      "previewOnly": false,
+      "color": "#23190F7D",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 0,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "ModalBackdrop",
+      "screenGroup": "LevelComplete",
+      "popupGroup": null
+    },
+    {
+      "id": "PopupGroup",
+      "parentId": "",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 97.5557917109458,
+        "y": 351.7109458023379,
+        "width": 888.3315621679064,
+        "height": 1287.7364505844846
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 97.5557917109458,
+        "y": 351.7109458023379,
+        "width": 888.3315621679064,
+        "height": 1287.7364505844846
+      },
+      "visibleBounds": {
+        "x": 97.5557917109458,
+        "y": 351.7109458023379,
+        "width": 888.3315621679064,
+        "height": 1287.7364505844846
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "LevelComplete",
+      "popupGroup": null
+    },
+    {
+      "id": "LC_Complete_popup",
+      "assetId": "LC_Complete_popup",
+      "filename": "UI/popups/LC_Complete_popup.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 888.3315621679064,
+        "height": 1287.7364505844846
+      },
+      "screenRect": {
+        "x": 97.5557917109458,
+        "y": 351.7109458023379,
+        "width": 888.3315621679064,
+        "height": 1287.7364505844846
+      },
+      "visibleBounds": {
+        "x": 113.62380446333687,
+        "y": 363.18809776833155,
+        "width": 857.3432518597238,
+        "height": 1256.748140276302
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 2,
+      "layerOrder": 2,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LC_Complete_title",
+      "assetId": "LC_Complete_title",
+      "filename": "UI/titles/LC_Complete_title.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 88.37407013815091,
+        "y": 245.6110520722636,
+        "width": 723.0605738575983,
+        "height": 183.63443145589798
+      },
+      "screenRect": {
+        "x": 185.9298618490967,
+        "y": 597.3219978746015,
+        "width": 723.0605738575983,
+        "height": 183.63443145589798
+      },
+      "visibleBounds": {
+        "x": 195.11158342189162,
+        "y": 622.5717321997874,
+        "width": 704.6971307120085,
+        "height": 134.2826780021254
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 3,
+      "layerOrder": 3,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LC_StarLeft_icon",
+      "assetId": "LC_StarLeft_icon",
+      "filename": "UI/icons/LC_StarLeft_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 130.83953241232734,
+        "y": 429.2454835281615,
+        "width": 216.91817215727949,
+        "height": 220.36131774707758
+      },
+      "screenRect": {
+        "x": 228.39532412327313,
+        "y": 780.9564293304994,
+        "width": 216.91817215727949,
+        "height": 220.36131774707758
+      },
+      "visibleBounds": {
+        "x": 243.31562167906483,
+        "y": 794.7290116896918,
+        "width": 187.07757704569607,
+        "height": 193.96386822529223
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 4,
+      "layerOrder": 4,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "binding": "result.stars.1",
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LC_StarCenter_icon",
+      "assetId": "LC_StarCenter_icon",
+      "filename": "UI/icons/LC_StarCenter_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 329.394261424017,
+        "y": 395.96174282678004,
+        "width": 228.39532412327313,
+        "height": 228.39532412327313
+      },
+      "screenRect": {
+        "x": 426.9500531349628,
+        "y": 747.6726886291179,
+        "width": 228.39532412327313,
+        "height": 228.39532412327313
+      },
+      "visibleBounds": {
+        "x": 439.57492029755576,
+        "y": 761.4452709883103,
+        "width": 199.70244420828905,
+        "height": 199.70244420828905
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 5,
+      "layerOrder": 5,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "binding": "result.stars.2",
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LC_StarRight_icon",
+      "assetId": "LC_StarRight_icon",
+      "filename": "UI/icons/LC_StarRight_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 535.9829968119022,
+        "y": 429.2454835281615,
+        "width": 216.91817215727949,
+        "height": 220.36131774707758
+      },
+      "screenRect": {
+        "x": 633.538788522848,
+        "y": 780.9564293304994,
+        "width": 216.91817215727949,
+        "height": 220.36131774707758
+      },
+      "visibleBounds": {
+        "x": 647.3113708820404,
+        "y": 794.7290116896918,
+        "width": 189.3730074388948,
+        "height": 193.96386822529223
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 6,
+      "layerOrder": 6,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "binding": "result.stars.3",
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LC_Reward_bar",
+      "assetId": "LC_Reward_bar",
+      "filename": "UI/bars/LC_Reward_bar.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 257.0882040382572,
+        "y": 636.9819341126461,
+        "width": 370.712008501594,
+        "height": 153.79383634431457
+      },
+      "screenRect": {
+        "x": 354.643995749203,
+        "y": 988.692879914984,
+        "width": 370.712008501594,
+        "height": 153.79383634431457
+      },
+      "visibleBounds": {
+        "x": 364.97343251859724,
+        "y": 1010.4994686503719,
+        "width": 351.20085015940487,
+        "height": 111.32837407013815
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 7,
+      "layerOrder": 7,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "RewardAmount",
+      "parentId": "PopupGroup",
+      "assetId": "",
+      "kind": "text",
+      "rect": {
+        "x": 425.80233793836345,
+        "y": 671.4133900106269,
+        "width": 148.05526036131775,
+        "height": 78.04463336875665
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 8,
+      "previewOnly": false,
+      "text": "",
+      "binding": "result.rewardCoins",
+      "fontSize": 68.86291179596174,
+      "color": "#612703",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 8,
+      "screenRect": {
+        "x": 523.3581296493093,
+        "y": 1023.1243358129649,
+        "width": 148.05526036131775,
+        "height": 78.04463336875665
+      },
+      "visibleBounds": {
+        "x": 523.3581296493093,
+        "y": 1023.1243358129649,
+        "width": 148.05526036131775,
+        "height": 78.04463336875665
+      },
+      "interactive": false,
+      "hitbox": null,
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup",
+      "outlineColor": "#FFF2D9",
+      "outlineWidth": 0.04
+    },
+    {
+      "id": "LC_Caption_icon",
+      "assetId": "LC_Caption_icon",
+      "filename": "UI/icons/LC_Caption_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 109.03294367693944,
+        "y": 795.3666312433581,
+        "width": 672.5611052072263,
+        "height": 64.2720510095643
+      },
+      "screenRect": {
+        "x": 206.58873538788524,
+        "y": 1147.077577045696,
+        "width": 672.5611052072263,
+        "height": 64.2720510095643
+      },
+      "visibleBounds": {
+        "x": 222.6567481402763,
+        "y": 1161.9978746014876,
+        "width": 640.4250797024442,
+        "height": 40.17003188097768
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 9,
+      "layerOrder": 9,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LC_Next_btn",
+      "assetId": "LC_Next_btn",
+      "filename": "UI/btns/LC_Next_btn.png",
+      "kind": "button",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 111.32837407013817,
+        "y": 858.4909670563231,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "screenRect": {
+        "x": 208.88416578108396,
+        "y": 1210.201912858661,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "visibleBounds": {
+        "x": 223.80446333687567,
+        "y": 1222.826780021254,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 10,
+      "layerOrder": 10,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": true,
+      "hitbox": {
+        "x": 223.80446333687567,
+        "y": 1222.826780021254,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "click_action": "NextLevel",
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LC_Home_btn",
+      "assetId": "LC_Home_btn",
+      "filename": "UI/btns/LC_Home_btn.png",
+      "kind": "button",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 111.32837407013817,
+        "y": 1028.3528161530287,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "screenRect": {
+        "x": 208.88416578108396,
+        "y": 1380.0637619553665,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "visibleBounds": {
+        "x": 223.80446333687567,
+        "y": 1392.6886291179596,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 11,
+      "layerOrder": 11,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": true,
+      "hitbox": {
+        "x": 223.80446333687567,
+        "y": 1392.6886291179596,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "click_action": "OpenMainMenu",
+      "screenGroup": "LevelComplete",
+      "popupGroup": "PopupGroup"
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 941,
+    "height": 1672
+  },
+  "referenceImage": {
+    "filename": "references/LevelComplete.png",
+    "width": 941,
+    "height": 1672
+  },
+  "grouping": {
+    "screen": "LevelComplete",
+    "type": "popup",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": "PopupGroup"
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "popup_level_complete",
+  "schema_version": "3.2",
+  "screen_kind": "popup",
+  "reference_image": "references/LevelComplete.png",
+  "reference_size_px": {
+    "width": 941,
+    "height": 1672
+  },
+  "reference_transform": {
+    "scale": 1.1477151965993624,
+    "offset_x": 0,
+    "offset_y": 0.5100956429330381
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 100,
+  "popup_parent_screen": "gameplay_ui",
+  "overlay": {
+    "color": "#23190F",
+    "alpha": 0.49019607843137253
+  },
+  "objects": [
+    {
+      "instance_id": "Dimmer",
+      "kind": "overlay",
+      "asset_id": null,
+      "parent_id": null,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "order": 0,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "color": "#23190F7D"
+    },
+    {
+      "instance_id": "PopupGroup",
+      "kind": "group",
+      "asset_id": null,
+      "parent_id": null,
+      "rect_px": {
+        "x": 97.5557917109458,
+        "y": 351.7109458023379,
+        "width": 888.3315621679064,
+        "height": 1287.7364505844846
+      },
+      "order": 1,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "instance_id": "LC_Complete_popup",
+      "kind": "sprite",
+      "asset_id": "LC_Complete_popup",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 97.5557917109458,
+        "y": 351.7109458023379,
+        "width": 888.3315621679064,
+        "height": 1287.7364505844846
+      },
+      "order": 2,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/popups/LC_Complete_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 774,
+        "height": 1122
+      },
+      "alpha_bounds_px": {
+        "x": 14,
+        "y": 10,
+        "width": 747,
+        "height": 1095
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LC_Complete_title",
+      "kind": "sprite",
+      "asset_id": "LC_Complete_title",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 185.9298618490967,
+        "y": 597.3219978746015,
+        "width": 723.0605738575983,
+        "height": 183.63443145589798
+      },
+      "order": 3,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/titles/LC_Complete_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "native_size_px": {
+        "width": 630,
+        "height": 160
+      },
+      "alpha_bounds_px": {
+        "x": 8,
+        "y": 22,
+        "width": 614,
+        "height": 117
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LC_StarLeft_icon",
+      "kind": "sprite",
+      "asset_id": "LC_StarLeft_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 228.39532412327313,
+        "y": 780.9564293304994,
+        "width": 216.91817215727949,
+        "height": 220.36131774707758
+      },
+      "order": 4,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LC_StarLeft_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 189,
+        "height": 192
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 12,
+        "width": 163,
+        "height": 169
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LC_StarCenter_icon",
+      "kind": "sprite",
+      "asset_id": "LC_StarCenter_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 426.9500531349628,
+        "y": 747.6726886291179,
+        "width": 228.39532412327313,
+        "height": 228.39532412327313
+      },
+      "order": 5,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LC_StarCenter_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 199,
+        "height": 199
+      },
+      "alpha_bounds_px": {
+        "x": 11,
+        "y": 12,
+        "width": 174,
+        "height": 174
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LC_StarRight_icon",
+      "kind": "sprite",
+      "asset_id": "LC_StarRight_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 633.538788522848,
+        "y": 780.9564293304994,
+        "width": 216.91817215727949,
+        "height": 220.36131774707758
+      },
+      "order": 6,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LC_StarRight_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 189,
+        "height": 192
+      },
+      "alpha_bounds_px": {
+        "x": 12,
+        "y": 12,
+        "width": 165,
+        "height": 169
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LC_Reward_bar",
+      "kind": "sprite",
+      "asset_id": "LC_Reward_bar",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 354.643995749203,
+        "y": 988.692879914984,
+        "width": 370.712008501594,
+        "height": 153.79383634431457
+      },
+      "order": 7,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/bars/LC_Reward_bar.png",
+      "category": "bars",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 323,
+        "height": 134
+      },
+      "alpha_bounds_px": {
+        "x": 9,
+        "y": 19,
+        "width": 306,
+        "height": 97
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "RewardAmount",
+      "kind": "text",
+      "asset_id": null,
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 523.3581296493093,
+        "y": 1023.1243358129649,
+        "width": 148.05526036131775,
+        "height": 78.04463336875665
+      },
+      "order": 8,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "binding": "result.rewardCoins",
+      "text": "",
+      "font_size": 68.86291179596174,
+      "color": "#612703"
+    },
+    {
+      "instance_id": "LC_Caption_icon",
+      "kind": "sprite",
+      "asset_id": "LC_Caption_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 206.58873538788524,
+        "y": 1147.077577045696,
+        "width": 672.5611052072263,
+        "height": 64.2720510095643
+      },
+      "order": 9,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LC_Caption_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 586,
+        "height": 56
+      },
+      "alpha_bounds_px": {
+        "x": 14,
+        "y": 13,
+        "width": 558,
+        "height": 35
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LC_Next_btn",
+      "kind": "sprite",
+      "asset_id": "LC_Next_btn",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 208.88416578108396,
+        "y": 1210.201912858661,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "order": 10,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/btns/LC_Next_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "preserve_aspect": true,
+      "click_action": "NextLevel",
+      "hitbox_px": {
+        "x": 223.80446333687567,
+        "y": 1222.826780021254,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      }
+    },
+    {
+      "instance_id": "LC_Home_btn",
+      "kind": "sprite",
+      "asset_id": "LC_Home_btn",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 208.88416578108396,
+        "y": 1380.0637619553665,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "order": 11,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/btns/LC_Home_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "preserve_aspect": true,
+      "click_action": "OpenMainMenu",
+      "hitbox_px": {
+        "x": 223.80446333687567,
+        "y": 1392.6886291179596,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      }
+    }
+  ],
+  "popup_action_button_groups": {
+    "LC_Action": {
+      "members": [
+        "LC_Next_btn",
+        "LC_Home_btn"
+      ],
+      "png_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "layout_size_px": {
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "visible_frame_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "status": "measured_export",
+      "policy": "Canonical reference-local frame. Labels/icons scale uniformly; extra height comes from a blank strip below the lettering, preserving border caps."
+    }
+  },
+  "previewBackdropScreen": "Gameplay",
+  "dynamic_contract": {
+    "rewardCoins": "Blank independent text. Set e.g. +50 through ScreenLayout.SetText(\"result.rewardCoins\", \"+50\").",
+    "stars": "Three independent sprites. Visibility/animation belongs to game code; screenshot defaults are preserved.",
+    "actions": {
+      "LC_Next_btn": "NextLevel",
+      "LC_Home_btn": "OpenMainMenu"
+    },
+    "event_wiring": "Unity Buttons are reconstructed. Hook these action names to your game controller; importer does not implement level progression."
+  }
+}

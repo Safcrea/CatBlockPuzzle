@@ -1,0 +1,1559 @@
+{
+  "schemaVersion": 1,
+  "specificationVersion": 2,
+  "screenId": "LevelFailed",
+  "source": "references/LevelFailed.png",
+  "coordinateSystem": "top-left-pixels",
+  "referenceResolution": {
+    "x": 1080,
+    "y": 1920
+  },
+  "sourceResolution": {
+    "x": 941,
+    "y": 1672
+  },
+  "canvasMatch": 0.5,
+  "modal": true,
+  "assets": [
+    {
+      "id": "LF_Caption_icon",
+      "asset_id": "LF_Caption_icon",
+      "path": "UI/icons/LF_Caption_icon.png",
+      "filename": "UI/icons/LF_Caption_icon.png",
+      "asset_path": "UI/icons/LF_Caption_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 413,
+      "height": 109,
+      "pixelSize": {
+        "width": 413,
+        "height": 109
+      },
+      "native_size_px": {
+        "width": 413,
+        "height": 109
+      },
+      "nativeVisibleBounds": {
+        "x": 13,
+        "y": 12,
+        "width": 385,
+        "height": 89
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 12,
+        "width": 385,
+        "height": 89
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "a5d00d58906efe67e4a6e2831537f1a28efc2be22a0b6f1b5c140cd1d5a658f2",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_Caption_icon",
+          "screenRect": {
+            "x": 305.2922422954304,
+            "y": 1033.453772582359,
+            "width": 474.0063761955367,
+            "height": 125.1009564293305
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LF_Failed_popup",
+      "asset_id": "LF_Failed_popup",
+      "path": "UI/popups/LF_Failed_popup.png",
+      "filename": "UI/popups/LF_Failed_popup.png",
+      "asset_path": "UI/popups/LF_Failed_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "width": 774,
+      "height": 1058,
+      "pixelSize": {
+        "width": 774,
+        "height": 1058
+      },
+      "native_size_px": {
+        "width": 774,
+        "height": 1058
+      },
+      "nativeVisibleBounds": {
+        "x": 14,
+        "y": 11,
+        "width": 747,
+        "height": 1032
+      },
+      "alpha_bounds_px": {
+        "x": 14,
+        "y": 11,
+        "width": 747,
+        "height": 1032
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": true,
+      "state": "default",
+      "sha256": "41fc8ac5e1ebb52b90eb28ac02e26bfa9503cf2159c6f94bbc22fe8e9657834d",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_Failed_popup",
+          "screenRect": {
+            "x": 97.5557917109458,
+            "y": 374.6652497343252,
+            "width": 888.3315621679064,
+            "height": 1214.2826780021253
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LF_Failed_title",
+      "asset_id": "LF_Failed_title",
+      "path": "UI/titles/LF_Failed_title.png",
+      "filename": "UI/titles/LF_Failed_title.png",
+      "asset_path": "UI/titles/LF_Failed_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "width": 597,
+      "height": 150,
+      "pixelSize": {
+        "width": 597,
+        "height": 150
+      },
+      "native_size_px": {
+        "width": 597,
+        "height": 150
+      },
+      "nativeVisibleBounds": {
+        "x": 8,
+        "y": 10,
+        "width": 581,
+        "height": 131
+      },
+      "alpha_bounds_px": {
+        "x": 8,
+        "y": 10,
+        "width": 581,
+        "height": 131
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "be01694fd1a0c16a98dd08213c15b259564bc306df426bc35f46d3a7b3f2bf4a",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_Failed_title",
+          "screenRect": {
+            "x": 204.2933049946865,
+            "y": 651.2646121147715,
+            "width": 685.1859723698193,
+            "height": 172.15727948990437
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LF_Home_btn",
+      "asset_id": "LF_Home_btn",
+      "path": "UI/btns/LF_Home_btn.png",
+      "filename": "UI/btns/LF_Home_btn.png",
+      "asset_path": "UI/btns/LF_Home_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 576,
+      "height": 164,
+      "pixelSize": {
+        "width": 576,
+        "height": 164
+      },
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "nativeVisibleBounds": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "38b70f3932b7fbac566f544f6404863d7c4ecfbe33826fd7aa1e0644ddee476a",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_Home_btn",
+          "screenRect": {
+            "x": 208.88416578108396,
+            "y": 1326.1211477151967,
+            "width": 661.0839532412327,
+            "height": 188.22529224229544
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LF_Retry_btn",
+      "asset_id": "LF_Retry_btn",
+      "path": "UI/btns/LF_Retry_btn.png",
+      "filename": "UI/btns/LF_Retry_btn.png",
+      "asset_path": "UI/btns/LF_Retry_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "width": 576,
+      "height": 164,
+      "pixelSize": {
+        "width": 576,
+        "height": 164
+      },
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "nativeVisibleBounds": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "1bdd8e8fe9b022be10c63702a705b5dcada7092e6537b5d103906b8e31141a10",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_Retry_btn",
+          "screenRect": {
+            "x": 208.88416578108396,
+            "y": 1156.259298618491,
+            "width": 661.0839532412327,
+            "height": 188.22529224229544
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LF_StarCenter_icon",
+      "asset_id": "LF_StarCenter_icon",
+      "path": "UI/icons/LF_StarCenter_icon.png",
+      "filename": "UI/icons/LF_StarCenter_icon.png",
+      "asset_path": "UI/icons/LF_StarCenter_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 190,
+      "height": 194,
+      "pixelSize": {
+        "width": 190,
+        "height": 194
+      },
+      "native_size_px": {
+        "width": 190,
+        "height": 194
+      },
+      "nativeVisibleBounds": {
+        "x": 11,
+        "y": 13,
+        "width": 167,
+        "height": 166
+      },
+      "alpha_bounds_px": {
+        "x": 11,
+        "y": 13,
+        "width": 167,
+        "height": 166
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "8aae4d127ceba9f1aa5deb3a9d5fdc13e896fbddd893158c42a41a1aa6176196",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_StarCenter_icon",
+          "screenRect": {
+            "x": 432.68862911795964,
+            "y": 800.4675876726886,
+            "width": 218.06588735387885,
+            "height": 222.6567481402763
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LF_StarLeft_icon",
+      "asset_id": "LF_StarLeft_icon",
+      "path": "UI/icons/LF_StarLeft_icon.png",
+      "filename": "UI/icons/LF_StarLeft_icon.png",
+      "asset_path": "UI/icons/LF_StarLeft_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 181,
+      "height": 178,
+      "pixelSize": {
+        "width": 181,
+        "height": 178
+      },
+      "native_size_px": {
+        "width": 181,
+        "height": 178
+      },
+      "nativeVisibleBounds": {
+        "x": 13,
+        "y": 10,
+        "width": 156,
+        "height": 161
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 10,
+        "width": 156,
+        "height": 161
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "20ad479aca49c2a62a16260d7a4e4f3f7e27d37f43d2a50bf7db42de74800cb9",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_StarLeft_icon",
+          "screenRect": {
+            "x": 239.87247608926674,
+            "y": 836.0467587672689,
+            "width": 207.7364505844846,
+            "height": 204.2933049946865
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    },
+    {
+      "id": "LF_StarRight_icon",
+      "asset_id": "LF_StarRight_icon",
+      "path": "UI/icons/LF_StarRight_icon.png",
+      "filename": "UI/icons/LF_StarRight_icon.png",
+      "asset_path": "UI/icons/LF_StarRight_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "width": 181,
+      "height": 178,
+      "pixelSize": {
+        "width": 181,
+        "height": 178
+      },
+      "native_size_px": {
+        "width": 181,
+        "height": 178
+      },
+      "nativeVisibleBounds": {
+        "x": 10,
+        "y": 10,
+        "width": 157,
+        "height": 161
+      },
+      "alpha_bounds_px": {
+        "x": 10,
+        "y": 10,
+        "width": 157,
+        "height": 161
+      },
+      "border": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "opaque": false,
+      "requested": true,
+      "repaired": false,
+      "state": "default",
+      "sha256": "5724d88648a46bde97158313a504d86ddef6100a38ba38f001f7c84124b647c1",
+      "preserveAspect": true,
+      "placements": [
+        {
+          "instanceId": "LF_StarRight_icon",
+          "screenRect": {
+            "x": 635.8342189160468,
+            "y": 836.0467587672689,
+            "width": 207.7364505844846,
+            "height": 204.2933049946865
+          },
+          "active": true
+        }
+      ],
+      "placementStatus": "placed"
+    }
+  ],
+  "elements": [
+    {
+      "id": "Dimmer",
+      "parentId": "",
+      "assetId": "",
+      "kind": "overlay",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchorMin": {
+        "x": 0,
+        "y": 0
+      },
+      "anchorMax": {
+        "x": 1,
+        "y": 1
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 0,
+      "previewOnly": false,
+      "color": "#23190F7D",
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 0,
+      "screenRect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "visibleBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "interactive": true,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "anchor": {
+        "min": {
+          "x": 0,
+          "y": 0
+        },
+        "max": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "placementGroup": "ModalBackdrop",
+      "screenGroup": "LevelFailed",
+      "popupGroup": null
+    },
+    {
+      "id": "PopupGroup",
+      "parentId": "",
+      "assetId": "",
+      "kind": "group",
+      "rect": {
+        "x": 97.5557917109458,
+        "y": 374.6652497343252,
+        "width": 888.3315621679064,
+        "height": 1214.2826780021253
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "rotation": 0,
+      "order": 1,
+      "previewOnly": false,
+      "active": true,
+      "filename": null,
+      "state": "default",
+      "layerOrder": 1,
+      "screenRect": {
+        "x": 97.5557917109458,
+        "y": 374.6652497343252,
+        "width": 888.3315621679064,
+        "height": 1214.2826780021253
+      },
+      "visibleBounds": {
+        "x": 97.5557917109458,
+        "y": 374.6652497343252,
+        "width": 888.3315621679064,
+        "height": 1214.2826780021253
+      },
+      "interactive": false,
+      "hitbox": {
+        "x": 142.31668437832093,
+        "y": 375.5023923444976,
+        "width": 795.3666312433581,
+        "height": 1132.248803827751
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "placementGroup": "Popup",
+      "screenGroup": "LevelFailed",
+      "popupGroup": null
+    },
+    {
+      "id": "LF_Failed_popup",
+      "assetId": "LF_Failed_popup",
+      "filename": "UI/popups/LF_Failed_popup.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 888.3315621679064,
+        "height": 1214.2826780021253
+      },
+      "screenRect": {
+        "x": 97.5557917109458,
+        "y": 374.6652497343252,
+        "width": 888.3315621679064,
+        "height": 1214.2826780021253
+      },
+      "visibleBounds": {
+        "x": 113.62380446333687,
+        "y": 387.29011689691816,
+        "width": 857.3432518597238,
+        "height": 1184.442082890542
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 2,
+      "layerOrder": 2,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LF_Failed_title",
+      "assetId": "LF_Failed_title",
+      "filename": "UI/titles/LF_Failed_title.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 106.73751328374071,
+        "y": 276.5993623804463,
+        "width": 685.1859723698193,
+        "height": 172.15727948990437
+      },
+      "screenRect": {
+        "x": 204.2933049946865,
+        "y": 651.2646121147715,
+        "width": 685.1859723698193,
+        "height": 172.15727948990437
+      },
+      "visibleBounds": {
+        "x": 213.4750265674814,
+        "y": 662.741764080765,
+        "width": 666.8225292242296,
+        "height": 150.35069075451648
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 3,
+      "layerOrder": 3,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LF_StarLeft_icon",
+      "assetId": "LF_StarLeft_icon",
+      "filename": "UI/icons/LF_StarLeft_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 142.31668437832093,
+        "y": 461.3815090329437,
+        "width": 207.7364505844846,
+        "height": 204.2933049946865
+      },
+      "screenRect": {
+        "x": 239.87247608926674,
+        "y": 836.0467587672689,
+        "width": 207.7364505844846,
+        "height": 204.2933049946865
+      },
+      "visibleBounds": {
+        "x": 254.79277364505845,
+        "y": 847.5239107332625,
+        "width": 179.04357066950053,
+        "height": 184.78214665249735
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 4,
+      "layerOrder": 4,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "binding": "result.stars.1",
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LF_StarCenter_icon",
+      "assetId": "LF_StarCenter_icon",
+      "filename": "UI/icons/LF_StarCenter_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 335.1328374070138,
+        "y": 425.80233793836345,
+        "width": 218.06588735387885,
+        "height": 222.6567481402763
+      },
+      "screenRect": {
+        "x": 432.68862911795964,
+        "y": 800.4675876726886,
+        "width": 218.06588735387885,
+        "height": 222.6567481402763
+      },
+      "visibleBounds": {
+        "x": 445.3134962805526,
+        "y": 815.3878852284804,
+        "width": 191.66843783209353,
+        "height": 190.52072263549417
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 5,
+      "layerOrder": 5,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "binding": "result.stars.2",
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LF_StarRight_icon",
+      "assetId": "LF_StarRight_icon",
+      "filename": "UI/icons/LF_StarRight_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 538.278427205101,
+        "y": 461.3815090329437,
+        "width": 207.7364505844846,
+        "height": 204.2933049946865
+      },
+      "screenRect": {
+        "x": 635.8342189160468,
+        "y": 836.0467587672689,
+        "width": 207.7364505844846,
+        "height": 204.2933049946865
+      },
+      "visibleBounds": {
+        "x": 647.3113708820404,
+        "y": 847.5239107332625,
+        "width": 180.1912858660999,
+        "height": 184.78214665249735
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 6,
+      "layerOrder": 6,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "binding": "result.stars.3",
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LF_Caption_icon",
+      "assetId": "LF_Caption_icon",
+      "filename": "UI/icons/LF_Caption_icon.png",
+      "kind": "image",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 207.7364505844846,
+        "y": 658.7885228480338,
+        "width": 474.0063761955367,
+        "height": 125.1009564293305
+      },
+      "screenRect": {
+        "x": 305.2922422954304,
+        "y": 1033.453772582359,
+        "width": 474.0063761955367,
+        "height": 125.1009564293305
+      },
+      "visibleBounds": {
+        "x": 320.2125398512221,
+        "y": 1047.2263549415513,
+        "width": 441.8703506907545,
+        "height": 102.14665249734325
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 9,
+      "layerOrder": 9,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": false,
+      "hitbox": null,
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LF_Retry_btn",
+      "assetId": "LF_Retry_btn",
+      "filename": "UI/btns/LF_Retry_btn.png",
+      "kind": "button",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 111.32837407013817,
+        "y": 781.5940488841657,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "screenRect": {
+        "x": 208.88416578108396,
+        "y": 1156.259298618491,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "visibleBounds": {
+        "x": 223.80446333687567,
+        "y": 1168.884165781084,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 10,
+      "layerOrder": 10,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": true,
+      "hitbox": {
+        "x": 223.80446333687567,
+        "y": 1168.884165781084,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "click_action": "RetryLevel",
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    },
+    {
+      "id": "LF_Home_btn",
+      "assetId": "LF_Home_btn",
+      "filename": "UI/btns/LF_Home_btn.png",
+      "kind": "button",
+      "parentId": "PopupGroup",
+      "rect": {
+        "x": 111.32837407013817,
+        "y": 951.4558979808714,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "screenRect": {
+        "x": 208.88416578108396,
+        "y": 1326.1211477151967,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "visibleBounds": {
+        "x": 223.80446333687567,
+        "y": 1338.7460148777898,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "anchorMin": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchorMax": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "anchor": {
+        "min": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "max": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "order": 11,
+      "layerOrder": 11,
+      "active": true,
+      "preserveAspect": true,
+      "rotation": 0,
+      "interactive": true,
+      "hitbox": {
+        "x": 223.80446333687567,
+        "y": 1338.7460148777898,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      },
+      "placementGroup": "Popup",
+      "state": "default",
+      "previewOnly": false,
+      "click_action": "OpenMainMenu",
+      "screenGroup": "LevelFailed",
+      "popupGroup": "PopupGroup"
+    }
+  ],
+  "outputResolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sourceOriginalResolution": {
+    "width": 941,
+    "height": 1672
+  },
+  "referenceImage": {
+    "filename": "references/LevelFailed.png",
+    "width": 941,
+    "height": 1672
+  },
+  "grouping": {
+    "screen": "LevelFailed",
+    "type": "popup",
+    "canvas": "CatBlocksUI/Canvas",
+    "popup": "PopupGroup"
+  },
+  "boundsConvention": "screenRect and visibleBounds use 1080x1920 canvas pixels, origin top-left; rect is parent-local; nativeVisibleBounds uses PNG pixels; hitbox is the screen rectangle inset by exported padding; interactive indicates whether it receives input.",
+  "screen_id": "popup_level_failed",
+  "schema_version": "3.2",
+  "screen_kind": "popup",
+  "reference_image": "references/LevelFailed.png",
+  "reference_size_px": {
+    "width": 941,
+    "height": 1672
+  },
+  "reference_transform": {
+    "scale": 1.1477151965993624,
+    "offset_x": 0,
+    "offset_y": 0.5100956429330381
+  },
+  "canvas_px": {
+    "width": 1080,
+    "height": 1920
+  },
+  "sort_order": 100,
+  "popup_parent_screen": "gameplay_ui",
+  "overlay": {
+    "color": "#23190F",
+    "alpha": 0.49019607843137253
+  },
+  "objects": [
+    {
+      "instance_id": "Dimmer",
+      "kind": "overlay",
+      "asset_id": null,
+      "parent_id": null,
+      "rect_px": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      },
+      "order": 0,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0,
+        0
+      ],
+      "anchor_max": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "color": "#23190F7D"
+    },
+    {
+      "instance_id": "PopupGroup",
+      "kind": "group",
+      "asset_id": null,
+      "parent_id": null,
+      "rect_px": {
+        "x": 97.5557917109458,
+        "y": 374.6652497343252,
+        "width": 888.3315621679064,
+        "height": 1214.2826780021253
+      },
+      "order": 1,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0
+    },
+    {
+      "instance_id": "LF_Failed_popup",
+      "kind": "sprite",
+      "asset_id": "LF_Failed_popup",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 97.5557917109458,
+        "y": 374.6652497343252,
+        "width": 888.3315621679064,
+        "height": 1214.2826780021253
+      },
+      "order": 2,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/popups/LF_Failed_popup.png",
+      "category": "popups",
+      "asset_role": "popup_panel",
+      "native_size_px": {
+        "width": 774,
+        "height": 1058
+      },
+      "alpha_bounds_px": {
+        "x": 14,
+        "y": 11,
+        "width": 747,
+        "height": 1032
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LF_Failed_title",
+      "kind": "sprite",
+      "asset_id": "LF_Failed_title",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 204.2933049946865,
+        "y": 651.2646121147715,
+        "width": 685.1859723698193,
+        "height": 172.15727948990437
+      },
+      "order": 3,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/titles/LF_Failed_title.png",
+      "category": "titles",
+      "asset_role": "title",
+      "native_size_px": {
+        "width": 597,
+        "height": 150
+      },
+      "alpha_bounds_px": {
+        "x": 8,
+        "y": 10,
+        "width": 581,
+        "height": 131
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LF_StarLeft_icon",
+      "kind": "sprite",
+      "asset_id": "LF_StarLeft_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 239.87247608926674,
+        "y": 836.0467587672689,
+        "width": 207.7364505844846,
+        "height": 204.2933049946865
+      },
+      "order": 4,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LF_StarLeft_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 181,
+        "height": 178
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 10,
+        "width": 156,
+        "height": 161
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LF_StarCenter_icon",
+      "kind": "sprite",
+      "asset_id": "LF_StarCenter_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 432.68862911795964,
+        "y": 800.4675876726886,
+        "width": 218.06588735387885,
+        "height": 222.6567481402763
+      },
+      "order": 5,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LF_StarCenter_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 190,
+        "height": 194
+      },
+      "alpha_bounds_px": {
+        "x": 11,
+        "y": 13,
+        "width": 167,
+        "height": 166
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LF_StarRight_icon",
+      "kind": "sprite",
+      "asset_id": "LF_StarRight_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 635.8342189160468,
+        "y": 836.0467587672689,
+        "width": 207.7364505844846,
+        "height": 204.2933049946865
+      },
+      "order": 6,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LF_StarRight_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 181,
+        "height": 178
+      },
+      "alpha_bounds_px": {
+        "x": 10,
+        "y": 10,
+        "width": 157,
+        "height": 161
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LF_Caption_icon",
+      "kind": "sprite",
+      "asset_id": "LF_Caption_icon",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 305.2922422954304,
+        "y": 1033.453772582359,
+        "width": 474.0063761955367,
+        "height": 125.1009564293305
+      },
+      "order": 9,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/icons/LF_Caption_icon.png",
+      "category": "icons",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 413,
+        "height": 109
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 12,
+        "width": 385,
+        "height": 89
+      },
+      "preserve_aspect": true
+    },
+    {
+      "instance_id": "LF_Retry_btn",
+      "kind": "sprite",
+      "asset_id": "LF_Retry_btn",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 208.88416578108396,
+        "y": 1156.259298618491,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "order": 10,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/btns/LF_Retry_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "preserve_aspect": true,
+      "click_action": "RetryLevel",
+      "hitbox_px": {
+        "x": 223.80446333687567,
+        "y": 1168.884165781084,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      }
+    },
+    {
+      "instance_id": "LF_Home_btn",
+      "kind": "sprite",
+      "asset_id": "LF_Home_btn",
+      "parent_id": "PopupGroup",
+      "rect_px": {
+        "x": 208.88416578108396,
+        "y": 1326.1211477151967,
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "order": 11,
+      "enabled_by_default": true,
+      "anchor_min": [
+        0.5,
+        0.5
+      ],
+      "anchor_max": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotation": 0,
+      "asset_path": "UI/btns/LF_Home_btn.png",
+      "category": "btns",
+      "asset_role": "sprite",
+      "native_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "alpha_bounds_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "preserve_aspect": true,
+      "click_action": "OpenMainMenu",
+      "hitbox_px": {
+        "x": 223.80446333687567,
+        "y": 1338.7460148777898,
+        "width": 632.3910733262487,
+        "height": 158.384697130712
+      }
+    }
+  ],
+  "popup_action_button_groups": {
+    "LF_Action": {
+      "members": [
+        "LF_Retry_btn",
+        "LF_Home_btn"
+      ],
+      "png_size_px": {
+        "width": 576,
+        "height": 164
+      },
+      "layout_size_px": {
+        "width": 661.0839532412327,
+        "height": 188.22529224229544
+      },
+      "visible_frame_px": {
+        "x": 13,
+        "y": 11,
+        "width": 551,
+        "height": 138
+      },
+      "status": "measured_export",
+      "policy": "Canonical reference-local frame. Labels/icons scale uniformly; extra height comes from a blank strip below the lettering, preserving border caps."
+    }
+  },
+  "previewBackdropScreen": "Gameplay",
+  "dynamic_contract": {
+    "rewardCoins": null,
+    "stars": "Three independent sprites. Visibility/animation belongs to game code; screenshot defaults are preserved.",
+    "actions": {
+      "LF_Retry_btn": "RetryLevel",
+      "LF_Home_btn": "OpenMainMenu"
+    },
+    "event_wiring": "Unity Buttons are reconstructed. Hook these action names to your game controller; importer does not implement level progression."
+  }
+}

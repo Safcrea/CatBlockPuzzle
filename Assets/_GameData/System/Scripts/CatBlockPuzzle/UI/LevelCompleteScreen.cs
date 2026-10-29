@@ -26,6 +26,12 @@ namespace CatBlockPuzzle
         [SerializeField] private Button skipButton;
         [Tooltip("Watch a rewarded ad to receive this level's coins a second time.")]
         [SerializeField] private Button doubleCoinsButton;
+        [Header("Level Complete art layout")]
+        [SerializeField] private Button homeButton;
+        [Tooltip("The baked caption line under the coin bar.")]
+        [SerializeField] private RectTransform captionArtwork;
+        [Tooltip("Applied to the stars the player did not earn (Cat Block Puzzle/UI Grayscale).")]
+        [SerializeField] private Material greyStarMaterial;
         [Header("Sequence (auto-bound for the existing win screen)")]
         [SerializeField] private RectTransform titleArtwork;
         [Tooltip("The coin board, revealed alongside the stars and buttons.")]
@@ -69,6 +75,7 @@ namespace CatBlockPuzzle
             if (continueButton != null) continueButton.onClick.RemoveListener(Next);
             if (skipButton != null) skipButton.onClick.RemoveListener(SkipLevel);
             if (doubleCoinsButton != null) doubleCoinsButton.onClick.RemoveListener(ClaimDoubleCoins);
+            if (homeButton != null) homeButton.onClick.RemoveListener(Home);
         }
 
         public void CaptureExisting(GameObject screenRoot)
@@ -124,71 +131,127 @@ namespace CatBlockPuzzle
             if (root != null) root.SetActive(false);
         }
 
+        private static bool ReducedMotion => PlayerPrefs.GetInt("CatBlockPuzzle.Settings.ReducedMotion", 0) != 0;
+
+        // The panel springs in over a fading dimmer, then the title, the three stars (earned ones with a burst),
+        // the coin bar (counting up), the caption and finally the buttons arrive one after another.
         private IEnumerator PlayEntrance(int earnedStars, int reward)
         {
             float timing = Mathf.Clamp(sequenceTimeScale, 0.35f, 1f) * 1.35f;
-            EnsureWinStarOverlays();
-            SetOverlaysVisible(false);
+            CanvasGroup dim = Dimmer();
+            RectTransform[] buttonRects = ButtonRects();
+            HideForEntrance(panel);
             HideForEntrance(titleArtwork);
+            HideForEntrance(captionArtwork);
             HideForEntrance(coinBoard);
             CacheScale(coinReward);
             for (int i = 0; i < stars.Length; i++)
             {
                 if (stars[i] == null) continue;
-                Sprite disabledSprite = sprites != null ? sprites.disabled : null;
-                if (disabledSprite == null && sprites != null) disabledSprite = sprites.blackAndWhite;
-                if (disabledSprite != null) stars[i].sprite = disabledSprite;
                 stars[i].gameObject.SetActive(true);
+                stars[i].material = i < earnedStars ? null : greyStarMaterial;
                 HideForEntrance(stars[i].transform);
             }
+            foreach (RectTransform rect in buttonRects) HideForEntrance(rect);
             SetReward(0);
             countedReward = 0;
             if (coinBoard != null) coinBoard.gameObject.SetActive(true);
             if (coinReward != null) coinReward.gameObject.SetActive(true);
             SoundManager.EnsureInstance().PlaySfxWithMusicDuck("Win");
-            float elapsed = 0f;
-            float countStart = .28f * timing;
+            if (ReducedMotion)
+            {
+                if (dim != null) dim.alpha = 1f;
+                foreach (var entry in new List<KeyValuePair<Transform, Vector3>>(restingScales)) if (entry.Key != null) entry.Key.localScale = entry.Value;
+                SetReward(reward);
+                buttons.Set(1f, true);
+                entrance = null;
+                yield break;
+            }
+
+            float starStart = .55f * timing, starGap = .26f * timing;
+            float boardStart = starStart + stars.Length * starGap;
+            float countStart = boardStart + .12f * timing;
             float countDuration = Mathf.Max(.1f, coinCountDuration * timing);
-            float buttonStart = .30f * timing;
-            float buttonDuration = .28f * timing;
-            float end = Mathf.Max(countStart + countDuration, (.12f + stars.Length * .10f) * timing + popDuration * timing);
+            float captionStart = boardStart + .22f * timing;
+            float buttonStart = captionStart + .20f * timing;
+            float buttonGap = .12f * timing;
+            float end = Mathf.Max(countStart + countDuration, buttonStart + buttonGap * 2f + .35f * timing);
+            bool[] burst = new bool[stars.Length];
+            float elapsed = 0f;
             while (elapsed < end)
             {
                 elapsed += Time.unscaledDeltaTime;
-                AnimatePop(titleArtwork, elapsed, popDuration * .8f * timing);
+                if (dim != null) dim.alpha = Mathf.Clamp01(elapsed / (.25f * timing));
+                AnimatePop(panel, elapsed, .5f * timing, spring: .12f);
+                AnimatePop(titleArtwork, elapsed - .28f * timing, .5f * timing, spring: .2f);
                 for (int i = 0; i < stars.Length; i++)
                 {
                     if (stars[i] == null) continue;
-                    float starTime = elapsed - (.08f + i * (.07f + starPause * .4f)) * timing;
-                    AnimatePop(stars[i].transform, starTime, popDuration * .65f * timing);
-                    if (i < earnedStars && winStarOverlays[i] != null)
+                    float starTime = elapsed - (starStart + i * starGap);
+                    AnimatePop(stars[i].transform, starTime, .55f * timing, spring: i < earnedStars ? .28f : .1f, jelly: i < earnedStars);
+                    if (i < earnedStars && starTime > 0f && !burst[i])
                     {
-                        winStarOverlays[i].gameObject.SetActive(starTime >= .04f * timing);
-                        AnimatePop(winStarOverlays[i].transform, starTime - .04f * timing, popDuration * .7f * timing, true);
+                        burst[i] = true;
+                        UiBurst.Play(this, panel, panel.InverseTransformPoint(stars[i].transform.position), new Color(1f, .9f, .4f, 1f), 9, 170f, .6f);
+                        ButtonSfx.PlayCoinCountTick();
                     }
                 }
-                AnimatePop(coinBoard, elapsed - .18f * timing, popDuration * .7f * timing);
+                AnimatePop(coinBoard, elapsed - boardStart, .5f * timing, spring: .2f);
                 float countT = Mathf.Clamp01((elapsed - countStart) / countDuration);
                 SetCountedReward(Mathf.RoundToInt(Mathf.Lerp(0f, reward, 1f - Mathf.Pow(1f - countT, 3f))));
-                float buttonT = Mathf.Clamp01((elapsed - buttonStart) / buttonDuration);
-                buttons.Set(buttonT * buttonT * (3f - 2f * buttonT), buttonT >= 1f);
+                AnimatePop(captionArtwork, elapsed - captionStart, .4f * timing, spring: .08f);
+                for (int i = 0; i < buttonRects.Length; i++)
+                    AnimatePop(buttonRects[i], elapsed - (buttonStart + i * buttonGap), .4f * timing, spring: .12f);
+                float buttonT = Mathf.Clamp01((elapsed - buttonStart) / (.3f * timing));
+                buttons.Set(buttonT * buttonT * (3f - 2f * buttonT), buttonT >= 1f && elapsed >= buttonStart + buttonGap * (buttonRects.Length - 1) + .2f * timing);
                 yield return null;
             }
             SetReward(reward);
             buttons.Set(1f, true);
-            entrance = null;
+            // Rest state: earned stars keep a slow shine pulse and the Next button breathes.
+            float time = 0f;
+            while (true)
+            {
+                time += Time.unscaledDeltaTime;
+                for (int i = 0; i < earnedStars && i < stars.Length; i++)
+                    if (stars[i] != null && restingScales.TryGetValue(stars[i].transform, out Vector3 rest))
+                        stars[i].transform.localScale = rest * (1f + .045f * Mathf.Sin(time * 3.4f + i * .9f));
+                if (continueButton != null && restingScales.TryGetValue(continueButton.transform, out Vector3 restNext))
+                    continueButton.transform.localScale = restNext * (1f + .025f * Mathf.Sin(time * 4.2f));
+                yield return null;
+            }
         }
 
-        private void AnimatePop(Transform target, float elapsed, float duration, bool jelly = false)
+        private CanvasGroup Dimmer()
+        {
+            Transform dimmer = FindChild(root.transform, "Dimmer");
+            if (dimmer == null) return null;
+            CanvasGroup group = dimmer.GetComponent<CanvasGroup>();
+            if (group == null) group = dimmer.gameObject.AddComponent<CanvasGroup>();
+            group.alpha = 0f;
+            group.blocksRaycasts = true;
+            return group;
+        }
+
+        private RectTransform[] ButtonRects()
+        {
+            var list = new List<RectTransform>(2);
+            if (continueButton != null) list.Add((RectTransform)continueButton.transform);
+            if (homeButton != null) list.Add((RectTransform)homeButton.transform);
+            return list.ToArray();
+        }
+
+
+        private void AnimatePop(Transform target, float elapsed, float duration, float spring = .16f, bool jelly = false)
         {
             if (target == null) return;
             CacheScale(target);
             float t = Mathf.Clamp01(elapsed / Mathf.Max(.1f, duration));
             float grow = 1f - Mathf.Pow(1f - t, 3f);
-            float spring = Mathf.Sin(t * Mathf.PI) * (1f - t) * .16f;
+            float wobble = Mathf.Sin(t * Mathf.PI) * (1f - t) * spring;
             target.localScale = Vector3.Scale(restingScales[target], jelly
-                ? new Vector3(grow * (1f + spring), grow * (1f - spring * .75f), 1f)
-                : Vector3.one * (grow * (1f + spring)));
+                ? new Vector3(grow * (1f + wobble), grow * (1f - wobble * .75f), 1f)
+                : Vector3.one * (grow * (1f + wobble)));
         }
 
         private void CacheScale(Transform target)
@@ -232,7 +295,7 @@ namespace CatBlockPuzzle
 
         private void SetReward(int amount)
         {
-            if (rewardText != null) rewardText.text = "+" + amount + " coins";
+            if (rewardText != null) rewardText.text = "+" + amount;
         }
 
         private void BindPresentation()
@@ -252,6 +315,8 @@ namespace CatBlockPuzzle
             if (skipButton == null) skipButton = FindButton(root.transform, "Skip Level");
             if (skipButton == null) skipButton = FindButton(root.transform, "Skip");
             if (doubleCoinsButton == null) doubleCoinsButton = FindButton(root.transform, "Double Coins");
+            if (homeButton == null) homeButton = FindButton(root.transform, "Home");
+            if (captionArtwork == null) captionArtwork = FindChild(root.transform, "Caption") as RectTransform;
         }
 
         private void EnsureWinStarOverlays()
@@ -306,6 +371,11 @@ namespace CatBlockPuzzle
             {
                 doubleCoinsButton.onClick.RemoveListener(ClaimDoubleCoins);
                 doubleCoinsButton.onClick.AddListener(ClaimDoubleCoins);
+            }
+            if (homeButton != null)
+            {
+                homeButton.onClick.RemoveListener(Home);
+                if (homeButton.onClick.GetPersistentEventCount() == 0) homeButton.onClick.AddListener(Home);
             }
         }
 
@@ -379,6 +449,7 @@ namespace CatBlockPuzzle
         }
         public void SkipLevel() => BeginAction(() => GameSystem.Instance?.SkipLevel());
         private void Next() => BeginAction(() => GameSystem.Instance?.NextLevel());
+        private void Home() => BeginAction(() => GameSystem.Instance?.GoHome());
         private static Button FindButton(Transform parent, string name)
         {
             Transform found = FindChild(parent, name);

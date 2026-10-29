@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 namespace CatBlockPuzzle
 {
-    /// <summary>A sad cat reaction followed by an encouraging retry, using the reference artwork.</summary>
+    /// <summary>
+    /// The sad-cat "Level Failed" popup. The cat, title, caption and buttons are baked art; this component
+    /// binds the buttons and plays the entrance: the dimmer fades, the panel drops in with a bounce, the title and
+    /// three brown stars wobble in one by one, the caption fades up and the buttons slide in. It then idles
+    /// with a slow sigh.
+    /// </summary>
     public sealed class LevelFailScreen : MonoBehaviour
     {
         [SerializeField] internal GameObject root;
@@ -13,23 +18,17 @@ namespace CatBlockPuzzle
         [SerializeField] private Button retryButton;
         [SerializeField] private Button homeButton;
         [SerializeField] private Button skipButton;
-        [Header("Sad presentation (auto-bound to the existing artwork)")]
+        [Header("Artwork (auto-bound by name when empty)")]
         [SerializeField] private RectTransform titleArtwork;
-        [SerializeField] private RectTransform sadCatArtwork;
+        [SerializeField] private RectTransform captionArtwork;
+        [SerializeField] private RectTransform[] stars = new RectTransform[0];
 
-        private struct RestingPose
-        {
-            public Vector3 scale;
-            public Vector2 position;
-            public Quaternion rotation;
-        }
-        private readonly Dictionary<RectTransform, RestingPose> restingPoses = new Dictionary<RectTransform, RestingPose>();
+        private readonly Dictionary<RectTransform, Vector3> restingScales = new Dictionary<RectTransform, Vector3>();
+        private readonly Dictionary<RectTransform, Vector2> restingPositions = new Dictionary<RectTransform, Vector2>();
+        private readonly ResultScreenButtons buttons = new ResultScreenButtons();
         private Coroutine presentation;
         private Coroutine action;
         private bool actionPending;
-        private readonly ResultScreenButtons buttons = new ResultScreenButtons();
-        private Image[] tears;
-        private static Sprite tearSprite;
         private bool ReducedMotion => PlayerPrefs.GetInt("CatBlockPuzzle.Settings.ReducedMotion", 0) != 0;
 
         public bool IsConfigured => root != null;
@@ -42,19 +41,30 @@ namespace CatBlockPuzzle
             if (panel == null) panel = FindChild(root.transform, "Fail Panel") as RectTransform;
             if (panel == null) panel = root.transform as RectTransform;
             if (titleArtwork == null) titleArtwork = FindChild(root.transform, "Title") as RectTransform;
-            if (sadCatArtwork == null) sadCatArtwork = FindChild(root.transform, "Cat") as RectTransform;
+            if (captionArtwork == null) captionArtwork = FindChild(root.transform, "Caption") as RectTransform;
+            if (stars == null || stars.Length == 0 || stars[0] == null)
+            {
+                var found = new List<RectTransform>(3);
+                for (int i = 1; i <= 3; i++)
+                {
+                    RectTransform star = FindChild(root.transform, "Fail Star " + i) as RectTransform;
+                    if (star != null) found.Add(star);
+                }
+                stars = found.ToArray();
+            }
             if (retryButton == null) retryButton = FindButton("Retry");
             if (homeButton == null) homeButton = FindButton("Home");
             if (skipButton == null) skipButton = FindButton("Skip Level");
             if (skipButton == null) skipButton = FindButton("Skip");
             BindButtons();
         }
+
         private void OnEnable() => EnsureBindings();
         private void OnDisable() => CancelPresentation();
         private void Update()
         {
-            // Some scenes keep this component alive outside the hidden panel.
-            if (presentation != null && (!IsOpen || ReducedMotion)) CancelPresentation();
+            // The component may live outside the overlay and survive its deactivation.
+            if (presentation != null && !IsOpen) CancelPresentation();
         }
         private void OnDestroy()
         {
@@ -71,38 +81,24 @@ namespace CatBlockPuzzle
             if (retryButton != null) retryButton.onClick.RemoveListener(Retry);
             if (homeButton != null) homeButton.onClick.RemoveListener(Home);
             if (skipButton != null) skipButton.onClick.RemoveListener(Skip);
-            if (tears != null)
-                foreach (Image tear in tears) if (tear != null) Destroy(tear.gameObject);
-            tears = null;
-            restingPoses.Clear();
             root = screenRoot;
-            titleArtwork = null;
-            sadCatArtwork = null;
-            panel = FindChild(root.transform, "Fail Panel") as RectTransform;
-            retryButton = FindButton("Retry");
-            homeButton = FindButton("Home");
-            skipButton = FindButton("Skip Level");
-            if (skipButton == null) skipButton = FindButton("Skip");
+            panel = null; titleArtwork = null; captionArtwork = null; stars = new RectTransform[0];
+            retryButton = null; homeButton = null; skipButton = null;
+            restingScales.Clear();
+            restingPositions.Clear();
             EnsureBindings();
         }
 
-        // The title and encouragement are baked into the reference artwork.
+        // The title and encouragement are baked into the artwork, so the message text is not drawn.
         public void Show(string title, string message)
         {
             if (root == null) return;
             CancelPresentation();
             EnsureBindings();
-            RememberPose(panel);
-            RememberPose(titleArtwork);
-            RememberPose(sadCatArtwork);
-            RememberPose(retryButton != null ? retryButton.transform as RectTransform : null);
-            RememberPose(homeButton != null ? homeButton.transform as RectTransform : null);
-            RememberPose(skipButton != null ? skipButton.transform as RectTransform : null);
             root.SetActive(true);
             root.transform.SetAsLastSibling();
             buttons.Prepare(retryButton, homeButton, skipButton);
-            if (!ReducedMotion) presentation = StartCoroutine(PlayPresentation());
-            else buttons.Set(1f, true);
+            presentation = StartCoroutine(PlayPresentation());
         }
 
         public void Hide()
@@ -111,94 +107,130 @@ namespace CatBlockPuzzle
             if (root != null) root.SetActive(false);
         }
 
+        private RectTransform[] ButtonRects()
+        {
+            var list = new List<RectTransform>(3);
+            foreach (Button button in new[] { retryButton, homeButton, skipButton })
+                if (button != null) list.Add((RectTransform)button.transform);
+            return list.ToArray();
+        }
+
         private IEnumerator PlayPresentation()
         {
-            EnsureTears();
-            float elapsed = 0f;
-            const float duration = .65f;
-            while (elapsed < duration && IsOpen)
+            CanvasGroup dim = Dimmer();
+            RectTransform[] buttonRects = ButtonRects();
+            Remember(panel); Remember(titleArtwork); Remember(captionArtwork);
+            foreach (RectTransform star in stars) Remember(star);
+            foreach (RectTransform rect in buttonRects) Remember(rect);
+            if (ReducedMotion)
             {
-                float panelT = Mathf.Clamp01(elapsed / .32f);
-                AnimatePose(panel, Vector2.one * Mathf.Lerp(.96f, 1f, EaseOut(panelT)),
-                    new Vector2(0f, 24f * (1f - EaseOut(panelT))), -1.8f * Mathf.Sin(panelT * Mathf.PI * 2f) * (1f - panelT));
-                float titleT = Mathf.Clamp01(elapsed / .35f);
-                AnimatePose(titleArtwork, Vector2.one * Mathf.Lerp(.92f, 1f, EaseOut(titleT)),
-                    new Vector2(0f, 12f * (1f - EaseOut(titleT))), -3f * Mathf.Sin(titleT * Mathf.PI) * (1f - titleT));
-                float catT = Mathf.Clamp01((elapsed - .04f) / .48f);
-                float slump = Mathf.Sin(catT * Mathf.PI) * .09f;
-                AnimatePose(sadCatArtwork, new Vector2(1f + slump, 1f - slump),
-                    new Vector2(0f, 35f * (1f - EaseOut(catT)) - 10f * Mathf.Sin(catT * Mathf.PI)),
-                    3f * Mathf.Sin(catT * Mathf.PI * 2f) * (1f - catT));
-                AnimateRetryButton(elapsed, .10f);
-                AnimateButton(homeButton, elapsed, .14f);
-                AnimateButton(skipButton, elapsed, .18f);
-                float buttonT = Mathf.Clamp01((elapsed - .10f) / .26f);
-                buttons.Set(buttonT * buttonT * (3f - 2f * buttonT), buttonT >= 1f);
-                // Give the overlapping reveal more breathing room without adding waits.
-                elapsed += Time.unscaledDeltaTime / 1.35f;
+                if (dim != null) dim.alpha = 1f;
+                buttons.Set(1f, true);
+                presentation = null;
+                yield break;
+            }
+
+            Hide0(panel); Hide0(titleArtwork); Hide0(captionArtwork);
+            foreach (RectTransform star in stars) Hide0(star);
+            foreach (RectTransform rect in buttonRects) Hide0(rect);
+            const float panelEnd = .55f, titleStart = .30f, starStart = .62f, starGap = .2f;
+            float captionStart = starStart + stars.Length * starGap + .05f;
+            float buttonStart = captionStart + .18f, buttonGap = .12f;
+            float end = buttonStart + buttonGap * Mathf.Max(0, buttonRects.Length - 1) + .5f;
+            float elapsed = 0f;
+            bool thud = false;
+            while (elapsed < end)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                if (dim != null) dim.alpha = Mathf.Clamp01(elapsed / .3f);
+                // Panel falls in from above and settles with a squash.
+                float p = Mathf.Clamp01(elapsed / panelEnd);
+                float drop = EaseOutBounce(p);
+                SetScale(panel, Vector3.one * Mathf.Lerp(.82f, 1f, EaseOut(p)));
+                SetOffset(panel, new Vector2(0f, (1f - drop) * 260f));
+                if (!thud && p >= .7f) { thud = true; HapticsController.Current?.Play(HapticKind.UiTap); }
+                Pop(titleArtwork, elapsed - titleStart, .45f, .2f);
+                for (int i = 0; i < stars.Length; i++)
+                {
+                    // Each brown star drops in, wobbles and settles slightly drooped.
+                    float t = elapsed - (starStart + i * starGap);
+                    Pop(stars[i], t, .5f, .24f);
+                    if (stars[i] != null && t > 0f)
+                        stars[i].localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(Mathf.Clamp01(t / .6f) * Mathf.PI * 2.5f) * (1f - Mathf.Clamp01(t / .6f)) * 14f);
+                }
+                Pop(captionArtwork, elapsed - captionStart, .4f, .08f);
+                for (int i = 0; i < buttonRects.Length; i++) Pop(buttonRects[i], elapsed - (buttonStart + i * buttonGap), .4f, .12f);
+                float bt = Mathf.Clamp01((elapsed - buttonStart) / .3f);
+                buttons.Set(bt * bt * (3f - 2f * bt), elapsed >= buttonStart + buttonGap * Mathf.Max(0, buttonRects.Length - 1) + .25f);
                 yield return null;
             }
-            RestorePoses();
+            RestoreAll();
             buttons.Set(1f, true);
-            elapsed = 0f;
+            // Idle: the whole card sighs slowly and the stars sway.
+            float time = 0f;
             while (IsOpen)
             {
-                // A slow sigh and a pair of tears, with a quiet rest between reactions.
-                float sigh = Mathf.Sin(elapsed * Mathf.PI * 2f / 4.2f);
-                AnimatePose(sadCatArtwork, new Vector2(1f + sigh * .014f, 1f - sigh * .024f),
-                    new Vector2(0f, -3f * sigh * sigh), -.9f * sigh);
-                AnimateTear(0, elapsed, .4f);
-                AnimateTear(1, elapsed, .62f);
-                elapsed += Time.unscaledDeltaTime;
+                time += Time.unscaledDeltaTime;
+                float sigh = Mathf.Sin(time * Mathf.PI * 2f / 4.2f);
+                SetScale(panel, Vector3.one * (1f + sigh * .008f));
+                for (int i = 0; i < stars.Length; i++)
+                    if (stars[i] != null) stars[i].localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(time * 1.6f + i * 1.3f) * 3f);
                 yield return null;
             }
-            RestorePoses();
-            HideTears();
             presentation = null;
         }
 
+        private CanvasGroup Dimmer()
+        {
+            Transform dimmer = FindChild(root.transform, "Dimmer");
+            if (dimmer == null) return null;
+            CanvasGroup group = dimmer.GetComponent<CanvasGroup>();
+            if (group == null) group = dimmer.gameObject.AddComponent<CanvasGroup>();
+            group.alpha = 0f;
+            return group;
+        }
+
+        // ------------------------------------------------------------------ motion helpers
+
+        private void Remember(RectTransform target)
+        {
+            if (target == null || restingScales.ContainsKey(target)) return;
+            restingScales[target] = target.localScale;
+            restingPositions[target] = target.anchoredPosition;
+        }
+        private void Hide0(RectTransform target) { if (target != null) target.localScale = Vector3.zero; }
+        private void SetScale(RectTransform target, Vector3 factor)
+        {
+            if (target == null || !restingScales.TryGetValue(target, out Vector3 rest)) return;
+            target.localScale = Vector3.Scale(rest, factor);
+        }
+        private void SetOffset(RectTransform target, Vector2 offset)
+        {
+            if (target == null || !restingPositions.TryGetValue(target, out Vector2 rest)) return;
+            target.anchoredPosition = rest + offset;
+        }
+        private void Pop(RectTransform target, float elapsed, float duration, float spring)
+        {
+            if (target == null || !restingScales.ContainsKey(target)) return;
+            float t = Mathf.Clamp01(elapsed / Mathf.Max(.05f, duration));
+            float grow = 1f - Mathf.Pow(1f - t, 3f);
+            float wobble = Mathf.Sin(t * Mathf.PI) * (1f - t) * spring;
+            SetScale(target, Vector3.one * (grow * (1f + wobble)));
+        }
+        private void RestoreAll()
+        {
+            foreach (var entry in restingScales) if (entry.Key != null) entry.Key.localScale = entry.Value;
+            foreach (var entry in restingPositions) if (entry.Key != null) entry.Key.anchoredPosition = entry.Value;
+            foreach (RectTransform star in stars) if (star != null) star.localRotation = Quaternion.identity;
+        }
         private static float EaseOut(float t) => 1f - Mathf.Pow(1f - t, 3f);
-
-        private void AnimateButton(Button button, float elapsed, float delay)
+        private static float EaseOutBounce(float t)
         {
-            if (button == null) return;
-            float t = Mathf.Clamp01((elapsed - delay) / .35f);
-            float scale = Mathf.Lerp(.88f, 1f, EaseOut(t)) + Mathf.Sin(t * Mathf.PI) * .07f;
-            AnimatePose(button.transform as RectTransform, Vector2.one * scale, Vector2.zero, 0f);
-        }
-
-        private void AnimateRetryButton(float elapsed, float delay)
-        {
-            if (retryButton == null) return;
-            float t = Mathf.Clamp01((elapsed - delay) / .34f);
-            float grow = Mathf.Lerp(.68f, 1f, EaseOut(t));
-            float pop = Mathf.Sin(t * Mathf.PI) * .13f;
-            AnimatePose(retryButton.transform as RectTransform, Vector2.one * (grow + pop), Vector2.zero, 0f);
-        }
-
-        private void RememberPose(RectTransform target)
-        {
-            if (target == null || restingPoses.ContainsKey(target)) return;
-            restingPoses.Add(target, new RestingPose { scale = target.localScale, position = target.anchoredPosition, rotation = target.localRotation });
-        }
-
-        private void AnimatePose(RectTransform target, Vector2 scale, Vector2 offset, float rotation)
-        {
-            if (target == null || !restingPoses.TryGetValue(target, out RestingPose rest)) return;
-            target.localScale = Vector3.Scale(rest.scale, new Vector3(scale.x, scale.y, 1f));
-            target.anchoredPosition = rest.position + offset;
-            target.localRotation = rest.rotation * Quaternion.Euler(0f, 0f, rotation);
-        }
-
-        private void RestorePoses()
-        {
-            foreach (var entry in restingPoses)
-            {
-                if (entry.Key == null) continue;
-                entry.Key.localScale = entry.Value.scale;
-                entry.Key.anchoredPosition = entry.Value.position;
-                entry.Key.localRotation = entry.Value.rotation;
-            }
+            const float n = 7.5625f, d = 2.75f;
+            if (t < 1f / d) return n * t * t;
+            if (t < 2f / d) { t -= 1.5f / d; return n * t * t + .75f; }
+            if (t < 2.5f / d) { t -= 2.25f / d; return n * t * t + .9375f; }
+            t -= 2.625f / d; return n * t * t + .984375f;
         }
 
         private void CancelPresentation()
@@ -209,77 +241,16 @@ namespace CatBlockPuzzle
             action = null;
             actionPending = false;
             buttons.Restore();
-            RestorePoses();
-            HideTears();
-        }
-
-        private void EnsureTears()
-        {
-            if (sadCatArtwork == null) return;
-            if (tears == null) tears = new Image[2];
-            if (tearSprite == null) tearSprite = CreateTearSprite();
-            for (int i = 0; i < tears.Length; i++)
+            RestoreAll();
+            if (root != null)
             {
-                if (tears[i] != null) continue;
-                var go = new GameObject("Sad Tear " + (i + 1), typeof(RectTransform), typeof(Image), typeof(LayoutElement));
-                go.transform.SetParent(sadCatArtwork, false);
-                go.GetComponent<LayoutElement>().ignoreLayout = true;
-                var tear = go.GetComponent<Image>();
-                tear.sprite = tearSprite;
-                tear.raycastTarget = false;
-                tear.rectTransform.anchorMin = tear.rectTransform.anchorMax = new Vector2(.5f, .5f);
-                tear.rectTransform.pivot = new Vector2(.5f, .5f);
-                go.SetActive(false);
-                tears[i] = tear;
+                Transform dimmer = FindChild(root.transform, "Dimmer");
+                CanvasGroup group = dimmer != null ? dimmer.GetComponent<CanvasGroup>() : null;
+                if (group != null) group.alpha = 1f;
             }
         }
 
-        private void AnimateTear(int index, float elapsed, float delay)
-        {
-            if (tears == null || tears[index] == null || sadCatArtwork == null) return;
-            Image tear = tears[index];
-            float t = ((elapsed % 3.6f) - delay) / .85f;
-            bool visible = t > 0f && t < 1f;
-            tear.gameObject.SetActive(visible);
-            if (!visible) return;
-            Vector2 size = sadCatArtwork.rect.size;
-            Image cat = sadCatArtwork.GetComponent<Image>();
-            if (cat != null && cat.preserveAspect && cat.sprite != null)
-            {
-                Vector2 spriteSize = cat.sprite.rect.size;
-                size = spriteSize * Mathf.Min(size.x / spriteSize.x, size.y / spriteSize.y);
-            }
-            float width = size.x * .038f;
-            tear.rectTransform.sizeDelta = new Vector2(width, width * 1.5f);
-            tear.rectTransform.anchoredPosition = new Vector2((index == 0 ? -.235f : .235f) * size.x,
-                (-.12f - .24f * t * t) * size.y);
-            tear.rectTransform.localScale = Vector3.one * Mathf.Lerp(.65f, 1f, Mathf.Clamp01(t * 4f));
-            tear.color = new Color(.38f, .76f, 1f, Mathf.Sin(t * Mathf.PI) * .9f);
-        }
-
-        private void HideTears()
-        {
-            if (tears == null) return;
-            foreach (Image tear in tears) if (tear != null) tear.gameObject.SetActive(false);
-        }
-
-        private static Sprite CreateTearSprite()
-        {
-            var texture = new Texture2D(32, 48, TextureFormat.RGBA32, false) { name = "Sad Tear", hideFlags = HideFlags.HideAndDontSave, filterMode = FilterMode.Bilinear };
-            for (int y = 0; y < texture.height; y++)
-                for (int x = 0; x < texture.width; x++)
-                {
-                    Vector2 point = new Vector2(x + .5f, y + .5f);
-                    float circle = Mathf.Clamp01(12f - Vector2.Distance(point, new Vector2(16f, 15f)));
-                    float triangle = y >= 15 ? Mathf.Clamp01((45f - point.y) * .4f - Mathf.Abs(point.x - 16f)) : 0f;
-                    texture.SetPixel(x, y, new Color(1f, 1f, 1f, Mathf.Max(circle, triangle)));
-                }
-            texture.Apply();
-            var sprite = Sprite.Create(texture, new Rect(0f, 0f, 32f, 48f), new Vector2(.5f, .5f), 100f);
-            sprite.name = "Sad Tear";
-            sprite.hideFlags = HideFlags.HideAndDontSave;
-            return sprite;
-        }
+        // ------------------------------------------------------------------ buttons
 
         private Button FindButton(string buttonName)
         {
@@ -308,6 +279,7 @@ namespace CatBlockPuzzle
             ButtonSfx.PlayClick();
             if (presentation != null) StopCoroutine(presentation);
             presentation = null;
+            RestoreAll();
             action = StartCoroutine(FadeThenAct(callback));
         }
 
