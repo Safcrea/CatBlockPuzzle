@@ -176,19 +176,19 @@ namespace CatBlockPuzzle
             switch (kind)
             {
                 case HapticKind.Selection:
-                    if (!TryCompose(new[] { Tick }, new[] { 0.7f }, new[] { 0 }) && !TryPredefined(EffectTick)) VibrateOneShot(10, 140);
+                    if (!TryCompose(new[] { Tick }, new[] { 0.9f }, new[] { 0 })) VibrateOneShot(18, 200);
                     break;
                 case HapticKind.UiTap:
-                    if (!TryCompose(new[] { Click }, new[] { 0.45f }, new[] { 0 }) && !TryPredefined(EffectTick)) VibrateOneShot(14, 150);
+                    if (!TryCompose(new[] { Click }, new[] { 0.75f }, new[] { 0 })) VibrateOneShot(22, 210);
                     break;
                 case HapticKind.TimerTick:
-                    if (!TryCompose(new[] { Tick }, new[] { 1f }, new[] { 0 }) && !TryPredefined(EffectTick)) VibrateOneShot(14, 170);
+                    if (!TryCompose(new[] { Tick }, new[] { 1f }, new[] { 0 })) VibrateOneShot(22, 220);
                     break;
                 case HapticKind.Pickup:
-                    if (!TryCompose(new[] { Click }, new[] { 0.7f }, new[] { 0 }) && !TryPredefined(EffectClick)) VibrateOneShot(20, 180);
+                    if (!TryCompose(new[] { Click }, new[] { 0.9f }, new[] { 0 }) && !TryPredefined(EffectClick)) VibrateOneShot(30, 230);
                     break;
                 case HapticKind.Snap:
-                    if (!TryCompose(new[] { Click, Tick }, new[] { 1f, 0.5f }, new[] { 0, 35 }) && !TryPredefined(EffectHeavyClick)) VibrateOneShot(30, 235);
+                    if (!TryCompose(new[] { Click, Tick }, new[] { 1f, 0.7f }, new[] { 0, 35 }) && !TryPredefined(EffectHeavyClick)) VibrateOneShot(42, 255);
                     break;
                 case HapticKind.Combo:
                     if (!TryCompose(new[] { QuickRise, Click }, new[] { 0.8f, 1f }, new[] { 0, 20 }) && !TryPredefined(EffectDoubleClick))
@@ -307,11 +307,38 @@ namespace CatBlockPuzzle
             catch { return false; }
         }
 
+        private static int amplitudeControl = -1; // 0 no, 1 yes, -1 unknown
+        private static bool reportedFailure;
+
+        // Phones whose motor cannot vary its strength ignore the amplitude, and a very short pulse barely spins it up,
+        // so those need longer pulses to be felt at all.
+        private static bool HasAmplitudeControl
+        {
+            get
+            {
+                if (amplitudeControl < 0)
+                {
+                    try { amplitudeControl = Vibrator != null && ApiLevel >= 26 && Vibrator.Call<bool>("hasAmplitudeControl") ? 1 : 0; }
+                    catch { amplitudeControl = 0; }
+                }
+                return amplitudeControl == 1;
+            }
+        }
+
+        // The first failure is logged (adb logcat -s Unity); a missing VIBRATE permission used to fail in silence.
+        private static void ReportFailure(System.Exception error)
+        {
+            if (reportedFailure) return;
+            reportedFailure = true;
+            Debug.LogWarning("[Haptics] Vibration failed. Is android.permission.VIBRATE in the merged manifest? " + error.Message);
+        }
+
         private static void VibrateOneShot(long milliseconds, int amplitude)
         {
             try
             {
                 if (Vibrator == null) return;
+                if (!HasAmplitudeControl) milliseconds = System.Math.Max(milliseconds * 2, 35L);
                 if (ApiLevel >= 26)
                 {
                     using (AndroidJavaClass effectClass = new AndroidJavaClass("android.os.VibrationEffect"))
@@ -320,7 +347,7 @@ namespace CatBlockPuzzle
                 }
                 else Vibrator.Call("vibrate", milliseconds);
             }
-            catch { }
+            catch (System.Exception error) { ReportFailure(error); }
         }
 
         private static void VibrateWaveform(long[] timings, int[] amplitudes)
@@ -328,6 +355,11 @@ namespace CatBlockPuzzle
             try
             {
                 if (Vibrator == null) return;
+                if (!HasAmplitudeControl)
+                {
+                    timings = (long[])timings.Clone();
+                    for (int i = 1; i < timings.Length; i += 2) timings[i] = System.Math.Max(timings[i] * 2, 35L); // odd entries are the "on" times
+                }
                 if (ApiLevel >= 26)
                 {
                     using (AndroidJavaClass effectClass = new AndroidJavaClass("android.os.VibrationEffect"))
@@ -336,7 +368,7 @@ namespace CatBlockPuzzle
                 }
                 else Vibrator.Call("vibrate", timings, -1);
             }
-            catch { }
+            catch (System.Exception error) { ReportFailure(error); }
         }
 #endif
     }

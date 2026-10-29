@@ -11,4 +11,12 @@ android {
     defaultConfig {
         minSdk 23
     }
+
+    // The manifest lives at the root of this library, not in src/main. Without this line Gradle generates an
+    // empty manifest, the VIBRATE permission never reaches the app and every vibration is silently refused.
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
 }
