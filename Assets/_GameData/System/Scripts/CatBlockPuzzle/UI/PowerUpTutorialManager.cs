@@ -37,11 +37,11 @@ namespace CatBlockPuzzle
                 yield return null;
             if (GameSystem.Instance != null && !GameSystem.Instance.IsGameplayOpen) yield break;
             if (hud.IsPowerUpUnlocked(PowerUpKind.Hint) && PlayerPrefs.GetInt(HintSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Hint, "Stuck? Hint shows where a cat fits.\nTap it!", HintSeenKey);
+                yield return Show(hud, PowerUpKind.Hint, "Stuck?\nTap Hint!", HintSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Freeze, $"Freeze stops the clock for {freezeSeconds:0.#} seconds.\nTap it!", FreezeSeenKey);
+                yield return Show(hud, PowerUpKind.Freeze, $"Freeze time for {freezeSeconds:0.#}s!\nTap Freeze!", FreezeSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Rotate) && PlayerPrefs.GetInt(RotateSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Rotate, "Rotate turns a cat on the shelf.\nTap it, then tap a cat!", RotateSeenKey);
+                yield return Show(hud, PowerUpKind.Rotate, "Turn a cat!\nTap Rotate!", RotateSeenKey);
         }
 
         private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string message, string key)

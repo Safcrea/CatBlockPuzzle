@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,6 +18,8 @@ namespace CatBlockPuzzle
         [SerializeField] private Text heading;
         [SerializeField] private Text message;
         [SerializeField] private Text wallet;
+        [Tooltip("Quantity pill next to the icon, e.g. x1.")]
+        [SerializeField] private Text badge;
         [SerializeField] private Image icon;
         [SerializeField] private Button buyButton;
         [SerializeField] private Button closeButton;
@@ -95,19 +98,20 @@ namespace CatBlockPuzzle
             if (heading == null) heading = Find<Text>("Title");
             if (message == null) message = Find<Text>("Message");
             if (wallet == null) wallet = Find<Text>("Wallet");
+            if (badge == null) badge = Find<Text>("Badge");
             if (icon == null) icon = Find<Image>("Power Up Icon");
             if (buyButton == null) buyButton = Find<Button>("Buy");
             if (closeButton == null) closeButton = Find<Button>("Close");
-            if (heading == null || message == null || wallet == null || icon == null || buyButton == null || closeButton == null)
+            if (heading == null || message == null || icon == null || buyButton == null || closeButton == null)
             {
-                Debug.LogError("Power up purchase popup is missing Title, Message, Wallet, Power Up Icon, Buy or Close.", this);
+                Debug.LogError("Power up purchase popup is missing Title, Message, Power Up Icon, Buy or Close.", this);
                 return false;
             }
             buyLabel = buyButton.GetComponentInChildren<Text>(true);
-            closeLabel = closeButton.GetComponentInChildren<Text>(true);
-            if (buyLabel == null || closeLabel == null)
+            closeLabel = closeButton.GetComponentInChildren<Text>(true); // optional: the close button can be an icon only
+            if (buyLabel == null)
             {
-                Debug.LogError("Power up purchase popup buttons need a Text label.", this);
+                Debug.LogError("Power up purchase popup Buy button needs a Text label.", this);
                 return false;
             }
             Vector2 available = ((RectTransform)hud.Canvas.transform).rect.size - new Vector2(64f, 64f);
@@ -156,10 +160,12 @@ namespace CatBlockPuzzle
             sessionOpen = true;
             if (EventSystem.current != null) previousSelection = EventSystem.current.currentSelectedGameObject;
             heading.text = "Out of " + Plural(kind) + "!";
-            closeLabel.text = "Not now";
+            if (closeLabel != null) closeLabel.text = string.Empty;
             icon.sprite = hud.GetPowerUpSprite(kind);
             icon.enabled = icon.sprite != null;
             RefreshOffer();
+            StopMotion();
+            motion = StartCoroutine(IdleMotion());
             GameAnalytics.PowerUpOfferShown(kind, displayedOffer.coinPrice, displayedOffer.quantity, system.CurrentCoins);
             system.SetPowerUpPurchaseOpen(true);
             transform.SetAsLastSibling(); // Authored prefabs are not spawned on top like the runtime overlay.
@@ -176,21 +182,41 @@ namespace CatBlockPuzzle
             PowerUpShopConfig.Offer offer = config != null ? config.GetOffer(Kind) : default;
             displayedOffer = offer;
             int coins = system != null ? system.CurrentCoins : 0;
-            wallet.text = $"Your coins: {coins}";
+            if (wallet != null) wallet.text = coins.ToString();
             if (!offer.IsValid)
             {
-                message.text = "This power-up is unavailable right now.";
-                buyLabel.text = "Unavailable";
+                SetMessage("Unavailable");
+                SetBadge(string.Empty);
+                buyLabel.text = "-";
                 buyButton.interactable = false;
                 return;
             }
-            string item = ItemName(Kind);
-            string items = offer.quantity == 1 ? item : Plural(Kind);
-            message.text = coins >= offer.coinPrice
-                ? $"Get {offer.quantity} {items} for {offer.coinPrice} coins.\nBuy now, then tap {item} to use one."
-                : $"Get {offer.quantity} {items} for {offer.coinPrice} coins.\nYou need {offer.coinPrice - coins} more coins.";
-            buyLabel.text = $"Buy x{offer.quantity}  •  {offer.coinPrice} coins";
-            buyButton.interactable = coins >= offer.coinPrice;
+            // Icon + "x3" + price say it all; the only sentence is how many coins are missing.
+            SetBadge("x" + offer.quantity);
+            buyLabel.text = offer.coinPrice.ToString();
+            bool canAfford = coins >= offer.coinPrice;
+            SetMessage(canAfford ? string.Empty : "Need " + (offer.coinPrice - coins) + " more");
+            buyButton.interactable = true; // stays tappable so a short purse can shake instead of doing nothing
+            SetBuyDimmed(!canAfford);
+        }
+
+        private void SetMessage(string text)
+        {
+            message.text = text;
+            message.gameObject.SetActive(!string.IsNullOrEmpty(text));
+        }
+
+        private void SetBadge(string text)
+        {
+            if (badge == null) return;
+            badge.text = text;
+            badge.gameObject.SetActive(!string.IsNullOrEmpty(text));
+        }
+
+        private void SetBuyDimmed(bool dimmed)
+        {
+            var graphic = buyButton.targetGraphic as Image;
+            if (graphic != null) graphic.color = dimmed ? new Color(0.62f, 0.62f, 0.62f, 1f) : Color.white;
         }
 
         public void Buy()
@@ -203,6 +229,12 @@ namespace CatBlockPuzzle
                 RefreshOffer();
                 return; // Let the player review an offer changed while the popup was open.
             }
+            if (system != null && system.CurrentCoins < displayedOffer.coinPrice)
+            {
+                StopMotion();
+                motion = StartCoroutine(Shake((RectTransform)buyButton.transform));
+                return;
+            }
             var status = system != null ? system.PurchasePowerUp(Kind) : PowerUpPurchaseStatus.Unavailable;
             GameAnalytics.PowerUpPurchase(Kind, displayedOffer.coinPrice, displayedOffer.quantity, status, system != null ? system.CurrentCoins : 0);
             if (status != PowerUpPurchaseStatus.Success)
@@ -210,21 +242,98 @@ namespace CatBlockPuzzle
                 RefreshOffer();
                 if (status == PowerUpPurchaseStatus.InventoryFull)
                 {
-                    message.text = "Your power-up bag is full.";
+                    SetMessage("Bag is full");
                     buyButton.interactable = false;
+                    SetBuyDimmed(true);
                 }
                 return;
             }
             purchased = true;
             buyButton.interactable = false;
-            buyLabel.text = "Purchased!";
-            heading.text = Plural(Kind) + " ready!";
-            string item = ItemName(Kind);
-            message.text = $"Added x{displayedOffer.quantity} to your bag!\nTap {item} after closing to use one.";
-            wallet.text = $"Your coins: {system.CurrentCoins}";
-            closeLabel.text = "Continue";
+            heading.text = "Got it!";
+            SetMessage(string.Empty);
+            if (wallet != null) wallet.text = system.CurrentCoins.ToString();
             ButtonSfx.PlayClick();
-            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(closeButton.gameObject);
+            StopMotion();
+            motion = StartCoroutine(CelebrateThenClose());
+        }
+
+        // ------------------------------------------------------------------ motion
+
+        private Coroutine motion;
+
+        private void StopMotion()
+        {
+            if (motion != null) StopCoroutine(motion);
+            motion = null;
+            if (icon != null) { icon.rectTransform.localScale = Vector3.one; icon.rectTransform.localRotation = Quaternion.identity; }
+            if (buyButton != null) buyButton.transform.localScale = Vector3.one;
+        }
+
+        // The icon bobs and wiggles while the Buy button breathes, so the eye lands on "buy this".
+        private IEnumerator IdleMotion()
+        {
+            if (ReducedMotion) yield break;
+            RectTransform iconRect = icon.rectTransform;
+            RectTransform buyRect = (RectTransform)buyButton.transform;
+            bool affordable = displayedOffer.IsValid && GameSystem.Instance != null && GameSystem.Instance.CurrentCoins >= displayedOffer.coinPrice;
+            // Pop the icon in a beat after the panel lands.
+            for (float t = 0f; t < 0.4f; t += Time.unscaledDeltaTime)
+            {
+                float k = Mathf.Clamp01(t / 0.4f);
+                iconRect.localScale = Vector3.one * Mathf.LerpUnclamped(0.2f, 1f, EaseOutBack(k));
+                yield return null;
+            }
+            float time = 0f;
+            while (true)
+            {
+                time += Time.unscaledDeltaTime;
+                float bob = Mathf.Sin(time * 3.2f);
+                iconRect.localScale = Vector3.one * (1f + 0.045f * bob);
+                iconRect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(time * 2.1f) * 4f);
+                buyRect.localScale = affordable ? Vector3.one * (1f + 0.035f * Mathf.Sin(time * 4.4f)) : Vector3.one;
+                yield return null;
+            }
+        }
+
+        private IEnumerator Shake(RectTransform target)
+        {
+            Vector2 rest = target.anchoredPosition;
+            for (float t = 0f; t < 0.35f; t += Time.unscaledDeltaTime)
+            {
+                float k = t / 0.35f;
+                target.anchoredPosition = rest + Vector2.right * (Mathf.Sin(k * Mathf.PI * 6f) * 18f * (1f - k));
+                yield return null;
+            }
+            target.anchoredPosition = rest;
+            motion = StartCoroutine(IdleMotion());
+        }
+
+        private IEnumerator CelebrateThenClose()
+        {
+            RectTransform iconRect = icon.rectTransform;
+            RectTransform host = panel;
+            UiBurst.Play(this, host, iconRect.anchoredPosition, new Color(1f, 0.86f, 0.3f, 1f), 14, 230f, 0.7f);
+            UiBurst.Play(this, host, iconRect.anchoredPosition, Color.white, 8, 150f, 0.5f);
+            float duration = ReducedMotion ? 0f : 0.45f;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                iconRect.localScale = Vector3.one * (1f + 0.35f * Mathf.Sin(k * Mathf.PI));
+                iconRect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(k * Mathf.PI * 2f) * 8f);
+                yield return null;
+            }
+            iconRect.localScale = Vector3.one;
+            iconRect.localRotation = Quaternion.identity;
+            for (float t = 0f; t < 0.55f; t += Time.unscaledDeltaTime) yield return null;
+            motion = null;
+            Close();
+        }
+
+        private static float EaseOutBack(float t)
+        {
+            const float c1 = 1.70158f, c3 = c1 + 1f;
+            return 1f + c3 * Mathf.Pow(t - 1f, 3f) + c1 * Mathf.Pow(t - 1f, 2f);
         }
 
         private static string ItemName(PowerUpKind kind) => kind == PowerUpKind.Hint ? "Hint" : kind == PowerUpKind.Rotate ? "Rotate" : "Freeze";
@@ -253,6 +362,9 @@ namespace CatBlockPuzzle
 
         private void OnDisable()
         {
+            motion = null; // Unity already stopped the coroutines; reset visuals for the next open.
+            if (icon != null) { icon.rectTransform.localScale = Vector3.one; icon.rectTransform.localRotation = Quaternion.identity; }
+            if (buyButton != null) buyButton.transform.localScale = Vector3.one;
             if (!sessionOpen) return;
             sessionOpen = false;
             GameAnalytics.PowerUpOfferClosed(Kind, purchased, closing);

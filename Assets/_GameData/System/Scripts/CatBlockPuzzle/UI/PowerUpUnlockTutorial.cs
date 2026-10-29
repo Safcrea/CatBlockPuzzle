@@ -121,7 +121,8 @@ namespace CatBlockPuzzle
             iconRoot.anchoredPosition = Vector2.zero;
             StartCoroutine(Typewriter(text));
             yield return PopIcon(reduced ? 0f : iconPopDuration);
-            yield return new WaitForSecondsRealtime(iconHoldDuration);
+            if (!reduced) UiBurst.Play(this, iconRoot.parent as RectTransform ?? Root, iconRoot.anchoredPosition, new Color(1f, 0.9f, 0.45f, 1f), 12, 260f, 0.7f);
+            yield return IdleHold(iconHoldDuration, reduced);
 
             // The message leaves the moment the icon starts moving, so the two read as one motion.
             StartCoroutine(Fade(MessageGroup, MessageGroup.alpha, 0f, 0.2f));
@@ -132,6 +133,11 @@ namespace CatBlockPuzzle
 
             onArmed?.Invoke();
             LiftButton();
+            if (!reduced && target != null)
+            {
+                UiBurst.Play(this, Root, landing, new Color(1f, 0.9f, 0.45f, 1f), 10, 150f, 0.55f);
+                StartCoroutine(Punch((RectTransform)target.transform));
+            }
             clicked = false;
             if (target != null) target.onClick.AddListener(OnTargetClicked);
             hand.gameObject.SetActive(true);
@@ -240,6 +246,42 @@ namespace CatBlockPuzzle
             }
             iconGroup.alpha = 1f;
             iconRoot.localScale = Vector3.one;
+        }
+
+        // While the message reads, the icon breathes and the glow behind it spins and pulses.
+        private IEnumerator IdleHold(float duration, bool reduced)
+        {
+            Transform glow = iconRoot.childCount > 0 ? iconRoot.GetChild(0) : null;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                if (!reduced)
+                {
+                    iconRoot.localScale = Vector3.one * (1f + 0.06f * Mathf.Sin(t * 6f));
+                    iconRoot.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(t * 3.5f) * 5f);
+                    if (glow != null)
+                    {
+                        glow.localRotation = Quaternion.Euler(0f, 0f, t * 40f);
+                        glow.localScale = Vector3.one * (1f + 0.12f * Mathf.Sin(t * 4f));
+                    }
+                }
+                yield return null;
+            }
+            iconRoot.localScale = Vector3.one;
+            iconRoot.localRotation = Quaternion.identity;
+            if (glow != null) { glow.localRotation = Quaternion.identity; glow.localScale = Vector3.one; }
+        }
+
+        // The power-up button squashes and springs back when the icon lands on it.
+        private IEnumerator Punch(RectTransform button)
+        {
+            for (float t = 0f; t < 0.4f && button != null; t += Time.unscaledDeltaTime)
+            {
+                float k = t / 0.4f;
+                float s = 1f + 0.35f * Mathf.Sin(k * Mathf.PI) * (1f - k * 0.4f);
+                button.localScale = new Vector3(s, 2f - s > 0.8f ? 2f - s : 0.8f, 1f);
+                yield return null;
+            }
+            if (button != null) button.localScale = Vector3.one;
         }
 
         private IEnumerator FlyIcon(Vector2 destination, float duration)
