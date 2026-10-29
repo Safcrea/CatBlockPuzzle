@@ -47,22 +47,24 @@ namespace CatBlockPuzzle
         private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string message, string key)
         {
             Button button = hud.PowerUpButton(kind);
-            void MarkSeenAndGrant()
+            // Unlocking gives the player "Free On Unlock" power-ups to keep (Inspector, Gameplay HUD). When the
+            // introduction runs, its tap spends one more straight away, so that one is granted on top.
+            void MarkSeenAndGrant(bool demoWillSpendOne)
             {
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
-                // The introduction tap is on the house, so the first use never opens the shop.
-                if (PowerUpInventory.GetCount(kind) == 0)
+                int grant = hud.FreeOnUnlock + (demoWillSpendOne ? 1 : 0);
+                if (grant > 0)
                 {
-                    PowerUpInventory.Add(kind);
-                    GameAnalytics.ItemEarned(kind, 1, GameAnalytics.EarnTutorialGrant);
+                    PowerUpInventory.Add(kind, grant);
+                    GameAnalytics.ItemEarned(kind, grant, GameAnalytics.EarnTutorialGrant);
                 }
                 hud.RefreshPowerUpCounts();
             }
 
             if (button == null || !button.gameObject.activeInHierarchy || hud.Canvas == null)
             {
-                MarkSeenAndGrant();
+                MarkSeenAndGrant(false);
                 yield break;
             }
 
@@ -70,12 +72,12 @@ namespace CatBlockPuzzle
             if (overlay == null)
             {
                 Debug.LogWarning("PowerUpUnlockTutorial prefab missing; skipping the " + kind + " introduction.", this);
-                MarkSeenAndGrant();
+                MarkSeenAndGrant(false);
                 yield break;
             }
 
             GameAnalytics.PowerUpTutorialShown(kind);
-            yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, MarkSeenAndGrant, () =>
+            yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, () => MarkSeenAndGrant(true), () =>
             {
                 pendingUse = kind;
                 GameAnalytics.PowerUpTutorialTapped(kind);

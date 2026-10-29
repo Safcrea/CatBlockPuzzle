@@ -84065,7 +84065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 192.36433, y: -66}
+  m_AnchoredPosition: {x: 192.36432, y: -66}
   m_SizeDelta: {x: 312.72867, y: 132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1136808351
@@ -153838,6 +153838,7 @@ MonoBehaviour:
   hintUnlockLevel: 4
   freezeUnlockLevel: 13
   rotateUnlockLevel: 21
+  freeOnUnlock: 2
   lockedMaterial: {fileID: 2100000, guid: fb950cc7f53662845a7005abf8df6ae3, type: 2}
   purchasePopupPrefab: {fileID: 1000, guid: 2f509049234a42b3b1f24d3a64be71c9, type: 3}
 --- !u!114 &2116504856
