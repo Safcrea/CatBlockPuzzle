@@ -74,6 +74,7 @@ namespace CatBlockPuzzle
         {
             if (!CanRequestPowerUp(PowerUpKind.Hint)) return false;
             lastHintFoundTarget = hint.ShowHint(timer.Profile.HintReveal);
+            AvnEvents.HintOutcome(lastHintFoundTarget, false);
             return true;
         }
 

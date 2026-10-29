@@ -62,6 +62,7 @@ namespace CatBlockPuzzle
             MenuTransition.Show(root, true, openingAnimation, animatedItems != null && animatedItems.Length > 0
                 ? MenuTransition.Cards(animatedItems)
                 : MenuTransition.Cards(musicButton, sfxButton, hapticsButton, closeButton));
+            AvnEvents.PopupOpened(AvnScreen.settings, root);
             RefreshVisuals();
         }
 
@@ -111,6 +112,7 @@ namespace CatBlockPuzzle
             if (refreshingToggles) return;
             ButtonSfx.PlayClick();
             PlayerPrefs.SetInt(NotificationsKey, value ? 1 : 0);
+            AvnEvents.Navigation(value ? "notifications_on" : "notifications_off", "settings");
             PlayerPrefs.Save();
         }
 
@@ -170,6 +172,8 @@ namespace CatBlockPuzzle
         private void Close()
         {
             ButtonSfx.PlayClick();
+            AvnEvents.Navigation("close", "settings");
+            AvnEvents.PopupClosed(AvnScreen.settings, ScreenClosedBy.Dismissed);
             MenuTransition.Hide(root, () =>
             {
                 if (returnToPause) GameSystem.Instance?.ReturnToPause();

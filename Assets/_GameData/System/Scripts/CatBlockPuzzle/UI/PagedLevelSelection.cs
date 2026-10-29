@@ -59,6 +59,7 @@ namespace CatBlockPuzzle
             if (next == page) return;
             ButtonSfx.PlayClick();
             page = next;
+            AVNEvents.AvnEvents.Navigation("change_page", "level_selection", page: page + 1);
             Refresh();
         }
         private void Play(int slot)
@@ -69,6 +70,7 @@ namespace CatBlockPuzzle
             GameAnalytics.SetLevelStartSource(GameAnalytics.SourceLevelSelect);
             int number = EndlessLevels.IsActive && index == gameplay.RecommendedLevelIndex
                 ? gameplay.RecommendedLevelNumber : index + 1;
+            AVNEvents.AvnEvents.Navigation("play_level", "level_selection", number, page + 1);
             GameSystem.Instance?.StartLevelNumber(number);
         }
         private void Refresh()

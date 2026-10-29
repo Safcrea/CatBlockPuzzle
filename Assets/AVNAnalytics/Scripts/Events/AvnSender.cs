@@ -37,6 +37,12 @@ namespace AVNAnalytics.Events
             // The join key: an ad, powerup, purchase or screen that happened inside an attempt says which
             // one, so the counts on that attempt's result can be opened up into the rows behind them.
             if (!p.ContainsKey("ATTEMPT_ID")) p["ATTEMPT_ID"] = AvnAttempt.Id;
+            if (AvnAttempt.InProgress || AvnAttempt.ResultPending)
+            {
+                var attempt = AvnAttempt.Current();
+                if (!p.ContainsKey("GAME_MODE")) p["GAME_MODE"] = attempt.Mode;
+                if (!p.ContainsKey("PUZZLE_DATE")) p["PUZZLE_DATE"] = attempt.PuzzleDate;
+            }
 
             var clean = new Dictionary<string, object>(p.Count);
             foreach (KeyValuePair<string, object> kv in p)

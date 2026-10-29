@@ -43,6 +43,7 @@ namespace CatBlockPuzzle
         public void Show(int levelNumber, int stars, int coins)
         {
             if (root == null) return;
+            EnsureBindings();
             if (levelText != null) levelText.text = "Level " + Mathf.Max(1, levelNumber);
             if (starsText != null) starsText.text = new string('★', Mathf.Clamp(stars, 0, 3)) + new string('☆', 3 - Mathf.Clamp(stars, 0, 3));
             if (coinsText != null) coinsText.text = Mathf.Max(0, coins).ToString();
@@ -50,6 +51,7 @@ namespace CatBlockPuzzle
             MenuTransition.Show(root, true, openingAnimation, animatedItems != null && animatedItems.Length > 0
                 ? MenuTransition.Cards(animatedItems)
                 : MenuTransition.Cards(resumeButton, restartButton, settingsButton, homeButton, closeButton));
+            AvnEvents.PopupOpened(AvnScreen.pause, root);
         }
 
         public void Hide() => MenuTransition.Hide(root, null, false);
@@ -67,7 +69,15 @@ namespace CatBlockPuzzle
         {
             if (button == null) return;
             button.onClick.RemoveListener(action);
-            if (bind) button.onClick.AddListener(action);
+            if (bind)
+            {
+                // The entrance gates clicks through a CanvasGroup. Keep the authored
+                // colour while gated instead of flashing the disabled tint.
+                ColorBlock colors = button.colors;
+                colors.disabledColor = colors.normalColor;
+                button.colors = colors;
+                button.onClick.AddListener(action);
+            }
         }
 
         private void Resume()
@@ -75,6 +85,7 @@ namespace CatBlockPuzzle
             ButtonSfx.PlayClick();
             GameAnalytics.PauseAction("resume");
             AvnEvents.ScreenInteraction(AvnScreen.pause, ScreenAction.resume);
+            AvnEvents.PopupClosed(AvnScreen.pause, ScreenClosedBy.Dismissed);
             MenuTransition.Hide(root, () => GameSystem.Instance?.ResumeGame());
         }
 

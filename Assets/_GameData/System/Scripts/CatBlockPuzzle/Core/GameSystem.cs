@@ -286,7 +286,6 @@ namespace CatBlockPuzzle
                 if (HasGameplayController) gameplayController.SetSystemPaused(true);
                 Time.timeScale = 0f;
                 GameAnalytics.PauseOpened(gameplayController != null ? gameplayController.TimeLeftSeconds : 0f);
-                AvnEvents.PopupOpened(AvnScreen.pause);
             }
             pauseMenu.Show(gameplayController != null ? gameplayController.DisplayLevelNumber : 1,
                 gameplayController != null ? gameplayController.CurrentStarCount : 0,
@@ -364,7 +363,6 @@ namespace CatBlockPuzzle
             if (settingsMenu == null || !settingsMenu.IsConfigured) return;
             if (fromPause) pauseMenu?.Hide();
             settingsMenu?.Show(fromPause);
-            AvnEvents.PopupOpened(AvnScreen.settings);
         }
 
         public void ReturnToPause()
@@ -400,7 +398,6 @@ namespace CatBlockPuzzle
         {
             if (noInternet == null) return;
             noInternet.Show();
-            AvnEvents.PopupOpened(AvnScreen.no_internet);
         }
 
         private void OnDestroy()

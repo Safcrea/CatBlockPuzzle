@@ -169,7 +169,6 @@ namespace CatBlockPuzzle
         private void ShowComingSoon(string feature)
         {
             GameAnalytics.ComingSoonTap(feature.ToLowerInvariant());
-            AvnEvents.PopupOpened(AvnScreen.coming_soon);
             if (comingSoonInstance == null)
             {
                 Canvas canvas = GetComponentInParent<Canvas>();

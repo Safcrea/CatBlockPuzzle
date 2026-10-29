@@ -228,17 +228,24 @@ namespace CatBlockPuzzle
             var currentOffer = system != null && system.PowerUpShop != null ? system.PowerUpShop.GetOffer(Kind) : default;
             if (currentOffer.coinPrice != displayedOffer.coinPrice || currentOffer.quantity != displayedOffer.quantity)
             {
+                AvnEvents.PurchaseOutcome(AvnEvents.PowerupName(Kind), "powerup_popup", PowerUpPurchaseStatus.InvalidOffer,
+                    displayedOffer.coinPrice, displayedOffer.quantity, system != null ? system.CurrentCoins : 0);
                 RefreshOffer();
                 return; // Let the player review an offer changed while the popup was open.
             }
             if (system != null && system.CurrentCoins < displayedOffer.coinPrice)
             {
+                AvnEvents.ScreenInteraction(AvnScreen.powerup_popup, ScreenAction.buy, AvnEvents.PowerupName(Kind));
+                AvnEvents.PurchaseOutcome(AvnEvents.PowerupName(Kind), "powerup_popup", PowerUpPurchaseStatus.InsufficientCoins,
+                    displayedOffer.coinPrice, displayedOffer.quantity, system.CurrentCoins);
                 StopMotion();
                 motion = StartCoroutine(Shake((RectTransform)buyButton.transform));
                 return;
             }
             AvnEvents.ScreenInteraction(AvnScreen.powerup_popup, ScreenAction.buy, AvnEvents.PowerupName(Kind));
             var status = system != null ? system.PurchasePowerUp(Kind) : PowerUpPurchaseStatus.Unavailable;
+            AvnEvents.PurchaseOutcome(AvnEvents.PowerupName(Kind), "powerup_popup", status,
+                displayedOffer.coinPrice, displayedOffer.quantity, system != null ? system.CurrentCoins : 0);
             GameAnalytics.PowerUpPurchase(Kind, displayedOffer.coinPrice, displayedOffer.quantity, status, system != null ? system.CurrentCoins : 0);
             if (status != PowerUpPurchaseStatus.Success)
             {

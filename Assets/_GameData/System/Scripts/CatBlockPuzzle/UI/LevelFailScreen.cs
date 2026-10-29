@@ -291,11 +291,12 @@ namespace CatBlockPuzzle
 
         private void Retry() => BeginAction(() =>
         {
+            AVNEvents.AvnEvents.Navigation("retry", "level_fail");
             GameAnalytics.SetLevelStartSource(GameAnalytics.SourceRetry);
             GameSystem.Instance?.RestartLevel();
         });
-        private void Home() => BeginAction(() => GameSystem.Instance?.GoHome());
-        public void SkipLevel() => BeginAction(() => GameSystem.Instance?.SkipLevel());
+        private void Home() => BeginAction(() => { AVNEvents.AvnEvents.Navigation("home", "level_fail"); GameSystem.Instance?.GoHome(); });
+        public void SkipLevel() => BeginAction(() => { AVNEvents.AvnEvents.Navigation("skip", "level_fail"); GameSystem.Instance?.SkipLevel(); });
         private void Skip() => SkipLevel();
 
         private static Transform FindChild(Transform parent, string name)

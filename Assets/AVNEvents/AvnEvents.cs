@@ -63,6 +63,9 @@ namespace AVNEvents
         public int Pieces;
         public bool Replay;
         public bool Loop;
+        public bool Daily;
+        public string PuzzleDate;
+        public Dictionary<string, object> Extras;
     }
 
     /// <summary>
@@ -70,7 +73,7 @@ namespace AVNEvents
     /// game code calls these typed methods and never AvnSender or AVNGameAnalytics directly.
     /// The legacy GameAnalytics events keep running beside these, unchanged.
     /// </summary>
-    public static class AvnEvents
+    public static partial class AvnEvents
     {
         public const string Currency = "coins";
         public const string PlacementLevelCompleteX2 = "level_complete_x2";
@@ -97,6 +100,7 @@ namespace AVNEvents
             _inGameplay = false;
             _snapshotPending = false;
             RunningTutorials.Clear();
+            ResetGameCoverage();
 
             AVNGameAnalytics.StandardVersion = 5;
             AvnSender.CurrentLevel = () => LevelProvider != null ? LevelProvider() : null;
@@ -121,7 +125,7 @@ namespace AVNEvents
             AvnAttempt.ProgressProvider = progressPct;
             AvnAttempt.TimeLeftProvider = timeLeft;
             AvnAttempt.MovesLeftProvider = movesLeft;
-            AvnAttemptInfo x = AvnAttempt.Begin(s.Level);
+            AvnAttemptInfo x = AvnAttempt.Begin(s.Level, s.Daily ? "daily_puzzle" : "campaign", s.PuzzleDate);
 
             var p = new Dictionary<string, object>
             {
@@ -138,21 +142,28 @@ namespace AVNEvents
             };
             if (s.LevelTime.HasValue) p["LEVEL_TIME"] = s.LevelTime.Value;
             if (s.MovesStart.HasValue) p["MOVES_START"] = s.MovesStart.Value;
-            Send("LEVEL_ANALYSIS", "Started", p);
+            if (s.Extras != null) foreach (var extra in s.Extras) p[extra.Key] = extra.Value;
+            Send(LevelEvent(x), "Started", p);
         }
 
-        public static void LevelCompleted()
+        public static void LevelCompleted(int stars, int bestStars, int previousBestStars)
         {
             if (!AvnAttempt.InProgress) return;
-            Send("LEVEL_ANALYSIS", "Completed", Result(AvnAttempt.EndWithResult()));
+            var info = AvnAttempt.EndWithResult();
+            var p = Result(info);
+            p["STARS"] = stars;
+            p["BEST_STARS"] = bestStars;
+            p["PREVIOUS_BEST_STARS"] = previousBestStars;
+            Send(LevelEvent(info), "Completed", p);
         }
 
-        public static void LevelFailed(FailReason reason)
+        public static void LevelFailed(FailReason reason, string detail = null)
         {
             if (!AvnAttempt.InProgress) return;
             Dictionary<string, object> p = Result(AvnAttempt.EndWithResult());
             p["FAIL_REASON"] = reason.ToString();
-            Send("LEVEL_ANALYSIS", "Failed", p);
+            p["FAIL_DETAIL"] = detail;
+            Send(LevelEvent(AvnAttempt.Current()), "Failed", p);
         }
 
         /// <summary>The game's fail reason ids, mapped onto the standard's enum.</summary>
@@ -170,7 +181,10 @@ namespace AVNEvents
         public static void LevelRestarting()
         {
             if (AvnAttempt.InProgress)
-                Send("LEVEL_ANALYSIS", "Restarted", Progress(AvnAttempt.EndWithoutResult()));
+            {
+                var info = AvnAttempt.EndWithoutResult();
+                Send(LevelEvent(info), "Restarted", Progress(info));
+            }
             else
                 LevelChoice(ChoiceAction.Restart);
         }
@@ -181,7 +195,11 @@ namespace AVNEvents
         /// </summary>
         public static void LevelSkipping()
         {
-            if (AvnAttempt.InProgress) Send("LEVEL_ANALYSIS", "Skipped", Result(AvnAttempt.EndWithResult()));
+            if (AvnAttempt.InProgress)
+            {
+                var info = AvnAttempt.EndWithResult();
+                Send(LevelEvent(info), "Skipped", Result(info));
+            }
             LevelChoice(ChoiceAction.Next);
         }
 
@@ -205,16 +223,18 @@ namespace AVNEvents
                 ["ATTEMPT_ID"] = info.Id,
                 ["LEVEL_NUMBER"] = info.Level,
                 ["ACTION"] = action.ToString(),
+                ["GAME_MODE"] = info.Mode ?? "campaign",
+                ["PUZZLE_DATE"] = info.PuzzleDate,
             };
             if (method.HasValue) p["METHOD"] = method.Value.ToString();
-            Send("LEVEL_ANALYSIS", "Choice", p);
+            Send(LevelEvent(info), "Choice", p);
         }
 
         static void SendLeft(LeftReason reason)
         {
             Dictionary<string, object> p = Progress(AvnAttempt.EndWithoutResult());
             p["REASON"] = reason.ToString();
-            Send("LEVEL_ANALYSIS", "Left", p);
+            Send(LevelEvent(AvnAttempt.Current()), "Left", p);
         }
 
         // A new level starting while the last one is still open means a path the hooks did not see.
@@ -225,6 +245,8 @@ namespace AVNEvents
                 : next == LevelSource.Restart ? ChoiceAction.Restart : ChoiceAction.Home);
         }
 
+        public static void LevelLoading(LevelSource source) => CloseLeftovers(source);
+
         static Dictionary<string, object> Progress(AvnAttemptInfo x)
         {
             var p = new Dictionary<string, object>
@@ -234,7 +256,11 @@ namespace AVNEvents
                 ["LEVEL_NUMBER"] = x.Level,
                 ["SECONDS"] = x.Seconds,
                 ["PROGRESS_PCT"] = x.ProgressPct,
+                ["GAME_MODE"] = x.Mode ?? "campaign",
+                ["PUZZLE_DATE"] = x.PuzzleDate,
             };
+            if (LevelMetrics != null)
+                foreach (var metric in LevelMetrics()) p[metric.Key] = metric.Value;
             if (x.TimeLeft.HasValue) p["TIME_LEFT"] = x.TimeLeft.Value;
             if (x.MovesLeft.HasValue) p["MOVES_LEFT"] = x.MovesLeft.Value;
             return p;
@@ -449,13 +475,23 @@ namespace AVNEvents
         }
 
         /// <summary>A popup over the current page or gameplay. Closed is sent only where the standard requires it.</summary>
-        public static void PopupOpened(AvnScreen popup)
+        public static void PopupOpened(AvnScreen popup, GameObject root = null)
         {
+            if (root != null)
+            {
+                var lifetime = root.GetComponent<AvnPopupLifetime>();
+                if (lifetime == null) lifetime = root.AddComponent<AvnPopupLifetime>();
+                lifetime.Screen = popup;
+            }
+            if (!OpenPopups.Add(popup)) return;
             AvnMemory.StartTimer(ScreenTimer(popup));
             SendScreenOpened(popup, CurrentScreenName());
         }
 
-        public static void PopupClosed(AvnScreen popup, ScreenClosedBy? closedBy = null) => SendScreenClosed(popup, closedBy);
+        public static void PopupClosed(AvnScreen popup, ScreenClosedBy? closedBy = null)
+        {
+            if (OpenPopups.Remove(popup)) SendScreenClosed(popup, closedBy);
+        }
 
         public static void ScreenInteraction(AvnScreen screen, ScreenAction action, string item = null)
         {
@@ -524,11 +560,13 @@ namespace AVNEvents
             {
                 if (hadResult)
                 {
-                    Send("LEVEL_ANALYSIS", "Choice", new Dictionary<string, object>
+                    Send(LevelEvent(info), "Choice", new Dictionary<string, object>
                     {
                         ["ATTEMPT_ID"] = info.Id,
                         ["LEVEL_NUMBER"] = info.Level,
                         ["ACTION"] = ChoiceAction.Abandoned.ToString(),
+                        ["GAME_MODE"] = info.Mode ?? "campaign",
+                        ["PUZZLE_DATE"] = info.PuzzleDate,
                     });
                 }
                 else
@@ -536,7 +574,7 @@ namespace AVNEvents
                     Dictionary<string, object> left = Progress(info);
                     left["REASON"] = LeftReason.Killed.ToString();
                     left["RECOVERED"] = 1;
-                    Send("LEVEL_ANALYSIS", "Left", left);
+                    Send(LevelEvent(info), "Left", left);
                 }
             }
 

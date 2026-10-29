@@ -16,6 +16,8 @@ namespace AVNAnalytics.Events
         public int Revives;
         public int PowerupsUsed;
         public int AdsShown;
+        public string Mode;
+        public string PuzzleDate;
     }
 
     /// <summary>
@@ -42,6 +44,8 @@ namespace AVNAnalytics.Events
             public int Powerups;
             public int Ads;
             public string Phase;
+            public string Mode;
+            public string PuzzleDate;
             // -1 is "the game does not have this", so an untimed level stays untimed after a recovery.
             public float TimeLeft = -1f;
             public int MovesLeft = -1;
@@ -55,10 +59,13 @@ namespace AVNAnalytics.Events
 
         /// <summary>The game's countable unit still left, or null when the game has none.</summary>
         public static Func<int?> MovesLeftProvider;
+        public static Func<bool> ActivePlayProvider;
 
         static string _id;
         static int _attempt;
         static int _level;
+        static string _mode;
+        static string _puzzleDate;
         static float _seconds;
         static int _revives;
         static int _powerups;
@@ -82,15 +89,17 @@ namespace AVNAnalytics.Events
         /// <summary>Active seconds on the current attempt so far.</summary>
         public static float Seconds => _seconds;
 
-        public static AvnAttemptInfo Begin(int level)
+        public static AvnAttemptInfo Begin(int level, string mode = "campaign", string puzzleDate = null)
         {
-            string key = CountKey + level;
+            string key = CountKey + (mode == "campaign" ? "" : mode + "." + puzzleDate + ".") + level;
             int attempt = PlayerPrefs.GetInt(key, 0) + 1;
             PlayerPrefs.SetInt(key, attempt);
 
             _id = Guid.NewGuid().ToString("N");
             _attempt = attempt;
             _level = level;
+            _mode = mode;
+            _puzzleDate = puzzleDate;
             _seconds = 0f;
             _revives = 0;
             _powerups = 0;
@@ -172,6 +181,7 @@ namespace AVNAnalytics.Events
                 ProgressPct = saved.Pct, Revives = saved.Revives, PowerupsUsed = saved.Powerups, AdsShown = saved.Ads,
                 TimeLeft = saved.TimeLeft >= 0f ? saved.TimeLeft : (float?)null,
                 MovesLeft = saved.MovesLeft >= 0 ? saved.MovesLeft : (int?)null,
+                Mode = saved.Mode ?? "campaign", PuzzleDate = saved.PuzzleDate,
             };
             hadResult = saved.Phase == PhaseResult;
             return true;
@@ -180,6 +190,7 @@ namespace AVNAnalytics.Events
         internal static void Tick(float deltaTime)
         {
             if (!InProgress || AvnRuntime.InBackground || AvnAds.AdActive) return;
+            if (ActivePlayProvider != null && !ActivePlayProvider()) return;
             _seconds += deltaTime;
         }
 
@@ -198,6 +209,7 @@ namespace AVNAnalytics.Events
                 Id = _id, Attempt = _attempt, Level = _level, Seconds = _seconds, ProgressPct = _lastPct,
                 TimeLeft = _lastTimeLeft, MovesLeft = _lastMovesLeft,
                 Revives = _revives, PowerupsUsed = _powerups, AdsShown = _ads,
+                Mode = _mode, PuzzleDate = _puzzleDate,
             };
         }
 
@@ -221,6 +233,7 @@ namespace AVNAnalytics.Events
                 Id = _id, Attempt = _attempt, Level = _level, Seconds = _seconds, Pct = x.ProgressPct,
                 Revives = _revives, Powerups = _powerups, Ads = _ads, Phase = phase,
                 TimeLeft = x.TimeLeft ?? -1f, MovesLeft = x.MovesLeft ?? -1,
+                Mode = _mode, PuzzleDate = _puzzleDate,
             };
             PlayerPrefs.SetString(SavedKey, JsonUtility.ToJson(saved));
             PlayerPrefs.Save();
@@ -239,6 +252,9 @@ namespace AVNAnalytics.Events
             ProgressProvider = null;
             TimeLeftProvider = null;
             MovesLeftProvider = null;
+            ActivePlayProvider = null;
+            _mode = "campaign";
+            _puzzleDate = null;
             _id = null;
             _attempt = _level = _revives = _powerups = _ads = _lastPct = 0;
             _lastTimeLeft = null;

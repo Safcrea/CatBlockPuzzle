@@ -192,6 +192,7 @@ namespace CatBlockPuzzle
             DragState cancelled = drag;
             drag = null;
             session.stats.cancelledDrops++;
+            AVNEvents.AvnEvents.BoardAction("cancelled_drop");
             tray.SetScrollEnabled(true);
             board.ClearPreview();
             if (trayImage != null)
@@ -374,6 +375,7 @@ namespace CatBlockPuzzle
             if (endedDrag.ReturnToShelf)
             {
                 session.stats.shelfReturns++;
+                AVNEvents.AvnEvents.BoardAction("shelf_return");
                 ReturnPieceToShelf(state);
                 return;
             }
@@ -381,6 +383,7 @@ namespace CatBlockPuzzle
             if (endedDrag.Valid)
             {
                 session.stats.RecordPlacement(endedDrag.PreviousPlaced);
+                AVNEvents.AvnEvents.BoardAction(endedDrag.PreviousPlaced ? "board_move" : "placement");
                 PlacePiece(state, endedDrag.Row, endedDrag.Col, !endedDrag.PreviousPlaced);
                 return;
             }
@@ -392,6 +395,8 @@ namespace CatBlockPuzzle
                 if (locks.BlocksSolution(state.Solution)) session.stats.lockBlockedDrops++;
             }
             RestoreInvalidDrop(endedDrag);
+            AVNEvents.AvnEvents.BoardAction(!endedDrag.NearBoard ? "cancelled_drop"
+                : locks.BlocksSolution(state.Solution) ? "lock_blocked_drop" : "misdrop");
             if (endedDrag.NearBoard) MissedDrop?.Invoke(state);
         }
 
