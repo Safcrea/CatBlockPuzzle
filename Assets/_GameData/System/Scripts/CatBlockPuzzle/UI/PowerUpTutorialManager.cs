@@ -1,3 +1,4 @@
+using AVNEvents;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,6 +60,7 @@ namespace CatBlockPuzzle
                 {
                     PowerUpInventory.Add(kind, grant);
                     GameAnalytics.ItemEarned(kind, grant, GameAnalytics.EarnTutorialGrant);
+                    AvnEvents.PowerupObtained(kind, grant, PowerupSource.Gift);
                 }
                 hud.RefreshPowerUpCounts();
             }
@@ -78,17 +80,21 @@ namespace CatBlockPuzzle
             }
 
             GameAnalytics.PowerUpTutorialShown(kind);
+            AvnEvents.TutorialShown(AvnEvents.PowerupTutorial(kind));
             yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, () => MarkSeenAndGrant(true), () =>
             {
                 pendingUses.Enqueue(kind);
                 GameAnalytics.PowerUpTutorialTapped(kind);
+                AvnEvents.TutorialCompleted(AvnEvents.PowerupTutorial(kind));
             });
+            AvnEvents.TutorialInterrupted(AvnEvents.PowerupTutorial(kind)); // no-op once the tap completed it
             CloseOverlay();
         }
 
         /// <summary>Aborts any running introduction (level change, navigation) and forgets its pending tap.</summary>
         public void Cancel()
         {
+            AvnEvents.TutorialsInterrupted("powerup_");
             StopAllCoroutines();
             pendingUses.Clear();
             CloseOverlay();

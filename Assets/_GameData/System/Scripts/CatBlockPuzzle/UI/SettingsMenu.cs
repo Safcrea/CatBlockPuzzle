@@ -1,3 +1,4 @@
+using AVNEvents;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -119,6 +120,7 @@ namespace CatBlockPuzzle
             SoundManager manager = SoundManager.EnsureInstance();
             manager.SetMusicEnabled(!manager.MusicEnabled);
             GameAnalytics.SettingsChanged("music", manager.MusicEnabled, returnToPause);
+            AvnEvents.ScreenInteraction(AvnScreen.settings, AvnEvents.Toggle("music", manager.MusicEnabled));
             RefreshVisuals();
         }
 
@@ -127,6 +129,7 @@ namespace CatBlockPuzzle
             SoundManager manager = SoundManager.EnsureInstance();
             manager.SetSfxEnabled(!manager.SfxEnabled);
             GameAnalytics.SettingsChanged("sfx", manager.SfxEnabled, returnToPause);
+            AvnEvents.ScreenInteraction(AvnScreen.settings, AvnEvents.Toggle("sfx", manager.SfxEnabled));
             ButtonSfx.PlayClick();
             RefreshVisuals();
         }
@@ -138,6 +141,7 @@ namespace CatBlockPuzzle
             PlayerPrefs.Save();
             GameSystem.Instance?.ApplyHapticsPreference();
             GameAnalytics.SettingsChanged("haptics", HapticsEnabled, returnToPause);
+            AvnEvents.ScreenInteraction(AvnScreen.settings, AvnEvents.Toggle("haptics", HapticsEnabled));
             RefreshVisuals();
         }
 

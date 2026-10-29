@@ -1,3 +1,4 @@
+using AVNEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -392,6 +393,8 @@ namespace CatBlockPuzzle
                     {
                         GameSystem.Instance?.AwardCoins(reward);
                         GameAnalytics.CurrencyEarned(reward, GameAnalytics.EarnAdDouble, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
+                        AvnEvents.EconomyEarned(reward, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0, EconomySource.rewarded_ad, EconomyDetail.level_complete_x2);
+                        AvnEvents.LevelDoubleReward();
                         if (!IsOpen || version != presentationVersion) return;
                         doubleCoinsClaimed = true;
                         doubleCoinsButton.gameObject.SetActive(false);

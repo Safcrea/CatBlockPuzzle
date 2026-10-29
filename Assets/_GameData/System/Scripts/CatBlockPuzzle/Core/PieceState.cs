@@ -7,6 +7,9 @@ namespace CatBlockPuzzle
     /// <summary>Runtime state of one puzzle piece: its definition, tray card, visual root and grid metrics.</summary>
     internal sealed class PieceState
     {
+        /// <summary>The cell of a piece that wears the cat's face; every other cell is a plain body block.</summary>
+        public const int HeadCellIndex = 0;
+
         /// <summary>The cat as it is now: the Rotate power-up can turn it away from its authored shape.</summary>
         public PieceDefinition Definition;
         /// <summary>The cat as authored; its cells at SolutionRow/SolutionCol are its spot in the solution.</summary>

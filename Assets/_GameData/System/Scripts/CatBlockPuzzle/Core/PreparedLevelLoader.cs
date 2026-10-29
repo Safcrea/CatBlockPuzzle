@@ -123,6 +123,7 @@ namespace CatBlockPuzzle
                     state.CellImages.Add(cat);
                     state.CatViews.Add(new CatCellView(cat.rectTransform, cat));
                 }
+                mood.ApplyTiles(state);
                 saved.Pieces[p] = state;
                 saved.PieceGestures[p] = new PieceDragGesture();
                 saved.PieceGestures[p].Bind(drag, tray, state, false);
@@ -191,6 +192,7 @@ namespace CatBlockPuzzle
                 state.CellImages.Add(card.cats[c]);
                 state.CatViews.Add(new CatCellView(card.cats[c].rectTransform, card.cats[c]));
             }
+            mood.ApplyTiles(state);
             return state;
         }
 

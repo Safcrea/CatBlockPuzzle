@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AVNGameAnalytics.Analytics.AVNGameAnalyticsConfig
   Enabled: 1
   Endpoint: 'https://gameanalytics.avns.site/v1/events '
-  ApiKey: avn_4gNRNOyfRwtnZGLb2rCr8oMouOdvjnGDFdWQDK1YK4U
+  ApiKey: avn_s6PgHYyS1S0c4za4Cd2ZVYoFw2_R2-CV5xkxMAMzSfk
   BatchSize: 5
   FlushIntervalSeconds: 30
   CompressRequests: 1
@@ -33,4 +33,4 @@ MonoBehaviour:
   Environment: 0
   SendInEditor: 1
   showAdvancedSettings: 0
-  buildNumber: 1
+  buildNumber: 2

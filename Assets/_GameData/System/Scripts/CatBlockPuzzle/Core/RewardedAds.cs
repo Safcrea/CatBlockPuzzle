@@ -1,3 +1,4 @@
+using AVNEvents;
 using System;
 using UnityEngine;
 #if USE_AVNADS_PLUGIN
@@ -32,6 +33,7 @@ namespace CatBlockPuzzle
             IsRequestPending = true;
             GameAnalytics.RewardedAdRequested(placement);
             bool reported = false;
+            bool avnAdShown = false; // AD_ANALYSIS only covers ads the network was really asked to show
             void Report(Outcome outcome)
             {
                 if (reported) return;
@@ -39,6 +41,11 @@ namespace CatBlockPuzzle
                 IsRequestPending = false;
                 Debug.Log("[RewardedAds] " + placement + " -> " + outcome);
                 GameAnalytics.RewardedAdResult(placement, outcome);
+                if (avnAdShown)
+                {
+                    if (outcome == Outcome.Unavailable) AvnEvents.AdFailed(AdFormat.Rewarded, AdFailReason.NotReady);
+                    else AvnEvents.AdClosed(AdFormat.Rewarded, outcome == Outcome.Rewarded);
+                }
                 if (outcome == Outcome.Rewarded) onRewarded?.Invoke();
                 else onFailed?.Invoke(outcome);
             }
@@ -50,6 +57,9 @@ namespace CatBlockPuzzle
             }
 
 #if USE_AVNADS_PLUGIN
+            AvnEvents.AdAsk(AdFormat.Rewarded, AvnEvents.PlacementFor(placement));
+            AvnEvents.AdShow(AdFormat.Rewarded);
+            avnAdShown = true;
             bool started = AVNPlugin.DTInstance != null && AVNPlugin.DTInstance.ShowRewardedAd(
                 onRewarded: () => Report(Outcome.Rewarded),
                 onNoAd: () => Report(Outcome.Unavailable),

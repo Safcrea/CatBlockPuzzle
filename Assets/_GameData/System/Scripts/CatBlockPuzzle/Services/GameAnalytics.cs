@@ -121,6 +121,9 @@ namespace CatBlockPuzzle
         /// <summary>Tags the next level_start with what the player pressed to get there.</summary>
         public static void SetLevelStartSource(string source) => pendingLevelSource = source;
 
+        /// <summary>The source the next level_start will carry; read before LevelStarted consumes it.</summary>
+        public static string PendingLevelStartSource => pendingLevelSource;
+
         public static void LevelStarted(LevelDefinition definition, int levelIndex, int levelNumber, bool loopLevel, bool replay,
             bool persistProgress, int bestStarsBefore, DifficultyProfile profile)
         {

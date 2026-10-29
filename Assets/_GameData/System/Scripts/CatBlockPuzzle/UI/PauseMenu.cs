@@ -1,3 +1,4 @@
+using AVNEvents;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -73,6 +74,7 @@ namespace CatBlockPuzzle
         {
             ButtonSfx.PlayClick();
             GameAnalytics.PauseAction("resume");
+            AvnEvents.ScreenInteraction(AvnScreen.pause, ScreenAction.resume);
             MenuTransition.Hide(root, () => GameSystem.Instance?.ResumeGame());
         }
 
@@ -80,11 +82,12 @@ namespace CatBlockPuzzle
         {
             ButtonSfx.PlayClick();
             GameAnalytics.PauseAction("restart");
+            AvnEvents.ScreenInteraction(AvnScreen.pause, ScreenAction.restart);
             GameAnalytics.SetLevelStartSource(GameAnalytics.SourcePauseRestart);
             GameSystem.Instance?.RestartLevel();
         }
 
-        private void Home() { ButtonSfx.PlayClick(); GameAnalytics.PauseAction("home"); GameSystem.Instance?.GoHome(); }
-        private void Settings() { ButtonSfx.PlayClick(); GameAnalytics.PauseAction("settings"); GameSystem.Instance?.OpenSettings(true); }
+        private void Home() { ButtonSfx.PlayClick(); GameAnalytics.PauseAction("home"); AvnEvents.ScreenInteraction(AvnScreen.pause, ScreenAction.home); GameSystem.Instance?.GoHome(); }
+        private void Settings() { ButtonSfx.PlayClick(); GameAnalytics.PauseAction("settings"); AvnEvents.ScreenInteraction(AvnScreen.pause, ScreenAction.settings); GameSystem.Instance?.OpenSettings(true); }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using AVNEvents;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +39,8 @@ namespace CatBlockPuzzle
         private readonly RotateController rotate;
 
         private Coroutine boardRevealRoutine;
+        // The AVN attempt opens once the board is playable, not when the level loads.
+        private LevelStart? avnPendingStart;
         // The next LoadLevel is the Daily Puzzle (set by PlayDailyPuzzle and by a retry of one).
         private bool loadAsDailyPuzzle;
         private bool timerWasRunningBeforeSettings;
@@ -178,6 +181,19 @@ namespace CatBlockPuzzle
             int bestBefore = progress.GetBestStars(activeLevel.Id);
             // A loop number is a replay once it has been beaten; an authored level once it has any stars.
             bool replay = loop ? session.levelNumber < EndlessLevels.NextLoopLevel : bestBefore > 0;
+            avnPendingStart = persistProgress && !session.dailyPuzzle ? new LevelStart
+            {
+                Level = session.levelNumber,
+                Source = AvnLevelSource(GameAnalytics.PendingLevelStartSource),
+                LevelId = activeLevel.Id,
+                LevelTime = timer.Untimed ? (float?)null : timer.Profile.DurationSeconds,
+                MovesStart = hearts.Active ? hearts.Remaining : (int?)null,
+                Difficulty = activeLevel.Difficulty,
+                Chapter = levelIndex / CatMetaCatalog.LevelsPerChapter + 1,
+                Pieces = activeLevel.Pieces.Length,
+                Replay = replay,
+                Loop = loop,
+            } : (LevelStart?)null;
             GameAnalytics.LevelStarted(activeLevel, levelIndex, session.levelNumber, loop, replay, persistProgress, bestBefore, timer.Profile);
         }
 
@@ -198,6 +214,7 @@ namespace CatBlockPuzzle
             }
 
             boardRevealRoutine = null;
+            ReportAvnLevelStarted();
             tutorial.Begin();
 
             // The unlock tutorial ends with the player tapping the power-up: spend it now that play has started.
@@ -207,6 +224,31 @@ namespace CatBlockPuzzle
             }
 
             if (session.freeHintPending) GiveFreeHint();
+        }
+
+        private void ReportAvnLevelStarted()
+        {
+            if (!avnPendingStart.HasValue || (GameSystem.Instance != null && !GameSystem.Instance.IsGameplayOpen)) return;
+            LevelStart start = avnPendingStart.Value;
+            avnPendingStart = null;
+            AvnEvents.LevelStarted(start,
+                () => activeLevel != null && activeLevel.ActiveCells.Count > 0
+                    ? Mathf.RoundToInt(100f * session.occupancy.Count / activeLevel.ActiveCells.Count) : 0,
+                () => timer.Untimed ? (float?)null : timer.RemainingSeconds,
+                () => hearts.Active ? hearts.Remaining : (int?)null);
+        }
+
+        private static LevelSource AvnLevelSource(string legacySource)
+        {
+            switch (legacySource)
+            {
+                case GameAnalytics.SourceNext:
+                case GameAnalytics.SourceSkip: return LevelSource.Next;
+                case GameAnalytics.SourceRetry:
+                case GameAnalytics.SourcePauseRestart:
+                case GameAnalytics.SourceHudReset: return LevelSource.Restart;
+                default: return LevelSource.Home;
+            }
         }
 
         // After repeated fails the attempt opens with one hint on the house; it spends no charge.
@@ -229,6 +271,7 @@ namespace CatBlockPuzzle
 
         public void ResetLevel()
         {
+            AvnEvents.LevelRestarting();
             loadAsDailyPuzzle = session.dailyPuzzle;
             LoadLevel(levelIndex, !levelNavigationTesting, session.levelNumber);
         }
@@ -313,6 +356,7 @@ namespace CatBlockPuzzle
 
             inputLocked = true;
             timer.StopLevelTimer();
+            AvnEvents.LevelCompleted();
             LevelFailStreak.Reset(session.levelNumber);
             StartCoroutine(WinSequence());
         }
@@ -336,6 +380,7 @@ namespace CatBlockPuzzle
                 progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + DailyPuzzle.BonusCoins);
                 progress.SaveCoins();
                 GameAnalytics.CurrencyEarned(DailyPuzzle.BonusCoins, GameAnalytics.EarnDailyPuzzle, progress.Coins);
+                AvnEvents.EconomyEarned(DailyPuzzle.BonusCoins, progress.Coins, EconomySource.level_reward_bonus, EconomyDetail.daily_puzzle);
                 awardedCoins += DailyPuzzle.BonusCoins;
             }
             float coinFlightDuration = awardedCoins > 0 ? fx.FlyCoins(awardedCoins, board.BoardCenterScreen()) : 0f;
@@ -381,6 +426,7 @@ namespace CatBlockPuzzle
             int cellCount = activeLevel != null ? activeLevel.ActiveCells.Count : 0;
             GameAnalytics.LevelFailed(reason, session.stats, timer.RemainingSeconds,
                 cellCount > 0 ? session.occupancy.Count / (float)cellCount : 0f, session.bestCombo);
+            AvnEvents.LevelFailed(AvnEvents.FailReasonFor(reason));
             session.levelFailed = true;
             if (reason == "timeout" || reason == "out_of_hearts") LevelFailStreak.RecordFail(session.levelNumber);
             timer.timerRunning = false;
@@ -429,6 +475,7 @@ namespace CatBlockPuzzle
             if (session.dailyPuzzle) { GameSystem.Instance?.GoHome(); return; }
             if (levelNavigationTesting) { LoadNextLevel(); return; }
             if (meta.Progress != null && !meta.Progress.RecordSkip(levelIndex).Succeeded) return;
+            AvnEvents.LevelSkipping();
             GameAnalytics.LevelSkipped(session.levelFailed ? "fail_screen" : gates.LevelCompleteOpen ? "complete_screen" : "other");
             GameAnalytics.SetLevelStartSource(GameAnalytics.SourceSkip);
             meta.ResetOverlayState();

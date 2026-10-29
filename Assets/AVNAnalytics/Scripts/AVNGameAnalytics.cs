@@ -30,6 +30,7 @@ namespace AVNAnalytics
         static void ResetStatics()
         {
             client = null;
+            StandardVersion = 0;
             lock (earlyEvents) earlyEvents.Clear();
             warnedEarly = false;
             disabled = false;
@@ -38,12 +39,25 @@ namespace AVNAnalytics
             pendingUserId = null;
         }
 
+        /// <summary>
+        /// Version of the AVN events standard the game's events follow (0 = none). Stamped into the context of
+        /// every batch as "standard" / "standard_version", so the server can validate each event against the
+        /// right version of the spec. Set by the game's AvnEvents at startup; not an event parameter.
+        /// </summary>
+        public static int StandardVersion { get; set; }
+
+        public const string StandardName = "avn-events";
+
         public static bool IsInitialized => client != null;
         public static AVNGameAnalyticsConfig Config => client?.Config;
         /// <summary>Events stored on disk and not yet acknowledged by the server.</summary>
         public static int PendingCount => client?.PendingCount ?? 0;
         public static string DeviceId => client?.DeviceId;
         public static string SessionId => client?.SessionId;
+        /// <summary>1-based number of the current session on this install (the same number session_start reports). 0 before Initialize().</summary>
+        public static int SessionNumber => client?.SessionNumber ?? 0;
+        /// <summary>Foreground seconds of the current session so far. 0 before Initialize().</summary>
+        public static double SessionSeconds => client?.SessionSeconds ?? 0d;
         /// <summary>Human-readable result of the last send attempt (for debugging UIs).</summary>
         public static string LastStatus => disabled ? disabledReason : client?.LastStatus ?? "not initialized";
 

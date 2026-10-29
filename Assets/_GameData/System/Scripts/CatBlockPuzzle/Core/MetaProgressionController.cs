@@ -1,3 +1,4 @@
+using AVNEvents;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -444,6 +445,7 @@ namespace CatBlockPuzzle
             coins = balance;
             metaLastAwardedCoins = Mathf.Max(0, result.CoinDelta);
             GameAnalytics.CurrencyEarned(metaLastAwardedCoins, earnSource, balance);
+            AvnEvents.EconomyEarned(metaLastAwardedCoins, balance, EconomySource.level_reward, AvnEvents.LevelRewardDetail(earnSource));
             if (coinText != null)
             {
                 coinText.text = coins.ToString();
@@ -487,6 +489,7 @@ namespace CatBlockPuzzle
         /// <summary>Advances directly through gameplay; room furnishing is optional UI.</summary>
         public void LoadNextLevelThroughMetaGate()
         {
+            AvnEvents.LevelNext();
             // The Daily Puzzle is a one-off: Next goes back home instead of browsing on.
             if (session.dailyPuzzle)
             {

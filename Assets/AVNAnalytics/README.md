@@ -6,18 +6,9 @@ Thin client for the AVN Analytics ingest server. Requires **Unity 2020.1+** (use
 
 Copy this whole folder into your project's `Assets/` (e.g. `Assets/AVNAnalytics/`). It compiles into its own `AVNAnalytics` assembly (auto-referenced by game code); the namespace is `AVNAnalytics`.
 
-## Quick test
-
-1. Copy `Samples~/AVNGameAnalyticsDemo.cs` into the project (Unity ignores folders ending in `~`, so it is not in builds), then add **AVNGameAnalyticsDemo** to an empty GameObject.
-2. Set **Endpoint** to your server's ingest URL (`https://your-domain/v1/events`) and paste the game's API key (admin site, *API keys* page) into **Api Key**.
-3. Press Play. Use the on-screen buttons; watch *Pending on disk* and *Last status*.
-4. In the admin site's health view, confirm events arrive (platform will be `editor` in the Editor).
-
-Persistence test: click **Simulate OFFLINE**, log some events (pending grows), stop Play (or kill the app), press Play again, click **Go ONLINE** — the old events are sent.
-
 ## Use in a game
 
-**Setup:** run **Tools > AVN Analytics > Select Config** (it creates the config in the right place if it is missing), then fill in Endpoint, Api Key and any other settings (for example **Flush Interval Seconds**, default 120) on `Resources/AVNGameAnalyticsConfig.asset` (*Assets, Create, AVN Analytics, Config* makes a new one; it must be named `AVNGameAnalyticsConfig` and live in a Resources folder). The Inspector shows Enabled, Endpoint, Api Key, Environment, Send In Editor, Batch Size, Flush Interval and Session Timeout; tick **Show advanced settings** for the rest. Turn **Enabled** off to switch analytics off entirely (Initialize() then does nothing and `LogEvent` calls are ignored). Then call `AVNGameAnalytics.Initialize();` once at startup, with no arguments. It checks that Endpoint is a full `https://` URL and logs an error (analytics off) if not.
+**Setup:** the package ships `Resources/AVNGameAnalyticsConfig.asset`; fill in Endpoint, Api Key and any other settings (for example **Flush Interval Seconds**, default 120) on `Resources/AVNGameAnalyticsConfig.asset` (*Assets, Create, AVN Analytics, Config* makes a new one; it must be named `AVNGameAnalyticsConfig` and live in a Resources folder). The Inspector shows Enabled, Endpoint, Api Key, Environment, Send In Editor, Batch Size, Flush Interval and Session Timeout; tick **Show advanced settings** for the rest. Turn **Enabled** off to switch analytics off entirely (Initialize() then does nothing and `LogEvent` calls are ignored). Then call `AVNGameAnalytics.Initialize();` once at startup, with no arguments. It checks that Endpoint is a full `https://` URL and logs an error (analytics off) if not.
 
 **Editor and test builds.** `session_start` carries `environment`: `editor` (Play mode, automatic), or `development` / `production` as chosen by the **Environment** dropdown on the config. Switch it to Production before a release build. Filter dashboards on it, joining other events by `session_id`. Turn **Send In Editor** off on the config to ignore all events in Play mode.
 
@@ -88,8 +79,20 @@ Disk writes happen on the main thread: one small append per event, so log game e
 | `AVNGameAnalyticsEventQueue.cs` | Durable on-disk queue |
 | `AVNGameAnalyticsJson.cs` | JSON writer |
 | `AVNGameAnalyticsRunner.cs` | Hidden object forwarding Update/pause/quit |
-| `AssemblyInfo.cs` | Lets the Editor and Tests assemblies see internals |
+| `AssemblyInfo.cs` | Lets the Editor assembly see internals |
 | `Editor/AVNGameAnalyticsBuildStamp.cs` | Build step that writes the build number into the config |
 | `Editor/AVNGameAnalyticsConfigEditor.cs` | Config Inspector with the detected build info |
-| `Tests/Editor/` | Edit Mode tests for the disk queue (Window > General > Test Runner) |
-| `Samples~/AVNGameAnalyticsDemo.cs` | Test harness, not compiled until copied into the project |
+
+## AVN events standard (typed events)
+
+On top of `LogEvent`, the SDK ships the shared state for the AVN events standard (`Scripts/Events/`):
+`AvnSender` (the one place an event leaves the game), `AvnRuntime` (launch, background, foreground, quit),
+`AvnAttempt` (level attempt, seconds, recovery after a kill), `AvnAds` (ad state per AD_ID, timeouts) and
+`AvnMemory` (once-per-install flags and timers). They send nothing themselves.
+
+The events are sent by one game-side file, `AvnEvents.cs`, with one method per event and
+state (`AvnEvents.LevelStarted(...)`, `AvnEvents.AdShow(...)`). It is generated for each game from the events
+dictionary and agent prompt downloaded from the AVN web app, not shipped in this package.
+Every batch the SDK sends carries `standard` (`avn-events`) and `standard_version` in its `context`, taken
+from `AvnEvents.StandardVersion` (`AVNGameAnalytics.StandardVersion`), so the server validates each event
+against the right version of the spec.

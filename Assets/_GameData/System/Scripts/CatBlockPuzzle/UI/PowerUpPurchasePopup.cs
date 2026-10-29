@@ -1,3 +1,4 @@
+using AVNEvents;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -167,6 +168,7 @@ namespace CatBlockPuzzle
             StopMotion();
             motion = StartCoroutine(IdleMotion());
             GameAnalytics.PowerUpOfferShown(kind, displayedOffer.coinPrice, displayedOffer.quantity, system.CurrentCoins);
+            AvnEvents.PopupOpened(AvnScreen.powerup_popup);
             system.SetPowerUpPurchaseOpen(true);
             transform.SetAsLastSibling(); // Authored prefabs are not spawned on top like the runtime overlay.
             if (ReducedMotion) gameObject.SetActive(true);
@@ -235,6 +237,7 @@ namespace CatBlockPuzzle
                 motion = StartCoroutine(Shake((RectTransform)buyButton.transform));
                 return;
             }
+            AvnEvents.ScreenInteraction(AvnScreen.powerup_popup, ScreenAction.buy, AvnEvents.PowerupName(Kind));
             var status = system != null ? system.PurchasePowerUp(Kind) : PowerUpPurchaseStatus.Unavailable;
             GameAnalytics.PowerUpPurchase(Kind, displayedOffer.coinPrice, displayedOffer.quantity, status, system != null ? system.CurrentCoins : 0);
             if (status != PowerUpPurchaseStatus.Success)
@@ -368,6 +371,8 @@ namespace CatBlockPuzzle
             if (!sessionOpen) return;
             sessionOpen = false;
             GameAnalytics.PowerUpOfferClosed(Kind, purchased, closing);
+            AvnEvents.PopupClosed(AvnScreen.powerup_popup,
+                purchased ? ScreenClosedBy.Purchased : closing ? ScreenClosedBy.Dismissed : ScreenClosedBy.System);
             GameSystem.Instance?.SetPowerUpPurchaseOpen(false, resumeOnClose);
             if (resumeOnClose && EventSystem.current != null && previousSelection != null && previousSelection.activeInHierarchy)
                 EventSystem.current.SetSelectedGameObject(previousSelection);

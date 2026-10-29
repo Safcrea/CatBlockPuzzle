@@ -1,0 +1,104 @@
+{
+  "standard_version": 5,
+  "vocabulary": {
+    "screens": ["coming_soon", "collection", "daily_gift", "level_selection", "main_menu", "no_internet", "pause", "powerup_popup", "rooms", "settings", "shop"],
+    "placements": ["level_complete_x2"],
+    "tutorials": ["feature_colour_zones", "feature_fixed_cat", "feature_fog", "feature_hearts", "feature_key_cats", "feature_moves", "feature_padlocks", "feature_shelf", "feature_spare_cats", "first_level", "powerup_freeze", "powerup_hint", "powerup_rotate"],
+    "powerups": ["freeze", "hint", "rotate"],
+    "currencies": ["coins"],
+    "economy_details": ["daily_puzzle", "daily_reward", "first_clear", "freeze", "hint", "level_complete_x2", "loop_level", "replay", "rotate", "shop_coin_pack", "starter_bundle"],
+    "screen_actions": ["buy", "claim", "collection", "daily_gift", "daily_puzzle", "haptics_off", "haptics_on", "home", "later", "levels", "music_off", "music_on", "play", "quit", "restart", "resume", "rooms", "settings", "sfx_off", "sfx_on", "shop"],
+    "moves_unit": "hearts",
+    "level_extras": {
+      "CHAPTER": "int, 1-based chapter of the level (10 levels per chapter)",
+      "DIFFICULTY": "int, the level's authored difficulty",
+      "IS_LOOP": "int 0/1, an endless-mode level past the 100 authored ones",
+      "IS_REPLAY": "int 0/1, the level was already cleared before this attempt",
+      "PIECES": "int, cats the level gives the player (excluding spares)"
+    }
+  },
+  "events": {
+    "LEVEL_ANALYSIS": {
+      "Started": { "status": "done", "where": "LevelFlowController.ReportAvnLevelStarted (payload built in LevelFlowController.ReportLevelStart)" },
+      "Completed": { "status": "done", "where": "LevelFlowController.CheckWin" },
+      "Failed": { "status": "done", "where": "LevelFlowController.FailLevel" },
+      "Skipped": { "status": "done", "where": "LevelFlowController.SkipCurrentLevel" },
+      "Restarted": { "status": "done", "where": "LevelFlowController.ResetLevel" },
+      "Left": { "status": "done", "where": "GameSystem.GoHome; AvnEvents.AppQuitting; AvnEvents.AppLaunch (Killed, recovered)" },
+      "Choice": { "status": "done", "where": "MetaProgressionController.LoadNextLevelThroughMetaGate (Next); LevelFlowController.ResetLevel (Restart); GameSystem.GoHome (Home); LevelCompleteScreen.ClaimDoubleCoins (DoubleReward); LevelFlowController.SkipCurrentLevel (Next); AvnEvents.AppLaunch/AppQuitting (Abandoned)" }
+    },
+    "AD_ANALYSIS": {
+      "Show": { "status": "done", "where": "RewardedAds.Show (USE_AVNADS_PLUGIN branch only)" },
+      "Closed": { "status": "done", "where": "RewardedAds.Show Report callback (USE_AVNADS_PLUGIN only)" },
+      "Failed": { "status": "done", "where": "RewardedAds.Show Report callback (NotReady); AvnAds.TimedOut (Timeout)" }
+    },
+    "ECONOMY_ANALYSIS": {
+      "Earned": { "status": "done", "where": "MetaProgressionController.RecordMetaFirstClear; LevelFlowController.WinSequence; LevelCompleteScreen.ClaimDoubleCoins; DailyRewardScreen.ReportClaim; PowerUpController.PurchaseBundleFromShop; PowerUpController.GrantCoinsFromShop" },
+      "Spent": { "status": "done", "where": "PowerUpController.CompletePurchase; PowerUpController.PurchaseBundleFromShop" }
+    },
+    "APP_ANALYSIS": {
+      "Launch": { "status": "done", "where": "AvnEvents.AppLaunch (AvnRuntime.Launched)" },
+      "Background": { "status": "done", "where": "AvnEvents.AppBackground (AvnRuntime.Backgrounded)" },
+      "Foreground": { "status": "done", "where": "AvnEvents.AppForeground (AvnRuntime.Foregrounded)" }
+    },
+    "TUTORIAL_ANALYSIS": {
+      "Shown": { "status": "done", "where": "LevelOneTutorial.Begin; PowerUpTutorialManager.Show; MechanicIntroPresenter.Show" },
+      "Completed": { "status": "done", "where": "LevelOneTutorial.Finish; PowerUpTutorialManager.Show (tap callback); MechanicIntroPresenter.Show (dismiss callback)" },
+      "Interrupted": { "status": "done", "where": "LevelOneTutorial.Cancel; PowerUpTutorialManager.Show/Cancel; MechanicIntroPresenter.Cancel" }
+    },
+    "POWERUP_ANALYSIS": {
+      "Obtained": { "status": "done", "where": "PowerUpController.CompletePurchase; PowerUpController.Grant; PowerUpTutorialManager.Show (unlock grant); DailyRewardScreen.ReportClaim" },
+      "Used": { "status": "done", "where": "PowerUpController.ReportUse" }
+    },
+    "SCREEN_ANALYSIS": {
+      "Opened": { "status": "done", "where": "ReferenceUiNavigation (pages); GameSystem.OpenPause/OpenSettings/ShowNoInternet; ReferenceUiNavigation.ShowComingSoon; PowerUpPurchasePopup.Show" },
+      "Interaction": { "status": "done", "where": "HomeController; PauseMenu; SettingsMenu; ShopScreen.Awake (offer tap); DailyRewardScreen; PowerUpPurchasePopup" },
+      "Closed": { "status": "done", "where": "AvnEvents.PageOpened/GameplayOpened (page replaced); PowerUpPurchasePopup.OnDisable" }
+    },
+    "IAP_ANALYSIS": {
+      "Clicked": { "status": "not_applicable", "where": "" },
+      "Purchased": { "status": "not_applicable", "where": "" },
+      "Failed": { "status": "not_applicable", "where": "" },
+      "SubActivated": { "status": "not_applicable", "where": "" }
+    },
+    "PLAYER_ANALYSIS": {
+      "Snapshot": { "status": "done", "where": "AvnEvents.PlayerSnapshotForSession (AvnRuntime.NewSession); CatBlockPuzzleGame.Start (save loaded)" }
+    },
+    "DEVICE_ANALYSIS": {
+      "Snapshot": { "status": "done", "where": "AvnEvents.SendDeviceSnapshotIfChanged (on Launch)" }
+    }
+  },
+  "not_implemented": [
+    { "event": "IAP_ANALYSIS", "state": "Clicked", "reason": "the game has no store integration; shop coin packs are disabled placeholders with no product IDs" },
+    { "event": "IAP_ANALYSIS", "state": "Purchased", "reason": "the game has no store integration" },
+    { "event": "IAP_ANALYSIS", "state": "Failed", "reason": "the game has no store integration" },
+    { "event": "IAP_ANALYSIS", "state": "SubActivated", "reason": "the game has no subscriptions" },
+    { "event": "LEVEL_ANALYSIS", "state": "Choice ACTION=Revive", "reason": "the game has no revive" },
+    { "event": "AD_ANALYSIS", "state": "FORMAT=Interstitial / AppOpen", "reason": "the game shows no interstitial or app-open ads" }
+  ],
+  "omitted_params": [
+    { "event": "LEVEL_ANALYSIS", "param": "SKIP_OFFERED", "reason": "the Skip button's visibility on result screens is set in the scene, not in code, so it cannot be read reliably" },
+    { "event": "LEVEL_ANALYSIS", "param": "LEVEL_TIME / TIME_LEFT", "reason": "omitted on levels 1-10, which are untimed by design" },
+    { "event": "LEVEL_ANALYSIS", "param": "MOVES_START / MOVES_LEFT", "reason": "omitted on levels without mistake hearts" },
+    { "event": "LEVEL_ANALYSIS", "param": "METHOD", "reason": "sent only on DoubleReward; the game has no revive" },
+    { "event": "AD_ANALYSIS", "param": "FALLBACK", "reason": "the game has no interstitial fallback" },
+    { "event": "PLAYER_ANALYSIS", "param": "HAS_PURCHASED / SUB_ACTIVE / ADS_REMOVED", "reason": "no store, subscriptions or remove-ads" },
+    { "event": "DEVICE_ANALYSIS", "param": "TIER", "reason": "the game has no quality tier of its own" }
+  ],
+  "uncovered_features": [
+    { "feature": "Daily Puzzle (one level per day, bonus coins)", "covered_by": "ECONOMY_ANALYSIS Earned DETAIL=daily_puzzle and SCREEN_ANALYSIS main_menu ACTION=daily_puzzle only; its plays are not LEVEL_ANALYSIS attempts, because its level number would merge with the campaign level of the same puzzle" },
+    { "feature": "Skip after a result (Skip on the win or fail screen)", "covered_by": "LEVEL_ANALYSIS Choice ACTION=Next; the standard has no Skip choice, so it reads the same as Next" },
+    { "feature": "Stars earned per win (1-3) and best stars", "covered_by": "nothing; LEVEL_ANALYSIS Completed has no stars key" },
+    { "feature": "Misdrops (a cat dropped where it does not fit), placements, board moves, shelf returns", "covered_by": "only hearts lost, through MOVES_START - MOVES_LEFT on levels with hearts" },
+    { "feature": "Level mechanics (padlocks, key cats, zones, fog, shelf, spares, fixed cats, drop limit)", "covered_by": "TUTORIAL_ANALYSIS feature_<mechanic> on first sight only; Started does not say which mechanics a level has" },
+    { "feature": "Drop limit (Moves mechanic: stars depend on drops)", "covered_by": "nothing; the MOVES unit is hearts, and one game can only have one unit" },
+    { "feature": "Chapter unlocked, chapter gate blocked by stars, endless mode entered", "covered_by": "nothing; CHAPTER on Started shows progress but not the gate or the moment of unlock" },
+    { "feature": "Free hint after 3 fails in a row", "covered_by": "nothing; it spends no charge, so it is not POWERUP_ANALYSIS Used" },
+    { "feature": "Hint that found no target", "covered_by": "POWERUP_ANALYSIS Used only; nothing says the hint failed to help" },
+    { "feature": "First-level tutorial step-by-step progress", "covered_by": "TUTORIAL_ANALYSIS STEP on Shown, Completed and Interrupted only; individual steps are not events" },
+    { "feature": "Move-a-cat tip", "covered_by": "nothing; a one-off tip, not a guided sequence" },
+    { "feature": "Power-up offer refused for lack of coins (buy button shakes)", "covered_by": "nothing; the tap is not counted as an Interaction because no purchase is attempted" },
+    { "feature": "Locked Collection and Rooms (Coming soon)", "covered_by": "SCREEN_ANALYSIS Opened coming_soon and main_menu Interaction collection/rooms" },
+    { "feature": "Combos (best combo per level)", "covered_by": "nothing" }
+  ]
+}

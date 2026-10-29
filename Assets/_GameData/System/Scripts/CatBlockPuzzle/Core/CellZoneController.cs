@@ -11,18 +11,19 @@ namespace CatBlockPuzzle
     /// </summary>
     internal sealed class CellZoneController : HostedService
     {
-        // Matches the order of the nine portraits in Art/.../Gameplay/NewCats (AtlasIndex 0..8).
+        // Sampled from the authored cat tiles in Art/Gameplay/Cats, in AtlasIndex order (0..8). There
+        // are seven colours and nine cat slots, so slots 7 and 8 repeat blue and mint.
         private static readonly Color[] PortraitColors =
         {
-            new Color(1f, 0.64f, 0.45f, 1f),     // peach tabby
-            new Color(0.70f, 0.48f, 0.95f, 1f),  // purple tabby
-            new Color(0.12f, 0.80f, 0.72f, 1f),  // teal tabby
-            new Color(1f, 0.18f, 0.66f, 1f),     // pink tabby
-            new Color(0.12f, 0.36f, 0.95f, 1f),  // blue tabby
-            new Color(0.25f, 0.76f, 1f, 1f),     // cyan tabby
-            new Color(0.58f, 0.88f, 0.14f, 1f),  // green tabby
-            new Color(1f, 0.52f, 0.08f, 1f),     // orange tabby
-            new Color(0.95f, 0.14f, 0.16f, 1f)   // red tabby
+            new Color(0.24f, 0.71f, 0.98f, 1f),  // blue
+            new Color(0.51f, 0.95f, 0.72f, 1f),  // mint
+            new Color(0.98f, 0.57f, 0.85f, 1f),  // pink
+            new Color(0.75f, 0.42f, 0.97f, 1f),  // purple
+            new Color(0.98f, 0.45f, 0.48f, 1f),  // red
+            new Color(0.17f, 0.95f, 0.94f, 1f),  // teal
+            new Color(0.98f, 0.85f, 0.19f, 1f),  // yellow
+            new Color(0.24f, 0.71f, 0.98f, 1f),  // blue again
+            new Color(0.51f, 0.95f, 0.72f, 1f)   // mint again
         };
 
         private readonly PuzzleSession session;

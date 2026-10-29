@@ -1,3 +1,4 @@
+using AVNEvents;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -285,6 +286,7 @@ namespace CatBlockPuzzle
                 if (HasGameplayController) gameplayController.SetSystemPaused(true);
                 Time.timeScale = 0f;
                 GameAnalytics.PauseOpened(gameplayController != null ? gameplayController.TimeLeftSeconds : 0f);
+                AvnEvents.PopupOpened(AvnScreen.pause);
             }
             pauseMenu.Show(gameplayController != null ? gameplayController.DisplayLevelNumber : 1,
                 gameplayController != null ? gameplayController.CurrentStarCount : 0,
@@ -340,6 +342,7 @@ namespace CatBlockPuzzle
 
         public void GoHome()
         {
+            AvnEvents.LevelLeavingHome();
             systemPaused = false;
             Time.timeScale = 1f;
             pauseMenu?.Hide();
@@ -361,6 +364,7 @@ namespace CatBlockPuzzle
             if (settingsMenu == null || !settingsMenu.IsConfigured) return;
             if (fromPause) pauseMenu?.Hide();
             settingsMenu?.Show(fromPause);
+            AvnEvents.PopupOpened(AvnScreen.settings);
         }
 
         public void ReturnToPause()
@@ -392,7 +396,12 @@ namespace CatBlockPuzzle
             settingsMenu?.Hide();
         }
 
-        public void ShowNoInternet() => noInternet?.Show();
+        public void ShowNoInternet()
+        {
+            if (noInternet == null) return;
+            noInternet.Show();
+            AvnEvents.PopupOpened(AvnScreen.no_internet);
+        }
 
         private void OnDestroy()
         {
