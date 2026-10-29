@@ -287,7 +287,7 @@ namespace CatBlockPuzzle
         public void LoadNextLevel() => flow.LoadNextLevel();
         public void PreviewLevelForTesting(int zeroBasedLevelIndex) => flow.PreviewLevelForTesting(zeroBasedLevelIndex);
         public void StartDailyPuzzle() => flow.PlayDailyPuzzle(DailyPuzzle.LevelIndexFor(System.DateTime.UtcNow, LevelCount));
-        public bool IsDailyPuzzleUnlocked => GetLevelStars(DailyPuzzle.UnlockAfterLevel - 1) > 0;
+        public bool IsDailyPuzzleUnlocked => DailyPuzzle.UnlockAfterLevel <= 0 || GetLevelStars(DailyPuzzle.UnlockAfterLevel - 1) > 0;
 
         public void AwardExternalCoins(int amount)
         {

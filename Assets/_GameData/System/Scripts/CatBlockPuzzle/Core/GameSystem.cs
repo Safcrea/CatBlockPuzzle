@@ -30,6 +30,9 @@ namespace CatBlockPuzzle
         [SerializeField] private LevelFailScreen levelFail;
         [SerializeField] private ReferenceUiNavigation referenceUi;
         [SerializeField] private NoInternetScreen noInternet;
+        [Header("Daily Puzzle")]
+        [Tooltip("The Daily Puzzle button opens once this level has been won. 0 = open from the start.")]
+        [SerializeField, Min(0)] private int dailyPuzzleUnlockAfterLevel = 10;
         [Header("Testing")]
         [Tooltip("Testing only: every level and chapter is playable, ignoring the star gates. Untick for the normal flow. A build made with this ticked logs a warning.")]
         [SerializeField] private bool unlockAllLevels;
@@ -45,6 +48,8 @@ namespace CatBlockPuzzle
         public bool HasReferenceUi => referenceUi != null;
         public bool IsPaused => systemPaused;
         public bool UnlockAllLevels => unlockAllLevels;
+        public int DailyPuzzleUnlockAfterLevel => dailyPuzzleUnlockAfterLevel;
+        private void OnValidate() => DailyPuzzle.UnlockAfterLevel = dailyPuzzleUnlockAfterLevel;
         public bool ShowLevelTestButtons => showLevelTestButtons;
         public int LevelCount => gameplayController != null ? gameplayController.LevelCount : 0;
         public int CurrentCoins => gameplayController != null ? gameplayController.CurrentCoins : 0;
@@ -236,6 +241,7 @@ namespace CatBlockPuzzle
             }
 
             Instance = this;
+            DailyPuzzle.UnlockAfterLevel = dailyPuzzleUnlockAfterLevel;
             Application.targetFrameRate = 60;
             if (home == null) home = GetComponent<HomeController>();
             if (levelTestButtons != null) levelTestButtons.gameObject.SetActive(showLevelTestButtons);

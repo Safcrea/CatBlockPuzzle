@@ -24,10 +24,17 @@ namespace CatBlockPuzzle
         [SerializeField] private Button dailyRewardButton;
         [SerializeField] private Button collectionButton;
         [SerializeField] private Button roomsButton;
-        [Tooltip("Optional. Plays the day's hard puzzle; opens after level 20 is won.")]
+        [Tooltip("Optional. Plays the day's hard puzzle; opens once the level set on GameSystem (Daily Puzzle > Unlock After Level) is won.")]
         [SerializeField] private Button dailyPuzzleButton;
-        [Tooltip("Shown on the Daily Puzzle button once today's puzzle is won.")]
+        [Tooltip("Legacy marker, no longer shown: a won puzzle is greyed out with a countdown instead.")]
         [SerializeField] private GameObject dailyPuzzleDoneMark;
+        [Header("Daily Puzzle")]
+        [Tooltip("Applied to the Daily Puzzle picture while today's puzzle is already won (uses the Cat Block Puzzle/UI Grayscale shader).")]
+        [SerializeField] private Material greyscaleMaterial;
+        [Tooltip("Countdown to the next puzzle, shown on the button while it is greyed out.")]
+        [SerializeField] private TMP_Text dailyPuzzleTimer;
+        [Tooltip("Optional. Spawned from Resources/CatBlockPuzzle/InfoPopup when empty.")]
+        [SerializeField] private InfoPopup infoPopup;
         [SerializeField] private int gameplayBuildIndex = 1;
         [Header("Locked Features")]
         [Tooltip("Padlock drawn over menu buttons whose feature is still coming soon.")]
@@ -103,9 +110,24 @@ namespace CatBlockPuzzle
         private void OpenDailyReward() { ButtonSfx.PlayClick(); navigation?.ShowDailyReward(); }
         private void OpenDailyPuzzle()
         {
-            if (IsDailyPuzzleLocked) { PlayLockedTap(); return; }
+            if (IsDailyPuzzleLocked) { ShowDailyPuzzleInfo(locked: true); return; }
+            if (IsDailyPuzzleDone) { ShowDailyPuzzleInfo(locked: false); return; }
             ButtonSfx.PlayClick();
             GameSystem.Instance.StartDailyPuzzle();
+        }
+
+        // A few words and a picture: why the puzzle is closed and, if it is won, when the next one arrives.
+        private void ShowDailyPuzzleInfo(bool locked)
+        {
+            ButtonSfx.PlayClick();
+            if (infoPopup == null && homeScreen != null) infoPopup = InfoPopup.Create(homeScreen.transform.parent);
+            if (infoPopup == null) { PlayLockedTap(); return; }
+            Graphic graphic = dailyPuzzleButton != null ? dailyPuzzleButton.targetGraphic : null;
+            Sprite picture = graphic is Image image ? image.sprite : null;
+            if (locked)
+                infoPopup.Show("Daily Puzzle", picture, () => "Win level " + DailyPuzzle.UnlockAfterLevel + "\nto unlock", greyscaleMaterial);
+            else
+                infoPopup.Show("Come back soon!", picture, () => "Next puzzle in\n" + DailyPuzzle.FormatCountdown(DailyPuzzle.TimeUntilNext(DateTime.UtcNow)), greyscaleMaterial);
         }
 
         private void OpenCollection()
@@ -125,6 +147,8 @@ namespace CatBlockPuzzle
         private bool IsCollectionLocked => navigation == null || !navigation.HasCollection;
         private bool IsRoomsLocked => navigation == null || !navigation.HasRooms;
         private static bool IsDailyPuzzleLocked => GameSystem.Instance == null || !GameSystem.Instance.IsDailyPuzzleUnlocked;
+        private static bool IsDailyPuzzleDone => DailyPuzzle.IsDoneToday(DateTime.UtcNow);
+        private string shownTimer;
 
         // A locked button only answers with a tap in the hand: no popup, no click sound.
         private static void PlayLockedTap() => HapticsController.Current?.Play(HapticKind.UiTap);
@@ -136,19 +160,32 @@ namespace CatBlockPuzzle
                 RefreshDailyRewardDot();
                 RefreshDailyPuzzle();
             }
+            else if (dailyPuzzleTimer != null && dailyPuzzleTimer.gameObject.activeInHierarchy) UpdateDailyPuzzleTimer();
         }
 
-        // Padlocked until level 20 is won; a check mark once today's puzzle is beaten.
+        // Padlocked until the unlock level is won; once today's puzzle is beaten the picture goes grey and counts down.
         private void RefreshDailyPuzzle()
         {
             if (dailyPuzzleButton == null) return;
             bool locked = IsDailyPuzzleLocked;
+            bool done = !locked && IsDailyPuzzleDone;
             SetLocked(dailyPuzzleButton, locked);
-            if (dailyPuzzleDoneMark != null)
+            Graphic graphic = dailyPuzzleButton.targetGraphic != null ? dailyPuzzleButton.targetGraphic : dailyPuzzleButton.GetComponent<Graphic>();
+            if (graphic != null) graphic.material = done ? greyscaleMaterial : null;
+            if (dailyPuzzleDoneMark != null) dailyPuzzleDoneMark.SetActive(false);
+            if (dailyPuzzleTimer != null)
             {
-                dailyPuzzleDoneMark.SetActive(!locked && DailyPuzzle.IsDoneToday(DateTime.UtcNow));
-                dailyPuzzleDoneMark.transform.SetAsLastSibling();
+                dailyPuzzleTimer.gameObject.SetActive(done);
+                if (done) UpdateDailyPuzzleTimer();
             }
+        }
+
+        private void UpdateDailyPuzzleTimer()
+        {
+            string text = DailyPuzzle.FormatCountdown(DailyPuzzle.TimeUntilNext(DateTime.UtcNow));
+            if (text == shownTimer) return;
+            shownTimer = text;
+            dailyPuzzleTimer.text = text;
         }
 
         private void RefreshDailyRewardDot()

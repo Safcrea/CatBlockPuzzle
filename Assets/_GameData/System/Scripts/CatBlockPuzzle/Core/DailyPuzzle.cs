@@ -10,8 +10,25 @@ namespace CatBlockPuzzle
     public static class DailyPuzzle
     {
         public const int BonusCoins = 50;
-        /// <summary>The 1-based level that must be won before the button opens.</summary>
-        public const int UnlockAfterLevel = 20;
+        /// <summary>
+        /// The 1-based level that must be won before the button opens (0 = always open).
+        /// Set in the Inspector on <see cref="GameSystem"/>; this is the live value.
+        /// </summary>
+        public static int UnlockAfterLevel { get; set; } = 10;
+
+        /// <summary>Time left until the next UTC day, when a new puzzle becomes available.</summary>
+        public static TimeSpan TimeUntilNext(DateTime utcNow)
+        {
+            DateTime now = utcNow.ToUniversalTime();
+            return now.Date.AddDays(1) - now;
+        }
+
+        /// <summary>HH:MM:SS, rounded up so the clock never shows 00:00:00 while still locked.</summary>
+        public static string FormatCountdown(TimeSpan remaining)
+        {
+            int seconds = Mathf.Max(0, Mathf.CeilToInt((float)remaining.TotalSeconds));
+            return string.Format("{0:00}:{1:00}:{2:00}", seconds / 3600, seconds / 60 % 60, seconds % 60);
+        }
         public const int FirstLevelIndex = 50;
         public const int PoolSize = 50;
         public const string LastWonDayKey = "CatBlockPuzzle.DailyPuzzle.LastWonDay";
