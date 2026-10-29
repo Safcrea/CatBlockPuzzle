@@ -106,6 +106,8 @@ namespace CatBlockPuzzle.Tests
                 foreach (var button in game.PreparedCanvas.GetComponentsInChildren<Button>(true))
                 {
                     if (button.GetComponent<CatPuzzleUiAction>() == null) continue;
+                    // The win and fail screens bind their buttons at runtime (BindIfEmpty), so they carry no saved click event.
+                    if (button.GetComponentInParent<LevelCompleteScreen>(true) != null || button.GetComponentInParent<LevelFailScreen>(true) != null) continue;
                     Assert.That(button.onClick.GetPersistentEventCount(),Is.EqualTo(1),button.name);
                     Assert.That(button.onClick.GetPersistentTarget(0),Is.Not.Null,button.name);
                 }

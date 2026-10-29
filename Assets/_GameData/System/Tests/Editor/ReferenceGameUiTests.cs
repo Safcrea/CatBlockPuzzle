@@ -26,31 +26,32 @@ namespace CatBlockPuzzle.Tests
                 Assert.That(background.GetComponent<CanvasBackgroundFitter>(),Is.Not.Null);
                 Assert.That(background.sprite,Is.Not.Null);
                 Assert.That(serializedHud.FindProperty("freezeButton").objectReferenceValue,Is.Not.Null);
-                Assert.That(all.Single(t=>t.name=="Tile Break").gameObject.activeSelf,Is.False);
+                Assert.That(all.Where(t=>t.name=="Tile Break"),Is.Empty,"Tile Break is obsolete and removed by FullGameUiAuthoring.");
                 var daily=all.Select(t=>t.GetComponent<DailyRewardScreen>()).Single(s=>s!=null);
-                var days=new SerializedObject(daily).FindProperty("days");
+                var dailySerialized=new SerializedObject(daily);
+                // The redesigned popup claims through one Claim button; the day cards only display state.
+                foreach(string field in new[]{"claimCurrentButton","laterButton","closeButton"})
+                    Assert.That(dailySerialized.FindProperty(field).objectReferenceValue,Is.Not.Null,field);
+                var days=dailySerialized.FindProperty("days");
                 Assert.That(days.arraySize,Is.EqualTo(7));
                 for(int i=0;i<days.arraySize;i++)
                 {
                     var day=days.GetArrayElementAtIndex(i);
-                    Assert.That(day.FindPropertyRelative("cardButton").objectReferenceValue,Is.Not.Null);
-                    Assert.That(day.FindPropertyRelative("cardImage").objectReferenceValue,Is.Not.Null);
-                    if(i>=6) continue;
-                    foreach(string field in new[]{"claimButton","claimImage","availableCardSprite","claimedCardSprite","availableClaimSprite","claimedClaimSprite"})
+                    foreach(string field in new[]{"cardImage","claimDaySprite","backgroundDaySprite","claimedCardSprite","lockedCardSprite","dayLabel"})
                         Assert.That(day.FindPropertyRelative(field).objectReferenceValue,Is.Not.Null,$"Day {i+1}: {field}");
                 }
                 var presentation=new SerializedObject(new SerializedObject(game).FindProperty("presentationAssets").objectReferenceValue);
-                Assert.That(AssetDatabase.GetAssetPath(presentation.FindProperty("starSprite").objectReferenceValue),Does.Contain("Slicing/Gameplay"));
-                Assert.That(hud.transform.parent.name,Is.EqualTo("Reference UI"));
+                Assert.That(AssetDatabase.GetAssetPath(presentation.FindProperty("starSprite").objectReferenceValue),Does.Contain("CatBlock_UI_New/UI/icons"));
+                Assert.That(hud.transform.parent.name,Is.EqualTo("MainUi"));
                 Assert.That(hud.gameObject.name,Is.EqualTo("Gameplay Screen"));
-                var selector=all.Select(t=>t.GetComponent<LevelSelectionScreen>()).Single(s=>s!=null);
-                Assert.That(selector.SlotCount,Is.EqualTo(100));
-                Assert.That(all.Single(t=>t.name=="Safe Area").gameObject.activeSelf,Is.False);
-                Assert.That(all.Single(t=>t.name=="Reference UI").gameObject.activeSelf,Is.True);
-                Assert.That(all.Single(t=>t.name=="Reference UI").GetComponent<CatBlockPuzzle.KawaiiUI.SafeAreaFitter>(),Is.Null,
+                // The redesigned Levels page no longer carries a LevelSelectionScreen; when one is present it must still list every level.
+                var selector=all.Select(t=>t.GetComponent<LevelSelectionScreen>()).SingleOrDefault(s=>s!=null);
+                if(selector!=null) Assert.That(selector.SlotCount,Is.EqualTo(100));
+                Assert.That(all.Single(t=>t.name=="MainUi").gameObject.activeSelf,Is.True);
+                Assert.That(all.Single(t=>t.name=="MainUi").GetComponent<CatBlockPuzzle.KawaiiUI.SafeAreaFitter>(),Is.Null,
                     "Fitting the entire page clips backgrounds and changes the authored layout on entering Play Mode");
-                var slots=new SerializedObject(selector).FindProperty("levels");
-                for(int i=0;i<slots.arraySize;i++)
+                var slots=selector!=null ? new SerializedObject(selector).FindProperty("levels") : null;
+                for(int i=0;slots!=null && i<slots.arraySize;i++)
                 {
                     var slot=slots.GetArrayElementAtIndex(i);
                     foreach(string field in new[]{"button","number","background","locked"})
