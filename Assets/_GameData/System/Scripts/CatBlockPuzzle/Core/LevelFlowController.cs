@@ -38,6 +38,8 @@ namespace CatBlockPuzzle
         private readonly GameplayToast toast;
         private readonly RotateController rotate;
 
+        // The tier of the last level that was started, so the difficulty banner only shows when it changes.
+        private const string LastDifficultyTierKey = "CatBlockPuzzle.LastDifficultyTier";
         private Coroutine boardRevealRoutine;
         // The AVN attempt opens once the board is playable, not when the level loads.
         private LevelStart? avnPendingStart;
@@ -222,11 +224,17 @@ namespace CatBlockPuzzle
             IEnumerator reveal = board.RevealCells();
             while (reveal.MoveNext()) yield return reveal.Current;
 
-            // Tell the player how tough this one is before anything else appears (not for the daily puzzle,
-            // and not on level 1, which is the hands-on tutorial).
-            if (Hud != null && !session.dailyPuzzle && session.levelNumber > 1 && Hud.levelText != null)
-                yield return DifficultyBanner.Show(Hud.Canvas, Hud.levelText.font, DifficultyTiers.For(activeLevel.Difficulty),
-                    PlayerPrefs.GetInt(PuzzleSaveKeys.SavedReducedMotion, 0) != 0);
+            // Tell the player when the difficulty changes (Easy to Medium to Hard), not on every level of the
+            // same tier. Not for the daily puzzle, and never on level 1, which is the hands-on tutorial.
+            if (Hud != null && !session.dailyPuzzle && Hud.levelText != null)
+            {
+                DifficultyTier tier = DifficultyTiers.For(activeLevel.Difficulty);
+                bool changed = PlayerPrefs.GetInt(LastDifficultyTierKey, -1) != (int)tier;
+                PlayerPrefs.SetInt(LastDifficultyTierKey, (int)tier);
+                if (changed && session.levelNumber > 1)
+                    yield return DifficultyBanner.Show(Hud.Canvas, Hud.levelText.font, tier,
+                        PlayerPrefs.GetInt(PuzzleSaveKeys.SavedReducedMotion, 0) != 0);
+            }
             if (Hud != null) yield return Hud.ShowPowerUpTutorials(config.FreezeDurationSeconds);
             yield return intro.ShowNewMechanics(activeLevel);
             inputLocked = gates.MetaUiOpen || gates.SystemPaused;

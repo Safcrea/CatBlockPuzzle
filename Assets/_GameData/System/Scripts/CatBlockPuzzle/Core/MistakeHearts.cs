@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using CatBlockPuzzle.KawaiiUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ namespace CatBlockPuzzle
     {
         private const string RowName = "Mistake Hearts";
         private static readonly Color Full = Color.white;
-        private static readonly Color Empty = new Color(0.45f, 0.42f, 0.44f, 0.5f);
+        private static readonly Color Empty = new Color(0.38f, 0.32f, 0.32f, 0.4f);
 
         private readonly PuzzleSession session;
         private readonly PlayerSettings settings;
@@ -79,18 +80,27 @@ namespace CatBlockPuzzle
             icons = new Image[0];
             if (!Active) return;
 
-            const float size = 44f, gap = 10f;
+            // A bordered cream pill straddling the timer's bottom edge, with big hearts that read at a glance.
+            const float size = 56f, gap = 12f, padX = 26f, height = 76f, border = 5f;
+            float width = total * size + (total - 1) * gap + padX * 2f;
             RectTransform row = RuntimeUiFactory.CreateRect(parent, RowName);
             row.anchorMin = row.anchorMax = new Vector2(0.5f, 0f);
-            row.pivot = new Vector2(0.5f, 1f);
-            row.anchoredPosition = new Vector2(0f, -8f);
-            row.sizeDelta = new Vector2(total * size + (total - 1) * gap, size);
+            row.pivot = new Vector2(0.5f, 0.5f);
+            row.anchoredPosition = new Vector2(0f, -(height * 0.5f) - 2f);
+            row.sizeDelta = new Vector2(width, height);
+            Image frame = RuntimeUiFactory.CreateImage(row, "Frame", KawaiiSprites.RoundedRect, new Color(0.47f, 0.23f, 0.11f, 1f), Vector2.zero, row.sizeDelta);
+            frame.type = Image.Type.Sliced;
+            frame.raycastTarget = false;
+            Image fill = RuntimeUiFactory.CreateImage(row, "Fill", KawaiiSprites.RoundedRect, new Color(1f, 0.96f, 0.86f, 1f), Vector2.zero, row.sizeDelta - Vector2.one * border * 2f);
+            fill.type = Image.Type.Sliced;
+            fill.raycastTarget = false;
             icons = new Image[total];
             for (int i = 0; i < total; i++)
             {
-                float x = -row.sizeDelta.x * 0.5f + size * 0.5f + i * (size + gap);
+                float x = -(total * size + (total - 1) * gap) * 0.5f + size * 0.5f + i * (size + gap);
                 Image heart = RuntimeUiFactory.CreateImage(row, "Heart " + (i + 1), HeartArt.Heart, Full, new Vector2(x, 0f), new Vector2(size, size));
                 heart.preserveAspect = true;
+                heart.raycastTarget = false;
                 icons[i] = heart;
             }
         }

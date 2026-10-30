@@ -15,14 +15,34 @@ namespace CatBlockPuzzle
         {
             if (canvas == null) yield break;
 
+            // A full-screen dim fades in behind the word, like the tutorial and popup overlays.
             var root = new GameObject("DifficultyBanner", typeof(RectTransform), typeof(CanvasGroup));
-            var rect = root.GetComponent<RectTransform>();
-            rect.SetParent(canvas.transform, false);
-            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.62f);
-            rect.sizeDelta = new Vector2(760f, 220f);
+            var full = root.GetComponent<RectTransform>();
+            full.SetParent(canvas.transform, false);
+            full.anchorMin = Vector2.zero;
+            full.anchorMax = Vector2.one;
+            full.offsetMin = full.offsetMax = Vector2.zero;
             var group = root.GetComponent<CanvasGroup>();
             group.blocksRaycasts = false;
             group.interactable = false;
+            // If the level restarts mid-banner the coroutine is stopped without running the cleanup below.
+            Object.Destroy(root, PopSeconds + HoldSeconds + FadeSeconds + 0.5f);
+
+            var dimObject = new GameObject("Dim", typeof(RectTransform), typeof(Image));
+            var dimRect = dimObject.GetComponent<RectTransform>();
+            dimRect.SetParent(full, false);
+            dimRect.anchorMin = Vector2.zero;
+            dimRect.anchorMax = Vector2.one;
+            dimRect.offsetMin = dimRect.offsetMax = Vector2.zero;
+            var dim = dimObject.GetComponent<Image>();
+            dim.color = new Color(0f, 0f, 0f, 0.6f);
+            dim.raycastTarget = false;
+
+            var wordObject = new GameObject("Word", typeof(RectTransform));
+            var rect = wordObject.GetComponent<RectTransform>();
+            rect.SetParent(full, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.55f);
+            rect.sizeDelta = new Vector2(760f, 220f);
 
             var textObject = new GameObject("Label", typeof(RectTransform), typeof(Text), typeof(Outline));
             var textRect = textObject.GetComponent<RectTransform>();

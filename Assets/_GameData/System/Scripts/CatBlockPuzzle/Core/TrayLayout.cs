@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CatBlockPuzzle.KawaiiUI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -112,33 +113,54 @@ namespace CatBlockPuzzle
         private void UpdateQueueLabel(int waiting)
         {
             if (trayRoot == null) return;
-            if (queueLabel == null || queueLabel.transform.parent != trayRoot)
+            // The count sits in a solid pill straddling the shelf's top edge so it reads at a glance.
+            const string pillName = "Waiting Cats Pill";
+            // The previous plain-text label may still be saved in the scene; the pill replaces it.
+            Transform legacy = trayRoot.Find("Waiting Cats");
+            if (legacy != null) legacy.gameObject.SetActive(false);
+            if (queueLabel == null || queueLabel.transform.parent == null || queueLabel.transform.parent.parent != trayRoot)
             {
-                Transform existing = trayRoot.Find("Waiting Cats");
-                queueLabel = existing != null ? existing.GetComponent<Text>() : null;
+                Transform existing = trayRoot.Find(pillName);
+                queueLabel = existing != null ? existing.GetComponentInChildren<Text>(true) : null;
             }
             if (waiting <= 0)
             {
-                if (queueLabel != null) queueLabel.gameObject.SetActive(false);
+                if (queueLabel != null) queueLabel.transform.parent.gameObject.SetActive(false);
                 return;
             }
 
             if (queueLabel == null)
             {
-                queueLabel = RuntimeUiFactory.CreateText(trayRoot, "Waiting Cats", "", 30, TextAnchor.MiddleRight);
+                var pill = new GameObject(pillName, typeof(RectTransform), typeof(Image));
+                RectTransform pillRect = pill.GetComponent<RectTransform>();
+                pillRect.SetParent(trayRoot, false);
+                pillRect.anchorMin = pillRect.anchorMax = new Vector2(1f, 1f);
+                pillRect.pivot = new Vector2(1f, 0.5f);
+                pillRect.sizeDelta = new Vector2(330f, 64f);
+                pillRect.anchoredPosition = new Vector2(-28f, 0f);
+                Image pillImage = pill.GetComponent<Image>();
+                pillImage.sprite = KawaiiSprites.RoundedRect;
+                pillImage.type = Image.Type.Sliced;
+                pillImage.color = new Color(0.47f, 0.23f, 0.11f, 1f);
+                pillImage.raycastTarget = false;
+
+                queueLabel = RuntimeUiFactory.CreateText(pillRect, "Waiting Cats", "", 36, TextAnchor.MiddleCenter);
                 if (Assets.defaultFont != null) queueLabel.font = Assets.defaultFont;
                 queueLabel.raycastTarget = false;
-                queueLabel.color = new Color(0.47f, 0.23f, 0.11f, 1f);
+                queueLabel.color = Color.white;
                 RectTransform rect = queueLabel.rectTransform;
-                rect.anchorMin = rect.anchorMax = new Vector2(1f, 1f);
-                rect.pivot = new Vector2(1f, 0f);
-                rect.sizeDelta = new Vector2(360f, 44f);
-                rect.anchoredPosition = new Vector2(-24f, 4f);
+                rect.anchorMin = Vector2.zero;
+                rect.anchorMax = Vector2.one;
+                rect.offsetMin = rect.offsetMax = Vector2.zero;
             }
 
-            queueLabel.text = "+" + waiting + (waiting == 1 ? " cat waiting" : " cats waiting");
-            queueLabel.gameObject.SetActive(true);
-            queueLabel.transform.SetAsLastSibling();
+            string text = "+" + waiting + (waiting == 1 ? " cat waiting" : " cats waiting");
+            bool changed = queueLabel.text != text;
+            queueLabel.text = text;
+            Transform pillTransform = queueLabel.transform.parent;
+            pillTransform.gameObject.SetActive(true);
+            pillTransform.SetAsLastSibling();
+            if (changed && !reducedMotion && Host != null && Host.gameObject.activeInHierarchy) StartCoroutine(PopIn((RectTransform)pillTransform));
         }
 
         private IEnumerator PopIn(RectTransform slot)
