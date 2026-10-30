@@ -105,6 +105,7 @@ namespace CatBlockPuzzle
                     slot.number.text = (EndlessLevels.IsActive && recommended ? gameplay.RecommendedLevelNumber : index + 1).ToString();
                     slot.number.gameObject.SetActive(available);
                 }
+                ShowTierTag(slot, gameplay.GetLevelTier(index), available);
                 int stars = gameplay.GetLevelStars(index);
                 if (slot.stars != null) for (int s = 0; s < slot.stars.Length; s++)
                 {
@@ -118,6 +119,48 @@ namespace CatBlockPuzzle
             if (previousButton != null) previousButton.interactable = page > 0;
             if (nextButton != null) nextButton.interactable = page < PageCount - 1;
         }
+        // A small coloured pill with Easy / Medium / Hard, built once per card and reused on every page.
+        private void ShowTierTag(Slot slot, DifficultyTier tier, bool available)
+        {
+            if (slot.root == null || slot.number == null) return;
+            Transform existing = slot.root.transform.Find("DifficultyTag");
+            RectTransform tag;
+            TMP_Text label;
+            if (existing != null)
+            {
+                tag = (RectTransform)existing;
+                label = tag.GetComponentInChildren<TMP_Text>(true);
+            }
+            else
+            {
+                var tagObject = new GameObject("DifficultyTag", typeof(RectTransform), typeof(Image));
+                tag = tagObject.GetComponent<RectTransform>();
+                tag.SetParent(slot.root.transform, false);
+                tag.anchorMin = tag.anchorMax = new Vector2(0.5f, 1f);
+                tag.pivot = new Vector2(0.5f, 1f);
+                tag.anchoredPosition = new Vector2(0f, 20f);
+                tag.sizeDelta = new Vector2(170f, 44f);
+                tagObject.GetComponent<Image>().raycastTarget = false;
+                var textObject = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+                RectTransform textRect = textObject.GetComponent<RectTransform>();
+                textRect.SetParent(tag, false);
+                textRect.anchorMin = Vector2.zero;
+                textRect.anchorMax = Vector2.one;
+                textRect.offsetMin = textRect.offsetMax = Vector2.zero;
+                label = textObject.GetComponent<TextMeshProUGUI>();
+                label.font = slot.number.font;
+                label.alignment = TextAlignmentOptions.Center;
+                label.fontSize = 30f;
+                label.color = Color.white;
+                label.raycastTarget = false;
+            }
+
+            tag.gameObject.SetActive(available);
+            if (!available) return;
+            tag.GetComponent<Image>().color = DifficultyTiers.Colour(tier);
+            if (label != null) label.text = DifficultyTiers.Label(tier);
+        }
+
         public void OnBeginDrag(PointerEventData eventData) => pressPosition = eventData.position;
         public void OnEndDrag(PointerEventData eventData)
         {

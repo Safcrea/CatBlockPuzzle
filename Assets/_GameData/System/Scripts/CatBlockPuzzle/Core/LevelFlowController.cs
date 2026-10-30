@@ -146,7 +146,10 @@ namespace CatBlockPuzzle
             activeLevel = levelManager.GetLevel(levelIndex);
             loader.Activate(levelIndex, nextPrefab);
             theme.Apply(levelIndex, loader.LoadedLevel);
-            Hud.levelText.text = session.dailyPuzzle ? "Daily Puzzle" : "Level " + session.levelNumber.ToString();
+            DifficultyTier tier = DifficultyTiers.For(activeLevel.Difficulty);
+            Hud.levelText.supportRichText = true;
+            Hud.levelText.text = session.dailyPuzzle ? "Daily Puzzle" :
+                "Level " + session.levelNumber.ToString() + " <color=#" + DifficultyTiers.Hex(tier) + ">" + DifficultyTiers.Label(tier) + "</color>";
             if (Hud.objectiveText != null)
             {
                 Hud.objectiveText.text = theme.ObjectiveTitle(activeLevel.Title);

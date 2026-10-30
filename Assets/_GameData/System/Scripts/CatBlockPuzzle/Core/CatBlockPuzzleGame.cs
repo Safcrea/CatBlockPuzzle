@@ -287,6 +287,8 @@ namespace CatBlockPuzzle
         public int StarsRequiredForChapter(int chapterIndex) => meta != null ? meta.StarsRequiredForChapter(chapterIndex) : 0;
         public int StarsEarnedBeforeChapter(int chapterIndex) => meta != null ? meta.StarsEarnedBeforeChapter(chapterIndex) : 0;
         public int GetLevelStars(int index) => levelManager != null && index >= 0 && index < LevelCount ? progress.GetBestStars(levelManager.GetLevel(index).Id) : 0;
+        public DifficultyTier GetLevelTier(int index) =>
+            DifficultyTiers.For(levelManager != null && index >= 0 && index < LevelCount ? levelManager.GetLevel(index).Difficulty : 1);
         public string GetChapterTitle(int chapter) => meta.Catalog.GetChapter(chapter).Title;
         public Sprite GetChapterThumbnail(int chapter) => contentCatalog.roomThumbnails[chapter];
         public int CurrentStarCount => flow.CurrentStarCount;
