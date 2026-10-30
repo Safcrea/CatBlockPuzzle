@@ -307,6 +307,10 @@ namespace CatBlockPuzzle
             MusicEnabled = enabled;
             PlayerPrefs.SetInt(MusicEnabledKey, enabled ? 1 : 0);
             PlayerPrefs.Save();
+            // The source stays muted from an earlier "off" unless it is unmuted here, which left music silent
+            // after turning it back on.
+            EnsureAudioSources();
+            bgmAudioSource.mute = !enabled;
             if (enabled) PlayMusic(); else StopMusic();
         }
 
@@ -315,7 +319,14 @@ namespace CatBlockPuzzle
             SfxEnabled = enabled;
             PlayerPrefs.SetInt(SfxEnabledKey, enabled ? 1 : 0);
             PlayerPrefs.Save();
+            EnsureAudioSources();
             ApplyVolumes();
+            if (!enabled)
+            {
+                sfxAudioSourceA.Stop();
+                sfxAudioSourceB.Stop();
+                sfxOneShotSource.Stop();
+            }
         }
 
         private void EnsureAudioSources()

@@ -49,9 +49,28 @@ namespace CatBlockPuzzle
         private PortraitLayoutProfile layoutProfile => Assets.layoutProfile;
         private bool reducedMotion => settings.ReducedMotion;
 
+        // How far the shelf content can slide: its width beyond the visible window.
+        private float ScrollableWidth()
+        {
+            if (trayScrollRect == null || trayScrollRect.content == null || trayScrollRect.viewport == null) return 0f;
+            return Mathf.Max(0f, trayScrollRect.content.rect.width - trayScrollRect.viewport.rect.width);
+        }
+
+        // One feel for every level (the scroll rect is copied into each level prefab): a soft glide and a gentle edge bounce.
+        private void TuneScrollFeel()
+        {
+            if (trayScrollRect == null) return;
+            trayScrollRect.movementType = ScrollRect.MovementType.Elastic;
+            trayScrollRect.inertia = true;
+            trayScrollRect.decelerationRate = 0.2f;
+            trayScrollRect.elasticity = 0.12f;
+            trayScrollRect.scrollSensitivity = 1f;
+        }
+
         /// <summary>Places every piece back on the shelf for a freshly laid-out level.</summary>
         public void LayoutPieces()
         {
+            TuneScrollFeel();
             ConfigureTrayForPieceCount(pieces.Count);
             foreach (var state in pieces)
             {
@@ -255,7 +274,9 @@ namespace CatBlockPuzzle
 
             var revealed = new List<PieceState>();
             ApplyDripFeed(revealed);
-            float previousScroll = trayScrollRect != null ? trayScrollRect.horizontalNormalizedPosition : 0f;
+            // Keep the shelf where the player scrolled it in pixels. A normalized position would slide every cat
+            // sideways whenever the shelf grows or shrinks (a new cat appears, one is placed).
+            float previousScrolledPixels = trayScrollRect != null ? trayScrollRect.horizontalNormalizedPosition * ScrollableWidth() : 0f;
             var previousSlotPositions = new Dictionary<PieceState, Vector2>();
             if (animateCatSizes)
             {
@@ -285,7 +306,8 @@ namespace CatBlockPuzzle
             Canvas.ForceUpdateCanvases();
             if (trayScrollRect != null)
             {
-                trayScrollRect.horizontalNormalizedPosition = Mathf.Clamp01(previousScroll);
+                float scrollable = ScrollableWidth();
+                trayScrollRect.horizontalNormalizedPosition = scrollable > 0.01f ? Mathf.Clamp01(previousScrolledPixels / scrollable) : 0f;
             }
 
             for (int i = 0; i < pieces.Count; i++)

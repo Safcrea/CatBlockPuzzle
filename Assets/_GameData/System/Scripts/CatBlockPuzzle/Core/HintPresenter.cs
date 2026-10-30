@@ -14,6 +14,7 @@ namespace CatBlockPuzzle
         private readonly MovePieceTip tip;
         private readonly CellLockController locks;
         private Coroutine hintRoutine;
+        private PieceState lastHinted;
 
         public HintPresenter(IGameplayContext context, PuzzleSession session, BoardController board, MovePieceTip tip, CellLockController locks) : base(context)
         {
@@ -36,25 +37,71 @@ namespace CatBlockPuzzle
             }
 
             StopHint();
-            PieceState hinted = null;
-            for (int i = 0; i < pieces.Count; i++)
-            {
-                PieceState state = pieces[i];
-                if (state.Definition.IsSpare || state.Definition.IsFixed) continue;
-                if (locks.BlocksSolution(state.Solution)) continue;
-                if (!state.Placed && state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
-                if (!state.Placed || state.IsRotated || state.Row != state.Solution.SolutionRow || state.Col != state.Solution.SolutionCol)
-                {
-                    hinted = state;
-                    break;
-                }
-            }
-
+            PieceState hinted = PickHintTarget();
             if (hinted != null)
             {
+                lastHinted = hinted;
                 hintRoutine = StartCoroutine(HintRoutine(hinted, reveal));
             }
             return hinted != null;
+        }
+
+        // A hint is only useful when its spot can take the cat right now, so spots already covered by another cat
+        // (the player may have filled the board a different valid way) are skipped. When several cats qualify the
+        // hint moves on to the next one instead of repeating the previous cat every time.
+        private PieceState PickHintTarget()
+        {
+            List<PieceState> fitting = new List<PieceState>();
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState state = pieces[i];
+                if (state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
+                if (state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
+                if (SolutionSpotIsFree(state)) fitting.Add(state);
+            }
+
+            if (fitting.Count > 0)
+            {
+                int after = lastHinted != null ? pieces.IndexOf(lastHinted) : -1;
+                for (int i = 0; i < fitting.Count; i++)
+                {
+                    if (pieces.IndexOf(fitting[i]) > after) return fitting[i];
+                }
+                return fitting[0];
+            }
+
+            // Nothing left fits its authored spot: point at a placed cat that is in the way of its own spot.
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState state = pieces[i];
+                if (!state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
+                if (state.Row == state.Solution.SolutionRow && state.Col == state.Solution.SolutionCol && !state.IsRotated) continue;
+                if (SolutionSpotIsFree(state, state)) return state;
+            }
+            return null;
+        }
+
+        private bool SolutionSpotIsFree(PieceState state, PieceState ignoring = null)
+        {
+            CellOffset[] cells = state.Solution.Cells;
+            for (int c = 0; c < cells.Length; c++)
+            {
+                Vector2Int coord = new Vector2Int(state.Solution.SolutionRow + cells[c].Row, state.Solution.SolutionCol + cells[c].Col);
+                if (board.IsCellFree(coord, state)) continue;
+                if (ignoring != null && OccupiedOnlyBy(ignoring, coord)) continue;
+                return false;
+            }
+            return true;
+        }
+
+        // True when the cell is held by this placed cat and by nothing else, so moving that cat would free it.
+        private static bool OccupiedOnlyBy(PieceState state, Vector2Int coord)
+        {
+            for (int i = 0; i < state.Definition.Cells.Length; i++)
+            {
+                if (coord == new Vector2Int(state.Row + state.Definition.Cells[i].Row, state.Col + state.Definition.Cells[i].Col)) return true;
+            }
+            return false;
         }
 
         private IEnumerator HintRoutine(PieceState state, HintReveal reveal)
