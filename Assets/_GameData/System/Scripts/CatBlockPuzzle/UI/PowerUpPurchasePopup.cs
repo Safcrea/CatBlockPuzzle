@@ -166,13 +166,14 @@ namespace CatBlockPuzzle
             icon.enabled = icon.sprite != null;
             RefreshOffer();
             StopMotion();
-            motion = StartCoroutine(IdleMotion());
             GameAnalytics.PowerUpOfferShown(kind, displayedOffer.coinPrice, displayedOffer.quantity, system.CurrentCoins);
             AvnEvents.PopupOpened(AvnScreen.powerup_popup);
             system.SetPowerUpPurchaseOpen(true);
             transform.SetAsLastSibling(); // Authored prefabs are not spawned on top like the runtime overlay.
             if (ReducedMotion) gameObject.SetActive(true);
             else MenuTransition.Show(gameObject, true, new MenuTransition.EntranceSettings { duration = .35f, slideDistance = 24f, overshoot = 1.2f });
+            // A coroutine can only start on an active object, so the idle motion waits until the popup is shown.
+            if (isActiveAndEnabled) motion = StartCoroutine(IdleMotion());
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(buyButton.interactable ? buyButton.gameObject : closeButton.gameObject);
             return true;
         }
