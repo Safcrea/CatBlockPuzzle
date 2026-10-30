@@ -20,9 +20,6 @@ namespace CatBlockPuzzle
         public const string TimerSeenKey = "CatBlockPuzzle.Tutorial.Timer";
 
         private PowerUpUnlockTutorial overlay;
-        private Button timerTap;
-        private Image timerImage;
-        private bool timerAddedButton, timerImageHadRaycast;
         // Every power-up taught in one level start waits here, so none of the demo taps is lost.
         private readonly System.Collections.Generic.Queue<PowerUpKind> pendingUses = new System.Collections.Generic.Queue<PowerUpKind>();
 
@@ -53,8 +50,8 @@ namespace CatBlockPuzzle
                 yield return Show(hud, PowerUpKind.Rotate, "Turn a cat!\nTap Rotate!", RotateSeenKey);
         }
 
-        // The first timed level (level 11): explain the clock and the stars that fade with it. The timer panel is
-        // made tappable for the duration, the hand points at it and the level starts once the player taps it.
+        // The first timed level (level 11): the clock icon pops in, flies up onto the timer, and two seconds later the
+        // level carries on by itself. No hand and no tap.
         private IEnumerator ShowTimerTutorial(GameplayHudView hud)
         {
             RectTransform panel = hud.timerPanel;
@@ -67,24 +64,14 @@ namespace CatBlockPuzzle
             overlay = PowerUpUnlockTutorial.Create(hud.Canvas, hud.levelText != null ? hud.levelText.font : null);
             if (overlay == null) { PlayerPrefs.SetInt(TimerSeenKey, 1); yield break; }
 
-            timerImage = panel.GetComponent<Image>();
-            timerImageHadRaycast = timerImage != null && timerImage.raycastTarget;
-            if (timerImage != null) timerImage.raycastTarget = true;
-            Button tap = panel.GetComponent<Button>();
-            timerAddedButton = tap == null;
-            if (timerAddedButton) tap = panel.gameObject.AddComponent<Button>();
-            timerTap = tap;
-            tap.transition = Selectable.Transition.None;
-
             AvnEvents.TutorialShown("timer");
-            yield return overlay.Run(tap, hud.TimerTutorialIcon, "Beat the clock!\nStars fade as time runs out", () =>
+            yield return overlay.RunPassive(panel, hud.TimerTutorialIcon, "Beat the clock!\nStars fade as time runs out", () =>
             {
                 PlayerPrefs.SetInt(TimerSeenKey, 1);
                 PlayerPrefs.Save();
-            }, () => AvnEvents.TutorialCompleted("timer"));
-            AvnEvents.TutorialInterrupted("timer"); // no-op once the tap completed it
+            }, 2f);
+            AvnEvents.TutorialCompleted("timer");
             CloseOverlay();
-            RestoreTimerPanel();
         }
 
         private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string message, string key)
@@ -138,17 +125,9 @@ namespace CatBlockPuzzle
             AvnEvents.TutorialsInterrupted("powerup_");
             StopAllCoroutines();
             pendingUses.Clear();
-            RestoreTimerPanel();
             CloseOverlay();
         }
 
-        // Puts the timer panel back exactly as it was before the timer tutorial made it tappable.
-        private void RestoreTimerPanel()
-        {
-            if (timerAddedButton && timerTap != null) Destroy(timerTap);
-            if (timerImage != null) timerImage.raycastTarget = timerImageHadRaycast;
-            timerTap = null; timerImage = null; timerAddedButton = false;
-        }
 
         private void CloseOverlay()
         {

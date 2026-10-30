@@ -151,6 +151,52 @@ namespace CatBlockPuzzle
             onTapped?.Invoke();
         }
 
+        /// <summary>
+        /// A hands-off introduction: the icon pops in with its message, flies up onto <paramref name="targetRect"/>
+        /// (which is lifted above the dim so it can be seen), and after <paramref name="holdAfterSeconds"/> the dim fades
+        /// and the sequence ends by itself. No hand, no tap.
+        /// </summary>
+        public IEnumerator RunPassive(RectTransform targetRect, Sprite icon, string text, Action onArmed, float holdAfterSeconds)
+        {
+            bool reduced = ReducedMotion;
+            pointRect = targetRect;
+            liftObject = targetRect != null ? targetRect.gameObject : null;
+            if (startDelay > 0f) yield return new WaitForSecondsRealtime(startDelay);
+
+            dim.blocksRaycasts = true;
+            yield return Fade(dim, 0f, 1f, reduced ? 0f : dimFadeDuration);
+
+            iconImage.sprite = icon;
+            iconImage.enabled = icon != null;
+            iconRoot.gameObject.SetActive(true);
+            iconRoot.anchoredPosition = Vector2.zero;
+            StartCoroutine(Typewriter(text));
+            yield return PopIcon(reduced ? 0f : iconPopDuration);
+            if (!reduced) UiBurst.Play(this, iconRoot.parent as RectTransform ?? Root, iconRoot.anchoredPosition, new Color(1f, 0.9f, 0.45f, 1f), 12, 260f, 0.7f);
+            yield return IdleHold(iconHoldDuration, reduced);
+
+            StartCoroutine(Fade(MessageGroup, MessageGroup.alpha, 0f, 0.2f));
+            Vector2 landing = ButtonPoint();
+            yield return FlyIcon(landing, reduced ? 0f : travelDuration);
+            yield return Fade(iconGroup, 1f, 0f, reduced ? 0f : iconFadeDuration);
+            iconRoot.gameObject.SetActive(false);
+
+            onArmed?.Invoke();
+            LiftButton();
+            if (!reduced && targetRect != null)
+            {
+                UiBurst.Play(this, Root, landing, new Color(1f, 0.9f, 0.45f, 1f), 10, 150f, 0.55f);
+                StartCoroutine(Punch(targetRect));
+            }
+            yield return new WaitForSecondsRealtime(Mathf.Max(0f, holdAfterSeconds));
+
+            EndPointing();
+            yield return Fade(dim, dim.alpha, 0f, reduced ? 0f : dimFadeDuration);
+            dim.blocksRaycasts = false;
+            pointRect = null;
+            liftObject = null;
+        }
+
         /// <summary>Puts the button back and hides everything at once; safe to call any number of times.</summary>
         public void Cancel()
         {
@@ -169,6 +215,8 @@ namespace CatBlockPuzzle
             if (hand != null) hand.gameObject.SetActive(false);
             if (target != null) target.onClick.RemoveListener(OnTargetClicked);
             DropButton();
+            pointRect = null;
+            liftObject = null;
         }
 
         private void HideImmediate()
@@ -196,17 +244,21 @@ namespace CatBlockPuzzle
         // ------------------------------------------------------------------ button lift
 
         // The HUD button renders and receives taps above the dim through its own sorting canvas.
+        private GameObject liftObject;
+        private RectTransform pointRect;
+
         private void LiftButton()
         {
-            if (target == null) return;
+            GameObject lift = liftObject != null ? liftObject : target != null ? target.gameObject : null;
+            if (lift == null) return;
             Canvas gameplay = Root.parent != null ? Root.parent.GetComponentInParent<Canvas>() : null;
-            liftedCanvas = target.GetComponent<Canvas>();
+            liftedCanvas = lift.GetComponent<Canvas>();
             addedLiftCanvas = liftedCanvas == null;
-            if (addedLiftCanvas) liftedCanvas = target.gameObject.AddComponent<Canvas>();
+            if (addedLiftCanvas) liftedCanvas = lift.AddComponent<Canvas>();
             if (gameplay != null) SortAbove(liftedCanvas, gameplay, ButtonSortOffset);
-            liftedRaycaster = target.GetComponent<GraphicRaycaster>();
+            liftedRaycaster = lift.GetComponent<GraphicRaycaster>();
             addedLiftRaycaster = liftedRaycaster == null;
-            if (addedLiftRaycaster) liftedRaycaster = target.gameObject.AddComponent<GraphicRaycaster>();
+            if (addedLiftRaycaster) liftedRaycaster = lift.AddComponent<GraphicRaycaster>();
         }
 
         private void DropButton()
@@ -225,10 +277,11 @@ namespace CatBlockPuzzle
 
         private Vector2 ButtonPoint()
         {
-            if (target == null) return Vector2.zero;
+            RectTransform rect = pointRect != null ? pointRect : target != null ? (RectTransform)target.transform : null;
+            if (rect == null) return Vector2.zero;
             Canvas owner = GetComponentInParent<Canvas>();
             Camera cam = owner != null && owner.rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? owner.rootCanvas.worldCamera : null;
-            Vector2 screen = RectTransformUtility.WorldToScreenPoint(cam, ((RectTransform)target.transform).position);
+            Vector2 screen = RectTransformUtility.WorldToScreenPoint(cam, rect.position);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(Root, screen, cam, out Vector2 local);
             return local;
         }
