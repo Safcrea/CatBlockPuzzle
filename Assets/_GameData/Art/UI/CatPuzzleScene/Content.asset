@@ -71,7 +71,7 @@ MonoBehaviour:
       moves: 0
     - id: level_003
       title: First Square
-      difficulty: 1
+      difficulty: 2
       rows: 3
       cols: 3
       reward: 25
@@ -104,7 +104,7 @@ MonoBehaviour:
       moves: 0
     - id: level_004
       title: Cozy Box
-      difficulty: 1
+      difficulty: 2
       rows: 3
       cols: 4
       reward: 20
@@ -137,7 +137,7 @@ MonoBehaviour:
       moves: 0
     - id: level_005
       title: Little House
-      difficulty: 1
+      difficulty: 3
       rows: 3
       cols: 4
       reward: 25
@@ -170,7 +170,7 @@ MonoBehaviour:
       moves: 0
     - id: level_006
       title: Tall Tower
-      difficulty: 1
+      difficulty: 4
       rows: 4
       cols: 3
       reward: 20
@@ -203,7 +203,7 @@ MonoBehaviour:
       moves: 0
     - id: level_007
       title: Cat Face
-      difficulty: 1
+      difficulty: 3
       rows: 4
       cols: 4
       reward: 25
@@ -242,7 +242,7 @@ MonoBehaviour:
       moves: 0
     - id: level_008
       title: Paw Print
-      difficulty: 1
+      difficulty: 4
       rows: 4
       cols: 4
       reward: 20
@@ -281,7 +281,7 @@ MonoBehaviour:
       moves: 0
     - id: level_009
       title: Book Shelf
-      difficulty: 1
+      difficulty: 5
       rows: 4
       cols: 4
       reward: 25
@@ -320,7 +320,7 @@ MonoBehaviour:
       moves: 0
     - id: level_010
       title: Sleepy Bed
-      difficulty: 1
+      difficulty: 5
       rows: 4
       cols: 5
       reward: 20
@@ -365,7 +365,7 @@ MonoBehaviour:
       moves: 0
     - id: level_011
       title: Yarn Ball
-      difficulty: 2
+      difficulty: 4
       rows: 4
       cols: 5
       reward: 25
@@ -406,7 +406,7 @@ MonoBehaviour:
       moves: 0
     - id: level_012
       title: Paw Pad
-      difficulty: 2
+      difficulty: 5
       rows: 6
       cols: 5
       reward: 25
@@ -453,7 +453,7 @@ MonoBehaviour:
       moves: 0
     - id: level_013
       title: Thread Spool
-      difficulty: 2
+      difficulty: 6
       rows: 5
       cols: 5
       reward: 30
@@ -492,7 +492,7 @@ MonoBehaviour:
       - row: 2
         col: 2
       locked: []
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
       moves: 0
     - id: level_014
       title: Cosy Mitten
-      difficulty: 2
+      difficulty: 8
       rows: 6
       cols: 6
       reward: 35
@@ -548,12 +548,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 3
       fog: []
       moves: 0
     - id: level_015
       title: Pin Cushion
-      difficulty: 2
+      difficulty: 5
       rows: 5
       cols: 6
       reward: 25
@@ -608,7 +608,7 @@ MonoBehaviour:
       moves: 0
     - id: level_016
       title: Sewing Basket
-      difficulty: 2
+      difficulty: 6
       rows: 4
       cols: 6
       reward: 30
@@ -649,7 +649,7 @@ MonoBehaviour:
         col: 4
         after: 4
         key: 
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -657,7 +657,7 @@ MonoBehaviour:
       moves: 0
     - id: level_017
       title: Scissors
-      difficulty: 2
+      difficulty: 7
       rows: 6
       cols: 7
       reward: 35
@@ -706,7 +706,7 @@ MonoBehaviour:
         col: 2
         after: 5
         key: 
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -714,7 +714,7 @@ MonoBehaviour:
       moves: 0
     - id: level_018
       title: Thimble
-      difficulty: 2
+      difficulty: 8
       rows: 5
       cols: 6
       reward: 25
@@ -756,12 +756,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 3
       fog: []
       moves: 0
     - id: level_019
       title: Striped Sock
-      difficulty: 2
+      difficulty: 6
       rows: 6
       cols: 6
       reward: 30
@@ -810,7 +810,7 @@ MonoBehaviour:
         col: 2
         after: 5
         key: 
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -818,7 +818,7 @@ MonoBehaviour:
       moves: 0
     - id: level_020
       title: Big Cat Face
-      difficulty: 3
+      difficulty: 7
       rows: 6
       cols: 6
       reward: 35
@@ -869,7 +869,7 @@ MonoBehaviour:
         col: 0
         after: 5
         key: 
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -877,7 +877,7 @@ MonoBehaviour:
       moves: 0
     - id: level_021
       title: Bookend
-      difficulty: 3
+      difficulty: 8
       rows: 5
       cols: 7
       reward: 25
@@ -925,12 +925,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 3
       fog: []
       moves: 0
     - id: level_022
       title: Reading Lamp
-      difficulty: 3
+      difficulty: 9
       rows: 6
       cols: 6
       reward: 30
@@ -980,12 +980,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 2
       fog: []
       moves: 0
     - id: level_023
       title: Armchair
-      difficulty: 4
+      difficulty: 6
       rows: 5
       cols: 6
       reward: 35
@@ -1036,7 +1036,7 @@ MonoBehaviour:
         col: 2
         after: 0
         key: l023_p5
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -1044,7 +1044,7 @@ MonoBehaviour:
       moves: 0
     - id: level_024
       title: Cocoa Mug
-      difficulty: 4
+      difficulty: 7
       rows: 5
       cols: 6
       reward: 25
@@ -1099,7 +1099,7 @@ MonoBehaviour:
         col: 2
         after: 5
         key: 
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -1107,7 +1107,7 @@ MonoBehaviour:
       moves: 0
     - id: level_025
       title: Bookshelf
-      difficulty: 5
+      difficulty: 8
       rows: 4
       cols: 7
       reward: 30
@@ -1179,12 +1179,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 3
       fog: []
       moves: 0
     - id: level_026
       title: Floor Cushion
-      difficulty: 3
+      difficulty: 9
       rows: 4
       cols: 6
       reward: 45
@@ -1228,12 +1228,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 2
       fog: []
       moves: 0
     - id: level_027
       title: Candle
-      difficulty: 4
+      difficulty: 7
       rows: 6
       cols: 6
       reward: 50
@@ -1288,7 +1288,7 @@ MonoBehaviour:
         col: 4
         after: 0
         key: l027_p3
-      trayWindow: 0
+      trayWindow: 3
       zones: []
       spares: []
       hearts: 0
@@ -1296,7 +1296,7 @@ MonoBehaviour:
       moves: 0
     - id: level_028
       title: Wise Owl
-      difficulty: 4
+      difficulty: 8
       rows: 6
       cols: 6
       reward: 35
@@ -1354,12 +1354,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 3
       fog: []
       moves: 0
     - id: level_029
       title: Bookmark
-      difficulty: 5
+      difficulty: 9
       rows: 7
       cols: 5
       reward: 40
@@ -1429,12 +1429,12 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 2
       fog: []
       moves: 0
     - id: level_030
       title: Open Book
-      difficulty: 5
+      difficulty: 10
       rows: 5
       cols: 8
       reward: 45
@@ -1506,7 +1506,7 @@ MonoBehaviour:
       trayWindow: 0
       zones: []
       spares: []
-      hearts: 0
+      hearts: 2
       fog: []
       moves: 0
     - id: level_031
@@ -7483,7 +7483,7 @@ MonoBehaviour:
         hotspot: {x: 0.56, y: 0.7}
         size: {x: 0.3, y: 0.28}
         sortOrder: 5
-  sourceFingerprint: c9832786c80fdb5638c8e2e5977c0f21
+  sourceFingerprint: aa189d495da6ce186596a3b0971b7d52
   roomBackgrounds:
   - {fileID: 21300000, guid: 584454aefd40caf44958837c992b0b01, type: 2}
   - {fileID: 21300000, guid: ded8ee71baa2d58429de009adaffb17d, type: 2}

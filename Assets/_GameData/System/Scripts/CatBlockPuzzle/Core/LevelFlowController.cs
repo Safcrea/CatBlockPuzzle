@@ -222,8 +222,9 @@ namespace CatBlockPuzzle
             IEnumerator reveal = board.RevealCells();
             while (reveal.MoveNext()) yield return reveal.Current;
 
-            // Tell the player how tough this one is before anything else appears (not for the daily puzzle).
-            if (Hud != null && !session.dailyPuzzle && Hud.levelText != null)
+            // Tell the player how tough this one is before anything else appears (not for the daily puzzle,
+            // and not on level 1, which is the hands-on tutorial).
+            if (Hud != null && !session.dailyPuzzle && session.levelNumber > 1 && Hud.levelText != null)
                 yield return DifficultyBanner.Show(Hud.Canvas, Hud.levelText.font, DifficultyTiers.For(activeLevel.Difficulty),
                     PlayerPrefs.GetInt(PuzzleSaveKeys.SavedReducedMotion, 0) != 0);
             if (Hud != null) yield return Hud.ShowPowerUpTutorials(config.FreezeDurationSeconds);
