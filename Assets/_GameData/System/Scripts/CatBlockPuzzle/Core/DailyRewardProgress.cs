@@ -118,7 +118,7 @@ namespace CatBlockPuzzle
         {
             if (!PlayerPrefs.HasKey(SaveKey))
             {
-                var startingSave = new DailyRewardSave { hintCount = 5, freezeCount = 5, firstSessionPending = true };
+                var startingSave = new DailyRewardSave { firstSessionPending = true };
                 // This process is the one creating the save, so it never counts as "a later launch".
                 isNewProcessLaunch = false;
                 Save(startingSave);
