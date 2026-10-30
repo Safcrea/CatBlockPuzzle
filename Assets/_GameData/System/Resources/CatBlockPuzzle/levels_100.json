@@ -88,32 +88,32 @@
     },
     {
       "id": "level_004",
-      "title": "Cozy Box",
+      "title": "Diamond Gem",
       "difficulty": 2,
-      "rows": 3,
-      "cols": 4,
+      "rows": 5,
+      "cols": 5,
       "reward": 20,
       "pieces": [
         {
           "id": "l004_p1",
-          "name": "Chili",
-          "shape": "l4TopLeft",
+          "name": "Mango",
+          "shape": "t5",
           "row": 0,
-          "col": 0
+          "col": 1
         },
         {
           "id": "l004_p2",
-          "name": "Pudding",
-          "shape": "j4Top",
-          "row": 0,
-          "col": 2
+          "name": "Basil",
+          "shape": "z5",
+          "row": 2,
+          "col": 0
         },
         {
           "id": "l004_p3",
-          "name": "Bean",
-          "shape": "o4",
-          "row": 1,
-          "col": 1
+          "name": "Pickle",
+          "shape": "l3Top",
+          "row": 2,
+          "col": 3
         }
       ],
       "trayWindow": 0,
@@ -121,31 +121,31 @@
     },
     {
       "id": "level_005",
-      "title": "Little House",
+      "title": "Lantern Glow",
       "difficulty": 3,
       "rows": 3,
-      "cols": 4,
+      "cols": 5,
       "reward": 25,
       "pieces": [
         {
           "id": "l005_p1",
-          "name": "Pebble",
-          "shape": "o4",
+          "name": "Jelly",
+          "shape": "l4",
+          "row": 0,
+          "col": 0
+        },
+        {
+          "id": "l005_p2",
+          "name": "Button",
+          "shape": "stair5",
           "row": 0,
           "col": 1
         },
         {
-          "id": "l005_p2",
-          "name": "Pickle",
-          "shape": "l3",
-          "row": 1,
-          "col": 0
-        },
-        {
           "id": "l005_p3",
-          "name": "Ribbon",
-          "shape": "j3",
-          "row": 1,
+          "name": "Lulu",
+          "shape": "z4",
+          "row": 0,
           "col": 2
         }
       ],
@@ -154,30 +154,70 @@
     },
     {
       "id": "level_006",
-      "title": "Tall Tower",
+      "title": "Stair Climb",
       "difficulty": 4,
-      "rows": 4,
-      "cols": 3,
+      "rows": 5,
+      "cols": 5,
       "reward": 20,
       "pieces": [
         {
           "id": "l006_p1",
-          "name": "Fig",
-          "shape": "l4Top",
+          "name": "Bean",
+          "shape": "l5",
           "row": 0,
           "col": 0
         },
         {
           "id": "l006_p2",
-          "name": "Waffle",
-          "shape": "l4",
+          "name": "Fudge",
+          "shape": "stair5",
           "row": 1,
-          "col": 0
+          "col": 1
         },
         {
           "id": "l006_p3",
-          "name": "Muffin",
-          "shape": "s4v",
+          "name": "Fig",
+          "shape": "i5h",
+          "row": 4,
+          "col": 0
+        }
+      ],
+      "trayWindow": 0,
+      "hearts": 0
+    },
+    {
+      "id": "level_007",
+      "title": "Snow Drift",
+      "difficulty": 3,
+      "rows": 6,
+      "cols": 3,
+      "reward": 25,
+      "pieces": [
+        {
+          "id": "l007_p1",
+          "name": "Olive",
+          "shape": "i4v",
+          "row": 1,
+          "col": 2
+        },
+        {
+          "id": "l007_p2",
+          "name": "Peach",
+          "shape": "l4TopLeft",
+          "row": 0,
+          "col": 0
+        },
+        {
+          "id": "l007_p3",
+          "name": "Ginger",
+          "shape": "l4",
+          "row": 3,
+          "col": 0
+        },
+        {
+          "id": "l007_p4",
+          "name": "Pearl",
+          "shape": "i4v",
           "row": 1,
           "col": 1
         }
@@ -186,80 +226,40 @@
       "hearts": 0
     },
     {
-      "id": "level_007",
-      "title": "Cat Face",
-      "difficulty": 3,
-      "rows": 4,
-      "cols": 4,
-      "reward": 25,
-      "pieces": [
-        {
-          "id": "l007_p1",
-          "name": "Mimi",
-          "shape": "l3",
-          "row": 0,
-          "col": 0
-        },
-        {
-          "id": "l007_p2",
-          "name": "Dumpling",
-          "shape": "j3",
-          "row": 0,
-          "col": 2
-        },
-        {
-          "id": "l007_p3",
-          "name": "Pumpkin",
-          "shape": "l3TopRight",
-          "row": 2,
-          "col": 0
-        },
-        {
-          "id": "l007_p4",
-          "name": "Basil",
-          "shape": "l3Top",
-          "row": 2,
-          "col": 2
-        }
-      ],
-      "trayWindow": 0,
-      "hearts": 0
-    },
-    {
       "id": "level_008",
-      "title": "Paw Print",
+      "title": "Two Islands",
       "difficulty": 4,
-      "rows": 4,
-      "cols": 4,
+      "rows": 5,
+      "cols": 6,
       "reward": 20,
       "pieces": [
         {
           "id": "l008_p1",
-          "name": "Pepper",
-          "shape": "j3",
-          "row": 0,
-          "col": 0
+          "name": "Toast",
+          "shape": "l4",
+          "row": 2,
+          "col": 3
         },
         {
           "id": "l008_p2",
-          "name": "Maple",
-          "shape": "l3",
-          "row": 0,
-          "col": 2
+          "name": "Sunny",
+          "shape": "p5",
+          "row": 2,
+          "col": 4
         },
         {
           "id": "l008_p3",
-          "name": "Muffin",
-          "shape": "o4",
-          "row": 2,
+          "name": "Chili",
+          "shape": "u5",
+          "row": 1,
           "col": 0
         },
         {
           "id": "l008_p4",
-          "name": "Bean",
-          "shape": "o4",
-          "row": 2,
-          "col": 2
+          "name": "Kiki",
+          "shape": "t4",
+          "row": 0,
+          "col": 0
         }
       ],
       "trayWindow": 0,
@@ -267,38 +267,38 @@
     },
     {
       "id": "level_009",
-      "title": "Book Shelf",
+      "title": "Acorn Cap",
       "difficulty": 5,
       "rows": 4,
-      "cols": 4,
+      "cols": 5,
       "reward": 25,
       "pieces": [
         {
           "id": "l009_p1",
-          "name": "Pearl",
-          "shape": "t4",
-          "row": 0,
-          "col": 0
+          "name": "Plum",
+          "shape": "l4Corner",
+          "row": 2,
+          "col": 2
         },
         {
           "id": "l009_p2",
-          "name": "Pumpkin",
-          "shape": "i4v",
-          "row": 0,
-          "col": 3
-        },
-        {
-          "id": "l009_p3",
-          "name": "Toast",
-          "shape": "l4",
+          "name": "Ribbon",
+          "shape": "j4Top",
           "row": 1,
           "col": 0
         },
         {
-          "id": "l009_p4",
-          "name": "Dumpling",
-          "shape": "t4Left",
+          "id": "l009_p3",
+          "name": "Muffin",
+          "shape": "z4",
           "row": 1,
+          "col": 2
+        },
+        {
+          "id": "l009_p4",
+          "name": "Mochi",
+          "shape": "l5Top",
+          "row": 0,
           "col": 1
         }
       ],
@@ -307,45 +307,45 @@
     },
     {
       "id": "level_010",
-      "title": "Sleepy Bed",
+      "title": "Heart Pillow",
       "difficulty": 5,
-      "rows": 4,
+      "rows": 5,
       "cols": 5,
       "reward": 20,
       "pieces": [
         {
           "id": "l010_p1",
-          "name": "Miso",
-          "shape": "l4TopLeft",
-          "row": 0,
-          "col": 0
-        },
-        {
-          "id": "l010_p2",
-          "name": "Dumpling",
-          "shape": "l4Top",
-          "row": 0,
+          "name": "Toast",
+          "shape": "l3Top",
+          "row": 3,
           "col": 2
         },
         {
-          "id": "l010_p3",
-          "name": "Waffle",
-          "shape": "o4",
-          "row": 1,
-          "col": 1
+          "id": "l010_p2",
+          "name": "Plum",
+          "shape": "l3TopRight",
+          "row": 3,
+          "col": 0
         },
         {
-          "id": "l010_p4",
-          "name": "Button",
-          "shape": "s4v",
+          "id": "l010_p3",
+          "name": "Fudge",
+          "shape": "l3",
           "row": 1,
           "col": 3
         },
         {
+          "id": "l010_p4",
+          "name": "Nori",
+          "shape": "j4",
+          "row": 0,
+          "col": 1
+        },
+        {
           "id": "l010_p5",
-          "name": "Poppy",
-          "shape": "i4h",
-          "row": 3,
+          "name": "Dumpling",
+          "shape": "j3",
+          "row": 0,
           "col": 0
         }
       ],
@@ -354,53 +354,47 @@
     },
     {
       "id": "level_011",
-      "title": "Yarn Ball",
+      "title": "Kite Tail",
       "difficulty": 4,
-      "rows": 4,
+      "rows": 3,
       "cols": 5,
       "reward": 25,
       "pieces": [
         {
           "id": "l011_p1",
-          "name": "Olive",
-          "shape": "j3",
-          "row": 2,
-          "col": 2
+          "name": "Pearl",
+          "shape": "i3v",
+          "row": 0,
+          "col": 4
         },
         {
           "id": "l011_p2",
-          "name": "Tuna",
-          "shape": "t4",
-          "row": 2,
-          "col": 0
+          "name": "Latte",
+          "shape": "o4",
+          "row": 0,
+          "col": 1
         },
         {
           "id": "l011_p3",
-          "name": "Sunny",
-          "shape": "s4",
+          "name": "Mint",
+          "shape": "j4",
           "row": 0,
-          "col": 0
+          "col": 2
         },
         {
           "id": "l011_p4",
-          "name": "Maple",
-          "shape": "s4v",
+          "name": "Lulu",
+          "shape": "l4",
           "row": 0,
-          "col": 3
+          "col": 0
         }
       ],
       "trayWindow": 0,
-      "hearts": 0,
-      "blocked": [
-        {
-          "row": 1,
-          "col": 2
-        }
-      ]
+      "hearts": 0
     },
     {
       "id": "level_012",
-      "title": "Paw Pad",
+      "title": "Twin Towers",
       "difficulty": 5,
       "rows": 6,
       "cols": 5,
@@ -408,36 +402,36 @@
       "pieces": [
         {
           "id": "l012_p1",
-          "name": "Taffy",
-          "shape": "p5",
+          "name": "Peach",
+          "shape": "i3v",
+          "row": 0,
+          "col": 4
+        },
+        {
+          "id": "l012_p2",
+          "name": "Sunny",
+          "shape": "l4TopLeft",
           "row": 3,
           "col": 0
         },
         {
-          "id": "l012_p2",
-          "name": "Boba",
-          "shape": "l3",
-          "row": 0,
-          "col": 3
-        },
-        {
           "id": "l012_p3",
-          "name": "Toast",
-          "shape": "o4",
-          "row": 4,
-          "col": 2
-        },
-        {
-          "id": "l012_p4",
-          "name": "Mango",
-          "shape": "z5",
+          "name": "Basil",
+          "shape": "l3Top",
           "row": 2,
           "col": 2
         },
         {
+          "id": "l012_p4",
+          "name": "Latte",
+          "shape": "j4Top",
+          "row": 3,
+          "col": 3
+        },
+        {
           "id": "l012_p5",
-          "name": "Button",
-          "shape": "t4Left",
+          "name": "Plum",
+          "shape": "l4",
           "row": 0,
           "col": 0
         }
@@ -446,410 +440,410 @@
       "hearts": 0,
       "blocked": [
         {
-          "row": 3,
-          "col": 2
+          "row": 0,
+          "col": 1
         }
       ]
     },
     {
       "id": "level_013",
-      "title": "Thread Spool",
+      "title": "Drift Wood",
       "difficulty": 6,
       "rows": 5,
-      "cols": 5,
+      "cols": 6,
       "reward": 30,
       "pieces": [
         {
           "id": "l013_p1",
-          "name": "Socks",
-          "shape": "l3",
-          "row": 2,
-          "col": 1
+          "name": "Ginger",
+          "shape": "plus5",
+          "row": 1,
+          "col": 0
         },
         {
           "id": "l013_p2",
-          "name": "Peanut",
-          "shape": "l4",
-          "row": 2,
-          "col": 3
+          "name": "Biscuit",
+          "shape": "z4",
+          "row": 1,
+          "col": 2
         },
         {
           "id": "l013_p3",
-          "name": "Yuzu",
-          "shape": "i3h",
-          "row": 4,
-          "col": 0
+          "name": "Mochi",
+          "shape": "l5Top",
+          "row": 3,
+          "col": 2
         },
         {
           "id": "l013_p4",
-          "name": "Toast",
-          "shape": "t4",
-          "row": 0,
-          "col": 0
+          "name": "Basil",
+          "shape": "i3h",
+          "row": 4,
+          "col": 2
         },
         {
           "id": "l013_p5",
-          "name": "Pepper",
-          "shape": "s4",
+          "name": "Dumpling",
+          "shape": "l5Top",
           "row": 0,
-          "col": 2
+          "col": 1
         }
       ],
       "trayWindow": 3,
       "hearts": 0,
       "blocked": [
         {
-          "row": 2,
-          "col": 2
+          "row": 4,
+          "col": 0
         }
       ]
     },
     {
       "id": "level_014",
-      "title": "Cosy Mitten",
+      "title": "Big Diamond",
       "difficulty": 8,
-      "rows": 6,
-      "cols": 6,
+      "rows": 7,
+      "cols": 7,
       "reward": 35,
       "pieces": [
         {
           "id": "l014_p1",
           "name": "Socks",
-          "shape": "stair5",
-          "row": 0,
-          "col": 1
-        },
-        {
-          "id": "l014_p2",
-          "name": "Jelly",
-          "shape": "l3",
-          "row": 4,
-          "col": 3
-        },
-        {
-          "id": "l014_p3",
-          "name": "Kiki",
-          "shape": "z5",
+          "shape": "t4Left",
           "row": 0,
           "col": 2
         },
         {
-          "id": "l014_p4",
-          "name": "Sunny",
-          "shape": "t4",
+          "id": "l014_p2",
+          "name": "Fig",
+          "shape": "l3",
+          "row": 2,
+          "col": 5
+        },
+        {
+          "id": "l014_p3",
+          "name": "Latte",
+          "shape": "z5",
           "row": 3,
-          "col": 3
+          "col": 0
+        },
+        {
+          "id": "l014_p4",
+          "name": "Taco",
+          "shape": "i3v",
+          "row": 1,
+          "col": 4
         },
         {
           "id": "l014_p5",
-          "name": "Taco",
-          "shape": "j3",
+          "name": "Cocoa",
+          "shape": "s5",
           "row": 4,
-          "col": 1
+          "col": 3
         },
         {
           "id": "l014_p6",
-          "name": "Clover",
-          "shape": "p5",
+          "name": "Noodle",
+          "shape": "z5",
           "row": 2,
-          "col": 0
+          "col": 1
         }
       ],
       "trayWindow": 0,
       "hearts": 3,
       "blocked": [
         {
-          "row": 3,
-          "col": 2
+          "row": 0,
+          "col": 1
         }
       ]
     },
     {
       "id": "level_015",
-      "title": "Pin Cushion",
+      "title": "Maple Leaf",
       "difficulty": 5,
-      "rows": 5,
-      "cols": 6,
+      "rows": 6,
+      "cols": 5,
       "reward": 25,
       "pieces": [
         {
           "id": "l015_p1",
-          "name": "Mango",
-          "shape": "i4h",
-          "row": 1,
-          "col": 0
-        },
-        {
-          "id": "l015_p2",
-          "name": "Dumpling",
-          "shape": "i3h",
-          "row": 0,
+          "name": "Pepper",
+          "shape": "l4TopLeft",
+          "row": 2,
           "col": 1
         },
         {
+          "id": "l015_p2",
+          "name": "Taffy",
+          "shape": "p5",
+          "row": 3,
+          "col": 3
+        },
+        {
           "id": "l015_p3",
-          "name": "Cocoa",
-          "shape": "stair5",
-          "row": 2,
+          "name": "Peach",
+          "shape": "s5",
+          "row": 0,
           "col": 0
         },
         {
           "id": "l015_p4",
-          "name": "Yuzu",
-          "shape": "l3Top",
+          "name": "Taco",
+          "shape": "l4",
           "row": 3,
-          "col": 4
+          "col": 0
         },
         {
           "id": "l015_p5",
-          "name": "Nori",
-          "shape": "p5",
-          "row": 2,
+          "name": "Toast",
+          "shape": "z4",
+          "row": 1,
           "col": 2
         },
         {
           "id": "l015_p6",
-          "name": "Fig",
-          "shape": "s4v",
-          "row": 0,
-          "col": 4
+          "name": "Nori",
+          "shape": "l4",
+          "row": 3,
+          "col": 2
         }
       ],
       "trayWindow": 0,
       "hearts": 0,
       "blocked": [
         {
-          "row": 2,
-          "col": 1
+          "row": 0,
+          "col": 4
         },
         {
-          "row": 2,
-          "col": 4
+          "row": 0,
+          "col": 3
         }
       ]
     },
     {
       "id": "level_016",
-      "title": "Sewing Basket",
+      "title": "Arrow Up",
       "difficulty": 6,
-      "rows": 4,
-      "cols": 6,
+      "rows": 7,
+      "cols": 5,
       "reward": 30,
       "pieces": [
         {
           "id": "l016_p1",
-          "name": "Sprout",
-          "shape": "i3h",
+          "name": "Mint",
+          "shape": "l4Corner",
           "row": 3,
-          "col": 3
+          "col": 2
         },
         {
           "id": "l016_p2",
-          "name": "Dumpling",
-          "shape": "o4",
-          "row": 1,
+          "name": "Poppy",
+          "shape": "l3TopRight",
+          "row": 0,
           "col": 2
         },
         {
           "id": "l016_p3",
-          "name": "Waffle",
-          "shape": "i3h",
-          "row": 3,
-          "col": 0
+          "name": "Cocoa",
+          "shape": "s4v",
+          "row": 0,
+          "col": 1
         },
         {
           "id": "l016_p4",
-          "name": "Jelly",
-          "shape": "l4",
-          "row": 0,
-          "col": 4
+          "name": "Nori",
+          "shape": "l3TopRight",
+          "row": 4,
+          "col": 0
         },
         {
           "id": "l016_p5",
-          "name": "Plum",
-          "shape": "j4",
-          "row": 0,
-          "col": 0
+          "name": "Waffle",
+          "shape": "l3Top",
+          "row": 5,
+          "col": 2
         }
       ],
       "trayWindow": 3,
       "hearts": 0,
       "locked": [
         {
-          "row": 2,
-          "col": 4,
+          "row": 5,
+          "col": 2,
           "after": 4
         }
       ]
     },
     {
       "id": "level_017",
-      "title": "Scissors",
+      "title": "Wool Scrap",
       "difficulty": 7,
-      "rows": 6,
-      "cols": 7,
+      "rows": 7,
+      "cols": 4,
       "reward": 35,
       "pieces": [
         {
           "id": "l017_p1",
-          "name": "Waffle",
-          "shape": "o4",
-          "row": 0,
-          "col": 5
-        },
-        {
-          "id": "l017_p2",
-          "name": "Ginger",
-          "shape": "l3",
-          "row": 1,
-          "col": 4
-        },
-        {
-          "id": "l017_p3",
-          "name": "Sunny",
-          "shape": "l4Corner",
-          "row": 4,
-          "col": 2
-        },
-        {
-          "id": "l017_p4",
-          "name": "Tuna",
-          "shape": "o4",
-          "row": 0,
-          "col": 0
-        },
-        {
-          "id": "l017_p5",
-          "name": "Chili",
-          "shape": "l3TopRight",
+          "name": "Peach",
+          "shape": "i4v",
           "row": 3,
           "col": 3
         },
         {
-          "id": "l017_p6",
-          "name": "Lulu",
-          "shape": "t5",
+          "id": "l017_p2",
+          "name": "Kiki",
+          "shape": "j4Top",
+          "row": 0,
+          "col": 2
+        },
+        {
+          "id": "l017_p3",
+          "name": "Bean",
+          "shape": "i3v",
           "row": 1,
+          "col": 0
+        },
+        {
+          "id": "l017_p4",
+          "name": "Basil",
+          "shape": "i4v",
+          "row": 1,
+          "col": 2
+        },
+        {
+          "id": "l017_p5",
+          "name": "Ribbon",
+          "shape": "i4v",
+          "row": 0,
           "col": 1
+        },
+        {
+          "id": "l017_p6",
+          "name": "Dumpling",
+          "shape": "z5",
+          "row": 4,
+          "col": 0
         }
       ],
       "trayWindow": 3,
       "hearts": 0,
       "blocked": [
         {
-          "row": 4,
-          "col": 3
+          "row": 5,
+          "col": 0
         }
       ],
       "locked": [
         {
-          "row": 2,
-          "col": 2,
+          "row": 4,
+          "col": 1,
           "after": 5
         }
       ]
     },
     {
       "id": "level_018",
-      "title": "Thimble",
+      "title": "T Shelf",
       "difficulty": 8,
       "rows": 5,
-      "cols": 6,
+      "cols": 7,
       "reward": 25,
       "pieces": [
         {
           "id": "l018_p1",
-          "name": "Socks",
-          "shape": "l4TopLeft",
-          "row": 1,
-          "col": 1
-        },
-        {
-          "id": "l018_p2",
-          "name": "Tuna",
-          "shape": "j4Top",
+          "name": "Plum",
+          "shape": "l3Top",
           "row": 0,
-          "col": 2
-        },
-        {
-          "id": "l018_p3",
-          "name": "Pepper",
-          "shape": "u5",
-          "row": 3,
           "col": 0
         },
         {
-          "id": "l018_p4",
-          "name": "Sesame",
-          "shape": "l4Corner",
-          "row": 3,
+          "id": "l018_p2",
+          "name": "Pumpkin",
+          "shape": "s5",
+          "row": 1,
           "col": 3
         },
         {
+          "id": "l018_p3",
+          "name": "Nori",
+          "shape": "u5",
+          "row": 3,
+          "col": 2
+        },
+        {
+          "id": "l018_p4",
+          "name": "Toast",
+          "shape": "t5",
+          "row": 0,
+          "col": 1
+        },
+        {
           "id": "l018_p5",
-          "name": "Basil",
-          "shape": "l4",
-          "row": 1,
-          "col": 4
+          "name": "Yuzu",
+          "shape": "l5Top",
+          "row": 0,
+          "col": 3
         }
       ],
       "trayWindow": 0,
       "hearts": 3,
       "blocked": [
         {
-          "row": 2,
-          "col": 2
+          "row": 4,
+          "col": 1
         }
       ]
     },
     {
       "id": "level_019",
-      "title": "Striped Sock",
+      "title": "Sunny Spot",
       "difficulty": 6,
-      "rows": 6,
-      "cols": 6,
+      "rows": 7,
+      "cols": 5,
       "reward": 30,
       "pieces": [
         {
           "id": "l019_p1",
-          "name": "Taco",
-          "shape": "l3",
-          "row": 2,
-          "col": 1
+          "name": "Socks",
+          "shape": "l4Top",
+          "row": 1,
+          "col": 2
         },
         {
           "id": "l019_p2",
-          "name": "Toast",
-          "shape": "o4",
-          "row": 0,
-          "col": 1
+          "name": "Mint",
+          "shape": "s5",
+          "row": 4,
+          "col": 2
         },
         {
           "id": "l019_p3",
-          "name": "Pumpkin",
-          "shape": "i5h",
-          "row": 4,
+          "name": "Miso",
+          "shape": "s4",
+          "row": 0,
           "col": 0
         },
         {
           "id": "l019_p4",
-          "name": "Jelly",
-          "shape": "i3v",
-          "row": 0,
-          "col": 3
+          "name": "Ribbon",
+          "shape": "z4",
+          "row": 2,
+          "col": 2
         },
         {
           "id": "l019_p5",
-          "name": "Peanut",
-          "shape": "l4Top",
-          "row": 3,
-          "col": 3
+          "name": "Maple",
+          "shape": "z4",
+          "row": 2,
+          "col": 0
         },
         {
           "id": "l019_p6",
-          "name": "Mint",
-          "shape": "i5h",
-          "row": 5,
+          "name": "Biscuit",
+          "shape": "l4Corner",
+          "row": 3,
           "col": 0
         }
       ],
@@ -857,8 +851,8 @@
       "hearts": 0,
       "blocked": [
         {
-          "row": 2,
-          "col": 2
+          "row": 0,
+          "col": 0
         }
       ],
       "locked": [
@@ -871,51 +865,51 @@
     },
     {
       "id": "level_020",
-      "title": "Big Cat Face",
+      "title": "Zigzag Rug",
       "difficulty": 7,
-      "rows": 6,
-      "cols": 6,
+      "rows": 4,
+      "cols": 7,
       "reward": 35,
       "pieces": [
         {
           "id": "l020_p1",
-          "name": "Peanut",
-          "shape": "u5",
-          "row": 3,
-          "col": 0
+          "name": "Tuna",
+          "shape": "i3h",
+          "row": 1,
+          "col": 4
         },
         {
           "id": "l020_p2",
-          "name": "Bean",
-          "shape": "i4h",
-          "row": 5,
-          "col": 1
-        },
-        {
-          "id": "l020_p3",
-          "name": "Lulu",
-          "shape": "u5",
-          "row": 3,
-          "col": 3
-        },
-        {
-          "id": "l020_p4",
-          "name": "Ginger",
-          "shape": "t4Left",
+          "name": "Pearl",
+          "shape": "i3h",
           "row": 0,
           "col": 4
         },
         {
-          "id": "l020_p5",
-          "name": "Berry",
-          "shape": "l3",
+          "id": "l020_p3",
+          "name": "Ginger",
+          "shape": "l3TopRight",
           "row": 0,
-          "col": 0
+          "col": 2
+        },
+        {
+          "id": "l020_p4",
+          "name": "Mint",
+          "shape": "j3",
+          "row": 2,
+          "col": 2
+        },
+        {
+          "id": "l020_p5",
+          "name": "Biscuit",
+          "shape": "j3",
+          "row": 1,
+          "col": 1
         },
         {
           "id": "l020_p6",
-          "name": "Tuna",
-          "shape": "i5h",
+          "name": "Clover",
+          "shape": "l3",
           "row": 2,
           "col": 0
         }
@@ -924,17 +918,17 @@
       "hearts": 0,
       "blocked": [
         {
-          "row": 3,
-          "col": 1
+          "row": 1,
+          "col": 0
         },
         {
           "row": 3,
-          "col": 4
+          "col": 6
         }
       ],
       "locked": [
         {
-          "row": 4,
+          "row": 3,
           "col": 0,
           "after": 5
         }
@@ -1003,61 +997,61 @@
     },
     {
       "id": "level_022",
-      "title": "Reading Lamp",
+      "title": "Tea Tray",
       "difficulty": 9,
-      "rows": 6,
+      "rows": 5,
       "cols": 6,
       "reward": 30,
       "pieces": [
         {
           "id": "l022_p1",
-          "name": "Basil",
-          "shape": "s4",
-          "row": 0,
-          "col": 0
+          "name": "Dumpling",
+          "shape": "l5Top",
+          "row": 1,
+          "col": 1
         },
         {
           "id": "l022_p2",
-          "name": "Mango",
-          "shape": "l3TopRight",
-          "row": 2,
+          "name": "Mint",
+          "shape": "z4",
+          "row": 3,
           "col": 1
         },
         {
           "id": "l022_p3",
-          "name": "Olive",
-          "shape": "z4",
-          "row": 0,
-          "col": 3
+          "name": "Fudge",
+          "shape": "l4Top",
+          "row": 2,
+          "col": 1
         },
         {
           "id": "l022_p4",
-          "name": "Mint",
-          "shape": "z4",
-          "row": 1,
+          "name": "Peach",
+          "shape": "l5Top",
+          "row": 0,
           "col": 2
         },
         {
           "id": "l022_p5",
-          "name": "Sprout",
-          "shape": "i4h",
-          "row": 5,
-          "col": 1
+          "name": "Sunny",
+          "shape": "l4TopLeft",
+          "row": 0,
+          "col": 0
         },
         {
           "id": "l022_p6",
-          "name": "Peanut",
-          "shape": "j3",
+          "name": "Jelly",
+          "shape": "l3",
           "row": 3,
-          "col": 2
+          "col": 0
         }
       ],
       "trayWindow": 0,
       "hearts": 2,
       "locked": [
         {
-          "row": 5,
-          "col": 3,
+          "row": 4,
+          "col": 1,
           "after": 5
         }
       ]
@@ -1688,52 +1682,52 @@
     },
     {
       "id": "level_031",
-      "title": "Seashell",
+      "title": "Plus Ring",
       "difficulty": 4,
-      "rows": 6,
-      "cols": 6,
+      "rows": 7,
+      "cols": 5,
       "reward": 50,
       "pieces": [
         {
           "id": "l031_p1",
-          "name": "Mint",
-          "shape": "j4Top",
-          "row": 0,
-          "col": 2
-        },
-        {
-          "id": "l031_p2",
-          "name": "Biscuit",
-          "shape": "o4",
-          "row": 4,
-          "col": 2
-        },
-        {
-          "id": "l031_p3",
-          "name": "Tuna",
-          "shape": "p5",
-          "row": 2,
+          "name": "Olive",
+          "shape": "z4",
+          "row": 5,
           "col": 0
         },
         {
-          "id": "l031_p4",
-          "name": "Basil",
-          "shape": "l3TopRight",
+          "id": "l031_p2",
+          "name": "Nori",
+          "shape": "l5",
           "row": 1,
-          "col": 1
+          "col": 0
         },
         {
-          "id": "l031_p5",
-          "name": "Berry",
-          "shape": "s4v",
+          "id": "l031_p3",
+          "name": "Peach",
+          "shape": "i4v",
           "row": 1,
           "col": 4
         },
         {
+          "id": "l031_p4",
+          "name": "Berry",
+          "shape": "i3v",
+          "row": 0,
+          "col": 1
+        },
+        {
+          "id": "l031_p5",
+          "name": "Jelly",
+          "shape": "t5",
+          "row": 4,
+          "col": 2
+        },
+        {
           "id": "l031_p6",
-          "name": "Taco",
-          "shape": "l4Top",
-          "row": 3,
+          "name": "Latte",
+          "shape": "p5",
+          "row": 0,
           "col": 2
         }
       ],
@@ -1823,68 +1817,68 @@
     },
     {
       "id": "level_033",
-      "title": "Anchor",
+      "title": "Tumble Rock",
       "difficulty": 5,
       "rows": 7,
-      "cols": 6,
+      "cols": 5,
       "reward": 40,
       "pieces": [
         {
           "id": "l033_p1",
-          "name": "Clover",
-          "shape": "j3",
-          "row": 4,
-          "col": 4
+          "name": "Miso",
+          "shape": "p5",
+          "row": 2,
+          "col": 2
         },
         {
           "id": "l033_p2",
-          "name": "Biscuit",
-          "shape": "l3Top",
-          "row": 0,
-          "col": 2
+          "name": "Latte",
+          "shape": "i4h",
+          "row": 6,
+          "col": 1
         },
         {
           "id": "l033_p3",
-          "name": "Ginger",
-          "shape": "t4Left",
-          "row": 3,
-          "col": 2
+          "name": "Cocoa",
+          "shape": "l5",
+          "row": 1,
+          "col": 1
         },
         {
           "id": "l033_p4",
-          "name": "Pumpkin",
-          "shape": "l4Corner",
-          "row": 5,
-          "col": 2
+          "name": "Sprout",
+          "shape": "i4v",
+          "row": 1,
+          "col": 0
         },
         {
           "id": "l033_p5",
-          "name": "Cookie",
-          "shape": "s4v",
-          "row": 4,
-          "col": 0
+          "name": "Chili",
+          "shape": "i4v",
+          "row": 1,
+          "col": 4
         },
         {
           "id": "l033_p6",
-          "name": "Cocoa",
-          "shape": "l4Corner",
-          "row": 1,
-          "col": 3
+          "name": "Tuna",
+          "shape": "i5h",
+          "row": 5,
+          "col": 0
         },
         {
           "id": "l033_p7",
-          "name": "Muffin",
-          "shape": "l4Top",
-          "row": 2,
-          "col": 0
+          "name": "Sesame",
+          "shape": "l3TopRight",
+          "row": 0,
+          "col": 1
         }
       ],
       "trayWindow": 0,
       "hearts": 0,
       "locked": [
         {
-          "row": 2,
-          "col": 2,
+          "row": 0,
+          "col": 1,
           "after": 6
         }
       ]
@@ -2462,59 +2456,59 @@
     },
     {
       "id": "level_041",
-      "title": "Little Cloud",
+      "title": "Cat Head",
       "difficulty": 5,
-      "rows": 5,
-      "cols": 8,
+      "rows": 7,
+      "cols": 7,
       "reward": 40,
       "pieces": [
         {
           "id": "l041_p1",
-          "name": "Clover",
-          "shape": "o4",
-          "row": 3,
-          "col": 5
-        },
-        {
-          "id": "l041_p2",
-          "name": "Chili",
-          "shape": "z4",
-          "row": 3,
-          "col": 0
-        },
-        {
-          "id": "l041_p3",
-          "name": "Taco",
-          "shape": "s4",
+          "name": "Pudding",
+          "shape": "i5h",
           "row": 0,
           "col": 2
         },
         {
-          "id": "l041_p4",
-          "name": "Biscuit",
-          "shape": "t5",
-          "row": 1,
-          "col": 3
+          "id": "l041_p2",
+          "name": "Taco",
+          "shape": "l5",
+          "row": 2,
+          "col": 4
         },
         {
-          "id": "l041_p5",
-          "name": "Tuna",
-          "shape": "stair5",
-          "row": 2,
+          "id": "l041_p3",
+          "name": "Pebble",
+          "shape": "i5h",
+          "row": 6,
           "col": 2
         },
         {
-          "id": "l041_p6",
-          "name": "Waffle",
-          "shape": "z5",
+          "id": "l041_p4",
+          "name": "Mango",
+          "shape": "i5h",
           "row": 1,
-          "col": 5
+          "col": 1
+        },
+        {
+          "id": "l041_p5",
+          "name": "Socks",
+          "shape": "l5Top",
+          "row": 2,
+          "col": 0
+        },
+        {
+          "id": "l041_p6",
+          "name": "Miso",
+          "shape": "z5",
+          "row": 3,
+          "col": 1
         },
         {
           "id": "l041_p7",
-          "name": "Kiki",
-          "shape": "j3",
-          "row": 1,
+          "name": "Button",
+          "shape": "stair5",
+          "row": 3,
           "col": 0
         }
       ],
@@ -2532,75 +2526,75 @@
     },
     {
       "id": "level_042",
-      "title": "Sweet Heart",
+      "title": "Dune Ridge",
       "difficulty": 5,
-      "rows": 6,
-      "cols": 8,
+      "rows": 7,
+      "cols": 6,
       "reward": 45,
       "pieces": [
         {
           "id": "l042_p1",
-          "name": "Sunny",
-          "shape": "l3",
-          "row": 0,
-          "col": 6
+          "name": "Poppy",
+          "shape": "l4Top",
+          "row": 5,
+          "col": 0
         },
         {
           "id": "l042_p2",
-          "name": "Honey",
-          "shape": "stair5",
-          "row": 3,
+          "name": "Boba",
+          "shape": "l5Top",
+          "row": 0,
           "col": 2
         },
         {
           "id": "l042_p3",
-          "name": "Kiki",
-          "shape": "s5",
-          "row": 2,
-          "col": 5
-        },
-        {
-          "id": "l042_p4",
-          "name": "Miso",
-          "shape": "t4Left",
-          "row": 2,
-          "col": 3
-        },
-        {
-          "id": "l042_p5",
-          "name": "Berry",
-          "shape": "l3TopRight",
+          "name": "Pepper",
+          "shape": "t4",
           "row": 1,
           "col": 2
         },
         {
-          "id": "l042_p6",
-          "name": "Jelly",
-          "shape": "t4",
+          "id": "l042_p4",
+          "name": "Toast",
+          "shape": "u5",
           "row": 2,
+          "col": 2
+        },
+        {
+          "id": "l042_p5",
+          "name": "Waffle",
+          "shape": "l5",
+          "row": 1,
           "col": 0
         },
         {
-          "id": "l042_p7",
-          "name": "Ribbon",
-          "shape": "t4Left",
-          "row": 0,
+          "id": "l042_p6",
+          "name": "Pudding",
+          "shape": "j4",
+          "row": 2,
           "col": 4
+        },
+        {
+          "id": "l042_p7",
+          "name": "Nori",
+          "shape": "i4v",
+          "row": 0,
+          "col": 1
         },
         {
           "id": "l042_p8",
           "name": "Noodle",
-          "shape": "s4",
-          "row": 0,
-          "col": 0
+          "shape": "z5",
+          "row": 4,
+          "col": 2
         }
       ],
       "trayWindow": 0,
       "hearts": 0,
       "locked": [
         {
-          "row": 4,
-          "col": 3,
+          "row": 5,
+          "col": 4,
           "after": 7
         }
       ],
@@ -2919,60 +2913,60 @@
     },
     {
       "id": "level_046",
-      "title": "Night Star",
+      "title": "Little House",
       "difficulty": 5,
       "rows": 7,
-      "cols": 8,
+      "cols": 6,
       "reward": 55,
       "pieces": [
         {
           "id": "l046_p1",
-          "name": "Ginger",
-          "shape": "s5",
-          "row": 4,
-          "col": 1
+          "name": "Tuna",
+          "shape": "t4Left",
+          "row": 2,
+          "col": 0
         },
         {
           "id": "l046_p2",
-          "name": "Taco",
-          "shape": "s4v",
-          "row": 4,
-          "col": 5
+          "name": "Clover",
+          "shape": "i4v",
+          "row": 1,
+          "col": 2
         },
         {
           "id": "l046_p3",
-          "name": "Mint",
-          "shape": "s4v",
+          "name": "Cocoa",
+          "shape": "t4Left",
+          "row": 4,
+          "col": 2
+        },
+        {
+          "id": "l046_p4",
+          "name": "Sesame",
+          "shape": "l3TopRight",
           "row": 1,
           "col": 4
         },
         {
-          "id": "l046_p4",
-          "name": "Nori",
-          "shape": "l4Top",
-          "row": 3,
-          "col": 2
-        },
-        {
           "id": "l046_p5",
-          "name": "Pickle",
-          "shape": "i3v",
+          "name": "Fudge",
+          "shape": "i4v",
           "row": 0,
           "col": 3
         },
         {
           "id": "l046_p6",
-          "name": "Taffy",
-          "shape": "t4",
+          "name": "Poppy",
+          "shape": "i3v",
           "row": 2,
-          "col": 0
+          "col": 4
         },
         {
           "id": "l046_p7",
-          "name": "Kiki",
-          "shape": "l3Top",
-          "row": 2,
-          "col": 6
+          "name": "Plum",
+          "shape": "j3",
+          "row": 4,
+          "col": 4
         }
       ],
       "trayWindow": 0,
@@ -3066,66 +3060,66 @@
     },
     {
       "id": "level_048",
-      "title": "Baby Bib",
+      "title": "Pebble Path",
       "difficulty": 6,
-      "rows": 6,
-      "cols": 8,
+      "rows": 7,
+      "cols": 6,
       "reward": 45,
       "pieces": [
         {
           "id": "l048_p1",
-          "name": "Boba",
-          "shape": "t5",
+          "name": "Honey",
+          "shape": "l4TopLeft",
           "row": 1,
-          "col": 4
+          "col": 0
         },
         {
           "id": "l048_p2",
-          "name": "Pepper",
-          "shape": "l3TopRight",
+          "name": "Clover",
+          "shape": "l4TopLeft",
           "row": 3,
-          "col": 0
+          "col": 4
         },
         {
           "id": "l048_p3",
-          "name": "Fig",
-          "shape": "u5",
+          "name": "Ribbon",
+          "shape": "stair5",
           "row": 4,
-          "col": 2
+          "col": 0
         },
         {
           "id": "l048_p4",
-          "name": "Mango",
-          "shape": "z4",
-          "row": 0,
-          "col": 0
+          "name": "Plum",
+          "shape": "l4Top",
+          "row": 3,
+          "col": 1
         },
         {
           "id": "l048_p5",
-          "name": "Plum",
-          "shape": "p5",
+          "name": "Biscuit",
+          "shape": "i5h",
           "row": 0,
-          "col": 6
-        },
-        {
-          "id": "l048_p6",
-          "name": "Pearl",
-          "shape": "s5",
-          "row": 3,
-          "col": 5
-        },
-        {
-          "id": "l048_p7",
-          "name": "Ginger",
-          "shape": "l4Corner",
-          "row": 1,
           "col": 0
         },
         {
-          "id": "l048_p8",
-          "name": "Nori",
-          "shape": "t5",
+          "id": "l048_p6",
+          "name": "Tuna",
+          "shape": "z5",
+          "row": 4,
+          "col": 1
+        },
+        {
+          "id": "l048_p7",
+          "name": "Cocoa",
+          "shape": "i4h",
           "row": 2,
+          "col": 1
+        },
+        {
+          "id": "l048_p8",
+          "name": "Pepper",
+          "shape": "l5Top",
+          "row": 1,
           "col": 2
         }
       ],
@@ -3771,75 +3765,75 @@
     },
     {
       "id": "level_056",
-      "title": "Gift Tag",
+      "title": "Fat Cross",
       "difficulty": 6,
-      "rows": 5,
-      "cols": 8,
+      "rows": 7,
+      "cols": 7,
       "reward": 45,
       "pieces": [
         {
           "id": "l056_p1",
-          "name": "Nori",
-          "shape": "z5",
-          "row": 0,
-          "col": 2
+          "name": "Muffin",
+          "shape": "i3v",
+          "row": 2,
+          "col": 0
         },
         {
           "id": "l056_p2",
-          "name": "Latte",
-          "shape": "j4Top",
+          "name": "Pepper",
+          "shape": "plus5",
           "row": 1,
           "col": 1
         },
         {
           "id": "l056_p3",
-          "name": "Taco",
-          "shape": "u5",
-          "row": 3,
-          "col": 1
+          "name": "Maple",
+          "shape": "j4Top",
+          "row": 2,
+          "col": 5
         },
         {
           "id": "l056_p4",
-          "name": "Ribbon",
-          "shape": "j4",
-          "row": 2,
-          "col": 6
+          "name": "Poppy",
+          "shape": "l4",
+          "row": 1,
+          "col": 4
         },
         {
           "id": "l056_p5",
-          "name": "Poppy",
+          "name": "Jelly",
           "shape": "o4",
-          "row": 3,
-          "col": 4
+          "row": 5,
+          "col": 2
         },
         {
           "id": "l056_p6",
-          "name": "Sprout",
+          "name": "Socks",
           "shape": "l4TopLeft",
-          "row": 2,
-          "col": 0
-        },
-        {
-          "id": "l056_p7",
-          "name": "Honey",
-          "shape": "j4Top",
-          "row": 0,
+          "row": 4,
           "col": 4
         },
         {
+          "id": "l056_p7",
+          "name": "Sunny",
+          "shape": "t4",
+          "row": 0,
+          "col": 2
+        },
+        {
           "id": "l056_p8",
-          "name": "Waffle",
-          "shape": "i3v",
-          "row": 1,
-          "col": 6
+          "name": "Tuna",
+          "shape": "u5",
+          "row": 3,
+          "col": 1
         }
       ],
       "trayWindow": 4,
       "hearts": 0,
       "blocked": [
         {
-          "row": 2,
-          "col": 3
+          "row": 1,
+          "col": 6
         }
       ]
     },
@@ -5374,67 +5368,67 @@
     },
     {
       "id": "level_071",
-      "title": "Tulip",
+      "title": "Honey Comb",
       "difficulty": 7,
-      "rows": 8,
-      "cols": 6,
+      "rows": 7,
+      "cols": 5,
       "reward": 60,
       "pieces": [
         {
           "id": "l071_p1",
-          "name": "Peach",
-          "shape": "o4",
-          "row": 1,
-          "col": 1
+          "name": "Fudge",
+          "shape": "i4v",
+          "row": 2,
+          "col": 4
         },
         {
           "id": "l071_p2",
-          "name": "Jelly",
-          "shape": "s4v",
+          "name": "Latte",
+          "shape": "l3Top",
           "row": 2,
-          "col": 3
-        },
-        {
-          "id": "l071_p3",
-          "name": "Biscuit",
-          "shape": "i4v",
-          "row": 0,
-          "col": 5
-        },
-        {
-          "id": "l071_p4",
-          "name": "Cookie",
-          "shape": "l5",
-          "row": 0,
           "col": 0
         },
         {
-          "id": "l071_p5",
-          "name": "Yuzu",
-          "shape": "j4",
-          "row": 4,
+          "id": "l071_p3",
+          "name": "Pepper",
+          "shape": "s4",
+          "row": 1,
           "col": 2
         },
         {
-          "id": "l071_p6",
-          "name": "Pudding",
-          "shape": "t4Left",
+          "id": "l071_p4",
+          "name": "Bean",
+          "shape": "l4Top",
           "row": 3,
           "col": 1
         },
         {
+          "id": "l071_p5",
+          "name": "Basil",
+          "shape": "i4h",
+          "row": 6,
+          "col": 1
+        },
+        {
+          "id": "l071_p6",
+          "name": "Pumpkin",
+          "shape": "i4h",
+          "row": 5,
+          "col": 0
+        },
+        {
           "id": "l071_p7",
-          "name": "Pebble",
-          "shape": "z5",
+          "name": "Honey",
+          "shape": "s4",
           "row": 0,
-          "col": 2
+          "col": 1
         },
         {
           "id": "l071_p8",
-          "name": "Cocoa",
-          "shape": "i4h",
-          "row": 7,
-          "col": 1
+          "name": "Maple",
+          "shape": "i3h",
+          "row": 4,
+          "col": 0
         }
       ],
       "trayWindow": 0,
@@ -5642,85 +5636,85 @@
     },
     {
       "id": "level_074",
-      "title": "Garden Snail",
+      "title": "Breeze Tile",
       "difficulty": 8,
-      "rows": 6,
-      "cols": 8,
+      "rows": 7,
+      "cols": 6,
       "reward": 75,
       "pieces": [
         {
           "id": "l074_p1",
-          "name": "Noodle",
-          "shape": "i5h",
-          "row": 5,
+          "name": "Pumpkin",
+          "shape": "i4v",
+          "row": 2,
           "col": 0
         },
         {
           "id": "l074_p2",
-          "name": "Kiki",
-          "shape": "t5",
-          "row": 2,
-          "col": 2
+          "name": "Pepper",
+          "shape": "i3v",
+          "row": 3,
+          "col": 4
         },
         {
           "id": "l074_p3",
-          "name": "Yuzu",
-          "shape": "s4",
+          "name": "Pebble",
+          "shape": "l4Top",
           "row": 0,
-          "col": 3
+          "col": 2
         },
         {
           "id": "l074_p4",
-          "name": "Bean",
-          "shape": "s5",
-          "row": 0,
-          "col": 1
+          "name": "Mango",
+          "shape": "i4v",
+          "row": 3,
+          "col": 5
         },
         {
           "id": "l074_p5",
-          "name": "Tuna",
-          "shape": "stair5",
-          "row": 2,
+          "name": "Olive",
+          "shape": "i5h",
+          "row": 6,
           "col": 0
         },
         {
           "id": "l074_p6",
-          "name": "Mochi",
-          "shape": "z5",
-          "row": 1,
-          "col": 5
+          "name": "Berry",
+          "shape": "s5",
+          "row": 2,
+          "col": 2
         },
         {
           "id": "l074_p7",
-          "name": "Poppy",
-          "shape": "z5",
-          "row": 2,
-          "col": 4
+          "name": "Boba",
+          "shape": "s5",
+          "row": 1,
+          "col": 1
         },
         {
           "id": "l074_p8",
-          "name": "Latte",
+          "name": "Toast",
           "shape": "u5",
           "row": 4,
-          "col": 5
+          "col": 1
         }
       ],
       "trayWindow": 0,
       "hearts": 0,
       "blocked": [
         {
-          "row": 2,
-          "col": 2
+          "row": 1,
+          "col": 0
         },
         {
-          "row": 4,
-          "col": 4
+          "row": 0,
+          "col": 0
         }
       ],
       "locked": [
         {
-          "row": 5,
-          "col": 2,
+          "row": 4,
+          "col": 1,
           "after": 7
         }
       ],
@@ -6396,79 +6390,79 @@
     },
     {
       "id": "level_081",
-      "title": "Night Owl",
+      "title": "Leaf Pile",
       "difficulty": 8,
       "rows": 6,
-      "cols": 8,
+      "cols": 7,
       "reward": 60,
       "pieces": [
         {
           "id": "l081_p1",
-          "name": "Jelly",
-          "shape": "j4Top",
-          "row": 2,
-          "col": 6
+          "name": "Cocoa",
+          "shape": "s4v",
+          "row": 3,
+          "col": 1
         },
         {
           "id": "l081_p2",
-          "name": "Muffin",
-          "shape": "j3",
+          "name": "Peanut",
+          "shape": "i5h",
           "row": 0,
-          "col": 6
-        },
-        {
-          "id": "l081_p3",
-          "name": "Fudge",
-          "shape": "u5",
-          "row": 4,
-          "col": 4
-        },
-        {
-          "id": "l081_p4",
-          "name": "Ginger",
-          "shape": "s4v",
-          "row": 3,
           "col": 2
         },
         {
-          "id": "l081_p5",
-          "name": "Boba",
-          "shape": "p5",
-          "row": 2,
-          "col": 4
+          "id": "l081_p3",
+          "name": "Toast",
+          "shape": "j4",
+          "row": 3,
+          "col": 5
         },
         {
-          "id": "l081_p6",
-          "name": "Pepper",
-          "shape": "stair5",
+          "id": "l081_p4",
+          "name": "Mango",
+          "shape": "j4Top",
+          "row": 2,
+          "col": 3
+        },
+        {
+          "id": "l081_p5",
+          "name": "Latte",
+          "shape": "l4",
           "row": 3,
           "col": 0
         },
         {
+          "id": "l081_p6",
+          "name": "Jelly",
+          "shape": "i5h",
+          "row": 1,
+          "col": 2
+        },
+        {
           "id": "l081_p7",
-          "name": "Lulu",
-          "shape": "l3",
-          "row": 0,
-          "col": 0
+          "name": "Sesame",
+          "shape": "z5",
+          "row": 2,
+          "col": 1
         },
         {
           "id": "l081_p8",
-          "name": "Pudding",
-          "shape": "l5Top",
+          "name": "Yuzu",
+          "shape": "l4TopLeft",
           "row": 2,
-          "col": 0
+          "col": 5
         }
       ],
       "trayWindow": 0,
       "hearts": 3,
       "blocked": [
         {
-          "row": 3,
-          "col": 1
+          "row": 0,
+          "col": 0
         },
         {
-          "row": 3,
-          "col": 6
+          "row": 5,
+          "col": 4
         }
       ],
       "moves": 10
@@ -6680,67 +6674,67 @@
     },
     {
       "id": "level_084",
-      "title": "Night Cloud",
+      "title": "Bean Bag",
       "difficulty": 9,
-      "rows": 5,
-      "cols": 8,
+      "rows": 6,
+      "cols": 6,
       "reward": 75,
       "pieces": [
         {
           "id": "l084_p1",
-          "name": "Taco",
-          "shape": "l4Corner",
+          "name": "Pepper",
+          "shape": "l4TopLeft",
+          "row": 3,
+          "col": 1
+        },
+        {
+          "id": "l084_p2",
+          "name": "Ginger",
+          "shape": "j3",
+          "row": 0,
+          "col": 0
+        },
+        {
+          "id": "l084_p3",
+          "name": "Fudge",
+          "shape": "i4v",
           "row": 2,
           "col": 0
         },
         {
-          "id": "l084_p2",
-          "name": "Mint",
-          "shape": "u5",
-          "row": 1,
-          "col": 1
-        },
-        {
-          "id": "l084_p3",
-          "name": "Chili",
-          "shape": "s4v",
-          "row": 0,
-          "col": 6
-        },
-        {
           "id": "l084_p4",
-          "name": "Pudding",
-          "shape": "j4",
-          "row": 1,
-          "col": 3
-        },
-        {
-          "id": "l084_p5",
-          "name": "Pumpkin",
-          "shape": "t5",
-          "row": 2,
-          "col": 5
-        },
-        {
-          "id": "l084_p6",
-          "name": "Latte",
-          "shape": "i5h",
-          "row": 4,
-          "col": 1
-        },
-        {
-          "id": "l084_p7",
-          "name": "Mango",
-          "shape": "l3Top",
+          "name": "Button",
+          "shape": "l4Top",
           "row": 0,
           "col": 2
         },
         {
-          "id": "l084_p8",
-          "name": "Ginger",
+          "id": "l084_p5",
+          "name": "Maple",
+          "shape": "u5",
+          "row": 4,
+          "col": 2
+        },
+        {
+          "id": "l084_p6",
+          "name": "Pickle",
           "shape": "i3v",
-          "row": 0,
-          "col": 5
+          "row": 2,
+          "col": 3
+        },
+        {
+          "id": "l084_p7",
+          "name": "Mint",
+          "shape": "s4",
+          "row": 1,
+          "col": 1
+        },
+        {
+          "id": "l084_p8",
+          "name": "Pumpkin",
+          "shape": "p5",
+          "row": 2,
+          "col": 4
         }
       ],
       "trayWindow": 3,
@@ -7037,67 +7031,67 @@
     },
     {
       "id": "level_088",
-      "title": "Sleeping Cat",
+      "title": "Puddle Hop",
       "difficulty": 9,
       "rows": 6,
-      "cols": 8,
+      "cols": 7,
       "reward": 85,
       "pieces": [
         {
           "id": "l088_p1",
-          "name": "Pickle",
-          "shape": "t4",
-          "row": 3,
-          "col": 3
+          "name": "Cocoa",
+          "shape": "i5h",
+          "row": 5,
+          "col": 0
         },
         {
           "id": "l088_p2",
-          "name": "Poppy",
-          "shape": "i4v",
-          "row": 0,
+          "name": "Olive",
+          "shape": "l3",
+          "row": 2,
           "col": 0
         },
         {
           "id": "l088_p3",
-          "name": "Taffy",
-          "shape": "t5",
-          "row": 3,
+          "name": "Taco",
+          "shape": "t4Left",
+          "row": 0,
           "col": 5
         },
         {
           "id": "l088_p4",
-          "name": "Waffle",
-          "shape": "z4",
-          "row": 4,
-          "col": 0
+          "name": "Boba",
+          "shape": "plus5",
+          "row": 1,
+          "col": 3
         },
         {
           "id": "l088_p5",
-          "name": "Mimi",
-          "shape": "p5",
-          "row": 2,
-          "col": 1
-        },
-        {
-          "id": "l088_p6",
-          "name": "Muffin",
-          "shape": "j3",
+          "name": "Pumpkin",
+          "shape": "i5h",
           "row": 0,
           "col": 1
         },
         {
+          "id": "l088_p6",
+          "name": "Pudding",
+          "shape": "i5h",
+          "row": 4,
+          "col": 0
+        },
+        {
           "id": "l088_p7",
-          "name": "Olive",
-          "shape": "l5Top",
+          "name": "Ribbon",
+          "shape": "z4",
           "row": 2,
-          "col": 4
+          "col": 1
         },
         {
           "id": "l088_p8",
-          "name": "Boba",
-          "shape": "l4Corner",
-          "row": 4,
-          "col": 3
+          "name": "Mint",
+          "shape": "i4h",
+          "row": 1,
+          "col": 0
         }
       ],
       "trayWindow": 0,
@@ -7532,87 +7526,87 @@
     },
     {
       "id": "level_093",
-      "title": "Window Panes",
+      "title": "Mossy Stone",
       "difficulty": 9,
-      "rows": 5,
-      "cols": 8,
+      "rows": 7,
+      "cols": 7,
       "reward": 85,
       "pieces": [
         {
           "id": "l093_p1",
-          "name": "Miso",
-          "shape": "i4v",
+          "name": "Peanut",
+          "shape": "j4Top",
           "row": 1,
-          "col": 7
+          "col": 5
         },
         {
           "id": "l093_p2",
-          "name": "Pearl",
-          "shape": "u5",
+          "name": "Peach",
+          "shape": "l4TopLeft",
           "row": 3,
-          "col": 4
-        },
-        {
-          "id": "l093_p3",
-          "name": "Toast",
-          "shape": "i4h",
-          "row": 4,
-          "col": 0
-        },
-        {
-          "id": "l093_p4",
-          "name": "Clover",
-          "shape": "t4Left",
-          "row": 1,
           "col": 2
         },
         {
-          "id": "l093_p5",
-          "name": "Button",
+          "id": "l093_p3",
+          "name": "Boba",
           "shape": "i5h",
-          "row": 0,
-          "col": 3
-        },
-        {
-          "id": "l093_p6",
-          "name": "Cocoa",
-          "shape": "l4TopLeft",
           "row": 0,
           "col": 1
         },
         {
-          "id": "l093_p7",
-          "name": "Biscuit",
-          "shape": "u5",
+          "id": "l093_p4",
+          "name": "Tuna",
+          "shape": "s5",
+          "row": 3,
+          "col": 3
+        },
+        {
+          "id": "l093_p5",
+          "name": "Mochi",
+          "shape": "i5h",
           "row": 1,
+          "col": 0
+        },
+        {
+          "id": "l093_p6",
+          "name": "Sprout",
+          "shape": "l5",
+          "row": 3,
+          "col": 1
+        },
+        {
+          "id": "l093_p7",
+          "name": "Pudding",
+          "shape": "s4",
+          "row": 4,
           "col": 4
         },
         {
           "id": "l093_p8",
-          "name": "Fig",
-          "shape": "l5",
-          "row": 0,
-          "col": 0
+          "name": "Kiki",
+          "shape": "i5h",
+          "row": 2,
+          "col": 1
         }
       ],
       "trayWindow": 0,
       "hearts": 3,
       "blocked": [
         {
-          "row": 1,
-          "col": 2
+          "row": 6,
+          "col": 6
         },
         {
-          "row": 1,
-          "col": 5
+          "row": 0,
+          "col": 0
         },
         {
-          "row": 3,
-          "col": 2
+          "row": 5,
+          "col": 6
         },
         {
-          "row": 3,
-          "col": 5
+          "row": 2,
+          "col": 0
         }
       ],
       "spares": [
@@ -7833,75 +7827,75 @@
     },
     {
       "id": "level_096",
-      "title": "Fish Bowl",
+      "title": "Quilt Square",
       "difficulty": 8,
-      "rows": 6,
-      "cols": 8,
+      "rows": 7,
+      "cols": 6,
       "reward": 84,
       "pieces": [
         {
           "id": "l096_p1",
-          "name": "Pebble",
-          "shape": "s5",
+          "name": "Nori",
+          "shape": "i4v",
           "row": 1,
           "col": 0
         },
         {
           "id": "l096_p2",
-          "name": "Mimi",
-          "shape": "i4v",
+          "name": "Jelly",
+          "shape": "plus5",
           "row": 0,
-          "col": 4
+          "col": 3
         },
         {
           "id": "l096_p3",
-          "name": "Plum",
-          "shape": "s4v",
-          "row": 0,
-          "col": 5
-        },
-        {
-          "id": "l096_p4",
-          "name": "Chili",
-          "shape": "u5",
-          "row": 2,
-          "col": 5
-        },
-        {
-          "id": "l096_p5",
-          "name": "Ribbon",
-          "shape": "stair5",
-          "row": 3,
+          "name": "Fig",
+          "shape": "o4",
+          "row": 4,
           "col": 1
         },
         {
+          "id": "l096_p4",
+          "name": "Pudding",
+          "shape": "i5h",
+          "row": 6,
+          "col": 0
+        },
+        {
+          "id": "l096_p5",
+          "name": "Miso",
+          "shape": "p5",
+          "row": 3,
+          "col": 4
+        },
+        {
           "id": "l096_p6",
-          "name": "Bean",
-          "shape": "stair5",
+          "name": "Mochi",
+          "shape": "j3",
           "row": 2,
-          "col": 2
+          "col": 1
         },
         {
           "id": "l096_p7",
-          "name": "Mochi",
-          "shape": "l3TopRight",
-          "row": 0,
-          "col": 2
+          "name": "Mimi",
+          "shape": "l5",
+          "row": 2,
+          "col": 3
         },
         {
           "id": "l096_p8",
-          "name": "Toast",
-          "shape": "s4",
-          "row": 4,
-          "col": 4
+          "name": "Muffin",
+          "shape": "l3Top",
+          "row": 1,
+          "col": 1
         }
       ],
       "trayWindow": 0,
       "hearts": 0,
       "blocked": [
         {
-          "row": 2,
-          "col": 3
+          "row": 0,
+          "col": 0
         }
       ],
       "spares": [
