@@ -177,26 +177,56 @@ namespace CatBlockPuzzle
             return Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), size);
         }
 
-        /// <summary>Slices the three authored 4x2 portrait atlases into the presentation's 24 cat sprites.</summary>
-        private const string CatSpriteFolder = "Assets/CatBlock_UI_New/Characters/";
+        private const string CatSpriteFolder = "Assets/_GameData/Art/Gameplay/Cats/";
 
-        /// <summary>Fills every mood slot with the matching single-image cat (the new art has no mood variants).</summary>
+        /// <summary>
+        /// The seven authored cat colours, in the order an AtlasIndex cycles through them. There are
+        /// nine cat slots and only seven colours, so slots 7 and 8 repeat blue and mint.
+        /// </summary>
+        internal static readonly string[] CatColorNames =
+        {
+            "blue", "mint", "pink", "purple", "red", "teal", "yellow"
+        };
+
+        /// <summary>The colour an AtlasIndex draws in; <see cref="CatColorNames"/> wraps to cover all nine slots.</summary>
+        internal static string ColorNameFor(int atlasIndex) =>
+            CatColorNames[Mathf.Abs(atlasIndex) % CatColorNames.Length];
+
+        /// <summary>
+        /// Loads the head tile (the cat's face) into every mood slot and the plain body tile alongside it.
+        /// The art has no mood variants, so all three moods share one head.
+        /// </summary>
         public static void LoadAuthoredCatPortraits(GameplayPresentationAssets assets)
         {
             int count = GameplayPresentationAssets.CatCount;
+            if (assets.catBodySprites == null || assets.catBodySprites.Length != count)
+            {
+                assets.catBodySprites = new Sprite[count];
+            }
+
             for (int index = 0; index < count; index++)
             {
-                Sprite cat = AssetDatabase.LoadAssetAtPath<Sprite>(CatSpriteFolder + "Cat_ (" + (index + 1) + ").png");
-                if (cat == null)
-                {
-                    throw new System.InvalidOperationException("Cat sprite missing: " + CatSpriteFolder + "Cat_ (" + (index + 1) + ").png");
-                }
-
+                string color = ColorNameFor(index);
+                Sprite head = LoadCatTile("head_" + color);
+                Sprite body = LoadCatTile("body_" + color);
                 for (int mood = 0; mood < 3; mood++)
                 {
-                    assets.catPortraitSprites[mood * count + index] = cat;
+                    assets.catPortraitSprites[mood * count + index] = head;
                 }
+
+                assets.catBodySprites[index] = body;
             }
+        }
+
+        private static Sprite LoadCatTile(string name)
+        {
+            Sprite tile = AssetDatabase.LoadAssetAtPath<Sprite>(CatSpriteFolder + name + ".png");
+            if (tile == null)
+            {
+                throw new System.InvalidOperationException("Cat sprite missing: " + CatSpriteFolder + name + ".png");
+            }
+
+            return tile;
         }
 
         public static Sprite CreateStarSprite(bool outline)

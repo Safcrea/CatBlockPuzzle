@@ -1,3 +1,4 @@
+using AVNEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -387,11 +388,14 @@ namespace CatBlockPuzzle
             {
                 int version = presentationVersion;
                 int reward = shownReward;
+                AvnEvents.Navigation("double_reward", "level_complete");
                 RewardedAds.Show(DoubleCoinsPlacement,
                     onRewarded: () =>
                     {
                         GameSystem.Instance?.AwardCoins(reward);
                         GameAnalytics.CurrencyEarned(reward, GameAnalytics.EarnAdDouble, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
+                        AvnEvents.EconomyEarned(reward, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0, EconomySource.rewarded_ad, EconomyDetail.level_complete_x2);
+                        AvnEvents.LevelDoubleReward();
                         if (!IsOpen || version != presentationVersion) return;
                         doubleCoinsClaimed = true;
                         doubleCoinsButton.gameObject.SetActive(false);
@@ -447,9 +451,9 @@ namespace CatBlockPuzzle
             RestoreScale(coinReward);
             action = null;
         }
-        public void SkipLevel() => BeginAction(() => GameSystem.Instance?.SkipLevel());
-        private void Next() => BeginAction(() => GameSystem.Instance?.NextLevel());
-        private void Home() => BeginAction(() => GameSystem.Instance?.GoHome());
+        public void SkipLevel() => BeginAction(() => { AvnEvents.Navigation("skip", "level_complete"); GameSystem.Instance?.SkipLevel(); });
+        private void Next() => BeginAction(() => { AvnEvents.Navigation("next", "level_complete"); GameSystem.Instance?.NextLevel(); });
+        private void Home() => BeginAction(() => { AvnEvents.Navigation("home", "level_complete"); GameSystem.Instance?.GoHome(); });
         private static Button FindButton(Transform parent, string name)
         {
             Transform found = FindChild(parent, name);

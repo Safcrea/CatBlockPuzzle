@@ -1,3 +1,4 @@
+using AVNEvents;
 using System;
 using TMPro;
 using UnityEngine;
@@ -99,17 +100,19 @@ namespace CatBlockPuzzle
         public void Play()
         {
             ButtonSfx.PlayClick();
+            AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.play);
             if (GameSystem.Instance != null) GameSystem.Instance.StartGameplay();
             else LoadingSceneController.LoadScene(gameplayBuildIndex);
         }
 
         public void Continue() => Play();
-        public void OpenSettings() { ButtonSfx.PlayClick(); GameSystem.Instance?.OpenSettings(false); }
-        private void OpenLevels() { ButtonSfx.PlayClick(); navigation?.ShowLevels(); }
-        private void OpenShop() { ButtonSfx.PlayClick(); navigation?.ShowShop(); }
-        private void OpenDailyReward() { ButtonSfx.PlayClick(); navigation?.ShowDailyReward(); }
+        public void OpenSettings() { ButtonSfx.PlayClick(); AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.settings); GameSystem.Instance?.OpenSettings(false); }
+        private void OpenLevels() { ButtonSfx.PlayClick(); AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.levels); navigation?.ShowLevels(); }
+        private void OpenShop() { ButtonSfx.PlayClick(); AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.shop); navigation?.ShowShop(); }
+        private void OpenDailyReward() { ButtonSfx.PlayClick(); AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.daily_gift); navigation?.ShowDailyReward(); }
         private void OpenDailyPuzzle()
         {
+            AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.daily_puzzle);
             if (IsDailyPuzzleLocked) { ShowDailyPuzzleInfo(locked: true); return; }
             if (IsDailyPuzzleDone) { ShowDailyPuzzleInfo(locked: false); return; }
             ButtonSfx.PlayClick();
@@ -132,6 +135,7 @@ namespace CatBlockPuzzle
 
         private void OpenCollection()
         {
+            AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.collection);
             if (IsCollectionLocked) { GameAnalytics.ComingSoonTap("collection"); PlayLockedTap(); return; }
             ButtonSfx.PlayClick();
             navigation?.ShowCollection();
@@ -139,6 +143,7 @@ namespace CatBlockPuzzle
 
         private void OpenRooms()
         {
+            AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.rooms);
             if (IsRoomsLocked) { GameAnalytics.ComingSoonTap("rooms"); PlayLockedTap(); return; }
             ButtonSfx.PlayClick();
             GameSystem.Instance?.OpenRooms();
@@ -202,6 +207,7 @@ namespace CatBlockPuzzle
         public void Quit()
         {
             ButtonSfx.PlayClick();
+            AvnEvents.ScreenInteraction(AvnScreen.main_menu, ScreenAction.quit);
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else

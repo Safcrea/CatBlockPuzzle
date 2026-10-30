@@ -1,3 +1,5 @@
+using AVNEvents;
+
 namespace CatBlockPuzzle
 {
     /// <summary>Hint, Freeze and Rotate power-ups: when they may be used, using them, and the purchase popup's pause.</summary>
@@ -72,6 +74,7 @@ namespace CatBlockPuzzle
         {
             if (!CanRequestPowerUp(PowerUpKind.Hint)) return false;
             lastHintFoundTarget = hint.ShowHint(timer.Profile.HintReveal);
+            AvnEvents.HintOutcome(lastHintFoundTarget, false);
             return true;
         }
 
@@ -85,6 +88,7 @@ namespace CatBlockPuzzle
             foreach (PieceState piece in session.pieces)
                 if (!piece.Placed && !piece.Definition.IsSpare) piecesLeft++;
             GameAnalytics.PowerUpUsed(kind, cost, timer.RemainingSeconds, piecesLeft, fromTutorial, lastHintFoundTarget);
+            AvnEvents.PowerupUsed(kind, fromTutorial);
         }
 
         public bool OpenPowerUpPurchase(PowerUpKind kind)
@@ -136,9 +140,11 @@ namespace CatBlockPuzzle
             if (!gates.GameplayHidden || gates.ResultScreenOpen) return PowerUpPurchaseStatus.Unavailable;
             if (!bundle.IsValid) return PowerUpPurchaseStatus.InvalidOffer;
             if (progress.Coins < bundle.coinPrice) return PowerUpPurchaseStatus.InsufficientCoins;
+            AvnEvents.EconomySpent(bundle.coinPrice, progress.Coins - bundle.coinPrice, EconomySource.powerup, EconomyDetail.starter_bundle);
             long grantedCoins = (long)progress.Coins - bundle.coinPrice + bundle.bonusCoins;
             progress.Coins = (int)System.Math.Min(int.MaxValue, grantedCoins);
             progress.SaveCoins();
+            AvnEvents.EconomyEarned(bundle.bonusCoins, progress.Coins, EconomySource.other, EconomyDetail.starter_bundle);
             Grant(PowerUpKind.Hint, bundle.hints);
             Grant(PowerUpKind.Freeze, bundle.freezes);
             Grant(PowerUpKind.Rotate, bundle.rotates);
@@ -153,6 +159,7 @@ namespace CatBlockPuzzle
             if (coins <= 0 || !gates.GameplayHidden || gates.ResultScreenOpen) return false;
             progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + coins);
             progress.SaveCoins();
+            AvnEvents.EconomyEarned(coins, progress.Coins, EconomySource.other, EconomyDetail.shop_coin_pack);
             meta.RefreshCoinLabels();
             return true;
         }
@@ -162,6 +169,7 @@ namespace CatBlockPuzzle
             if (amount <= 0) return;
             PowerUpInventory.Add(kind, amount);
             GameAnalytics.ItemEarned(kind, amount, GameAnalytics.EarnPurchase);
+            AvnEvents.PowerupObtained(kind, amount, PowerupSource.Coins);
         }
 
         private PowerUpPurchaseStatus CompletePurchase(PowerUpKind kind, PowerUpShopConfig.Offer offer)
@@ -171,6 +179,8 @@ namespace CatBlockPuzzle
             progress.Coins = remainingCoins;
             GameAnalytics.CurrencySpent(offer.coinPrice, kind, remainingCoins);
             GameAnalytics.ItemEarned(kind, offer.quantity, GameAnalytics.EarnPurchase);
+            AvnEvents.EconomySpent(offer.coinPrice, remainingCoins, EconomySource.powerup, AvnEvents.DetailFor(kind));
+            AvnEvents.PowerupObtained(kind, offer.quantity, PowerupSource.Coins);
             meta.RefreshCoinLabels();
             Hud?.RefreshPowerUpCounts();
             return status;

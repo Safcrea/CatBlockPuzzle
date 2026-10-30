@@ -121,6 +121,9 @@ namespace CatBlockPuzzle
         /// <summary>Tags the next level_start with what the player pressed to get there.</summary>
         public static void SetLevelStartSource(string source) => pendingLevelSource = source;
 
+        /// <summary>The source the next level_start will carry; read before LevelStarted consumes it.</summary>
+        public static string PendingLevelStartSource => pendingLevelSource;
+
         public static void LevelStarted(LevelDefinition definition, int levelIndex, int levelNumber, bool loopLevel, bool replay,
             bool persistProgress, int bestStarsBefore, DifficultyProfile profile)
         {
@@ -458,7 +461,7 @@ namespace CatBlockPuzzle
             p["reached_low_time"] = stats.reachedLowTime;
         }
 
-        private static string Mechanics(LevelDefinition definition)
+        internal static string Mechanics(LevelDefinition definition)
         {
             var names = new List<string>(6);
             foreach (CellLockRule rule in definition.LockedCells.Values)
@@ -471,6 +474,7 @@ namespace CatBlockPuzzle
             if (definition.HasFixedPieces) names.Add("fixed");
             if (definition.HasFog) names.Add("fog");
             if (definition.HasMoves) names.Add("moves");
+            if (definition.HasBlockedCells) names.Add("blocked_tiles");
             return names.Count > 0 ? string.Join(",", names) : "none";
         }
 
@@ -490,7 +494,10 @@ namespace CatBlockPuzzle
 
         private static double Round1(float value) => System.Math.Round(value, 1);
 
-        private static void Send(string eventName, Dictionary<string, object> parameters) =>
+        private static void Send(string eventName, Dictionary<string, object> parameters)
+        {
             AVNGameAnalytics.LogEvent(eventName, parameters);
+            AVNEvents.AvnEvents.Supplement(eventName, parameters);
+        }
     }
 }

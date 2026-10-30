@@ -48,10 +48,17 @@ namespace CatBlockPuzzle
                 previousSelection = EventSystem.current.currentSelectedGameObject;
             if (title != null) title.text = feature;
             MenuTransition.Show(gameObject);
+            AVNEvents.AvnEvents.PopupOpened(AVNEvents.AvnScreen.coming_soon, gameObject);
             if (EventSystem.current != null && dismiss != null) EventSystem.current.SetSelectedGameObject(dismiss.gameObject);
         }
 
-        public void Close() { ButtonSfx.PlayClick(); MenuTransition.Hide(gameObject, RestoreSelection); }
+        public void Close()
+        {
+            ButtonSfx.PlayClick();
+            AVNEvents.AvnEvents.Navigation("dismiss", "coming_soon");
+            AVNEvents.AvnEvents.PopupClosed(AVNEvents.AvnScreen.coming_soon, AVNEvents.ScreenClosedBy.Dismissed);
+            MenuTransition.Hide(gameObject, RestoreSelection);
+        }
         public void HideImmediately() => MenuTransition.Hide(gameObject, null, false);
         private void RestoreSelection()
         {

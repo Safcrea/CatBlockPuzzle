@@ -1,3 +1,4 @@
+using AVNEvents;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,6 +76,7 @@ namespace CatBlockPuzzle
 
         public void Cancel()
         {
+            AvnEvents.TutorialsInterrupted("feature_");
             if (overlay != null)
             {
                 overlay.SetActive(false);
@@ -100,11 +102,13 @@ namespace CatBlockPuzzle
             overlay = popup.gameObject;
             bool finished = false;
             GameAnalytics.MechanicIntroShown(mechanic);
+            AvnEvents.TutorialShown(AvnEvents.FeatureTutorial(mechanic));
             popup.Show(heading, message, iconSprite, () =>
             {
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
                 GameAnalytics.MechanicIntroDismissed(mechanic);
+                AvnEvents.TutorialCompleted(AvnEvents.FeatureTutorial(mechanic));
                 finished = true;
             });
             while (!finished && overlay != null) yield return null;

@@ -1,3 +1,4 @@
+using AVNEvents;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -126,6 +127,7 @@ namespace CatBlockPuzzle
             checkB.rectTransform.localEulerAngles = new Vector3(0, 0, 45);
             CreateTutorialCoach();
             GameAnalytics.TutorialStarted();
+            AvnEvents.TutorialShown(AvnEvents.TutorialFirstLevel, (int)TutorialStep.PlaceFirst);
             SetTutorialStep(TutorialStep.PlaceFirst, pieces[0]);
         }
 
@@ -219,6 +221,7 @@ namespace CatBlockPuzzle
                 PlayerPrefs.Save();
             }
             GameAnalytics.TutorialCompleted();
+            AvnEvents.TutorialCompleted(AvnEvents.TutorialFirstLevel, TutorialProgressStepCount);
             tutorialStep = TutorialStep.Off; // Finished, so the Cancel below does not count as an abort.
             Cancel();
             if (resumeTimer) timer.StartLevelTimer();
@@ -356,7 +359,11 @@ namespace CatBlockPuzzle
 
         public void Cancel()
         {
-            if (IsOpen) GameAnalytics.TutorialAborted((int)tutorialStep);
+            if (IsOpen)
+            {
+                GameAnalytics.TutorialAborted((int)tutorialStep);
+                AvnEvents.TutorialInterrupted(AvnEvents.TutorialFirstLevel, (int)tutorialStep);
+            }
             tutorialStep = TutorialStep.Off;
             tutorialPiece = null;
             tutorialPendingFinish = false;

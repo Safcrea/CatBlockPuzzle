@@ -1,3 +1,4 @@
+using AVNEvents;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -185,6 +186,23 @@ namespace CatBlockPuzzle
 
         // ------------------------------------------------------------------ lifecycle
 
+        private void OnDestroy()
+        {
+            AvnEvents.LevelProvider = null;
+            AvnEvents.HighestLevelProvider = null;
+        }
+
+        // The campaign level the player is on: the one in play, or the next one while on the menus.
+        // The Daily Puzzle and level previews are not campaign levels.
+        private int? AvnCurrentLevel()
+        {
+            if (session == null) return null;
+            // Menus report the next level to play; the level parked behind them is not the player's.
+            if (!AvnEvents.InGameplay) return RecommendedLevelNumber;
+            if (session.dailyPuzzle || session.levelNavigationTesting) return null;
+            return Mathf.Max(1, session.levelNumber);
+        }
+
         private void Awake()
         {
             if (!ValidatePreparedScene(out string error))
@@ -219,6 +237,9 @@ namespace CatBlockPuzzle
         private IEnumerator Start()
         {
             if (!enabled) yield break;
+            AvnEvents.LevelProvider = AvnCurrentLevel;
+            AvnEvents.HighestLevelProvider = () => RecommendedLevelNumber;
+            AvnEvents.SaveLoaded();
             yield return null;
             Canvas.ForceUpdateCanvases();
             int requestedLevel = Mathf.Clamp(PlayerPrefs.GetInt(PuzzleSaveKeys.SavedLevel, 0), 0, levelManager.LevelCount - 1);

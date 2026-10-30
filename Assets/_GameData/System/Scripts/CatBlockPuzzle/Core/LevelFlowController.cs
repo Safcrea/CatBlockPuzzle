@@ -1,4 +1,5 @@
 using System.Collections;
+using AVNEvents;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +39,10 @@ namespace CatBlockPuzzle
         private readonly RotateController rotate;
 
         private Coroutine boardRevealRoutine;
+        // The AVN attempt opens once the board is playable, not when the level loads.
+        private LevelStart? avnPendingStart;
+        private int avnBestBefore;
+        private string dailyPuzzleDate;
         // The next LoadLevel is the Daily Puzzle (set by PlayDailyPuzzle and by a retry of one).
         private bool loadAsDailyPuzzle;
         private bool timerWasRunningBeforeSettings;
@@ -109,6 +114,7 @@ namespace CatBlockPuzzle
             // Resolve/validate before disturbing the current level, so a missing prefab is recoverable.
             var nextPrefab = loader.LoadLevelPrefab(nextLevelIndex);
             if (nextPrefab == null) { loadAsDailyPuzzle = false; return; }
+            AvnEvents.LevelLoading(AvnLevelSource(GameAnalytics.PendingLevelStartSource));
             Hud?.CancelPowerUpTutorial();
             Hud?.CancelPowerUpPurchase(false);
             intro.Cancel();
@@ -117,6 +123,8 @@ namespace CatBlockPuzzle
             timer.timerRunning = false;
             levelNavigationTesting = !persistProgress;
             session.dailyPuzzle = loadAsDailyPuzzle && !persistProgress;
+            if (session.dailyPuzzle && string.IsNullOrEmpty(dailyPuzzleDate))
+                dailyPuzzleDate = System.DateTime.UtcNow.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             loadAsDailyPuzzle = false;
             tray.SetScrollEnabled(true);
             hint.StopHint();
@@ -176,8 +184,33 @@ namespace CatBlockPuzzle
         {
             bool loop = EndlessLevels.IsLoopLevel(session.levelNumber, levelManager.LevelCount);
             int bestBefore = progress.GetBestStars(activeLevel.Id);
+            avnBestBefore = session.dailyPuzzle ? 0 : bestBefore;
             // A loop number is a replay once it has been beaten; an authored level once it has any stars.
-            bool replay = loop ? session.levelNumber < EndlessLevels.NextLoopLevel : bestBefore > 0;
+            bool replay = session.dailyPuzzle ? DailyPuzzle.IsDoneToday(System.DateTime.UtcNow)
+                : loop ? session.levelNumber < EndlessLevels.NextLoopLevel : bestBefore > 0;
+            avnPendingStart = persistProgress || session.dailyPuzzle ? new LevelStart
+            {
+                Level = session.levelNumber,
+                Source = AvnLevelSource(GameAnalytics.PendingLevelStartSource),
+                LevelId = activeLevel.Id,
+                LevelTime = timer.Untimed ? (float?)null : timer.Profile.DurationSeconds,
+                MovesStart = hearts.Active ? hearts.Remaining : (int?)null,
+                Difficulty = activeLevel.Difficulty,
+                Chapter = levelIndex / CatMetaCatalog.LevelsPerChapter + 1,
+                Pieces = activeLevel.Pieces.Length,
+                Replay = replay,
+                Loop = loop,
+                Daily = session.dailyPuzzle,
+                PuzzleDate = session.dailyPuzzle ? dailyPuzzleDate : null,
+                Extras = new System.Collections.Generic.Dictionary<string, object>
+                {
+                    ["MECHANICS"] = GameAnalytics.Mechanics(activeLevel),
+                    ["SPARES"] = activeLevel.Spares.Length,
+                    ["BLOCKED_TILES"] = activeLevel.BlockedCells.Count,
+                    ["DROP_LIMIT"] = activeLevel.HasMoves ? activeLevel.Moves : (int?)null,
+                    ["START_SOURCE"] = GameAnalytics.PendingLevelStartSource,
+                },
+            } : (LevelStart?)null;
             GameAnalytics.LevelStarted(activeLevel, levelIndex, session.levelNumber, loop, replay, persistProgress, bestBefore, timer.Profile);
         }
 
@@ -198,6 +231,7 @@ namespace CatBlockPuzzle
             }
 
             boardRevealRoutine = null;
+            ReportAvnLevelStarted();
             tutorial.Begin();
 
             // The unlock tutorial ends with the player tapping the power-up: spend it now that play has started.
@@ -209,10 +243,64 @@ namespace CatBlockPuzzle
             if (session.freeHintPending) GiveFreeHint();
         }
 
+        private void ReportAvnLevelStarted()
+        {
+            if (!avnPendingStart.HasValue || (GameSystem.Instance != null && !GameSystem.Instance.IsGameplayOpen)) return;
+            LevelStart start = avnPendingStart.Value;
+            avnPendingStart = null;
+            AVNAnalytics.Events.AvnAttempt.ActivePlayProvider = () => timer.Running && !gates.SystemPaused
+                && !gates.SettingsOpen && !gates.PowerUpPurchaseOpen && !gates.PowerUpTutorialOpen
+                && !gates.MetaUiOpen && !gates.GameplayHidden && !tutorial.IsOpen;
+            AvnEvents.LevelMetrics = AttemptMetrics;
+            AvnEvents.LevelStarted(start,
+                () => activeLevel != null && activeLevel.ActiveCells.Count > 0
+                    ? Mathf.RoundToInt(100f * session.occupancy.Count / activeLevel.ActiveCells.Count) : 0,
+                () => timer.Untimed ? (float?)null : timer.RemainingSeconds,
+                () => hearts.Active ? hearts.Remaining : (int?)null);
+        }
+
+        private System.Collections.Generic.Dictionary<string, object> AttemptMetrics() => new System.Collections.Generic.Dictionary<string, object>
+        {
+            ["PLACEMENTS"] = session.stats.placements,
+            ["BOARD_MOVES"] = session.stats.boardMoves,
+            ["SHELF_RETURNS"] = session.stats.shelfReturns,
+            ["MISDROPS"] = session.stats.misdrops,
+            ["CANCELLED_DROPS"] = session.stats.cancelledDrops,
+            ["LOCK_BLOCKED_DROPS"] = session.stats.lockBlockedDrops,
+            ["HEARTS_LOST"] = session.stats.heartsLost,
+            ["BEST_COMBO"] = session.bestCombo,
+            ["HINTS_USED"] = session.stats.hintsUsed,
+            ["FREE_HINTS_USED"] = session.stats.freeHintsUsed,
+            ["FREEZES_USED"] = session.stats.freezesUsed,
+            ["ROTATES_USED"] = session.stats.rotatesUsed,
+            ["FIRST_MOVE_SECONDS"] = session.stats.firstMoveSeconds >= 0f ? session.stats.firstMoveSeconds : (float?)null,
+            ["REACHED_LOW_TIME"] = session.stats.reachedLowTime ? 1 : 0,
+            ["DROPS_USED"] = activeLevel.HasMoves ? session.drops : (int?)null,
+            ["DROP_LIMIT"] = activeLevel.HasMoves ? activeLevel.Moves : (int?)null,
+            ["DROPS_LEFT"] = activeLevel.HasMoves ? Mathf.Max(0, activeLevel.Moves - session.drops) : (int?)null,
+            ["DROPS_OVER_LIMIT"] = activeLevel.HasMoves ? Mathf.Max(0, session.drops - activeLevel.Moves) : (int?)null,
+        };
+
+        private static LevelSource AvnLevelSource(string legacySource)
+        {
+            switch (legacySource)
+            {
+                case GameAnalytics.SourceNext:
+                case GameAnalytics.SourceSkip: return LevelSource.Next;
+                case GameAnalytics.SourceRetry:
+                case GameAnalytics.SourcePauseRestart:
+                case GameAnalytics.SourceHudReset: return LevelSource.Restart;
+                default: return LevelSource.Home;
+            }
+        }
+
         // After repeated fails the attempt opens with one hint on the house; it spends no charge.
         private void GiveFreeHint()
         {
-            if (!hint.ShowHint(timer.Profile.HintReveal)) return;
+            bool found = hint.ShowHint(timer.Profile.HintReveal);
+            AvnEvents.HintOutcome(found, true);
+            if (!found) return;
+            session.stats.freeHintsUsed++;
             session.freeHintPending = false;
             LevelFailStreak.Reset(session.levelNumber);
             toast.Show("Here's a free hint!");
@@ -229,6 +317,7 @@ namespace CatBlockPuzzle
 
         public void ResetLevel()
         {
+            AvnEvents.LevelRestarting();
             loadAsDailyPuzzle = session.dailyPuzzle;
             LoadLevel(levelIndex, !levelNavigationTesting, session.levelNumber);
         }
@@ -264,6 +353,7 @@ namespace CatBlockPuzzle
         {
             meta.ResetOverlayState();
             loadAsDailyPuzzle = true;
+            dailyPuzzleDate = System.DateTime.UtcNow.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             LoadLevel(zeroBasedLevelIndex, false);
         }
 
@@ -313,6 +403,8 @@ namespace CatBlockPuzzle
 
             inputLocked = true;
             timer.StopLevelTimer();
+            int stars = CurrentStarCount;
+            AvnEvents.LevelCompleted(stars, Mathf.Max(avnBestBefore, stars), avnBestBefore);
             LevelFailStreak.Reset(session.levelNumber);
             StartCoroutine(WinSequence());
         }
@@ -336,6 +428,7 @@ namespace CatBlockPuzzle
                 progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + DailyPuzzle.BonusCoins);
                 progress.SaveCoins();
                 GameAnalytics.CurrencyEarned(DailyPuzzle.BonusCoins, GameAnalytics.EarnDailyPuzzle, progress.Coins);
+                AvnEvents.EconomyEarned(DailyPuzzle.BonusCoins, progress.Coins, EconomySource.level_reward_bonus, EconomyDetail.daily_puzzle);
                 awardedCoins += DailyPuzzle.BonusCoins;
             }
             float coinFlightDuration = awardedCoins > 0 ? fx.FlyCoins(awardedCoins, board.BoardCenterScreen()) : 0f;
@@ -381,6 +474,7 @@ namespace CatBlockPuzzle
             int cellCount = activeLevel != null ? activeLevel.ActiveCells.Count : 0;
             GameAnalytics.LevelFailed(reason, session.stats, timer.RemainingSeconds,
                 cellCount > 0 ? session.occupancy.Count / (float)cellCount : 0f, session.bestCombo);
+            AvnEvents.LevelFailed(AvnEvents.FailReasonFor(reason), reason);
             session.levelFailed = true;
             if (reason == "timeout" || reason == "out_of_hearts") LevelFailStreak.RecordFail(session.levelNumber);
             timer.timerRunning = false;
@@ -429,6 +523,7 @@ namespace CatBlockPuzzle
             if (session.dailyPuzzle) { GameSystem.Instance?.GoHome(); return; }
             if (levelNavigationTesting) { LoadNextLevel(); return; }
             if (meta.Progress != null && !meta.Progress.RecordSkip(levelIndex).Succeeded) return;
+            AvnEvents.LevelSkipping();
             GameAnalytics.LevelSkipped(session.levelFailed ? "fail_screen" : gates.LevelCompleteOpen ? "complete_screen" : "other");
             GameAnalytics.SetLevelStartSource(GameAnalytics.SourceSkip);
             meta.ResetOverlayState();

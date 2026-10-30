@@ -1,3 +1,4 @@
+using AVNEvents;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -340,6 +341,7 @@ namespace CatBlockPuzzle
 
         public void GoHome()
         {
+            AvnEvents.LevelLeavingHome();
             systemPaused = false;
             Time.timeScale = 1f;
             pauseMenu?.Hide();
@@ -392,7 +394,11 @@ namespace CatBlockPuzzle
             settingsMenu?.Hide();
         }
 
-        public void ShowNoInternet() => noInternet?.Show();
+        public void ShowNoInternet()
+        {
+            if (noInternet == null) return;
+            noInternet.Show();
+        }
 
         private void OnDestroy()
         {

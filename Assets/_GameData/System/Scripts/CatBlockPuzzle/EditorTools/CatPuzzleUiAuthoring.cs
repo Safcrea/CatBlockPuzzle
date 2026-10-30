@@ -646,7 +646,10 @@ namespace CatBlockPuzzle
             {
                 RectTransform cellRect = CreatePanel(state.Rect, "Cat Cell", state.Color).GetComponent<RectTransform>();
                 Image body = cellRect.GetComponent<Image>();
-                Sprite portrait = game.Mood.Portrait(CatMood.Neutral, state.AtlasIndex);
+                // The first cell wears the cat's face; the rest of the piece is its plain body blocks.
+                Sprite portrait = i == PieceState.HeadCellIndex
+                    ? game.Mood.Portrait(CatMood.Neutral, state.AtlasIndex)
+                    : game.Mood.Body(state.AtlasIndex);
                 if (portrait != null)
                 {
                     body.sprite = portrait;

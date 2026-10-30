@@ -1,3 +1,4 @@
+using AVNEvents;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -76,6 +77,7 @@ namespace CatBlockPuzzle
             HidePages();
             home?.Show();
             GameAnalytics.ScreenView("home");
+            AvnEvents.PageOpened(AvnScreen.main_menu);
             UseMusic(MusicContext.Menu);
         }
 
@@ -88,6 +90,7 @@ namespace CatBlockPuzzle
             shop.Show();
             UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("shop");
+            AvnEvents.PageOpened(AvnScreen.shop);
         }
 
         public void ShowDailyReward() => OpenDailyReward(autoOpened: false);
@@ -100,6 +103,7 @@ namespace CatBlockPuzzle
             dailyReward.Show();
             UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("daily_reward");
+            AvnEvents.PageOpened(AvnScreen.daily_gift, autoOpened);
             GameAnalytics.DailyRewardShown(dailyReward.AvailableDay, autoOpened);
             if (dailyReward.IsOpen) dailyRewardShownThisSession = true;
         }
@@ -112,11 +116,13 @@ namespace CatBlockPuzzle
                 paged.Show();
                 UseMusic(MusicContext.Menu);
                 GameAnalytics.ScreenView("levels");
+                AvnEvents.PageOpened(AvnScreen.level_selection);
                 return;
             }
             LevelSelectionScreen levels = ResolveLevelSelection();
             UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("levels");
+            AvnEvents.PageOpened(AvnScreen.level_selection);
             if (levels == null) { ShowPage(levelSelectionScreen); return; }
             HidePages();
             levels.Show();
@@ -134,12 +140,14 @@ namespace CatBlockPuzzle
             ShowPage(gameplayScreen);
             UseMusic(MusicContext.Gameplay);
             GameAnalytics.ScreenView("gameplay");
+            AvnEvents.GameplayOpened();
         }
         public void ShowCollection()
         {
             if (!HasCollection) { ShowComingSoon("Collection"); return; }
             ShowPage(collectionScreen);
             GameAnalytics.ScreenView("collection");
+            AvnEvents.PageOpened(AvnScreen.collection);
         }
 
         public void ShowRooms()
@@ -147,6 +155,7 @@ namespace CatBlockPuzzle
             if (!HasRooms) { ShowComingSoon("Rooms"); return; }
             ShowPage(roomsScreen);
             GameAnalytics.ScreenView("rooms");
+            AvnEvents.PageOpened(AvnScreen.rooms);
         }
 
         private void ShowStartupDailyReward()

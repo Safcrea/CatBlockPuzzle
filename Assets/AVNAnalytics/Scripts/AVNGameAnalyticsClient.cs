@@ -75,6 +75,8 @@ namespace AVNAnalytics
         internal string SessionId => sessionId;
         internal string LastStatus => lastStatus;
         internal int PendingCount => queue.Count;
+        internal int SessionNumber { get { lock (stateGate) return state.sessionNumber; } }
+        internal double SessionSeconds => ForegroundSeconds();
 
         internal AVNGameAnalyticsClient(AVNGameAnalyticsConfig config)
         {
@@ -178,6 +180,10 @@ namespace AVNAnalytics
             sb.Append(",\"app_version\":"); AVNGameAnalyticsJson.WriteString(sb, appVersion);
             sb.Append(",\"build\":"); AVNGameAnalyticsJson.WriteString(sb, build);
             sb.Append(",\"platform\":"); AVNGameAnalyticsJson.WriteString(sb, platform);
+            int standardVersion = AVNGameAnalytics.StandardVersion;
+            if (standardVersion > 0)
+                sb.Append(",\"standard\":\"").Append(AVNGameAnalytics.StandardName).Append("\",\"standard_version\":")
+                  .Append(standardVersion.ToString(CultureInfo.InvariantCulture));
             sb.Append('}');
             return sb.ToString();
         }
@@ -277,7 +283,6 @@ namespace AVNAnalytics
             {
                 { "session_number", (long)number },
                 { "environment", environment },
-                { "language", Application.systemLanguage.ToString() },
                 { "timezone_offset_minutes", (long)TimeZoneInfo.Local.GetUtcOffset(DateTime.Now).TotalMinutes },
                 { "device_model", SystemInfo.deviceModel },
                 { "os_version", SystemInfo.operatingSystem },

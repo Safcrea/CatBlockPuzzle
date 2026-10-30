@@ -1,3 +1,4 @@
+using AVNEvents;
 using System;
 using TMPro;
 using UnityEngine;
@@ -143,6 +144,10 @@ namespace CatBlockPuzzle
             GameAnalytics.CurrencyEarned(reward.coins, GameAnalytics.EarnDailyReward, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
             GameAnalytics.ItemEarned(PowerUpKind.Hint, reward.hintCount, GameAnalytics.EarnDailyReward);
             GameAnalytics.ItemEarned(PowerUpKind.Freeze, reward.freezeCount, GameAnalytics.EarnDailyReward);
+            AvnEvents.ScreenInteraction(AvnScreen.daily_gift, ScreenAction.claim, "day_" + dayNumber);
+            AvnEvents.EconomyEarned(reward.coins, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0, EconomySource.gift, EconomyDetail.daily_reward);
+            AvnEvents.PowerupObtained(PowerUpKind.Hint, reward.hintCount, PowerupSource.Gift);
+            AvnEvents.PowerupObtained(PowerUpKind.Freeze, reward.freezeCount, PowerupSource.Gift);
         }
 
         /// <summary>Called by the reward system after a claim succeeds, or while restoring its saved state.</summary>
@@ -193,6 +198,7 @@ namespace CatBlockPuzzle
         {
             ButtonSfx.PlayClick();
             GameAnalytics.DailyRewardDismissed(AvailableDay);
+            AvnEvents.ScreenInteraction(AvnScreen.daily_gift, ScreenAction.later);
             Close();
         }
 

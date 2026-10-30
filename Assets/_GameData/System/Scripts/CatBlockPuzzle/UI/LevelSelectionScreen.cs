@@ -359,6 +359,7 @@ namespace CatBlockPuzzle
             if (gameplay == null || !gameplay.IsLevelAvailable(index)) return;
             ButtonSfx.PlayClick();
             selectedLevel = index;
+            AVNEvents.AvnEvents.Navigation("select_level", "level_selection", index + 1);
             Refresh();
         }
         public void Refresh()
@@ -389,6 +390,8 @@ namespace CatBlockPuzzle
         }
         public void Play()
         {
+            if (gameplay == null || !gameplay.IsLevelAvailable(selectedLevel)) return;
+            AVNEvents.AvnEvents.Navigation("play_level", "level_selection", SelectedLevelNumber());
             ButtonSfx.PlayClick();
             GameAnalytics.SetLevelStartSource(GameAnalytics.SourceLevelSelect);
             GameSystem.Instance?.StartLevelNumber(SelectedLevelNumber());

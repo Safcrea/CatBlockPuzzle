@@ -1,3 +1,4 @@
+using AVNEvents;
 using System;
 using TMPro;
 using UnityEngine;
@@ -42,6 +43,7 @@ namespace CatBlockPuzzle
                 {
                     ButtonSfx.PlayClick();
                     GameAnalytics.ShopOfferTapped(index, offer.productId, offer.priceLabel != null ? offer.priceLabel.text : null);
+                    AvnEvents.ScreenInteraction(AvnScreen.shop, ScreenAction.buy, string.IsNullOrEmpty(offer.productId) ? "offer_" + index : offer.productId);
                     offer.purchaseRequested.Invoke();
                 };
                 offer.button.onClick.AddListener(purchaseActions[i]);

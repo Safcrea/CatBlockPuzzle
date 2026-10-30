@@ -163,8 +163,8 @@ namespace CatBlockPuzzle
                 bool blocked = !cell.active && activeLevel.BlockedCells.Contains(new Vector2Int(cell.row, cell.col));
                 if (blocked)
                 {
-                    // A cat food bowl sits in this grid slot: it pops in with the board but is not a board cell.
-                    cell.image.sprite = BoardMechanicArt.Bowl;
+                    // The stone obstacle pops in with the board but is not a playable cell.
+                    cell.image.sprite = BoardMechanicArt.BlockedTile;
                     cell.image.type = Image.Type.Simple;
                     cell.image.preserveAspect = true;
                     cell.image.color = Color.white;

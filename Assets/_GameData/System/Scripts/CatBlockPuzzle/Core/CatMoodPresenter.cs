@@ -60,10 +60,20 @@ namespace CatBlockPuzzle
 
             for (int i = 0; i < state.CatViews.Count; i++)
             {
-                if (state.CatViews[i].Portrait != null)
+                CatCellView view = state.CatViews[i];
+                if (view.Portrait == null)
                 {
-                    state.CatViews[i].Portrait.sprite = sprite;
+                    continue;
                 }
+
+                // Only the head cell wears the face; the generated rig has no head/body split, so it
+                // still changes mood on every cell.
+                if (view.Authored && i != PieceState.HeadCellIndex)
+                {
+                    continue;
+                }
+
+                view.Portrait.sprite = sprite;
             }
         }
 
@@ -73,6 +83,49 @@ namespace CatBlockPuzzle
             int index = Mathf.Abs(atlasIndex) % GameplayPresentationAssets.CatCount;
             Sprite requested = catPortraitSprites[(int)mood * GameplayPresentationAssets.CatCount + index];
             return requested != null ? requested : catPortraitSprites[index];
+        }
+
+        /// <summary>The plain block the cells of a piece other than its head draw.</summary>
+        public Sprite Body(int atlasIndex)
+        {
+            Sprite[] bodies = Assets.catBodySprites;
+            if (bodies == null || bodies.Length == 0)
+            {
+                return null;
+            }
+
+            return bodies[Mathf.Abs(atlasIndex) % bodies.Length];
+        }
+
+        /// <summary>
+        /// Gives a piece its authored tiles: the head on its first cell, the plain body on the rest.
+        /// Level prefabs bake one sprite per cell, so this re-skins them as a level loads.
+        /// </summary>
+        public void ApplyTiles(PieceState state)
+        {
+            if (state == null)
+            {
+                return;
+            }
+
+            Sprite head = Portrait(CatMood.Neutral, state.AtlasIndex);
+            Sprite body = Body(state.AtlasIndex);
+            if (head == null || body == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < state.CatViews.Count; i++)
+            {
+                CatCellView view = state.CatViews[i];
+                if (!view.Authored || view.Portrait == null)
+                {
+                    continue;
+                }
+
+                view.Portrait.sprite = i == PieceState.HeadCellIndex ? head : body;
+                view.Portrait.color = Color.white;
+            }
         }
     }
 }
