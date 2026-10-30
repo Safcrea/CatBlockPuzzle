@@ -411,6 +411,7 @@ namespace CatBlockPuzzle
 
         private IEnumerator WinSequence()
         {
+            if (session.dailyPuzzle) { yield return DailyPuzzleWinSequence(); yield break; }
             // The piece that completed the board already turned happy on placement,
             // and stays that way while input is locked; other pieces keep their own mood.
             for (int i = 0; i < session.pieces.Count; i++)
@@ -442,6 +443,58 @@ namespace CatBlockPuzzle
             StartCoroutine(fx.PopTransform(Hud.coinText.rectTransform.parent as RectTransform, 1.08f));
             meta.ConfigureMetaWinPresentation(awardedCoins);
             GameSystem.Instance?.ShowLevelComplete(activeLevel.Title, result.Stars, awardedCoins, result.BestStars, session.bestCombo);
+        }
+
+        private InfoPopup dailyRewardPopup;
+
+        // The Daily Puzzle ends with a small reward popup (one of coins, a Hint or a Freeze), then Home. It stays locked
+        // until the next UTC day because the day is recorded as won here.
+        private IEnumerator DailyPuzzleWinSequence()
+        {
+            for (int i = 0; i < session.pieces.Count; i++) StartCoroutine(fx.PopTransform(session.pieces[i].Rect, 1.08f));
+            fx.SpawnBoardBurst(session.boardRoot);
+            haptics.PlayLevelComplete();
+            SoundManager.EnsureInstance().PlaySfxWithMusicDuck("Win");
+            yield return new WaitForSecondsRealtime(0.9f);
+
+            if (!DailyPuzzle.TryClaimBonus(System.DateTime.UtcNow))
+            {
+                GameSystem.Instance?.GoHome();
+                yield break;
+            }
+
+            DailyPuzzle.Reward reward = DailyPuzzle.PickReward();
+            Sprite icon;
+            string line;
+            if (reward == DailyPuzzle.Reward.Coins)
+            {
+                int coins = DailyPuzzle.CoinReward;
+                progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + coins);
+                progress.SaveCoins();
+                GameAnalytics.CurrencyEarned(coins, GameAnalytics.EarnDailyPuzzle, progress.Coins);
+                AvnEvents.EconomyEarned(coins, progress.Coins, EconomySource.level_reward_bonus, EconomyDetail.daily_puzzle);
+                Hud.coinText.text = progress.Coins.ToString();
+                icon = Hud.RewardCoinSprite;
+                line = "+" + coins + " coins";
+            }
+            else
+            {
+                PowerUpKind kind = reward == DailyPuzzle.Reward.Hint ? PowerUpKind.Hint : PowerUpKind.Freeze;
+                int amount = DailyPuzzle.PowerUpReward;
+                PowerUpInventory.Add(kind, amount);
+                GameAnalytics.ItemEarned(kind, amount, GameAnalytics.EarnDailyPuzzle);
+                Hud.RefreshPowerUpCounts();
+                icon = Hud.GetPowerUpSprite(kind);
+                line = "+" + amount + (kind == PowerUpKind.Hint ? " Hint" : " Freeze");
+            }
+
+            if (dailyRewardPopup == null && Hud.Canvas != null)
+            {
+                dailyRewardPopup = InfoPopup.Create(Hud.Canvas.transform);
+                if (dailyRewardPopup != null) dailyRewardPopup.Closed += () => GameSystem.Instance?.GoHome();
+            }
+            if (dailyRewardPopup == null) { GameSystem.Instance?.GoHome(); yield break; }
+            dailyRewardPopup.Show("Daily Reward!", icon, () => line);
         }
 
         private void ReportProgressMilestones(int chapterBefore, bool enteredEndless)

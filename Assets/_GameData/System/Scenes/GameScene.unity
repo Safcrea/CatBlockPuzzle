@@ -153685,6 +153685,8 @@ MonoBehaviour:
   freezeUnlockLevel: 13
   rotateUnlockLevel: 21
   freeOnUnlock: 2
+  rewardCoinSprite: {fileID: 21300000, guid: 9c35f7c8197f6174693ae5a3488d1a64, type: 3}
+  timerTutorialIcon: {fileID: 21300000, guid: ef0a4be1388fdd747b172de3bc67907a, type: 2}
   lockedMaterial: {fileID: 2100000, guid: fb950cc7f53662845a7005abf8df6ae3, type: 2}
   purchasePopupPrefab: {fileID: 1000, guid: 2f509049234a42b3b1f24d3a64be71c9, type: 3}
 --- !u!114 &2116504856
@@ -155965,6 +155967,8 @@ MonoBehaviour:
   referenceUi: {fileID: 9700000100}
   noInternet: {fileID: 9700000098}
   dailyPuzzleUnlockAfterLevel: 10
+  dailyPuzzleCoinReward: 50
+  dailyPuzzlePowerUpReward: 1
   unlockAllLevels: 0
   showLevelTestButtons: 0
   levelTestButtons: {fileID: 1196261877}

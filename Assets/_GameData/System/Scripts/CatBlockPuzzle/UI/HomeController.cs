@@ -128,7 +128,7 @@ namespace CatBlockPuzzle
             Graphic graphic = dailyPuzzleButton != null ? dailyPuzzleButton.targetGraphic : null;
             Sprite picture = graphic is Image image ? image.sprite : null;
             if (locked)
-                infoPopup.Show("Daily Puzzle", picture, () => "Win level " + DailyPuzzle.UnlockAfterLevel + "\nto unlock", greyscaleMaterial);
+                infoPopup.Show("Daily Puzzle", picture, () => "Unlocked after\nlevel " + DailyPuzzle.UnlockAfterLevel, greyscaleMaterial);
             else
                 infoPopup.Show("Come back soon!", picture, () => "Next puzzle in\n" + DailyPuzzle.FormatCountdown(DailyPuzzle.TimeUntilNext(DateTime.UtcNow)), greyscaleMaterial);
         }

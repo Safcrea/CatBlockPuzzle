@@ -76,6 +76,12 @@ namespace CatBlockPuzzle
         [Tooltip("Free Hints / Freezes granted when each one unlocks (the HUD shows exactly this number). The unlock tutorial's demo tap costs nothing.")]
         [SerializeField, Min(0)] private int freeOnUnlock = 2;
         internal int FreeOnUnlock => freeOnUnlock;
+        [Tooltip("Coin picture used by popups that pay coins (the Daily Puzzle reward).")]
+        [SerializeField] private Sprite rewardCoinSprite;
+        internal Sprite RewardCoinSprite => rewardCoinSprite;
+        [Tooltip("Clock picture shown by the timer tutorial.")]
+        [SerializeField] private Sprite timerTutorialIcon;
+        internal Sprite TimerTutorialIcon => timerTutorialIcon;
         [Tooltip("Applied to the images of a locked power-up button (Cat Block Puzzle/UI Grayscale).")]
         [SerializeField] private Material lockedMaterial;
         private InfoPopup lockedInfo;

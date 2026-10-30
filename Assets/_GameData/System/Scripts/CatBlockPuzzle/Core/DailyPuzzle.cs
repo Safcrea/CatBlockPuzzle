@@ -10,6 +10,17 @@ namespace CatBlockPuzzle
     public static class DailyPuzzle
     {
         public const int BonusCoins = 50;
+        public enum Reward { Coins, Hint, Freeze }
+
+        /// <summary>Coins paid when the daily reward is coins. Set in the Inspector on <see cref="GameSystem"/>.</summary>
+        public static int CoinReward { get; set; } = BonusCoins;
+
+        /// <summary>Hints or Freezes paid when the daily reward is a power-up. Set on <see cref="GameSystem"/>.</summary>
+        public static int PowerUpReward { get; set; } = 1;
+
+        /// <summary>One of coins, Hint or Freeze, each equally likely.</summary>
+        public static Reward PickReward() => (Reward)UnityEngine.Random.Range(0, 3);
+
         /// <summary>
         /// The 1-based level that must be won before the button opens (0 = always open).
         /// Set in the Inspector on <see cref="GameSystem"/>; this is the live value.
