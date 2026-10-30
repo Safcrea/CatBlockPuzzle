@@ -26,6 +26,7 @@ namespace CatBlockPuzzle
 
         private readonly PuzzleSession session;
         private GameObject overlay;
+        private bool cancelling;
 
         public MechanicIntroPresenter(IGameplayContext context, PuzzleSession session) : base(context)
         {
@@ -46,36 +47,37 @@ namespace CatBlockPuzzle
             foreach (CellLockRule rule in level.LockedCells.Values) if (!rule.IsKey) hasCounterOrNeighbourLock = true;
 
             if (hasCounterOrNeighbourLock)
-                yield return Show(Padlocks, "New: Padlocks!", CellLockArt.Padlock,
-                    "Locked spots can't take a cat yet.\nA number: place that many cats first.\nNo number: fill the spots beside it.");
+                yield return Show(Padlocks, "Padlocks!", CellLockArt.Padlock,
+                    "Place more cats to open locked spots.");
             if (level.HasKeyLocks)
-                yield return Show(KeyCats, "New: Key cats!", CellLockArt.Key,
-                    "A padlock with a cat face opens\nwhen that cat is placed.\nPlace the cat with the key first!");
+                yield return Show(KeyCats, "Key cats!", CellLockArt.Key,
+                    "Place the key cat to open its lock.");
             if (level.HasZones)
-                yield return Show(ColourZones, "New: Colour spots!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 3 ? Assets.catPortraitSprites[3] : null,
-                    "A tinted spot shows a cat's face.\nOnly that cat can sit there.");
+                yield return Show(ColourZones, "Colour spots!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 3 ? Assets.catPortraitSprites[3] : null,
+                    "Only the matching cat fits a tinted spot.");
             if (level.HasSpares)
-                yield return Show(SpareCats, "New: A spare cat!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 5 ? Assets.catPortraitSprites[5] : null,
-                    "One cat on the shelf doesn't belong.\nFill the board to win, even with\na cat left over!");
+                yield return Show(SpareCats, "Spare cat!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 5 ? Assets.catPortraitSprites[5] : null,
+                    "One cat is extra. Fill the board to win.");
             if (level.HasHearts)
-                yield return Show(Hearts, "New: Mistake hearts!", HeartArt.Heart,
-                    "You have " + level.Hearts + " hearts.\nA wrong drop costs one heart.\nLose them all and the level ends.");
+                yield return Show(Hearts, "Hearts!", HeartArt.Heart,
+                    "A wrong drop costs a heart. You have " + level.Hearts + ".");
             if (level.HasFixedPieces)
-                yield return Show(FixedCat, "New: A napping cat!", BoardMechanicArt.Pin,
-                    "This cat is already napping in its spot.\nBuild around it!");
+                yield return Show(FixedCat, "Napping cat!", BoardMechanicArt.Pin,
+                    "This cat stays put. Build around it.");
             if (level.HasFog)
-                yield return Show(Fog, "New: Foggy spots!", BoardMechanicArt.Cloud,
-                    "Foggy spots hide part of the board.\nPlace a cat next to them\nto clear the fog.");
+                yield return Show(Fog, "Foggy spots!", BoardMechanicArt.Cloud,
+                    "Place a cat nearby to clear the fog.");
             if (level.HasMoves)
-                yield return Show(Moves, "New: Drop limit!", Assets.starSprite,
-                    "Fewer drops, more stars!\nSolve it in " + level.Moves + " drops for 3 stars.");
+                yield return Show(Moves, "Drop limit!", Assets.starSprite,
+                    "Win in " + level.Moves + " drops for 3 stars.");
             if (level.HasTrayWindow)
-                yield return Show(Shelf, "New: Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
-                    "Only " + level.TrayWindow + " cats fit on the shelf.\nPlace one and the next arrives,\nso plan the order!");
+                yield return Show(Shelf, "Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
+                    "Only " + level.TrayWindow + " cats show at a time.");
         }
 
         public void Cancel()
         {
+            cancelling = true;
             AvnEvents.TutorialsInterrupted("feature_");
             if (overlay != null)
             {
@@ -91,26 +93,29 @@ namespace CatBlockPuzzle
             if (PlayerPrefs.GetInt(key, 0) != 0) yield break;
             while (GameSystem.Instance != null && (GameSystem.Instance.IsPaused || GameSystem.Instance.IsSettingsOpen)) yield return null;
 
-            // The card is the MechanicIntroPopup prefab, styled like the power-up purchase popup.
-            MechanicIntroPopup popup = MechanicIntroPopup.Create((RectTransform)Hud.Canvas.transform, Hud.levelText != null ? Hud.levelText.font : null);
+            // The same small cat-panel popup the daily puzzle uses: a title, one picture and one short line.
+            InfoPopup popup = InfoPopup.Create(Hud.Canvas.transform);
             if (popup == null)
             {
-                Debug.LogWarning("MechanicIntroPopup prefab missing; skipping the '" + mechanic + "' intro.", Host);
+                Debug.LogWarning("InfoPopup prefab missing; skipping the '" + mechanic + "' intro.", Host);
                 yield break;
             }
 
             overlay = popup.gameObject;
             bool finished = false;
+            cancelling = false;
             GameAnalytics.MechanicIntroShown(mechanic);
             AvnEvents.TutorialShown(AvnEvents.FeatureTutorial(mechanic));
-            popup.Show(heading, message, iconSprite, () =>
+            popup.Closed += () =>
             {
+                if (cancelling) return; // the level changed under the card, so the player has not seen it yet
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
                 GameAnalytics.MechanicIntroDismissed(mechanic);
                 AvnEvents.TutorialCompleted(AvnEvents.FeatureTutorial(mechanic));
                 finished = true;
-            });
+            };
+            popup.Show(heading, iconSprite, () => message);
             while (!finished && overlay != null) yield return null;
             Cancel();
         }

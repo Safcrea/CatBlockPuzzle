@@ -61,6 +61,13 @@ namespace CatBlockPuzzle
             okButton.onClick.AddListener(Close);
             closeButton.onClick.AddListener(Close);
             foreach (Text text in GetComponentsInChildren<Text>(true)) text.raycastTarget = false;
+            // A longer line wraps inside the panel and shrinks a little before it can spill out of it.
+            message.horizontalOverflow = HorizontalWrapMode.Wrap;
+            message.verticalOverflow = VerticalWrapMode.Truncate;
+            message.alignment = TextAnchor.MiddleCenter;
+            message.resizeTextForBestFit = true;
+            message.resizeTextMaxSize = Mathf.Max(message.fontSize, 24);
+            message.resizeTextMinSize = 18;
             gameObject.SetActive(false);
             return true;
         }
