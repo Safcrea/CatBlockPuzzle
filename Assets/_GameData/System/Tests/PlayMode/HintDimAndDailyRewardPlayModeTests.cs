@@ -291,5 +291,37 @@ namespace CatBlockPuzzle.Tests
             Assert.That(daily.Available, Is.EqualTo(0));
             Assert.That(Coins, Is.GreaterThanOrEqualTo(coins));
         }
+
+        private static GameObject Countdown() =>
+            UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None).FirstOrDefault(x => x.name == "Next Reward Countdown")?.gameObject;
+
+        [UnityTest]
+        public IEnumerator DailyReward_FirstSession_ShowsNoTimer()
+        {
+            PlayerPrefs.SetString("CatBlockPuzzle.DailyReward.State.v1", "{\"version\":1,\"firstSessionPending\":true,\"hintCount\":10,\"freezeCount\":10,\"rotateCount\":10}");
+            yield return ShowDaily();
+            Assert.That(Open_Daily().IsOpen, Is.True);
+            Assert.That(Countdown(), Is.Null, "A player who has never claimed must not see a countdown.");
+            var label = (Component)Get(Open_Daily().Day(1), "dayLabel");
+            Assert.That(label.gameObject.activeSelf, Is.True, "Day 1 keeps its 'Day 1' label.");
+        }
+
+        [UnityTest]
+        public IEnumerator DailyReward_TimerAfterAClaim_SitsExactlyWhereTheDayLabelIs()
+        {
+            yield return ShowDaily();
+            Invoke(Open_Daily().Screen, "RequestClaim", 1);
+            yield return Settle();
+            yield return ShowDaily();
+            GameObject timer = Countdown();
+            Assert.That(timer, Is.Not.Null, "The countdown should show after claiming.");
+            var clock = timer.GetComponent<RectTransform>();
+            var dayLabel = (Component)Get(Open_Daily().Day(2), "dayLabel");
+            var rect = dayLabel.GetComponent<RectTransform>();
+            Assert.That(clock.parent, Is.EqualTo(rect.parent));
+            Assert.That(clock.anchoredPosition, Is.EqualTo(rect.anchoredPosition));
+            Assert.That(clock.sizeDelta, Is.EqualTo(rect.sizeDelta));
+            Assert.That(clock.anchorMin, Is.EqualTo(rect.anchorMin));
+        }
     }
 }

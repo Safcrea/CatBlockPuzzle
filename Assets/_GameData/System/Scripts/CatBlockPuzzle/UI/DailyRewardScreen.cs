@@ -247,7 +247,8 @@ namespace CatBlockPuzzle
             if (bonusCoinsLabel != null) bonusCoinsLabel.text = bonus.coins.ToString();
             if (bonusHintLabel != null) bonusHintLabel.text = "x" + bonus.hintCount;
             if (bonusFreezeLabel != null) bonusFreezeLabel.text = "x" + bonus.freezeCount;
-            if (claimedToday && nextView != null) StartCountdown(nextView);
+            // Nothing claimed yet (a brand-new player's first session offers no reward) means there is nothing to count down to.
+            if (claimedToday && savedDay > 0 && nextView != null) StartCountdown(nextView);
             else StopCountdown();
         }
 
@@ -296,20 +297,16 @@ namespace CatBlockPuzzle
             TMP_Text template = day.dayLabel != null ? day.dayLabel : day.amountLabel;
             if (template == null || day.cardImage == null) return null;
 
-            // Sits in the band above the reward icon, where the day label normally is, centred on the card.
-            TMP_Text label = Instantiate(template, day.cardImage.transform);
+            // A clone of the day label in the same place, so the clock sits exactly where "Day N" normally is.
+            TMP_Text label = Instantiate(template, template.transform.parent, false);
             label.name = "Next Reward Countdown";
+            label.transform.SetSiblingIndex(template.transform.GetSiblingIndex() + 1);
             label.gameObject.SetActive(true);
-            RectTransform rect = label.rectTransform;
-            rect.anchorMin = new Vector2(0f, 1f);
-            rect.anchorMax = new Vector2(1f, 1f);
-            rect.pivot = new Vector2(0.5f, 1f);
-            rect.anchoredPosition = new Vector2(0f, -14f);
-            rect.sizeDelta = new Vector2(-16f, 44f);
             label.alignment = TextAlignmentOptions.Center;
             label.enableAutoSizing = true;
-            label.fontSizeMin = 16f;
-            label.fontSizeMax = 32f;
+            label.fontSizeMax = template.fontSize;
+            label.fontSizeMin = Mathf.Min(12f, template.fontSize);
+            label.textWrappingMode = TextWrappingModes.NoWrap;
             label.raycastTarget = false;
             label.text = string.Empty;
             return label;
