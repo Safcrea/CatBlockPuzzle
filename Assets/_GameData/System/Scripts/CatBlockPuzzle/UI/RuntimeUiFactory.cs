@@ -21,7 +21,7 @@ namespace CatBlockPuzzle
             Stretch(root);
             Image shade = root.GetComponent<Image>();
             if (shade == null) shade = root.gameObject.AddComponent<Image>();
-            shade.color = new Color(0.16f, 0.1f, 0.08f, 0.5f);
+            shade.color = new Color(0.05f, 0.03f, 0.02f, 0.94f);
             root.SetAsLastSibling();
         }
 
