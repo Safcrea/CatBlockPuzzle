@@ -184,6 +184,8 @@ namespace CatBlockPuzzle
             freezeUsedThisAttempt = true;
             freezeRemainingSeconds = Mathf.Max(.1f, config.FreezeDurationSeconds);
             Hud?.SetFreezeAvailable(false);
+            if (Hud != null && Hud.timerPanel != null && PlayerPrefs.GetInt(PuzzleSaveKeys.SavedReducedMotion, 0) == 0)
+                UiBurst.Play(Host, Hud.timerPanel, Vector2.zero, new Color(0.6f, 0.88f, 1f, 1f), 12, 140f, 0.6f);
             if (timerPulseRoutine != null) { StopCoroutine(timerPulseRoutine); timerPulseRoutine = null; }
             if (timerText != null) timerText.rectTransform.localScale = Vector3.one;
             UpdateTimerDisplay();

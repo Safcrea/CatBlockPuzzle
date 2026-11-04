@@ -51,3 +51,10 @@ Tick these off on a real phone (and, if you can, a tablet). Editor screenshots c
 - [ ] Hammer sounds: arm, strike thud, knocked-cat meow, back sound when you put it away; sound off silences all of them.
 - [ ] Level 1 (clear the tutorial save first): the card above the board reads "Give this cat a home / Drag the glowing cat onto the green spaces." Text is sharp, nothing overlaps the board or the shelf. Step 2 and the "Green means it fits!" line while dragging look the same.
 - [ ] "Placed cats can move!" tip bubble is readable and stays on screen when the cat is at the edge.
+
+## Shop, polish and Settings "?"
+- [ ] Shop: Hint, Freeze and Hammer cards sit in one row, text readable, Buy buttons all tappable; buying a Hammer adds one (count on the HUD after level 8); with too few coins you get "Not enough coins".
+- [ ] Starter bundle line reads in full, no "...".
+- [ ] Use Hint, Freeze and Hammer: the button squashes and sparks fly; Freeze sprays ice over the timer; Hint sparks on the pointed spot. With Reduced Motion on, none of that moves.
+- [ ] Hint and Freeze unlock tutorials (levels 4 and 13): the big icon is sharp, not blurry.
+- [ ] Settings: the blue "?" button sits left of the red close button, taps it, popup says "Tutorials are back!"; then level 1 shows its walkthrough again and new power-ups re-introduce themselves.

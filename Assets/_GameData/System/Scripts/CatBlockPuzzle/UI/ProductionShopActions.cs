@@ -12,6 +12,8 @@ namespace CatBlockPuzzle
         [SerializeField] private TMP_Text hintQuantity;
         [SerializeField] private TMP_Text freezePrice;
         [SerializeField] private TMP_Text freezeQuantity;
+        [SerializeField] private TMP_Text hammerPrice;
+        [SerializeField] private TMP_Text hammerQuantity;
         [Header("Starter Bundle")]
         [SerializeField] private TMP_Text starterContents;
         [SerializeField] private TMP_Text starterPrice;
@@ -37,6 +39,9 @@ namespace CatBlockPuzzle
             offer = config.GetOffer(PowerUpKind.Freeze);
             if (freezePrice != null) freezePrice.text = offer.coinPrice + " coins";
             if (freezeQuantity != null) freezeQuantity.text = "x" + offer.quantity + " Freeze";
+            offer = config.GetOffer(PowerUpKind.Hammer);
+            if (hammerPrice != null) hammerPrice.text = offer.coinPrice + " coins";
+            if (hammerQuantity != null) hammerQuantity.text = "x" + offer.quantity + " Hammer";
             RefreshBundleAndPacks(config);
         }
 
@@ -94,6 +99,7 @@ namespace CatBlockPuzzle
         }
         public void BuyHint() => Buy(PowerUpKind.Hint, "Hints");
         public void BuyFreeze() => Buy(PowerUpKind.Freeze, "Freezes");
+        public void BuyHammer() => Buy(PowerUpKind.Hammer, "Hammers");
         private void Buy(PowerUpKind kind, string plural)
         {
             var system = GameSystem.Instance;

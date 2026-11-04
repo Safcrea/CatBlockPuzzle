@@ -53,9 +53,20 @@
 - The "Placed cats can move!" tip had the same problem (22 pt text in a small box, shrunk to 16): now a wider bubble with fixed 30 pt text, kept on screen near the edges.
 - The message pill (stuck nudge, Hammer hints) has a bigger box and a 30 pt floor instead of 20 pt.
 
+### Shop screen, power-up polish and more tutorial work
+
+- **Shop:** new Hammer Pack card (150 coins, "x1 Hammer") next to Hint and Freeze, with matching art (`HammerPackCard.png`), its own Buy button wired through `ShopScreen` and `ProductionShopActions.BuyHammer`. The three cards now sit in one row (smaller, 326 wide) because two columns would not leave room for a third row on screen. The starter bundle line shrinks to fit ("3 Hints · 2 Freezes · 1 Hammer") instead of ending in "...".
+- **Power-up polish:** using Hint, Freeze or Rotate punches the button (squash and stretch) and throws sparks in the power-up's colour; arming the Hammer does the same. Freeze also sprays ice sparks over the timer; a Hint pops gold sparks on the spot it points at. All of it is skipped with Reduced Motion.
+- **Sharper tutorial icons:** the power-up unlock tutorial showed the Hint and Freeze icons (about 120 px and 128 px wide) at 230 units, a roughly 2.3x stretch that looked blurry. They now use 2x Lanczos-resampled versions (`DRP_Hint_icon_hd`, `DRP_Freeze_icon_hd`), which the theme points at.
+- **Settings "?" button:** a round "?" next to the close button makes every tutorial and intro card show again (`TutorialReset.ResetAll`), then confirms with a small popup. Level 1's walkthrough shows the next time level 1 is opened. Covered by `TutorialResetTests`.
+
+### Test status of the shop / polish / Settings "?" batch
+
+- Compiles cleanly. The Unity editor stopped answering commands before the edit-mode suite (last full run: 139 of 139, before this batch) and the random-play bot could be rerun, so this batch is **untested**, including the new `TutorialResetTests`. The "?" button itself was clicked in the editor and cleared every seen-flag; the shop screen was checked in a rendered frame.
+
 ### Still to do
 
-- A "How to play" replay button in Settings (tutorials can only be replayed by clearing saves for now).
+- Checking all of the above on a phone and tablet.
 
 ### Verify on a phone
 

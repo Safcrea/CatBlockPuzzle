@@ -13,11 +13,13 @@ namespace CatBlockPuzzle
         private readonly BoardController board;
         private readonly MovePieceTip tip;
         private readonly CellLockController locks;
+        private readonly FxSpawner fx;
         private Coroutine hintRoutine;
         private PieceState lastHinted;
 
-        public HintPresenter(IGameplayContext context, PuzzleSession session, BoardController board, MovePieceTip tip, CellLockController locks) : base(context)
+        public HintPresenter(IGameplayContext context, PuzzleSession session, BoardController board, MovePieceTip tip, CellLockController locks, FxSpawner fx) : base(context)
         {
+            this.fx = fx;
             this.locks = locks;
             this.session = session;
             this.board = board;
@@ -42,9 +44,20 @@ namespace CatBlockPuzzle
             {
                 lastHinted = hinted;
                 PuzzleAudio.Play(AudioEvents.HintShow);
+                SparkleSpot(hinted);
                 hintRoutine = StartCoroutine(HintRoutine(hinted, reveal));
             }
             return hinted != null;
+        }
+
+        // A few gold sparks pop off the spot the hint points at, so the eye lands there before the pulse starts.
+        private void SparkleSpot(PieceState state)
+        {
+            RectTransform boardRoot = session.boardRoot;
+            if (boardRoot == null || state.Solution.Cells.Length == 0) return;
+            CellOffset first = state.Solution.Cells[0];
+            Vector2 local = board.BoardAnchoredToLocal(board.CellPosition(state.Solution.SolutionRow + first.Row, state.Solution.SolutionCol + first.Col));
+            fx.SpawnPawBurst(boardRoot, local, 6, GoldColor);
         }
 
         // A hint is only useful when its spot can take the cat right now, so spots already covered by another cat

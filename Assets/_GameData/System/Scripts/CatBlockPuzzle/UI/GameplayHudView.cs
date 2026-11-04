@@ -269,6 +269,36 @@ namespace CatBlockPuzzle
                 countText.text = state == PowerUpLock.Level ? "Lv " + UnlockLevelOf(kind) : "No timer";
             }
         }
+        /// <summary>A power-up was just used: its button punches and throws a few sparks in the power-up's colour.</summary>
+        internal void PlayPowerUpUsed(PowerUpKind kind)
+        {
+            Button button = PowerUpButton(kind);
+            if (button == null || !button.gameObject.activeInHierarchy) return;
+            if (PlayerPrefs.GetInt("CatBlockPuzzle.Settings.ReducedMotion", 0) != 0) return;
+            var rect = (RectTransform)button.transform;
+            StartCoroutine(PunchButton(rect));
+            Color color = kind == PowerUpKind.Freeze ? new Color(0.55f, 0.85f, 1f, 1f)
+                : kind == PowerUpKind.Hammer ? new Color(1f, 0.72f, 0.3f, 1f)
+                : kind == PowerUpKind.Rotate ? new Color(0.5f, 0.75f, 1f, 1f) : new Color(1f, 0.9f, 0.45f, 1f);
+            if (rect.parent is RectTransform parent) UiBurst.Play(this, parent, rect.anchoredPosition, color, 10, 130f, 0.5f);
+        }
+
+        private System.Collections.IEnumerator PunchButton(RectTransform rect)
+        {
+            Vector3 rest = Vector3.one;
+            float t = 0f;
+            const float seconds = 0.32f;
+            while (t < seconds && rect != null)
+            {
+                t += Time.unscaledDeltaTime;
+                float k = Mathf.Clamp01(t / seconds);
+                float squash = Mathf.Sin(k * Mathf.PI);
+                rect.localScale = new Vector3(1f + 0.18f * squash, 1f - 0.12f * squash, 1f);
+                yield return null;
+            }
+            if (rect != null) rect.localScale = rest;
+        }
+
         private PowerUpNudge nudge;
         private MenuAttentionPulse nudgedPulse;
 

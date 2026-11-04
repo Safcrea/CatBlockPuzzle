@@ -171,7 +171,7 @@ namespace CatBlockPuzzle
             combo = new ComboTracker(this, session, fx, space, settings);
             feedback = new PlacementFeedback(this, session, fx, haptics, space, board, mood, combo, settings);
             tip = new MovePieceTip(this, session, space, board, settings);
-            hint = new HintPresenter(this, session, board, tip, locks);
+            hint = new HintPresenter(this, session, board, tip, locks, fx);
             theme = new ThemePresenter(this, session);
             drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates, locks);
             toast = new GameplayToast(this);
