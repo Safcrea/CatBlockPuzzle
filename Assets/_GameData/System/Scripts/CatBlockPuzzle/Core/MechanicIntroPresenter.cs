@@ -59,9 +59,7 @@ namespace CatBlockPuzzle
             if (level.HasSpares)
                 yield return Show(SpareCats, "Spare cat!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 5 ? Assets.catPortraitSprites[5] : null,
                     "One cat is extra. Fill the board to win.");
-            if (level.HasHearts)
-                yield return Show(Hearts, "Hearts!", HeartArt.Heart,
-                    "A wrong drop costs a heart. You have " + level.Hearts + ".");
+            // Hearts have no card: MistakeHearts points at the row itself (see PointOutIfNew), so play is never held up.
             if (level.HasFixedPieces)
                 yield return Show(FixedCat, "Napping cat!", BoardMechanicArt.Pin,
                     "This cat stays put. Build around it.");

@@ -33,14 +33,5 @@ namespace CatBlockPuzzle.Tests
         public void WithoutAHint_AHammerStillHelps() =>
             Assert.That(StuckAdvisor.Choose(new StuckAdvisor.Facts { HammerReady = true }), Is.EqualTo(PowerUpKind.Hammer));
 
-        [Test]
-        public void Messages_NameTheRightPowerUp()
-        {
-            Assert.That(StuckAdvisor.MessageFor(PowerUpKind.Hint, true, false), Does.Contain("Hint"));
-            Assert.That(StuckAdvisor.MessageFor(PowerUpKind.Hint, false, false), Does.Contain("Hint"));
-            Assert.That(StuckAdvisor.MessageFor(PowerUpKind.Hammer, true, true), Does.Contain("Padlock"));
-            Assert.That(StuckAdvisor.MessageFor(PowerUpKind.Hammer, true, false), Does.Contain("Hammer"));
-            Assert.That(StuckAdvisor.MessageFor(PowerUpKind.Freeze, true, false), Does.Contain("Freeze"));
-        }
     }
 }

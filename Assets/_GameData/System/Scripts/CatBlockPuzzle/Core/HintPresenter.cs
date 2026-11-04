@@ -39,13 +39,13 @@ namespace CatBlockPuzzle
             }
 
             StopHint();
-            PieceState hinted = PickHintTarget();
+            PieceState hinted = PickHintTarget(out List<PieceState> blockers);
             if (hinted != null)
             {
                 lastHinted = hinted;
                 PuzzleAudio.Play(AudioEvents.HintShow);
                 SparkleSpot(hinted);
-                hintRoutine = StartCoroutine(HintRoutine(hinted, reveal));
+                hintRoutine = StartCoroutine(HintRoutine(hinted, reveal, blockers));
             }
             return hinted != null;
         }
@@ -63,8 +63,9 @@ namespace CatBlockPuzzle
         // A hint is only useful when its spot can take the cat right now, so spots already covered by another cat
         // (the player may have filled the board a different valid way) are skipped. When several cats qualify the
         // hint moves on to the next one instead of repeating the previous cat every time.
-        private PieceState PickHintTarget()
+        private PieceState PickHintTarget(out List<PieceState> blockers)
         {
+            blockers = null;
             List<PieceState> fitting = new List<PieceState>();
             for (int i = 0; i < pieces.Count; i++)
             {
@@ -92,7 +93,41 @@ namespace CatBlockPuzzle
                 if (state.Row == state.Solution.SolutionRow && state.Col == state.Solution.SolutionCol && !state.IsRotated) continue;
                 if (SolutionSpotIsFree(state, state)) return state;
             }
+
+            // Near the end every spot can be held by a cat that landed in the wrong place. A hint must still say something:
+            // show the next cat's spot and pulse the cats sitting on it, so the player knows what to move.
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState state = pieces[i];
+                if (state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
+                if (state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
+                List<PieceState> holding = PiecesOnSpot(state);
+                if (holding.Count > 0) { blockers = holding; return state; }
+            }
+
+            // Everything is on the board but a cat is off its own spot: point at that cat and where it belongs.
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState state = pieces[i];
+                if (!state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
+                if (state.Row != state.Solution.SolutionRow || state.Col != state.Solution.SolutionCol || state.IsRotated) return state;
+            }
             return null;
+        }
+
+        // The landed cats that sit on any cell of this cat's spot.
+        private List<PieceState> PiecesOnSpot(PieceState state)
+        {
+            var found = new List<PieceState>();
+            CellOffset[] cells = state.Solution.Cells;
+            for (int c = 0; c < cells.Length; c++)
+            {
+                Vector2Int coord = new Vector2Int(state.Solution.SolutionRow + cells[c].Row, state.Solution.SolutionCol + cells[c].Col);
+                if (!session.occupancy.TryGetValue(coord, out string holderId)) continue;
+                for (int i = 0; i < pieces.Count; i++)
+                    if (pieces[i] != state && pieces[i].Placed && pieces[i].Definition.Id == holderId && !found.Contains(pieces[i])) found.Add(pieces[i]);
+            }
+            return found;
         }
 
         private bool SolutionSpotIsFree(PieceState state, PieceState ignoring = null)
@@ -118,7 +153,7 @@ namespace CatBlockPuzzle
             return false;
         }
 
-        private IEnumerator HintRoutine(PieceState state, HintReveal reveal)
+        private IEnumerator HintRoutine(PieceState state, HintReveal reveal, List<PieceState> blockers)
         {
             List<Image> hintedCells = new List<Image>();
             CellOffset[] cells = state.Solution.Cells;
@@ -139,6 +174,9 @@ namespace CatBlockPuzzle
                 elapsed += Time.unscaledDeltaTime;
                 float wave = Mathf.Sin(elapsed * 11f) * 0.5f + 0.5f;
                 state.Rect.localScale = Vector3.one * Mathf.Lerp(1f, 1.06f, wave);
+                if (blockers != null)
+                    for (int i = 0; i < blockers.Count; i++)
+                        if (blockers[i].Rect != null) blockers[i].Rect.localScale = Vector3.one * Mathf.Lerp(1f, 1.08f, wave);
                 state.SlotImage.color = Color.Lerp(TraySlotSkin.RestColor, new Color(1f, 0.92f, 0.55f, 0.92f), wave);
                 for (int i = 0; i < hintedCells.Count; i++)
                 {
@@ -149,6 +187,9 @@ namespace CatBlockPuzzle
             }
 
             state.Rect.localScale = Vector3.one;
+            if (blockers != null)
+                for (int i = 0; i < blockers.Count; i++)
+                    if (blockers[i].Rect != null) blockers[i].Rect.localScale = Vector3.one;
             state.SlotImage.color = state.Placed ? TraySlotSkin.DimColor : TraySlotSkin.RestColor;
             for (int i = 0; i < hintedCells.Count; i++)
             {

@@ -8,19 +8,26 @@ Tick these off on a real phone (and, if you can, a tablet). Editor screenshots c
 - [ ] A level with "+N cats waiting": the pill still sits on the shelf edge and does not cover a card.
 - [ ] Nothing overlaps: board, shelf, power-up row, bottom cat decoration. Try the tallest and the widest phone you own.
 
-## Hammer
-- [ ] Below level 8 the Hammer is grey with `Lv 8`; tapping it shows the "Unlocks at level 8" popup.
-- [ ] Reaching level 8 shows the Hammer tutorial once, with the hand on the button, then you own the free ones.
-- [ ] Tap Hammer with an empty board: error sound, nothing armed, nothing spent.
-- [ ] Place a cat, tap Hammer, tap the cat: swing, thud, cat flies back to the shelf, count drops by one.
-- [ ] Tap Hammer, tap an empty cell: "Nothing to smash there", still armed, count unchanged.
-- [ ] Tap Hammer twice: it puts itself away, count unchanged.
-- [ ] A padlock level: Hammer on a padlock opens it (chest sound) and the key cat's key tag disappears when nothing else needs it.
-- [ ] A fog level: Hammer on a cloud clears it and its neighbours.
-- [ ] Armed Hammer, then open Pause or Settings: mode is cancelled, nothing spent.
-- [ ] Armed Hammer, then drag a shelf cat: still works, Hammer stays armed.
-- [ ] Out of Hammers: tapping the button opens the purchase popup; buying with coins works and the count updates.
-- [ ] Sound on/off in Settings silences the hammer thud too.
+## Hammer (one tap clears the way)
+- [ ] Below level 8 the Hammer is grey with `Lv 8`; tapping it shows the "Unlocks at level 8" popup. Buttons read Hint, Hammer, Freeze (unlock order).
+- [ ] Reaching level 8 shows the Hammer tutorial once, hand on the button.
+- [ ] Place a cat on another cat's spot, tap Hammer: it swings, the blocking cat flies back to the shelf, count drops by one. A cat standing on its own spot is never touched.
+- [ ] Tap Hammer with nothing in the way: "Nothing in the way! You're on track.", error sound, count unchanged.
+- [ ] A padlock level: Hammer breaks the padlocks that keep a waiting cat out (lock-break sound, no chest sound); up to 3 at a time.
+- [ ] A fog level: Hammer blows all the fog away.
+- [ ] Pause or leave the level mid-swing: nothing is left drawn on the board and the board is playable again.
+- [ ] Out of Hammers with something in the way: tapping opens the purchase popup; buying works.
+- [ ] Sound off silences the Hammer sounds.
+
+## Hints near the end
+- [ ] With one or two cats left and a wrong cat sitting on their spot: Hint still glows the spot and pulses the cat in the way. It never does nothing while the puzzle is unsolved.
+
+## Stuck pointer (no popups)
+- [ ] After 12 s idle (or 3 wrong drops): only a glow and a tapping hand on the right power-up button. No toast, no popup. Any touch removes it.
+
+## Hearts
+- [ ] First level with hearts: no card stops play; the hearts glow with a tapping hand for a few seconds.
+- [ ] Losing a heart: pink shards burst off it, the row shakes. With one heart left it beats until the level ends.
 
 ## Sound and music
 - [ ] Every tap plays on finger lift, in step with the action (nothing plays first).

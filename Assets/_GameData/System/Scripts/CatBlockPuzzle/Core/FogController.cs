@@ -34,7 +34,20 @@ namespace CatBlockPuzzle
             foreach (RectTransform cloud in clouds.Values) if (cloud != null) into.Add(cloud);
         }
 
-        /// <summary>The Hammer blows away the cloud on this cell and the clouds touching it. False when the cell is clear.</summary>
+        /// <summary>Adds the cell of every cloud still hanging over the board to <paramref name="into"/>.</summary>
+        public void CollectCloudCells(List<Vector2Int> into)
+        {
+            foreach (Vector2Int cell in clouds.Keys) into.Add(cell);
+        }
+
+        /// <summary>The Hammer blows every cloud away.</summary>
+        public void ClearAll()
+        {
+            var cells = new List<Vector2Int>(clouds.Keys);
+            foreach (Vector2Int cell in cells) Dissolve(cell);
+        }
+
+        /// <summary>Blows away the cloud on this cell and the clouds touching it. False when the cell is clear.</summary>
         public bool TryClear(Vector2Int cell)
         {
             if (!clouds.ContainsKey(cell)) return false;

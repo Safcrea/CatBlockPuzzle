@@ -52,8 +52,8 @@ namespace CatBlockPuzzle
                 gates.SystemPaused || gates.GameplayHidden) return false;
             // One Rotate at a time, and only while a shelf cat is left to turn.
             if (kind == PowerUpKind.Rotate) return !rotate.Active && rotate.HasTurnableCat;
-            // One Hammer at a time, and only while something on the board can be smashed.
-            if (kind == PowerUpKind.Hammer) return !hammer.Active && hammer.HasTarget;
+            // One Hammer at a time; when nothing is in the way the tap explains that instead of spending it.
+            if (kind == PowerUpKind.Hammer) return !hammer.Active;
             return kind != PowerUpKind.Freeze || !timer.FreezeUsedThisAttempt;
         }
 
@@ -67,8 +67,7 @@ namespace CatBlockPuzzle
         public bool TryUseHammerPowerUp()
         {
             if (!CanRequestPowerUp(PowerUpKind.Hammer)) return false;
-            hammer.Begin();
-            return true;
+            return hammer.Begin();
         }
 
         public bool TryUseFreezePowerUp()

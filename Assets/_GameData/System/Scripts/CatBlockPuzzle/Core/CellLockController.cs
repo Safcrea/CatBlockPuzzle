@@ -57,6 +57,12 @@ namespace CatBlockPuzzle
             }
         }
 
+        /// <summary>Adds the cells whose padlock is still shut to <paramref name="into"/>.</summary>
+        public void CollectClosedLockCells(List<Vector2Int> into)
+        {
+            for (int i = 0; i < locks.Count; i++) if (!locks[i].Open) into.Add(locks[i].Cell);
+        }
+
         /// <summary>Adds the padlock overlays still shut to <paramref name="into"/> (the Hammer pulses them).</summary>
         public void CollectClosedLockRects(List<RectTransform> into)
         {

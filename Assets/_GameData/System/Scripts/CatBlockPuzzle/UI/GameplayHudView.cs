@@ -327,9 +327,7 @@ namespace CatBlockPuzzle
         {
             if (ShowLockedInfo(PowerUpKind.Hammer)) { ButtonSfx.PlayError(); return; }
             ButtonSfx.PlayClick();
-            GameSystem system = GameSystem.Instance;
-            if (system != null && !system.TryUseHammerPowerUp() && !system.IsHammerActive && PowerUpInventory.GetCount(PowerUpKind.Hammer) > 0)
-                ButtonSfx.PlayError();
+            GameSystem.Instance?.TryUseHammerPowerUp();
         }
         private void Rotate() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseRotatePowerUp(); }
 
@@ -366,10 +364,14 @@ namespace CatBlockPuzzle
         private void ArrangePowerUpButtons()
         {
             if (hintButton == null || freezeButton == null) return;
-            var row = new System.Collections.Generic.List<RectTransform> { (RectTransform)hintButton.transform, (RectTransform)freezeButton.transform };
-            if (hammerButton != null) row.Add((RectTransform)hammerButton.transform);
-            if (rotateButton != null) row.Add((RectTransform)rotateButton.transform);
-            if (authoredButtonPositions == null) authoredButtonPositions = new[] { row[0].anchoredPosition, row[1].anchoredPosition };
+            // Left to right in the order they unlock (Hint, Hammer, Freeze, Rotate), whatever order the scene lists them in.
+            var kinds = new System.Collections.Generic.List<PowerUpKind> { PowerUpKind.Hint, PowerUpKind.Freeze };
+            if (hammerButton != null) kinds.Add(PowerUpKind.Hammer);
+            if (rotateButton != null) kinds.Add(PowerUpKind.Rotate);
+            kinds.Sort((x, y) => UnlockLevelOf(x).CompareTo(UnlockLevelOf(y)));
+            var row = new System.Collections.Generic.List<RectTransform>();
+            foreach (PowerUpKind kind in kinds) row.Add((RectTransform)PowerUpButton(kind).transform);
+            if (authoredButtonPositions == null) authoredButtonPositions = new[] { ((RectTransform)hintButton.transform).anchoredPosition, ((RectTransform)freezeButton.transform).anchoredPosition };
             int shown = 0;
             foreach (RectTransform rect in row) if (rect.gameObject.activeSelf) shown++;
             if (row.Count == 2 || (shown <= 2 && (hammerButton == null || !hammerButton.gameObject.activeSelf) && (rotateButton == null || !rotateButton.gameObject.activeSelf)))

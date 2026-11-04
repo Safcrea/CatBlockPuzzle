@@ -2,6 +2,18 @@
 
 ## Unreleased - 2026-11-04
 
+### Round 4: power-ups that help, no popups, calmer hearts
+
+Tested: edit-mode suite 139 of 139; the random-play bot (levels 10, 12, 18, 25, 36, 46, 61, 100; 24 moves each, power-ups mashed, pauses at odd moments) finds no problems after the cancel fix. Not run: the rewritten Hammer play-mode tests (the runner hangs on this machine), phone or tablet checks, and the hearts pointer and heart-crack animation have only been written, not watched.
+
+- **Hammer redesigned.** The old Hammer needed arming and then a tap on the board, and the only thing it could do to a cat was what dragging already does. It is now one tap that clears the way: it knocks back the cats that sit on another cat's spot (up to 3), breaks the padlocks that keep a waiting cat out (up to 3, blocking ones first) and blows all the fog away, each with its own swing. A cat on its own spot is never touched, and with nothing in the way it says "Nothing in the way! You're on track." and spends nothing. The tap layer and arming mode are gone.
+- **Hints near the end.** When the next cat's spot was held by a wrong cat, and nothing else fit, the Hint found no target and did nothing. It now shows the spot and pulses the cat in the way; with everything on the board it points at a cat that is off its own spot. A Hint with truly nothing to say plays the "no hint" sound.
+- **Stuck nudge is a pointer only.** The message toast is gone ("Stuck? Tap Hint!" and "Try this cat in the glowing spot!"): only the glow and a bigger tapping hand on the right power-up button, as in TangleRings. Cats on the wrong spots now also point the player at the Hammer after two wrong drops.
+- **Hearts.** The modal "Hearts!" card is gone; the first level with hearts makes the heart row glow with a tapping hand for a few seconds instead. Losing a heart now cracks it: pink shards and a row shake. The last heart beats until the level ends.
+- **Shelf centred.** The cards sat high in the shelf because the cream panel behind them (`Pieces Panel`) never moved when I made the shelf area taller. The shelf area is back on the panel (centre -492) at 330 high, and card and cat sizes now follow the real room inside the shelf (`TrayLayout`), so a 4-row cat can no longer be sized for a taller card than it gets.
+- **Hammer cancel fix (found by the bot).** Pausing mid-swing only removed the drawing; the swing sequence kept running behind the pause screen and drew more hammers. Cancel now stops the sequence and restores the board position.
+- **Power-ups in unlock order.** The row reads Hint (level 4), Hammer (8), Freeze (13), Rotate (21).
+
 ### Hammer power-up (new)
 
 - Added the **Hammer**: arm it, then tap the board to smash what is in the way. It opens a padlock, blows away fog (the tapped cloud and the ones touching it) or knocks a landed cat back onto the shelf. Pinned (settled) cats cannot be smashed.

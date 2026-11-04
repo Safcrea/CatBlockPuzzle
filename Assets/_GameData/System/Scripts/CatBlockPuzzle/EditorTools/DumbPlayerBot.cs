@@ -5,7 +5,6 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace CatBlockPuzzle
@@ -100,7 +99,6 @@ namespace CatBlockPuzzle
                 else if (roll < 0.88)
                 {
                     lastAction = "hammer"; GameSystem.Instance.TryUseHammerPowerUp(); hammers++;
-                    if (game.Hammer.Active) TapBoardRandomly(s, rng);
                 }
                 else if (roll < 0.92) { lastAction = "freeze"; GameSystem.Instance.TryUseFreezePowerUp(); }
                 else if (roll < 0.96) { lastAction = "rotate"; GameSystem.Instance.TryUseRotatePowerUp(); }
@@ -121,7 +119,7 @@ namespace CatBlockPuzzle
                 }
                 else stuckSince = -1f;
             }
-            if (game.Hammer.Active) game.Hammer.Cancel();
+            game.Hammer.Cancel();
             report.AppendLine("level " + (levelIndex + 1) + ": " + outcome + " after " + moves + " moves, drops=" + placed + " hammerPresses=" + hammers +
                 " hints=" + hints + " knocks=" + taps + " pauses=" + pauses);
         }
@@ -160,27 +158,13 @@ namespace CatBlockPuzzle
             return game.Drag.KnockToShelf(onBoard[rng.Next(onBoard.Count)]);
         }
 
-        private void TapBoardRandomly(PuzzleSession s, System.Random rng)
-        {
-            GameObject catcher = GameObject.Find("Hammer Catcher");
-            if (catcher == null || s.boardRoot == null) return;
-            var cells = new List<CellView>(s.boardCells.Values);
-            if (cells.Count == 0) return;
-            RectTransform rect = cells[rng.Next(cells.Count)].Rect;
-            Canvas canvas = rect.GetComponentInParent<Canvas>();
-            Vector2 screen = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, rect.TransformPoint(rect.rect.center));
-            var data = new PointerEventData(EventSystem.current) { position = screen, button = PointerEventData.InputButton.Left };
-            ExecuteEvents.Execute(catcher, data, ExecuteEvents.pointerClickHandler);
-        }
-
         private void CheckInvariants(int levelIndex, string when)
         {
             PuzzleSession s = game.Session;
             string tag = "level " + (levelIndex + 1) + " (" + when + "): ";
             if (s.activeLevel == null) return;
-            // Hammer layer and mode agree.
-            bool catcher = GameObject.Find("Hammer Catcher") != null;
-            if (catcher != game.Hammer.Active && !s.inputLocked) problems.Add(tag + "Hammer mode is " + game.Hammer.Active + " but the tap layer is " + (catcher ? "present" : "missing"));
+            // A finished Hammer swing leaves no hammer drawing behind.
+            if (!game.Hammer.Active && s.boardRoot != null && s.boardRoot.Find("Hammer Swing") != null) problems.Add(tag + "a Hammer swing drawing was left on the board");
             // Board bookkeeping: occupied cells equal the cells of the landed cats.
             int cellsOfPlaced = 0;
             foreach (PieceState p in s.pieces) if (p.Placed) cellsOfPlaced += p.Definition.Cells.Length;

@@ -240,6 +240,7 @@ namespace CatBlockPuzzle
             }
             if (Hud != null) yield return Hud.ShowPowerUpTutorials(config.FreezeDurationSeconds);
             yield return intro.ShowNewMechanics(activeLevel);
+            hearts.PointOutIfNew(config.TutorialHandSprite);
             inputLocked = gates.MetaUiOpen || gates.SystemPaused;
             if (!gates.MetaUiOpen)
             {

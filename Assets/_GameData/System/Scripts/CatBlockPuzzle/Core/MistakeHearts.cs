@@ -22,6 +22,8 @@ namespace CatBlockPuzzle
         private Image[] icons = new Image[0];
         private int total;
         private int remaining;
+        private RectTransform row;
+        private Coroutine heartbeat;
 
         public event Action OutOfHearts;
 
@@ -57,9 +59,77 @@ namespace CatBlockPuzzle
             if (lost != null)
             {
                 lost.color = Empty;
-                if (!settings.ReducedMotion) StartCoroutine(Pop(lost.rectTransform));
+                if (!settings.ReducedMotion)
+                {
+                    StartCoroutine(Pop(lost.rectTransform));
+                    // The heart cracks: pink shards fly off it and the whole row gives a little shake.
+                    if (row != null) UiBurst.Play(Host, row, lost.rectTransform.anchoredPosition, new Color(1f, 0.45f, 0.55f, 1f), 8, 110f, 0.5f);
+                    if (row != null) StartCoroutine(Shake(row));
+                }
             }
             if (remaining == 0) OutOfHearts?.Invoke();
+            else if (remaining == 1 && !settings.ReducedMotion && icons.Length > 0)
+            {
+                // One heart left: it beats, so the player feels the danger without any popup.
+                StopCoroutine(heartbeat);
+                heartbeat = StartCoroutine(Heartbeat(icons[0].rectTransform));
+            }
+        }
+
+        /// <summary>
+        /// The first level with hearts: instead of a card that stops play, the hearts glow and a hand taps them for a few
+        /// seconds. The hand is the tutorial's own hand picture.
+        /// </summary>
+        public void PointOutIfNew(Sprite handSprite)
+        {
+            LevelDefinition level = session.activeLevel;
+            if (level == null || !level.HasHearts || row == null) return;
+            string key = MechanicIntroPresenter.SeenKey(MechanicIntroPresenter.Hearts);
+            if (PlayerPrefs.GetInt(key, 0) != 0) return;
+            PlayerPrefs.SetInt(key, 1);
+            PlayerPrefs.Save();
+            GameAnalytics.MechanicIntroShown(MechanicIntroPresenter.Hearts);
+            PowerUpNudge pointer = PowerUpNudge.Create(row, KawaiiSprites.RoundedRect, handSprite);
+            if (pointer != null) StartCoroutine(RemoveAfter(pointer, 3.6f));
+        }
+
+        private IEnumerator RemoveAfter(PowerUpNudge pointer, float seconds)
+        {
+            float t = 0f;
+            while (t < seconds && pointer != null)
+            {
+                t += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            if (pointer != null) Destroy(pointer.gameObject);
+        }
+
+        private IEnumerator Shake(RectTransform target)
+        {
+            Vector2 rest = target.anchoredPosition;
+            float t = 0f;
+            const float seconds = 0.3f;
+            while (t < seconds && target != null)
+            {
+                t += Time.unscaledDeltaTime;
+                float k = 1f - Mathf.Clamp01(t / seconds);
+                target.anchoredPosition = rest + new Vector2(Mathf.Sin(t * 70f) * 10f * k, 0f);
+                yield return null;
+            }
+            if (target != null) target.anchoredPosition = rest;
+        }
+
+        private IEnumerator Heartbeat(RectTransform heart)
+        {
+            float t = 0f;
+            while (heart != null && remaining == 1 && !session.levelFailed)
+            {
+                t += Time.unscaledDeltaTime;
+                float beat = Mathf.Pow(Mathf.Abs(Mathf.Sin(t * 5f)), 3f);
+                heart.localScale = Vector3.one * (1f + 0.22f * beat);
+                yield return null;
+            }
+            if (heart != null) heart.localScale = Vector3.one;
         }
 
         private void Build()
@@ -78,12 +148,14 @@ namespace CatBlockPuzzle
                 Destroy(child.gameObject);
             }
             icons = new Image[0];
+            row = null;
+            if (heartbeat != null) { StopCoroutine(heartbeat); heartbeat = null; }
             if (!Active) return;
 
             // A bordered cream pill straddling the timer's bottom edge, with big hearts that read at a glance.
             const float size = 56f, gap = 12f, padX = 26f, height = 76f, border = 5f;
             float width = total * size + (total - 1) * gap + padX * 2f;
-            RectTransform row = RuntimeUiFactory.CreateRect(parent, RowName);
+            row = RuntimeUiFactory.CreateRect(parent, RowName);
             row.anchorMin = row.anchorMax = new Vector2(0.5f, 0f);
             row.pivot = new Vector2(0.5f, 0.5f);
             row.anchoredPosition = new Vector2(0f, -(height * 0.5f) - 2f);

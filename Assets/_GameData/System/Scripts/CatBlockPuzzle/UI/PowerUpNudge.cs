@@ -34,7 +34,7 @@ namespace CatBlockPuzzle
             {
                 nudge.hand = RuntimeUiFactory.CreateRect(parent, "Power Up Nudge Hand");
                 nudge.hand.pivot = new Vector2(0.25f, 0.9f);
-                nudge.hand.sizeDelta = new Vector2(96f, 96f);
+                nudge.hand.sizeDelta = new Vector2(124f, 124f);
                 Image image = nudge.hand.gameObject.AddComponent<Image>();
                 image.sprite = handSprite;
                 image.preserveAspect = true;

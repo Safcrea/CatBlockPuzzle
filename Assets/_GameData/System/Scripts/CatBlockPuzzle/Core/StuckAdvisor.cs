@@ -12,7 +12,7 @@ namespace CatBlockPuzzle
         internal struct Facts
         {
             public bool HintReady, HammerReady, FreezeReady, HammerHasObstacle;
-            /// <summary>Wrong drops since the last landed cat that were refused because of a padlock.</summary>
+            /// <summary>The player keeps missing because something is in the way: a padlock, or cats sitting on the wrong spots.</summary>
             public bool LockBlocked;
             public bool TimeIsLow;
         }
@@ -30,7 +30,6 @@ namespace CatBlockPuzzle
         private readonly CellLockController locks;
         private readonly InteractionGates gates;
         private readonly LevelOneTutorial tutorial;
-        private readonly GameplayToast toast;
         private readonly IPuzzleConfig config;
         private readonly HintPresenter hint;
 
@@ -50,7 +49,7 @@ namespace CatBlockPuzzle
 
         public StuckAdvisor(IGameplayContext context, PuzzleSession session, LevelTimer timer, HammerController hammer,
             RotateController rotate, CellLockController locks, InteractionGates gates, LevelOneTutorial tutorial,
-            GameplayToast toast, IPuzzleConfig config, HintPresenter hint) : base(context)
+            IPuzzleConfig config, HintPresenter hint) : base(context)
         {
             this.hint = hint;
             this.session = session;
@@ -60,7 +59,6 @@ namespace CatBlockPuzzle
             this.locks = locks;
             this.gates = gates;
             this.tutorial = tutorial;
-            this.toast = toast;
             this.config = config;
         }
 
@@ -76,11 +74,6 @@ namespace CatBlockPuzzle
             if (f.HammerReady) return PowerUpKind.Hammer;
             return null;
         }
-
-        internal static string MessageFor(PowerUpKind kind, bool owned, bool lockBlocked) =>
-            kind == PowerUpKind.Hammer ? (lockBlocked ? "Padlock in the way?\nTap Hammer!" : "Cat in the way?\nTap Hammer!")
-            : kind == PowerUpKind.Freeze ? "Running out of time?\nTap Freeze!"
-            : owned ? "Stuck?\nTap Hint!" : "Need a hint?\nTap Hint!";
 
         public void Tick()
         {
@@ -134,27 +127,21 @@ namespace CatBlockPuzzle
                 HammerReady = Hud.IsPowerUpUnlocked(PowerUpKind.Hammer) && PowerUpInventory.GetCount(PowerUpKind.Hammer) > 0 && hammer.HasTarget,
                 HammerHasObstacle = hammer.HasObstacle,
                 FreezeReady = Hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PowerUpInventory.GetCount(PowerUpKind.Freeze) > 0 && !timer.FreezeUsedThisAttempt,
-                LockBlocked = lockBlockedSincePlacement && locks.HasClosedLocks,
+                LockBlocked = (lockBlockedSincePlacement && locks.HasClosedLocks) || (hammer.BlockerCount > 0 && missedSincePlacement >= 2),
                 TimeIsLow = !timer.Untimed && timer.Profile.DurationSeconds > 0f && timer.RemainingSeconds < timer.Profile.DurationSeconds * 0.35f
             };
             PowerUpKind? pick = Choose(facts);
             if (!pick.HasValue)
             {
                 // Before the Hint unlocks there is no power-up to point at, so a stuck beginner gets the free glow instead.
-                if (!facts.HintReady && hint.ShowHint(HintReveal.FullShape))
-                {
-                    shownThisLevel++;
-                    toast.Show("Try this cat in\nthe glowing spot!", 3f);
-                }
+                if (!facts.HintReady && hint.ShowHint(HintReveal.FullShape)) shownThisLevel++;
                 cooldown = CooldownSeconds;
                 return;
             }
-            bool owned = PowerUpInventory.GetCount(pick.Value) > 0;
             showing = pick;
             shownFor = 0f;
             shownThisLevel++;
             Hud.ShowPowerUpNudge(pick.Value, config != null ? config.TutorialHandSprite : null);
-            toast.Show(MessageFor(pick.Value, owned, facts.LockBlocked), HoldSeconds - 1f);
             PuzzleAudio.Play(AudioEvents.HintShow);
         }
 

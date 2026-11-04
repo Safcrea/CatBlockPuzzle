@@ -211,6 +211,11 @@ namespace CatBlockPuzzle
             {
                 trayWidth = Hud.trayArea.rect.width;
                 trayHeight = Hud.trayArea.rect.height;
+                // A card can never be taller than the shelf's scroll window minus its padding (the window sits 16 units
+                // inside the shelf on every side). Sizing the cats against a taller card let them poke out of it.
+                float room = trayHeight - 32f - (verticalPadding * 2f);
+                traySlotPreferredHeight = Mathf.Min(traySlotPreferredHeight, Mathf.Max(100f, room));
+                traySlotMinHeight = Mathf.Min(traySlotMinHeight, traySlotPreferredHeight);
             }
             float viewportWidth = Mathf.Max(1f, trayWidth - 36f);
             float desiredContentWidth = (traySlotPreferredWidth * layoutCount) + (spacing * (layoutCount - 1)) + (horizontalPadding * 2f);

@@ -119,21 +119,25 @@ namespace CatBlockPuzzle
         internal bool UseTaughtPowerUp(PowerUpKind kind) =>
             kind == PowerUpKind.Hint ? UseHintPowerUp(true) : kind == PowerUpKind.Rotate ? UseRotatePowerUp(true) : kind == PowerUpKind.Hammer ? UseTaughtHammer() : UseFreezePowerUp(true);
 
-        // The tutorial's demo tap often lands on an empty board, where the Hammer cannot arm: say what it is for instead.
+        // The tutorial's demo tap often lands on a board with nothing in the way: say what the Hammer is for instead.
         private bool UseTaughtHammer()
         {
             if (!HasGameplayController) return false;
-            if (gameplayController.CanRequestPowerUp(PowerUpKind.Hammer)) return UseHammerPowerUp();
-            gameplayController.Toast?.Show("Hammer ready!\nPlace a cat, then tap it.", 3.2f);
+            if (gameplayController.CanRequestPowerUp(PowerUpKind.Hammer) && gameplayController.HammerHasTarget) return gameplayController.TryUseHammerPowerUp();
+            gameplayController.Toast?.Show("Hammer ready!\nIt clears cats, locks and fog\nthat are in your way.", 3.4f);
             return false;
         }
 
-        // Arming the Hammer costs nothing: it is spent when a smash lands. Tapping the button again puts it away.
+        // One tap clears the way. With nothing in the way it says so and spends nothing.
         private bool UseHammerPowerUp()
         {
-            if (!HasGameplayController) return false;
-            if (gameplayController.IsHammerActive) { gameplayController.CancelHammer(); PuzzleAudio.Play(AudioEvents.ButtonBack); return false; }
-            if (!gameplayController.CanRequestPowerUp(PowerUpKind.Hammer)) return false;
+            if (!HasGameplayController || !gameplayController.CanRequestPowerUp(PowerUpKind.Hammer)) return false;
+            if (!gameplayController.HammerHasTarget)
+            {
+                PuzzleAudio.Play(AudioEvents.LockedTap);
+                gameplayController.Toast?.Show("Nothing in the way!\nYou're on track.", 1.8f);
+                return false;
+            }
             if (PowerUpInventory.GetCount(PowerUpKind.Hammer) <= 0)
             {
                 gameplayController.OpenPowerUpPurchase(PowerUpKind.Hammer);
@@ -199,7 +203,7 @@ namespace CatBlockPuzzle
                 gameplayController.OpenPowerUpPurchase(PowerUpKind.Hint);
                 return false;
             }
-            if (!gameplayController.TryUseHintPowerUp()) return false;
+            if (!gameplayController.TryUseHintPowerUp()) { PuzzleAudio.Play(AudioEvents.HintNone); return false; }
             PuzzleAudio.Play(AudioEvents.HintUse);
             bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Hint, cost);
             if (consumed)

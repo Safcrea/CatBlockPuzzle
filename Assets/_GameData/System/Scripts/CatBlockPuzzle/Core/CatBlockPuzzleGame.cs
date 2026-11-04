@@ -176,13 +176,13 @@ namespace CatBlockPuzzle
             drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates, locks);
             toast = new GameplayToast(this);
             rotate = new RotateController(this, session, tray, drag, settings, toast);
-            hammer = new HammerController(this, session, space, board, locks, fog, drag, settings, toast, fx, haptics);
+            hammer = new HammerController(this, session, board, locks, fog, drag, settings, fx, haptics);
             hammer.Struck += OnHammerStruck;
             tutorial = new LevelOneTutorial(this, session, this, space, board, drag, settings, fx, mood, timer, gates);
             drag.Gate = tutorial;
             loader = new PreparedLevelLoader(this, session, tray, mood, drag, this);
             meta = new MetaProgressionController(this, session, progress, settings, timer, hint, drag, tray, fx, mood, haptics, gates, this);
-            stuck = new StuckAdvisor(this, session, timer, hammer, rotate, locks, gates, tutorial, toast, this, hint);
+            stuck = new StuckAdvisor(this, session, timer, hammer, rotate, locks, gates, tutorial, this, hint);
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this, rotate, hammer);
             intro = new MechanicIntroPresenter(this, session);
             hearts = new MistakeHearts(this, session, settings, haptics);
@@ -343,6 +343,7 @@ namespace CatBlockPuzzle
         public bool TryUseRotatePowerUp() => powerUps.TryUseRotatePowerUp();
         public bool TryUseHammerPowerUp() => powerUps.TryUseHammerPowerUp();
         public bool IsHammerActive => hammer != null && hammer.Active;
+        internal bool HammerHasTarget => hammer != null && hammer.HasTarget;
         internal void CancelHammer() => hammer?.Cancel();
 
         // A smash landed: only now is the Hammer spent.
