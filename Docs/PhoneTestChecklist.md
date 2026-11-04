@@ -41,3 +41,6 @@ Tick these off on a real phone (and, if you can, a tablet). Editor screenshots c
 ## Stuck nudge
 - [ ] From level 4, stand idle for 12 s (or drop a cat in a wrong place 3 times): the Hint button glows with a tapping hand and a message. Touching anything removes it.
 - [ ] It does not appear during a popup, a tutorial, pause or while the Hammer is armed, and not more than 3 times per level.
+- [ ] Levels 1-3 (no Hint yet): stand idle 12 s and the next cat plus its spot glow with "Try this cat in the glowing spot!".
+- [ ] Hammer tutorial at level 8: tapping the Hammer on the empty board shows "Hammer ready!" instead of doing nothing.
+- [ ] After level 8, the fog and padlock intro cards mention the Hammer.

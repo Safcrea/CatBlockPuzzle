@@ -51,7 +51,7 @@ namespace CatBlockPuzzle
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Freeze, $"Freeze time for {freezeSeconds:0.#}s!\nTap Freeze!", FreezeSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Hammer) && PlayerPrefs.GetInt(HammerSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Hammer, "Something in the way?\nTap Hammer!", HammerSeenKey);
+                yield return Show(hud, PowerUpKind.Hammer, "Smash a padlock, fog or cat!\nTap Hammer!", HammerSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Rotate) && PlayerPrefs.GetInt(RotateSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Rotate, "Turn a cat!\nTap Rotate!", RotateSeenKey);
         }

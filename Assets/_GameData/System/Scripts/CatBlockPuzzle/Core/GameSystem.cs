@@ -117,7 +117,16 @@ namespace CatBlockPuzzle
         public bool IsHammerActive => HasGameplayController && gameplayController.IsHammerActive;
         /// <summary>Spends the power-up the unlock tutorial asked the player to tap.</summary>
         internal bool UseTaughtPowerUp(PowerUpKind kind) =>
-            kind == PowerUpKind.Hint ? UseHintPowerUp(true) : kind == PowerUpKind.Rotate ? UseRotatePowerUp(true) : kind == PowerUpKind.Hammer ? UseHammerPowerUp() : UseFreezePowerUp(true);
+            kind == PowerUpKind.Hint ? UseHintPowerUp(true) : kind == PowerUpKind.Rotate ? UseRotatePowerUp(true) : kind == PowerUpKind.Hammer ? UseTaughtHammer() : UseFreezePowerUp(true);
+
+        // The tutorial's demo tap often lands on an empty board, where the Hammer cannot arm: say what it is for instead.
+        private bool UseTaughtHammer()
+        {
+            if (!HasGameplayController) return false;
+            if (gameplayController.CanRequestPowerUp(PowerUpKind.Hammer)) return UseHammerPowerUp();
+            gameplayController.Toast?.Show("Hammer ready!\nPlace a cat, then tap Hammer\nto knock it off.", 3.2f);
+            return false;
+        }
 
         // Arming the Hammer costs nothing: it is spent when a smash lands. Tapping the button again puts it away.
         private bool UseHammerPowerUp()

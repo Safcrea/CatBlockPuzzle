@@ -34,9 +34,15 @@
 - It goes away the moment the player does anything, holds at most 8 s, waits 20 s before showing again and shows at most 3 times per level. Never while a popup, tutorial, pause, drag or Hammer is active. Nothing is shown before the first power-up unlocks (level 4).
 - Logic lives in `Core/StuckAdvisor.cs`; the marker in `UI/PowerUpNudge.cs`. 8 edit-mode tests cover which power-up gets picked.
 
+### Tutorial polish
+
+- Before the Hint unlocks (levels 1-3) a stuck beginner gets the free glow: the next cat and its spot light up with "Try this cat in the glowing spot!" (same stuck rules, no power-up spent).
+- The Hammer unlock tutorial now says what it does ("Smash a padlock, fog or cat! Tap Hammer!"). Its demo tap used to be wasted silently on an empty board; it now explains "Hammer ready! Place a cat, then tap Hammer to knock it off."
+- The padlock, key-cat and fog intro cards mention the Hammer as a way out once it has unlocked.
+
 ### Still to do
 
-- Further tutorial polish beyond the Hammer intro and the stuck nudge.
+- A "How to play" replay button in Settings (tutorials can only be replayed by clearing saves for now).
 
 ### Verify on a phone
 

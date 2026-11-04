@@ -48,10 +48,10 @@ namespace CatBlockPuzzle
 
             if (hasCounterOrNeighbourLock)
                 yield return Show(Padlocks, "Padlocks!", CellLockArt.Padlock,
-                    "Place more cats to open locked spots.");
+                    "Place more cats to open locked spots." + HammerTip(" Or smash one with the Hammer."));
             if (level.HasKeyLocks)
                 yield return Show(KeyCats, "Key cats!", CellLockArt.Key,
-                    "Place the key cat to open its lock.");
+                    "Place the key cat to open its lock." + HammerTip(" Or smash the lock with the Hammer."));
             if (level.HasZones)
                 yield return Show(ColourZones, "Colour spots!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 3 ? Assets.catPortraitSprites[3] : null,
                     "Only the matching cat fits a tinted spot.");
@@ -66,7 +66,7 @@ namespace CatBlockPuzzle
                     "This cat stays put. Build around it.");
             if (level.HasFog)
                 yield return Show(Fog, "Foggy spots!", BoardMechanicArt.Cloud,
-                    "Place a cat nearby to clear the fog.");
+                    "Place a cat nearby to clear the fog." + HammerTip(" Or smash it with the Hammer."));
             if (level.HasMoves)
                 yield return Show(Moves, "Drop limit!", Assets.starSprite,
                     "Win in " + level.Moves + " drops for 3 stars.");
@@ -74,6 +74,9 @@ namespace CatBlockPuzzle
                 yield return Show(Shelf, "Busy shelf!", Assets.catPortraitSprites != null && Assets.catPortraitSprites.Length > 0 ? Assets.catPortraitSprites[0] : null,
                     "Only " + level.TrayWindow + " cats show at a time.");
         }
+
+        // Once the Hammer has unlocked, the obstacle cards mention it as a way out.
+        private string HammerTip(string text) => Hud != null && Hud.IsPowerUpUnlocked(PowerUpKind.Hammer) ? text : string.Empty;
 
         public void Cancel()
         {

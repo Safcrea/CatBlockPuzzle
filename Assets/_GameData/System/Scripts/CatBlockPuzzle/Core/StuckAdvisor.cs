@@ -32,6 +32,7 @@ namespace CatBlockPuzzle
         private readonly LevelOneTutorial tutorial;
         private readonly GameplayToast toast;
         private readonly IPuzzleConfig config;
+        private readonly HintPresenter hint;
 
         private LevelDefinition level;
         private float lastPlaySeconds;
@@ -49,8 +50,9 @@ namespace CatBlockPuzzle
 
         public StuckAdvisor(IGameplayContext context, PuzzleSession session, LevelTimer timer, HammerController hammer,
             RotateController rotate, CellLockController locks, InteractionGates gates, LevelOneTutorial tutorial,
-            GameplayToast toast, IPuzzleConfig config) : base(context)
+            GameplayToast toast, IPuzzleConfig config, HintPresenter hint) : base(context)
         {
+            this.hint = hint;
             this.session = session;
             this.timer = timer;
             this.hammer = hammer;
@@ -136,7 +138,17 @@ namespace CatBlockPuzzle
                 TimeIsLow = !timer.Untimed && timer.Profile.DurationSeconds > 0f && timer.RemainingSeconds < timer.Profile.DurationSeconds * 0.35f
             };
             PowerUpKind? pick = Choose(facts);
-            if (!pick.HasValue) { cooldown = CooldownSeconds; return; }
+            if (!pick.HasValue)
+            {
+                // Before the Hint unlocks there is no power-up to point at, so a stuck beginner gets the free glow instead.
+                if (!facts.HintReady && hint.ShowHint(HintReveal.FullShape))
+                {
+                    shownThisLevel++;
+                    toast.Show("Try this cat in\nthe glowing spot!", 3f);
+                }
+                cooldown = CooldownSeconds;
+                return;
+            }
             bool owned = PowerUpInventory.GetCount(pick.Value) > 0;
             showing = pick;
             shownFor = 0f;

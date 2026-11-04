@@ -182,7 +182,7 @@ namespace CatBlockPuzzle
             drag.Gate = tutorial;
             loader = new PreparedLevelLoader(this, session, tray, mood, drag, this);
             meta = new MetaProgressionController(this, session, progress, settings, timer, hint, drag, tray, fx, mood, haptics, gates, this);
-            stuck = new StuckAdvisor(this, session, timer, hammer, rotate, locks, gates, tutorial, toast, this);
+            stuck = new StuckAdvisor(this, session, timer, hammer, rotate, locks, gates, tutorial, toast, this, hint);
             powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this, rotate, hammer);
             intro = new MechanicIntroPresenter(this, session);
             hearts = new MistakeHearts(this, session, settings, haptics);
