@@ -7,17 +7,17 @@ namespace CatBlockPuzzle
         [Header("Gameplay Layout")]
         [Min(80f)] public float SideMargin = 108f;
         [Min(100f)] public float HeaderHeight = 184f;
-        [Min(180f)] public float TrayHeight = 292f;
+        [Min(180f)] public float TrayHeight = 380f;
         [Min(64f)] public float ActionBarHeight = 96f;
         [Min(16f)] public float SectionGap = 34f;
         [Range(0.15f, 0.4f)] public float TrayViewportFraction = 0.25f;
 
         [Header("Tray Cards")]
         [Min(120f)] public float TrayCardWidth = 212f;
-        [Min(150f)] public float TrayCardHeight = 246f;
+        [Min(150f)] public float TrayCardHeight = 300f;
         [Min(80f)] public float TrayCardMinWidth = 104f;
         [Min(120f)] public float TrayCardMinHeight = 154f;
-        [Range(20f, 64f)] public float TrayCatCellSize = 46f;
+        [Range(20f, 64f)] public float TrayCatCellSize = 50f;
         [Range(0f, 0.2f)] public float RemainingCardGrowth = 0.08f;
         [Range(0f, 0.35f)] public float MaximumCardGrowth = 0.16f;
 
@@ -43,15 +43,15 @@ namespace CatBlockPuzzle
         {
             SideMargin = 108f;
             HeaderHeight = 184f;
-            TrayHeight = 292f;
+            TrayHeight = 380f;
             ActionBarHeight = 96f;
             SectionGap = 34f;
             TrayViewportFraction = 0.25f;
             TrayCardWidth = 212f;
-            TrayCardHeight = 246f;
+            TrayCardHeight = 300f;
             TrayCardMinWidth = 104f;
             TrayCardMinHeight = 154f;
-            TrayCatCellSize = 46f;
+            TrayCatCellSize = 50f;
             RemainingCardGrowth = 0.08f;
             MaximumCardGrowth = 0.16f;
             PiecePickDragThreshold = 14f;

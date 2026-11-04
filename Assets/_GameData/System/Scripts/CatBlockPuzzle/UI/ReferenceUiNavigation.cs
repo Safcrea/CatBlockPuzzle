@@ -78,22 +78,23 @@ namespace CatBlockPuzzle
             home?.Show();
             GameAnalytics.ScreenView("home");
             AvnEvents.PageOpened(AvnScreen.main_menu);
-            UseMusic(MusicContext.Menu);
         }
 
-        private static void UseMusic(MusicContext context) => SoundManager.EnsureInstance().SetMusicContext(context);
 
         public void ShowShop()
         {
             if (shop == null) return;
             HidePages();
             shop.Show();
-            UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("shop");
             AvnEvents.PageOpened(AvnScreen.shop);
         }
 
-        public void ShowDailyReward() => OpenDailyReward(autoOpened: false);
+        public void ShowDailyReward()
+        {
+            DailyRewardProgress.EndFirstSession();
+            OpenDailyReward(autoOpened: false);
+        }
 
         private void OpenDailyReward(bool autoOpened)
         {
@@ -101,7 +102,6 @@ namespace CatBlockPuzzle
             HidePages();
             home?.Show();
             dailyReward.Show();
-            UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("daily_reward");
             AvnEvents.PageOpened(AvnScreen.daily_gift, autoOpened);
             GameAnalytics.DailyRewardShown(dailyReward.AvailableDay, autoOpened);
@@ -114,13 +114,11 @@ namespace CatBlockPuzzle
             {
                 HidePages();
                 paged.Show();
-                UseMusic(MusicContext.Menu);
                 GameAnalytics.ScreenView("levels");
                 AvnEvents.PageOpened(AvnScreen.level_selection);
                 return;
             }
             LevelSelectionScreen levels = ResolveLevelSelection();
-            UseMusic(MusicContext.Menu);
             GameAnalytics.ScreenView("levels");
             AvnEvents.PageOpened(AvnScreen.level_selection);
             if (levels == null) { ShowPage(levelSelectionScreen); return; }
@@ -138,7 +136,6 @@ namespace CatBlockPuzzle
         public void ShowGameplay()
         {
             ShowPage(gameplayScreen);
-            UseMusic(MusicContext.Gameplay);
             GameAnalytics.ScreenView("gameplay");
             AvnEvents.GameplayOpened();
         }
@@ -222,7 +219,7 @@ namespace CatBlockPuzzle
             if (bind) button.onClick.AddListener(action);
         }
 
-        private void Back() { ButtonSfx.PlayClick(); GameSystem.Instance?.GoHome(); }
+        private void Back() { ButtonSfx.PlayBack(); GameSystem.Instance?.GoHome(); }
         private void Play() { ButtonSfx.PlayClick(); GameSystem.Instance?.StartGameplay(); }
         private void Pause() { ButtonSfx.PlayClick(); GameSystem.Instance?.OpenPause(); }
     }

@@ -41,6 +41,7 @@ namespace CatBlockPuzzle
             if (hinted != null)
             {
                 lastHinted = hinted;
+                PuzzleAudio.Play(AudioEvents.HintShow);
                 hintRoutine = StartCoroutine(HintRoutine(hinted, reveal));
             }
             return hinted != null;

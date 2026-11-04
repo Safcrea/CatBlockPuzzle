@@ -10,7 +10,7 @@ namespace CatBlockPuzzle
         public Font font;
         public Sprite background, panel, goldPanel, icePanel, board, tile;
         public Sprite primaryButton, secondaryButton, dangerButton, blueButton;
-        public Sprite coin, hint, freeze, rotate, pause, clock, close, back, pointer, lockIcon;
+        public Sprite coin, hint, freeze, rotate, hammer, pause, clock, close, back, pointer, lockIcon;
         public Sprite star, emptyStar, happyCat, sadCat;
         public Color ink = new Color(.38f, .153f, .035f);
         public Color mutedInk = new Color(.58f, .35f, .18f);

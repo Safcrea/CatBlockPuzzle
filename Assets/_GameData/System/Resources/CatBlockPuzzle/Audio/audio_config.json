@@ -1,0 +1,594 @@
+{
+  "masterEnabledKey": "CatBlockPuzzle.Settings.Sfx",
+  "voiceDelaySeconds": 0.15,
+  "maxOverlappingSounds": 10,
+  "sounds": [
+    {
+      "name": "ui_tap",
+      "file": "Video0/01_ui_tap",
+      "volume": 0.6,
+      "status": "ok",
+      "note": "",
+      "duration": 0.24
+    },
+    {
+      "name": "level_start",
+      "file": "Video0/02_level_start",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.92
+    },
+    {
+      "name": "block_pick",
+      "file": "Video0/03_block_pick",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.52
+    },
+    {
+      "name": "block_place",
+      "file": "Video0/04_block_place",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 0.17s outside 0.2-1.0s",
+      "duration": 0.17
+    },
+    {
+      "name": "hint_show",
+      "file": "Video0/05_hint_show",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.77
+    },
+    {
+      "name": "row_clear",
+      "file": "Video0/06_row_clear",
+      "volume": 0.9,
+      "status": "ok",
+      "note": "",
+      "duration": 0.78
+    },
+    {
+      "name": "cat_meow_happy",
+      "file": "Video0/07_cat_meow_happy",
+      "volume": 0.8,
+      "status": "review",
+      "note": "almost identical to voice_wow (corr 0.98)",
+      "duration": 0.55
+    },
+    {
+      "name": "voice_wow",
+      "file": "Video0/08_voice_wow",
+      "volume": 1.0,
+      "status": "review",
+      "note": "almost identical to cat_meow_happy; excluded from the 4-line voice pool",
+      "duration": 0.6
+    },
+    {
+      "name": "voice_good",
+      "file": "Video0/09_voice_good",
+      "volume": 1.0,
+      "status": "ok",
+      "note": "",
+      "duration": 0.41
+    },
+    {
+      "name": "voice_nice",
+      "file": "Video0/10_voice_nice",
+      "volume": 1.0,
+      "status": "ok",
+      "note": "",
+      "duration": 0.5
+    },
+    {
+      "name": "voice_amazing",
+      "file": "Video0/11_voice_amazing",
+      "volume": 1.0,
+      "status": "ok",
+      "note": "",
+      "duration": 0.6
+    },
+    {
+      "name": "confetti_pop",
+      "file": "Video0/12_confetti_pop",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.36s outside 0.2-1.0s",
+      "duration": 1.36
+    },
+    {
+      "name": "ui_back",
+      "file": "Video1/01_ui_back",
+      "volume": 0.6,
+      "status": "review",
+      "note": "auto: duration 0.13s outside 0.2-1.0s",
+      "duration": 0.13
+    },
+    {
+      "name": "ui_toggle_on",
+      "file": "Video1/01_ui_back",
+      "volume": 0.6,
+      "status": "duplicate_of ui_back",
+      "note": "auto: duration 0.13s outside 0.2-1.0s; exact duplicate file of ui_back; shares its clip",
+      "duration": 0.13
+    },
+    {
+      "name": "ui_popup_open",
+      "file": "Video1/03_ui_popup_open",
+      "volume": 0.6,
+      "status": "ok",
+      "note": "",
+      "duration": 0.83
+    },
+    {
+      "name": "ui_popup_close",
+      "file": "Video1/04_ui_popup_close",
+      "volume": 0.6,
+      "status": "ok",
+      "note": "",
+      "duration": 0.54
+    },
+    {
+      "name": "block_invalid",
+      "file": "Video1/05_block_invalid",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 0.05s outside 0.2-1.0s; shares its opening with block_return (maybe one event)",
+      "duration": 0.05
+    },
+    {
+      "name": "block_return",
+      "file": "Video1/06_block_return",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 0.16s outside 0.2-1.0s; shares its opening with block_invalid (maybe one event)",
+      "duration": 0.16
+    },
+    {
+      "name": "combo_clear_2",
+      "file": "Video1/07_combo_clear_2",
+      "volume": 0.9,
+      "status": "ok",
+      "note": "",
+      "duration": 0.52
+    },
+    {
+      "name": "combo_clear_3",
+      "file": "Video1/08_combo_clear_3",
+      "volume": 0.9,
+      "status": "review",
+      "note": "auto: duration 1.01s outside 0.2-1.0s",
+      "duration": 1.01
+    },
+    {
+      "name": "combo_clear_4",
+      "file": "Video1/09_combo_clear_4",
+      "volume": 0.9,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "board_clear",
+      "file": "Video1/10_board_clear",
+      "volume": 0.9,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "hint_use",
+      "file": "Video1/11_hint_use",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "hint_none",
+      "file": "Video1/12_hint_none",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.98
+    },
+    {
+      "name": "level_complete",
+      "file": "Video2/01_level_complete",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.98
+    },
+    {
+      "name": "level_fail",
+      "file": "Video2/02_level_fail",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "level_unlock",
+      "file": "Video2/03_level_unlock",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.92
+    },
+    {
+      "name": "star_collect_1",
+      "file": "Video2/04_star_collect_1",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "star_collect_2",
+      "file": "Video2/05_star_collect_2",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "star_collect_3",
+      "file": "Video2/06_star_collect_3",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.99
+    },
+    {
+      "name": "coin_collect",
+      "file": "Video2/07_coin_collect",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.98
+    },
+    {
+      "name": "reward_chest_open",
+      "file": "Video2/08_reward_chest_open",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "booster_use",
+      "file": "Video2/09_booster_use",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "daily_reward",
+      "file": "Video2/10_daily_reward",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "shop_buy",
+      "file": "Video2/11_shop_buy",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "ui_error",
+      "file": "Video2/12_ui_error",
+      "volume": 0.6,
+      "status": "ok",
+      "note": "",
+      "duration": 0.9
+    },
+    {
+      "name": "voice_great",
+      "file": "Video3/01_voice_great",
+      "volume": 1.0,
+      "status": "ok",
+      "note": "",
+      "duration": 0.75
+    },
+    {
+      "name": "voice_perfect",
+      "file": "Video3/02_voice_perfect",
+      "volume": 1.0,
+      "status": "ok",
+      "note": "",
+      "duration": 0.77
+    },
+    {
+      "name": "voice_excellent",
+      "file": "Video3/03_voice_excellent",
+      "volume": 1.0,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "voice_sweet",
+      "file": "Video3/04_voice_sweet",
+      "volume": 1.0,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "cat_purr",
+      "file": "Video3/05_cat_purr",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "cat_meow_cute",
+      "file": "Video3/06_cat_meow_cute",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "cat_meow_sad",
+      "file": "Video3/07_cat_meow_sad",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.93
+    },
+    {
+      "name": "cat_meow_surprised",
+      "file": "Video3/08_cat_meow_surprised",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "cat_jump",
+      "file": "Video3/09_cat_jump",
+      "volume": 0.8,
+      "status": "ok",
+      "note": "",
+      "duration": 0.95
+    },
+    {
+      "name": "timer_warning",
+      "file": "Video3/10_timer_warning",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "game_over",
+      "file": "Video3/11_game_over",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s",
+      "duration": 1.05
+    },
+    {
+      "name": "new_highscore",
+      "file": "Video3/12_new_highscore",
+      "volume": 0.8,
+      "status": "review",
+      "note": "auto: duration 1.05s outside 0.2-1.0s; may be cut off at the end",
+      "duration": 1.05
+    }
+  ],
+  "events": [
+    {
+      "eventName": "ButtonTap",
+      "sound": "ui_tap"
+    },
+    {
+      "eventName": "ButtonBack",
+      "sound": "ui_back"
+    },
+    {
+      "eventName": "ToggleOn",
+      "sound": "ui_toggle_on"
+    },
+    {
+      "eventName": "ToggleOff",
+      "sound": "ui_tap"
+    },
+    {
+      "eventName": "PopupOpen",
+      "sound": "ui_popup_open"
+    },
+    {
+      "eventName": "PopupClose",
+      "sound": "ui_popup_close"
+    },
+    {
+      "eventName": "LockedTap",
+      "sound": "ui_error"
+    },
+    {
+      "eventName": "BlockPick",
+      "sound": "block_pick"
+    },
+    {
+      "eventName": "BlockPlace",
+      "sound": "block_place"
+    },
+    {
+      "eventName": "BlockInvalid",
+      "sound": "block_invalid"
+    },
+    {
+      "eventName": "BlockReturn",
+      "sound": "block_return"
+    },
+    {
+      "eventName": "RowClear",
+      "sound": "row_clear"
+    },
+    {
+      "eventName": "Combo2",
+      "sound": "combo_clear_2"
+    },
+    {
+      "eventName": "Combo3",
+      "sound": "combo_clear_3"
+    },
+    {
+      "eventName": "Combo4",
+      "sound": "combo_clear_4"
+    },
+    {
+      "eventName": "BoardClear",
+      "sound": "board_clear"
+    },
+    {
+      "eventName": "HintUse",
+      "sound": "hint_use"
+    },
+    {
+      "eventName": "HintShow",
+      "sound": "hint_show"
+    },
+    {
+      "eventName": "HintNone",
+      "sound": "hint_none"
+    },
+    {
+      "eventName": "LevelStart",
+      "sound": "level_start"
+    },
+    {
+      "eventName": "LevelComplete",
+      "sound": "level_complete"
+    },
+    {
+      "eventName": "StarCollect1",
+      "sound": "star_collect_1"
+    },
+    {
+      "eventName": "StarCollect2",
+      "sound": "star_collect_2"
+    },
+    {
+      "eventName": "StarCollect3",
+      "sound": "star_collect_3"
+    },
+    {
+      "eventName": "LevelFail",
+      "sound": "level_fail"
+    },
+    {
+      "eventName": "LevelUnlock",
+      "sound": "level_unlock"
+    },
+    {
+      "eventName": "GameOver",
+      "sound": "game_over"
+    },
+    {
+      "eventName": "NewHighscore",
+      "sound": "new_highscore"
+    },
+    {
+      "eventName": "CatHappy",
+      "sound": "cat_meow_happy"
+    },
+    {
+      "eventName": "CatTap",
+      "sound": "cat_meow_cute"
+    },
+    {
+      "eventName": "CatPurr",
+      "sound": "cat_purr"
+    },
+    {
+      "eventName": "CatSurprised",
+      "sound": "cat_meow_surprised"
+    },
+    {
+      "eventName": "CatSad",
+      "sound": "cat_meow_sad"
+    },
+    {
+      "eventName": "CatJump",
+      "sound": "cat_jump"
+    },
+    {
+      "eventName": "Confetti",
+      "sound": "confetti_pop"
+    },
+    {
+      "eventName": "CoinCollect",
+      "sound": "coin_collect"
+    },
+    {
+      "eventName": "ChestOpen",
+      "sound": "reward_chest_open"
+    },
+    {
+      "eventName": "DailyReward",
+      "sound": "daily_reward"
+    },
+    {
+      "eventName": "BoosterUse",
+      "sound": "booster_use"
+    },
+    {
+      "eventName": "ShopBuy",
+      "sound": "shop_buy"
+    },
+    {
+      "eventName": "TimerWarning",
+      "sound": "timer_warning"
+    },
+    {
+      "eventName": "HammerHit",
+      "sound": "block_place"
+    },
+    {
+      "eventName": "HammerBreak",
+      "sound": "row_clear"
+    }
+  ],
+  "praise": [
+    {
+      "lines": 2,
+      "sounds": [
+        "voice_good",
+        "voice_nice"
+      ]
+    },
+    {
+      "lines": 3,
+      "sounds": [
+        "voice_great",
+        "voice_sweet"
+      ]
+    },
+    {
+      "lines": 4,
+      "sounds": [
+        "voice_perfect"
+      ]
+    },
+    {
+      "lines": 5,
+      "sounds": [
+        "voice_amazing",
+        "voice_excellent"
+      ]
+    }
+  ]
+}

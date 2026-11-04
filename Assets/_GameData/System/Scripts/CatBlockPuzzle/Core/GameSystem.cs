@@ -113,9 +113,25 @@ namespace CatBlockPuzzle
         public bool TryUseHintPowerUp() => UseHintPowerUp(fromTutorial: false);
         public bool TryUseRotatePowerUp() => UseRotatePowerUp(fromTutorial: false);
         public bool IsRotateActive => HasGameplayController && gameplayController.IsRotateActive;
+        public bool TryUseHammerPowerUp() => UseHammerPowerUp();
+        public bool IsHammerActive => HasGameplayController && gameplayController.IsHammerActive;
         /// <summary>Spends the power-up the unlock tutorial asked the player to tap.</summary>
         internal bool UseTaughtPowerUp(PowerUpKind kind) =>
-            kind == PowerUpKind.Hint ? UseHintPowerUp(true) : kind == PowerUpKind.Rotate ? UseRotatePowerUp(true) : UseFreezePowerUp(true);
+            kind == PowerUpKind.Hint ? UseHintPowerUp(true) : kind == PowerUpKind.Rotate ? UseRotatePowerUp(true) : kind == PowerUpKind.Hammer ? UseHammerPowerUp() : UseFreezePowerUp(true);
+
+        // Arming the Hammer costs nothing: it is spent when a smash lands. Tapping the button again puts it away.
+        private bool UseHammerPowerUp()
+        {
+            if (!HasGameplayController) return false;
+            if (gameplayController.IsHammerActive) { gameplayController.CancelHammer(); return false; }
+            if (!gameplayController.CanRequestPowerUp(PowerUpKind.Hammer)) return false;
+            if (PowerUpInventory.GetCount(PowerUpKind.Hammer) <= 0)
+            {
+                gameplayController.OpenPowerUpPurchase(PowerUpKind.Hammer);
+                return false;
+            }
+            return gameplayController.TryUseHammerPowerUp();
+        }
 
         private bool UseRotatePowerUp(bool fromTutorial)
         {
@@ -170,10 +186,12 @@ namespace CatBlockPuzzle
             int cost = gameplayController.HintCost;
             if (PowerUpInventory.GetCount(PowerUpKind.Hint) < cost)
             {
+                PuzzleAudio.Play(AudioEvents.HintNone);
                 gameplayController.OpenPowerUpPurchase(PowerUpKind.Hint);
                 return false;
             }
             if (!gameplayController.TryUseHintPowerUp()) return false;
+            PuzzleAudio.Play(AudioEvents.HintUse);
             bool consumed = PowerUpInventory.TryConsume(PowerUpKind.Hint, cost);
             if (consumed)
             {
@@ -272,7 +290,7 @@ namespace CatBlockPuzzle
             Application.targetFrameRate = 60;
             if (home == null) home = GetComponent<HomeController>();
             if (levelTestButtons != null) levelTestButtons.gameObject.SetActive(showLevelTestButtons);
-            SoundManager.EnsureInstance();
+            AudioManager.EnsureInstance();
         }
 
         private void Start()

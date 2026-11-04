@@ -58,6 +58,7 @@ namespace CatBlockPuzzle
         {
             if (root == null) return;
             returnToPause = openedFromPause;
+            PuzzleAudio.Play(AudioEvents.PopupOpen);
             // Order here is the order the toggles pop in.
             MenuTransition.Show(root, true, openingAnimation, animatedItems != null && animatedItems.Length > 0
                 ? MenuTransition.Cards(animatedItems)
@@ -97,11 +98,11 @@ namespace CatBlockPuzzle
 
         private void SetMusic(bool value)
         {
-            if (!refreshingToggles && value != SoundManager.EnsureInstance().MusicEnabled) ToggleMusic();
+            if (!refreshingToggles && value != AudioManager.EnsureInstance().MusicEnabled) ToggleMusic();
         }
         private void SetSound(bool value)
         {
-            if (!refreshingToggles && value != SoundManager.EnsureInstance().SfxEnabled) ToggleSfx();
+            if (!refreshingToggles && value != AudioManager.EnsureInstance().SfxEnabled) ToggleSfx();
         }
         private void SetVibration(bool value)
         {
@@ -110,7 +111,7 @@ namespace CatBlockPuzzle
         private void SetNotifications(bool value)
         {
             if (refreshingToggles) return;
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayToggle(value);
             PlayerPrefs.SetInt(NotificationsKey, value ? 1 : 0);
             AvnEvents.Navigation(value ? "notifications_on" : "notifications_off", "settings");
             PlayerPrefs.Save();
@@ -118,9 +119,9 @@ namespace CatBlockPuzzle
 
         private void ToggleMusic()
         {
-            ButtonSfx.PlayClick();
-            SoundManager manager = SoundManager.EnsureInstance();
+            AudioManager manager = AudioManager.EnsureInstance();
             manager.SetMusicEnabled(!manager.MusicEnabled);
+            ButtonSfx.PlayToggle(manager.MusicEnabled);
             GameAnalytics.SettingsChanged("music", manager.MusicEnabled, returnToPause);
             AvnEvents.ScreenInteraction(AvnScreen.settings, AvnEvents.Toggle("music", manager.MusicEnabled));
             RefreshVisuals();
@@ -128,17 +129,17 @@ namespace CatBlockPuzzle
 
         private void ToggleSfx()
         {
-            SoundManager manager = SoundManager.EnsureInstance();
+            AudioManager manager = AudioManager.EnsureInstance();
             manager.SetSfxEnabled(!manager.SfxEnabled);
             GameAnalytics.SettingsChanged("sfx", manager.SfxEnabled, returnToPause);
             AvnEvents.ScreenInteraction(AvnScreen.settings, AvnEvents.Toggle("sfx", manager.SfxEnabled));
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayToggle(manager.SfxEnabled);
             RefreshVisuals();
         }
 
         private void ToggleHaptics()
         {
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayToggle(!HapticsEnabled);
             PlayerPrefs.SetInt(HapticsEnabledKey, HapticsEnabled ? 0 : 1);
             PlayerPrefs.Save();
             GameSystem.Instance?.ApplyHapticsPreference();
@@ -150,7 +151,7 @@ namespace CatBlockPuzzle
         private void RefreshVisuals()
         {
             if (!Application.isPlaying) return;
-            SoundManager manager = SoundManager.EnsureInstance();
+            AudioManager manager = AudioManager.EnsureInstance();
             SetState(musicButton, musicStateText, manager.MusicEnabled);
             SetState(sfxButton, sfxStateText, manager.SfxEnabled);
             SetState(hapticsButton, hapticsStateText, HapticsEnabled);
@@ -171,7 +172,8 @@ namespace CatBlockPuzzle
 
         private void Close()
         {
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayBack();
+            PuzzleAudio.Play(AudioEvents.PopupClose);
             AvnEvents.Navigation("close", "settings");
             AvnEvents.PopupClosed(AvnScreen.settings, ScreenClosedBy.Dismissed);
             MenuTransition.Hide(root, () =>

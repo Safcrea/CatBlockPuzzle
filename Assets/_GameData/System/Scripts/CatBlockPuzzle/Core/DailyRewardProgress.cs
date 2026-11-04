@@ -13,6 +13,7 @@ namespace CatBlockPuzzle
         public int freezeCount;
         public int hintCount;
         public int rotateCount;
+        public int hammerCount;
         // True only for a save created on a brand-new install. Cleared the next time the
         // app process is launched, so a new player's very first session never offers a
         // reward and the count-up only starts from their second session onward.
@@ -55,12 +56,13 @@ namespace CatBlockPuzzle
         }
 
         private static int Count(DailyRewardSave save, PowerUpKind kind) =>
-            kind == PowerUpKind.Freeze ? save.freezeCount : kind == PowerUpKind.Rotate ? save.rotateCount : save.hintCount;
+            kind == PowerUpKind.Freeze ? save.freezeCount : kind == PowerUpKind.Rotate ? save.rotateCount : kind == PowerUpKind.Hammer ? save.hammerCount : save.hintCount;
 
         private static void SetCount(DailyRewardSave save, PowerUpKind kind, int value)
         {
             if (kind == PowerUpKind.Freeze) save.freezeCount = value;
             else if (kind == PowerUpKind.Rotate) save.rotateCount = value;
+            else if (kind == PowerUpKind.Hammer) save.hammerCount = value;
             else save.hintCount = value;
         }
 
@@ -76,6 +78,20 @@ namespace CatBlockPuzzle
             PlayerPrefs.SetInt(coinsKey, remainingCoins);
             Save(save);
             return status;
+        }
+
+        /// <summary>
+        /// A new player's first session offers no reward on its own (no badge, no auto-open), but a player who opens the
+        /// Daily Rewards screen themselves can claim Day 1 right away.
+        /// </summary>
+        internal static void EndFirstSession()
+        {
+            if (!PlayerPrefs.HasKey(SaveKey)) return;
+            DailyRewardSave save = Load();
+            if (!save.firstSessionPending) return;
+            save.firstSessionPending = false;
+            isNewProcessLaunch = false;
+            Save(save);
         }
 
         internal static int GetAvailableDay(DailyRewardConfig config, DateTime utcNow)

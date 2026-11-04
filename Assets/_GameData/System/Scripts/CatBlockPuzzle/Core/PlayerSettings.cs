@@ -25,7 +25,7 @@ namespace CatBlockPuzzle
 
         public void Load()
         {
-            soundEnabled = PlayerPrefs.GetInt(SoundManager.SfxEnabledKey, PlayerPrefs.GetInt(SavedSound, 1)) != 0;
+            soundEnabled = PlayerPrefs.GetInt(AudioManager.SfxEnabledKey, PlayerPrefs.GetInt(SavedSound, 1)) != 0;
             hapticsEnabled = PlayerPrefs.GetInt(SavedHaptics, 1) != 0;
             reducedMotion = PlayerPrefs.GetInt(SavedReducedMotion, 0) != 0;
             Apply();
@@ -33,10 +33,10 @@ namespace CatBlockPuzzle
 
         public void Apply()
         {
-            SoundManager soundManager = SoundManager.EnsureInstance();
-            soundEnabled = PlayerPrefs.GetInt(SoundManager.SfxEnabledKey, soundEnabled ? 1 : 0) != 0;
+            AudioManager soundManager = AudioManager.EnsureInstance();
+            soundEnabled = PlayerPrefs.GetInt(AudioManager.SfxEnabledKey, soundEnabled ? 1 : 0) != 0;
             soundManager.SetSfxEnabled(soundEnabled);
-            soundManager.SetMusicEnabled(PlayerPrefs.GetInt(SoundManager.MusicEnabledKey, 1) != 0);
+            soundManager.SetMusicEnabled(PlayerPrefs.GetInt(AudioManager.MusicEnabledKey, 1) != 0);
 
             if (haptics != null)
             {
@@ -56,7 +56,7 @@ namespace CatBlockPuzzle
         public void SetSound(bool value)
         {
             soundEnabled = value;
-            SoundManager soundManager = SoundManager.EnsureInstance();
+            AudioManager soundManager = AudioManager.EnsureInstance();
             soundManager.SetSfxEnabled(value);
             Save();
         }

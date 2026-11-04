@@ -72,8 +72,8 @@ namespace CatBlockPuzzle
                 : system != null ? system.PurchaseStarterBundle() : PowerUpPurchaseStatus.Unavailable;
             AVNEvents.AvnEvents.PurchaseOutcome("starter_bundle", "shop", result,
                 config != null ? config.StarterBundle.coinPrice : 0, 1, system != null ? system.CurrentCoins : 0);
-            if (result == PowerUpPurchaseStatus.Success) Message("Bundle added!");
-            else if (result == PowerUpPurchaseStatus.InsufficientCoins) Message("Not enough coins");
+            if (result == PowerUpPurchaseStatus.Success) { PuzzleAudio.Play(AudioEvents.ShopBuy); Message("Bundle added!"); }
+            else if (result == PowerUpPurchaseStatus.InsufficientCoins) { ButtonSfx.PlayError(); Message("Not enough coins"); }
             else Message("This offer is unavailable");
         }
 
@@ -88,8 +88,8 @@ namespace CatBlockPuzzle
             bool granted = pack.available && pack.coins > 0 && system != null && system.GrantShopCoins(pack.coins);
             AVNEvents.AvnEvents.PurchaseOutcome("coin_pack_" + index, "shop", granted ? PowerUpPurchaseStatus.Success
                 : PowerUpPurchaseStatus.Unavailable, 0, pack.coins, system != null ? system.CurrentCoins : 0);
-            if (granted) Message("+" + pack.coins + " coins!");
-            else Message("This offer is unavailable");
+            if (granted) { PuzzleAudio.Play(AudioEvents.ShopBuy); Message("+" + pack.coins + " coins!"); }
+            else { ButtonSfx.PlayError(); Message("This offer is unavailable"); }
         }
         public void BuyHint() => Buy(PowerUpKind.Hint, "Hints");
         public void BuyFreeze() => Buy(PowerUpKind.Freeze, "Freezes");
@@ -100,8 +100,8 @@ namespace CatBlockPuzzle
             var offer = Config != null ? Config.GetOffer(kind) : default;
             AVNEvents.AvnEvents.PurchaseOutcome(AVNEvents.AvnEvents.PowerupName(kind), "shop", result,
                 offer.coinPrice, offer.quantity, system != null ? system.CurrentCoins : 0);
-            if (result == PowerUpPurchaseStatus.Success) Message(plural + " added!");
-            else if (result == PowerUpPurchaseStatus.InsufficientCoins) Message("Not enough coins");
+            if (result == PowerUpPurchaseStatus.Success) { PuzzleAudio.Play(AudioEvents.ShopBuy); Message(plural + " added!"); }
+            else if (result == PowerUpPurchaseStatus.InsufficientCoins) { ButtonSfx.PlayError(); Message("Not enough coins"); }
             else if (result == PowerUpPurchaseStatus.InventoryFull) Message("Your " + plural.ToLowerInvariant() + " are full");
             else Message("This offer is unavailable");
         }

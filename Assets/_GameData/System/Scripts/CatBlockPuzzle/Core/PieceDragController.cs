@@ -176,6 +176,16 @@ namespace CatBlockPuzzle
             return true;
         }
 
+        /// <summary>The Hammer knocks a landed cat off the board and back onto its shelf card.</summary>
+        public bool KnockToShelf(PieceState state)
+        {
+            if (state == null || !state.Placed || state.Definition.IsFixed || drag != null) return false;
+            hint.StopHint();
+            board.ClearOccupancyForPiece(state.Definition.Id);
+            ReturnPieceToShelf(state);
+            return true;
+        }
+
         public void TapPiece(PieceState state)
         {
             if (state == null || inputLocked || session.levelFailed || drag != null) return;

@@ -72,6 +72,8 @@ namespace CatBlockPuzzle
         private DropCounter drops;
         private GameplayToast toast;
         private RotateController rotate;
+        private HammerController hammer;
+        private StuckAdvisor stuck;
 
         // ------------------------------------------------------------------ scene bindings
 
@@ -129,6 +131,9 @@ namespace CatBlockPuzzle
         internal FogController Fog => fog;
         internal GameplayToast Toast => toast;
         internal RotateController Rotate => rotate;
+        internal HammerController Hammer => hammer;
+        internal PieceDragController Drag => drag;
+        internal StuckAdvisor Stuck => stuck;
         internal FxSpawner Fx => fx;
 
         /// <summary>Builds the service graph once. Safe in Edit Mode, where the authoring tools need it.</summary>
@@ -171,16 +176,19 @@ namespace CatBlockPuzzle
             drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates, locks);
             toast = new GameplayToast(this);
             rotate = new RotateController(this, session, tray, drag, settings, toast);
+            hammer = new HammerController(this, session, space, board, locks, fog, drag, settings, toast, fx, haptics);
+            hammer.Struck += OnHammerStruck;
             tutorial = new LevelOneTutorial(this, session, this, space, board, drag, settings, fx, mood, timer, gates);
             drag.Gate = tutorial;
             loader = new PreparedLevelLoader(this, session, tray, mood, drag, this);
             meta = new MetaProgressionController(this, session, progress, settings, timer, hint, drag, tray, fx, mood, haptics, gates, this);
-            powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this, rotate);
+            stuck = new StuckAdvisor(this, session, timer, hammer, rotate, locks, gates, tutorial, toast, this);
+            powerUps = new PowerUpController(this, session, timer, hint, drag, progress, meta, tutorial, gates, this, rotate, hammer);
             intro = new MechanicIntroPresenter(this, session);
             hearts = new MistakeHearts(this, session, settings, haptics);
             drops = new DropCounter(this, session);
             flow = new LevelFlowController(this, session, loader, board, locks, tray, drag, timer, hint, tip, tutorial, meta, theme,
-                progress, combo, fx, haptics, mood, gates, this, intro, hearts, fog, drops, toast, rotate);
+                progress, combo, fx, haptics, mood, gates, this, intro, hearts, fog, drops, toast, rotate, hammer);
             composed = true;
         }
 
@@ -268,6 +276,7 @@ namespace CatBlockPuzzle
             if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi && !GameSystem.Instance.IsGameplayOpen) return;
             drag.UpdateMotion();
             timer.Tick(tutorial.IsOpen);
+            stuck.Tick();
             tray.UpdateIdleMotion();
         }
 
@@ -332,6 +341,17 @@ namespace CatBlockPuzzle
         public bool TryUseFreezePowerUp() => powerUps.TryUseFreezePowerUp();
         public bool TryUseHintPowerUp() => powerUps.TryUseHintPowerUp();
         public bool TryUseRotatePowerUp() => powerUps.TryUseRotatePowerUp();
+        public bool TryUseHammerPowerUp() => powerUps.TryUseHammerPowerUp();
+        public bool IsHammerActive => hammer != null && hammer.Active;
+        internal void CancelHammer() => hammer?.Cancel();
+
+        // A smash landed: only now is the Hammer spent.
+        private void OnHammerStruck()
+        {
+            if (!PowerUpInventory.TryConsume(PowerUpKind.Hammer)) return;
+            RefreshPowerUpHud();
+            ReportPowerUpUsed(PowerUpKind.Hammer, 1, false);
+        }
         public bool IsRotateActive => rotate != null && rotate.Active;
         internal void ReportPowerUpUsed(PowerUpKind kind, int cost, bool fromTutorial) => powerUps.ReportUse(kind, cost, fromTutorial);
         internal float TimeLeftSeconds => timer != null ? timer.RemainingSeconds : 0f;

@@ -1,23 +1,13 @@
 namespace CatBlockPuzzle
 {
-    /// <summary>Gameplay sound effect entry points, resolved against the shared SoundManager.</summary>
+    /// <summary>Gameplay sound entry points, resolved against the shared AudioManager.</summary>
     internal static class PuzzleAudio
     {
-        public static void Play(string id)
-        {
-            SoundManager manager = SoundManager.EnsureInstance();
-            if (manager != null) manager.PlaySfx(id);
-        }
-
-        public static void PlayWithMusicDuck(string id)
-        {
-            SoundManager manager = SoundManager.EnsureInstance();
-            if (manager != null) manager.PlaySfxWithMusicDuck(id);
-        }
+        public static void Play(string eventName) => AudioManager.EnsureInstance().PlayEvent(eventName);
 
         public static void PlayButton()
         {
-            Play("Button");
+            Play(AudioEvents.ButtonTap);
             HapticsController.Current?.Play(HapticKind.UiTap);
         }
     }

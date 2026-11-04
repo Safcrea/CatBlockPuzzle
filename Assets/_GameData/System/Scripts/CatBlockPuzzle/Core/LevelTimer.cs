@@ -82,6 +82,9 @@ namespace CatBlockPuzzle
             }
         }
 
+        // The warning sound plays once when this many seconds are left, only on levels that can be lost.
+        private const int TimerWarningSoundSecond = 10;
+
         public void StartLevelTimer()
         {
             if (levelFailed || gates.ResultScreenOpen || gates.MetaUiOpen || gates.PowerUpPurchaseOpen ||
@@ -167,6 +170,7 @@ namespace CatBlockPuzzle
             UpdateTimerDisplay();
             // A tick for each of the final seconds, only on levels that can actually be lost.
             if (currentSecond <= 5 && profile.CanFail) haptics?.Play(HapticKind.TimerTick);
+            if (currentSecond == TimerWarningSoundSecond && profile.CanFail) PuzzleAudio.Play(AudioEvents.TimerWarning);
             if (levelRemainingSeconds <= TimerWarningSeconds)
             {
                 session.stats.reachedLowTime = true;

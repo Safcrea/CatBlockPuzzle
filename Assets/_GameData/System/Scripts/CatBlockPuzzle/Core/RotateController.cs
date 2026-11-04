@@ -67,7 +67,7 @@ namespace CatBlockPuzzle
             chosen = piece;
             piece.RotateClockwise();
             tray.RelayoutTrayPiece(piece);
-            PuzzleAudio.Play("Snap");
+            PuzzleAudio.Play(AudioEvents.BlockPlace);
             if (!settings.ReducedMotion && Host.gameObject.activeInHierarchy && piece.Slot != null) StartCoroutine(Spin(piece));
             return true;
         }

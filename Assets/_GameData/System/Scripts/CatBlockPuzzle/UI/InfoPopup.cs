@@ -92,6 +92,7 @@ namespace CatBlockPuzzle
             icon.material = iconMaterial != null ? iconMaterial : null;
             RefreshMessage();
             transform.SetAsLastSibling();
+            PuzzleAudio.Play(AudioEvents.PopupOpen);
             if (ReducedMotion) gameObject.SetActive(true);
             else MenuTransition.Show(gameObject, true, new MenuTransition.EntranceSettings { duration = .35f, slideDistance = 24f, overshoot = 1.2f });
             if (motion != null) StopCoroutine(motion);

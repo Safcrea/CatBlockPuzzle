@@ -15,6 +15,7 @@ namespace CatBlockPuzzle
         private readonly CatMoodPresenter mood;
         private readonly ComboTracker combo;
         private readonly PlayerSettings settings;
+        private const float InvalidToReturnDelaySeconds = 0.12f;
 
         public PlacementFeedback(IGameplayContext context, PuzzleSession session, FxSpawner fx, HapticsController haptics,
             CanvasSpace space, BoardController board, CatMoodPresenter mood, ComboTracker combo, PlayerSettings settings) : base(context)
@@ -33,7 +34,7 @@ namespace CatBlockPuzzle
 
         public void PlayPickup(PieceState state, Vector2 screenPosition)
         {
-            PuzzleAudio.Play("Button");
+            PuzzleAudio.Play(AudioEvents.BlockPick);
             haptics?.PlayPickup();
             Color accent = Color.Lerp(state.Color, Color.white, 0.28f);
             fx.SpawnSnapRing(screenPosition, accent);
@@ -46,7 +47,7 @@ namespace CatBlockPuzzle
 
         public void PlaySnap(PieceState state, int row, int col)
         {
-            PuzzleAudio.Play("Snap");
+            PuzzleAudio.Play(AudioEvents.BlockPlace);
             haptics.PlaySnap();
             Vector2 centerScreen = board.BoardPieceCenterScreen(state, row, col);
             fx.SpawnSnapRing(centerScreen, state.Color);
@@ -71,15 +72,23 @@ namespace CatBlockPuzzle
         {
             combo.Reset();
             mood.ShowWorried(state);
-            PuzzleAudio.Play("InvalidPlacement");
+            PuzzleAudio.Play(AudioEvents.BlockInvalid);
+            StartCoroutine(PlayReturnAfterInvalid());
             haptics.PlayWrongMove();
             fx.SpawnFixedBurst(space.WorldToScreen(state.Rect.position), 12, InvalidColor);
             StartCoroutine(fx.ShakeTransform(state.Rect));
         }
 
+        // The refused cat flies back right after the invalid sound.
+        private IEnumerator PlayReturnAfterInvalid()
+        {
+            yield return new WaitForSecondsRealtime(InvalidToReturnDelaySeconds);
+            PuzzleAudio.Play(AudioEvents.BlockReturn);
+        }
+
         public void PlayShelfReturn()
         {
-            PuzzleAudio.Play("Button");
+            PuzzleAudio.Play(AudioEvents.BlockReturn);
             haptics?.Play(HapticKind.Selection);
             StartCoroutine(fx.PopTransform(session.trayRoot, 1.02f));
         }
@@ -95,6 +104,9 @@ namespace CatBlockPuzzle
 
             combo.Register();
             if (session.comboCount >= 3) haptics?.Play(HapticKind.Combo);
+            // A first-try streak plays the combo sound for its length; the praise voice only at streak milestones so it is not chatty.
+            int streak = session.comboCount;
+            if (streak >= 2) AudioManager.EnsureInstance().PlayCombo(streak, withPraise: streak <= 5 || streak == 8);
         }
 
         /// <summary>The held cat lined up with a new spot it can land on.</summary>

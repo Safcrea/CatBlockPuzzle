@@ -131,6 +131,7 @@ namespace CatBlockPuzzle
                     if (reward.coins > 0) GameSystem.Instance.AwardCoins(reward.coins);
                     ReportClaim(config, dayNumber, previousDay, reward);
                     GameSystem.Instance.RefreshPowerUpHud();
+                    PuzzleAudio.Play(AudioEvents.DailyReward);
                     day.claimRequested?.Invoke();
                     RefreshPresentation();
                     Close();
@@ -178,6 +179,7 @@ namespace CatBlockPuzzle
             if (root == null) return;
             // The entrance captures each card's resting alpha before enabling the root, so dim first.
             RefreshPresentation();
+            PuzzleAudio.Play(AudioEvents.PopupOpen);
             var cards = new Transform[days.Length];
             for (int i = 0; i < days.Length; i++)
                 if (days[i]?.cardImage != null) cards[i] = days[i].motionRoot != null ? days[i].motionRoot : days[i].cardImage.transform;
@@ -196,7 +198,8 @@ namespace CatBlockPuzzle
         private void Close() => GameSystem.Instance?.GoHome();
         private void CloseButtonClicked()
         {
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayBack();
+            PuzzleAudio.Play(AudioEvents.PopupClose);
             GameAnalytics.DailyRewardDismissed(AvailableDay);
             AvnEvents.ScreenInteraction(AvnScreen.daily_gift, ScreenAction.later);
             Close();

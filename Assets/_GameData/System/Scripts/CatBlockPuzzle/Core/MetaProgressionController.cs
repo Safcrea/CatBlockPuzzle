@@ -622,7 +622,7 @@ namespace CatBlockPuzzle
             }
 
             metaSelectedDecorationId = null;
-            PuzzleAudio.Play("Snap");
+            PuzzleAudio.Play(AudioEvents.BlockPlace);
             SelectFirstStoredDecoration(decoration.ChapterIndex);
             RenderRoomDetail(decoration.ChapterIndex);
             ShowMetaStatus(decoration.DisplayName + " placed • "

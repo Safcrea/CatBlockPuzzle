@@ -37,7 +37,7 @@ namespace CatBlockPuzzle
         }
         private void OnOkayClicked()
         {
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayBack();
             AVNEvents.AvnEvents.Navigation("okay", "no_internet");
             AVNEvents.AvnEvents.PopupClosed(AVNEvents.AvnScreen.no_internet, AVNEvents.ScreenClosedBy.Dismissed);
             Hide();

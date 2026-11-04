@@ -37,6 +37,7 @@ namespace CatBlockPuzzle
         private readonly DropCounter drops;
         private readonly GameplayToast toast;
         private readonly RotateController rotate;
+        private readonly HammerController hammer;
 
         // The tier of the last level that was started, so the difficulty banner only shows when it changes.
         private const string LastDifficultyTierKey = "CatBlockPuzzle.LastDifficultyTier";
@@ -53,9 +54,10 @@ namespace CatBlockPuzzle
             CellLockController locks, TrayLayout tray, PieceDragController drag, LevelTimer timer, HintPresenter hint, MovePieceTip tip, LevelOneTutorial tutorial,
             MetaProgressionController meta, ThemePresenter theme, PlayerProgress progress, ComboTracker combo, FxSpawner fx,
             HapticsController haptics, CatMoodPresenter mood, InteractionGates gates, IPuzzleConfig config,
-            MechanicIntroPresenter intro, MistakeHearts hearts, FogController fog, DropCounter drops, GameplayToast toast, RotateController rotate) : base(context)
+            MechanicIntroPresenter intro, MistakeHearts hearts, FogController fog, DropCounter drops, GameplayToast toast, RotateController rotate, HammerController hammer) : base(context)
         {
             this.rotate = rotate;
+            this.hammer = hammer;
             this.fog = fog;
             this.drops = drops;
             this.toast = toast;
@@ -131,7 +133,7 @@ namespace CatBlockPuzzle
             tray.SetScrollEnabled(true);
             hint.StopHint();
             toast.Hide();
-            rotate.Cancel();
+            rotate.Cancel(); hammer.Cancel();
             haptics?.CancelLevelComplete();
             Host.StopAllCoroutines();
             boardRevealRoutine = null;
@@ -221,6 +223,7 @@ namespace CatBlockPuzzle
         // on a fully shown board.
         private IEnumerator LevelStartSequence()
         {
+            PuzzleAudio.Play(AudioEvents.LevelStart);
             IEnumerator reveal = board.RevealCells();
             while (reveal.MoveNext()) yield return reveal.Current;
 
@@ -433,6 +436,7 @@ namespace CatBlockPuzzle
             }
 
             fx.SpawnBoardBurst(session.boardRoot);
+            PuzzleAudio.Play(AudioEvents.Confetti);
             haptics.PlayLevelComplete();
             int chapterBefore = meta.Progress != null ? meta.Progress.HighestEarnedChapter : 0;
             bool enteringEndless = !levelNavigationTesting && !EndlessLevels.IsActive && session.levelNumber == levelManager.LevelCount;
@@ -456,6 +460,8 @@ namespace CatBlockPuzzle
             StartCoroutine(fx.PopTransform(Hud.coinText.rectTransform.parent as RectTransform, 1.08f));
             meta.ConfigureMetaWinPresentation(awardedCoins);
             GameSystem.Instance?.ShowLevelComplete(activeLevel.Title, result.Stars, awardedCoins, result.BestStars, session.bestCombo);
+            if (unlockedChapterThisWin) AudioManager.EnsureInstance().PlayEventDelayed(AudioEvents.LevelUnlock, UnlockSoundDelaySeconds);
+            unlockedChapterThisWin = false;
         }
 
         private InfoPopup dailyRewardPopup;
@@ -467,7 +473,10 @@ namespace CatBlockPuzzle
             for (int i = 0; i < session.pieces.Count; i++) StartCoroutine(fx.PopTransform(session.pieces[i].Rect, 1.08f));
             fx.SpawnBoardBurst(session.boardRoot);
             haptics.PlayLevelComplete();
-            SoundManager.EnsureInstance().PlaySfxWithMusicDuck("Win");
+            AudioManager audio = AudioManager.EnsureInstance();
+            audio.PlayEvent(AudioEvents.LevelComplete);
+            audio.PlayEvent(AudioEvents.CatHappy);
+            audio.PlayEvent(AudioEvents.Confetti);
             yield return new WaitForSecondsRealtime(0.9f);
 
             if (!DailyPuzzle.TryClaimBonus(System.DateTime.UtcNow))
@@ -510,6 +519,10 @@ namespace CatBlockPuzzle
             dailyRewardPopup.Show("Daily Reward!", icon, () => line);
         }
 
+        // The unlock sound waits for the result screen so it does not play over the board burst.
+        private bool unlockedChapterThisWin;
+        private const float UnlockSoundDelaySeconds = 1.4f;
+
         private void ReportProgressMilestones(int chapterBefore, bool enteredEndless)
         {
             if (levelNavigationTesting) return;
@@ -522,6 +535,7 @@ namespace CatBlockPuzzle
                 totalStars += stars;
                 if (stars > 0) levelsCleared++;
             }
+            unlockedChapterThisWin = chapterAfter > chapterBefore;
             if (chapterAfter > chapterBefore) GameAnalytics.ChapterUnlocked(chapterAfter, totalStars, levelsCleared);
             if (enteredEndless) GameAnalytics.EndlessEntered(totalStars);
         }
@@ -546,9 +560,8 @@ namespace CatBlockPuzzle
             timer.timerRunning = false;
             inputLocked = true;
             hint.StopHint();
-            rotate.Cancel();
+            rotate.Cancel(); hammer.Cancel();
             drag.CancelActiveDragToRest();
-            PuzzleAudio.PlayWithMusicDuck("Wrong");
             haptics?.Play(HapticKind.LevelFail);
             GameSystem.Instance?.ShowLevelFailed("Try Again", message);
         }
@@ -561,7 +574,7 @@ namespace CatBlockPuzzle
             Hud?.CancelPowerUpTutorial();
             Hud?.CancelPowerUpPurchase(false);
             CancelReveal(snapCells: false);
-            timer.StopLevelTimer(); hint.StopHint(); rotate.Cancel(); drag.CancelActiveDragToRest(); inputLocked = true;
+            timer.StopLevelTimer(); hint.StopHint(); rotate.Cancel(); hammer.Cancel(); drag.CancelActiveDragToRest(); inputLocked = true;
         }
 
         public void SetSystemPaused(bool paused)
@@ -570,6 +583,7 @@ namespace CatBlockPuzzle
             {
                 timerWasRunningBeforeSettings = timer.timerRunning || IsRevealing;
                 timer.timerRunning = false;
+                hammer.Cancel();
                 drag.CancelActiveDragToRest();
                 inputLocked = true;
             }

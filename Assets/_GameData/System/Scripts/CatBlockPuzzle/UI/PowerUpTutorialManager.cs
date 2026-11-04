@@ -17,6 +17,7 @@ namespace CatBlockPuzzle
         public const string HintSeenKey = "CatBlockPuzzle.Tutorial.Hint";
         public const string FreezeSeenKey = "CatBlockPuzzle.Tutorial.Freeze";
         public const string RotateSeenKey = "CatBlockPuzzle.Tutorial.Rotate";
+        public const string HammerSeenKey = "CatBlockPuzzle.Tutorial.Hammer";
         public const string TimerSeenKey = "CatBlockPuzzle.Tutorial.Timer";
         private const int TimerTutorialLevel = 11;
 
@@ -49,6 +50,8 @@ namespace CatBlockPuzzle
                 yield return Show(hud, PowerUpKind.Hint, "Stuck?\nTap Hint!", HintSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Freeze, $"Freeze time for {freezeSeconds:0.#}s!\nTap Freeze!", FreezeSeenKey);
+            if (hud.IsPowerUpUnlocked(PowerUpKind.Hammer) && PlayerPrefs.GetInt(HammerSeenKey, 0) == 0)
+                yield return Show(hud, PowerUpKind.Hammer, "Something in the way?\nTap Hammer!", HammerSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Rotate) && PlayerPrefs.GetInt(RotateSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Rotate, "Turn a cat!\nTap Rotate!", RotateSeenKey);
         }

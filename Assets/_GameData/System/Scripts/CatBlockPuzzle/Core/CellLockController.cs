@@ -48,6 +48,30 @@ namespace CatBlockPuzzle
 
         public bool HasLocks => locks.Count > 0;
 
+        public bool HasClosedLocks
+        {
+            get
+            {
+                for (int i = 0; i < locks.Count; i++) if (!locks[i].Open) return true;
+                return false;
+            }
+        }
+
+        /// <summary>Adds the padlock overlays still shut to <paramref name="into"/> (the Hammer pulses them).</summary>
+        public void CollectClosedLockRects(List<RectTransform> into)
+        {
+            for (int i = 0; i < locks.Count; i++) if (!locks[i].Open && locks[i].Overlay != null) into.Add(locks[i].Overlay);
+        }
+
+        /// <summary>The Hammer smashes a padlock open ahead of its rule. False when the cell has no closed padlock.</summary>
+        public bool TryBreak(Vector2Int cell)
+        {
+            if (!byCell.TryGetValue(cell, out Lock l) || l.Open) return false;
+            Open(l);
+            RefreshKeyTags();
+            return true;
+        }
+
         public bool IsLocked(Vector2Int cell) => byCell.TryGetValue(cell, out Lock l) && !l.Open;
 
         /// <summary>The resting colour of an active cell, dimmed while it is locked.</summary>
@@ -226,7 +250,7 @@ namespace CatBlockPuzzle
         {
             l.Open = true;
             if (session.boardCells.TryGetValue(l.Cell, out CellView view)) view.Image.color = TargetColor;
-            PuzzleAudio.Play("Snap");
+            PuzzleAudio.Play(AudioEvents.ChestOpen);
             haptics?.Play(HapticKind.LockOpen);
             if (l.Overlay == null) return;
             if (settings.ReducedMotion) { l.Overlay.gameObject.SetActive(false); return; }
