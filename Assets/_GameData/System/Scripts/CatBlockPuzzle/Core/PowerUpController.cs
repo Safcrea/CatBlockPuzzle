@@ -92,7 +92,8 @@ namespace CatBlockPuzzle
         /// <summary>Counts a spent power-up toward the attempt and reports it.</summary>
         public void ReportUse(PowerUpKind kind, int cost, bool fromTutorial)
         {
-            if (kind != PowerUpKind.Hint) PuzzleAudio.Play(AudioEvents.BoosterUse);
+            // The Hammer plays its own sounds when armed and when it strikes.
+            if (kind != PowerUpKind.Hint && kind != PowerUpKind.Hammer) PuzzleAudio.Play(AudioEvents.BoosterUse);
             if (kind == PowerUpKind.Hint) session.stats.hintsUsed++;
             else if (kind == PowerUpKind.Rotate) session.stats.rotatesUsed++;
             else if (kind == PowerUpKind.Hammer) session.stats.hammersUsed++;

@@ -126,6 +126,7 @@ namespace CatBlockPuzzle
             save.lastClaimDay = day;
             save.freezeCount = AddClamped(save.freezeCount, reward.freezeCount);
             save.hintCount = AddClamped(save.hintCount, reward.hintCount);
+            save.hammerCount = AddClamped(save.hammerCount, reward.hammerCount);
             Save(save);
             return true;
         }

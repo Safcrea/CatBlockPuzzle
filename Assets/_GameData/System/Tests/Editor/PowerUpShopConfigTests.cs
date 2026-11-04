@@ -32,5 +32,18 @@ namespace CatBlockPuzzle.Tests
             Assert.That(remaining, Is.EqualTo(expectedCoins));
             Assert.That(updated, Is.EqualTo(expectedInventory));
         }
+
+        [Test]
+        public void Hammer_IsSoldInTheShopAndTheStarterBundle()
+        {
+            var config = PowerUpShopConfig.Load();
+            Assert.That(config, Is.Not.Null);
+            Assert.That(config.GetOffer(PowerUpKind.Hammer).IsValid, Is.True, "The Hammer has a coin price.");
+            Assert.That(config.StarterBundle.hammers, Is.GreaterThan(0), "The starter bundle includes a Hammer.");
+            Assert.That(config.StarterBundle.IsValid, Is.True);
+            var status = PowerUpShopConfig.CalculatePurchase(PowerUpKind.Hammer, config.GetOffer(PowerUpKind.Hammer), 1000, 0, out _, out int updated);
+            Assert.That(status, Is.EqualTo(PowerUpPurchaseStatus.Success));
+            Assert.That(updated, Is.EqualTo(config.GetOffer(PowerUpKind.Hammer).quantity));
+        }
     }
 }

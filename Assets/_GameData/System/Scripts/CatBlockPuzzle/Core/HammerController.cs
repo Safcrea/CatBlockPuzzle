@@ -73,6 +73,7 @@ namespace CatBlockPuzzle
         {
             if (Active) return;
             Active = true;
+            PuzzleAudio.Play(AudioEvents.BoosterUse);
             BuildCatcher();
             toast.Show(HasObstacle ? "Tap a padlock, fog or cat\nto smash it!" : "Tap a cat on the board\nto smash it off!", 2.6f);
             Hud?.RefreshPowerUpCounts();
@@ -215,6 +216,7 @@ namespace CatBlockPuzzle
                     break;
                 case Target.Cat:
                     PuzzleAudio.Play(AudioEvents.HammerBreak);
+                    PuzzleAudio.Play(AudioEvents.CatSurprised);
                     session.inputLocked = false; // KnockToShelf locks input itself until the cat is home
                     drag.KnockToShelf(cat);
                     break;

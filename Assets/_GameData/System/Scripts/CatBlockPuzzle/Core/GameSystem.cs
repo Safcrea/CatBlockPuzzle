@@ -124,7 +124,7 @@ namespace CatBlockPuzzle
         {
             if (!HasGameplayController) return false;
             if (gameplayController.CanRequestPowerUp(PowerUpKind.Hammer)) return UseHammerPowerUp();
-            gameplayController.Toast?.Show("Hammer ready!\nPlace a cat, then tap Hammer\nto knock it off.", 3.2f);
+            gameplayController.Toast?.Show("Hammer ready!\nPlace a cat, then tap it.", 3.2f);
             return false;
         }
 
@@ -132,7 +132,7 @@ namespace CatBlockPuzzle
         private bool UseHammerPowerUp()
         {
             if (!HasGameplayController) return false;
-            if (gameplayController.IsHammerActive) { gameplayController.CancelHammer(); return false; }
+            if (gameplayController.IsHammerActive) { gameplayController.CancelHammer(); PuzzleAudio.Play(AudioEvents.ButtonBack); return false; }
             if (!gameplayController.CanRequestPowerUp(PowerUpKind.Hammer)) return false;
             if (PowerUpInventory.GetCount(PowerUpKind.Hammer) <= 0)
             {

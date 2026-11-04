@@ -141,14 +141,16 @@ namespace CatBlockPuzzle
 
         private static void ReportClaim(DailyRewardConfig config, int dayNumber, int previousDay, DailyRewardConfig.DayReward reward)
         {
-            GameAnalytics.DailyRewardClaimed(dayNumber, previousDay, config.DayCount, reward.coins, reward.hintCount, reward.freezeCount);
+            GameAnalytics.DailyRewardClaimed(dayNumber, previousDay, config.DayCount, reward.coins, reward.hintCount, reward.freezeCount, reward.hammerCount);
             GameAnalytics.CurrencyEarned(reward.coins, GameAnalytics.EarnDailyReward, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
             GameAnalytics.ItemEarned(PowerUpKind.Hint, reward.hintCount, GameAnalytics.EarnDailyReward);
             GameAnalytics.ItemEarned(PowerUpKind.Freeze, reward.freezeCount, GameAnalytics.EarnDailyReward);
+            GameAnalytics.ItemEarned(PowerUpKind.Hammer, reward.hammerCount, GameAnalytics.EarnDailyReward);
             AvnEvents.ScreenInteraction(AvnScreen.daily_gift, ScreenAction.claim, "day_" + dayNumber);
             AvnEvents.EconomyEarned(reward.coins, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0, EconomySource.gift, EconomyDetail.daily_reward);
             AvnEvents.PowerupObtained(PowerUpKind.Hint, reward.hintCount, PowerupSource.Gift);
             AvnEvents.PowerupObtained(PowerUpKind.Freeze, reward.freezeCount, PowerupSource.Gift);
+            AvnEvents.PowerupObtained(PowerUpKind.Hammer, reward.hammerCount, PowerupSource.Gift);
         }
 
         /// <summary>Called by the reward system after a claim succeeds, or while restoring its saved state.</summary>
@@ -211,6 +213,7 @@ namespace CatBlockPuzzle
             if (!string.IsNullOrWhiteSpace(reward.textOverride)) return reward.textOverride;
             int coins = reward.coins;
             if (coins > 0 && dayNumber != 7) return "x" + coins;
+            if (reward.hammerCount > 0 && reward.hintCount == 0 && reward.freezeCount == 0) return "x" + reward.hammerCount + " Hammer";
             if (reward.hintCount > 0 && reward.freezeCount == 0) return "x" + reward.hintCount + " Hint";
             if (reward.freezeCount > 0 && reward.hintCount == 0) return "x" + reward.freezeCount + " Freeze";
             return string.Empty;

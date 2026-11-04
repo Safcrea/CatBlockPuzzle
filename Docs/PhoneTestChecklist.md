@@ -44,3 +44,10 @@ Tick these off on a real phone (and, if you can, a tablet). Editor screenshots c
 - [ ] Levels 1-3 (no Hint yet): stand idle 12 s and the next cat plus its spot glow with "Try this cat in the glowing spot!".
 - [ ] Hammer tutorial at level 8: tapping the Hammer on the empty board shows "Hammer ready!" instead of doing nothing.
 - [ ] After level 8, the fog and padlock intro cards mention the Hammer.
+
+## Rewards, shop and Level 1
+- [ ] Daily Rewards: Day 5 shows a hammer with "x2"; claiming it on that day adds 2 Hammers (HUD count after level 8, shop/popup).
+- [ ] Shop: the starter bundle lists 1 Hammer and buying it adds Hammers.
+- [ ] Hammer sounds: arm, strike thud, knocked-cat meow, back sound when you put it away; sound off silences all of them.
+- [ ] Level 1 (clear the tutorial save first): the card above the board reads "Give this cat a home / Drag the glowing cat onto the green spaces." Text is sharp, nothing overlaps the board or the shelf. Step 2 and the "Green means it fits!" line while dragging look the same.
+- [ ] "Placed cats can move!" tip bubble is readable and stays on screen when the cat is at the edge.

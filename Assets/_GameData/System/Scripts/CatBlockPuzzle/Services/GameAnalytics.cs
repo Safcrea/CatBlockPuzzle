@@ -389,7 +389,7 @@ namespace CatBlockPuzzle
                 ["auto_opened"] = autoOpened,
             });
 
-        public static void DailyRewardClaimed(int day, int previousDay, int dayCount, int coins, int hints, int freezes) =>
+        public static void DailyRewardClaimed(int day, int previousDay, int dayCount, int coins, int hints, int freezes, int hammers = 0) =>
             Send("daily_reward_claimed", new Dictionary<string, object>
             {
                 ["day"] = day,
@@ -399,6 +399,7 @@ namespace CatBlockPuzzle
                 ["coins"] = coins,
                 ["hints"] = hints,
                 ["freezes"] = freezes,
+                ["hammers"] = hammers,
             });
 
         public static void DailyRewardDismissed(int availableDay) =>

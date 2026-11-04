@@ -40,6 +40,19 @@
 - The Hammer unlock tutorial now says what it does ("Smash a padlock, fog or cat! Tap Hammer!"). Its demo tap used to be wasted silently on an empty board; it now explains "Hammer ready! Place a cat, then tap Hammer to knock it off."
 - The padlock, key-cat and fog intro cards mention the Hammer as a way out once it has unlocked.
 
+### Hammer in rewards, bundles and sounds
+
+- Daily Rewards: Day 5 now pays 2 Hammers (it paid 500 coins; change `DailyRewardConfig` if you want the coins back). The Day 5 card shows the hammer icon and "x2" (the scene's own icon image was switched, since `Use Authored Reward Icons` is on). Claims add `hammerCount` to the save and report it to analytics.
+- Starter bundle now holds 3 Hints, 2 Freezes and 1 Hammer for the same 250 coins; the shop describes it as "... 1 Hammer". `PowerUpShopConfig` also has a Hammer price (150).
+- Hammer sound: arming plays the booster sound, the strike plays `HammerHit`, a knocked cat adds its surprised meow, fog and cats add `HammerBreak`, putting the Hammer away plays the back sound. The booster sound no longer plays a second time at the end of a smash.
+
+### Level 1 tutorial and tutorial text
+
+- The Level 1 coach card moved above the board (it used to be wedged into the board's bottom edge, overlapping the board and the shelf, and shifted left). It is bigger, shows a title and one line of instructions by default (`Show Tutorial Captions` is now on) with the progress dots inside it.
+- Soft text fixed: the card's detail line used best-fit sizing and was squeezed down to its 16 pt floor. Title and detail now use fixed 34 / 25 pt with room for the text. Copy shortened to fit one line ("Drag the glowing cat onto the green spaces.", "Green means it fits! Let go and the cat snaps into place.").
+- The "Placed cats can move!" tip had the same problem (22 pt text in a small box, shrunk to 16): now a wider bubble with fixed 30 pt text, kept on screen near the edges.
+- The message pill (stuck nudge, Hammer hints) has a bigger box and a 30 pt floor instead of 20 pt.
+
 ### Still to do
 
 - A "How to play" replay button in Settings (tutorials can only be replayed by clearing saves for now).

@@ -46,6 +46,16 @@ namespace CatBlockPuzzle.Tests
         }
 
         [Test]
+        public void DayFive_PaysTwoHammers()
+        {
+            for (int offset = 0; offset < 4; offset++) Assert.That(DailyRewardProgress.TryClaim(config, Day(offset), offset + 1, out _), Is.True);
+            int before = PowerUpInventory.GetCount(PowerUpKind.Hammer);
+            Assert.That(DailyRewardProgress.TryClaim(config, Day(4), 5, out var reward), Is.True);
+            Assert.That(reward.hammerCount, Is.EqualTo(2));
+            Assert.That(PowerUpInventory.GetCount(PowerUpKind.Hammer), Is.EqualTo(before + 2), "Claiming day 5 puts the Hammers in the bag.");
+        }
+
+        [Test]
         public void DayAfterSeven_IsDayOne_EvenJustPastMidnight()
         {
             PlayerPrefs.SetString(SaveKey, "{\"version\":1,\"lastClaimUtcDate\":\"2026-10-05\",\"lastClaimDay\":7}");

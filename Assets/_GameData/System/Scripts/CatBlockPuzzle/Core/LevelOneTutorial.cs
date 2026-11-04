@@ -19,6 +19,8 @@ namespace CatBlockPuzzle
         // hand the rest of the level back to the player.
         private enum TutorialStep { Off, PlaceFirst, PlaceSecond }
         private const int TutorialProgressStepCount = 2;
+        private const float CoachWidth = 780f;
+        private const float CoachHeight = 140f;
 
         private readonly PuzzleSession session;
         private readonly IPuzzleConfig config;
@@ -292,10 +294,10 @@ namespace CatBlockPuzzle
             bool hidden = gates.MetaUiOpen || gates.ResultScreenOpen || gates.SystemPaused || gates.SettingsOpen || gates.GameplayHidden;
             tutorialRoot.gameObject.SetActive(!hidden);
             tutorialTargetRoot.gameObject.SetActive(!hidden);
-            Vector2 boardBottom = TutorialLocal(boardRoot.TransformPoint(new Vector3(0f, boardRoot.rect.yMin, 0f)));
-            Vector2 shelfTop = TutorialLocal(trayRoot.TransformPoint(new Vector3(0f, trayRoot.rect.yMax, 0f)));
-            float gapCenter = (boardBottom.y + shelfTop.y) * .5f;
-            tutorialCoach.anchoredPosition = new Vector2(boardBottom.x - 110f, gapCenter);
+            // The card sits just above the board, centred on it: the strip between the level banner and the board is the
+            // one place that is always empty, whatever the shelf height.
+            Vector2 boardTop = TutorialLocal(boardRoot.TransformPoint(new Vector3(0f, boardRoot.rect.yMax, 0f)));
+            tutorialCoach.anchoredPosition = new Vector2(boardTop.x, boardTop.y + 72f + CoachHeight * .5f);
             if (hidden || session.inputLocked) return;
             if (tutorialCelebrationRemaining > 0f) tutorialCelebrationRemaining = Mathf.Max(0f, tutorialCelebrationRemaining - Time.unscaledDeltaTime);
             else tutorialElapsed += Time.unscaledDeltaTime;
@@ -382,7 +384,7 @@ namespace CatBlockPuzzle
         private void CreateTutorialCoach()
         {
             tutorialCoach = RuntimeUiFactory.CreateRect(tutorialRoot, "Tutorial Context Card");
-            RuntimeUiFactory.SetRect(tutorialCoach, Vector2.zero, new Vector2(440f, 94f));
+            RuntimeUiFactory.SetRect(tutorialCoach, Vector2.zero, new Vector2(CoachWidth, CoachHeight));
             var panel = tutorialCoach.gameObject.AddComponent<Image>();
             panel.sprite = roundedBoxSprite;
             panel.type = Image.Type.Sliced;
@@ -391,10 +393,18 @@ namespace CatBlockPuzzle
             var shadow = panel.gameObject.AddComponent<Shadow>();
             shadow.effectColor = new Color(.25f, .15f, .1f, .18f);
             shadow.effectDistance = new Vector2(0f, -6f);
-            tutorialCoachTitle = RuntimeUiFactory.CreateText(tutorialCoach, "Context Title", "", 27, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(tutorialCoachTitle.rectTransform, new Vector2(0f, 22f), new Vector2(412f, 32f));
-            tutorialCoachBody = RuntimeUiFactory.CreateText(tutorialCoach, "Context Detail", "", 21, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(tutorialCoachBody.rectTransform, new Vector2(0f, -10f), new Vector2(412f, 38f));
+            // Fixed sizes with room for two lines: the old best-fit boxes shrank the detail line to its 16 pt floor, which
+            // rendered soft. The card keeps every size whole and the text clear of its edges.
+            tutorialCoachTitle = RuntimeUiFactory.CreateText(tutorialCoach, "Context Title", "", 34, TextAnchor.MiddleCenter);
+            tutorialCoachTitle.resizeTextForBestFit = false;
+            tutorialCoachTitle.verticalOverflow = VerticalWrapMode.Overflow;
+            tutorialCoachTitle.horizontalOverflow = HorizontalWrapMode.Overflow;
+            RuntimeUiFactory.SetRect(tutorialCoachTitle.rectTransform, new Vector2(0f, 38f), new Vector2(CoachWidth - 40f, 48f));
+            tutorialCoachBody = RuntimeUiFactory.CreateText(tutorialCoach, "Context Detail", "", 25, TextAnchor.UpperCenter);
+            tutorialCoachBody.resizeTextForBestFit = false;
+            tutorialCoachBody.horizontalOverflow = HorizontalWrapMode.Wrap;
+            tutorialCoachBody.verticalOverflow = VerticalWrapMode.Overflow;
+            RuntimeUiFactory.SetRect(tutorialCoachBody.rectTransform, new Vector2(0f, -22f), new Vector2(CoachWidth - 56f, 62f));
             tutorialCoachTitle.raycastTarget = tutorialCoachBody.raycastTarget = false;
             tutorialCoachPictures = RuntimeUiFactory.CreateRect(tutorialCoach, "Visual Context");
             tutorialCoachCat = RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Cat Group", mood.Portrait(CatMood.Happy, 0), Color.white,
@@ -414,7 +424,7 @@ namespace CatBlockPuzzle
                 new Vector2(110f, 8f), new Vector2(46f, 46f));
             for (int i = 0; i < TutorialProgressStepCount; i++)
                 tutorialProgressDots.Add(RuntimeUiFactory.CreateImage(tutorialCoach, "Learning Progress", circleSprite, TargetColor,
-                    new Vector2((i - (TutorialProgressStepCount - 1) * .5f) * 32f, -35f), new Vector2(12f, 12f)));
+                    new Vector2((i - (TutorialProgressStepCount - 1) * .5f) * 32f, -CoachHeight * .5f + 20f), new Vector2(12f, 12f)));
         }
 
         private int TutorialProgressIndex() => tutorialStep == TutorialStep.PlaceFirst ? 0 : 1;
@@ -427,20 +437,20 @@ namespace CatBlockPuzzle
             if (tutorialStep == TutorialStep.PlaceFirst)
             {
                 title = "Give this cat a home";
-                detail = "Pick up the glowing group and drag it into its matching space.";
+                detail = "Drag the glowing cat onto the green spaces.";
             }
             else
             {
                 title = "Now the second one";
-                detail = "Pick up this glowing group and drag it into its matching space.";
+                detail = "Drag this glowing cat onto the green spaces.";
             }
             DragState drag = session.drag;
             if (tutorialCelebrationRemaining > 0f)
-            { title = "Purrfect!"; detail = "That's it! You're ready for the next move."; }
+            { title = "Purrfect!"; detail = "You got it. Now fill the whole board!"; }
             else if (drag != null && drag.Piece == tutorialPiece)
             {
                 title = drag.Valid ? "Green means it fits!" : "Keep sliding";
-                detail = drag.Valid ? "Release now and the whole group will snap into place." : "Follow the glowing spaces. Red spots won't accept the group.";
+                detail = drag.Valid ? "Let go and the cat snaps into place." : "Slide it onto the green spaces. Red won't fit.";
             }
             tutorialCoachTitle.text = title;
             tutorialCoachBody.text = detail;

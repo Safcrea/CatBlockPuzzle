@@ -76,10 +76,12 @@ namespace CatBlockPuzzle
             movePieceTipRoutine = StartCoroutine(Routine(group, halo.rectTransform, hand, state));
         }
 
+        private const float BubbleWidth = 560f;
+
         private void ShowBubble(PieceState state)
         {
             RectTransform bubble = RuntimeUiFactory.CreateRect(movePieceTipRoot, "Move Piece Tip Caption");
-            RuntimeUiFactory.SetRect(bubble, Vector2.zero, new Vector2(380f, 78f));
+            RuntimeUiFactory.SetRect(bubble, Vector2.zero, new Vector2(BubbleWidth, 116f));
             var panel = bubble.gameObject.AddComponent<Image>();
             panel.sprite = Assets.roundedBoxSprite;
             panel.type = Image.Type.Sliced;
@@ -89,11 +91,18 @@ namespace CatBlockPuzzle
             shadow.effectColor = new Color(.25f, .15f, .1f, .18f);
             shadow.effectDistance = new Vector2(0f, -6f);
             var text = RuntimeUiFactory.CreateText(bubble, "Message",
-                "Psst! Placed cats can move too - drag it to the glowing spot.", 22, TextAnchor.MiddleCenter);
-            RuntimeUiFactory.SetRect(text.rectTransform, Vector2.zero, new Vector2(348f, 66f));
+                "Placed cats can move!\nDrag it to the glowing spot.", 30, TextAnchor.MiddleCenter);
+            // A fixed size with room for both lines: best-fit used to shrink this to a soft 16 pt.
+            text.resizeTextForBestFit = false;
+            text.horizontalOverflow = HorizontalWrapMode.Wrap;
+            text.verticalOverflow = VerticalWrapMode.Overflow;
+            RuntimeUiFactory.SetRect(text.rectTransform, Vector2.zero, new Vector2(BubbleWidth - 40f, 96f));
             text.raycastTarget = false;
-            bubble.anchoredPosition = space.ScreenToLocal(movePieceTipRoot,
-                board.BoardPieceCenterScreen(state, state.Row, state.Col)) + new Vector2(0f, 90f);
+            Vector2 at = space.ScreenToLocal(movePieceTipRoot, board.BoardPieceCenterScreen(state, state.Row, state.Col)) + new Vector2(0f, 110f);
+            // Keep the wider bubble on screen when the cat sits near an edge.
+            float reach = Mathf.Max(0f, movePieceTipRoot.rect.width * .5f - BubbleWidth * .5f - 12f);
+            at.x = Mathf.Clamp(at.x, -reach, reach);
+            bubble.anchoredPosition = at;
             movePieceTipBubble = bubble;
         }
 

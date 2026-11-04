@@ -59,6 +59,7 @@ namespace CatBlockPuzzle
             var parts = new System.Collections.Generic.List<string>();
             if (bundle.hints > 0) parts.Add(bundle.hints + " Hint" + (bundle.hints == 1 ? "" : "s"));
             if (bundle.freezes > 0) parts.Add(bundle.freezes + " Freeze" + (bundle.freezes == 1 ? "" : "s"));
+            if (bundle.hammers > 0) parts.Add(bundle.hammers + " Hammer" + (bundle.hammers == 1 ? "" : "s"));
             if (bundle.rotates > 0) parts.Add(bundle.rotates + " Rotate" + (bundle.rotates == 1 ? "" : "s"));
             if (bundle.bonusCoins > 0) parts.Add("+" + bundle.bonusCoins + " coins");
             return string.Join(" · ", parts);

@@ -21,12 +21,16 @@ MonoBehaviour:
   rotate:
     coinPrice: 150
     quantity: 1
+  hammer:
+    coinPrice: 150
+    quantity: 1
   starterBundle:
     available: 1
     coinPrice: 250
     hints: 3
     freezes: 2
     rotates: 0
+    hammers: 1
     bonusCoins: 0
   coinPacks:
   - available: 0

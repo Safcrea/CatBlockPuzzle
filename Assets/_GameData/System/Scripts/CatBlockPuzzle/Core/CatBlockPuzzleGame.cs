@@ -34,7 +34,7 @@ namespace CatBlockPuzzle
         [Tooltip("Turn off to play level 1 without the hands-on tutorial. Can also be changed during Play Mode.")]
         [SerializeField] private bool enableLevelOneTutorial = true;
         [Tooltip("Add short contextual captions alongside the visual demonstrations.")]
-        [SerializeField] private bool showTutorialCaptions;
+        [SerializeField] private bool showTutorialCaptions = true;
         [Tooltip("Optional artwork for the animated tutorial pointer.")]
         [SerializeField] private Sprite tutorialHandSprite;
 

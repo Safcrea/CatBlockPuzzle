@@ -69,7 +69,7 @@ namespace CatBlockPuzzle
             toast.SetParent(parent, false);
             toast.anchorMin = toast.anchorMax = new Vector2(0.5f, 0.5f);
             toast.pivot = new Vector2(0.5f, 0.5f);
-            toast.sizeDelta = new Vector2(640f, 112f);
+            toast.sizeDelta = new Vector2(720f, 128f);
             // Just above the board area, clear of the HUD at the top.
             toast.anchoredPosition = Hud.boardArea != null
                 ? (Vector2)parent.InverseTransformPoint(Hud.boardArea.TransformPoint(new Vector3(0f, Hud.boardArea.rect.yMax, 0f))) + new Vector2(0f, -40f)
@@ -93,7 +93,7 @@ namespace CatBlockPuzzle
             label.color = new Color(0.36f, 0.19f, 0.10f, 1f);
             label.raycastTarget = false;
             label.resizeTextForBestFit = true;
-            label.resizeTextMinSize = 20;
+            label.resizeTextMinSize = 30;
             label.resizeTextMaxSize = 44;
             RectTransform rect = label.rectTransform;
             rect.anchorMin = Vector2.zero;
