@@ -28,6 +28,33 @@ namespace CatBlockPuzzle
         public int CloudCount => clouds.Count;
         public bool IsFoggy(Vector2Int cell) => clouds.ContainsKey(cell);
 
+        /// <summary>Adds the clouds still hanging over the board to <paramref name="into"/> (the Hammer pulses them).</summary>
+        public void CollectCloudRects(List<RectTransform> into)
+        {
+            foreach (RectTransform cloud in clouds.Values) if (cloud != null) into.Add(cloud);
+        }
+
+        /// <summary>The Hammer blows away the cloud on this cell and the clouds touching it. False when the cell is clear.</summary>
+        public bool TryClear(Vector2Int cell)
+        {
+            if (!clouds.ContainsKey(cell)) return false;
+            Dissolve(cell);
+            Dissolve(new Vector2Int(cell.x - 1, cell.y));
+            Dissolve(new Vector2Int(cell.x + 1, cell.y));
+            Dissolve(new Vector2Int(cell.x, cell.y - 1));
+            Dissolve(new Vector2Int(cell.x, cell.y + 1));
+            return true;
+        }
+
+        private void Dissolve(Vector2Int coord)
+        {
+            if (!clouds.TryGetValue(coord, out RectTransform cloud)) return;
+            clouds.Remove(coord);
+            if (cloud == null) return;
+            if (settings.ReducedMotion || !Host.gameObject.activeInHierarchy) cloud.gameObject.SetActive(false);
+            else StartCoroutine(FadeOut(cloud));
+        }
+
         /// <summary>Covers the active level's foggy cells. Call after the board cells are laid out.</summary>
         public void Layout()
         {

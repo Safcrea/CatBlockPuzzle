@@ -44,7 +44,7 @@ namespace AVNEvents
     public enum EconomyDetail
     {
         first_clear, replay, loop_level, daily_puzzle, level_complete_x2, daily_reward,
-        hint, freeze, rotate, starter_bundle, shop_coin_pack
+        hint, freeze, rotate, hammer, starter_bundle, shop_coin_pack
     }
 
     /// <summary>Everything LEVEL_ANALYSIS Started needs, read from the game where the level loads.</summary>
@@ -377,7 +377,7 @@ namespace AVNEvents
         }
 
         public static EconomyDetail DetailFor(PowerUpKind kind) =>
-            kind == PowerUpKind.Hint ? EconomyDetail.hint : kind == PowerUpKind.Rotate ? EconomyDetail.rotate : EconomyDetail.freeze;
+            kind == PowerUpKind.Hint ? EconomyDetail.hint : kind == PowerUpKind.Rotate ? EconomyDetail.rotate : kind == PowerUpKind.Hammer ? EconomyDetail.hammer : EconomyDetail.freeze;
 
         // ------------------------------------------------------------------ POWERUP_ANALYSIS
 
@@ -405,7 +405,7 @@ namespace AVNEvents
         }
 
         public static string PowerupName(PowerUpKind kind) =>
-            kind == PowerUpKind.Hint ? "hint" : kind == PowerUpKind.Rotate ? "rotate" : "freeze";
+            kind == PowerUpKind.Hint ? "hint" : kind == PowerUpKind.Rotate ? "rotate" : kind == PowerUpKind.Hammer ? "hammer" : "freeze";
 
         // ------------------------------------------------------------------ TUTORIAL_ANALYSIS
 

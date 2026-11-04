@@ -2,7 +2,7 @@ using AVNEvents;
 
 namespace CatBlockPuzzle
 {
-    /// <summary>Hint, Freeze and Rotate power-ups: when they may be used, using them, and the purchase popup's pause.</summary>
+    /// <summary>Hint, Freeze, Rotate and Hammer power-ups: when they may be used, using them, and the purchase popup's pause.</summary>
     internal sealed class PowerUpController
     {
         private readonly IGameplayContext context;
@@ -16,6 +16,7 @@ namespace CatBlockPuzzle
         private readonly InteractionGates gates;
         private readonly ILevelFlow flow;
         private readonly RotateController rotate;
+        private readonly HammerController hammer;
 
         private bool powerUpPurchaseOwnsPause;
         private bool timerWasRunningBeforePurchase;
@@ -24,9 +25,10 @@ namespace CatBlockPuzzle
 
         public PowerUpController(IGameplayContext context, PuzzleSession session, LevelTimer timer, HintPresenter hint,
             PieceDragController drag, PlayerProgress progress, MetaProgressionController meta, LevelOneTutorial tutorial,
-            InteractionGates gates, ILevelFlow flow, RotateController rotate)
+            InteractionGates gates, ILevelFlow flow, RotateController rotate, HammerController hammer)
         {
             this.rotate = rotate;
+            this.hammer = hammer;
             this.context = context;
             this.session = session;
             this.timer = timer;
@@ -43,13 +45,15 @@ namespace CatBlockPuzzle
 
         public bool CanRequestPowerUp(PowerUpKind kind)
         {
-            if (kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze && kind != PowerUpKind.Rotate) return false;
+            if (kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze && kind != PowerUpKind.Rotate && kind != PowerUpKind.Hammer) return false;
             if (Hud == null || !Hud.IsPowerUpUnlocked(kind)) return false;
             if (!timer.timerRunning || session.inputLocked || session.levelFailed || gates.ResultScreenOpen || gates.MetaUiOpen ||
                 tutorial.IsOpen || gates.PowerUpTutorialOpen || gates.PowerUpPurchaseOpen ||
                 gates.SystemPaused || gates.GameplayHidden) return false;
             // One Rotate at a time, and only while a shelf cat is left to turn.
             if (kind == PowerUpKind.Rotate) return !rotate.Active && rotate.HasTurnableCat;
+            // One Hammer at a time, and only while something on the board can be smashed.
+            if (kind == PowerUpKind.Hammer) return !hammer.Active && hammer.HasTarget;
             return kind != PowerUpKind.Freeze || !timer.FreezeUsedThisAttempt;
         }
 
@@ -57,6 +61,13 @@ namespace CatBlockPuzzle
         {
             if (!CanRequestPowerUp(PowerUpKind.Rotate)) return false;
             rotate.Begin();
+            return true;
+        }
+
+        public bool TryUseHammerPowerUp()
+        {
+            if (!CanRequestPowerUp(PowerUpKind.Hammer)) return false;
+            hammer.Begin();
             return true;
         }
 
@@ -81,8 +92,10 @@ namespace CatBlockPuzzle
         /// <summary>Counts a spent power-up toward the attempt and reports it.</summary>
         public void ReportUse(PowerUpKind kind, int cost, bool fromTutorial)
         {
+            if (kind != PowerUpKind.Hint) PuzzleAudio.Play(AudioEvents.BoosterUse);
             if (kind == PowerUpKind.Hint) session.stats.hintsUsed++;
             else if (kind == PowerUpKind.Rotate) session.stats.rotatesUsed++;
+            else if (kind == PowerUpKind.Hammer) session.stats.hammersUsed++;
             else session.stats.freezesUsed++;
             int piecesLeft = 0;
             foreach (PieceState piece in session.pieces)
@@ -102,6 +115,7 @@ namespace CatBlockPuzzle
         {
             if (open)
             {
+                hammer.Cancel();
                 if (powerUpPurchaseOwnsPause) return;
                 timerWasRunningBeforePurchase = timer.timerRunning;
                 inputWasLockedBeforePurchase = session.inputLocked;
@@ -148,6 +162,7 @@ namespace CatBlockPuzzle
             Grant(PowerUpKind.Hint, bundle.hints);
             Grant(PowerUpKind.Freeze, bundle.freezes);
             Grant(PowerUpKind.Rotate, bundle.rotates);
+            Grant(PowerUpKind.Hammer, bundle.hammers);
             meta.RefreshCoinLabels();
             Hud?.RefreshPowerUpCounts();
             return PowerUpPurchaseStatus.Success;

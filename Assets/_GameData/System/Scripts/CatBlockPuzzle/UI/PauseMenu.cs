@@ -47,6 +47,7 @@ namespace CatBlockPuzzle
             if (levelText != null) levelText.text = "Level " + Mathf.Max(1, levelNumber);
             if (starsText != null) starsText.text = new string('★', Mathf.Clamp(stars, 0, 3)) + new string('☆', 3 - Mathf.Clamp(stars, 0, 3));
             if (coinsText != null) coinsText.text = Mathf.Max(0, coins).ToString();
+            PuzzleAudio.Play(AudioEvents.PopupOpen);
             // Order here is the order the buttons pop in.
             MenuTransition.Show(root, true, openingAnimation, animatedItems != null && animatedItems.Length > 0
                 ? MenuTransition.Cards(animatedItems)
@@ -82,7 +83,8 @@ namespace CatBlockPuzzle
 
         private void Resume()
         {
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayBack();
+            PuzzleAudio.Play(AudioEvents.PopupClose);
             GameAnalytics.PauseAction("resume");
             AvnEvents.ScreenInteraction(AvnScreen.pause, ScreenAction.resume);
             AvnEvents.PopupClosed(AvnScreen.pause, ScreenClosedBy.Dismissed);

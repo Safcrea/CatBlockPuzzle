@@ -75,6 +75,7 @@ namespace CatBlockPuzzle
             continueButton.onClick.AddListener(Continue);
             continueButton.interactable = true;
             transform.SetAsLastSibling();
+            PuzzleAudio.Play(AudioEvents.PopupOpen);
             if (ReducedMotion) gameObject.SetActive(true);
             else MenuTransition.Show(gameObject, true, new MenuTransition.EntranceSettings { duration = .35f, slideDistance = 24f, overshoot = 1.2f });
             if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
@@ -86,6 +87,7 @@ namespace CatBlockPuzzle
             closing = true;
             continueButton.interactable = false;
             ButtonSfx.PlayClick();
+            PuzzleAudio.Play(AudioEvents.PopupClose);
             MenuTransition.Hide(gameObject, () =>
             {
                 Action done = onClosed;

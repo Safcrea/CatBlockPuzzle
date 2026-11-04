@@ -27,8 +27,9 @@ namespace CatBlockPuzzle
             [Min(0)] public int hints;
             [Min(0)] public int freezes;
             [Min(0)] public int rotates;
+            [Min(0)] public int hammers;
             [Min(0), Tooltip("Bonus coins added on top of the power-ups.")] public int bonusCoins;
-            public bool IsValid => available && coinPrice > 0 && hints + freezes + rotates + bonusCoins > 0;
+            public bool IsValid => available && coinPrice > 0 && hints + freezes + rotates + hammers + bonusCoins > 0;
         }
 
         /// <summary>A row on the shop's Coin Pack card. Real-money purchase is not wired up yet.</summary>
@@ -44,6 +45,8 @@ namespace CatBlockPuzzle
         [SerializeField] private Offer freeze = new Offer { coinPrice = 150, quantity = 1 };
         [Tooltip("Priced like Freeze.")]
         [SerializeField] private Offer rotate = new Offer { coinPrice = 150, quantity = 1 };
+        [Tooltip("Priced like Rotate.")]
+        [SerializeField] private Offer hammer = new Offer { coinPrice = 150, quantity = 1 };
         [Header("Starter Bundle")]
         [SerializeField] private Bundle starterBundle = new Bundle { available = true, coinPrice = 250, hints = 3, freezes = 2, rotates = 0, bonusCoins = 0 };
         [Header("Coin Packs (top to bottom on the Coin Pack card)")]
@@ -59,7 +62,7 @@ namespace CatBlockPuzzle
         public CoinPack GetCoinPack(int index) => coinPacks != null && index >= 0 && index < coinPacks.Length ? coinPacks[index] : default;
 
         public Offer GetOffer(PowerUpKind kind) =>
-            kind == PowerUpKind.Hint ? hint : kind == PowerUpKind.Freeze ? freeze : kind == PowerUpKind.Rotate ? rotate : default;
+            kind == PowerUpKind.Hint ? hint : kind == PowerUpKind.Freeze ? freeze : kind == PowerUpKind.Rotate ? rotate : kind == PowerUpKind.Hammer ? hammer : default;
         public static PowerUpShopConfig Load() => Resources.Load<PowerUpShopConfig>(ResourcePath);
 
         public static PowerUpPurchaseStatus CalculatePurchase(PowerUpKind kind, Offer offer, int coins, int inventory,
@@ -67,7 +70,7 @@ namespace CatBlockPuzzle
         {
             remainingCoins = coins;
             updatedInventory = inventory;
-            if ((kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze && kind != PowerUpKind.Rotate) || !offer.IsValid || inventory < 0)
+            if ((kind != PowerUpKind.Hint && kind != PowerUpKind.Freeze && kind != PowerUpKind.Rotate && kind != PowerUpKind.Hammer) || !offer.IsValid || inventory < 0)
                 return PowerUpPurchaseStatus.InvalidOffer;
             if (coins < offer.coinPrice) return PowerUpPurchaseStatus.InsufficientCoins;
             if ((long)inventory + offer.quantity > int.MaxValue) return PowerUpPurchaseStatus.InventoryFull;

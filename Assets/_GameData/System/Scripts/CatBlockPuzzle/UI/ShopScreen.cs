@@ -112,6 +112,6 @@ namespace CatBlockPuzzle
             displayedBalance = balance;
             coinLabel.text = balance.ToString();
         }
-        private void Back() { ButtonSfx.PlayClick(); GameSystem.Instance?.GoHome(); }
+        private void Back() { ButtonSfx.PlayBack(); GameSystem.Instance?.GoHome(); }
     }
 }

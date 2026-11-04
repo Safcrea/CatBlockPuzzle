@@ -5,9 +5,9 @@ using UnityEngine.UI;
 namespace CatBlockPuzzle
 {
     /// <summary>
-    /// Plays the shared click sound when a button that is switched off is tapped, so dimmed
-    /// or locked buttons still answer the player. An interactable button already plays the
-    /// click from its own handler, so this stays silent for it.
+    /// Plays the error sound when a button that is switched off is tapped, so dimmed
+    /// or locked buttons still answer the player. An interactable button already plays its
+    /// own sound from its handler, so this stays silent for it.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class LockedButtonTapSfx : MonoBehaviour, IPointerClickHandler
@@ -31,7 +31,7 @@ namespace CatBlockPuzzle
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
             if (button != null && button.IsInteractable()) return;
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayError();
         }
     }
 }

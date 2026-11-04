@@ -155,8 +155,8 @@ namespace CatBlockPuzzle
         private static bool IsDailyPuzzleDone => DailyPuzzle.IsDoneToday(DateTime.UtcNow);
         private string shownTimer;
 
-        // A locked button only answers with a tap in the hand: no popup, no click sound.
-        private static void PlayLockedTap() => HapticsController.Current?.Play(HapticKind.UiTap);
+        // A locked button answers with the error sound and a tap in the hand, no popup.
+        private static void PlayLockedTap() { ButtonSfx.PlayError(); HapticsController.Current?.Play(HapticKind.UiTap); }
 
         private void Update()
         {

@@ -158,7 +158,9 @@ namespace CatBlockPuzzle
             countedReward = 0;
             if (coinBoard != null) coinBoard.gameObject.SetActive(true);
             if (coinReward != null) coinReward.gameObject.SetActive(true);
-            SoundManager.EnsureInstance().PlaySfxWithMusicDuck("Win");
+            AudioManager audio = AudioManager.EnsureInstance();
+            audio.PlayEvent(AudioEvents.LevelComplete);
+            audio.PlayEvent(AudioEvents.CatHappy);
             if (ReducedMotion)
             {
                 if (dim != null) dim.alpha = 1f;
@@ -194,7 +196,7 @@ namespace CatBlockPuzzle
                     {
                         burst[i] = true;
                         UiBurst.Play(this, panel, panel.InverseTransformPoint(stars[i].transform.position), new Color(1f, .9f, .4f, 1f), 9, 170f, .6f);
-                        ButtonSfx.PlayCoinCountTick();
+                        AudioManager.EnsureInstance().PlayEvent(AudioEvents.StarCollect(i + 1));
                     }
                 }
                 AnimatePop(coinBoard, elapsed - boardStart, .5f * timing, spring: .2f);
@@ -284,10 +286,9 @@ namespace CatBlockPuzzle
                 if (entry.Key != null) entry.Key.localScale = entry.Value;
             SetOverlaysVisible(false);
         }
-        /// <summary>Shows a counting-up value and ticks the coin-count sound whenever the number changes.</summary>
+        /// <summary>Shows a counting-up value.</summary>
         private void SetCountedReward(int amount)
         {
-            if (amount != countedReward && amount > 0) ButtonSfx.PlayCoinCountTick();
             countedReward = amount;
             SetReward(amount);
         }

@@ -96,13 +96,18 @@ namespace CatBlockPuzzle.Tests
                     // Only the hinted cells pulse, so what changes between the first frame and the pulse's peak is the lit spot.
                     yield return null;
                     Dictionary<Vector2Int, Color> before = board.ToDictionary(p => p.Key, p => p.Value.color);
-                    yield return new WaitForSecondsRealtime(0.15f);
+                    // Sample through the pulse and keep the most cells seen lit at once, so one slow frame cannot hide it.
+                    int lit = 0;
+                    for (int sample = 0; sample < 14; sample++)
+                    {
+                        yield return new WaitForSecondsRealtime(0.04f);
+                        lit = Mathf.Max(lit, board.Count(p => Differs(p.Value.color, before[p.Key])));
+                    }
                     object piece = Get(hint, "lastHinted");
                     object solution = Get(piece, "Solution");
                     int row = (int)Get(solution, "SolutionRow"), col = (int)Get(solution, "SolutionCol");
                     var offsets = ((Array)Get(solution, "Cells")).Cast<object>().Select(o => new Vector2Int(row + (int)Get(o, "Row"), col + (int)Get(o, "Col"))).ToList();
                     int expected = offsets.Count(board.ContainsKey);
-                    int lit = board.Count(p => Differs(p.Value.color, before[p.Key]));
                     shown++;
                     if (expected == 1) singleCell++;
                     if (lit != expected) failures.Add("level " + (level + 1) + " step " + step + ": " + lit + " cells lit, spot has " + expected);
@@ -301,6 +306,8 @@ namespace CatBlockPuzzle.Tests
             PlayerPrefs.SetString("CatBlockPuzzle.DailyReward.State.v1", "{\"version\":1,\"firstSessionPending\":true,\"hintCount\":10,\"freezeCount\":10,\"rotateCount\":10}");
             yield return ShowDaily();
             Assert.That(Open_Daily().IsOpen, Is.True);
+            Assert.That(Open_Daily().Available, Is.EqualTo(1), "Opening the panel by hand must let a new player claim Day 1.");
+            Assert.That(Open_Daily().Field("claimCurrentButton").interactable, Is.True, "Claim must be usable on the first open.");
             Assert.That(Countdown(), Is.Null, "A player who has never claimed must not see a countdown.");
             var label = (Component)Get(Open_Daily().Day(1), "dayLabel");
             Assert.That(label.gameObject.activeSelf, Is.True, "Day 1 keeps its 'Day 1' label.");

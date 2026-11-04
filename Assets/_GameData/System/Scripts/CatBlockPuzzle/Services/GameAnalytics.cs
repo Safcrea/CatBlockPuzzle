@@ -155,6 +155,7 @@ namespace CatBlockPuzzle
             p["hints_owned"] = PowerUpInventory.GetCount(PowerUpKind.Hint);
             p["freezes_owned"] = PowerUpInventory.GetCount(PowerUpKind.Freeze);
             p["rotates_owned"] = PowerUpInventory.GetCount(PowerUpKind.Rotate);
+            p["hammers_owned"] = PowerUpInventory.GetCount(PowerUpKind.Hammer);
             Send("level_start", p);
         }
 
@@ -478,7 +479,7 @@ namespace CatBlockPuzzle
             return names.Count > 0 ? string.Join(",", names) : "none";
         }
 
-        private static string Name(PowerUpKind kind) => kind == PowerUpKind.Hint ? "hint" : kind == PowerUpKind.Rotate ? "rotate" : "freeze";
+        private static string Name(PowerUpKind kind) => kind == PowerUpKind.Hint ? "hint" : kind == PowerUpKind.Rotate ? "rotate" : kind == PowerUpKind.Hammer ? "hammer" : "freeze";
 
         private static string StatusName(PowerUpPurchaseStatus status)
         {

@@ -170,6 +170,7 @@ namespace CatBlockPuzzle
             AvnEvents.PopupOpened(AvnScreen.powerup_popup);
             system.SetPowerUpPurchaseOpen(true);
             transform.SetAsLastSibling(); // Authored prefabs are not spawned on top like the runtime overlay.
+            PuzzleAudio.Play(AudioEvents.PopupOpen);
             if (ReducedMotion) gameObject.SetActive(true);
             else MenuTransition.Show(gameObject, true, new MenuTransition.EntranceSettings { duration = .35f, slideDistance = 24f, overshoot = 1.2f });
             // A coroutine can only start on an active object, so the idle motion waits until the popup is shown.
@@ -264,7 +265,7 @@ namespace CatBlockPuzzle
             heading.text = "Got it!";
             SetMessage(string.Empty);
             if (wallet != null) wallet.text = system.CurrentCoins.ToString();
-            ButtonSfx.PlayClick();
+            PuzzleAudio.Play(AudioEvents.ShopBuy);
             StopMotion();
             motion = StartCoroutine(CelebrateThenClose());
         }
@@ -347,13 +348,14 @@ namespace CatBlockPuzzle
             return 1f + c3 * Mathf.Pow(t - 1f, 3f) + c1 * Mathf.Pow(t - 1f, 2f);
         }
 
-        private static string ItemName(PowerUpKind kind) => kind == PowerUpKind.Hint ? "Hint" : kind == PowerUpKind.Rotate ? "Rotate" : "Freeze";
+        private static string ItemName(PowerUpKind kind) => kind == PowerUpKind.Hint ? "Hint" : kind == PowerUpKind.Rotate ? "Rotate" : kind == PowerUpKind.Hammer ? "Hammer" : "Freeze";
         private static string Plural(PowerUpKind kind) => kind == PowerUpKind.Freeze ? "Freezes" : ItemName(kind) + "s";
 
         public void Close()
         {
             if (!sessionOpen || closing) return;
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayBack();
+            PuzzleAudio.Play(AudioEvents.PopupClose);
             closing = true;
             MenuTransition.Hide(gameObject, null, !ReducedMotion);
         }

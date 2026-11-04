@@ -119,11 +119,14 @@ namespace CatBlockPuzzle
         {
             CanvasGroup dim = Dimmer();
             RectTransform[] buttonRects = ButtonRects();
+            // The sting lands with the panel dropping in; the sad meow waits for its thud.
+            PuzzleAudio.Play(AudioEvents.LevelFail);
             Remember(panel); Remember(titleArtwork); Remember(captionArtwork);
             foreach (RectTransform star in stars) Remember(star);
             foreach (RectTransform rect in buttonRects) Remember(rect);
             if (ReducedMotion)
             {
+                PuzzleAudio.Play(AudioEvents.CatSad);
                 if (dim != null) dim.alpha = 1f;
                 buttons.Set(1f, true);
                 presentation = null;
@@ -148,7 +151,7 @@ namespace CatBlockPuzzle
                 float drop = EaseOutBounce(p);
                 SetScale(panel, Vector3.one * Mathf.Lerp(.82f, 1f, EaseOut(p)));
                 SetOffset(panel, new Vector2(0f, (1f - drop) * 260f));
-                if (!thud && p >= .7f) { thud = true; HapticsController.Current?.Play(HapticKind.UiTap); }
+                if (!thud && p >= .7f) { thud = true; HapticsController.Current?.Play(HapticKind.UiTap); PuzzleAudio.Play(AudioEvents.CatSad); }
                 Pop(titleArtwork, elapsed - titleStart, .45f, .2f);
                 for (int i = 0; i < stars.Length; i++)
                 {

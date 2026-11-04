@@ -47,6 +47,7 @@ namespace CatBlockPuzzle
             if (!gameObject.activeSelf && EventSystem.current != null)
                 previousSelection = EventSystem.current.currentSelectedGameObject;
             if (title != null) title.text = feature;
+            PuzzleAudio.Play(AudioEvents.PopupOpen);
             MenuTransition.Show(gameObject);
             AVNEvents.AvnEvents.PopupOpened(AVNEvents.AvnScreen.coming_soon, gameObject);
             if (EventSystem.current != null && dismiss != null) EventSystem.current.SetSelectedGameObject(dismiss.gameObject);
@@ -54,7 +55,8 @@ namespace CatBlockPuzzle
 
         public void Close()
         {
-            ButtonSfx.PlayClick();
+            ButtonSfx.PlayBack();
+            PuzzleAudio.Play(AudioEvents.PopupClose);
             AVNEvents.AvnEvents.Navigation("dismiss", "coming_soon");
             AVNEvents.AvnEvents.PopupClosed(AVNEvents.AvnScreen.coming_soon, AVNEvents.ScreenClosedBy.Dismissed);
             MenuTransition.Hide(gameObject, RestoreSelection);

@@ -63,6 +63,13 @@ namespace CatBlockPuzzle
         [SerializeField] private Button rotateButton;
         [SerializeField] private Text rotateCountText;
         [SerializeField] private GameObject rotateCountBoard;
+        [Tooltip("Smashes a padlock, fog or a landed cat. Cloned from the Hint button.")]
+        [SerializeField] private Button hammerButton;
+        [SerializeField] private Text hammerCountText;
+        [SerializeField] private GameObject hammerCountBoard;
+        [Tooltip("The hammer picture used by the unlock tutorial, the locked popup and the swing animation.")]
+        [SerializeField] private Sprite hammerIcon;
+        internal Sprite HammerIcon => hammerIcon != null ? hammerIcon : GameUiTheme.Active != null ? GameUiTheme.Active.hammer : null;
         private bool freezeAvailable = true;
         [Tooltip("Gap between power-up buttons once Rotate joins Hint and Freeze.")]
         [SerializeField, Min(0f)] private float threeButtonSpacing = 265f;
@@ -73,6 +80,7 @@ namespace CatBlockPuzzle
         [SerializeField, Min(1)] private int hintUnlockLevel = 4;
         [SerializeField, Min(1)] private int freezeUnlockLevel = 13;
         [SerializeField, Min(1)] private int rotateUnlockLevel = 21;
+        [SerializeField, Min(1)] private int hammerUnlockLevel = 8;
         [Tooltip("Free Hints / Freezes granted when each one unlocks (the HUD shows exactly this number). The unlock tutorial's demo tap costs nothing.")]
         [SerializeField, Min(0)] private int freeOnUnlock = 2;
         internal int FreeOnUnlock => freeOnUnlock;
@@ -126,12 +134,13 @@ namespace CatBlockPuzzle
         public bool IsPowerUpUnlocked(PowerUpKind kind) => LockOf(kind) == PowerUpLock.None;
 
         public int UnlockLevelOf(PowerUpKind kind) =>
-            Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : kind == PowerUpKind.Rotate ? rotateUnlockLevel : freezeUnlockLevel);
+            Mathf.Max(1, kind == PowerUpKind.Hint ? hintUnlockLevel : kind == PowerUpKind.Rotate ? rotateUnlockLevel : kind == PowerUpKind.Hammer ? hammerUnlockLevel : freezeUnlockLevel);
 
         // The furthest level the player has reached counts too, so an unlocked power-up stays unlocked when an earlier level is replayed.
         private PowerUpLock LockOf(PowerUpKind kind)
         {
             if (kind == PowerUpKind.Rotate && rotateButton == null) return PowerUpLock.Level;
+            if (kind == PowerUpKind.Hammer && hammerButton == null) return PowerUpLock.Level;
             GameSystem system = GameSystem.Instance;
             int level = system != null ? Mathf.Max(system.DisplayLevelNumber, system.HighestLevelReached) : 1;
             if (level < UnlockLevelOf(kind)) return PowerUpLock.Level;
@@ -140,7 +149,7 @@ namespace CatBlockPuzzle
             return PowerUpLock.None;
         }
 
-        internal Button PowerUpButton(PowerUpKind kind) => kind == PowerUpKind.Hint ? hintButton : kind == PowerUpKind.Rotate ? rotateButton : freezeButton;
+        internal Button PowerUpButton(PowerUpKind kind) => kind == PowerUpKind.Hint ? hintButton : kind == PowerUpKind.Rotate ? rotateButton : kind == PowerUpKind.Hammer ? hammerButton : freezeButton;
 
         /// <summary>The power-up tapped at the end of its unlock tutorial, still to be spent; clears it.</summary>
         internal bool TryTakeTutorialUse(out PowerUpKind kind)
@@ -151,6 +160,7 @@ namespace CatBlockPuzzle
 
         public Sprite GetPowerUpSprite(PowerUpKind kind)
         {
+            if (kind == PowerUpKind.Hammer && HammerIcon != null) return HammerIcon;
             if (GameUiTheme.Active != null)
                 return kind == PowerUpKind.Hint ? GameUiTheme.Active.hint : kind == PowerUpKind.Rotate ? GameUiTheme.Active.rotate : GameUiTheme.Active.freeze;
             var button = PowerUpButton(kind);
@@ -193,15 +203,22 @@ namespace CatBlockPuzzle
                 rotateButton.onClick.RemoveListener(Rotate);
                 rotateButton.onClick.AddListener(Rotate);
             }
+            if (hammerButton != null)
+            {
+                hammerButton.onClick.RemoveListener(Hammer);
+                hammerButton.onClick.AddListener(Hammer);
+            }
             RefreshPowerUpCounts();
         }
         private void OnDisable()
         {
+            HidePowerUpNudge();
             CancelPowerUpTutorial();
             CancelPowerUpPurchase(false);
             if (freezeButton != null) freezeButton.onClick.RemoveListener(Freeze);
             if (hintButton != null) hintButton.onClick.RemoveListener(Hint);
             if (rotateButton != null) rotateButton.onClick.RemoveListener(Rotate);
+            if (hammerButton != null) hammerButton.onClick.RemoveListener(Hammer);
         }
         private void OnDestroy()
         {
@@ -211,8 +228,8 @@ namespace CatBlockPuzzle
 
         private void Start() => RefreshPowerUpCounts();
 
-        private void Freeze() { ButtonSfx.PlayClick(); if (ShowLockedInfo(PowerUpKind.Freeze)) return; GameSystem.Instance?.TryUseFreezePowerUp(); }
-        private void Hint() { ButtonSfx.PlayClick(); if (ShowLockedInfo(PowerUpKind.Hint)) return; GameSystem.Instance?.TryUseHintPowerUp(); }
+        private void Freeze() { if (ShowLockedInfo(PowerUpKind.Freeze)) { ButtonSfx.PlayError(); return; } ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseFreezePowerUp(); }
+        private void Hint() { if (ShowLockedInfo(PowerUpKind.Hint)) { ButtonSfx.PlayError(); return; } ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseHintPowerUp(); }
 
         // A greyed-out power-up answers a tap with a short popup (and pauses the level behind it).
         private bool ShowLockedInfo(PowerUpKind kind)
@@ -227,7 +244,7 @@ namespace CatBlockPuzzle
                 lockedInfo.Closed += () => GameSystem.Instance?.SetPowerUpPurchaseOpen(false);
             }
             if (lockedInfo.IsOpen) return true;
-            string name = kind == PowerUpKind.Hint ? "Hint" : "Freeze";
+            string name = kind == PowerUpKind.Hint ? "Hint" : kind == PowerUpKind.Hammer ? "Hammer" : "Freeze";
             string line = state == PowerUpLock.Level ? "Unlocks at\nlevel " + UnlockLevelOf(kind) : "No timer\non this level";
             GameSystem.Instance?.SetPowerUpPurchaseOpen(true);
             lockedInfo.Show(name, GetPowerUpSprite(kind), () => line, lockedMaterial);
@@ -252,6 +269,38 @@ namespace CatBlockPuzzle
                 countText.text = state == PowerUpLock.Level ? "Lv " + UnlockLevelOf(kind) : "No timer";
             }
         }
+        private PowerUpNudge nudge;
+        private MenuAttentionPulse nudgedPulse;
+
+        /// <summary>Points at a power-up button: it pulses, wears a gold ring and a tapping hand.</summary>
+        internal void ShowPowerUpNudge(PowerUpKind kind, Sprite handSprite)
+        {
+            HidePowerUpNudge();
+            Button button = PowerUpButton(kind);
+            if (button == null || !button.gameObject.activeInHierarchy) return;
+            nudge = PowerUpNudge.Create((RectTransform)button.transform, KawaiiUI.KawaiiSprites.RoundedRect, handSprite);
+            MenuAttentionPulse.Configure(button.transform, 0.1f, 1.4f);
+            nudgedPulse = button.GetComponent<MenuAttentionPulse>();
+        }
+
+        internal void HidePowerUpNudge()
+        {
+            if (nudge != null) Destroy(nudge.gameObject);
+            nudge = null;
+            if (nudgedPulse != null) nudgedPulse.enabled = false;
+            nudgedPulse = null;
+        }
+
+        internal bool IsNudging => nudge != null;
+
+        private void Hammer()
+        {
+            if (ShowLockedInfo(PowerUpKind.Hammer)) { ButtonSfx.PlayError(); return; }
+            ButtonSfx.PlayClick();
+            GameSystem system = GameSystem.Instance;
+            if (system != null && !system.TryUseHammerPowerUp() && !system.IsHammerActive && PowerUpInventory.GetCount(PowerUpKind.Hammer) > 0)
+                ButtonSfx.PlayError();
+        }
         private void Rotate() { ButtonSfx.PlayClick(); GameSystem.Instance?.TryUseRotatePowerUp(); }
 
         /// <summary>Updates the authored HUD labels and availability from the saved inventory.</summary>
@@ -265,6 +314,11 @@ namespace CatBlockPuzzle
             UpdateCountPresentation(freezeCountText, freezeCountBoard, freezeCount);
             ApplyPowerUpState(hintButton, hintCountText, hintCountBoard, PowerUpKind.Hint, true);
             ApplyPowerUpState(freezeButton, freezeCountText, freezeCountBoard, PowerUpKind.Freeze, freezeAvailable);
+            if (hammerButton != null)
+            {
+                UpdateCountPresentation(hammerCountText, hammerCountBoard, system != null ? system.GetPowerUpCount(PowerUpKind.Hammer) : 0);
+                ApplyPowerUpState(hammerButton, hammerCountText, hammerCountBoard, PowerUpKind.Hammer, true);
+            }
 
             if (rotateButton != null)
             {
@@ -277,42 +331,32 @@ namespace CatBlockPuzzle
             ArrangePowerUpButtons();
         }
 
-        // The row's buttons are placed by hand. From level 21 Rotate joins them, so the shown
+        // The row's buttons are placed by hand for Hint and Freeze. Once more buttons join them (Hammer, Rotate) the shown
         // buttons spread evenly around the centre of the authored Hint/Freeze pair.
         private void ArrangePowerUpButtons()
         {
-            if (hintButton == null || freezeButton == null || rotateButton == null) return;
-            var rects = new[] { (RectTransform)hintButton.transform, (RectTransform)freezeButton.transform, (RectTransform)rotateButton.transform };
-            if (GameUiTheme.Active != null)
+            if (hintButton == null || freezeButton == null) return;
+            var row = new System.Collections.Generic.List<RectTransform> { (RectTransform)hintButton.transform, (RectTransform)freezeButton.transform };
+            if (hammerButton != null) row.Add((RectTransform)hammerButton.transform);
+            if (rotateButton != null) row.Add((RectTransform)rotateButton.transform);
+            if (authoredButtonPositions == null) authoredButtonPositions = new[] { row[0].anchoredPosition, row[1].anchoredPosition };
+            int shown = 0;
+            foreach (RectTransform rect in row) if (rect.gameObject.activeSelf) shown++;
+            if (row.Count == 2 || (shown <= 2 && (hammerButton == null || !hammerButton.gameObject.activeSelf) && (rotateButton == null || !rotateButton.gameObject.activeSelf)))
             {
-                int visible = 0;
-                foreach (var rect in rects) if (rect.gameObject.activeSelf) visible++;
-                float themedX = -(visible - 1) * .5f * threeButtonSpacing;
-                foreach (var rect in rects)
-                {
-                    if (!rect.gameObject.activeSelf) continue;
-                    rect.anchoredPosition = new Vector2(themedX, 0f);
-                    themedX += threeButtonSpacing;
-                }
-                return;
-            }
-            if (authoredButtonPositions == null) authoredButtonPositions = new[] { rects[0].anchoredPosition, rects[1].anchoredPosition };
-            if (!rotateButton.gameObject.activeSelf)
-            {
-                rects[0].anchoredPosition = authoredButtonPositions[0];
-                rects[1].anchoredPosition = authoredButtonPositions[1];
+                row[0].anchoredPosition = authoredButtonPositions[0];
+                row[1].anchoredPosition = authoredButtonPositions[1];
                 return;
             }
 
             Vector2 centre = (authoredButtonPositions[0] + authoredButtonPositions[1]) * 0.5f;
-            int shown = 0;
-            foreach (RectTransform rect in rects) if (rect.gameObject.activeSelf) shown++;
-            float x = centre.x - (shown - 1) * 0.5f * threeButtonSpacing;
-            foreach (RectTransform rect in rects)
+            float spacing = shown >= 4 ? threeButtonSpacing * 0.82f : threeButtonSpacing;
+            float x = centre.x - (shown - 1) * 0.5f * spacing;
+            foreach (RectTransform rect in row)
             {
                 if (!rect.gameObject.activeSelf) continue;
                 rect.anchoredPosition = new Vector2(x, centre.y);
-                x += threeButtonSpacing;
+                x += spacing;
             }
         }
 
