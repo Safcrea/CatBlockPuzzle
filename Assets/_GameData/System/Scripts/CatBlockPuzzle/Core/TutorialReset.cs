@@ -9,7 +9,7 @@ namespace CatBlockPuzzle
         {
             MechanicIntroPresenter.Padlocks, MechanicIntroPresenter.KeyCats, MechanicIntroPresenter.Shelf, MechanicIntroPresenter.ColourZones,
             MechanicIntroPresenter.SpareCats, MechanicIntroPresenter.Hearts, MechanicIntroPresenter.FixedCat, MechanicIntroPresenter.Fog,
-            MechanicIntroPresenter.Moves
+            MechanicIntroPresenter.Moves, MechanicIntroPresenter.Blocked
         };
 
         /// <summary>Every key that marks a tutorial as seen.</summary>

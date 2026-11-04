@@ -23,7 +23,9 @@ namespace CatBlockPuzzle.Tests
         public void AllFortyEightSounds_AreListedAndTheirClipsLoad()
         {
             AudioConfig config = Config;
-            Assert.That(config.sounds.Select(s => s.name), Is.EquivalentTo(AllSounds));
+            Assert.That(config.sounds.Select(s => s.name), Is.SupersetOf(AllSounds), "The 48 supplied sounds all stay in the config.");
+            Assert.That(config.sounds.Select(s => s.name).Except(AllSounds), Is.EquivalentTo(new[] { "hammer_arm", "hammer_hit", "hammer_smash", "hammer_lock_break" }),
+                "The only additions are the four Hammer sounds.");
             foreach (AudioConfig.SoundEntry sound in config.sounds)
                 Assert.That(Resources.Load<AudioClip>("CatBlockPuzzle/Audio/" + sound.file), Is.Not.Null, sound.name + " -> " + sound.file);
         }

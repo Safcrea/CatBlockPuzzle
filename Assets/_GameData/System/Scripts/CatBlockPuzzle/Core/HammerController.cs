@@ -73,7 +73,7 @@ namespace CatBlockPuzzle
         {
             if (Active) return;
             Active = true;
-            PuzzleAudio.Play(AudioEvents.BoosterUse);
+            PuzzleAudio.Play(AudioEvents.HammerArm);
             Hud?.PlayPowerUpUsed(PowerUpKind.Hammer);
             BuildCatcher();
             toast.Show(HasObstacle ? "Tap a padlock, fog or cat\nto smash it!" : "Tap a cat on the board\nto smash it off!", 2.6f);
@@ -209,7 +209,8 @@ namespace CatBlockPuzzle
             switch (target)
             {
                 case Target.Lock:
-                    locks.TryBreak(cell);
+                    locks.TryBreak(cell, silent: true);
+                    PuzzleAudio.Play(AudioEvents.HammerLockBreak);
                     break;
                 case Target.Fog:
                     fog.TryClear(cell);

@@ -60,9 +60,15 @@
 - **Sharper tutorial icons:** the power-up unlock tutorial showed the Hint and Freeze icons (about 120 px and 128 px wide) at 230 units, a roughly 2.3x stretch that looked blurry. They now use 2x Lanczos-resampled versions (`DRP_Hint_icon_hd`, `DRP_Freeze_icon_hd`), which the theme points at.
 - **Settings "?" button:** a round "?" next to the close button makes every tutorial and intro card show again (`TutorialReset.ResetAll`), then confirms with a small popup. Level 1's walkthrough shows the next time level 1 is opened. Covered by `TutorialResetTests`.
 
-### Test status of the shop / polish / Settings "?" batch
+### Hammer sound effects and a Sleeping-cats intro
 
-- Compiles cleanly. The Unity editor stopped answering commands before the edit-mode suite (last full run: 139 of 139, before this batch) and the random-play bot could be rerun, so this batch is **untested**, including the new `TutorialResetTests`. The "?" button itself was clicked in the editor and cleared every seen-flag; the shop screen was checked in a rendered frame.
+- Four new Hammer sounds taken from the TangleRings project (added to the config as `hammer_arm`, `hammer_hit`, `hammer_smash`, `hammer_lock_break`; the original 48 are untouched): the wind-up when the Hammer is armed (Spring), the strike (CandyBreak, 0.32 s, so it lands on contact), a cat or fog smash (Break Variant 2) and a padlock smash (Break Variant 1, which replaces the chest-open sound for Hammer-opened locks). The two clips over one second are flagged `review` like the other long ones. New events: `HammerArm`, `HammerLockBreak`; `HammerHit` and `HammerBreak` now play these clips.
+- New intro card for levels with blocked (stone) cells, which had none: "Sleeping cats! Nothing fits on these spots. Build around them." It is included in the Settings "?" reset.
+- The random-play bot now marks every tutorial and intro card as seen for the run (they wait for a tap it never makes); a first-run "input locked for 6 s" on level 100 may have been exactly such a card, but that is a guess.
+
+### Test status of the shop / polish / Settings "?" / sounds batch
+
+- Edit-mode suite: 140 of 140 pass, including `TutorialResetTests` and the updated `AudioConfigTests`. The random-play bot played levels 5, 12, 25, 46, 61 and 100 (24 random moves each, power-ups mashed) with no problems. Not run: the Hammer play-mode tests and any phone or tablet check.
 
 ### Still to do
 

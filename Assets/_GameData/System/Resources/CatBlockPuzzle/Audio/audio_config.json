@@ -386,6 +386,38 @@
       "status": "review",
       "note": "auto: duration 1.05s outside 0.2-1.0s; may be cut off at the end",
       "duration": 1.05
+    },
+    {
+      "name": "hammer_arm",
+      "file": "Hammer/hammer_arm",
+      "volume": 0.7,
+      "status": "review",
+      "note": "auto: duration 1.06s outside 0.2-1.0s; from the TangleRings project",
+      "duration": 1.06
+    },
+    {
+      "name": "hammer_hit",
+      "file": "Hammer/hammer_hit",
+      "volume": 0.9,
+      "status": "ok",
+      "note": "from the TangleRings project (CandyBreak.wav)",
+      "duration": 0.32
+    },
+    {
+      "name": "hammer_smash",
+      "file": "Hammer/hammer_smash",
+      "volume": 0.85,
+      "status": "ok",
+      "note": "from the TangleRings project (Break Variant 2.wav)",
+      "duration": 1.0
+    },
+    {
+      "name": "hammer_lock_break",
+      "file": "Hammer/hammer_lock_break",
+      "volume": 0.85,
+      "status": "review",
+      "note": "auto: duration 1.35s outside 0.2-1.0s; from the TangleRings project",
+      "duration": 1.35
     }
   ],
   "events": [
@@ -555,11 +587,19 @@
     },
     {
       "eventName": "HammerHit",
-      "sound": "block_place"
+      "sound": "hammer_hit"
     },
     {
       "eventName": "HammerBreak",
-      "sound": "row_clear"
+      "sound": "hammer_smash"
+    },
+    {
+      "eventName": "HammerArm",
+      "sound": "hammer_arm"
+    },
+    {
+      "eventName": "HammerLockBreak",
+      "sound": "hammer_lock_break"
     }
   ],
   "praise": [

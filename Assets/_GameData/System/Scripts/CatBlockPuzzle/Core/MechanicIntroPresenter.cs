@@ -23,6 +23,7 @@ namespace CatBlockPuzzle
         public const string FixedCat = "FixedCat";
         public const string Fog = "Fog";
         public const string Moves = "Moves";
+        public const string Blocked = "Blocked";
 
         private readonly PuzzleSession session;
         private GameObject overlay;
@@ -64,6 +65,9 @@ namespace CatBlockPuzzle
             if (level.HasFixedPieces)
                 yield return Show(FixedCat, "Napping cat!", BoardMechanicArt.Pin,
                     "This cat stays put. Build around it.");
+            if (level.HasBlockedCells)
+                yield return Show(Blocked, "Sleeping cats!", BoardMechanicArt.BlockedTile,
+                    "Nothing fits on these spots. Build around them.");
             if (level.HasFog)
                 yield return Show(Fog, "Foggy spots!", BoardMechanicArt.Cloud,
                     "Place a cat nearby to clear the fog." + HammerTip(" Or smash it with the Hammer."));

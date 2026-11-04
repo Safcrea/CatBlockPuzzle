@@ -55,7 +55,8 @@ namespace CatBlockPuzzle
         {
             game = FindFirstObjectByType<CatBlockPuzzleGame>();
             // Borrow the player's save: stocked power-ups, onboarding already seen. Everything is put back afterwards.
-            string[] seenKeys = { "CatBlockPuzzle.Tutorial.Hint", "CatBlockPuzzle.Tutorial.Freeze", "CatBlockPuzzle.Tutorial.Rotate", "CatBlockPuzzle.Tutorial.Hammer", "CatBlockPuzzle.Tutorial.Timer", "CatBlockPuzzle.Tutorial.LevelOne.v1" };
+            // Intro cards and tutorials wait for a tap the bot never makes, so they are marked seen for the run.
+            string[] seenKeys = TutorialReset.SeenKeys();
             var savedInts = new Dictionary<string, int?>();
             foreach (string k in seenKeys) { savedInts[k] = PlayerPrefs.HasKey(k) ? PlayerPrefs.GetInt(k) : (int?)null; PlayerPrefs.SetInt(k, 1); }
             const string rewardKey = "CatBlockPuzzle.DailyReward.State.v1";

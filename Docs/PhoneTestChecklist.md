@@ -58,3 +58,8 @@ Tick these off on a real phone (and, if you can, a tablet). Editor screenshots c
 - [ ] Use Hint, Freeze and Hammer: the button squashes and sparks fly; Freeze sprays ice over the timer; Hint sparks on the pointed spot. With Reduced Motion on, none of that moves.
 - [ ] Hint and Freeze unlock tutorials (levels 4 and 13): the big icon is sharp, not blurry.
 - [ ] Settings: the blue "?" button sits left of the red close button, taps it, popup says "Tutorials are back!"; then level 1 shows its walkthrough again and new power-ups re-introduce themselves.
+
+## Hammer sounds and Sleeping cats
+- [ ] Arm the Hammer: a spring wind-up. Strike: a short crunch exactly on contact. Smash a cat or fog: a bigger break. Smash a padlock: the lock break (no chest-open sound on top).
+- [ ] Sound off silences all four.
+- [ ] A level with stone cells shows "Sleeping cats!" once; the Settings "?" brings it back.

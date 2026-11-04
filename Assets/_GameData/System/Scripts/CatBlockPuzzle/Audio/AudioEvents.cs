@@ -44,7 +44,9 @@ namespace CatBlockPuzzle
         public const string BoosterUse = "BoosterUse";
         public const string ShopBuy = "ShopBuy";
         public const string TimerWarning = "TimerWarning";
+        public const string HammerArm = "HammerArm";
         public const string HammerHit = "HammerHit";
+        public const string HammerLockBreak = "HammerLockBreak";
         public const string HammerBreak = "HammerBreak";
 
         public static string StarCollect(int starNumber) =>

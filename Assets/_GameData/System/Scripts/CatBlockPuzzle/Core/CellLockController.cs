@@ -64,10 +64,10 @@ namespace CatBlockPuzzle
         }
 
         /// <summary>The Hammer smashes a padlock open ahead of its rule. False when the cell has no closed padlock.</summary>
-        public bool TryBreak(Vector2Int cell)
+        public bool TryBreak(Vector2Int cell, bool silent = false)
         {
             if (!byCell.TryGetValue(cell, out Lock l) || l.Open) return false;
-            Open(l);
+            Open(l, silent);
             RefreshKeyTags();
             return true;
         }
@@ -246,11 +246,11 @@ namespace CatBlockPuzzle
             return true;
         }
 
-        private void Open(Lock l)
+        private void Open(Lock l, bool silent = false)
         {
             l.Open = true;
             if (session.boardCells.TryGetValue(l.Cell, out CellView view)) view.Image.color = TargetColor;
-            PuzzleAudio.Play(AudioEvents.ChestOpen);
+            if (!silent) PuzzleAudio.Play(AudioEvents.ChestOpen);
             haptics?.Play(HapticKind.LockOpen);
             if (l.Overlay == null) return;
             if (settings.ReducedMotion) { l.Overlay.gameObject.SetActive(false); return; }
