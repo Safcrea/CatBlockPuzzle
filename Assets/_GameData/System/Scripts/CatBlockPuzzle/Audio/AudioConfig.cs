@@ -24,6 +24,10 @@ namespace CatBlockPuzzle
             public string note;
             /// <summary>Length measured when the config was generated; the Sound Test shows the clip's real length.</summary>
             public float duration;
+            /// <summary>When above 0 the sound is faded out and stopped after this many seconds (trims a long tail).</summary>
+            public float maxSeconds;
+            /// <summary>Name of a sound this one cuts off when it starts, so the two never smear together.</summary>
+            public string cuts;
         }
 
         [Serializable]

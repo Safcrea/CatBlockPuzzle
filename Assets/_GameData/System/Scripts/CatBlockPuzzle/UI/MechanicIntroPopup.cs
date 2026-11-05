@@ -87,7 +87,6 @@ namespace CatBlockPuzzle
             closing = true;
             continueButton.interactable = false;
             ButtonSfx.PlayClick();
-            PuzzleAudio.Play(AudioEvents.PopupClose);
             MenuTransition.Hide(gameObject, () =>
             {
                 Action done = onClosed;

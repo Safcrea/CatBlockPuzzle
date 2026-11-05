@@ -20,14 +20,6 @@
       "duration": 0.92
     },
     {
-      "name": "block_pick",
-      "file": "Video0/03_block_pick",
-      "volume": 0.8,
-      "status": "ok",
-      "note": "",
-      "duration": 0.52
-    },
-    {
       "name": "block_place",
       "file": "Video0/04_block_place",
       "volume": 0.8,
@@ -62,7 +54,7 @@
     {
       "name": "voice_wow",
       "file": "Video0/08_voice_wow",
-      "volume": 1.0,
+      "volume": 1,
       "status": "review",
       "note": "almost identical to cat_meow_happy; excluded from the 4-line voice pool",
       "duration": 0.6
@@ -70,26 +62,10 @@
     {
       "name": "voice_good",
       "file": "Video0/09_voice_good",
-      "volume": 1.0,
+      "volume": 1,
       "status": "ok",
       "note": "",
       "duration": 0.41
-    },
-    {
-      "name": "voice_nice",
-      "file": "Video0/10_voice_nice",
-      "volume": 1.0,
-      "status": "ok",
-      "note": "",
-      "duration": 0.5
-    },
-    {
-      "name": "voice_amazing",
-      "file": "Video0/11_voice_amazing",
-      "volume": 1.0,
-      "status": "ok",
-      "note": "",
-      "duration": 0.6
     },
     {
       "name": "confetti_pop",
@@ -122,14 +98,6 @@
       "status": "ok",
       "note": "",
       "duration": 0.83
-    },
-    {
-      "name": "ui_popup_close",
-      "file": "Video1/04_ui_popup_close",
-      "volume": 0.6,
-      "status": "ok",
-      "note": "",
-      "duration": 0.54
     },
     {
       "name": "block_invalid",
@@ -201,15 +169,7 @@
       "volume": 0.8,
       "status": "ok",
       "note": "",
-      "duration": 0.98
-    },
-    {
-      "name": "level_fail",
-      "file": "Video2/02_level_fail",
-      "volume": 0.8,
-      "status": "review",
-      "note": "auto: duration 1.05s outside 0.2-1.0s",
-      "duration": 1.05
+      "duration": 3.6
     },
     {
       "name": "level_unlock",
@@ -249,19 +209,11 @@
       "volume": 0.8,
       "status": "ok",
       "note": "",
-      "duration": 0.98
+      "duration": 0.36
     },
     {
       "name": "reward_chest_open",
       "file": "Video2/08_reward_chest_open",
-      "volume": 0.8,
-      "status": "review",
-      "note": "auto: duration 1.05s outside 0.2-1.0s",
-      "duration": 1.05
-    },
-    {
-      "name": "booster_use",
-      "file": "Video2/09_booster_use",
       "volume": 0.8,
       "status": "review",
       "note": "auto: duration 1.05s outside 0.2-1.0s",
@@ -294,7 +246,7 @@
     {
       "name": "voice_great",
       "file": "Video3/01_voice_great",
-      "volume": 1.0,
+      "volume": 1,
       "status": "ok",
       "note": "",
       "duration": 0.75
@@ -302,7 +254,7 @@
     {
       "name": "voice_perfect",
       "file": "Video3/02_voice_perfect",
-      "volume": 1.0,
+      "volume": 1,
       "status": "ok",
       "note": "",
       "duration": 0.77
@@ -310,7 +262,7 @@
     {
       "name": "voice_excellent",
       "file": "Video3/03_voice_excellent",
-      "volume": 1.0,
+      "volume": 1,
       "status": "review",
       "note": "auto: duration 1.05s outside 0.2-1.0s",
       "duration": 1.05
@@ -318,7 +270,7 @@
     {
       "name": "voice_sweet",
       "file": "Video3/04_voice_sweet",
-      "volume": 1.0,
+      "volume": 1,
       "status": "review",
       "note": "auto: duration 1.05s outside 0.2-1.0s",
       "duration": 1.05
@@ -409,7 +361,7 @@
       "volume": 0.85,
       "status": "ok",
       "note": "from the TangleRings project (Break Variant 2.wav)",
-      "duration": 1.0
+      "duration": 1
     },
     {
       "name": "hammer_lock_break",
@@ -442,16 +394,8 @@
       "sound": "ui_popup_open"
     },
     {
-      "eventName": "PopupClose",
-      "sound": "ui_popup_close"
-    },
-    {
       "eventName": "LockedTap",
       "sound": "ui_error"
-    },
-    {
-      "eventName": "BlockPick",
-      "sound": "block_pick"
     },
     {
       "eventName": "BlockPlace",
@@ -518,10 +462,6 @@
       "sound": "star_collect_3"
     },
     {
-      "eventName": "LevelFail",
-      "sound": "level_fail"
-    },
-    {
       "eventName": "LevelUnlock",
       "sound": "level_unlock"
     },
@@ -574,10 +514,6 @@
       "sound": "daily_reward"
     },
     {
-      "eventName": "BoosterUse",
-      "sound": "booster_use"
-    },
-    {
       "eventName": "ShopBuy",
       "sound": "shop_buy"
     },
@@ -606,8 +542,7 @@
     {
       "lines": 2,
       "sounds": [
-        "voice_good",
-        "voice_nice"
+        "voice_good"
       ]
     },
     {
@@ -626,7 +561,6 @@
     {
       "lines": 5,
       "sounds": [
-        "voice_amazing",
         "voice_excellent"
       ]
     }

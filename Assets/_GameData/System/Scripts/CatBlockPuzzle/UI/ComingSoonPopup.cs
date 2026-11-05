@@ -56,7 +56,6 @@ namespace CatBlockPuzzle
         public void Close()
         {
             ButtonSfx.PlayBack();
-            PuzzleAudio.Play(AudioEvents.PopupClose);
             AVNEvents.AvnEvents.Navigation("dismiss", "coming_soon");
             AVNEvents.AvnEvents.PopupClosed(AVNEvents.AvnScreen.coming_soon, AVNEvents.ScreenClosedBy.Dismissed);
             MenuTransition.Hide(gameObject, RestoreSelection);

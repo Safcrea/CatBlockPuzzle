@@ -8,9 +8,7 @@ namespace CatBlockPuzzle
         public const string ToggleOn = "ToggleOn";
         public const string ToggleOff = "ToggleOff";
         public const string PopupOpen = "PopupOpen";
-        public const string PopupClose = "PopupClose";
         public const string LockedTap = "LockedTap";
-        public const string BlockPick = "BlockPick";
         public const string BlockPlace = "BlockPlace";
         public const string BlockInvalid = "BlockInvalid";
         public const string BlockReturn = "BlockReturn";
@@ -27,7 +25,6 @@ namespace CatBlockPuzzle
         public const string StarCollect1 = "StarCollect1";
         public const string StarCollect2 = "StarCollect2";
         public const string StarCollect3 = "StarCollect3";
-        public const string LevelFail = "LevelFail";
         public const string LevelUnlock = "LevelUnlock";
         public const string GameOver = "GameOver";
         public const string NewHighscore = "NewHighscore";
@@ -41,7 +38,6 @@ namespace CatBlockPuzzle
         public const string CoinCollect = "CoinCollect";
         public const string ChestOpen = "ChestOpen";
         public const string DailyReward = "DailyReward";
-        public const string BoosterUse = "BoosterUse";
         public const string ShopBuy = "ShopBuy";
         public const string TimerWarning = "TimerWarning";
         public const string HammerArm = "HammerArm";

@@ -18,6 +18,15 @@ namespace CatBlockPuzzle
         public const string MusicEnabledKey = "CatBlockPuzzle.Settings.Music";
         private const int MinimumPraiseLines = 2;
         private const int SoundTestFingers = 4;
+        private const string MusicClipPath = "CatBlockPuzzle/Audio/Music/bgm";
+        private const float MusicVolume = 0.35f;
+        private const float MusicDuckedScale = 0.45f;
+        private const float MusicFadeSeconds = 1.2f;
+        private const float MusicDuckSpeed = 3f;
+        // The same sound started twice this close together adds into one louder, phasey hit, so the repeat is dropped.
+        private const float FadeOutSeconds = 0.08f;
+        private const float MaxVoiceWaitSeconds = 1.2f;
+        private const float SameSoundMinGap = 0.045f;
 
         public static AudioManager Instance { get; private set; }
 
@@ -28,6 +37,10 @@ namespace CatBlockPuzzle
         private AudioConfig config = new AudioConfig();
         private AudioSource[] pool;
         private AudioSource voiceSource;
+        private AudioSource musicSource;
+        private readonly Dictionary<string, float> lastStarted = new Dictionary<string, float>(StringComparer.Ordinal);
+        private float musicGain;
+        private float musicGainTarget;
         private int nextPoolIndex;
         private string lastVoice;
         private Coroutine praiseRoutine;
@@ -35,7 +48,7 @@ namespace CatBlockPuzzle
         private bool soundTestKeyHeld;
 
         public bool SfxEnabled { get; private set; } = true;
-        /// <summary>There is no background music; the flag is only kept so the Settings toggle keeps its saved value.</summary>
+        /// <summary>Looping background music; it fades in and out and ducks under voices.</summary>
         public bool MusicEnabled { get; private set; } = true;
         internal AudioConfig Config => config;
 
@@ -63,7 +76,40 @@ namespace CatBlockPuzzle
             MusicEnabled = PlayerPrefs.GetInt(MusicEnabledKey, 1) != 0;
             BuildPool(Mathf.Max(2, config.maxOverlappingSounds));
             Preload();
+            StartMusic();
         }
+
+        private void StartMusic()
+        {
+            AudioClip clip = Resources.Load<AudioClip>(MusicClipPath);
+            if (clip == null)
+            {
+                Warn("music clip '" + MusicClipPath + "' was not found");
+                return;
+            }
+
+            musicSource = CreateSource("Music");
+            musicSource.clip = clip;
+            musicSource.loop = true;
+            musicSource.volume = 0f;
+            musicGainTarget = MusicEnabled ? 1f : 0f;
+            if (MusicEnabled) musicSource.Play();
+        }
+
+        // Fades the music toward its target and ducks it while a voice speaks, so music and voice never fight.
+        private void UpdateMusic()
+        {
+            if (musicSource == null) return;
+            float dt = Time.unscaledDeltaTime;
+            musicGain = Mathf.MoveTowards(musicGain, musicGainTarget, dt / MusicFadeSeconds);
+            bool voiceSpeaking = voiceSource != null && voiceSource.isPlaying;
+            float duck = voiceSpeaking ? MusicDuckedScale : 1f;
+            musicDuck = Mathf.MoveTowards(musicDuck, duck, dt * MusicDuckSpeed);
+            musicSource.volume = MusicVolume * musicGain * musicDuck;
+            if (musicGain <= 0f && musicSource.isPlaying) musicSource.Pause();
+        }
+
+        private float musicDuck = 1f;
 
         private void BuildPool(int size)
         {
@@ -148,6 +194,10 @@ namespace CatBlockPuzzle
                 return;
             }
 
+            float now = Time.unscaledTime;
+            if (lastStarted.TryGetValue(soundName, out float last) && now - last < SameSoundMinGap) return;
+            lastStarted[soundName] = now;
+
             AudioConfig.SoundEntry entry = sounds[soundName];
             AudioSource source;
             if (AudioConfig.IsVoice(soundName))
@@ -162,10 +212,44 @@ namespace CatBlockPuzzle
                 source.Stop();
             }
 
+            if (!string.IsNullOrEmpty(entry.cuts)) Stop(entry.cuts);
+            fades.Remove(source);
             source.clip = clip;
-            source.volume = Mathf.Clamp01(entry.volume * volumeScale);
+            float volume = Mathf.Clamp01(entry.volume * volumeScale);
+            source.volume = volume;
             if (delaySeconds > 0f) source.PlayDelayed(delaySeconds);
             else source.Play();
+            if (entry.maxSeconds > 0f) fades[source] = new Fade { endTime = now + delaySeconds + entry.maxSeconds, volume = volume };
+        }
+
+        private struct Fade
+        {
+            public float endTime;
+            public float volume;
+        }
+
+        private readonly Dictionary<AudioSource, Fade> fades = new Dictionary<AudioSource, Fade>();
+        private readonly List<AudioSource> finishedFades = new List<AudioSource>();
+
+        // Sounds with a maxSeconds fade out over their last moments instead of ringing on.
+        private void UpdateFades()
+        {
+            if (fades.Count == 0) return;
+            float now = Time.unscaledTime;
+            foreach (KeyValuePair<AudioSource, Fade> pair in fades)
+            {
+                float left = pair.Value.endTime - now;
+                if (left <= 0f || !pair.Key.isPlaying) { finishedFades.Add(pair.Key); continue; }
+                if (left < FadeOutSeconds) pair.Key.volume = pair.Value.volume * (left / FadeOutSeconds);
+            }
+
+            foreach (AudioSource source in finishedFades)
+            {
+                fades.Remove(source);
+                source.Stop();
+            }
+
+            finishedFades.Clear();
         }
 
         // An idle source first; when every source is busy the longest-running one is taken over.
@@ -201,15 +285,14 @@ namespace CatBlockPuzzle
         }
 
         /// <summary>
-        /// A streak or clear of <paramref name="lines"/>: the matching combo sound (instead of the single-line clear),
-        /// then a praise voice about 150 ms later. A streak of one plays only the single-line clear and no voice.
+        /// A streak of <paramref name="lines"/>: a praise voice about 150 ms after the placement sound.
+        /// No extra effects are layered on the placement, and a streak of one plays nothing.
         /// </summary>
         public void PlayCombo(int lines, bool withPraise = true)
         {
             if (lines < 1) return;
-            if (lines == 1) { PlayEvent(AudioEvents.RowClear); return; }
-            PlayEvent(lines == 2 ? AudioEvents.Combo2 : lines == 3 ? AudioEvents.Combo3 : AudioEvents.Combo4);
-            if (lines >= 4) PlayEvent(AudioEvents.CatSurprised);
+            // The placement already has its one sound (block_place); a streak adds only the praise voice, no stacked combo clips.
+            if (lines == 1) return;
             if (withPraise) PlayPraise(lines);
         }
 
@@ -226,7 +309,16 @@ namespace CatBlockPuzzle
         private IEnumerator PraiseAfterDelay(string voice)
         {
             yield return new WaitForSecondsRealtime(Mathf.Max(0f, config.voiceDelaySeconds));
+            // A voice already speaking finishes first (a new drop must not cut it mid-word); a stale line is dropped.
+            float waited = 0f;
+            while (voiceSource.isPlaying && waited < MaxVoiceWaitSeconds)
+            {
+                waited += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
             praiseRoutine = null;
+            if (voiceSource.isPlaying) yield break;
             Play(voice);
         }
 
@@ -265,6 +357,9 @@ namespace CatBlockPuzzle
             MusicEnabled = enabled;
             PlayerPrefs.SetInt(MusicEnabledKey, enabled ? 1 : 0);
             PlayerPrefs.Save();
+            musicGainTarget = enabled ? 1f : 0f;
+            if (enabled && musicSource != null && !musicSource.isPlaying) musicSource.UnPause();
+            if (enabled && musicSource != null && !musicSource.isPlaying) musicSource.Play();
         }
 
         // ---- Sound Test -------------------------------------------------------------------------------------
@@ -299,6 +394,8 @@ namespace CatBlockPuzzle
         // F9 in the Editor, or four fingers at once on a device, opens the Sound Test (development builds only).
         private void Update()
         {
+            UpdateMusic();
+            UpdateFades();
             if (!Application.isEditor && !Debug.isDebugBuild) return;
             bool pressed = Keyboard.current != null && Keyboard.current.f9Key.isPressed;
             Touchscreen screen = Touchscreen.current;

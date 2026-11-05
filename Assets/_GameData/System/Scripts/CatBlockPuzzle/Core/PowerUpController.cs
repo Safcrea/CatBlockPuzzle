@@ -85,14 +85,13 @@ namespace CatBlockPuzzle
             if (!CanRequestPowerUp(PowerUpKind.Hint)) return false;
             lastHintFoundTarget = hint.ShowHint(timer.Profile.HintReveal);
             AvnEvents.HintOutcome(lastHintFoundTarget, false);
-            return true;
+            // A hint that points at nothing is not spent: the caller only charges for a hint that was shown.
+            return lastHintFoundTarget;
         }
 
         /// <summary>Counts a spent power-up toward the attempt and reports it.</summary>
         public void ReportUse(PowerUpKind kind, int cost, bool fromTutorial)
         {
-            // The Hammer plays its own sounds when armed and when it strikes.
-            if (kind != PowerUpKind.Hint && kind != PowerUpKind.Hammer) PuzzleAudio.Play(AudioEvents.BoosterUse);
             if (kind != PowerUpKind.Hammer) Hud?.PlayPowerUpUsed(kind);
             if (kind == PowerUpKind.Hint) session.stats.hintsUsed++;
             else if (kind == PowerUpKind.Rotate) session.stats.rotatesUsed++;

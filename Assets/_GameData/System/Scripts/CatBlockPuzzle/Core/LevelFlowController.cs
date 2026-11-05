@@ -437,7 +437,6 @@ namespace CatBlockPuzzle
             }
 
             fx.SpawnBoardBurst(session.boardRoot);
-            PuzzleAudio.Play(AudioEvents.Confetti);
             haptics.PlayLevelComplete();
             int chapterBefore = meta.Progress != null ? meta.Progress.HighestEarnedChapter : 0;
             bool enteringEndless = !levelNavigationTesting && !EndlessLevels.IsActive && session.levelNumber == levelManager.LevelCount;
@@ -476,8 +475,6 @@ namespace CatBlockPuzzle
             haptics.PlayLevelComplete();
             AudioManager audio = AudioManager.EnsureInstance();
             audio.PlayEvent(AudioEvents.LevelComplete);
-            audio.PlayEvent(AudioEvents.CatHappy);
-            audio.PlayEvent(AudioEvents.Confetti);
             yield return new WaitForSecondsRealtime(0.9f);
 
             if (!DailyPuzzle.TryClaimBonus(System.DateTime.UtcNow))

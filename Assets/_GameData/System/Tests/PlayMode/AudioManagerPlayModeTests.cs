@@ -43,8 +43,8 @@ namespace CatBlockPuzzle.Tests
         {
             yield return null;
             Call("Play", "voice_good");
-            Call("Play", "voice_nice");
-            Assert.That(Voice.clip.name, Does.Contain("voice_nice"));
+            Call("Play", "voice_good");
+            Assert.That(Voice.clip.name, Does.Contain("voice_good"));
             Assert.That(Pool.Count(s => s.isPlaying && s.clip != null && s.clip.name.Contains("voice")), Is.Zero, "Voices must use the voice source only.");
         }
 
@@ -59,7 +59,7 @@ namespace CatBlockPuzzle.Tests
                 yield return new WaitForSecondsRealtime(0.25f);
                 string word = Voice.clip.name;
                 Assert.That(word, Is.Not.EqualTo(previous), "iteration " + i);
-                Assert.That(word, Does.Contain("voice_good").Or.Contain("voice_nice"));
+                Assert.That(word, Does.Contain("voice_good"));
                 previous = word;
             }
         }

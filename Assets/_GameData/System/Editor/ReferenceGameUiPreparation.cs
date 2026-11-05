@@ -48,13 +48,13 @@ namespace CatBlockPuzzle.Editor
             var so=new SerializedObject(target); var p=so.FindProperty(field); p.arraySize=items.Length;
             for(int i=0;i<items.Length;i++) p.GetArrayElementAtIndex(i).objectReferenceValue=items[i]; so.ApplyModifiedProperties();
         }
-        public static string Build(int referenceId, int gameplayId, int selectionId)
+        public static string Build(EntityId referenceId, EntityId gameplayId, EntityId selectionId)
         {
             if(Application.isPlaying) throw new InvalidOperationException("Build UI in Edit Mode.");
             if(GameUiTheme.Active != null) throw new InvalidOperationException("This legacy UI builder is retired. Edit the saved production UI hierarchy or use the supplied layout importer.");
-            var reference=((GameObject)EditorUtility.InstanceIDToObject(referenceId)).transform;
-            var game=((GameObject)EditorUtility.InstanceIDToObject(gameplayId)).GetComponent<CatBlockPuzzleGame>();
-            var selection=((GameObject)EditorUtility.InstanceIDToObject(selectionId)).transform;
+            var reference=((GameObject)EditorUtility.EntityIdToObject(referenceId)).transform;
+            var game=((GameObject)EditorUtility.EntityIdToObject(gameplayId)).GetComponent<CatBlockPuzzleGame>();
+            var selection=((GameObject)EditorUtility.EntityIdToObject(selectionId)).transform;
             var screen=reference.Find("Gameplay Screen");
             var oldHud=(GameplayHudView)Get(game,"gameplayHud");
             font=(Font)Get(Get(game,"presentationAssets"),"defaultFont");

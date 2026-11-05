@@ -9,20 +9,20 @@ namespace CatBlockPuzzle.Tests
 {
     public sealed class CatPuzzlePreparedSceneTests : PreparedScenePlayModeFixture
     {
-        private int[] SceneIdentities() => Game.transform.root.GetComponentsInChildren<Transform>(true)
-            .Select(t => t.gameObject.GetInstanceID()).OrderBy(i => i).ToArray();
-        private int[] StaticUiIdentities()
+        private GameObject[] SceneIdentities() => Game.transform.root.GetComponentsInChildren<Transform>(true)
+            .Select(t => t.gameObject).ToArray();
+        private GameObject[] StaticUiIdentities()
         {
             var levelRoot = (Transform)Field("levelRoot");
             return Game.transform.root.GetComponentsInChildren<Transform>(true)
                 .Where(t=>t==levelRoot || !t.IsChildOf(levelRoot))
-                .Select(t=>t.gameObject.GetInstanceID()).OrderBy(i=>i).ToArray();
+                .Select(t=>t.gameObject).ToArray();
         }
 
         [UnityTest]
         public IEnumerator AllHundredLevels_KeepOnePrefab_AndRetriesReuseCurrentObjects()
         {
-            int[] identities = StaticUiIdentities();
+            GameObject[] identities = StaticUiIdentities();
             var levelRoot = (Transform)Field("levelRoot");
             var canvas = (Canvas)Field("canvas");
             Assert.That(canvas.renderMode,Is.EqualTo(RenderMode.ScreenSpaceCamera));
@@ -44,8 +44,8 @@ namespace CatBlockPuzzle.Tests
                 Call("ResetLevel");
                 yield return null;
                 Assert.That(Field("loadedLevel"),Is.SameAs(view),"Retry recreated the prefab");
-                Assert.That(SceneIdentities(),Is.EqualTo(retryIdentities),"Retry rebuilt level " + (i+1));
-                Assert.That(StaticUiIdentities(),Is.EqualTo(identities),"Prebuilt UI changed");
+                Assert.That(SceneIdentities(),Is.EquivalentTo(retryIdentities),"Retry rebuilt level " + (i+1));
+                Assert.That(StaticUiIdentities(),Is.EquivalentTo(identities),"Prebuilt UI changed");
                 var instances = UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include,FindObjectsSortMode.None)
                     .Where(b=>b.GetType()==type).ToArray();
                 Assert.That(instances.Length,Is.EqualTo(1),"Previous level instance was retained");
@@ -78,7 +78,7 @@ namespace CatBlockPuzzle.Tests
         [UnityTest]
         public IEnumerator NavigationSettingsAndPoolExhaustion_DoNotCreateObjects()
         {
-            int[] identities = SceneIdentities();
+            GameObject[] identities = SceneIdentities();
             var canvas = (Canvas)Field("canvas");
             for (int i=0;i<3;i++)
             {
@@ -90,7 +90,7 @@ namespace CatBlockPuzzle.Tests
                 Call("CloseSettings");
                 Call("SpawnFixedBurst",new Vector2(270,480),300,Color.white);
                 yield return null;
-                Assert.That(SceneIdentities(),Is.EqualTo(identities));
+                Assert.That(SceneIdentities(),Is.EquivalentTo(identities));
                 Call("PreviewLevelForTesting",0);
                 yield return null;
                 Assert.That(((Image[])Field("preparedEffects")).All(e=>!e.gameObject.activeSelf),Is.True);

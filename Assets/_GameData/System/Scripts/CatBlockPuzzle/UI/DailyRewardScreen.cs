@@ -201,7 +201,6 @@ namespace CatBlockPuzzle
         private void CloseButtonClicked()
         {
             ButtonSfx.PlayBack();
-            PuzzleAudio.Play(AudioEvents.PopupClose);
             GameAnalytics.DailyRewardDismissed(AvailableDay);
             AvnEvents.ScreenInteraction(AvnScreen.daily_gift, ScreenAction.later);
             Close();

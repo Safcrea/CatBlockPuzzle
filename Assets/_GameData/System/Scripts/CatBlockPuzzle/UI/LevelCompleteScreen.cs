@@ -160,7 +160,6 @@ namespace CatBlockPuzzle
             if (coinReward != null) coinReward.gameObject.SetActive(true);
             AudioManager audio = AudioManager.EnsureInstance();
             audio.PlayEvent(AudioEvents.LevelComplete);
-            audio.PlayEvent(AudioEvents.CatHappy);
             if (ReducedMotion)
             {
                 if (dim != null) dim.alpha = 1f;
@@ -174,7 +173,7 @@ namespace CatBlockPuzzle
             float starStart = .55f * timing, starGap = .26f * timing;
             float boardStart = starStart + stars.Length * starGap;
             float countStart = boardStart + .12f * timing;
-            float countDuration = Mathf.Max(.1f, coinCountDuration * timing);
+            float countDuration = Mathf.Max(.1f, CountSeconds(reward) * timing);
             float captionStart = boardStart + .22f * timing;
             float buttonStart = captionStart + .20f * timing;
             float buttonGap = .12f * timing;
@@ -196,7 +195,6 @@ namespace CatBlockPuzzle
                     {
                         burst[i] = true;
                         UiBurst.Play(this, panel, panel.InverseTransformPoint(stars[i].transform.position), new Color(1f, .9f, .4f, 1f), 9, 170f, .6f);
-                        AudioManager.EnsureInstance().PlayEvent(AudioEvents.StarCollect(i + 1));
                     }
                 }
                 AnimatePop(coinBoard, elapsed - boardStart, .5f * timing, spring: .2f);
@@ -294,6 +292,9 @@ namespace CatBlockPuzzle
         }
 
         private int countedReward;
+
+        // A bigger reward counts up for longer, riding the level-complete fanfare instead of finishing before it.
+        private float CountSeconds(int amount) => Mathf.Clamp(coinCountDuration + amount * 0.01f, coinCountDuration, 2.4f);
 
         private void SetReward(int amount)
         {
@@ -393,7 +394,7 @@ namespace CatBlockPuzzle
                 RewardedAds.Show(DoubleCoinsPlacement,
                     onRewarded: () =>
                     {
-                        GameSystem.Instance?.AwardCoins(reward);
+                        GameSystem.Instance?.AwardCoins(reward, playSound: false);
                         GameAnalytics.CurrencyEarned(reward, GameAnalytics.EarnAdDouble, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0);
                         AvnEvents.EconomyEarned(reward, GameSystem.Instance != null ? GameSystem.Instance.CurrentCoins : 0, EconomySource.rewarded_ad, EconomyDetail.level_complete_x2);
                         AvnEvents.LevelDoubleReward();
@@ -435,7 +436,7 @@ namespace CatBlockPuzzle
         private IEnumerator PlayDoubledReward()
         {
             int from = shownReward, to = shownReward * 2;
-            float duration = Mathf.Max(0.1f, coinCountDuration * Mathf.Clamp(sequenceTimeScale, 0.35f, 1f));
+            float duration = Mathf.Max(0.1f, CountSeconds(to) * Mathf.Clamp(sequenceTimeScale, 0.35f, 1f));
             yield return buttons.Fade(true);
             float elapsed = 0f;
             while (elapsed < duration)

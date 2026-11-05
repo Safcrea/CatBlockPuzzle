@@ -355,7 +355,6 @@ namespace CatBlockPuzzle
         {
             if (!sessionOpen || closing) return;
             ButtonSfx.PlayBack();
-            PuzzleAudio.Play(AudioEvents.PopupClose);
             closing = true;
             MenuTransition.Hide(gameObject, null, !ReducedMotion);
         }

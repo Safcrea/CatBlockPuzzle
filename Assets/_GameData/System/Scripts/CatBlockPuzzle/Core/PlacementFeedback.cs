@@ -34,7 +34,6 @@ namespace CatBlockPuzzle
 
         public void PlayPickup(PieceState state, Vector2 screenPosition)
         {
-            PuzzleAudio.Play(AudioEvents.BlockPick);
             haptics?.PlayPickup();
             Color accent = Color.Lerp(state.Color, Color.white, 0.28f);
             fx.SpawnSnapRing(screenPosition, accent);

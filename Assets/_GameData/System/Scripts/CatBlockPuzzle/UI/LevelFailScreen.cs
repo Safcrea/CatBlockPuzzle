@@ -119,8 +119,7 @@ namespace CatBlockPuzzle
         {
             CanvasGroup dim = Dimmer();
             RectTransform[] buttonRects = ButtonRects();
-            // The sting lands with the panel dropping in; the sad meow waits for its thud.
-            PuzzleAudio.Play(AudioEvents.LevelFail);
+            // The sad meow waits for the panel to thud in.
             Remember(panel); Remember(titleArtwork); Remember(captionArtwork);
             foreach (RectTransform star in stars) Remember(star);
             foreach (RectTransform rect in buttonRects) Remember(rect);

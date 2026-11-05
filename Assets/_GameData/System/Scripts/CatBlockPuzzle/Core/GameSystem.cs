@@ -100,11 +100,11 @@ namespace CatBlockPuzzle
             gameplayController.StartDailyPuzzle();
         }
 
-        public bool AwardCoins(int amount)
+        public bool AwardCoins(int amount, bool playSound = true)
         {
             if (gameplayController == null || amount <= 0) return false;
             gameplayController.AwardExternalCoins(amount);
-            ButtonSfx.PlayCoin();
+            if (playSound) ButtonSfx.PlayCoin();
             return true;
         }
         public int GetPowerUpCount(PowerUpKind kind) => PowerUpInventory.GetCount(kind);

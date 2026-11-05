@@ -14,7 +14,9 @@ namespace CatBlockPuzzle
         private readonly MovePieceTip tip;
         private readonly CellLockController locks;
         private readonly FxSpawner fx;
+        private const float MaxUnlockWaitSeconds = 1.5f;
         private Coroutine hintRoutine;
+        private Coroutine waitRoutine;
         private PieceState lastHinted;
 
         public HintPresenter(IGameplayContext context, PuzzleSession session, BoardController board, MovePieceTip tip, CellLockController locks, FxSpawner fx) : base(context)
@@ -35,19 +37,36 @@ namespace CatBlockPuzzle
         {
             if (session.inputLocked)
             {
-                return false;
+                // A cat flying back to the shelf after a refused drop locks input for a moment; the hint waits for it
+                // instead of silently doing nothing. A finished level never gets one.
+                if (session.levelFailed || session.IsBoardFilled) return false;
+                if (waitRoutine == null) waitRoutine = StartCoroutine(ShowWhenUnlocked(reveal));
+                return true;
             }
 
             StopHint();
-            PieceState hinted = PickHintTarget(out List<PieceState> blockers);
+            PieceState hinted = PickHintTarget(out List<PieceState> blockers, out PieceState spot);
             if (hinted != null)
             {
                 lastHinted = hinted;
                 PuzzleAudio.Play(AudioEvents.HintShow);
-                SparkleSpot(hinted);
-                hintRoutine = StartCoroutine(HintRoutine(hinted, reveal, blockers));
+                SparkleSpot(spot);
+                hintRoutine = StartCoroutine(HintRoutine(hinted, spot, reveal, blockers));
             }
             return hinted != null;
+        }
+
+        private IEnumerator ShowWhenUnlocked(HintReveal reveal)
+        {
+            float waited = 0f;
+            while (session.inputLocked && waited < MaxUnlockWaitSeconds)
+            {
+                waited += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            waitRoutine = null;
+            if (!session.inputLocked) ShowHint(reveal);
         }
 
         // A few gold sparks pop off the spot the hint points at, so the eye lands there before the pulse starts.
@@ -63,35 +82,44 @@ namespace CatBlockPuzzle
         // A hint is only useful when its spot can take the cat right now, so spots already covered by another cat
         // (the player may have filled the board a different valid way) are skipped. When several cats qualify the
         // hint moves on to the next one instead of repeating the previous cat every time.
-        private PieceState PickHintTarget(out List<PieceState> blockers)
+        // Cats of the same shape are interchangeable: any of them may sit on any of those authored spots, so a spot
+        // taken by a twin never makes the other twin's hint wrong.
+        private PieceState PickHintTarget(out List<PieceState> blockers, out PieceState spot)
         {
             blockers = null;
+            spot = null;
             List<PieceState> fitting = new List<PieceState>();
+            List<PieceState> fittingSpots = new List<PieceState>();
             for (int i = 0; i < pieces.Count; i++)
             {
                 PieceState state = pieces[i];
                 if (state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
                 if (state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
-                if (SolutionSpotIsFree(state)) fitting.Add(state);
+                PieceState freeSpot = FreeSpotFor(state);
+                if (freeSpot == null) continue;
+                fitting.Add(state);
+                fittingSpots.Add(freeSpot);
             }
 
             if (fitting.Count > 0)
             {
                 int after = lastHinted != null ? pieces.IndexOf(lastHinted) : -1;
+                int pick = 0;
                 for (int i = 0; i < fitting.Count; i++)
                 {
-                    if (pieces.IndexOf(fitting[i]) > after) return fitting[i];
+                    if (pieces.IndexOf(fitting[i]) > after) { pick = i; break; }
                 }
-                return fitting[0];
+                spot = fittingSpots[pick];
+                return fitting[pick];
             }
 
-            // Nothing left fits its authored spot: point at a placed cat that is in the way of its own spot.
+            // Nothing left fits an authored spot: point at a placed cat that is in the way of its own spot.
             for (int i = 0; i < pieces.Count; i++)
             {
                 PieceState state = pieces[i];
                 if (!state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
-                if (state.Row == state.Solution.SolutionRow && state.Col == state.Solution.SolutionCol && !state.IsRotated) continue;
-                if (SolutionSpotIsFree(state, state)) return state;
+                if (SittingOnAuthoredSpot(state)) continue;
+                if (SolutionSpotIsFree(state, state)) { spot = state; return state; }
             }
 
             // Near the end every spot can be held by a cat that landed in the wrong place. A hint must still say something:
@@ -102,7 +130,7 @@ namespace CatBlockPuzzle
                 if (state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
                 if (state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
                 List<PieceState> holding = PiecesOnSpot(state);
-                if (holding.Count > 0) { blockers = holding; return state; }
+                if (holding.Count > 0) { blockers = holding; spot = state; return state; }
             }
 
             // Everything is on the board but a cat is off its own spot: point at that cat and where it belongs.
@@ -110,9 +138,38 @@ namespace CatBlockPuzzle
             {
                 PieceState state = pieces[i];
                 if (!state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
-                if (state.Row != state.Solution.SolutionRow || state.Col != state.Solution.SolutionCol || state.IsRotated) return state;
+                if (!SittingOnAuthoredSpot(state)) { spot = state; return state; }
             }
             return null;
+        }
+
+        // The cat's own authored spot when it is free, else a free spot authored for a twin (same shape), else null.
+        private PieceState FreeSpotFor(PieceState state)
+        {
+            if (SolutionSpotIsFree(state)) return state;
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState twin = pieces[i];
+                if (twin == state || !IsTwin(state, twin)) continue;
+                if (SolutionSpotIsFree(state, null, twin)) return twin;
+            }
+            return null;
+        }
+
+        private static bool IsTwin(PieceState a, PieceState b) =>
+            !b.Definition.IsSpare && !b.Definition.IsFixed && !a.IsRotated && !b.IsRotated && a.Solution.ShapeId == b.Solution.ShapeId;
+
+        // A landed, unturned cat that sits exactly on its own authored spot or on a twin's.
+        private bool SittingOnAuthoredSpot(PieceState state)
+        {
+            if (state.IsRotated) return false;
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                PieceState owner = pieces[i];
+                if (owner != state && !IsTwin(state, owner)) continue;
+                if (state.Row == owner.Solution.SolutionRow && state.Col == owner.Solution.SolutionCol) return true;
+            }
+            return false;
         }
 
         // The landed cats that sit on any cell of this cat's spot.
@@ -130,12 +187,14 @@ namespace CatBlockPuzzle
             return found;
         }
 
-        private bool SolutionSpotIsFree(PieceState state, PieceState ignoring = null)
+        // spotOwner is the cat whose authored spot is checked; it defaults to the cat itself.
+        private bool SolutionSpotIsFree(PieceState state, PieceState ignoring = null, PieceState spotOwner = null)
         {
-            CellOffset[] cells = state.Solution.Cells;
+            PieceState owner = spotOwner ?? state;
+            CellOffset[] cells = owner.Solution.Cells;
             for (int c = 0; c < cells.Length; c++)
             {
-                Vector2Int coord = new Vector2Int(state.Solution.SolutionRow + cells[c].Row, state.Solution.SolutionCol + cells[c].Col);
+                Vector2Int coord = new Vector2Int(owner.Solution.SolutionRow + cells[c].Row, owner.Solution.SolutionCol + cells[c].Col);
                 if (board.IsCellFree(coord, state)) continue;
                 if (ignoring != null && OccupiedOnlyBy(ignoring, coord)) continue;
                 return false;
@@ -153,15 +212,15 @@ namespace CatBlockPuzzle
             return false;
         }
 
-        private IEnumerator HintRoutine(PieceState state, HintReveal reveal, List<PieceState> blockers)
+        private IEnumerator HintRoutine(PieceState state, PieceState spot, HintReveal reveal, List<PieceState> blockers)
         {
             List<Image> hintedCells = new List<Image>();
-            CellOffset[] cells = state.Solution.Cells;
+            CellOffset[] cells = spot.Solution.Cells;
             int revealed = reveal == HintReveal.AnchorOnly ? Mathf.Min(1, cells.Length) : cells.Length;
             for (int c = 0; c < revealed; c++)
             {
                 CellOffset cell = cells[c];
-                Vector2Int coord = new Vector2Int(state.Solution.SolutionRow + cell.Row, state.Solution.SolutionCol + cell.Col);
+                Vector2Int coord = new Vector2Int(spot.Solution.SolutionRow + cell.Row, spot.Solution.SolutionCol + cell.Col);
                 if (session.boardCells.TryGetValue(coord, out CellView cellView))
                 {
                     hintedCells.Add(cellView.Image);
@@ -203,6 +262,12 @@ namespace CatBlockPuzzle
         public void StopHint()
         {
             tip.Stop();
+            if (waitRoutine != null)
+            {
+                StopCoroutine(waitRoutine);
+                waitRoutine = null;
+            }
+
             if (hintRoutine != null)
             {
                 StopCoroutine(hintRoutine);

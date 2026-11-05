@@ -84,7 +84,6 @@ namespace CatBlockPuzzle
         private void Resume()
         {
             ButtonSfx.PlayBack();
-            PuzzleAudio.Play(AudioEvents.PopupClose);
             GameAnalytics.PauseAction("resume");
             AvnEvents.ScreenInteraction(AvnScreen.pause, ScreenAction.resume);
             AvnEvents.PopupClosed(AvnScreen.pause, ScreenClosedBy.Dismissed);
