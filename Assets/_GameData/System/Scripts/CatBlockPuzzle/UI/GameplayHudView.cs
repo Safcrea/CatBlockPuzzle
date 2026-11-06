@@ -99,6 +99,22 @@ namespace CatBlockPuzzle
         private PowerUpTutorialManager tutorialManager;
         private PowerUpPurchasePopup purchasePopup;
         public bool IsTutorialOpen => tutorialManager != null && tutorialManager.IsOpen;
+
+        /// <summary>The pointing-hand picture the tutorials and the stuck pointer use.</summary>
+        internal Sprite HandSprite { get; set; }
+
+        /// <summary>
+        /// Teaches a power-up at the moment it is needed: spotlight on its button with a free gift first. False when a
+        /// tutorial is already open or the button is not there. <paramref name="onTapped"/> runs when the player presses it.
+        /// </summary>
+        internal bool ShowPowerUpNeedIntro(PowerUpKind kind, string message, string seenKey, int gift, System.Action onTapped)
+        {
+            if (tutorialManager == null) tutorialManager = GetComponent<PowerUpTutorialManager>();
+            if (tutorialManager == null) tutorialManager = gameObject.AddComponent<PowerUpTutorialManager>();
+            if (tutorialManager.IsOpen) return false;
+            tutorialManager.StartCoroutine(tutorialManager.ShowNeed(this, kind, message, seenKey, gift, onTapped));
+            return true;
+        }
         public bool IsPurchaseOpen => purchasePopup != null && purchasePopup.IsOpen;
         internal PowerUpKind PurchaseKind => purchasePopup != null ? purchasePopup.Kind : default;
         public bool ShowPowerUpPurchase(PowerUpKind kind)

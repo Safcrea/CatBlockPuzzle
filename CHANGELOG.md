@@ -1,5 +1,16 @@
 # CatBlockPuzzle Changelog
 
+## Unreleased - 2026-11-06
+
+### Round 5: TangleRings-style tutorials, a more useful Hammer, hint fixes
+
+- **Hint bug, found with a new audit tool.** `HintAudit` (`EditorTools`) plays every level the way a player would who only follows the Hint, also after a few random wrong placements. Following the hint from an empty board solved all 100 levels, but after wrong placements it pointed some cats at spots that could not take them (seen on levels 24, 26, 27, 30, 34, 44, 78, 79, 89 and 99). The cause: when a cat's spot was held by wrong cats the hint just said "move those", even when the spot was also padlocked or colour-zoned, so the cat still could not go there. Now the hint only points at a spot that would really be usable once cleared; otherwise it points at a wrong cat to lift (no spot shown unless it is free). After the fix six scrambles over all 100 levels (seeds 31-33 with 5-6 wrong cats, seeds 12, 21 and 22 with 3-4) found no problem.
+- **A hint now always costs 1.** From difficulty 8 (44 levels, first seen on level 14) a use cost 2 hints, so a player holding one tapped the button and got a purchase popup with no explanation, which looked like the Hint was broken.
+- **TangleRings-style power-up tutorials.** New `TutorialSpotlight`: the screen dims except a soft round hole over the button, a glowing ring pulses out of it, the button bounces, a bold outlined label sits next to it and a hand pokes it; taps anywhere else do nothing. Used for the Hint (level 4) and Freeze (level 13) introductions and the clock on the first timed level. The old fly-in icon prefab (`PowerUpUnlockTutorial`) is no longer used. The level timer is paused while any of these is open.
+- **Level 1 text** is now bold white letters with a brown outline straight on the scene (no card), like the TangleRings tutorial text.
+- **The Hammer is taught when it is needed, not at its unlock level.** The first time the player has lost a couple of drops (or stalled) with cats, padlocks or fog in the way, the spotlight lands on the Hammer button ("SOMETHING IN YOUR WAY? TAP HAMMER!"), the player is given free Hammers to try it, and the press swings it for real.
+- **More useful Hammer.** It now clears every wrong cat (up to 5; cats on their own or a same-shape twin's spot are never touched; the ones holding other cats' spots go first), then breaks padlocks and blows fog away as before, and afterwards shows the Hint for what to place next, free. Twin cats count as correct on each other's spots.
+
 ## Unreleased - 2026-11-04
 
 ### Round 4: power-ups that help, no popups, calmer hearts

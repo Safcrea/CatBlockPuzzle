@@ -42,9 +42,9 @@ namespace CatBlockPuzzle.Tests
         [TestCase(4, HintReveal.FullShape, 1)]
         [TestCase(5, HintReveal.FullShape, 1)]
         [TestCase(7, HintReveal.FullShape, 1)]
-        [TestCase(8, HintReveal.FullShape, 2)]
-        [TestCase(10, HintReveal.FullShape, 2)]
-        public void Hints_AlwaysRevealFullShapeAndCostMoreOnHardLevels(int difficulty, HintReveal reveal, int cost)
+        [TestCase(8, HintReveal.FullShape, 1)]
+        [TestCase(10, HintReveal.FullShape, 1)]
+        public void Hints_AlwaysRevealFullShapeAndCostOneOnEveryLevel(int difficulty, HintReveal reveal, int cost)
         {
             var profile = DifficultyProfile.For(Level(difficulty), 5);
             Assert.That(profile.HintReveal, Is.EqualTo(reveal));

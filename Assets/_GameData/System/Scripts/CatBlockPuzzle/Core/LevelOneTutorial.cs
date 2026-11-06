@@ -19,8 +19,8 @@ namespace CatBlockPuzzle
         // hand the rest of the level back to the player.
         private enum TutorialStep { Off, PlaceFirst, PlaceSecond }
         private const int TutorialProgressStepCount = 2;
-        private const float CoachWidth = 780f;
-        private const float CoachHeight = 140f;
+        private const float CoachWidth = 900f;
+        private const float CoachHeight = 150f;
 
         private readonly PuzzleSession session;
         private readonly IPuzzleConfig config;
@@ -385,27 +385,26 @@ namespace CatBlockPuzzle
         {
             tutorialCoach = RuntimeUiFactory.CreateRect(tutorialRoot, "Tutorial Context Card");
             RuntimeUiFactory.SetRect(tutorialCoach, Vector2.zero, new Vector2(CoachWidth, CoachHeight));
-            var panel = tutorialCoach.gameObject.AddComponent<Image>();
-            panel.sprite = roundedBoxSprite;
-            panel.type = Image.Type.Sliced;
-            panel.color = PanelColor;
-            panel.raycastTarget = false;
-            var shadow = panel.gameObject.AddComponent<Shadow>();
-            shadow.effectColor = new Color(.25f, .15f, .1f, .18f);
-            shadow.effectDistance = new Vector2(0f, -6f);
-            // Fixed sizes with room for two lines: the old best-fit boxes shrank the detail line to its 16 pt floor, which
-            // rendered soft. The card keeps every size whole and the text clear of its edges.
-            tutorialCoachTitle = RuntimeUiFactory.CreateText(tutorialCoach, "Context Title", "", 34, TextAnchor.MiddleCenter);
+            // No card: like the TangleRings tutorials, the words are bold white letters with a brown outline straight on the
+            // scene. Fixed sizes with room for two lines, so nothing is ever shrunk to a soft size.
+            tutorialCoachTitle = RuntimeUiFactory.CreateText(tutorialCoach, "Context Title", "", 50, TextAnchor.MiddleCenter);
             tutorialCoachTitle.resizeTextForBestFit = false;
             tutorialCoachTitle.verticalOverflow = VerticalWrapMode.Overflow;
             tutorialCoachTitle.horizontalOverflow = HorizontalWrapMode.Overflow;
-            RuntimeUiFactory.SetRect(tutorialCoachTitle.rectTransform, new Vector2(0f, 38f), new Vector2(CoachWidth - 40f, 48f));
-            tutorialCoachBody = RuntimeUiFactory.CreateText(tutorialCoach, "Context Detail", "", 25, TextAnchor.UpperCenter);
+            RuntimeUiFactory.SetRect(tutorialCoachTitle.rectTransform, new Vector2(0f, 42f), new Vector2(CoachWidth - 40f, 62f));
+            tutorialCoachBody = RuntimeUiFactory.CreateText(tutorialCoach, "Context Detail", "", 34, TextAnchor.UpperCenter);
             tutorialCoachBody.resizeTextForBestFit = false;
             tutorialCoachBody.horizontalOverflow = HorizontalWrapMode.Wrap;
             tutorialCoachBody.verticalOverflow = VerticalWrapMode.Overflow;
-            RuntimeUiFactory.SetRect(tutorialCoachBody.rectTransform, new Vector2(0f, -22f), new Vector2(CoachWidth - 56f, 62f));
+            RuntimeUiFactory.SetRect(tutorialCoachBody.rectTransform, new Vector2(0f, -22f), new Vector2(CoachWidth - 56f, 50f));
             tutorialCoachTitle.raycastTarget = tutorialCoachBody.raycastTarget = false;
+            foreach (Text words in new[] { tutorialCoachTitle, tutorialCoachBody })
+            {
+                words.color = Color.white;
+                var outline = words.gameObject.AddComponent<Outline>();
+                outline.effectColor = new Color(.28f, .16f, .1f, 1f);
+                outline.effectDistance = new Vector2(3.5f, -3.5f);
+            }
             tutorialCoachPictures = RuntimeUiFactory.CreateRect(tutorialCoach, "Visual Context");
             tutorialCoachCat = RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Cat Group", mood.Portrait(CatMood.Happy, 0), Color.white,
                 new Vector2(-108f, 8f), new Vector2(53f, 53f));
@@ -436,21 +435,21 @@ namespace CatBlockPuzzle
             string detail;
             if (tutorialStep == TutorialStep.PlaceFirst)
             {
-                title = "Give this cat a home";
-                detail = "Drag the glowing cat onto the green spaces.";
+                title = "GIVE THIS CAT A HOME!";
+                detail = "Drag the glowing cat onto the green spaces";
             }
             else
             {
-                title = "Now the second one";
-                detail = "Drag this glowing cat onto the green spaces.";
+                title = "NOW THE SECOND ONE!";
+                detail = "Drag this glowing cat onto the green spaces";
             }
             DragState drag = session.drag;
             if (tutorialCelebrationRemaining > 0f)
-            { title = "Purrfect!"; detail = "You got it. Now fill the whole board!"; }
+            { title = "PURRFECT!"; detail = "You got it. Now fill the whole board"; }
             else if (drag != null && drag.Piece == tutorialPiece)
             {
-                title = drag.Valid ? "Green means it fits!" : "Keep sliding";
-                detail = drag.Valid ? "Let go and the cat snaps into place." : "Slide it onto the green spaces. Red won't fit.";
+                title = drag.Valid ? "GREEN MEANS IT FITS!" : "KEEP SLIDING";
+                detail = drag.Valid ? "Let go and the cat snaps into place" : "Slide it onto the green spaces";
             }
             tutorialCoachTitle.text = title;
             tutorialCoachBody.text = detail;

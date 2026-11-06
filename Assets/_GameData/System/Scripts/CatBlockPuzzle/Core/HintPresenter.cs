@@ -50,7 +50,7 @@ namespace CatBlockPuzzle
             {
                 lastHinted = hinted;
                 PuzzleAudio.Play(AudioEvents.HintShow);
-                SparkleSpot(spot);
+                SparkleSpot(spot, hinted);
                 hintRoutine = StartCoroutine(HintRoutine(hinted, spot, reveal, blockers));
             }
             return hinted != null;
@@ -70,10 +70,17 @@ namespace CatBlockPuzzle
         }
 
         // A few gold sparks pop off the spot the hint points at, so the eye lands there before the pulse starts.
-        private void SparkleSpot(PieceState state)
+        private void SparkleSpot(PieceState state, PieceState fallback)
         {
             RectTransform boardRoot = session.boardRoot;
-            if (boardRoot == null || state.Solution.Cells.Length == 0) return;
+            if (boardRoot == null) return;
+            if (state == null)
+            {
+                // A lift-only hint has no spot to show: sparkle on the cat itself.
+                if (fallback != null && fallback.Rect != null) fx.SpawnPawBurst(boardRoot, boardRoot.InverseTransformPoint(fallback.Rect.position), 6, GoldColor);
+                return;
+            }
+            if (state.Solution.Cells.Length == 0) return;
             CellOffset first = state.Solution.Cells[0];
             Vector2 local = board.BoardAnchoredToLocal(board.CellPosition(state.Solution.SolutionRow + first.Row, state.Solution.SolutionCol + first.Col));
             fx.SpawnPawBurst(boardRoot, local, 6, GoldColor);
@@ -129,6 +136,8 @@ namespace CatBlockPuzzle
                 PieceState state = pieces[i];
                 if (state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
                 if (state.Slot != null && !state.Slot.gameObject.activeSelf) continue;
+                // Only when lifting those cats really frees the spot: a padlocked or colour-zoned spot would still refuse the cat.
+                if (!SpotUsableOnceCleared(state)) continue;
                 List<PieceState> holding = PiecesOnSpot(state);
                 if (holding.Count > 0) { blockers = holding; spot = state; return state; }
             }
@@ -138,9 +147,25 @@ namespace CatBlockPuzzle
             {
                 PieceState state = pieces[i];
                 if (!state.Placed || state.Definition.IsSpare || state.Definition.IsFixed) continue;
-                if (!SittingOnAuthoredSpot(state)) { spot = state; return state; }
+                if (SittingOnAuthoredSpot(state)) continue;
+                // Lift this cat. Its own spot is only shown when it can take it right now; a locked or taken spot would mislead.
+                spot = SolutionSpotIsFree(state, state) ? state : null;
+                return state;
             }
             return null;
+        }
+
+        private bool SpotUsableOnceCleared(PieceState state)
+        {
+            foreach (CellOffset cell in state.Solution.Cells)
+            {
+                var coord = new Vector2Int(state.Solution.SolutionRow + cell.Row, state.Solution.SolutionCol + cell.Col);
+                if (!board.IsCellUsable(coord, state)) return false;
+                if (session.occupancy.TryGetValue(coord, out string holderId))
+                    foreach (PieceState holder in pieces)
+                        if (holder.Definition.Id == holderId && holder.Definition.IsFixed) return false;
+            }
+            return true;
         }
 
         // The cat's own authored spot when it is free, else a free spot authored for a twin (same shape), else null.
@@ -215,7 +240,7 @@ namespace CatBlockPuzzle
         private IEnumerator HintRoutine(PieceState state, PieceState spot, HintReveal reveal, List<PieceState> blockers)
         {
             List<Image> hintedCells = new List<Image>();
-            CellOffset[] cells = spot.Solution.Cells;
+            CellOffset[] cells = spot != null ? spot.Solution.Cells : new CellOffset[0];
             int revealed = reveal == HintReveal.AnchorOnly ? Mathf.Min(1, cells.Length) : cells.Length;
             for (int c = 0; c < revealed; c++)
             {

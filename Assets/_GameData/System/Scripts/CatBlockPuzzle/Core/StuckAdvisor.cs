@@ -106,7 +106,9 @@ namespace CatBlockPuzzle
                 return;
             }
 
-            bool stuck = idle >= IdleSeconds || missedSincePlacement >= MissedDrops;
+            // The Hammer's first lesson comes as soon as something in the way has cost the player a couple of drops.
+            bool stuck = idle >= IdleSeconds || missedSincePlacement >= MissedDrops ||
+                ((missedSincePlacement >= 2 || lockBlockedSincePlacement) && HammerIntroDue());
             if (!stuck || cooldown > 0f || shownThisLevel >= MaxPerLevel) return;
             Show();
         }
@@ -119,8 +121,21 @@ namespace CatBlockPuzzle
             Hud?.HidePowerUpNudge();
         }
 
+        // True the first time the Hammer would really help (cats, padlocks or fog in the way) and the player has never been taught it.
+        private bool HammerIntroDue() =>
+            Hud.IsPowerUpUnlocked(PowerUpKind.Hammer) && PlayerPrefs.GetInt(PowerUpTutorialManager.HammerSeenKey, 0) == 0 && hammer.HasTarget;
+
         private void Show()
         {
+            if (HammerIntroDue())
+            {
+                // Taught when it is needed, with a gift to try it: spotlight on the button, and the press swings the Hammer for real.
+                if (Hud.ShowPowerUpNeedIntro(PowerUpKind.Hammer, "SOMETHING IN YOUR WAY?\nTAP HAMMER!", PowerUpTutorialManager.HammerSeenKey,
+                        Hud.FreeOnUnlock + 1, () => GameSystem.Instance?.TryUseHammerPowerUp()))
+                    shownThisLevel++;
+                cooldown = CooldownSeconds;
+                return;
+            }
             Facts facts = new Facts
             {
                 HintReady = Hud.IsPowerUpUnlocked(PowerUpKind.Hint),

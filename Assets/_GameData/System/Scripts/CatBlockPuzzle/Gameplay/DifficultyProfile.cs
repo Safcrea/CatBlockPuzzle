@@ -70,9 +70,10 @@ namespace CatBlockPuzzle
 
             int difficulty = Mathf.Clamp(level.Difficulty, 1, 10);
             DifficultyProfile band = Bands[(difficulty - 1) / 2];
-            // A hint always lights the whole resting place (a single lit cell read as a bug); harder levels only cost more.
+            // A hint always lights the whole resting place (a single lit cell read as a bug).
             HintReveal reveal = HintReveal.FullShape;
-            int hintCost = difficulty >= 8 ? 2 : 1;
+            // One hint per use on every level: a hidden double price made the button look broken to a player holding one hint.
+            const int hintCost = 1;
             // Every timed level can fail; before that, a level can only fail once its difficulty reaches the failable band.
             bool canFail = levelIndex >= UntimedLevelCount || (band.CanFail && difficulty >= FirstFailableDifficulty);
             return new DifficultyProfile(band.DurationSeconds, band.ThreeStarRatio, band.TwoStarRatio, canFail, reveal, hintCost);

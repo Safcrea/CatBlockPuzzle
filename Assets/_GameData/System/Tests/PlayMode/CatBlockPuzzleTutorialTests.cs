@@ -95,7 +95,7 @@ namespace CatBlockPuzzle.Tests
             Assert.That(Step, Is.EqualTo("PlaceFirst"));
             var title = (Text)Field("tutorialCoachTitle");
             Assert.That(title.gameObject.activeInHierarchy, Is.True);
-            Assert.That(title.text, Does.Contain("cat"));
+            Assert.That(title.text, Does.Contain("cat").IgnoreCase);
             Assert.That(((Text)Field("tutorialCoachBody")).text, Does.Contain("glowing"));
             var targets = (IList)Field("tutorialTargets");
             var coordinates = (IList)Field("tutorialTargetCoordinates");

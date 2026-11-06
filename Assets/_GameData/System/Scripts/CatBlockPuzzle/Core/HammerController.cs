@@ -14,7 +14,7 @@ namespace CatBlockPuzzle
     /// </summary>
     internal sealed class HammerController : HostedService
     {
-        private const int MaxCats = 3;
+        private const int MaxCats = 5;
         private const int MaxLocks = 3;
 
         private readonly PuzzleSession session;
@@ -25,11 +25,13 @@ namespace CatBlockPuzzle
         private readonly PlayerSettings settings;
         private readonly FxSpawner fx;
         private readonly HapticsController haptics;
+        private readonly HintPresenter hint;
 
         public HammerController(IGameplayContext context, PuzzleSession session, BoardController board,
             CellLockController locks, FogController fog, PieceDragController drag, PlayerSettings settings,
-            FxSpawner fx, HapticsController haptics) : base(context)
+            FxSpawner fx, HapticsController haptics, HintPresenter hint) : base(context)
         {
+            this.hint = hint;
             this.session = session;
             this.board = board;
             this.locks = locks;
@@ -55,7 +57,7 @@ namespace CatBlockPuzzle
 
         public bool HasObstacle => locks.HasClosedLocks || fog.CloudCount > 0 || FindBlockers().Count > 0;
 
-        /// <summary>How many landed cats sit on another cat's spot.</summary>
+        /// <summary>How many landed cats are on the wrong spot.</summary>
         public int BlockerCount => FindBlockers().Count;
 
         /// <summary>Swings at everything in the way. False (and nothing spent) when nothing is.</summary>
@@ -97,30 +99,44 @@ namespace CatBlockPuzzle
             Hud?.RefreshPowerUpCounts();
         }
 
-        private static bool OnItsSpot(PieceState piece) =>
-            piece.Placed && piece.Row == piece.Solution.SolutionRow && piece.Col == piece.Solution.SolutionCol && !piece.IsRotated;
+        // Cats of the same shape are interchangeable: one may sit on any of their authored spots.
+        private static bool IsTwin(PieceState a, PieceState b) =>
+            !b.Definition.IsSpare && !b.Definition.IsFixed && !a.IsRotated && !b.IsRotated && a.Solution.ShapeId == b.Solution.ShapeId;
 
-        // Landed cats that hold a cell of the spot another cat needs, while sitting off their own spot.
+        // A landed, unturned cat on its own authored spot or on a twin's.
+        private bool OnAnAuthoredSpot(PieceState piece)
+        {
+            if (!piece.Placed || piece.IsRotated) return false;
+            foreach (PieceState owner in session.pieces)
+            {
+                if (owner != piece && !IsTwin(piece, owner)) continue;
+                if (piece.Row == owner.Solution.SolutionRow && piece.Col == owner.Solution.SolutionCol) return true;
+            }
+            return false;
+        }
+
+        // Every landed cat that is not where it belongs (fixed and spare cats never count). The ones holding another cat's spot
+        // come first, since lifting them frees the way soonest.
         private List<PieceState> FindBlockers()
         {
-            var found = new List<PieceState>();
+            var wrong = new List<PieceState>();
+            foreach (PieceState piece in session.pieces)
+                if (piece.Placed && !piece.Definition.IsFixed && !piece.Definition.IsSpare && !OnAnAuthoredSpot(piece)) wrong.Add(piece);
+            wrong.Sort((a, b) => HoldsSomeonesSpot(b).CompareTo(HoldsSomeonesSpot(a)));
+            return wrong;
+        }
+
+        private int HoldsSomeonesSpot(PieceState holder)
+        {
+            int cells = 0;
             foreach (PieceState want in session.pieces)
             {
-                if (want.Definition.IsSpare || want.Definition.IsFixed || OnItsSpot(want)) continue;
-                CellOffset[] cells = want.Solution.Cells;
-                for (int c = 0; c < cells.Length; c++)
-                {
-                    var coord = new Vector2Int(want.Solution.SolutionRow + cells[c].Row, want.Solution.SolutionCol + cells[c].Col);
-                    if (!session.occupancy.TryGetValue(coord, out string holderId)) continue;
-                    foreach (PieceState holder in session.pieces)
-                    {
-                        if (holder == want || holder.Definition.Id != holderId || !holder.Placed) continue;
-                        if (holder.Definition.IsFixed || holder.Definition.IsSpare || OnItsSpot(holder) || found.Contains(holder)) continue;
-                        found.Add(holder);
-                    }
-                }
+                if (want == holder || want.Definition.IsSpare || want.Definition.IsFixed || OnAnAuthoredSpot(want)) continue;
+                foreach (CellOffset c in want.Solution.Cells)
+                    if (session.occupancy.TryGetValue(new Vector2Int(want.Solution.SolutionRow + c.Row, want.Solution.SolutionCol + c.Col), out string id) &&
+                        id == holder.Definition.Id) cells++;
             }
-            return found;
+            return cells;
         }
 
         // Padlocks that keep a waiting cat out of its spot go first.
@@ -180,6 +196,8 @@ namespace CatBlockPuzzle
             sequence = null;
             if (!session.levelFailed && !session.IsBoardFilled) session.inputLocked = false;
             Hud?.RefreshPowerUpCounts();
+            // The way is clear: show what goes in next, so the player is never left wondering after a swing.
+            if (!session.inputLocked) hint.ShowHint(HintReveal.FullShape);
         }
 
         // Rear back, strike, fade: the hammer is drawn over the target, and the effect lands on contact.

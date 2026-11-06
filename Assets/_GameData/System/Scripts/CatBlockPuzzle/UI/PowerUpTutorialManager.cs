@@ -1,4 +1,5 @@
 using AVNEvents;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,10 +7,10 @@ using UnityEngine.UI;
 namespace CatBlockPuzzle
 {
     /// <summary>
-    /// Introduces each power-up the first time it unlocks, with the guided sequence from ZombieRush
-    /// (<see cref="PowerUpUnlockTutorial"/>): dim, icon pops in with a message, flies onto the real
-    /// HUD button (which unlocks and gets a free charge), a hand points at it, and the player taps it.
-    /// That tap is remembered and spent for real once the level starts.
+    /// Introduces the power-ups with the <see cref="TutorialSpotlight"/>: the screen dims except a hole over the button, a ring
+    /// pulses, the button bounces and a hand pokes it. Hint and Freeze are taught the first time their level is reached (the tap
+    /// is remembered and spent once the level starts); the Hammer is taught the first time something is actually in the player's
+    /// way (see <see cref="ShowNeed"/>), because that is when it makes sense.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class PowerUpTutorialManager : MonoBehaviour
@@ -21,8 +22,8 @@ namespace CatBlockPuzzle
         public const string TimerSeenKey = "CatBlockPuzzle.Tutorial.Timer";
         private const int TimerTutorialLevel = 11;
 
-        private PowerUpUnlockTutorial overlay;
-        // Every power-up taught in one level start waits here, so none of the demo taps is lost.
+        private TutorialSpotlight overlay;
+        // Every power-up taught in one level start waits here, so none of the taps is lost.
         private readonly System.Collections.Generic.Queue<PowerUpKind> pendingUses = new System.Collections.Generic.Queue<PowerUpKind>();
 
         public bool IsOpen => overlay != null;
@@ -47,17 +48,14 @@ namespace CatBlockPuzzle
             if (!DifficultyProfile.IsUntimed(shownLevel) && (shownLevel == TimerTutorialLevel || PlayerPrefs.GetInt(TimerSeenKey, 0) == 0))
                 yield return ShowTimerTutorial(hud);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Hint) && PlayerPrefs.GetInt(HintSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Hint, "Stuck?\nTap Hint!", HintSeenKey);
+                yield return Show(hud, PowerUpKind.Hint, "STUCK?\nTAP HINT!", HintSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Freeze, $"Freeze time for {freezeSeconds:0.#}s!\nTap Freeze!", FreezeSeenKey);
-            if (hud.IsPowerUpUnlocked(PowerUpKind.Hammer) && PlayerPrefs.GetInt(HammerSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Hammer, "Cats, locks or fog in the way?\nTap Hammer!", HammerSeenKey);
+                yield return Show(hud, PowerUpKind.Freeze, "FREEZE THE CLOCK\nFOR " + freezeSeconds.ToString("0.#") + "S!", FreezeSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Rotate) && PlayerPrefs.GetInt(RotateSeenKey, 0) == 0)
-                yield return Show(hud, PowerUpKind.Rotate, "Turn a cat!\nTap Rotate!", RotateSeenKey);
+                yield return Show(hud, PowerUpKind.Rotate, "TURN A CAT!\nTAP ROTATE!", RotateSeenKey);
         }
 
-        // The first timed level (level 11): the clock icon pops in, flies up onto the timer, and two seconds later the
-        // level carries on by itself. No hand and no tap.
+        // The first timed level (level 11): the clock is spotlit for a couple of seconds, then the level carries on by itself.
         private IEnumerator ShowTimerTutorial(GameplayHudView hud)
         {
             RectTransform panel = hud.timerPanel;
@@ -67,17 +65,15 @@ namespace CatBlockPuzzle
                 yield break;
             }
 
-            overlay = PowerUpUnlockTutorial.Create(hud.Canvas, hud.levelText != null ? hud.levelText.font : null);
+            overlay = TutorialSpotlight.Create(hud.Canvas, hud.levelText != null ? hud.levelText.font : null);
             if (overlay == null) { PlayerPrefs.SetInt(TimerSeenKey, 1); yield break; }
 
             AvnEvents.TutorialShown("timer");
-            yield return overlay.RunPassive(panel, hud.TimerTutorialIcon, "Beat the clock!\nStars fade as time runs out", () =>
-            {
-                PlayerPrefs.SetInt(TimerSeenKey, 1);
-                PlayerPrefs.Save();
-            }, 2f);
+            yield return overlay.Run(panel, "BEAT THE CLOCK!\nSTARS FADE AS TIME RUNS OUT", null, false, 2.6f);
+            PlayerPrefs.SetInt(TimerSeenKey, 1);
+            PlayerPrefs.Save();
             AvnEvents.TutorialCompleted("timer");
-            CloseOverlay();
+            overlay = null;
         }
 
         private IEnumerator Show(GameplayHudView hud, PowerUpKind kind, string message, string key)
@@ -85,7 +81,7 @@ namespace CatBlockPuzzle
             Button button = hud.PowerUpButton(kind);
             // Unlocking gives the player exactly "Free On Unlock" power-ups (Inspector, Gameplay HUD). The tutorial's
             // demo tap is free, so the HUD shows that number as soon as the power-up unlocks and keeps showing it.
-            void MarkSeenAndGrant(bool unused)
+            void MarkSeenAndGrant()
             {
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
@@ -101,28 +97,55 @@ namespace CatBlockPuzzle
 
             if (button == null || !button.gameObject.activeInHierarchy || hud.Canvas == null)
             {
-                MarkSeenAndGrant(false);
+                MarkSeenAndGrant();
                 yield break;
             }
 
-            overlay = PowerUpUnlockTutorial.Create(hud.Canvas, hud.levelText != null ? hud.levelText.font : null);
+            overlay = TutorialSpotlight.Create(hud.Canvas, hud.levelText != null ? hud.levelText.font : null);
             if (overlay == null)
             {
-                Debug.LogWarning("PowerUpUnlockTutorial prefab missing; skipping the " + kind + " introduction.", this);
-                MarkSeenAndGrant(false);
+                MarkSeenAndGrant();
                 yield break;
             }
 
+            MarkSeenAndGrant();
             GameAnalytics.PowerUpTutorialShown(kind);
             AvnEvents.TutorialShown(AvnEvents.PowerupTutorial(kind));
-            yield return overlay.Run(button, hud.GetPowerUpSprite(kind), message, () => MarkSeenAndGrant(true), () =>
+            yield return overlay.Run((RectTransform)button.transform, message, hud.HandSprite, true, 0f);
+            if (overlay == null) { AvnEvents.TutorialInterrupted(AvnEvents.PowerupTutorial(kind)); yield break; }
+            pendingUses.Enqueue(kind);
+            GameAnalytics.PowerUpTutorialTapped(kind);
+            AvnEvents.TutorialCompleted(AvnEvents.PowerupTutorial(kind));
+            overlay = null;
+        }
+
+        /// <summary>
+        /// Teaches a power-up at the moment it is needed (the Hammer, once cats, padlocks or fog are in the way): the free gift
+        /// is handed over first, the button is spotlit, and <paramref name="onTapped"/> runs when the player presses it.
+        /// </summary>
+        public IEnumerator ShowNeed(GameplayHudView hud, PowerUpKind kind, string message, string key, int gift, Action onTapped)
+        {
+            Button button = hud.PowerUpButton(kind);
+            if (button == null || !button.gameObject.activeInHierarchy || hud.Canvas == null || overlay != null) yield break;
+            overlay = TutorialSpotlight.Create(hud.Canvas, hud.levelText != null ? hud.levelText.font : null);
+            if (overlay == null) yield break;
+            PlayerPrefs.SetInt(key, 1);
+            PlayerPrefs.Save();
+            if (gift > 0)
             {
-                pendingUses.Enqueue(kind);
-                GameAnalytics.PowerUpTutorialTapped(kind);
-                AvnEvents.TutorialCompleted(AvnEvents.PowerupTutorial(kind));
-            });
-            AvnEvents.TutorialInterrupted(AvnEvents.PowerupTutorial(kind)); // no-op once the tap completed it
-            CloseOverlay();
+                PowerUpInventory.Add(kind, gift);
+                GameAnalytics.ItemEarned(kind, gift, GameAnalytics.EarnTutorialGrant);
+                AvnEvents.PowerupObtained(kind, gift, PowerupSource.Gift);
+            }
+            hud.RefreshPowerUpCounts();
+            GameAnalytics.PowerUpTutorialShown(kind);
+            AvnEvents.TutorialShown(AvnEvents.PowerupTutorial(kind));
+            yield return overlay.Run((RectTransform)button.transform, message, hud.HandSprite, true, 0f);
+            if (overlay == null) { AvnEvents.TutorialInterrupted(AvnEvents.PowerupTutorial(kind)); yield break; }
+            overlay = null;
+            GameAnalytics.PowerUpTutorialTapped(kind);
+            AvnEvents.TutorialCompleted(AvnEvents.PowerupTutorial(kind));
+            onTapped?.Invoke();
         }
 
         /// <summary>Aborts any running introduction (level change, navigation) and forgets its pending tap.</summary>
@@ -134,15 +157,9 @@ namespace CatBlockPuzzle
             CloseOverlay();
         }
 
-
         private void CloseOverlay()
         {
-            if (overlay != null)
-            {
-                overlay.Cancel();
-                overlay.gameObject.SetActive(false);
-                Destroy(overlay.gameObject);
-            }
+            if (overlay != null) overlay.Cancel();
             overlay = null;
         }
 

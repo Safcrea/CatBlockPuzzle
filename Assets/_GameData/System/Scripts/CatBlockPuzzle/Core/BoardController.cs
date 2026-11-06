@@ -323,6 +323,12 @@ namespace CatBlockPuzzle
                 !zones.Refuses(coord, piece);
         }
 
+        /// <summary>True when the cell could take this cat once any cat sitting on it is lifted: on the board, not padlocked, not refused by a colour zone.</summary>
+        public bool IsCellUsable(Vector2Int coord, PieceState piece = null)
+        {
+            return activeLevel.ActiveCells.Contains(coord) && !locks.IsLocked(coord) && !zones.Refuses(coord, piece);
+        }
+
         /// <summary>The resting colour of an active cell: dimmed while padlocked, tinted in a colour zone.</summary>
         public Color CellBaseColor(Vector2Int coord)
         {

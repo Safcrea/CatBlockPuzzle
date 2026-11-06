@@ -176,7 +176,7 @@ namespace CatBlockPuzzle
             drag = new PieceDragController(this, session, space, board, tray, pieceLayout, feedback, hint, fx, mood, theme, settings, gates, locks);
             toast = new GameplayToast(this);
             rotate = new RotateController(this, session, tray, drag, settings, toast);
-            hammer = new HammerController(this, session, board, locks, fog, drag, settings, fx, haptics);
+            hammer = new HammerController(this, session, board, locks, fog, drag, settings, fx, haptics, hint);
             hammer.Struck += OnHammerStruck;
             tutorial = new LevelOneTutorial(this, session, this, space, board, drag, settings, fx, mood, timer, gates);
             drag.Gate = tutorial;
@@ -231,6 +231,7 @@ namespace CatBlockPuzzle
             haptics = new HapticsController(this);
             GameSystem.EnsureForScene(this);
             Recompose();
+            if (gameplayHud != null) gameplayHud.HandSprite = tutorialHandSprite;
             progress.LoadCoins();
             meta.InitializeMetaSystems();
             settings.Load();
@@ -275,7 +276,7 @@ namespace CatBlockPuzzle
             tutorial.Update();
             if (GameSystem.Instance != null && GameSystem.Instance.HasReferenceUi && !GameSystem.Instance.IsGameplayOpen) return;
             drag.UpdateMotion();
-            timer.Tick(tutorial.IsOpen);
+            timer.Tick(tutorial.IsOpen || (gameplayHud != null && gameplayHud.IsTutorialOpen));
             stuck.Tick();
             tray.UpdateIdleMotion();
         }
