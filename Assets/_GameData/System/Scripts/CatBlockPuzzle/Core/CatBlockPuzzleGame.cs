@@ -345,6 +345,12 @@ namespace CatBlockPuzzle
         public bool TryUseHammerPowerUp() => powerUps.TryUseHammerPowerUp();
         public bool IsHammerActive => hammer != null && hammer.Active;
         internal bool HammerHasTarget => hammer != null && hammer.HasTarget;
+
+        /// <summary>The Hammer tutorial's line for what is in the way on this level: padlocks, fog, or both.</summary>
+        internal string HammerIntroLabel =>
+            locks != null && locks.HasClosedLocks && fog != null && fog.CloudCount > 0 ? "CLEAR THE WAY!\nTAP HAMMER!"
+            : fog != null && fog.CloudCount > 0 ? "BLOW THE FOG AWAY!\nTAP HAMMER!"
+            : "BREAK THE PADLOCK!\nTAP HAMMER!";
         internal void CancelHammer() => hammer?.Cancel();
 
         // A smash landed: only now is the Hammer spent.

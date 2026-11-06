@@ -80,7 +80,8 @@ namespace CatBlockPuzzle
         [SerializeField, Min(1)] private int hintUnlockLevel = 4;
         [SerializeField, Min(1)] private int freezeUnlockLevel = 13;
         [SerializeField, Min(1)] private int rotateUnlockLevel = 21;
-        [SerializeField, Min(1)] private int hammerUnlockLevel = 8;
+        [Tooltip("The first level with something for the Hammer to clear (level 16 has the first padlock). It is introduced there.")]
+        [SerializeField, Min(1)] private int hammerUnlockLevel = 16;
         [Tooltip("Free Hints / Freezes granted when each one unlocks (the HUD shows exactly this number). The unlock tutorial's demo tap costs nothing.")]
         [SerializeField, Min(0)] private int freeOnUnlock = 2;
         internal int FreeOnUnlock => freeOnUnlock;

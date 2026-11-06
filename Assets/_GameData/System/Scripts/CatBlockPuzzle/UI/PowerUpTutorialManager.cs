@@ -51,6 +51,10 @@ namespace CatBlockPuzzle
                 yield return Show(hud, PowerUpKind.Hint, "STUCK?\nTAP HINT!", HintSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Freeze) && PlayerPrefs.GetInt(FreezeSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Freeze, "FREEZE THE CLOCK\nFOR " + freezeSeconds.ToString("0.#") + "S!", FreezeSeenKey);
+            // The Hammer arrives on the first level that has something for it to clear (padlocks or fog), and the tap swings it.
+            if (hud.IsPowerUpUnlocked(PowerUpKind.Hammer) && PlayerPrefs.GetInt(HammerSeenKey, 0) == 0 &&
+                GameSystem.Instance != null && GameSystem.Instance.HammerHasTarget)
+                yield return Show(hud, PowerUpKind.Hammer, GameSystem.Instance.HammerIntroLabel, HammerSeenKey);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Rotate) && PlayerPrefs.GetInt(RotateSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Rotate, "TURN A CAT!\nTAP ROTATE!", RotateSeenKey);
         }
@@ -85,7 +89,8 @@ namespace CatBlockPuzzle
             {
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
-                int grant = hud.FreeOnUnlock;
+                // The Hammer's tap swings it for real (it is spent), so one extra leaves the player the usual number.
+                int grant = hud.FreeOnUnlock + (kind == PowerUpKind.Hammer ? 1 : 0);
                 if (grant > 0)
                 {
                     PowerUpInventory.Add(kind, grant);

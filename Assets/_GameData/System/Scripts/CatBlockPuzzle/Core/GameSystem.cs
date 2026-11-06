@@ -114,6 +114,8 @@ namespace CatBlockPuzzle
         public bool TryUseRotatePowerUp() => UseRotatePowerUp(fromTutorial: false);
         public bool IsRotateActive => HasGameplayController && gameplayController.IsRotateActive;
         public bool TryUseHammerPowerUp() => UseHammerPowerUp();
+        internal bool HammerHasTarget => HasGameplayController && gameplayController.HammerHasTarget;
+        internal string HammerIntroLabel => HasGameplayController ? gameplayController.HammerIntroLabel : "TAP HAMMER!";
         public bool IsHammerActive => HasGameplayController && gameplayController.IsHammerActive;
         /// <summary>Spends the power-up the unlock tutorial asked the player to tap.</summary>
         internal bool UseTaughtPowerUp(PowerUpKind kind) =>

@@ -74,7 +74,7 @@ Tick these off on a real phone (and, if you can, a tablet). Editor screenshots c
 ## Round 5: tutorials, Hammer need, hints
 - [ ] Level 4 (clear tutorial save first): the screen dims except the Hint button, a ring pulses, the button bounces, "STUCK? TAP HINT!" and a hand poking it. Tapping anywhere else does nothing; tapping the button ends it and then shows a real hint. Same look for Freeze on level 13 and the clock on level 11.
 - [ ] Level 1: bold white outlined words above the board (no card), still readable on a bright background.
-- [ ] Hammer: reaching level 8 shows nothing. The first time cats, padlocks or fog are in your way and you lose a couple of drops, the spotlight lands on the Hammer button, you get free Hammers, and tapping it swings.
+- [ ] Hammer: it is grey ("Lv 16") until level 16. Level 16 (first padlock) opens with the spotlight on the Hammer, "BREAK THE PADLOCK! TAP HAMMER!", you get 3 free Hammers, and tapping it swings and opens the padlock (2 left). Levels before 16 never show it.
 - [ ] Hammer clears every wrong cat (up to 5), then the next cat and spot pulse (free hint). It never touches a cat on its own spot.
 - [ ] Hint on every level 14 and above: one tap uses one hint, never a purchase popup while you still own one.
 - [ ] Hint after a few wrong drops, on levels with padlocks (for example 24, 44, 99): the pulse always points at something you can actually do.
