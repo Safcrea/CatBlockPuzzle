@@ -17,10 +17,11 @@ namespace CatBlockPuzzle
             public bool TimeIsLow;
         }
 
-        public const float IdleSeconds = 12f;
+        // The automatic nudge waits for half a minute of doing nothing; the Hammer lesson still comes the moment it is needed.
+        public const float IdleSeconds = 30f;
         public const int MissedDrops = 3;
         public const float HoldSeconds = 8f;
-        public const float CooldownSeconds = 20f;
+        public const float CooldownSeconds = 30f;
         public const int MaxPerLevel = 3;
 
         private readonly PuzzleSession session;
@@ -107,8 +108,8 @@ namespace CatBlockPuzzle
             }
 
             // The Hammer's first lesson comes as soon as something in the way has cost the player a couple of drops.
-            bool stuck = idle >= IdleSeconds || missedSincePlacement >= MissedDrops ||
-                ((missedSincePlacement >= 2 || lockBlockedSincePlacement) && HammerIntroDue());
+            bool hammerLesson = (missedSincePlacement >= 2 || lockBlockedSincePlacement) && HammerIntroDue();
+            bool stuck = idle >= IdleSeconds || hammerLesson;
             if (!stuck || cooldown > 0f || shownThisLevel >= MaxPerLevel) return;
             Show();
         }
