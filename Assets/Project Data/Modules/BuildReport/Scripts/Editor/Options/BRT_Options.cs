@@ -203,7 +203,7 @@ namespace BuildReportTool
 		public bool AllowDeletingOfUsedAssets;
 		public bool ShowImportedSizeForUsedAssets = false;
 
-		public bool AutoShowWindowAfterNormalBuild = true;
+		public bool AutoShowWindowAfterNormalBuild = false;
 		public bool AutoResortAssetsWhenUnityEditorRegainsFocus = false;
 
 		public bool UseThreadedReportGeneration = true;

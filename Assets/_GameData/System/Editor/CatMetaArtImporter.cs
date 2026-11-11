@@ -38,8 +38,11 @@ namespace CatBlockPuzzle.Editor
                 : TextureImporterAlphaSource.None;
             importer.alphaIsTransparency = isDecoration;
 
-            ConfigureMobile(importer, "Android", isRoom ? 2048 : isThumbnail ? 512 : 1024);
-            ConfigureMobile(importer, "iPhone", isRoom ? 2048 : isThumbnail ? 512 : 1024);
+            // The room-decoration feature is not shown in this release, so phones get small copies (about 30 MB less in the APK).
+            // Raise these when the feature ships.
+            int mobileSize = isRoom || isThumbnail ? 512 : 256;
+            ConfigureMobile(importer, "Android", mobileSize);
+            ConfigureMobile(importer, "iPhone", mobileSize);
         }
 
         private static void ConfigureMobile(TextureImporter importer, string platform, int maxSize)
@@ -48,7 +51,7 @@ namespace CatBlockPuzzle.Editor
             settings.name = platform;
             settings.overridden = true;
             settings.maxTextureSize = maxSize;
-            settings.format = TextureImporterFormat.Automatic;
+            settings.format = TextureImporterFormat.ASTC_6x6;
             settings.textureCompression = TextureImporterCompression.Compressed;
             settings.compressionQuality = 70;
             importer.SetPlatformTextureSettings(settings);

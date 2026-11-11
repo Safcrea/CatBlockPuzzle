@@ -2,13 +2,20 @@
 
 ## Unreleased - 2026-11-11
 
+### Round 7: new Shop layout, 18 MB smaller APK, first tested build
+
+- **New Shop layout, as in the mockup.** One header row (back button, Shop sign, coins). A wooden "Coin Packs" tab over a cream panel with the coin bag on the left and three rows on the right, with a "BEST VALUE" ribbon on the 3000 pack. A wooden "Power-Ups" tab over three cards (picture, name, coin price, green Buy button). A golden "SPECIAL OFFER" banner with the Starter Bundle picture, title, contents ("3 Hints + 2 Freezes + 1 Hammer") and a big price button. The panels, tabs, ribbons, paw and pictures are new sprites in `Assets/CatBlock_UI_New/UI/shop2`, cut from the existing card art (the bundle picture now shows a Hammer instead of the old Rotate arrow). The existing buttons and labels were kept, so prices, purchases and analytics are wired as before. Rendered at 1080x1920, a 20:9 Android phone, iPhone 15 (notch), iPhone SE, iPad and a 10:16 Android tablet: everything fits, nothing overlaps, and every Buy button keeps a touch area of at least 124 units.
+- **APK 73.6 MB → 55.6 MB.** The first build showed that the Android caps on the room-decoration art never took effect: `CatMetaArtImporter` reset them to 2048 / 1024 px on every import. It now ships them at 512 px (rooms, thumbnails) and 256 px (decorations) in ASTC 6x6 on Android and iOS; raise these when the room feature ships. The unused TextMesh Pro "Examples & Extras" folder (sample fonts in a Resources folder) is removed. Textures in the build went from 56 MB to 24.5 MB.
+- **Build Report Tool** no longer opens its window after a build.
+- **Tested:** all 139 edit-mode tests pass, and `Builds/CatBlockPuzzle.apk` built with no errors (debug keystore, ARM64, IL2CPP).
+
 ### Round 6: screens on every device, stones inside the board, smaller build
 
 - **Floating stones fixed.** In levels 13, 14, 15, 18, 20, 56, 74, 81, 93 and 96 a stone sat in an empty corner, touching the board only at a diagonal, so it looked like it was outside the grid. Each one now sits in a notch of the board outline, touching the board on at least two sides (never on a fog cell). Stones that already sit inside the outline were left alone: level 12's stone between the towers and level 100's 2x2 door. Stones are not part of any solution, so no level changes difficulty. Both `levels_100.json` and the serialized copy in `Content.asset` were updated.
 - **Screen fit.** Every page is a 1080x1920 frame scaled into the safe area (the previous round's change). A layout check of every page against that frame found only the Shop at fault: its back button and coin counter stuck out of the top by up to 62 units (cut off on 16:9 phones and tablets) and its Buy buttons were 61-79 units tall, about 22-28 dp. The header now sits inside the frame and every Shop Buy button has an invisible touch area of at least 120 units (about 44 dp on a phone), never overlapping a neighbour. `ProductionUiSafeArea` now works from safe-area fractions and can simulate a notch in the Editor; `ResolutionAudit` (Editor tool) plays every page at 18 Android, iPhone and iPad sizes when Unity is in front.
 - **Build size (Android import settings only; source files untouched).** The room-decoration art (10 rooms, 10 thumbnails, 50 decorations, about 77 MB of PNGs, for a feature this release does not show) is capped at 512 / 256 px on Android. 81 textures that had no compression now use ASTC (4x4 for small UI art, 6x6 for large backgrounds). 52 sound effects are mono at Vorbis quality 0.6; the music is unchanged. Player settings were already lean (IL2CPP, ARM64 only, engine stripping on).
 - **Build Report Tool** imported (`Assets/Project Data/Modules/BuildReport`, editor only).
-- **Not yet re-tested.** Unity was asleep in the background (macOS App Nap) when this was committed, so the edit-mode suite has not run on these changes and no APK was built yet.
+- **Re-tested in round 7:** the edit-mode suite passes and the APK builds.
 
 ## Unreleased - 2026-11-06
 

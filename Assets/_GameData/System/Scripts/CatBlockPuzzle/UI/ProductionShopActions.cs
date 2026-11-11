@@ -35,13 +35,13 @@ namespace CatBlockPuzzle
             if (config == null) return;
             var offer = config.GetOffer(PowerUpKind.Hint);
             if (hintPrice != null) hintPrice.text = offer.coinPrice + " coins";
-            if (hintQuantity != null) hintQuantity.text = "x" + offer.quantity + " Hint";
+            if (hintQuantity != null) hintQuantity.text = Name(offer.quantity, "Hint", "Hints");
             offer = config.GetOffer(PowerUpKind.Freeze);
             if (freezePrice != null) freezePrice.text = offer.coinPrice + " coins";
-            if (freezeQuantity != null) freezeQuantity.text = "x" + offer.quantity + " Freeze";
+            if (freezeQuantity != null) freezeQuantity.text = Name(offer.quantity, "Freeze", "Freezes");
             offer = config.GetOffer(PowerUpKind.Hammer);
             if (hammerPrice != null) hammerPrice.text = offer.coinPrice + " coins";
-            if (hammerQuantity != null) hammerQuantity.text = "x" + offer.quantity + " Hammer";
+            if (hammerQuantity != null) hammerQuantity.text = Name(offer.quantity, "Hammer", "Hammers");
             RefreshBundleAndPacks(config);
         }
 
@@ -59,6 +59,9 @@ namespace CatBlockPuzzle
             }
         }
 
+        // The card names the power-up; a pack of more than one says how many.
+        private static string Name(int quantity, string one, string many) => quantity > 1 ? quantity + " " + many : one;
+
         private static string Describe(PowerUpShopConfig.Bundle bundle)
         {
             var parts = new System.Collections.Generic.List<string>();
@@ -67,7 +70,7 @@ namespace CatBlockPuzzle
             if (bundle.hammers > 0) parts.Add(bundle.hammers + " Hammer" + (bundle.hammers == 1 ? "" : "s"));
             if (bundle.rotates > 0) parts.Add(bundle.rotates + " Rotate" + (bundle.rotates == 1 ? "" : "s"));
             if (bundle.bonusCoins > 0) parts.Add("+" + bundle.bonusCoins + " coins");
-            return string.Join(" · ", parts);
+            return string.Join(" + ", parts);
         }
 
         public void BuyStarterBundle()
