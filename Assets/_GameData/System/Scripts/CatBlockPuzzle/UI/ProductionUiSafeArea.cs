@@ -31,12 +31,14 @@ namespace CatBlockPuzzle
             if (fractions == lastSafeArea && size == lastRootSize) return;
             lastSafeArea = fractions;
             lastRootSize = size;
-            // Every screen is authored on one 1080x1920 frame that is scaled to fit, so spacing is the same on every device.
-            // A page whose frame was left stretched to the canvas would drift apart on other aspect ratios (header over content).
+            // Every screen is authored on a 1080x1920 frame, scaled so that frame fits the safe area. The frame then grows to
+            // the safe area's own shape (taller on long phones, wider on tablets), so whatever is pinned to its edges or corners
+            // (each page's header row) sits at the real edges and corners of the screen, while centred content keeps its size.
             content.anchorMin = content.anchorMax = content.pivot = new Vector2(0.5f, 0.5f);
-            content.sizeDelta = new Vector2(1080f, 1920f);
             Vector2 safeSize = new Vector2(fractions.width * size.x, fractions.height * size.y);
-            content.localScale = Vector3.one * Mathf.Min(safeSize.x / 1080f, safeSize.y / 1920f);
+            float scale = Mathf.Min(safeSize.x / 1080f, safeSize.y / 1920f);
+            content.localScale = Vector3.one * scale;
+            content.sizeDelta = scale > 0f ? safeSize / scale : new Vector2(1080f, 1920f);
             content.anchoredPosition = new Vector2(fractions.center.x * size.x, fractions.center.y * size.y) - size * .5f;
         }
     }

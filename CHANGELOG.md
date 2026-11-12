@@ -2,6 +2,18 @@
 
 ## Unreleased - 2026-11-12
 
+### Round 9: headers pinned to the screen corners, level preview in Setup
+
+- **Every page fits the phone's shape, header first.** The page frame (1080x1920, scaled into the safe area) now grows to the screen's shape: taller on long phones, wider on tablets. Each page's header row is pinned to the frame's top corners, so it sits at the real top-left and top-right of every screen (it used to float lower on 20:9 phones and huddle in the middle on tablets). The two corner items share one line, with the page title centred under them:
+  - Home: coins top-left, Daily Puzzle and Daily Rewards top-right; the logo, Play and the three buttons ride a little higher on tall phones, so the gap under the header stays small.
+  - Levels: back top-left, coins top-right, "Levels" under them, the grid right below (a layout group that pulled the title back into the row is off).
+  - Shop: back top-left, coins top-right, the Shop sign under them, the shop right below; the Power-Ups tab now sits on the top edge of the cards, like Coin Packs on its panel.
+  - Gameplay: coins top-left, pause top-right, the level number under them, then the timer; the board keeps its place.
+  - Popups (daily rewards, settings, pause, win, fail, no internet) are centred and unchanged.
+  Rendered on six screens (1080x1920, a 20:9 Android phone, iPhone 15 with a notch, iPhone SE, iPad, a 10:16 Android tablet): nothing is cut off or overlapping and the corner items line up.
+- **Level preview in Setup > Levels**, like SandPop's: any level drawn like the game (the board, each cat on its spot, stones, padlocks with the number of cats that opens them, fog, colour zones), previous / next and a level box, a strip of the levels around it, fact chips (size, cats, difficulty, coins, stones, padlocks, fog, zones, spares, tray size) and the cats in the tray. It reads levels_100.json and the game's own shape table; all 100 levels and their 690 cats resolve.
+- **Tested:** all 139 edit-mode tests pass.
+
 ### Round 8: Setup window, tidier menu
 
 - **Cat Block Puzzle > Setup**: one control panel for the whole game, like the Human Tower and Sand Builder windows. A title bar, a status line (levels, shop, daily rewards, UI theme, cat visuals, GameScene open or not, with Open / Save GameScene buttons), then collapsible boxes, each with a "?" that explains it: Power-ups (unlock levels, free on unlock, Freeze seconds), Shop & Prices, Daily Rewards, Daily Puzzle, Levels (level pack, Refresh / Rebake / Validate, Hint audit), Tutorials, UI Theme, Portrait Layout (opens UI Tuning), Cat Visuals, Sound (Sound Test), Testing (test switches, play any level, set the start level, add or set coins, random-play bot, reset progress), Asset Paths, Build (bundle id, version, last APK size, Build Android APK) and Window Colours (five presets, saved per computer). Everything it shows is the real asset or GameScene component, so nothing lives only in the window.

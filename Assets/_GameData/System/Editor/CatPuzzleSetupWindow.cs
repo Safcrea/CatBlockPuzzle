@@ -44,6 +44,7 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
     private Texture2D panelTex;
     private int jumpLevel = 1, startLevel = 1, testCoins = 5000, auditFrom = 1, auditTo = 100;
     private string lastReport;
+    private readonly CatPuzzleLevelPreview levelPreview = new CatPuzzleLevelPreview();
 
     [MenuItem("Cat Block Puzzle/Setup", priority = 1)]
     public static void Open()
@@ -225,7 +226,7 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
     // ---------- levels and tutorials ----------
     private void DrawLevels()
     {
-        if (!Section("levels", "Levels", "The level pack (levels_100.json, copied into Content.asset; the two must match) and the level prefabs baked from it. After changing levels: Refresh Level Data, then Rebake Level Prefabs if a grid size or piece count changed. Validate checks the scene. The Hint audit follows the Hint through every level, also after random wrong drops, and reports any level where it points somewhere unusable.")) return;
+        if (!Section("levels", "Levels", "The level pack (levels_100.json, copied into Content.asset; the two must match) and the level prefabs baked from it. The preview draws any level like the game: the board, each cat on its spot, stones, padlocks (with the number of cats that opens them), fog and colour zones, the cats in the tray, and a strip of the levels around it. After changing levels: Refresh Level Data, then Rebake Level Prefabs if a grid size or piece count changed. Validate checks the scene. The Hint audit follows the Hint through every level, also after random wrong drops, and reports any level where it points somewhere unusable.")) return;
         using (new EditorGUI.DisabledScope(true))
         {
             EditorGUILayout.ObjectField("Level pack (JSON)", Load(LevelsJsonPath), typeof(TextAsset), false);
@@ -243,6 +244,8 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
             EditorApplication.delayCall += () => { lastReport = RunHintAudit(auditFrom - 1, auditTo - 1); Debug.Log(lastReport); };
         EditorGUILayout.EndHorizontal();
         if (!string.IsNullOrEmpty(lastReport)) EditorGUILayout.HelpBox(lastReport.Length > 600 ? lastReport.Substring(0, 600) + "…" : lastReport, MessageType.None);
+        Sub("Level preview");
+        levelPreview.Draw(theme.Accent);
         EndSection();
     }
 
