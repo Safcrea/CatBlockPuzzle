@@ -13,7 +13,8 @@ public static class CatPuzzleScenePreparation
 {
     public const string ScenePath = "Assets/_GameData/System/Scenes/GameScene.unity";
 
-    [MenuItem("Cat Block Puzzle/Prepare Game Scene")]
+    // No menu item: this regenerates the whole GameScene hierarchy and would replace the hand-authored UI.
+    // Rebake Level Prefabs runs it on a throwaway copy of the scene instead.
     public static void Prepare()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play Mode before preparing the scene.");
@@ -102,23 +103,6 @@ public static class CatPuzzleScenePreparation
         var scene = SceneManager.GetActiveScene();
         ValidateScene(scene);
         Debug.Log("CAT_SCENE_VALIDATED " + scene.path);
-    }
-
-    [MenuItem("Cat Block Puzzle/Convert Scene Levels to Prefabs")]
-    public static void ConvertLevelsToPrefabs()
-    {
-        if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Exit Play Mode first.");
-        var scene = SceneManager.GetActiveScene();
-        if (scene.path != ScenePath) throw new InvalidOperationException("Open " + ScenePath + " first.");
-        var game = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<CatBlockPuzzleGame>(true)).Single();
-        Directory.CreateDirectory("SceneBackups");
-        string backup = "SceneBackups/BeforeLevelPrefabs_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".unity";
-        if (!EditorSceneManager.SaveScene(scene, backup, true)) throw new IOException("Could not back up the scene.");
-        game.ExportPreparedLevelsInEditor();
-        ValidateScene(scene);
-        EditorSceneManager.MarkSceneDirty(scene);
-        if (!EditorSceneManager.SaveScene(scene)) throw new IOException("Could not save the converted scene.");
-        Debug.Log("CAT_LEVEL_PREFABS_CONVERTED count=" + game.LevelPrefabResources.Length + " backup=" + backup);
     }
 
     public static void ValidateScene(Scene scene)

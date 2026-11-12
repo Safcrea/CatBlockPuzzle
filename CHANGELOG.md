@@ -1,5 +1,13 @@
 # CatBlockPuzzle Changelog
 
+## Unreleased - 2026-11-12
+
+### Round 8: Setup window, tidier menu
+
+- **Cat Block Puzzle > Setup**: one control panel for the whole game, like the Human Tower and Sand Builder windows. A title bar, a status line (levels, shop, daily rewards, UI theme, cat visuals, GameScene open or not, with Open / Save GameScene buttons), then collapsible boxes, each with a "?" that explains it: Power-ups (unlock levels, free on unlock, Freeze seconds), Shop & Prices, Daily Rewards, Daily Puzzle, Levels (level pack, Refresh / Rebake / Validate, Hint audit), Tutorials, UI Theme, Portrait Layout (opens UI Tuning), Cat Visuals, Sound (Sound Test), Testing (test switches, play any level, set the start level, add or set coins, random-play bot, reset progress), Asset Paths, Build (bundle id, version, last APK size, Build Android APK) and Window Colours (five presets, saved per computer). Everything it shows is the real asset or GameScene component, so nothing lives only in the window.
+- **Menu cleaned up.** Removed the one-time builders whose output is already in the project: Build Mechanic Intro Popup Prefab, Build Power Up Unlock Tutorial Prefab (that prefab is no longer used), Create Power Up Purchase Popup Prefab, Convert Scene Levels to Prefabs, Level Plan v2 (Draw Button Art, Add Rotate and Daily Puzzle Buttons) and Cat Blocks > UI > Reconstruct From JSON. Prepare Game Scene lost its menu item because it regenerates the whole scene and would replace the hand-made UI; Rebake Level Prefabs still uses it on a throwaway copy. The menu now has Setup, Rebake Level Prefabs, Refresh Level Data, Validate Game Scene, UI Tuning, Audio > Sound Test and Testing > Random-play bot.
+- **Tested:** all 139 edit-mode tests pass.
+
 ## Unreleased - 2026-11-11
 
 ### Round 7: new Shop layout, 18 MB smaller APK, first tested build
