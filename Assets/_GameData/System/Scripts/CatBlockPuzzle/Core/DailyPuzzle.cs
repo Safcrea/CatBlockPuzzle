@@ -4,22 +4,46 @@ using UnityEngine;
 namespace CatBlockPuzzle
 {
     /// <summary>
-    /// The daily hard puzzle: one of levels 51-100, picked by the UTC date. It plays as a preview
-    /// (no stars or progress saved), and the first win of each UTC day pays a coin bonus.
+    /// The daily hard puzzle: one of levels 51-100, picked by the UTC date. It plays as a preview (no stars or progress
+    /// saved). The first win of each UTC day pays coins per star earned, and winning on consecutive days builds a streak
+    /// with bonuses at 3, 7 and 30 days.
     /// </summary>
     public static class DailyPuzzle
     {
         public const int BonusCoins = 50;
-        public enum Reward { Coins, Hint, Freeze }
+        public const string StreakKey = "CatBlockPuzzle.DailyPuzzle.Streak";
+        public const string UnlockSeenKey = "CatBlockPuzzle.DailyPuzzle.UnlockSeen";
 
-        /// <summary>Coins paid when the daily reward is coins. Set in the Inspector on <see cref="GameSystem"/>.</summary>
-        public static int CoinReward { get; set; } = BonusCoins;
+        /// <summary>Coins paid for each star of the day's first win. Set in the Inspector on <see cref="GameSystem"/>.</summary>
+        public static int CoinsPerStar { get; set; } = BonusCoins;
 
-        /// <summary>Hints or Freezes paid when the daily reward is a power-up. Set on <see cref="GameSystem"/>.</summary>
-        public static int PowerUpReward { get; set; } = 1;
+        /// <summary>What the day's first win pays for <paramref name="stars"/> stars (1-3).</summary>
+        public static int CoinsFor(int stars) => Mathf.Clamp(stars, 1, 3) * Mathf.Max(0, CoinsPerStar);
 
-        /// <summary>One of coins, Hint or Freeze, each equally likely.</summary>
-        public static Reward PickReward() => (Reward)UnityEngine.Random.Range(0, 3);
+        /// <summary>A streak milestone's extra reward.</summary>
+        public struct StreakBonus
+        {
+            public int coins, hints, freezes, hammers;
+            public bool Any => coins + hints + freezes + hammers > 0;
+        }
+
+        /// <summary>3 days: a Hint. Every 7 days: a Freeze and a Hammer. Every 30 days: 500 coins.</summary>
+        public static StreakBonus BonusFor(int streak)
+        {
+            var bonus = new StreakBonus();
+            if (streak == 3) bonus.hints = 1;
+            if (streak > 0 && streak % 7 == 0) { bonus.freezes = 1; bonus.hammers = 1; }
+            if (streak > 0 && streak % 30 == 0) bonus.coins = 500;
+            return bonus;
+        }
+
+        /// <summary>Days in a row the puzzle has been won, counting today or yesterday; 0 once a day was missed.</summary>
+        public static int Streak(DateTime utcNow)
+        {
+            if (!PlayerPrefs.HasKey(LastWonDayKey)) return 0;
+            int last = PlayerPrefs.GetInt(LastWonDayKey), today = DayNumber(utcNow);
+            return last == today || last == today - 1 ? Mathf.Max(1, PlayerPrefs.GetInt(StreakKey, 1)) : 0;
+        }
 
         /// <summary>
         /// The 1-based level that must be won before the button opens (0 = always open).
@@ -60,11 +84,15 @@ namespace CatBlockPuzzle
         public static bool IsDoneToday(DateTime utcNow) =>
             PlayerPrefs.HasKey(LastWonDayKey) && PlayerPrefs.GetInt(LastWonDayKey) == DayNumber(utcNow);
 
-        /// <summary>Marks today's puzzle as won; true only for the first win of the day, which earns the bonus.</summary>
+        /// <summary>Marks today's puzzle as won; true only for the first win of the day, which earns the bonus. Also moves the
+        /// streak on: one more after yesterday's win, otherwise it starts again at 1.</summary>
         public static bool TryClaimBonus(DateTime utcNow)
         {
             if (IsDoneToday(utcNow)) return false;
-            PlayerPrefs.SetInt(LastWonDayKey, DayNumber(utcNow));
+            int today = DayNumber(utcNow);
+            bool continues = PlayerPrefs.HasKey(LastWonDayKey) && PlayerPrefs.GetInt(LastWonDayKey) == today - 1;
+            PlayerPrefs.SetInt(StreakKey, continues ? Mathf.Max(1, PlayerPrefs.GetInt(StreakKey, 1)) + 1 : 1);
+            PlayerPrefs.SetInt(LastWonDayKey, today);
             PlayerPrefs.Save();
             return true;
         }

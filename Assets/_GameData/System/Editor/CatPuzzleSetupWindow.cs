@@ -217,8 +217,8 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
 
     private void DrawDailyPuzzle()
     {
-        if (!Section("dailypuzzle", "Daily Puzzle", "When the Daily Puzzle button opens and what winning it pays (coins, or a Hint or Freeze at random).")) return;
-        if (!SceneFields("GameSystem", ("dailyPuzzleUnlockAfterLevel", "Opens after level"), ("dailyPuzzleCoinReward", "Coin reward"), ("dailyPuzzlePowerUpReward", "Power-up reward")))
+        if (!Section("dailypuzzle", "Daily Puzzle", "When the Daily Puzzle button opens and what the day's first win pays: coins for each star, plus a streak bonus at 3 days (a Hint), every 7 days (a Freeze and a Hammer) and every 30 days (500 coins).")) return;
+        if (!SceneFields("GameSystem", ("dailyPuzzleUnlockAfterLevel", "Opens after level"), ("dailyPuzzleCoinReward", "Coins per star")))
             NeedScene();
         EndSection();
     }

@@ -33,11 +33,9 @@ namespace CatBlockPuzzle
         [SerializeField] private NoInternetScreen noInternet;
         [Header("Daily Puzzle")]
         [Tooltip("The Daily Puzzle button opens once this level has been won. 0 = open from the start.")]
-        [SerializeField, Min(0)] private int dailyPuzzleUnlockAfterLevel = 10;
-        [Tooltip("Winning the Daily Puzzle pays one of coins, a Hint or a Freeze at random. Coins paid when it is coins.")]
+        [SerializeField, Min(0)] private int dailyPuzzleUnlockAfterLevel = 5;
+        [Tooltip("The day's first Daily Puzzle win pays this many coins for each star earned (1-3 stars), plus any streak bonus.")]
         [SerializeField, Min(1)] private int dailyPuzzleCoinReward = 50;
-        [Tooltip("Hints or Freezes paid when the random reward is a power-up.")]
-        [SerializeField, Min(1)] private int dailyPuzzlePowerUpReward = 1;
         [Header("Testing")]
         [Tooltip("Testing only: every level and chapter is playable, ignoring the star gates. Untick for the normal flow. A build made with this ticked logs a warning.")]
         [SerializeField] private bool unlockAllLevels;
@@ -58,8 +56,7 @@ namespace CatBlockPuzzle
         private void ApplyDailyPuzzleSettings()
         {
             DailyPuzzle.UnlockAfterLevel = dailyPuzzleUnlockAfterLevel;
-            DailyPuzzle.CoinReward = dailyPuzzleCoinReward;
-            DailyPuzzle.PowerUpReward = dailyPuzzlePowerUpReward;
+            DailyPuzzle.CoinsPerStar = dailyPuzzleCoinReward;
         }
         public bool ShowLevelTestButtons => showLevelTestButtons;
         public int LevelCount => gameplayController != null ? gameplayController.LevelCount : 0;
