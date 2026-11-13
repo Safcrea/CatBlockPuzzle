@@ -39,6 +39,8 @@ namespace CatBlockPuzzle
         [SerializeField] private DayView[] days = Array.Empty<DayView>();
         [SerializeField] private bool useAuthoredRewardIcons;
         [SerializeField] private Button claimCurrentButton;
+        [Tooltip("Watch a rewarded ad to get today's reward twice.")]
+        [SerializeField] private Button claimDoubleButton;
         [SerializeField] private Button laterButton;
         [SerializeField] private TMP_Text bonusCoinsLabel;
         [SerializeField] private TMP_Text bonusHintLabel;
@@ -85,6 +87,7 @@ namespace CatBlockPuzzle
                 ApplyClaimedState(day);
             }
             Bind(claimCurrentButton, ClaimCurrent, true);
+            Bind(claimDoubleButton, ClaimDouble, true);
             Bind(laterButton, CloseButtonClicked, true);
             Bind(closeButton, CloseButtonClicked, true);
             Bind(okayButton, CloseButtonClicked, true);
@@ -94,6 +97,7 @@ namespace CatBlockPuzzle
         private void OnDisable()
         {
             Bind(claimCurrentButton, ClaimCurrent, false);
+            Bind(claimDoubleButton, ClaimDouble, false);
             Bind(laterButton, CloseButtonClicked, false);
             Bind(closeButton, CloseButtonClicked, false);
             Bind(okayButton, CloseButtonClicked, false);
@@ -115,7 +119,21 @@ namespace CatBlockPuzzle
 
         private void ClaimCurrent() => RequestClaim(AvailableDay);
 
-        public void RequestClaim(int dayNumber)
+        public const string DoubleClaimPlacement = "daily_reward_2x";
+
+        // Plays a rewarded ad, then claims today's reward and pays it a second time.
+        private void ClaimDouble()
+        {
+            int day = AvailableDay;
+            if (day <= 0 || RewardedAds.IsRequestPending) return;
+            ButtonSfx.PlayClick();
+            AvnEvents.Navigation("double_reward", "daily_gift");
+            RewardedAds.Show(DoubleClaimPlacement, onRewarded: () => RequestClaim(day, doubled: true), onFailed: _ => { });
+        }
+
+        public void RequestClaim(int dayNumber) => RequestClaim(dayNumber, false);
+
+        private void RequestClaim(int dayNumber, bool doubled)
         {
             ButtonSfx.PlayClick();
             DailyRewardConfig config = Config;
@@ -130,6 +148,7 @@ namespace CatBlockPuzzle
                     if (config == null || !DailyRewardProgress.TryClaim(config, DateTime.UtcNow, dayNumber, out var reward)) return;
                     if (reward.coins > 0) GameSystem.Instance.AwardCoins(reward.coins);
                     ReportClaim(config, dayNumber, previousDay, reward);
+                    if (doubled) PaySecondTime(reward);
                     GameSystem.Instance.RefreshPowerUpHud();
                     PuzzleAudio.Play(AudioEvents.DailyReward);
                     day.claimRequested?.Invoke();
@@ -137,6 +156,16 @@ namespace CatBlockPuzzle
                     Close();
                     return;
                 }
+        }
+
+        // The "x2" half of a doubled claim: the same coins and power-ups again.
+        private static void PaySecondTime(DailyRewardConfig.DayReward reward)
+        {
+            if (reward.coins > 0) GameSystem.Instance.AwardCoins(reward.coins, playSound: false);
+            if (reward.hintCount > 0) PowerUpInventory.Add(PowerUpKind.Hint, reward.hintCount);
+            if (reward.freezeCount > 0) PowerUpInventory.Add(PowerUpKind.Freeze, reward.freezeCount);
+            if (reward.hammerCount > 0) PowerUpInventory.Add(PowerUpKind.Hammer, reward.hammerCount);
+            AvnEvents.EconomyEarned(reward.coins, GameSystem.Instance.CurrentCoins, EconomySource.rewarded_ad, EconomyDetail.daily_reward);
         }
 
         private static void ReportClaim(DailyRewardConfig config, int dayNumber, int previousDay, DailyRewardConfig.DayReward reward)
@@ -248,6 +277,7 @@ namespace CatBlockPuzzle
             }
 
             if (claimCurrentButton != null) claimCurrentButton.interactable = availableDay > 0;
+            if (claimDoubleButton != null) claimDoubleButton.interactable = availableDay > 0;
             DailyRewardConfig.DayReward bonus = config != null ? config.GetDay(7) : default;
             if (bonusCoinsLabel != null) bonusCoinsLabel.text = bonus.coins.ToString();
             if (bonusHintLabel != null) bonusHintLabel.text = "x" + bonus.hintCount;

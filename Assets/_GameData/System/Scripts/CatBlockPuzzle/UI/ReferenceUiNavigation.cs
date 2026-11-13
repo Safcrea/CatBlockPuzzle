@@ -42,6 +42,7 @@ namespace CatBlockPuzzle
         public bool HasCollection => collectionEnabled && collectionScreen != null;
         public bool HasRooms => roomsEnabled && roomsScreen != null;
         public bool HasUnreadDailyReward => dailyReward != null && dailyReward.HasUnreadReward;
+        public bool IsDailyRewardOpen => dailyReward != null && dailyReward.IsOpen;
 
         private void Start()
         {

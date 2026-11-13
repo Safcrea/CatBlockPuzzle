@@ -37,6 +37,8 @@ namespace CatBlockPuzzle
         internal int drops;
         /// <summary>This attempt starts with a free hint after repeated fails on the level.</summary>
         internal bool freeHintPending;
+        /// <summary>Goes up on every level load (and restart), so per-attempt systems such as Undo know a new attempt began.</summary>
+        internal int loadSerial;
         internal readonly LevelAttemptStats stats = new LevelAttemptStats();
 
         internal float boardWidth;
@@ -74,6 +76,7 @@ namespace CatBlockPuzzle
 
         internal void ResetForLevelLoad()
         {
+            loadSerial++;
             inputLocked = true;
             levelFailed = false;
             comboCount = 0;

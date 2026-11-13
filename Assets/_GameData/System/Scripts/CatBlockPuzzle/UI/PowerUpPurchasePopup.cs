@@ -23,6 +23,8 @@ namespace CatBlockPuzzle
         [SerializeField] private Text badge;
         [SerializeField] private Image icon;
         [SerializeField] private Button buyButton;
+        [Tooltip("Hint only: watch a rewarded ad for one free Hint.")]
+        [SerializeField] private Button freeButton;
         [SerializeField] private Button closeButton;
         private GameplayHudView hud;
         private Text buyLabel;
@@ -164,6 +166,7 @@ namespace CatBlockPuzzle
             if (closeLabel != null) closeLabel.text = string.Empty;
             icon.sprite = hud.GetPowerUpSprite(kind);
             icon.enabled = icon.sprite != null;
+            ArrangeFreeOffer(kind == PowerUpKind.Hint);
             RefreshOffer();
             StopMotion();
             GameAnalytics.PowerUpOfferShown(kind, displayedOffer.coinPrice, displayedOffer.quantity, system.CurrentCoins);
@@ -268,6 +271,51 @@ namespace CatBlockPuzzle
             PuzzleAudio.Play(AudioEvents.ShopBuy);
             StopMotion();
             motion = StartCoroutine(CelebrateThenClose());
+        }
+
+        // ------------------------------------------------------------------ free Hint for an ad
+
+        public const string FreeHintPlacement = "free_hint";
+        private Vector2 buyHome;
+        private bool buyHomeKnown;
+
+        // Buy and "Free" sit side by side when the free offer is shown; otherwise Buy is centred alone.
+        private void ArrangeFreeOffer(bool offerFree)
+        {
+            var buyRect = (RectTransform)buyButton.transform;
+            if (!buyHomeKnown) { buyHome = buyRect.anchoredPosition; buyHomeKnown = true; }
+            offerFree &= freeButton != null;
+            if (freeButton != null)
+            {
+                freeButton.gameObject.SetActive(offerFree);
+                freeButton.interactable = true;
+                freeButton.onClick.RemoveListener(FreePowerUp);
+                freeButton.onClick.AddListener(FreePowerUp);
+            }
+            buyRect.anchoredPosition = offerFree ? buyHome : new Vector2(0f, buyHome.y);
+        }
+
+        private void FreePowerUp()
+        {
+            if (!IsOpen || closing || purchased || RewardedAds.IsRequestPending) return;
+            ButtonSfx.PlayClick();
+            PowerUpKind kind = Kind;
+            RewardedAds.Show(FreeHintPlacement, onRewarded: () =>
+            {
+                if (!IsOpen || closing || purchased) return;
+                PowerUpInventory.Add(kind, 1);
+                GameAnalytics.ItemEarned(kind, 1, GameAnalytics.EarnRewardedAd);
+                AvnEvents.PowerupObtained(kind, 1, PowerupSource.RewardedAd);
+                GameSystem.Instance?.RefreshPowerUpHud();
+                purchased = true;
+                buyButton.interactable = false;
+                freeButton.interactable = false;
+                heading.text = "Got it!";
+                SetMessage(string.Empty);
+                PuzzleAudio.Play(AudioEvents.ShopBuy);
+                StopMotion();
+                motion = StartCoroutine(CelebrateThenClose());
+            }, onFailed: _ => { });
         }
 
         // ------------------------------------------------------------------ motion

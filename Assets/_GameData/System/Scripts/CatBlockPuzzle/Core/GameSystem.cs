@@ -33,11 +33,9 @@ namespace CatBlockPuzzle
         [SerializeField] private NoInternetScreen noInternet;
         [Header("Daily Puzzle")]
         [Tooltip("The Daily Puzzle button opens once this level has been won. 0 = open from the start.")]
-        [SerializeField, Min(0)] private int dailyPuzzleUnlockAfterLevel = 10;
-        [Tooltip("Winning the Daily Puzzle pays one of coins, a Hint or a Freeze at random. Coins paid when it is coins.")]
+        [SerializeField, Min(0)] private int dailyPuzzleUnlockAfterLevel = 5;
+        [Tooltip("The day's first Daily Puzzle win pays this many coins for each star earned (1-3 stars), plus any streak bonus.")]
         [SerializeField, Min(1)] private int dailyPuzzleCoinReward = 50;
-        [Tooltip("Hints or Freezes paid when the random reward is a power-up.")]
-        [SerializeField, Min(1)] private int dailyPuzzlePowerUpReward = 1;
         [Header("Testing")]
         [Tooltip("Testing only: every level and chapter is playable, ignoring the star gates. Untick for the normal flow. A build made with this ticked logs a warning.")]
         [SerializeField] private bool unlockAllLevels;
@@ -58,8 +56,7 @@ namespace CatBlockPuzzle
         private void ApplyDailyPuzzleSettings()
         {
             DailyPuzzle.UnlockAfterLevel = dailyPuzzleUnlockAfterLevel;
-            DailyPuzzle.CoinReward = dailyPuzzleCoinReward;
-            DailyPuzzle.PowerUpReward = dailyPuzzlePowerUpReward;
+            DailyPuzzle.CoinsPerStar = dailyPuzzleCoinReward;
         }
         public bool ShowLevelTestButtons => showLevelTestButtons;
         public int LevelCount => gameplayController != null ? gameplayController.LevelCount : 0;
@@ -114,6 +111,8 @@ namespace CatBlockPuzzle
         public bool TryUseRotatePowerUp() => UseRotatePowerUp(fromTutorial: false);
         public bool IsRotateActive => HasGameplayController && gameplayController.IsRotateActive;
         public bool TryUseHammerPowerUp() => UseHammerPowerUp();
+        internal UndoController Undo => HasGameplayController ? gameplayController.Undo : null;
+        internal GameplayToast Toast => HasGameplayController ? gameplayController.Toast : null;
         internal bool HammerHasTarget => HasGameplayController && gameplayController.HammerHasTarget;
         internal string HammerIntroLabel => HasGameplayController ? gameplayController.HammerIntroLabel : "TAP HAMMER!";
         public bool IsHammerActive => HasGameplayController && gameplayController.IsHammerActive;
@@ -418,6 +417,16 @@ namespace CatBlockPuzzle
             if (levelComplete == null || !levelComplete.IsConfigured) return false;
             levelComplete.Show(title, stars, reward, bestStars, bestCombo);
             return true;
+        }
+
+        public bool CanContinueWithExtraTime => HasGameplayController && gameplayController.Flow.CanContinueWithExtraTime;
+
+        /// <summary>Closes the fail screen and gives the Daily Puzzle 30 more seconds.</summary>
+        public bool ContinueWithExtraTime()
+        {
+            if (!CanContinueWithExtraTime) return false;
+            if (levelFail != null) levelFail.Hide();
+            return gameplayController.Flow.ContinueWithExtraTime();
         }
 
         public bool ShowLevelFailed(string title, string message)

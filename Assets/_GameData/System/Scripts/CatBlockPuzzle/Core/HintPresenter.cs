@@ -18,6 +18,8 @@ namespace CatBlockPuzzle
         private Coroutine hintRoutine;
         private Coroutine waitRoutine;
         private PieceState lastHinted;
+        // The cats the running hint is about (the one to place, and any in its way); picking one up ends the hint.
+        private readonly List<PieceState> involved = new List<PieceState>();
 
         public HintPresenter(IGameplayContext context, PuzzleSession session, BoardController board, MovePieceTip tip, CellLockController locks, FxSpawner fx) : base(context)
         {
@@ -252,8 +254,16 @@ namespace CatBlockPuzzle
                 }
             }
 
+            // The glow stays until the player acts on it: picking up the hinted cat (or one in its way) ends it through
+            // StopIfInvolves, and so does another cat taking the spot or the level ending. It used to fade after 1.7 s.
+            involved.Clear();
+            involved.Add(state);
+            if (blockers != null) involved.AddRange(blockers);
+            var spotCoords = new List<Vector2Int>();
+            for (int c = 0; c < cells.Length; c++) spotCoords.Add(new Vector2Int(spot.Solution.SolutionRow + cells[c].Row, spot.Solution.SolutionCol + cells[c].Col));
+            bool startPlaced = state.Placed; int startRow = state.Row, startCol = state.Col;
             float elapsed = 0f;
-            while (elapsed < 1.7f)
+            while (StillRelevant(state, startPlaced, startRow, startCol, spotCoords))
             {
                 elapsed += Time.unscaledDeltaTime;
                 float wave = Mathf.Sin(elapsed * 11f) * 0.5f + 0.5f;
@@ -280,12 +290,36 @@ namespace CatBlockPuzzle
                 hintedCells[i].color = TargetColor;
             }
 
+            involved.Clear();
             hintRoutine = null;
+        }
+
+        private bool StillRelevant(PieceState state, bool startPlaced, int startRow, int startCol, List<Vector2Int> spotCoords)
+        {
+            if (session.levelFailed || session.IsBoardFilled || state == null || state.Rect == null) return false;
+            if (state.Placed != startPlaced || state.Row != startRow || state.Col != startCol) return false;
+            // another cat now sits on the hinted spot
+            foreach (Vector2Int coord in spotCoords)
+                if (session.occupancy.TryGetValue(coord, out string id) && id != state.Definition.Id && !IsInvolved(id)) return false;
+            return true;
+        }
+
+        private bool IsInvolved(string id)
+        {
+            for (int i = 0; i < involved.Count; i++) if (involved[i] != null && involved[i].Definition.Id == id) return true;
+            return false;
+        }
+
+        /// <summary>Ends the hint only if this cat is part of it: dragging another cat leaves the hint glowing.</summary>
+        public void StopIfInvolves(PieceState piece)
+        {
+            if (hintRoutine == null || involved.Contains(piece)) StopHint();
         }
 
         /// <summary>Ends the hint pulse and the move-piece tip, restoring every piece and cell.</summary>
         public void StopHint()
         {
+            involved.Clear();
             tip.Stop();
             if (waitRoutine != null)
             {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public sealed class CatPuzzleUiTuningWindow : EditorWindow
 {
+    private const int MaxLevel = 300; // levels in the pack (LevelValidator.RequiredLevelCount)
+
     private const string ProfilePath = "Assets/_GameData/System/Resources/CatBlockPuzzle/portrait_layout_profile.asset";
     private const string PreviewLevelKey = "CatBlockPuzzle.EditorPreviewLevel";
     private const string PreviewLevelPreference = "CatBlockPuzzle.UiTuning.PreviewLevel";
@@ -21,7 +23,7 @@ public sealed class CatPuzzleUiTuningWindow : EditorWindow
 
     private void OnEnable()
     {
-        previewLevel = Mathf.Clamp(EditorPrefs.GetInt(PreviewLevelPreference, 1), 1, 100);
+        previewLevel = Mathf.Clamp(EditorPrefs.GetInt(PreviewLevelPreference, 1), 1, MaxLevel);
         LoadOrCreateProfile();
     }
 
@@ -64,7 +66,7 @@ public sealed class CatPuzzleUiTuningWindow : EditorWindow
 
         EditorGUILayout.Space(12f);
         EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
-        previewLevel = EditorGUILayout.IntSlider("Level", previewLevel, 1, 100);
+        previewLevel = EditorGUILayout.IntSlider("Level", previewLevel, 1, MaxLevel);
         EditorPrefs.SetInt(PreviewLevelPreference, previewLevel);
 
         using (new EditorGUILayout.HorizontalScope())

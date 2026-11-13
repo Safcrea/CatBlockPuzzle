@@ -1,3 +1,4 @@
+using System.Linq;
 using NUnit.Framework;
 
 namespace CatBlockPuzzle.Tests
@@ -28,7 +29,8 @@ namespace CatBlockPuzzle.Tests
                 0, 4, 3, 1, 2
             };
             int[] actualBlocks = CatPuzzleThemeCatalog.GetThemeBlockSequence();
-            CollectionAssert.AreEqual(expectedBlocks, actualBlocks);
+            // The first hundred levels keep their seeded themes; the sequence simply carries on for levels 101-300.
+            CollectionAssert.AreEqual(expectedBlocks, actualBlocks.Take(expectedBlocks.Length).ToArray());
 
             int[] blockCounts = new int[CatPuzzleThemeCatalog.ThemeCount];
             for (int block = 0; block < actualBlocks.Length; block++)
@@ -49,7 +51,7 @@ namespace CatBlockPuzzle.Tests
 
             for (int theme = 0; theme < blockCounts.Length; theme++)
             {
-                Assert.That(blockCounts[theme], Is.EqualTo(4), "Theme did not receive an equal share of the 100 levels.");
+                Assert.That(blockCounts[theme], Is.EqualTo(actualBlocks.Length / CatPuzzleThemeCatalog.ThemeCount), "Theme did not receive an equal share of the levels.");
             }
         }
 

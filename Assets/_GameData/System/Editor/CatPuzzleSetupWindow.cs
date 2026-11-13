@@ -42,7 +42,7 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
     private readonly List<string> sectionKeys = new List<string>();
     private GUIStyle titleStyle, subtitleStyle, sectionTitle, categoryStyle, bodyStyle, helpButton, statusStyle;
     private Texture2D panelTex;
-    private int jumpLevel = 1, startLevel = 1, testCoins = 5000, auditFrom = 1, auditTo = 100;
+    private int jumpLevel = 1, startLevel = 1, testCoins = 5000, auditFrom = 1, auditTo = 300;
     private string lastReport;
     private readonly CatPuzzleLevelPreview levelPreview = new CatPuzzleLevelPreview();
 
@@ -217,8 +217,8 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
 
     private void DrawDailyPuzzle()
     {
-        if (!Section("dailypuzzle", "Daily Puzzle", "When the Daily Puzzle button opens and what winning it pays (coins, or a Hint or Freeze at random).")) return;
-        if (!SceneFields("GameSystem", ("dailyPuzzleUnlockAfterLevel", "Opens after level"), ("dailyPuzzleCoinReward", "Coin reward"), ("dailyPuzzlePowerUpReward", "Power-up reward")))
+        if (!Section("dailypuzzle", "Daily Puzzle", "When the Daily Puzzle button opens and what the day's first win pays: coins for each star, plus a streak bonus at 3 days (a Hint), every 7 days (a Freeze and a Hammer) and every 30 days (500 coins).")) return;
+        if (!SceneFields("GameSystem", ("dailyPuzzleUnlockAfterLevel", "Opens after level"), ("dailyPuzzleCoinReward", "Coins per star")))
             NeedScene();
         EndSection();
     }

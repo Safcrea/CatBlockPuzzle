@@ -41,20 +41,21 @@ namespace CatBlockPuzzle
             [Tooltip("Shown on the buy button once available, e.g. $0.99.")] public string priceLabel;
         }
 
-        [SerializeField] private Offer hint = new Offer { coinPrice = 100, quantity = 1 };
+        [SerializeField] private Offer hint = new Offer { coinPrice = 150, quantity = 1 };
         [SerializeField] private Offer freeze = new Offer { coinPrice = 150, quantity = 1 };
         [Tooltip("Priced like Freeze.")]
         [SerializeField] private Offer rotate = new Offer { coinPrice = 150, quantity = 1 };
         [Tooltip("Priced like Rotate.")]
-        [SerializeField] private Offer hammer = new Offer { coinPrice = 150, quantity = 1 };
+        [SerializeField] private Offer hammer = new Offer { coinPrice = 200, quantity = 1 };
         [Header("Starter Bundle")]
         [SerializeField] private Bundle starterBundle = new Bundle { available = true, coinPrice = 250, hints = 3, freezes = 2, rotates = 0, bonusCoins = 0 };
         [Header("Coin Packs (top to bottom on the Coin Pack card)")]
         [SerializeField] private CoinPack[] coinPacks =
         {
-            new CoinPack { coins = 500, priceLabel = "$0.99" },
-            new CoinPack { coins = 1200, priceLabel = "$1.99" },
-            new CoinPack { coins = 3000, priceLabel = "$4.99" }
+            new CoinPack { coins = 600, priceLabel = "$0.99" },
+            new CoinPack { coins = 1500, priceLabel = "$1.99" },
+            new CoinPack { coins = 4000, priceLabel = "$4.99" },
+            new CoinPack { coins = 9000, priceLabel = "$9.99" }
         };
 
         public Bundle StarterBundle => starterBundle;

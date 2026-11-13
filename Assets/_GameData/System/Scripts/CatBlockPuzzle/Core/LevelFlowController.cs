@@ -483,29 +483,32 @@ namespace CatBlockPuzzle
                 yield break;
             }
 
-            DailyPuzzle.Reward reward = DailyPuzzle.PickReward();
-            Sprite icon;
-            string line;
-            if (reward == DailyPuzzle.Reward.Coins)
+            // Coins for each star earned, then the streak's milestone bonus (3, 7, 30 days in a row).
+            int stars = Mathf.Clamp(CurrentStarCount, 1, 3);
+            int coins = DailyPuzzle.CoinsFor(stars);
+            int streak = DailyPuzzle.Streak(System.DateTime.UtcNow);
+            DailyPuzzle.StreakBonus bonus = DailyPuzzle.BonusFor(streak);
+            coins += bonus.coins;
+            progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + coins);
+            progress.SaveCoins();
+            GameAnalytics.CurrencyEarned(coins, GameAnalytics.EarnDailyPuzzle, progress.Coins);
+            AvnEvents.EconomyEarned(coins, progress.Coins, EconomySource.level_reward_bonus, EconomyDetail.daily_puzzle);
+            Hud.coinText.text = progress.Coins.ToString();
+            if (bonus.hints > 0) { PowerUpInventory.Add(PowerUpKind.Hint, bonus.hints); GameAnalytics.ItemEarned(PowerUpKind.Hint, bonus.hints, GameAnalytics.EarnDailyPuzzle); }
+            if (bonus.freezes > 0) { PowerUpInventory.Add(PowerUpKind.Freeze, bonus.freezes); GameAnalytics.ItemEarned(PowerUpKind.Freeze, bonus.freezes, GameAnalytics.EarnDailyPuzzle); }
+            if (bonus.hammers > 0) { PowerUpInventory.Add(PowerUpKind.Hammer, bonus.hammers); GameAnalytics.ItemEarned(PowerUpKind.Hammer, bonus.hammers, GameAnalytics.EarnDailyPuzzle); }
+            Hud.RefreshPowerUpCounts();
+            Sprite icon = Hud.RewardCoinSprite;
+            string line = stars + (stars == 1 ? " star: +" : " stars: +") + DailyPuzzle.CoinsFor(stars) + " coins";
+            if (streak >= 2) line += "\n" + streak + "-day streak!";
+            if (bonus.Any)
             {
-                int coins = DailyPuzzle.CoinReward;
-                progress.Coins = (int)System.Math.Min(int.MaxValue, (long)progress.Coins + coins);
-                progress.SaveCoins();
-                GameAnalytics.CurrencyEarned(coins, GameAnalytics.EarnDailyPuzzle, progress.Coins);
-                AvnEvents.EconomyEarned(coins, progress.Coins, EconomySource.level_reward_bonus, EconomyDetail.daily_puzzle);
-                Hud.coinText.text = progress.Coins.ToString();
-                icon = Hud.RewardCoinSprite;
-                line = "+" + coins + " coins";
-            }
-            else
-            {
-                PowerUpKind kind = reward == DailyPuzzle.Reward.Hint ? PowerUpKind.Hint : PowerUpKind.Freeze;
-                int amount = DailyPuzzle.PowerUpReward;
-                PowerUpInventory.Add(kind, amount);
-                GameAnalytics.ItemEarned(kind, amount, GameAnalytics.EarnDailyPuzzle);
-                Hud.RefreshPowerUpCounts();
-                icon = Hud.GetPowerUpSprite(kind);
-                line = "+" + amount + (kind == PowerUpKind.Hint ? " Hint" : " Freeze");
+                var parts = new System.Collections.Generic.List<string>();
+                if (bonus.coins > 0) parts.Add("+" + bonus.coins + " coins");
+                if (bonus.hints > 0) parts.Add("+" + bonus.hints + " Hint");
+                if (bonus.freezes > 0) parts.Add("+" + bonus.freezes + " Freeze");
+                if (bonus.hammers > 0) parts.Add("+" + bonus.hammers + " Hammer");
+                line += " " + string.Join(", ", parts);
             }
 
             if (dailyRewardPopup == null && Hud.Canvas != null)
@@ -514,7 +517,7 @@ namespace CatBlockPuzzle
                 if (dailyRewardPopup != null) dailyRewardPopup.Closed += () => GameSystem.Instance?.GoHome();
             }
             if (dailyRewardPopup == null) { GameSystem.Instance?.GoHome(); yield break; }
-            dailyRewardPopup.Show("Daily Reward!", icon, () => line);
+            dailyRewardPopup.Show("Well done!", icon, () => line);
         }
 
         // The unlock sound waits for the result screen so it does not play over the board burst.
@@ -542,6 +545,26 @@ namespace CatBlockPuzzle
 
         public void FailLevel(string message) => FailLevel(message, "other");
 
+        public const float ExtraTimeSeconds = 30f;
+        private string lastFailReason;
+        private int extraTimeUsedSerial = -1;
+
+        /// <summary>A Daily Puzzle that just ran out of time can be continued once per attempt with extra time.</summary>
+        public bool CanContinueWithExtraTime => session.levelFailed && session.dailyPuzzle && lastFailReason == "timeout" && extraTimeUsedSerial != session.loadSerial;
+
+        /// <summary>Un-fails the level, adds <see cref="ExtraTimeSeconds"/> to the clock and hands control back.</summary>
+        public bool ContinueWithExtraTime()
+        {
+            if (!CanContinueWithExtraTime) return false;
+            extraTimeUsedSerial = session.loadSerial;
+            session.levelFailed = false;
+            lastFailReason = null;
+            timer.AddSeconds(ExtraTimeSeconds);
+            inputLocked = gates.MetaUiOpen || gates.SystemPaused;
+            timer.StartLevelTimer();
+            return true;
+        }
+
         private void FailLevel(string message, string reason)
         {
             if (session.levelFailed || gates.LevelCompleteOpen)
@@ -554,6 +577,7 @@ namespace CatBlockPuzzle
                 cellCount > 0 ? session.occupancy.Count / (float)cellCount : 0f, session.bestCombo);
             AvnEvents.LevelFailed(AvnEvents.FailReasonFor(reason), reason);
             session.levelFailed = true;
+            lastFailReason = reason;
             if (reason == "timeout" || reason == "out_of_hearts") LevelFailStreak.RecordFail(session.levelNumber);
             timer.timerRunning = false;
             inputLocked = true;

@@ -89,6 +89,7 @@ namespace CatBlockPuzzle
         public void BuyCoinPack0() => BuyCoinPack(0);
         public void BuyCoinPack1() => BuyCoinPack(1);
         public void BuyCoinPack2() => BuyCoinPack(2);
+        public void BuyCoinPack3() => BuyCoinPack(3);
         private void BuyCoinPack(int index)
         {
             var config = Config;

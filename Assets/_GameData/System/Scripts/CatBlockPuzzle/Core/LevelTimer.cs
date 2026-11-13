@@ -97,6 +97,14 @@ namespace CatBlockPuzzle
             UpdateTimerDisplay();
         }
 
+        /// <summary>Adds time to the clock (the Daily Puzzle's "+30 s" continue).</summary>
+        public void AddSeconds(float seconds)
+        {
+            levelRemainingSeconds = Mathf.Max(0f, levelRemainingSeconds) + Mathf.Max(0f, seconds);
+            lastTimerSecond = Mathf.CeilToInt(levelRemainingSeconds);
+            UpdateTimerDisplay();
+        }
+
         public void StopLevelTimer()
         {
             timerRunning = false;

@@ -18,6 +18,7 @@ namespace CatBlockPuzzle
         internal int freezesUsed;
         internal int rotatesUsed;
         internal int hammersUsed;
+        internal int undos;
         internal bool reachedLowTime;
         /// <summary>Seconds the level timer has been running (frozen time included, pauses excluded).</summary>
         internal float playSeconds;
@@ -28,7 +29,7 @@ namespace CatBlockPuzzle
         {
             placements = boardMoves = shelfReturns = misdrops = cancelledDrops = lockBlockedDrops = 0;
             heartsLost = hintsUsed = freezesUsed = rotatesUsed = hammersUsed = 0;
-            freeHintsUsed = 0;
+            freeHintsUsed = undos = 0;
             reachedLowTime = false;
             playSeconds = 0f;
             firstMoveSeconds = -1f;

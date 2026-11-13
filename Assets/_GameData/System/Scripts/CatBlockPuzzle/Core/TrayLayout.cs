@@ -22,6 +22,7 @@ namespace CatBlockPuzzle
         private readonly PlayerSettings settings;
         private readonly CanvasSpace space;
 
+        private const int MaxCardsWithoutScrolling = 5;
         private float traySlotPreferredWidth = 196f;
         private float traySlotPreferredHeight = 248f;
         private float traySlotMinWidth = 104f;
@@ -218,6 +219,19 @@ namespace CatBlockPuzzle
                 traySlotMinHeight = Mathf.Min(traySlotMinHeight, traySlotPreferredHeight);
             }
             float viewportWidth = Mathf.Max(1f, trayWidth - 36f);
+            // Up to five cats on show always fit side by side: the cards (and the cats inside them) shrink rather than let
+            // the last card run off the edge of the shelf, as the fourth one did on level 7. More than five still scroll.
+            if (layoutCount <= MaxCardsWithoutScrolling)
+            {
+                float fitWidth = (viewportWidth - (horizontalPadding * 2f) - (spacing * (layoutCount - 1))) / layoutCount;
+                if (fitWidth < traySlotPreferredWidth && fitWidth > 0f)
+                {
+                    float shrink = fitWidth / traySlotPreferredWidth;
+                    traySlotPreferredWidth = fitWidth;
+                    traySlotMinWidth = Mathf.Min(traySlotMinWidth, fitWidth);
+                    trayCellMaxSize *= shrink;
+                }
+            }
             float desiredContentWidth = (traySlotPreferredWidth * layoutCount) + (spacing * (layoutCount - 1)) + (horizontalPadding * 2f);
 
             if (trayLayout != null)

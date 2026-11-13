@@ -45,7 +45,7 @@ namespace CatBlockPuzzle
     {
         public const int ThemeCount = 5;
         public const int LevelsPerTheme = 5;
-        public const int SupportedLevelCount = 100;
+        public const int SupportedLevelCount = 300;
 
         private const int BlocksPerCycle = ThemeCount;
         private const int TotalBlocks = SupportedLevelCount / LevelsPerTheme;

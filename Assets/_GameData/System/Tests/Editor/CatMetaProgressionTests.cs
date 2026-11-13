@@ -19,9 +19,9 @@ namespace CatBlockPuzzle.Tests
         [Test]
         public void Catalog_MapsEveryLevelToOneTenLevelChapter()
         {
-            Assert.That(catalog.Chapters.Count, Is.EqualTo(10));
+            Assert.That(catalog.Chapters.Count, Is.EqualTo(CatMetaCatalog.ChapterCount));
 
-            for (int levelIndex = 0; levelIndex < 100; levelIndex++)
+            for (int levelIndex = 0; levelIndex < CatMetaCatalog.SupportedLevelCount; levelIndex++)
             {
                 CatMetaChapterDefinition chapter = catalog.GetChapterForLevel(levelIndex);
                 Assert.That(chapter.Index, Is.EqualTo(levelIndex / 10));
@@ -30,7 +30,7 @@ namespace CatBlockPuzzle.Tests
             }
 
             Assert.Throws<System.ArgumentOutOfRangeException>(() => catalog.GetChapterForLevel(-1));
-            Assert.Throws<System.ArgumentOutOfRangeException>(() => catalog.GetChapterForLevel(100));
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => catalog.GetChapterForLevel(CatMetaCatalog.SupportedLevelCount));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace CatBlockPuzzle.Tests
             };
             int[][] expectedCosts =
             {
-                new[] { 35, 35, 35, 35, 35 },
+                new[] { 35, 35, 40, 40, 45 },
                 new[] { 40, 55, 45, 50, 55 },
                 new[] { 45, 50, 60, 70, 70 },
                 new[] { 70, 70, 70, 70, 70 },
@@ -69,7 +69,9 @@ namespace CatBlockPuzzle.Tests
             };
             int[] expectedMilestones = { 2, 4, 6, 8, 10 };
 
-            for (int chapterIndex = 0; chapterIndex < catalog.Chapters.Count; chapterIndex++)
+            // The ten hand-written chapters, exactly; chapters 11-30 (Tools/levelgen/generate_chapters.py) reuse their art
+            // and are checked by the generic affordability and asset tests.
+            for (int chapterIndex = 0; chapterIndex < expectedTitles.Length; chapterIndex++)
             {
                 CatMetaChapterDefinition chapter = catalog.GetChapter(chapterIndex);
                 Assert.That(chapter.Title, Is.EqualTo(expectedTitles[chapterIndex]));
@@ -102,27 +104,30 @@ namespace CatBlockPuzzle.Tests
         }
 
         [Test]
-        public void Catalog_IdsAndResourcePathsAreUnique()
+        public void Catalog_IdsAreUnique_AndPicturesAreUniqueWithinEachSetOfTenRooms()
         {
             HashSet<string> chapterIds = new HashSet<string>();
-            HashSet<string> backgroundPaths = new HashSet<string>();
             HashSet<string> decorationIds = new HashSet<string>();
-            HashSet<string> decorationPaths = new HashSet<string>();
+            // Chapters 11-30 reuse the ten room pictures, so a picture repeats only between sets of ten rooms.
+            var backgroundPaths = new Dictionary<int, HashSet<string>>();
+            var decorationPaths = new Dictionary<int, HashSet<string>>();
 
             for (int chapterIndex = 0; chapterIndex < catalog.Chapters.Count; chapterIndex++)
             {
                 CatMetaChapterDefinition chapter = catalog.GetChapter(chapterIndex);
+                int set = chapterIndex / CatMetaCatalog.RoomPictureCount;
+                if (!backgroundPaths.ContainsKey(set)) { backgroundPaths[set] = new HashSet<string>(); decorationPaths[set] = new HashSet<string>(); }
                 Assert.That(chapterIds.Add(chapter.Id), Is.True);
-                Assert.That(backgroundPaths.Add(chapter.BackgroundResourcePath), Is.True);
+                Assert.That(backgroundPaths[set].Add(chapter.BackgroundResourcePath), Is.True, chapter.Id);
                 for (int decorationIndex = 0; decorationIndex < chapter.Decorations.Count; decorationIndex++)
                 {
                     CatMetaDecorationDefinition decoration = chapter.Decorations[decorationIndex];
                     Assert.That(decorationIds.Add(decoration.Id), Is.True);
-                    Assert.That(decorationPaths.Add(decoration.SpriteResourcePath), Is.True);
+                    Assert.That(decorationPaths[set].Add(decoration.SpriteResourcePath), Is.True, decoration.Id);
                 }
             }
 
-            Assert.That(decorationIds.Count, Is.EqualTo(50));
+            Assert.That(decorationIds.Count, Is.EqualTo(CatMetaCatalog.ChapterCount * CatMetaCatalog.DecorationsPerChapter));
         }
 
         [Test]
@@ -239,7 +244,11 @@ namespace CatBlockPuzzle.Tests
             Assert.That(reloaded.IsOwned("ch01_cloud_bed"), Is.True);
             Assert.That(reloaded.IsInstalled("ch01_cloud_bed"), Is.True);
             Assert.That(reloaded.HasViewedStory(CatMetaStoryIds.Intro("welcome_nook")), Is.True);
-            Assert.That(reloaded.CoinBalance, Is.EqualTo(10));
+            int bedCost = 0;
+            foreach (CatMetaChapterDefinition chapter in catalog.Chapters)
+                foreach (CatMetaDecorationDefinition decoration in chapter.Decorations)
+                    if (decoration.Id == "ch01_cloud_bed") bedCost = decoration.Cost;
+            Assert.That(reloaded.CoinBalance, Is.EqualTo(rewards[0] + rewards[1] - bedCost));
             Assert.That(preferences.SaveCount, Is.GreaterThan(0));
         }
 

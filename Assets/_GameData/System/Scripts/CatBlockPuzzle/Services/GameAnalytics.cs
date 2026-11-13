@@ -31,6 +31,7 @@ namespace CatBlockPuzzle
         public const string EarnDailyPuzzle = "daily_puzzle";
         public const string EarnPurchase = "purchase";
         public const string EarnTutorialGrant = "tutorial_grant";
+        public const string EarnRewardedAd = "rewarded_ad";
 
         private const string AttemptsKeyPrefix = "CatBlockPuzzle.Analytics.Attempts.";
         private const string TotalAttemptsKey = "CatBlockPuzzle.Analytics.TotalAttempts";
@@ -56,8 +57,7 @@ namespace CatBlockPuzzle
             levelActive = false;
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize() => AVNGameAnalytics.Initialize();
+        // AVN Analytics is started once, by CatAnalytics.Initialize (both used to start it, which logged "Already initialized").
 
         // ------------------------------------------------------------------ app and navigation
 

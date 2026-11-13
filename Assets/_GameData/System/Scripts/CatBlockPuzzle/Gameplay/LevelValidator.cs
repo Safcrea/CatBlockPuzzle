@@ -5,6 +5,9 @@ namespace CatBlockPuzzle
 {
     internal static class LevelValidator
     {
+        /// <summary>Levels in the pack: 100 hand-made, then 200 from Tools/levelgen (30 chapters of 10).</summary>
+        public const int RequiredLevelCount = 300;
+
         public static bool TryValidatePack(LevelPackData pack, out string error)
         {
             if (pack == null)
@@ -19,9 +22,9 @@ namespace CatBlockPuzzle
                 return false;
             }
 
-            if (pack.levels.Length != 100)
+            if (pack.levels.Length != RequiredLevelCount)
             {
-                error = "Level JSON must contain exactly 100 levels. Found " + pack.levels.Length + ".";
+                error = "Level JSON must contain exactly " + RequiredLevelCount + " levels. Found " + pack.levels.Length + ".";
                 return false;
             }
 

@@ -16,9 +16,9 @@
       "decorations": [
         { "id": "ch01_cloud_bed", "displayName": "Cloud Bed", "cost": 35, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_cloud_bed", "hotspot": { "x": 0.24, "y": 0.20 }, "size": { "x": 0.38, "y": 0.22 }, "sortOrder": 10 },
         { "id": "ch01_bubble_ball_set", "displayName": "Bubble Ball Set", "cost": 35, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_bubble_ball_set", "hotspot": { "x": 0.51, "y": 0.17 }, "size": { "x": 0.22, "y": 0.16 }, "sortOrder": 20 },
-        { "id": "ch01_heart_lantern", "displayName": "Heart Lantern", "cost": 35, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_heart_lantern", "hotspot": { "x": 0.80, "y": 0.47 }, "size": { "x": 0.20, "y": 0.38 }, "sortOrder": 30 },
-        { "id": "ch01_mint_sprout", "displayName": "Mint Sprout", "cost": 35, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mint_sprout", "hotspot": { "x": 0.15, "y": 0.43 }, "size": { "x": 0.19, "y": 0.27 }, "sortOrder": 25 },
-        { "id": "ch01_mochi_welcome_plaque", "displayName": "Mochi Welcome Plaque", "cost": 35, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mochi_welcome_plaque", "hotspot": { "x": 0.55, "y": 0.69 }, "size": { "x": 0.23, "y": 0.25 }, "sortOrder": 5 }
+        { "id": "ch01_heart_lantern", "displayName": "Heart Lantern", "cost": 40, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_heart_lantern", "hotspot": { "x": 0.80, "y": 0.47 }, "size": { "x": 0.20, "y": 0.38 }, "sortOrder": 30 },
+        { "id": "ch01_mint_sprout", "displayName": "Mint Sprout", "cost": 40, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mint_sprout", "hotspot": { "x": 0.15, "y": 0.43 }, "size": { "x": 0.19, "y": 0.27 }, "sortOrder": 25 },
+        { "id": "ch01_mochi_welcome_plaque", "displayName": "Mochi Welcome Plaque", "cost": 45, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mochi_welcome_plaque", "hotspot": { "x": 0.55, "y": 0.69 }, "size": { "x": 0.23, "y": 0.25 }, "sortOrder": 5 }
       ]
     },
     {
@@ -199,6 +199,406 @@
         { "id": "ch10_studio_lamp", "displayName": "Studio Lamp", "cost": 130, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_studio_lamp", "hotspot": { "x": 0.80, "y": 0.49 }, "size": { "x": 0.21, "y": 0.40 }, "sortOrder": 30 },
         { "id": "ch10_heart_topiary", "displayName": "Heart Topiary", "cost": 150, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_heart_topiary", "hotspot": { "x": 0.14, "y": 0.46 }, "size": { "x": 0.22, "y": 0.31 }, "sortOrder": 25 },
         { "id": "ch10_forever_home_group_portrait", "displayName": "Forever Home Group Portrait", "cost": 165, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_forever_home_group_portrait", "hotspot": { "x": 0.56, "y": 0.70 }, "size": { "x": 0.30, "y": 0.28 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 10,
+      "id": "bakery_loft",
+      "title": "Bakery Loft",
+      "catName": "Biscuit",
+      "startStory": "Biscuit sleeps on warm flour sacks and trusts no one.",
+      "completionStory": "The loft above the ovens becomes Biscuit's toasty home.",
+      "firstLevelIndex": 100,
+      "lastLevelIndex": 109,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_01",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_01_thumb",
+      "catPortraitIndex": 0,
+      "decorations": [
+        { "id": "ch11_cloud_bed", "displayName": "Baker's Cloud Bed", "cost": 130, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_cloud_bed", "hotspot": { "x": 0.24, "y": 0.20 }, "size": { "x": 0.38, "y": 0.22 }, "sortOrder": 10 },
+        { "id": "ch11_bubble_ball_set", "displayName": "Baker's Bubble Ball Set", "cost": 140, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_bubble_ball_set", "hotspot": { "x": 0.51, "y": 0.17 }, "size": { "x": 0.22, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch11_heart_lantern", "displayName": "Baker's Heart Lantern", "cost": 140, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_heart_lantern", "hotspot": { "x": 0.80, "y": 0.47 }, "size": { "x": 0.20, "y": 0.38 }, "sortOrder": 30 },
+        { "id": "ch11_mint_sprout", "displayName": "Baker's Mint Sprout", "cost": 140, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mint_sprout", "hotspot": { "x": 0.15, "y": 0.43 }, "size": { "x": 0.19, "y": 0.27 }, "sortOrder": 25 },
+        { "id": "ch11_mochi_welcome_plaque", "displayName": "Biscuit Welcome Plaque", "cost": 150, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mochi_welcome_plaque", "hotspot": { "x": 0.55, "y": 0.69 }, "size": { "x": 0.23, "y": 0.25 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 11,
+      "id": "lighthouse_lookout",
+      "title": "Lighthouse Lookout",
+      "catName": "Pearl",
+      "startStory": "Pearl watches the sea alone from the lighthouse steps.",
+      "completionStory": "With a cosy lookout, Pearl finally has company for the night watch.",
+      "firstLevelIndex": 110,
+      "lastLevelIndex": 119,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_02",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_02_thumb",
+      "catPortraitIndex": 1,
+      "decorations": [
+        { "id": "ch12_patchwork_cushion", "displayName": "Lighthouse Patchwork Cushion", "cost": 135, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_patchwork_cushion", "hotspot": { "x": 0.27, "y": 0.19 }, "size": { "x": 0.35, "y": 0.21 }, "sortOrder": 10 },
+        { "id": "ch12_button_mouse", "displayName": "Lighthouse Button Mouse", "cost": 140, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_button_mouse", "hotspot": { "x": 0.52, "y": 0.16 }, "size": { "x": 0.18, "y": 0.14 }, "sortOrder": 20 },
+        { "id": "ch12_sewing_lamp", "displayName": "Lighthouse Sewing Lamp", "cost": 140, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_sewing_lamp", "hotspot": { "x": 0.78, "y": 0.46 }, "size": { "x": 0.19, "y": 0.37 }, "sortOrder": 30 },
+        { "id": "ch12_spool_succulent", "displayName": "Lighthouse Spool Succulent", "cost": 140, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_spool_succulent", "hotspot": { "x": 0.16, "y": 0.45 }, "size": { "x": 0.18, "y": 0.25 }, "sortOrder": 25 },
+        { "id": "ch12_bean_quilt_portrait", "displayName": "Pearl Quilt Portrait", "cost": 150, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_bean_quilt_portrait", "hotspot": { "x": 0.57, "y": 0.70 }, "size": { "x": 0.24, "y": 0.26 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 12,
+      "id": "greenhouse_glade",
+      "title": "Greenhouse Glade",
+      "catName": "Basil",
+      "startStory": "Basil hides between the tomato vines.",
+      "completionStory": "The glade blooms and Basil naps in the sun at last.",
+      "firstLevelIndex": 120,
+      "lastLevelIndex": 129,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_03",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_03_thumb",
+      "catPortraitIndex": 2,
+      "decorations": [
+        { "id": "ch13_book_nook_bed", "displayName": "Greenhouse Book Nook Bed", "cost": 145, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_book_nook_bed", "hotspot": { "x": 0.25, "y": 0.21 }, "size": { "x": 0.39, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch13_bookmark_wand", "displayName": "Greenhouse Bookmark Wand", "cost": 150, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_bookmark_wand", "hotspot": { "x": 0.50, "y": 0.18 }, "size": { "x": 0.20, "y": 0.17 }, "sortOrder": 20 },
+        { "id": "ch13_rose_reading_lamp", "displayName": "Greenhouse Rose Reading Lamp", "cost": 150, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_rose_reading_lamp", "hotspot": { "x": 0.79, "y": 0.48 }, "size": { "x": 0.21, "y": 0.40 }, "sortOrder": 30 },
+        { "id": "ch13_ivy_bookend_planter", "displayName": "Greenhouse Ivy Bookend Planter", "cost": 150, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_ivy_bookend_planter", "hotspot": { "x": 0.14, "y": 0.46 }, "size": { "x": 0.21, "y": 0.29 }, "sortOrder": 25 },
+        { "id": "ch13_pickle_story_portrait", "displayName": "Basil Story Portrait", "cost": 160, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_pickle_story_portrait", "hotspot": { "x": 0.55, "y": 0.68 }, "size": { "x": 0.23, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 13,
+      "id": "rooftop_garden",
+      "title": "Rooftop Garden",
+      "catName": "Kiwi",
+      "startStory": "Kiwi only comes out when the city goes quiet.",
+      "completionStory": "A garden in the sky gives Kiwi a calm place above the noise.",
+      "firstLevelIndex": 130,
+      "lastLevelIndex": 139,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_04",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_04_thumb",
+      "catPortraitIndex": 3,
+      "decorations": [
+        { "id": "ch14_shell_bed", "displayName": "Rooftop Shell Bed", "cost": 145, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_shell_bed", "hotspot": { "x": 0.26, "y": 0.18 }, "size": { "x": 0.40, "y": 0.24 }, "sortOrder": 10 },
+        { "id": "ch14_sailboat_toy", "displayName": "Rooftop Sailboat Toy", "cost": 155, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_sailboat_toy", "hotspot": { "x": 0.53, "y": 0.16 }, "size": { "x": 0.23, "y": 0.17 }, "sortOrder": 20 },
+        { "id": "ch14_coral_wind_chime", "displayName": "Rooftop Coral Wind Chime", "cost": 155, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_coral_wind_chime", "hotspot": { "x": 0.80, "y": 0.52 }, "size": { "x": 0.18, "y": 0.35 }, "sortOrder": 30 },
+        { "id": "ch14_sea_glass_lamp", "displayName": "Rooftop Sea-glass Lamp", "cost": 155, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_sea_glass_lamp", "hotspot": { "x": 0.15, "y": 0.44 }, "size": { "x": 0.20, "y": 0.32 }, "sortOrder": 25 },
+        { "id": "ch14_nori_ocean_portrait", "displayName": "Kiwi Ocean Portrait", "cost": 160, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_nori_ocean_portrait", "hotspot": { "x": 0.56, "y": 0.71 }, "size": { "x": 0.24, "y": 0.25 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 14,
+      "id": "library_hideaway",
+      "title": "Library Hideaway",
+      "catName": "Quill",
+      "startStory": "Quill curls up behind the dustiest shelf.",
+      "completionStory": "Quill now reads along on a cushion by the window.",
+      "firstLevelIndex": 140,
+      "lastLevelIndex": 149,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_05",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_05_thumb",
+      "catPortraitIndex": 4,
+      "decorations": [
+        { "id": "ch15_moon_cradle", "displayName": "Library Moon Cradle", "cost": 145, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_moon_cradle", "hotspot": { "x": 0.25, "y": 0.20 }, "size": { "x": 0.40, "y": 0.24 }, "sortOrder": 10 },
+        { "id": "ch15_star_chaser", "displayName": "Library Star Chaser", "cost": 155, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_star_chaser", "hotspot": { "x": 0.52, "y": 0.17 }, "size": { "x": 0.21, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch15_cloud_nightlight", "displayName": "Library Cloud Nightlight", "cost": 155, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_cloud_nightlight", "hotspot": { "x": 0.79, "y": 0.49 }, "size": { "x": 0.20, "y": 0.37 }, "sortOrder": 30 },
+        { "id": "ch15_dream_vine", "displayName": "Library Dream Vine", "cost": 155, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_dream_vine", "hotspot": { "x": 0.14, "y": 0.47 }, "size": { "x": 0.20, "y": 0.30 }, "sortOrder": 25 },
+        { "id": "ch15_miso_constellation_portrait", "displayName": "Quill Constellation Portrait", "cost": 160, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_miso_constellation_portrait", "hotspot": { "x": 0.56, "y": 0.70 }, "size": { "x": 0.25, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 15,
+      "id": "music_room",
+      "title": "Music Room",
+      "catName": "Bonbon",
+      "startStory": "Bonbon flinches at every note.",
+      "completionStory": "Soft music and a snug corner turn Bonbon into the room's biggest fan.",
+      "firstLevelIndex": 150,
+      "lastLevelIndex": 159,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_06",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_06_thumb",
+      "catPortraitIndex": 5,
+      "decorations": [
+        { "id": "ch16_bunting_basket_bed", "displayName": "Melody Bunting Basket Bed", "cost": 150, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_bunting_basket_bed", "hotspot": { "x": 0.24, "y": 0.19 }, "size": { "x": 0.39, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch16_ribbon_ball", "displayName": "Melody Ribbon Ball", "cost": 155, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_ribbon_ball", "hotspot": { "x": 0.51, "y": 0.16 }, "size": { "x": 0.19, "y": 0.15 }, "sortOrder": 20 },
+        { "id": "ch16_flower_work_lamp", "displayName": "Melody Flower Work Lamp", "cost": 155, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_flower_work_lamp", "hotspot": { "x": 0.81, "y": 0.47 }, "size": { "x": 0.20, "y": 0.39 }, "sortOrder": 30 },
+        { "id": "ch16_craft_pot_plant", "displayName": "Melody Craft Pot Plant", "cost": 155, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_craft_pot_plant", "hotspot": { "x": 0.16, "y": 0.44 }, "size": { "x": 0.21, "y": 0.28 }, "sortOrder": 25 },
+        { "id": "ch16_waffle_celebration_portrait", "displayName": "Bonbon Celebration Portrait", "cost": 165, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_waffle_celebration_portrait", "hotspot": { "x": 0.55, "y": 0.69 }, "size": { "x": 0.24, "y": 0.26 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 16,
+      "id": "art_attic",
+      "title": "Art Attic",
+      "catName": "Hazel",
+      "startStory": "Hazel leaves paw prints on every canvas, then runs.",
+      "completionStory": "The attic becomes Hazel's studio, paw prints and all.",
+      "firstLevelIndex": 160,
+      "lastLevelIndex": 169,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_07",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_07_thumb",
+      "catPortraitIndex": 6,
+      "decorations": [
+        { "id": "ch17_tea_cushion", "displayName": "Painter's Tea Cushion", "cost": 150, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_tea_cushion", "hotspot": { "x": 0.26, "y": 0.20 }, "size": { "x": 0.37, "y": 0.22 }, "sortOrder": 10 },
+        { "id": "ch17_biscuit_puzzle_toy", "displayName": "Painter's Biscuit Puzzle Toy", "cost": 160, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_biscuit_puzzle_toy", "hotspot": { "x": 0.52, "y": 0.18 }, "size": { "x": 0.22, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch17_teapot_glow_lamp", "displayName": "Painter's Teapot Glow Lamp", "cost": 160, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_teapot_glow_lamp", "hotspot": { "x": 0.79, "y": 0.47 }, "size": { "x": 0.21, "y": 0.38 }, "sortOrder": 30 },
+        { "id": "ch17_rosebud_plant", "displayName": "Painter's Rosebud Plant", "cost": 160, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_rosebud_plant", "hotspot": { "x": 0.15, "y": 0.45 }, "size": { "x": 0.20, "y": 0.29 }, "sortOrder": 25 },
+        { "id": "ch17_taffy_trust_portrait", "displayName": "Hazel Trust Portrait", "cost": 165, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_taffy_trust_portrait", "hotspot": { "x": 0.57, "y": 0.70 }, "size": { "x": 0.24, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 17,
+      "id": "winter_cabin",
+      "title": "Winter Cabin",
+      "catName": "Ember",
+      "startStory": "Ember shivers by a cold fireplace.",
+      "completionStory": "A crackling fire and a deep blanket keep Ember warm all winter.",
+      "firstLevelIndex": 170,
+      "lastLevelIndex": 179,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_08",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_08_thumb",
+      "catPortraitIndex": 7,
+      "decorations": [
+        { "id": "ch18_petal_bed", "displayName": "Cabin Petal Bed", "cost": 150, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_petal_bed", "hotspot": { "x": 0.25, "y": 0.18 }, "size": { "x": 0.40, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch18_ladybug_roller", "displayName": "Cabin Ladybug Roller", "cost": 160, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_ladybug_roller", "hotspot": { "x": 0.53, "y": 0.16 }, "size": { "x": 0.21, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch18_daisy_garden_lamp", "displayName": "Cabin Daisy Garden Lamp", "cost": 160, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_daisy_garden_lamp", "hotspot": { "x": 0.80, "y": 0.48 }, "size": { "x": 0.20, "y": 0.39 }, "sortOrder": 30 },
+        { "id": "ch18_watering_can_plant", "displayName": "Cabin Watering-can Plant", "cost": 160, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_watering_can_plant", "hotspot": { "x": 0.14, "y": 0.46 }, "size": { "x": 0.22, "y": 0.29 }, "sortOrder": 25 },
+        { "id": "ch18_sunny_garden_portrait", "displayName": "Ember Garden Portrait", "cost": 165, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_sunny_garden_portrait", "hotspot": { "x": 0.56, "y": 0.69 }, "size": { "x": 0.24, "y": 0.26 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 18,
+      "id": "picnic_porch",
+      "title": "Picnic Porch",
+      "catName": "Daisy",
+      "startStory": "Daisy steals sandwiches and bolts into the hedge.",
+      "completionStory": "Daisy now waits politely for her share on the porch.",
+      "firstLevelIndex": 180,
+      "lastLevelIndex": 189,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_09",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_09_thumb",
+      "catPortraitIndex": 0,
+      "decorations": [
+        { "id": "ch19_mossy_nest", "displayName": "Picnic Mossy Nest", "cost": 155, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_mossy_nest", "hotspot": { "x": 0.24, "y": 0.19 }, "size": { "x": 0.39, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch19_firefly_plush", "displayName": "Picnic Firefly Plush", "cost": 160, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_firefly_plush", "hotspot": { "x": 0.51, "y": 0.17 }, "size": { "x": 0.20, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch19_star_shade_lamp", "displayName": "Picnic Star Shade Lamp", "cost": 160, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_star_shade_lamp", "hotspot": { "x": 0.81, "y": 0.47 }, "size": { "x": 0.21, "y": 0.40 }, "sortOrder": 30 },
+        { "id": "ch19_moon_vine", "displayName": "Picnic Moon Vine", "cost": 160, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_moon_vine", "hotspot": { "x": 0.15, "y": 0.45 }, "size": { "x": 0.20, "y": 0.30 }, "sortOrder": 25 },
+        { "id": "ch19_pepper_night_portrait", "displayName": "Daisy Night Portrait", "cost": 170, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_pepper_night_portrait", "hotspot": { "x": 0.55, "y": 0.71 }, "size": { "x": 0.25, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 19,
+      "id": "toy_workshop",
+      "title": "Toy Workshop",
+      "catName": "Nugget",
+      "startStory": "Nugget chews every toy he finds.",
+      "completionStory": "A workshop full of his own toys makes Nugget the happiest helper.",
+      "firstLevelIndex": 190,
+      "lastLevelIndex": 199,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_10",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_10_thumb",
+      "catPortraitIndex": 0,
+      "decorations": [
+        { "id": "ch20_rainbow_rug_bed", "displayName": "Toymaker's Rainbow Rug Bed", "cost": 155, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_rainbow_rug_bed", "hotspot": { "x": 0.25, "y": 0.20 }, "size": { "x": 0.41, "y": 0.24 }, "sortOrder": 10 },
+        { "id": "ch20_button_maze", "displayName": "Toymaker's Button Maze", "cost": 160, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_button_maze", "hotspot": { "x": 0.52, "y": 0.17 }, "size": { "x": 0.23, "y": 0.17 }, "sortOrder": 20 },
+        { "id": "ch20_studio_lamp", "displayName": "Toymaker's Studio Lamp", "cost": 160, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_studio_lamp", "hotspot": { "x": 0.80, "y": 0.49 }, "size": { "x": 0.21, "y": 0.40 }, "sortOrder": 30 },
+        { "id": "ch20_heart_topiary", "displayName": "Toymaker's Heart Topiary", "cost": 160, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_heart_topiary", "hotspot": { "x": 0.14, "y": 0.46 }, "size": { "x": 0.22, "y": 0.31 }, "sortOrder": 25 },
+        { "id": "ch20_forever_home_group_portrait", "displayName": "Nugget Group Portrait", "cost": 170, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_forever_home_group_portrait", "hotspot": { "x": 0.56, "y": 0.70 }, "size": { "x": 0.30, "y": 0.28 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 20,
+      "id": "tea_garden",
+      "title": "Tea Garden",
+      "catName": "Lychee",
+      "startStory": "Lychee hides under the teahouse steps.",
+      "completionStory": "Lychee now greets every guest by the steaming teapot.",
+      "firstLevelIndex": 200,
+      "lastLevelIndex": 209,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_01",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_01_thumb",
+      "catPortraitIndex": 0,
+      "decorations": [
+        { "id": "ch21_cloud_bed", "displayName": "Teahouse Cloud Bed", "cost": 155, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_cloud_bed", "hotspot": { "x": 0.24, "y": 0.20 }, "size": { "x": 0.38, "y": 0.22 }, "sortOrder": 10 },
+        { "id": "ch21_bubble_ball_set", "displayName": "Teahouse Bubble Ball Set", "cost": 165, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_bubble_ball_set", "hotspot": { "x": 0.51, "y": 0.17 }, "size": { "x": 0.22, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch21_heart_lantern", "displayName": "Teahouse Heart Lantern", "cost": 165, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_heart_lantern", "hotspot": { "x": 0.80, "y": 0.47 }, "size": { "x": 0.20, "y": 0.38 }, "sortOrder": 30 },
+        { "id": "ch21_mint_sprout", "displayName": "Teahouse Mint Sprout", "cost": 165, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mint_sprout", "hotspot": { "x": 0.15, "y": 0.43 }, "size": { "x": 0.19, "y": 0.27 }, "sortOrder": 25 },
+        { "id": "ch21_mochi_welcome_plaque", "displayName": "Lychee Welcome Plaque", "cost": 170, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r01_mochi_welcome_plaque", "hotspot": { "x": 0.55, "y": 0.69 }, "size": { "x": 0.23, "y": 0.25 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 21,
+      "id": "starlight_observatory",
+      "title": "Starlight Observatory",
+      "catName": "Velvet",
+      "startStory": "Velvet only trusts the stars.",
+      "completionStory": "From her new perch Velvet counts the stars with a friend.",
+      "firstLevelIndex": 210,
+      "lastLevelIndex": 219,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_02",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_02_thumb",
+      "catPortraitIndex": 1,
+      "decorations": [
+        { "id": "ch22_patchwork_cushion", "displayName": "Stargazer's Patchwork Cushion", "cost": 160, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_patchwork_cushion", "hotspot": { "x": 0.27, "y": 0.19 }, "size": { "x": 0.35, "y": 0.21 }, "sortOrder": 10 },
+        { "id": "ch22_button_mouse", "displayName": "Stargazer's Button Mouse", "cost": 165, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_button_mouse", "hotspot": { "x": 0.52, "y": 0.16 }, "size": { "x": 0.18, "y": 0.14 }, "sortOrder": 20 },
+        { "id": "ch22_sewing_lamp", "displayName": "Stargazer's Sewing Lamp", "cost": 165, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_sewing_lamp", "hotspot": { "x": 0.78, "y": 0.46 }, "size": { "x": 0.19, "y": 0.37 }, "sortOrder": 30 },
+        { "id": "ch22_spool_succulent", "displayName": "Stargazer's Spool Succulent", "cost": 165, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_spool_succulent", "hotspot": { "x": 0.16, "y": 0.45 }, "size": { "x": 0.18, "y": 0.25 }, "sortOrder": 25 },
+        { "id": "ch22_bean_quilt_portrait", "displayName": "Velvet Quilt Portrait", "cost": 175, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r02_bean_quilt_portrait", "hotspot": { "x": 0.57, "y": 0.70 }, "size": { "x": 0.24, "y": 0.26 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 22,
+      "id": "harbour_boathouse",
+      "title": "Harbour Boathouse",
+      "catName": "Saffron",
+      "startStory": "Saffron lives on a leaky rowing boat.",
+      "completionStory": "A dry boathouse lets Saffron dream of the sea in comfort.",
+      "firstLevelIndex": 220,
+      "lastLevelIndex": 229,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_03",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_03_thumb",
+      "catPortraitIndex": 2,
+      "decorations": [
+        { "id": "ch23_book_nook_bed", "displayName": "Harbour Book Nook Bed", "cost": 160, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_book_nook_bed", "hotspot": { "x": 0.25, "y": 0.21 }, "size": { "x": 0.39, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch23_bookmark_wand", "displayName": "Harbour Bookmark Wand", "cost": 165, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_bookmark_wand", "hotspot": { "x": 0.50, "y": 0.18 }, "size": { "x": 0.20, "y": 0.17 }, "sortOrder": 20 },
+        { "id": "ch23_rose_reading_lamp", "displayName": "Harbour Rose Reading Lamp", "cost": 165, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_rose_reading_lamp", "hotspot": { "x": 0.79, "y": 0.48 }, "size": { "x": 0.21, "y": 0.40 }, "sortOrder": 30 },
+        { "id": "ch23_ivy_bookend_planter", "displayName": "Harbour Ivy Bookend Planter", "cost": 165, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_ivy_bookend_planter", "hotspot": { "x": 0.14, "y": 0.46 }, "size": { "x": 0.21, "y": 0.29 }, "sortOrder": 25 },
+        { "id": "ch23_pickle_story_portrait", "displayName": "Saffron Story Portrait", "cost": 175, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r03_pickle_story_portrait", "hotspot": { "x": 0.55, "y": 0.68 }, "size": { "x": 0.23, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 23,
+      "id": "flower_shop",
+      "title": "Flower Shop",
+      "catName": "Rosie",
+      "startStory": "Rosie sneezes at every bouquet and hides.",
+      "completionStory": "A quiet corner of the shop gives Rosie a home among the petals.",
+      "firstLevelIndex": 230,
+      "lastLevelIndex": 239,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_04",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_04_thumb",
+      "catPortraitIndex": 3,
+      "decorations": [
+        { "id": "ch24_shell_bed", "displayName": "Florist's Shell Bed", "cost": 160, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_shell_bed", "hotspot": { "x": 0.26, "y": 0.18 }, "size": { "x": 0.40, "y": 0.24 }, "sortOrder": 10 },
+        { "id": "ch24_sailboat_toy", "displayName": "Florist's Sailboat Toy", "cost": 170, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_sailboat_toy", "hotspot": { "x": 0.53, "y": 0.16 }, "size": { "x": 0.23, "y": 0.17 }, "sortOrder": 20 },
+        { "id": "ch24_coral_wind_chime", "displayName": "Florist's Coral Wind Chime", "cost": 170, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_coral_wind_chime", "hotspot": { "x": 0.80, "y": 0.52 }, "size": { "x": 0.18, "y": 0.35 }, "sortOrder": 30 },
+        { "id": "ch24_sea_glass_lamp", "displayName": "Florist's Sea-glass Lamp", "cost": 170, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_sea_glass_lamp", "hotspot": { "x": 0.15, "y": 0.44 }, "size": { "x": 0.20, "y": 0.32 }, "sortOrder": 25 },
+        { "id": "ch24_nori_ocean_portrait", "displayName": "Rosie Ocean Portrait", "cost": 175, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r04_nori_ocean_portrait", "hotspot": { "x": 0.56, "y": 0.71 }, "size": { "x": 0.24, "y": 0.25 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 24,
+      "id": "cosy_cafe",
+      "title": "Cosy Café",
+      "catName": "Churro",
+      "startStory": "Churro begs at the café door in the rain.",
+      "completionStory": "Churro now has a reserved seat by the coffee machine.",
+      "firstLevelIndex": 240,
+      "lastLevelIndex": 249,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_05",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_05_thumb",
+      "catPortraitIndex": 4,
+      "decorations": [
+        { "id": "ch25_moon_cradle", "displayName": "Café Moon Cradle", "cost": 160, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_moon_cradle", "hotspot": { "x": 0.25, "y": 0.20 }, "size": { "x": 0.40, "y": 0.24 }, "sortOrder": 10 },
+        { "id": "ch25_star_chaser", "displayName": "Café Star Chaser", "cost": 170, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_star_chaser", "hotspot": { "x": 0.52, "y": 0.17 }, "size": { "x": 0.21, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch25_cloud_nightlight", "displayName": "Café Cloud Nightlight", "cost": 170, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_cloud_nightlight", "hotspot": { "x": 0.79, "y": 0.49 }, "size": { "x": 0.20, "y": 0.37 }, "sortOrder": 30 },
+        { "id": "ch25_dream_vine", "displayName": "Café Dream Vine", "cost": 170, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_dream_vine", "hotspot": { "x": 0.14, "y": 0.47 }, "size": { "x": 0.20, "y": 0.30 }, "sortOrder": 25 },
+        { "id": "ch25_miso_constellation_portrait", "displayName": "Churro Constellation Portrait", "cost": 180, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r05_miso_constellation_portrait", "hotspot": { "x": 0.56, "y": 0.70 }, "size": { "x": 0.25, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 25,
+      "id": "puppet_theatre",
+      "title": "Puppet Theatre",
+      "catName": "Ziggy",
+      "startStory": "Ziggy is scared of the puppets' shadows.",
+      "completionStory": "Ziggy now steals the show every night.",
+      "firstLevelIndex": 250,
+      "lastLevelIndex": 259,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_06",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_06_thumb",
+      "catPortraitIndex": 5,
+      "decorations": [
+        { "id": "ch26_bunting_basket_bed", "displayName": "Theatre Bunting Basket Bed", "cost": 165, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_bunting_basket_bed", "hotspot": { "x": 0.24, "y": 0.19 }, "size": { "x": 0.39, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch26_ribbon_ball", "displayName": "Theatre Ribbon Ball", "cost": 170, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_ribbon_ball", "hotspot": { "x": 0.51, "y": 0.16 }, "size": { "x": 0.19, "y": 0.15 }, "sortOrder": 20 },
+        { "id": "ch26_flower_work_lamp", "displayName": "Theatre Flower Work Lamp", "cost": 170, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_flower_work_lamp", "hotspot": { "x": 0.81, "y": 0.47 }, "size": { "x": 0.20, "y": 0.39 }, "sortOrder": 30 },
+        { "id": "ch26_craft_pot_plant", "displayName": "Theatre Craft Pot Plant", "cost": 170, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_craft_pot_plant", "hotspot": { "x": 0.16, "y": 0.44 }, "size": { "x": 0.21, "y": 0.28 }, "sortOrder": 25 },
+        { "id": "ch26_waffle_celebration_portrait", "displayName": "Ziggy Celebration Portrait", "cost": 180, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r06_waffle_celebration_portrait", "hotspot": { "x": 0.55, "y": 0.69 }, "size": { "x": 0.24, "y": 0.26 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 26,
+      "id": "candle_workshop",
+      "title": "Candle Workshop",
+      "catName": "Juniper",
+      "startStory": "Juniper keeps away from every flicker.",
+      "completionStory": "Gentle candlelight makes Juniper's workshop the calmest room in town.",
+      "firstLevelIndex": 260,
+      "lastLevelIndex": 269,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_07",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_07_thumb",
+      "catPortraitIndex": 6,
+      "decorations": [
+        { "id": "ch27_tea_cushion", "displayName": "Candlemaker's Tea Cushion", "cost": 165, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_tea_cushion", "hotspot": { "x": 0.26, "y": 0.20 }, "size": { "x": 0.37, "y": 0.22 }, "sortOrder": 10 },
+        { "id": "ch27_biscuit_puzzle_toy", "displayName": "Candlemaker's Biscuit Puzzle Toy", "cost": 175, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_biscuit_puzzle_toy", "hotspot": { "x": 0.52, "y": 0.18 }, "size": { "x": 0.22, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch27_teapot_glow_lamp", "displayName": "Candlemaker's Teapot Glow Lamp", "cost": 175, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_teapot_glow_lamp", "hotspot": { "x": 0.79, "y": 0.47 }, "size": { "x": 0.21, "y": 0.38 }, "sortOrder": 30 },
+        { "id": "ch27_rosebud_plant", "displayName": "Candlemaker's Rosebud Plant", "cost": 175, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_rosebud_plant", "hotspot": { "x": 0.15, "y": 0.45 }, "size": { "x": 0.20, "y": 0.29 }, "sortOrder": 25 },
+        { "id": "ch27_taffy_trust_portrait", "displayName": "Juniper Trust Portrait", "cost": 180, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r07_taffy_trust_portrait", "hotspot": { "x": 0.57, "y": 0.70 }, "size": { "x": 0.24, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 27,
+      "id": "orchard_barn",
+      "title": "Orchard Barn",
+      "catName": "Acorn",
+      "startStory": "Acorn sleeps in the apple crates.",
+      "completionStory": "The barn becomes Acorn's sweet-smelling home.",
+      "firstLevelIndex": 270,
+      "lastLevelIndex": 279,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_08",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_08_thumb",
+      "catPortraitIndex": 7,
+      "decorations": [
+        { "id": "ch28_petal_bed", "displayName": "Orchard Petal Bed", "cost": 165, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_petal_bed", "hotspot": { "x": 0.25, "y": 0.18 }, "size": { "x": 0.40, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch28_ladybug_roller", "displayName": "Orchard Ladybug Roller", "cost": 175, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_ladybug_roller", "hotspot": { "x": 0.53, "y": 0.16 }, "size": { "x": 0.21, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch28_daisy_garden_lamp", "displayName": "Orchard Daisy Garden Lamp", "cost": 175, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_daisy_garden_lamp", "hotspot": { "x": 0.80, "y": 0.48 }, "size": { "x": 0.20, "y": 0.39 }, "sortOrder": 30 },
+        { "id": "ch28_watering_can_plant", "displayName": "Orchard Watering-can Plant", "cost": 175, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_watering_can_plant", "hotspot": { "x": 0.14, "y": 0.46 }, "size": { "x": 0.22, "y": 0.29 }, "sortOrder": 25 },
+        { "id": "ch28_sunny_garden_portrait", "displayName": "Acorn Garden Portrait", "cost": 185, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r08_sunny_garden_portrait", "hotspot": { "x": 0.56, "y": 0.69 }, "size": { "x": 0.24, "y": 0.26 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 28,
+      "id": "snowy_chalet",
+      "title": "Snowy Chalet",
+      "catName": "Marble",
+      "startStory": "Marble is lost in the snow.",
+      "completionStory": "Marble now watches the snowflakes from a warm window seat.",
+      "firstLevelIndex": 280,
+      "lastLevelIndex": 289,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_09",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_09_thumb",
+      "catPortraitIndex": 0,
+      "decorations": [
+        { "id": "ch29_mossy_nest", "displayName": "Chalet Mossy Nest", "cost": 170, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_mossy_nest", "hotspot": { "x": 0.24, "y": 0.19 }, "size": { "x": 0.39, "y": 0.23 }, "sortOrder": 10 },
+        { "id": "ch29_firefly_plush", "displayName": "Chalet Firefly Plush", "cost": 175, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_firefly_plush", "hotspot": { "x": 0.51, "y": 0.17 }, "size": { "x": 0.20, "y": 0.16 }, "sortOrder": 20 },
+        { "id": "ch29_star_shade_lamp", "displayName": "Chalet Star Shade Lamp", "cost": 175, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_star_shade_lamp", "hotspot": { "x": 0.81, "y": 0.47 }, "size": { "x": 0.21, "y": 0.40 }, "sortOrder": 30 },
+        { "id": "ch29_moon_vine", "displayName": "Chalet Moon Vine", "cost": 175, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_moon_vine", "hotspot": { "x": 0.15, "y": 0.45 }, "size": { "x": 0.20, "y": 0.30 }, "sortOrder": 25 },
+        { "id": "ch29_pepper_night_portrait", "displayName": "Marble Night Portrait", "cost": 185, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r09_pepper_night_portrait", "hotspot": { "x": 0.55, "y": 0.71 }, "size": { "x": 0.25, "y": 0.27 }, "sortOrder": 5 }
+      ]
+    },
+    {
+      "index": 29,
+      "id": "grand_festival_hall",
+      "title": "Grand Festival Hall",
+      "catName": "Every Cat",
+      "startStory": "The whole neighbourhood gathers for one last celebration.",
+      "completionStory": "Every cat now has a home, and the festival never ends.",
+      "firstLevelIndex": 290,
+      "lastLevelIndex": 299,
+      "backgroundResourcePath": "CatBlockPuzzle/Art/Rooms/room_10",
+      "thumbnailResourcePath": "CatBlockPuzzle/Art/RoomThumbnails/room_10_thumb",
+      "catPortraitIndex": 0,
+      "decorations": [
+        { "id": "ch30_rainbow_rug_bed", "displayName": "Festival Rainbow Rug Bed", "cost": 170, "unlockAfterChapterLevel": 2, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_rainbow_rug_bed", "hotspot": { "x": 0.25, "y": 0.20 }, "size": { "x": 0.41, "y": 0.24 }, "sortOrder": 10 },
+        { "id": "ch30_button_maze", "displayName": "Festival Button Maze", "cost": 180, "unlockAfterChapterLevel": 4, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_button_maze", "hotspot": { "x": 0.52, "y": 0.17 }, "size": { "x": 0.23, "y": 0.17 }, "sortOrder": 20 },
+        { "id": "ch30_studio_lamp", "displayName": "Festival Studio Lamp", "cost": 180, "unlockAfterChapterLevel": 6, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_studio_lamp", "hotspot": { "x": 0.80, "y": 0.49 }, "size": { "x": 0.21, "y": 0.40 }, "sortOrder": 30 },
+        { "id": "ch30_heart_topiary", "displayName": "Festival Heart Topiary", "cost": 180, "unlockAfterChapterLevel": 8, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_heart_topiary", "hotspot": { "x": 0.14, "y": 0.46 }, "size": { "x": 0.22, "y": 0.31 }, "sortOrder": 25 },
+        { "id": "ch30_forever_home_group_portrait", "displayName": "Festival Group Portrait", "cost": 185, "unlockAfterChapterLevel": 10, "spriteResourcePath": "CatBlockPuzzle/Art/Decorations/r10_forever_home_group_portrait", "hotspot": { "x": 0.56, "y": 0.70 }, "size": { "x": 0.30, "y": 0.28 }, "sortOrder": 5 }
       ]
     }
   ]

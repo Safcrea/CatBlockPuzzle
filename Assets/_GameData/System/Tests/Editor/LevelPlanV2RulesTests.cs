@@ -20,7 +20,7 @@ namespace CatBlockPuzzle.Tests
                 }
             };
             configure(level);
-            var levels = new LevelData[100];
+            var levels = new LevelData[LevelValidator.RequiredLevelCount];
             for (int i = 0; i < levels.Length; i++)
             {
                 levels[i] = i == 0 ? level : new LevelData

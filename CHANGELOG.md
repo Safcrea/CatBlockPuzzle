@@ -1,5 +1,18 @@
 # CatBlockPuzzle Changelog
 
+## Unreleased - 2026-11-13
+
+### Round 10: errors fixed, store links, feel and fairness, ad placements, economy, Daily Puzzle, 300 levels
+
+- **Console errors fixed.** The project named Unity 6000.5 packages the installed 6000.3.17 editor cannot resolve (physicscore2d, URP 17.5); back on the 6000.3 versions, URP settings restored, compiler warnings removed, analytics started once.
+- **Store links (Zombie Rush style, this game's UI).** Settings: underlined RESTORE PURCHASES (StoreLinks.RestoreProvider is the hook for the purchase plugin). Shop: underlined PRIVACY POLICY.
+- **Feel and fairness.** The dragged cat is held centred over the finger wherever it is touched; no ghost on a spot the cat cannot take. Undo (3 free per attempt, then 20 coins). The Hint glow stays until the hinted cat is picked up. Up to five cats always fit the tray (level 7's fourth was cut off).
+- **Temporary rewarded placements** (grant instantly until the ads plugin is installed): x2 coins on the win screen, a free Hint in the out-of-Hints popup, +30 s on a Daily Puzzle timeout, Claim x2 on the daily calendar.
+- **Economy.** Calendar 650 coins + 5 power-ups over 7 days; Hint 150, Hammer 200; coin packs 600 / 1,500 / 4,000 and a new 9,000 ($9.99); levels 1-10 pay by difficulty (20 / 25 / 30).
+- **Daily Puzzle.** 50 coins per star; a day streak with bonuses at 3 days (Hint), every 7 (Freeze + Hammer) and every 30 (500 coins), shown under the Home button; opens after level 5 with a one-time "Unlocked!" card.
+- **300 levels, 30 chapters.** Levels 101-300 come from Tools/levelgen/generate_levels.py (solvable by construction, the mechanics of levels 51-100 at similar rates, checked against the game's validator). Chapters 11-30 (Tools/levelgen/generate_chapters.py) have new rooms, cats, stories and decoration names; their pictures reuse rooms 1-10 for now. Endless play after level 300 replays levels 101-300. All 300 level prefabs baked; the Hint audit solves all 200 new levels from an empty board and after five wrong drops.
+- **Tested:** 144/144 edit-mode tests pass.
+
 ## Unreleased - 2026-11-12
 
 ### Round 9: headers pinned to the screen corners, level preview in Setup

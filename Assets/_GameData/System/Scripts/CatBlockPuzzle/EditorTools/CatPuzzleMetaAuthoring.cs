@@ -360,21 +360,11 @@ namespace CatBlockPuzzle
             for (int i = 0; i < sorted.Count; i++)
             {
                 CatMetaDecorationDefinition decoration = sorted[i];
-                // All placement targets are authored; runtime only changes their state.
-                const bool selectedStored = true;
-
-                RectTransform visual = ui.CreatePanel(page, "Placed " + decoration.DisplayName,
-                    selectedStored ? new Color(1f, 0.83f, 0.3f, 0.34f) : new Color(1f, 1f, 1f, 0f));
+                // All placement targets are authored as tappable; runtime only changes their state.
+                RectTransform visual = ui.CreatePanel(page, "Placed " + decoration.DisplayName, new Color(1f, 0.83f, 0.3f, 0.34f));
                 Image hitImage = visual.GetComponent<Image>();
-                if (selectedStored)
-                {
-                    hitImage.sprite = circleSprite;
-                    ui.AddSoftOutline(hitImage, new Color(1f, 0.86f, 0.35f, 0.95f), new Vector2(4f, -4f));
-                }
-                else
-                {
-                    hitImage.raycastTarget = false;
-                }
+                hitImage.sprite = circleSprite;
+                ui.AddSoftOutline(hitImage, new Color(1f, 0.86f, 0.35f, 0.95f), new Vector2(4f, -4f));
 
                 SetRect(visual,
                     decoration.Hotspot, decoration.Hotspot, new Vector2(0.5f, 0.5f), Vector2.zero,
@@ -382,8 +372,7 @@ namespace CatBlockPuzzle
                         Mathf.Max(90f, decoration.Size.x * ReferenceWidth),
                         Mathf.Max(90f, decoration.Size.y * ReferenceHeight)));
 
-                Image art = ui.CreateImage(visual, decoration.DisplayName + " Art",
-                    selectedStored ? new Color(1f, 1f, 1f, 0.58f) : Color.white);
+                Image art = ui.CreateImage(visual, decoration.DisplayName + " Art", new Color(1f, 1f, 1f, 0.58f));
                 Sprite sprite = LoadMetaSpriteInEditor(decoration.SpriteResourcePath);
                 art.sprite = sprite != null ? sprite : pawSprite;
                 art.preserveAspect = true;
@@ -392,7 +381,6 @@ namespace CatBlockPuzzle
                 art.rectTransform.offsetMin = new Vector2(8f, 8f);
                 art.rectTransform.offsetMax = new Vector2(-8f, -8f);
 
-                if (selectedStored)
                 {
                     Button placeButton = visual.gameObject.AddComponent<Button>();
                     placeButton.targetGraphic = hitImage;
