@@ -43,8 +43,11 @@ namespace CatBlockPuzzle
         /// <summary>The lowest difficulty at which the timer can fail the level.</summary>
         public const int FirstFailableDifficulty = 3;
 
-        /// <summary>Levels 1 to this number have no timer (and no Freeze); finishing them earns three stars.</summary>
-        public const int UntimedLevelCount = 10;
+        /// <summary>The first level with a countdown timer (set in GameSystem, shown in the Setup window).</summary>
+        public static int TimerStartLevel = 2;
+
+        /// <summary>Levels before <see cref="TimerStartLevel"/> have no timer (and no Freeze); finishing them earns three stars.</summary>
+        public static int UntimedLevelCount => Mathf.Max(0, TimerStartLevel - 1);
 
         public static bool IsUntimed(int levelNumber) => levelNumber >= 1 && levelNumber <= UntimedLevelCount;
 

@@ -20,7 +20,6 @@ namespace CatBlockPuzzle
         public const string RotateSeenKey = "CatBlockPuzzle.Tutorial.Rotate";
         public const string HammerSeenKey = "CatBlockPuzzle.Tutorial.Hammer";
         public const string TimerSeenKey = "CatBlockPuzzle.Tutorial.Timer";
-        private const int TimerTutorialLevel = 11;
 
         private TutorialSpotlight overlay;
         // Every power-up taught in one level start waits here, so none of the taps is lost.
@@ -43,9 +42,9 @@ namespace CatBlockPuzzle
                 yield return null;
             if (GameSystem.Instance != null && !GameSystem.Instance.IsGameplayOpen) yield break;
             int shownLevel = GameSystem.Instance != null ? GameSystem.Instance.DisplayLevelNumber : 1;
-            // Level 11 is the first timed level, so it always explains the clock, even on a retry or with an old save.
+            // The first timed level always explains the clock, even on a retry or with an old save.
             // Any later timed level only shows it if the player has somehow never seen it.
-            if (!DifficultyProfile.IsUntimed(shownLevel) && (shownLevel == TimerTutorialLevel || PlayerPrefs.GetInt(TimerSeenKey, 0) == 0))
+            if (!DifficultyProfile.IsUntimed(shownLevel) && (shownLevel == DifficultyProfile.TimerStartLevel || PlayerPrefs.GetInt(TimerSeenKey, 0) == 0))
                 yield return ShowTimerTutorial(hud);
             if (hud.IsPowerUpUnlocked(PowerUpKind.Hint) && PlayerPrefs.GetInt(HintSeenKey, 0) == 0)
                 yield return Show(hud, PowerUpKind.Hint, "STUCK?\nTAP HINT!", HintSeenKey);

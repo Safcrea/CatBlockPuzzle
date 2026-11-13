@@ -229,7 +229,7 @@ namespace CatBlockPuzzle
 
             // Tell the player when the difficulty changes (Easy to Medium to Hard), not on every level of the
             // same tier. Not for the daily puzzle, and never on level 1, which is the hands-on tutorial.
-            if (Hud != null && !session.dailyPuzzle && Hud.levelText != null)
+            if (Hud != null && !session.dailyPuzzle && Hud.levelText != null && (GameSystem.Instance == null || GameSystem.Instance.ShowDifficultyBanner))
             {
                 DifficultyTier tier = DifficultyTiers.For(activeLevel.Difficulty);
                 bool changed = PlayerPrefs.GetInt(LastDifficultyTierKey, -1) != (int)tier;

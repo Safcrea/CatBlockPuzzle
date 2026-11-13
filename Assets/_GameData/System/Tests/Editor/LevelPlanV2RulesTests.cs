@@ -179,15 +179,16 @@ namespace CatBlockPuzzle.Tests
         }
 
         [Test]
-        public void FirstTenLevels_AreUntimedAndAlwaysEarnThreeStars()
+        public void LevelsBeforeTheTimerStart_AreUntimedAndAlwaysEarnThreeStars()
         {
             var level = new LevelDefinition("t", "T", 5, 3, 3, 10, new PieceDefinition[0]);
             DifficultyProfile profile = DifficultyProfile.For(level, 9);
+            int start = DifficultyProfile.TimerStartLevel;
+            Assert.That(start, Is.EqualTo(2), "The timer starts on level 2 by default.");
             Assert.That(DifficultyProfile.IsUntimed(1), Is.True);
-            Assert.That(DifficultyProfile.IsUntimed(10), Is.True);
-            Assert.That(DifficultyProfile.IsUntimed(11), Is.False);
-            Assert.That(profile.Stars(level, 10, 0f, 99), Is.EqualTo(3));
-            Assert.That(profile.Stars(level, 11, 0f, 99), Is.EqualTo(1));
+            Assert.That(DifficultyProfile.IsUntimed(start), Is.False);
+            Assert.That(profile.Stars(level, start - 1, 0f, 99), Is.EqualTo(3));
+            Assert.That(profile.Stars(level, start, 0f, 99), Is.EqualTo(1));
         }
 
         [Test]

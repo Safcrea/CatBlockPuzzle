@@ -36,6 +36,15 @@ namespace CatBlockPuzzle
         [SerializeField, Min(0)] private int dailyPuzzleUnlockAfterLevel = 5;
         [Tooltip("The day's first Daily Puzzle win pays this many coins for each star earned (1-3 stars), plus any streak bonus.")]
         [SerializeField, Min(1)] private int dailyPuzzleCoinReward = 50;
+        [Header("Timer & Difficulty")]
+        [Tooltip("The first level with a countdown timer; the timer tutorial plays there. Earlier levels have no timer and always earn 3 stars. 1 = every level is timed.")]
+        [SerializeField, Min(1)] private int timerStartLevel = 2;
+        [Tooltip("Shows the big EASY / MEDIUM / HARD banner when the difficulty changes between levels.")]
+        [SerializeField] private bool showDifficultyBanner = true;
+        [Tooltip("Levels rated from this number (1-10) up are Medium.")]
+        [SerializeField, Range(2, 10)] private int mediumFromRating = 4;
+        [Tooltip("Levels rated from this number (1-10) up are Hard.")]
+        [SerializeField, Range(3, 10)] private int hardFromRating = 8;
         [Header("Testing")]
         [Tooltip("Testing only: every level and chapter is playable, ignoring the star gates. Untick for the normal flow. A build made with this ticked logs a warning.")]
         [SerializeField] private bool unlockAllLevels;
@@ -52,11 +61,15 @@ namespace CatBlockPuzzle
         public bool IsPaused => systemPaused;
         public bool UnlockAllLevels => unlockAllLevels;
         public int DailyPuzzleUnlockAfterLevel => dailyPuzzleUnlockAfterLevel;
+        public bool ShowDifficultyBanner => showDifficultyBanner;
         private void OnValidate() => ApplyDailyPuzzleSettings();
         private void ApplyDailyPuzzleSettings()
         {
             DailyPuzzle.UnlockAfterLevel = dailyPuzzleUnlockAfterLevel;
             DailyPuzzle.CoinsPerStar = dailyPuzzleCoinReward;
+            DifficultyProfile.TimerStartLevel = Mathf.Max(1, timerStartLevel);
+            DifficultyTiers.FirstMediumDifficulty = mediumFromRating;
+            DifficultyTiers.FirstHardDifficulty = Mathf.Max(mediumFromRating + 1, hardFromRating);
         }
         public bool ShowLevelTestButtons => showLevelTestButtons;
         public int LevelCount => gameplayController != null ? gameplayController.LevelCount : 0;

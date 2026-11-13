@@ -8,8 +8,8 @@ namespace CatBlockPuzzle
     public static class DifficultyTiers
     {
         // Difficulty 1-3 is Easy, 4-7 is Medium, 8-10 is Hard.
-        public const int FirstMediumDifficulty = 4;
-        public const int FirstHardDifficulty = 8;
+        public static int FirstMediumDifficulty = 4;
+        public static int FirstHardDifficulty = 8;
 
         public static DifficultyTier For(int difficulty)
         {
