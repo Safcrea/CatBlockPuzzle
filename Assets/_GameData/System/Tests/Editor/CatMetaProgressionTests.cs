@@ -104,23 +104,26 @@ namespace CatBlockPuzzle.Tests
         }
 
         [Test]
-        public void Catalog_IdsAndResourcePathsAreUnique()
+        public void Catalog_IdsAreUnique_AndPicturesAreUniqueWithinEachSetOfTenRooms()
         {
             HashSet<string> chapterIds = new HashSet<string>();
-            HashSet<string> backgroundPaths = new HashSet<string>();
             HashSet<string> decorationIds = new HashSet<string>();
-            HashSet<string> decorationPaths = new HashSet<string>();
+            // Chapters 11-30 reuse the ten room pictures, so a picture repeats only between sets of ten rooms.
+            var backgroundPaths = new Dictionary<int, HashSet<string>>();
+            var decorationPaths = new Dictionary<int, HashSet<string>>();
 
             for (int chapterIndex = 0; chapterIndex < catalog.Chapters.Count; chapterIndex++)
             {
                 CatMetaChapterDefinition chapter = catalog.GetChapter(chapterIndex);
+                int set = chapterIndex / CatMetaCatalog.RoomPictureCount;
+                if (!backgroundPaths.ContainsKey(set)) { backgroundPaths[set] = new HashSet<string>(); decorationPaths[set] = new HashSet<string>(); }
                 Assert.That(chapterIds.Add(chapter.Id), Is.True);
-                Assert.That(backgroundPaths.Add(chapter.BackgroundResourcePath), Is.True);
+                Assert.That(backgroundPaths[set].Add(chapter.BackgroundResourcePath), Is.True, chapter.Id);
                 for (int decorationIndex = 0; decorationIndex < chapter.Decorations.Count; decorationIndex++)
                 {
                     CatMetaDecorationDefinition decoration = chapter.Decorations[decorationIndex];
                     Assert.That(decorationIds.Add(decoration.Id), Is.True);
-                    Assert.That(decorationPaths.Add(decoration.SpriteResourcePath), Is.True);
+                    Assert.That(decorationPaths[set].Add(decoration.SpriteResourcePath), Is.True, decoration.Id);
                 }
             }
 

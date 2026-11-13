@@ -322,14 +322,22 @@ namespace CatBlockPuzzle
             contentCatalog.levelPack = pack; contentCatalog.metaData = meta;
             game.Catalog = contentCatalog;
             CatMetaCatalog metaCatalog = contentCatalog.CreateMetaCatalog();
-            contentCatalog.roomBackgrounds = new Sprite[10]; contentCatalog.roomThumbnails = new Sprite[10];
+            int chapterCount = metaCatalog.Chapters.Count;
+            contentCatalog.roomBackgrounds = new Sprite[chapterCount]; contentCatalog.roomThumbnails = new Sprite[chapterCount];
             var decorationArt = new List<CatPuzzleContentCatalog.DecorationArt>();
+            // Chapters 11-30 reuse the pictures of chapters 1-10: each picture is prepared once and shared, not copied again.
+            var prepared = new Dictionary<string, Sprite>();
+            Sprite Prepared(string path, string name)
+            {
+                if (!prepared.TryGetValue(path, out Sprite sprite)) prepared[path] = sprite = PersistFullTexture(path, name);
+                return sprite;
+            }
             foreach (var chapter in metaCatalog.Chapters)
             {
-                contentCatalog.roomBackgrounds[chapter.Index] = PersistFullTexture(chapter.BackgroundResourcePath, "Room_" + chapter.Index);
-                contentCatalog.roomThumbnails[chapter.Index] = PersistFullTexture(chapter.ThumbnailResourcePath, "RoomThumb_" + chapter.Index);
+                contentCatalog.roomBackgrounds[chapter.Index] = Prepared(chapter.BackgroundResourcePath, "Room_" + chapter.Index);
+                contentCatalog.roomThumbnails[chapter.Index] = Prepared(chapter.ThumbnailResourcePath, "RoomThumb_" + chapter.Index);
                 foreach (var decoration in chapter.Decorations)
-                    decorationArt.Add(new CatPuzzleContentCatalog.DecorationArt { id = decoration.Id, sprite = PersistFullTexture(decoration.SpriteResourcePath, decoration.Id) });
+                    decorationArt.Add(new CatPuzzleContentCatalog.DecorationArt { id = decoration.Id, sprite = Prepared(decoration.SpriteResourcePath, decoration.Id) });
             }
             contentCatalog.decorations = decorationArt.ToArray();
         }

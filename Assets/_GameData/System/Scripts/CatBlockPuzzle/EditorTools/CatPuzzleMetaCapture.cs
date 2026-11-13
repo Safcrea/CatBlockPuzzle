@@ -31,8 +31,9 @@ namespace CatBlockPuzzle
             BindButton(game, hubButton, ActionKind.ContinueHub);
             BindButton(game, metaHubPage.Find("Forever Home Header/Return to Puzzle").GetComponent<Button>(), ActionKind.CloseMeta);
             var chapters = metaHubPage.Find("Chapter Scroll/Chapters");
-            view.hubCards = new HubCardView[10];
-            for (int i = 0; i < 10; i++)
+            int chapterCount = metaCatalog.Chapters.Count;
+            view.hubCards = new HubCardView[chapterCount];
+            for (int i = 0; i < chapterCount; i++)
             {
                 var card = chapters.Find("Chapter " + (i + 1));
                 var text = DirectTexts(card);
@@ -46,8 +47,8 @@ namespace CatBlockPuzzle
                 BindButton(game, card.GetComponent<Button>(), ActionKind.OpenRoom, i);
             }
             var roomContainer = view.metaRoomPage;
-            view.roomViews = new CatPuzzleRoomView[10];
-            for (int i = 0; i < 10; i++)
+            view.roomViews = new CatPuzzleRoomView[chapterCount];
+            for (int i = 0; i < chapterCount; i++)
             {
                 var chapter = metaCatalog.GetChapter(i);
                 RectTransform metaRoomPage = ui.CreatePanel(roomContainer, "Room_" + (i + 1).ToString("00"), PageColor);

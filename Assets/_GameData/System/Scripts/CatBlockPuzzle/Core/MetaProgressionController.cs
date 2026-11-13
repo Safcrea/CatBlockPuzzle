@@ -910,6 +910,8 @@ namespace CatBlockPuzzle
 
         private void RenderRoomDetail(int chapterIndex)
         {
+            // The legacy room pages are baked per chapter; a scene baked before chapters 11-30 existed has no page for them.
+            if (roomViews == null || chapterIndex < 0 || chapterIndex >= roomViews.Length) return;
             for (int i = 0; i < roomViews.Length; i++) roomViews[i].gameObject.SetActive(i == chapterIndex);
             var view = roomViews[chapterIndex]; var chapter = metaCatalog.GetChapter(chapterIndex);
             metaStatusText = view.status;

@@ -188,22 +188,38 @@ def validate(level, shapes):
             r, c = cell
             if not any(nb in owner and nb not in locked and owner[nb] != owner[cell] for nb in ((r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1))):
                 return "neighbour lock"
-        placed, progress = set(), True
-        while progress:
-            progress = False
-            for i in range(len(level["pieces"])):
-                if i in placed: continue
-                ok = True
-                for cell in cells_of[i]:
-                    lk = locked.get(cell)
-                    if not lk: continue
+        # Same as LevelValidator.CanComplete: a neighbour lock opens once ALL its unlocked neighbours from other cats are
+        # filled, and a tray window only ever offers the first `trayWindow` unplaced cats, one placement at a time.
+        unlockers = {}
+        for cell, lk in locked.items():
+            if lk.get("key") or lk["after"] > 0: continue
+            r, c = cell
+            unlockers[cell] = [nb for nb in ((r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)) if nb in owner and owner[nb] != owner[cell] and nb not in locked]
+        placed, filled, opened = set(), set(), set()
+        def open_locks():
+            changed = True
+            while changed:
+                changed = False
+                for cell, lk in locked.items():
+                    if cell in opened: continue
                     if lk.get("key"): ok = index[lk["key"]] in placed
                     elif lk["after"] > 0: ok = len(placed) >= lk["after"]
-                    else:
-                        r, c = cell
-                        ok = any(nb in owner and owner[nb] in placed and owner[nb] != i for nb in ((r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)))
-                    if not ok: break
-                if ok: placed.add(i); progress = True
+                    else: ok = all(nb in filled for nb in unlockers[cell])
+                    if ok: opened.add(cell); changed = True
+        open_locks()
+        window = level.get("trayWindow", 0)
+        progress = True
+        while progress and len(placed) < len(level["pieces"]):
+            progress = False
+            rank = 0
+            for i in range(len(level["pieces"])):
+                if i in placed: continue
+                if window > 0:
+                    if rank >= window: break
+                    rank += 1
+                if any(cell in locked and cell not in opened for cell in cells_of[i]): continue
+                placed.add(i); filled.update(cells_of[i]); open_locks(); progress = True
+                break
         if len(placed) != len(level["pieces"]): return "locks never open"
     return None
 

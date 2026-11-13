@@ -12,6 +12,8 @@ namespace CatBlockPuzzle
         public const int LevelsPerChapter = 10;
         public const int SupportedLevelCount = ChapterCount * LevelsPerChapter;
         public const string ResourcePath = "CatBlockPuzzle/meta_chapters";
+        /// <summary>Room pictures that exist (room_01-room_10); later chapters reuse them in order.</summary>
+        public const int RoomPictureCount = 10;
 
         private readonly CatMetaChapterDefinition[] chapters;
         private readonly Dictionary<string, CatMetaChapterDefinition> chaptersById;
@@ -276,7 +278,6 @@ namespace CatBlockPuzzle
             }
 
             HashSet<string> chapterIds = new HashSet<string>(StringComparer.Ordinal);
-            HashSet<string> backgroundPaths = new HashSet<string>(StringComparer.Ordinal);
             HashSet<string> decorationIds = new HashSet<string>(StringComparer.Ordinal);
             HashSet<string> decorationPaths = new HashSet<string>(StringComparer.Ordinal);
 
@@ -309,12 +310,14 @@ namespace CatBlockPuzzle
                     || !RequireText(chapter.catName, "Chapter " + (chapterIndex + 1) + " cat name", out error)
                     || !RequireText(chapter.startStory, chapter.id + " start story", out error)
                     || !RequireText(chapter.completionStory, chapter.id + " completion story", out error)
-                    || !RequireUniqueText(chapter.backgroundResourcePath, backgroundPaths, "background path", out error))
+                    // Chapters 11-30 reuse the room pictures of chapters 1-10, so a background may repeat across chapters.
+                    || !RequireText(chapter.backgroundResourcePath, chapter.id + " background path", out error))
                 {
                     return false;
                 }
 
-                string expectedBackgroundSuffix = "/room_" + (chapterIndex + 1).ToString("00");
+                // Ten room pictures: chapters 11-30 cycle through them again (chapter 11 uses room_01, chapter 30 room_10).
+                string expectedBackgroundSuffix = "/room_" + (chapterIndex % CatMetaCatalog.RoomPictureCount + 1).ToString("00");
                 if (!chapter.backgroundResourcePath.EndsWith(expectedBackgroundSuffix, StringComparison.Ordinal))
                 {
                     error = chapter.id + " background must end with " + expectedBackgroundSuffix + ".";
@@ -338,6 +341,7 @@ namespace CatBlockPuzzle
                     return false;
                 }
 
+                decorationPaths.Clear(); // a decoration picture only has to be unique inside its own room
                 for (int decorationIndex = 0; decorationIndex < chapter.decorations.Length; decorationIndex++)
                 {
                     CatMetaDecorationData decoration = chapter.decorations[decorationIndex];

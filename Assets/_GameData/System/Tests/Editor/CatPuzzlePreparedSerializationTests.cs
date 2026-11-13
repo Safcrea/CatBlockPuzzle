@@ -70,11 +70,12 @@ namespace CatBlockPuzzle.Tests
             {
                 CatPuzzleScenePreparation.ValidateScene(scene);
                 var game = scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<CatBlockPuzzleGame>(true)).Single();
-                Assert.That(game.LevelPrefabResources.Length,Is.EqualTo(100));
-                Assert.That(game.LevelPrefabResources.Distinct().Count(),Is.EqualTo(100));
+                Assert.That(game.LevelPrefabResources.Length,Is.EqualTo(LevelValidator.RequiredLevelCount));
+                Assert.That(game.LevelPrefabResources.Distinct().Count(),Is.EqualTo(LevelValidator.RequiredLevelCount));
                 Assert.That(scene.GetRootGameObjects().SelectMany(r=>r.GetComponentsInChildren<CatPuzzleLevelView>(true)),Is.Empty);
                 var levels = game.LevelPrefabResources.Select(p=>AssetDatabase.LoadAssetAtPath<CatPuzzleLevelView>("Assets/_GameData/System/Resources/" + p + ".prefab")).ToArray();
-                Assert.That(levels.Sum(l=>l.pieces.Length),Is.EqualTo(690)); // Level Plan v2
+                var pack = JsonUtility.FromJson<LevelPackData>(Resources.Load<TextAsset>("CatBlockPuzzle/levels_100").text);
+                Assert.That(levels.Sum(l=>l.pieces.Length),Is.EqualTo(pack.levels.Sum(l=>l.pieces.Length)), "Every cat of the level pack is baked.");
                 foreach (var level in levels)
                 {
                     Assert.That(EditorUtility.IsPersistent(level),Is.True);

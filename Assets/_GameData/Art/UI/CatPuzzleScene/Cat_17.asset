@@ -11,11 +11,11 @@ Sprite:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 512
-    height: 512
+    width: 256
+    height: 256
   m_Offset: {x: 0, y: 0}
   m_Border: {x: 0, y: 0, z: 0, w: 0}
-  m_PixelsToUnits: 512
+  m_PixelsToUnits: 256
   m_Pivot: {x: 0.5, y: 0.5}
   m_Extrude: 0
   m_IsPolygon: 0
@@ -26,7 +26,7 @@ Sprite:
   m_SpriteAtlas: {fileID: 0}
   m_RD:
     serializedVersion: 3
-    texture: {fileID: 2800000, guid: 4c1b8ae63bde35440b2ac1faecafa44e, type: 3}
+    texture: {fileID: 2800000, guid: 93d76e0c74d0e4f308a6856320c86b52, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -108,16 +108,16 @@ Sprite:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 512
-      height: 512
+      width: 256
+      height: 256
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 0
-    uvTransform: {x: 512, y: 256, z: 512, w: 256}
+    uvTransform: {x: 256, y: 128, z: 256, w: 128}
     downscaleMultiplier: 1
   m_AtlasRD:
     serializedVersion: 3
-    texture: {fileID: 2800000, guid: 4c1b8ae63bde35440b2ac1faecafa44e, type: 3}
+    texture: {fileID: 2800000, guid: 93d76e0c74d0e4f308a6856320c86b52, type: 3}
     alphaTexture: {fileID: 0}
     secondaryTextures: []
     m_SubMeshes:
@@ -199,12 +199,12 @@ Sprite:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 512
-      height: 512
+      width: 256
+      height: 256
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 0
-    uvTransform: {x: 512, y: 256, z: 512, w: 256}
+    uvTransform: {x: 256, y: 128, z: 256, w: 128}
     downscaleMultiplier: 1
   m_PhysicsShape: []
   m_Bones: []

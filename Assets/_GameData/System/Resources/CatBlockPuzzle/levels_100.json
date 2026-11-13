@@ -11662,99 +11662,82 @@
     },
     {
       "id": "level_139",
-      "title": "Pastel Harbour",
+      "title": "Misty Workshop",
       "difficulty": 9,
-      "rows": 6,
-      "cols": 7,
+      "rows": 7,
+      "cols": 6,
       "reward": 98,
       "pieces": [
         {
           "id": "l139_p1",
-          "name": "Cocoa",
-          "shape": "l5",
-          "row": 2,
-          "col": 0
+          "name": "Cookie",
+          "shape": "plus5",
+          "row": 4,
+          "col": 1
         },
         {
           "id": "l139_p2",
-          "name": "Berry",
+          "name": "Fudge",
           "shape": "p5",
-          "row": 0,
-          "col": 5
-        },
-        {
-          "id": "l139_p3",
-          "name": "Cookie",
-          "shape": "z5",
           "row": 2,
           "col": 4
         },
         {
+          "id": "l139_p3",
+          "name": "Mint",
+          "shape": "l4TopLeft",
+          "row": 1,
+          "col": 0
+        },
+        {
           "id": "l139_p4",
-          "name": "Muffin",
-          "shape": "s5",
+          "name": "Chili",
+          "shape": "u5",
+          "row": 0,
+          "col": 3
+        },
+        {
+          "id": "l139_p5",
+          "name": "Olive",
+          "shape": "j4Top",
+          "row": 0,
+          "col": 1
+        },
+        {
+          "id": "l139_p6",
+          "name": "Mango",
+          "shape": "l4TopLeft",
+          "row": 4,
+          "col": 0
+        },
+        {
+          "id": "l139_p7",
+          "name": "Umeko",
+          "shape": "u5",
           "row": 2,
           "col": 1
         },
         {
-          "id": "l139_p5",
-          "name": "Nugget",
-          "shape": "t4Left",
-          "row": 3,
-          "col": 2
-        },
-        {
-          "id": "l139_p6",
-          "name": "Bonbon",
-          "shape": "stair5",
-          "row": 3,
-          "col": 4
-        },
-        {
-          "id": "l139_p7",
-          "name": "Biscuit",
-          "shape": "u5",
-          "row": 0,
-          "col": 2
-        },
-        {
           "id": "l139_p8",
-          "name": "Velvet",
-          "shape": "p5",
-          "row": 0,
-          "col": 0
+          "name": "Juniper",
+          "shape": "z5",
+          "row": 4,
+          "col": 3
         }
       ],
       "trayWindow": 3,
       "hearts": 0,
-      "blocked": [
-        {
-          "row": 5,
-          "col": 4
-        },
-        {
-          "row": 0,
-          "col": 3
-        }
-      ],
       "locked": [
         {
-          "row": 3,
+          "row": 4,
           "col": 3,
-          "after": 0,
-          "key": "l139_p8"
+          "after": 0
         },
         {
-          "row": 3,
-          "col": 2,
+          "row": 6,
+          "col": 0,
           "after": 0,
           "key": "l139_p7"
-        },
-        {
-          "row": 3,
-          "col": 4,
-          "after": 0,
-          "key": "l139_p8"
         }
       ]
     },
