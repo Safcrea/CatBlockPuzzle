@@ -517,7 +517,7 @@ namespace CatBlockPuzzle
                 if (dailyRewardPopup != null) dailyRewardPopup.Closed += () => GameSystem.Instance?.GoHome();
             }
             if (dailyRewardPopup == null) { GameSystem.Instance?.GoHome(); yield break; }
-            dailyRewardPopup.Show("Daily Puzzle Won!", icon, () => line);
+            dailyRewardPopup.Show("Well done!", icon, () => line);
         }
 
         // The unlock sound waits for the result screen so it does not play over the board burst.

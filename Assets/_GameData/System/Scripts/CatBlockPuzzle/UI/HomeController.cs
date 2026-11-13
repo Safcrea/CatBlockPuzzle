@@ -204,14 +204,18 @@ namespace CatBlockPuzzle
             yield return new WaitForSecondsRealtime(0.8f);
             while (navigation != null && navigation.IsDailyRewardOpen) yield return null;
             announceRoutine = null;
-            if (!IsOpen || IsDailyPuzzleLocked || PlayerPrefs.GetInt(DailyPuzzle.UnlockSeenKey, 0) != 0) yield break;
+            // Only on Home itself: never over a level or the shop the player has already opened.
+            bool elsewhere = GameSystem.Instance != null && GameSystem.Instance.IsGameplayOpen;
+            ShopScreen shop = FindFirstObjectByType<ShopScreen>();
+            if (shop != null && shop.IsOpen) elsewhere = true;
+            if (!IsOpen || elsewhere || IsDailyPuzzleLocked || PlayerPrefs.GetInt(DailyPuzzle.UnlockSeenKey, 0) != 0) yield break;
             PlayerPrefs.SetInt(DailyPuzzle.UnlockSeenKey, 1);
             PlayerPrefs.Save();
             if (infoPopup == null && homeScreen != null) infoPopup = InfoPopup.Create(homeScreen.transform.parent);
             Graphic graphic = dailyPuzzleButton != null ? dailyPuzzleButton.targetGraphic : null;
             Sprite picture = graphic is Image image ? image.sprite : null;
             if (infoPopup != null)
-                infoPopup.Show("Daily Puzzle Unlocked!", picture, () => "A new puzzle every day.\n" + DailyPuzzle.CoinsPerStar + " coins per star!");
+                infoPopup.Show("Unlocked!", picture, () => "Daily Puzzle: a new puzzle\nevery day, " + DailyPuzzle.CoinsPerStar + " coins per star!");
             if (dailyPuzzleButton != null) MenuAttentionPulse.Configure(dailyPuzzleButton.transform, 0.12f, 0.9f);
         }
 
