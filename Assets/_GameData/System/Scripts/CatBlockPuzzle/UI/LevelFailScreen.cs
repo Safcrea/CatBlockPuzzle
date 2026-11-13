@@ -18,6 +18,8 @@ namespace CatBlockPuzzle
         [SerializeField] private Button retryButton;
         [SerializeField] private Button homeButton;
         [SerializeField] private Button skipButton;
+        [Tooltip("Daily Puzzle timeout only: watch a rewarded ad for 30 more seconds. Shown in place of the caption.")]
+        [SerializeField] private Button extraTimeButton;
         [Header("Artwork (auto-bound by name when empty)")]
         [SerializeField] private RectTransform titleArtwork;
         [SerializeField] private RectTransform captionArtwork;
@@ -97,8 +99,25 @@ namespace CatBlockPuzzle
             EnsureBindings();
             root.SetActive(true);
             root.transform.SetAsLastSibling();
+            bool offerTime = extraTimeButton != null && GameSystem.Instance != null && GameSystem.Instance.CanContinueWithExtraTime;
+            if (extraTimeButton != null)
+            {
+                extraTimeButton.gameObject.SetActive(offerTime);
+                extraTimeButton.onClick.RemoveListener(ExtraTime);
+                extraTimeButton.onClick.AddListener(ExtraTime);
+            }
+            if (captionArtwork != null) captionArtwork.gameObject.SetActive(!offerTime);
             buttons.Prepare(retryButton, homeButton, skipButton);
             presentation = StartCoroutine(PlayPresentation());
+        }
+
+        public const string ExtraTimePlacement = "daily_extra_time";
+
+        private void ExtraTime()
+        {
+            if (RewardedAds.IsRequestPending || GameSystem.Instance == null || !GameSystem.Instance.CanContinueWithExtraTime) return;
+            ButtonSfx.PlayClick();
+            RewardedAds.Show(ExtraTimePlacement, onRewarded: () => GameSystem.Instance?.ContinueWithExtraTime(), onFailed: _ => { });
         }
 
         public void Hide()

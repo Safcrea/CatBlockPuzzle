@@ -243,11 +243,8 @@ namespace CatBlockPuzzle
             return space.WorldToScreen(portrait.TransformPoint(portrait.rect.center));
         }
 
-        private CellGrab TutorialGrip(PieceState piece, Vector2 screen)
-        {
-            Vector2 local = space.ScreenToLocal(piece.Rect, screen);
-            return drag.GetGrabbedCell(piece, local.x + piece.Rect.rect.width * .5f, piece.Rect.rect.height * .5f - local.y);
-        }
+        // The same grip a real drag uses (the cat held by its middle), so the hand's path matches what the player's drag does.
+        private CellGrab TutorialGrip(PieceState piece, Vector2 screen) => drag.CentralGrab(piece);
 
         private float TutorialLift()
         {

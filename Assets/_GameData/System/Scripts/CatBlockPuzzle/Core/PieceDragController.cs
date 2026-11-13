@@ -44,6 +44,8 @@ namespace CatBlockPuzzle
         public IPlacementGate Gate { get; set; }
 
         public event Action<PieceState> PiecePlaced;
+        /// <summary>A cat was dragged to a new spot: the cat, then where it was before (on the board or not, row, col).</summary>
+        public event Action<PieceState, bool, int, int> PieceMoved;
         /// <summary>A cat (on the shelf or the board) was tapped without being dragged.</summary>
         public event Action<PieceState> PieceTapped;
         /// <summary>A cat was released over the board where it cannot land.</summary>
@@ -106,7 +108,7 @@ namespace CatBlockPuzzle
             }
 
             tray.SetScrollEnabled(false);
-            hint.StopHint();
+            hint.StopIfInvolves(state);
             fx.ResetDragTrailTimer();
             mood.SetMood(state, CatMood.Neutral);
             if (state.SizeRoutine != null)
@@ -131,11 +133,9 @@ namespace CatBlockPuzzle
                 state.SlotImage.color = TraySlotSkin.DimColor;
             }
 
-            Vector2 local = space.ScreenToLocal(state.Rect, eventData.position);
-            Vector2 size = state.Rect.rect.size;
-            float localX = local.x + (size.x * 0.5f);
-            float localY = (size.y * 0.5f) - local.y;
-            CellGrab grabbed = GetGrabbedCell(state, localX, localY);
+            // The cat is always held centred over the finger (then lifted), wherever it was touched. Keeping the touched
+            // point under the finger made the cat sit somewhere different for every tray slot and every touch.
+            CellGrab grabbed = CentralGrab(state);
 
             bool isTouch = eventData.pointerId >= 0;
             float canvasScale = space.ScaleFactor;
@@ -173,6 +173,26 @@ namespace CatBlockPuzzle
                 feedback.PlayPickup(state, startScreen);
             }
 
+            return true;
+        }
+
+        /// <summary>
+        /// Undo: puts a landed cat back where it was before its last move, on its old board spot (if that is still free)
+        /// or on its shelf card. False when nothing can move right now.
+        /// </summary>
+        public bool UndoMove(PieceState state, bool previousPlaced, int previousRow, int previousCol)
+        {
+            if (state == null || !state.Placed || state.Definition.IsFixed || drag != null || inputLocked || session.levelFailed) return false;
+            hint.StopHint();
+            board.ClearPreview();
+            board.ClearOccupancyForPiece(state.Definition.Id);
+            bool backOnBoard = previousPlaced && board.CanPlace(state, previousRow, previousCol);
+            if (!backOnBoard) { ReturnPieceToShelf(state); return true; }
+            inputLocked = true;
+            state.Row = previousRow;
+            state.Col = previousCol;
+            board.OccupyCells(state, previousRow, previousCol);
+            StartCoroutine(AnimateToBoard(state, previousRow, previousCol));
             return true;
         }
 
@@ -284,11 +304,8 @@ namespace CatBlockPuzzle
 
             if (drag.HoverRow == -2) drag.HoverRow = -1;
             else drag.HoverRow = drag.HoverCol = -1;
-            if (nearBoard)
-            {
-                GetBoardOriginFromGrab(anchorScreen, drag.Grabbed, out int row, out int col);
-                board.ShowPreview(state, row, col, false);
-            }
+            // No ghost for a spot the cat cannot take: the old orange ghost looked like a place it would land, so a drop
+            // there felt like the game refusing a valid move.
         }
 
         private Vector2 GetAssistedAnchorScreen(Vector2 pointerScreen)
@@ -392,6 +409,7 @@ namespace CatBlockPuzzle
 
             if (endedDrag.Valid)
             {
+                PieceMoved?.Invoke(state, endedDrag.PreviousPlaced, endedDrag.PreviousRow, endedDrag.PreviousCol);
                 session.stats.RecordPlacement(endedDrag.PreviousPlaced);
                 AVNEvents.AvnEvents.BoardAction(endedDrag.PreviousPlaced ? "board_move" : "placement");
                 PlacePiece(state, endedDrag.Row, endedDrag.Col, !endedDrag.PreviousPlaced);
@@ -661,6 +679,27 @@ namespace CatBlockPuzzle
                 1f);
         }
 
+        /// <summary>The grip that holds a cat by the middle of its outline: the cell nearest the centre, with offsets that put
+        /// the outline's centre exactly on the anchor.</summary>
+        public CellGrab CentralGrab(PieceState state)
+        {
+            int maxRow = 0, maxCol = 0;
+            foreach (CellOffset cell in state.Definition.Cells) { maxRow = Mathf.Max(maxRow, cell.Row); maxCol = Mathf.Max(maxCol, cell.Col); }
+            float pitchX = state.CellWidth + state.GapX, pitchY = state.CellHeight + state.GapY;
+            float centreX = ((maxCol + 1) * pitchX - state.GapX) * 0.5f, centreY = ((maxRow + 1) * pitchY - state.GapY) * 0.5f;
+            CellOffset nearest = state.Definition.Cells[0];
+            float best = float.MaxValue;
+            foreach (CellOffset cell in state.Definition.Cells)
+            {
+                float dx = cell.Col * pitchX + state.CellWidth * 0.5f - centreX, dy = cell.Row * pitchY + state.CellHeight * 0.5f - centreY;
+                float d = dx * dx + dy * dy;
+                if (d < best) { best = d; nearest = cell; }
+            }
+            return new CellGrab(nearest.Row, nearest.Col,
+                (centreX - nearest.Col * pitchX) / Mathf.Max(1f, state.CellWidth),
+                (centreY - nearest.Row * pitchY) / Mathf.Max(1f, state.CellHeight));
+        }
+
         public CellGrab GetGrabbedCell(PieceState state, float localX, float localY)
         {
             int localCol = Mathf.RoundToInt((localX - (state.CellWidth * 0.5f)) / Mathf.Max(1f, state.CellWidth + state.GapX));
@@ -683,19 +722,6 @@ namespace CatBlockPuzzle
             float offsetX = Mathf.Clamp01((localX - (nearest.Col * (state.CellWidth + state.GapX))) / Mathf.Max(1f, state.CellWidth));
             float offsetY = Mathf.Clamp01((localY - (nearest.Row * (state.CellHeight + state.GapY))) / Mathf.Max(1f, state.CellHeight));
             return new CellGrab(nearest.Row, nearest.Col, offsetX, offsetY);
-        }
-
-        private void GetBoardOriginFromGrab(Vector2 anchorScreen, CellGrab grab, out int row, out int col)
-        {
-            Vector2 local = space.ScreenToLocal(boardRoot, anchorScreen);
-            float boardX = local.x + (boardWidth * 0.5f);
-            float boardY = (boardHeight * 0.5f) - local.y;
-            float grabbedLeft = boardX - (grab.OffsetX * boardCellWidth);
-            float grabbedTop = boardY - (grab.OffsetY * boardCellHeight);
-            int targetCol = Mathf.RoundToInt(grabbedLeft / Mathf.Max(1f, boardCellWidth + BoardGap));
-            int targetRow = Mathf.RoundToInt(grabbedTop / Mathf.Max(1f, boardCellHeight + BoardGap));
-            row = targetRow - grab.Row;
-            col = targetCol - grab.Col;
         }
 
         private Vector2 PieceFreeCenterRoot(Vector2 anchorScreen, PieceState state, CellGrab grab, float cellWidth, float cellHeight, float gapX, float gapY)

@@ -114,6 +114,8 @@ namespace CatBlockPuzzle
         public bool TryUseRotatePowerUp() => UseRotatePowerUp(fromTutorial: false);
         public bool IsRotateActive => HasGameplayController && gameplayController.IsRotateActive;
         public bool TryUseHammerPowerUp() => UseHammerPowerUp();
+        internal UndoController Undo => HasGameplayController ? gameplayController.Undo : null;
+        internal GameplayToast Toast => HasGameplayController ? gameplayController.Toast : null;
         internal bool HammerHasTarget => HasGameplayController && gameplayController.HammerHasTarget;
         internal string HammerIntroLabel => HasGameplayController ? gameplayController.HammerIntroLabel : "TAP HAMMER!";
         public bool IsHammerActive => HasGameplayController && gameplayController.IsHammerActive;
@@ -418,6 +420,16 @@ namespace CatBlockPuzzle
             if (levelComplete == null || !levelComplete.IsConfigured) return false;
             levelComplete.Show(title, stars, reward, bestStars, bestCombo);
             return true;
+        }
+
+        public bool CanContinueWithExtraTime => HasGameplayController && gameplayController.Flow.CanContinueWithExtraTime;
+
+        /// <summary>Closes the fail screen and gives the Daily Puzzle 30 more seconds.</summary>
+        public bool ContinueWithExtraTime()
+        {
+            if (!CanContinueWithExtraTime) return false;
+            if (levelFail != null) levelFail.Hide();
+            return gameplayController.Flow.ContinueWithExtraTime();
         }
 
         public bool ShowLevelFailed(string title, string message)

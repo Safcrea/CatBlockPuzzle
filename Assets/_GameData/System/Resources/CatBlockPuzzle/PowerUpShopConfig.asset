@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PowerUpShopConfig
   m_EditorClassIdentifier: Assembly-CSharp::CatBlockPuzzle.PowerUpShopConfig
   hint:
-    coinPrice: 100
+    coinPrice: 150
     quantity: 1
   freeze:
     coinPrice: 150
@@ -22,7 +22,7 @@ MonoBehaviour:
     coinPrice: 150
     quantity: 1
   hammer:
-    coinPrice: 150
+    coinPrice: 200
     quantity: 1
   starterBundle:
     available: 1
@@ -34,11 +34,14 @@ MonoBehaviour:
     bonusCoins: 0
   coinPacks:
   - available: 0
-    coins: 500
+    coins: 600
     priceLabel: $0.99
   - available: 0
-    coins: 1200
+    coins: 1500
     priceLabel: $1.99
   - available: 0
-    coins: 3000
+    coins: 4000
     priceLabel: $4.99
+  - available: 0
+    coins: 9000
+    priceLabel: $9.99

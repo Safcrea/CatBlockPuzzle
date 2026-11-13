@@ -542,6 +542,26 @@ namespace CatBlockPuzzle
 
         public void FailLevel(string message) => FailLevel(message, "other");
 
+        public const float ExtraTimeSeconds = 30f;
+        private string lastFailReason;
+        private int extraTimeUsedSerial = -1;
+
+        /// <summary>A Daily Puzzle that just ran out of time can be continued once per attempt with extra time.</summary>
+        public bool CanContinueWithExtraTime => session.levelFailed && session.dailyPuzzle && lastFailReason == "timeout" && extraTimeUsedSerial != session.loadSerial;
+
+        /// <summary>Un-fails the level, adds <see cref="ExtraTimeSeconds"/> to the clock and hands control back.</summary>
+        public bool ContinueWithExtraTime()
+        {
+            if (!CanContinueWithExtraTime) return false;
+            extraTimeUsedSerial = session.loadSerial;
+            session.levelFailed = false;
+            lastFailReason = null;
+            timer.AddSeconds(ExtraTimeSeconds);
+            inputLocked = gates.MetaUiOpen || gates.SystemPaused;
+            timer.StartLevelTimer();
+            return true;
+        }
+
         private void FailLevel(string message, string reason)
         {
             if (session.levelFailed || gates.LevelCompleteOpen)
@@ -554,6 +574,7 @@ namespace CatBlockPuzzle
                 cellCount > 0 ? session.occupancy.Count / (float)cellCount : 0f, session.bestCombo);
             AvnEvents.LevelFailed(AvnEvents.FailReasonFor(reason), reason);
             session.levelFailed = true;
+            lastFailReason = reason;
             if (reason == "timeout" || reason == "out_of_hearts") LevelFailStreak.RecordFail(session.levelNumber);
             timer.timerRunning = false;
             inputLocked = true;

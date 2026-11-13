@@ -44,7 +44,7 @@ namespace AVNEvents
     public enum EconomyDetail
     {
         first_clear, replay, loop_level, daily_puzzle, level_complete_x2, daily_reward,
-        hint, freeze, rotate, hammer, starter_bundle, shop_coin_pack
+        hint, freeze, rotate, hammer, starter_bundle, shop_coin_pack, undo
     }
 
     /// <summary>Everything LEVEL_ANALYSIS Started needs, read from the game where the level loads.</summary>

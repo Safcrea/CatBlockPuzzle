@@ -20,7 +20,7 @@ MonoBehaviour:
       difficulty: 1
       rows: 3
       cols: 3
-      reward: 25
+      reward: 20
       pieces:
       - id: l001_p1
         name: Mint
@@ -74,7 +74,7 @@ MonoBehaviour:
       difficulty: 2
       rows: 3
       cols: 3
-      reward: 25
+      reward: 20
       pieces:
       - id: l003_p1
         name: Pebble
@@ -173,7 +173,7 @@ MonoBehaviour:
       difficulty: 4
       rows: 5
       cols: 5
-      reward: 20
+      reward: 25
       pieces:
       - id: l006_p1
         name: Bean
@@ -245,7 +245,7 @@ MonoBehaviour:
       difficulty: 4
       rows: 5
       cols: 6
-      reward: 20
+      reward: 25
       pieces:
       - id: l008_p1
         name: Toast
@@ -284,7 +284,7 @@ MonoBehaviour:
       difficulty: 5
       rows: 4
       cols: 5
-      reward: 25
+      reward: 30
       pieces:
       - id: l009_p1
         name: Plum
@@ -323,7 +323,7 @@ MonoBehaviour:
       difficulty: 5
       rows: 5
       cols: 5
-      reward: 20
+      reward: 30
       pieces:
       - id: l010_p1
         name: Toast
@@ -6987,7 +6987,7 @@ MonoBehaviour:
         sortOrder: 20
       - id: ch01_heart_lantern
         displayName: Heart Lantern
-        cost: 35
+        cost: 40
         unlockAfterChapterLevel: 6
         spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_heart_lantern
         hotspot: {x: 0.8, y: 0.47}
@@ -6995,7 +6995,7 @@ MonoBehaviour:
         sortOrder: 30
       - id: ch01_mint_sprout
         displayName: Mint Sprout
-        cost: 35
+        cost: 40
         unlockAfterChapterLevel: 8
         spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_mint_sprout
         hotspot: {x: 0.15, y: 0.43}
@@ -7003,7 +7003,7 @@ MonoBehaviour:
         sortOrder: 25
       - id: ch01_mochi_welcome_plaque
         displayName: Mochi Welcome Plaque
-        cost: 35
+        cost: 45
         unlockAfterChapterLevel: 10
         spriteResourcePath: CatBlockPuzzle/Art/Decorations/r01_mochi_welcome_plaque
         hotspot: {x: 0.55, y: 0.69}
@@ -7481,7 +7481,7 @@ MonoBehaviour:
         hotspot: {x: 0.56, y: 0.7}
         size: {x: 0.3, y: 0.28}
         sortOrder: 5
-  sourceFingerprint: 4b7ae9dc60de7714689f640ed2e7b7b8
+  sourceFingerprint: 6c38b3d1eff2468117d24c6e78360e96
   roomBackgrounds:
   - {fileID: 21300000, guid: 584454aefd40caf44958837c992b0b01, type: 2}
   - {fileID: 21300000, guid: ded8ee71baa2d58429de009adaffb17d, type: 2}

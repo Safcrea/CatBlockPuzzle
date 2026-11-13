@@ -73,6 +73,7 @@ namespace CatBlockPuzzle
         private GameplayToast toast;
         private RotateController rotate;
         private HammerController hammer;
+        private UndoController undo;
         private StuckAdvisor stuck;
 
         // ------------------------------------------------------------------ scene bindings
@@ -132,6 +133,7 @@ namespace CatBlockPuzzle
         internal GameplayToast Toast => toast;
         internal RotateController Rotate => rotate;
         internal HammerController Hammer => hammer;
+        internal UndoController Undo => undo;
         internal PieceDragController Drag => drag;
         internal StuckAdvisor Stuck => stuck;
         internal FxSpawner Fx => fx;
@@ -178,6 +180,7 @@ namespace CatBlockPuzzle
             rotate = new RotateController(this, session, tray, drag, settings, toast);
             hammer = new HammerController(this, session, board, locks, fog, drag, settings, fx, haptics, hint);
             hammer.Struck += OnHammerStruck;
+            undo = new UndoController(session, drag, progress, hammer);
             tutorial = new LevelOneTutorial(this, session, this, space, board, drag, settings, fx, mood, timer, gates);
             drag.Gate = tutorial;
             loader = new PreparedLevelLoader(this, session, tray, mood, drag, this);

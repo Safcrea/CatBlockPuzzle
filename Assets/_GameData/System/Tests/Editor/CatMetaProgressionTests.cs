@@ -56,7 +56,7 @@ namespace CatBlockPuzzle.Tests
             };
             int[][] expectedCosts =
             {
-                new[] { 35, 35, 35, 35, 35 },
+                new[] { 35, 35, 40, 40, 45 },
                 new[] { 40, 55, 45, 50, 55 },
                 new[] { 45, 50, 60, 70, 70 },
                 new[] { 70, 70, 70, 70, 70 },
@@ -239,7 +239,11 @@ namespace CatBlockPuzzle.Tests
             Assert.That(reloaded.IsOwned("ch01_cloud_bed"), Is.True);
             Assert.That(reloaded.IsInstalled("ch01_cloud_bed"), Is.True);
             Assert.That(reloaded.HasViewedStory(CatMetaStoryIds.Intro("welcome_nook")), Is.True);
-            Assert.That(reloaded.CoinBalance, Is.EqualTo(10));
+            int bedCost = 0;
+            foreach (CatMetaChapterDefinition chapter in catalog.Chapters)
+                foreach (CatMetaDecorationDefinition decoration in chapter.Decorations)
+                    if (decoration.Id == "ch01_cloud_bed") bedCost = decoration.Cost;
+            Assert.That(reloaded.CoinBalance, Is.EqualTo(rewards[0] + rewards[1] - bedCost));
             Assert.That(preferences.SaveCount, Is.GreaterThan(0));
         }
 
