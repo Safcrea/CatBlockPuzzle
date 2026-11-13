@@ -39,9 +39,7 @@ namespace CatBlockPuzzle
         [SerializeField] private RectTransform coinBoard;
         [SerializeField] private RectTransform coinReward;
         [SerializeField] private Text rewardText;
-        [SerializeField, Min(0.1f)] private float popDuration = 0.45f;
         [SerializeField, Min(0.1f)] private float coinCountDuration = 0.9f;
-        [SerializeField, Min(0f)] private float starPause = 0.08f;
         [Tooltip("Multiplier for the complete-screen sequence. Lower values play faster.")]
         [SerializeField, Range(0.35f, 1f)] private float sequenceTimeScale = 0.62f;
 

@@ -56,8 +56,7 @@ namespace CatBlockPuzzle
             levelActive = false;
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Initialize() => AVNGameAnalytics.Initialize();
+        // AVN Analytics is started once, by CatAnalytics.Initialize (both used to start it, which logged "Already initialized").
 
         // ------------------------------------------------------------------ app and navigation
 
