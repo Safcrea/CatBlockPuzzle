@@ -454,8 +454,8 @@ namespace CatBlockPuzzle
             // Reference UI replaces the legacy room-decoration flow. Its unused room
             // bindings must not block the authored main-menu and level-selection flow.
             bool usesReferenceUi = FindFirstObjectByType<ReferenceUiNavigation>(FindObjectsInactive.Include) != null;
-            if (contentCatalog == null || contentCatalog.LevelCount != 100)
-                error = "the 100-level content catalog is missing";
+            if (contentCatalog == null || contentCatalog.LevelCount != LevelValidator.RequiredLevelCount)
+                error = "the " + LevelValidator.RequiredLevelCount + "-level content catalog is missing";
             else if (gameplayHud == null) error = "the Gameplay HUD View is missing";
             else if (!gameplayHud.Validate(out error)) { }
             else if (presentationAssets == null) error = "the Gameplay Presentation Assets component is missing";

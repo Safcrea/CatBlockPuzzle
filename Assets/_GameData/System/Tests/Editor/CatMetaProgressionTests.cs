@@ -19,9 +19,9 @@ namespace CatBlockPuzzle.Tests
         [Test]
         public void Catalog_MapsEveryLevelToOneTenLevelChapter()
         {
-            Assert.That(catalog.Chapters.Count, Is.EqualTo(10));
+            Assert.That(catalog.Chapters.Count, Is.EqualTo(CatMetaCatalog.ChapterCount));
 
-            for (int levelIndex = 0; levelIndex < 100; levelIndex++)
+            for (int levelIndex = 0; levelIndex < CatMetaCatalog.SupportedLevelCount; levelIndex++)
             {
                 CatMetaChapterDefinition chapter = catalog.GetChapterForLevel(levelIndex);
                 Assert.That(chapter.Index, Is.EqualTo(levelIndex / 10));
@@ -30,7 +30,7 @@ namespace CatBlockPuzzle.Tests
             }
 
             Assert.Throws<System.ArgumentOutOfRangeException>(() => catalog.GetChapterForLevel(-1));
-            Assert.Throws<System.ArgumentOutOfRangeException>(() => catalog.GetChapterForLevel(100));
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => catalog.GetChapterForLevel(CatMetaCatalog.SupportedLevelCount));
         }
 
         [Test]
@@ -69,7 +69,9 @@ namespace CatBlockPuzzle.Tests
             };
             int[] expectedMilestones = { 2, 4, 6, 8, 10 };
 
-            for (int chapterIndex = 0; chapterIndex < catalog.Chapters.Count; chapterIndex++)
+            // The ten hand-written chapters, exactly; chapters 11-30 (Tools/levelgen/generate_chapters.py) reuse their art
+            // and are checked by the generic affordability and asset tests.
+            for (int chapterIndex = 0; chapterIndex < expectedTitles.Length; chapterIndex++)
             {
                 CatMetaChapterDefinition chapter = catalog.GetChapter(chapterIndex);
                 Assert.That(chapter.Title, Is.EqualTo(expectedTitles[chapterIndex]));
@@ -122,7 +124,7 @@ namespace CatBlockPuzzle.Tests
                 }
             }
 
-            Assert.That(decorationIds.Count, Is.EqualTo(50));
+            Assert.That(decorationIds.Count, Is.EqualTo(CatMetaCatalog.ChapterCount * CatMetaCatalog.DecorationsPerChapter));
         }
 
         [Test]

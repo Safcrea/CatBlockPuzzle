@@ -7,7 +7,7 @@ namespace CatBlockPuzzle
     internal sealed class CatMetaCatalog
     {
         public const int CurrentVersion = 1;
-        public const int ChapterCount = 10;
+        public const int ChapterCount = 30;
         public const int DecorationsPerChapter = 5;
         public const int LevelsPerChapter = 10;
         public const int SupportedLevelCount = ChapterCount * LevelsPerChapter;

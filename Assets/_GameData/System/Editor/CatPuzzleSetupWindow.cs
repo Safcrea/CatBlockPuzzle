@@ -42,7 +42,7 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
     private readonly List<string> sectionKeys = new List<string>();
     private GUIStyle titleStyle, subtitleStyle, sectionTitle, categoryStyle, bodyStyle, helpButton, statusStyle;
     private Texture2D panelTex;
-    private int jumpLevel = 1, startLevel = 1, testCoins = 5000, auditFrom = 1, auditTo = 100;
+    private int jumpLevel = 1, startLevel = 1, testCoins = 5000, auditFrom = 1, auditTo = 300;
     private string lastReport;
     private readonly CatPuzzleLevelPreview levelPreview = new CatPuzzleLevelPreview();
 

@@ -3,9 +3,9 @@ using UnityEngine;
 namespace CatBlockPuzzle
 {
     /// <summary>
-    /// The never-ending level number. After the last authored level the puzzles loop from the
-    /// first one while the number keeps counting (101 plays puzzle 1, 102 puzzle 2, ... 201 puzzle 1
-    /// again). Looped levels always open and each loop number pays its full reward once.
+    /// The never-ending level number. After the last authored level the hard back half loops (levels 101-300) while the
+    /// number keeps counting: 301 plays puzzle 101, 302 puzzle 102, ... 501 puzzle 101 again. Looped levels always open
+    /// and each loop number pays its full reward once.
     /// </summary>
     public static class EndlessLevels
     {
@@ -17,11 +17,17 @@ namespace CatBlockPuzzle
 
         public static bool IsActive => NextLoopLevel > 0;
 
+        /// <summary>The first (0-based) puzzle the endless loop replays: level 101, so the loop stays hard.</summary>
+        public const int LoopFromIndex = 100;
+
         /// <summary>Zero-based authored puzzle for a 1-based level number.</summary>
         public static int PuzzleIndexFor(int levelNumber, int authoredCount)
         {
             if (authoredCount <= 0) return 0;
-            return (Mathf.Max(1, levelNumber) - 1) % authoredCount;
+            int index = Mathf.Max(1, levelNumber) - 1;
+            if (index < authoredCount) return index;
+            int loopFrom = authoredCount > LoopFromIndex ? LoopFromIndex : 0;
+            return loopFrom + (index - authoredCount) % (authoredCount - loopFrom);
         }
 
         public static bool IsLoopLevel(int levelNumber, int authoredCount) => authoredCount > 0 && levelNumber > authoredCount;
