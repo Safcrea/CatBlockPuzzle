@@ -5,7 +5,9 @@ plugins {
 android {
     namespace 'com.safi.catblockpuzzle.haptics'
 
-    compileSdk 35
+    // Must be a platform the editor's bundled SDK has installed (6000.5 ships android-34 and android-36); an uninstalled
+    // one makes Gradle try to download it and fail on the unaccepted licence.
+    compileSdk 36
     buildToolsVersion '36.0.0'
 
     defaultConfig {
