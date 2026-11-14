@@ -9,8 +9,8 @@ namespace CatBlockPuzzle
 {
     /// <summary>
     /// The hands-on Level 1 walkthrough: an animated hand shows the player how to drag the
-    /// first two cats into their spaces, with glowing targets, a small context card and a
-    /// short celebration after each real placement. While open it restricts which piece can
+    /// first two cats into their spaces, with glowing targets, two small in-world tags ("Drag me" on the cat,
+    /// "Drop here" on the target, no dim and no box) and a short celebration after each real placement. While open it restricts which piece can
     /// be picked up and where it may land (see <see cref="IPlacementGate"/>).
     /// </summary>
     internal sealed class LevelOneTutorial : HostedService, IPlacementGate
@@ -19,8 +19,13 @@ namespace CatBlockPuzzle
         // hand the rest of the level back to the player.
         private enum TutorialStep { Off, PlaceFirst, PlaceSecond }
         private const int TutorialProgressStepCount = 2;
-        private const float CoachWidth = 900f;
-        private const float CoachHeight = 150f;
+        // On the second cat the player is on their own; the hand only comes back after this long without a move.
+        private const float SecondStepHandDelay = 4f;
+        private static readonly Color CatTagColor = new Color(.42f, .22f, .1f, 1f);
+        private static readonly Color TargetTagColor = new Color(.24f, .58f, .2f, 1f);
+        private static readonly Color TipTagColor = new Color(.2f, .42f, .7f, 1f);
+        // After the first cat lands, this long is spent telling the player a placed cat can go back to the shelf.
+        private const float ShelfTipSeconds = 4f;
 
         private readonly PuzzleSession session;
         private readonly IPuzzleConfig config;
@@ -38,11 +43,12 @@ namespace CatBlockPuzzle
         private RectTransform tutorialTargetRoot;
         private RectTransform tutorialHand;
         private RectTransform tutorialCheck;
-        private RectTransform tutorialCoach;
-        private RectTransform tutorialCoachPictures;
-        private Text tutorialCoachTitle;
-        private Text tutorialCoachBody;
-        private readonly List<Image> tutorialProgressDots = new List<Image>();
+        private RectTransform tutorialCatTag;
+        private RectTransform tutorialTargetTag;
+        private Text tutorialCatTagText;
+        private Text tutorialTargetTagText;
+        private RectTransform tutorialTipTag;
+        private Text tutorialTipTagText;
         private readonly List<Vector2Int> tutorialTargetCoordinates = new List<Vector2Int>();
         private Image tutorialHalo;
         private readonly List<Image> tutorialTargets = new List<Image>();
@@ -52,8 +58,6 @@ namespace CatBlockPuzzle
         private float tutorialCelebrationRemaining;
         private bool tutorialPendingFinish;
         private Vector2 tutorialCelebrationPosition;
-        private Image tutorialCoachCat;
-        private readonly List<Image> tutorialCoachGrid = new List<Image>();
 
         public LevelOneTutorial(IGameplayContext context, PuzzleSession session, IPuzzleConfig config, CanvasSpace space,
             BoardController board, PieceDragController drag, PlayerSettings settings, FxSpawner fx, CatMoodPresenter mood,
@@ -127,7 +131,10 @@ namespace CatBlockPuzzle
             var checkB = RuntimeUiFactory.CreateImage(tutorialCheck, "Check Long", roundedBoxSprite, TargetDeepColor, new Vector2(9f, 3f), new Vector2(44f, 11f));
             checkA.rectTransform.localEulerAngles = new Vector3(0, 0, -45);
             checkB.rectTransform.localEulerAngles = new Vector3(0, 0, 45);
-            CreateTutorialCoach();
+            tutorialCatTag = CreateTag("Drag Me Tag", CatTagColor, out tutorialCatTagText);
+            tutorialTargetTag = CreateTag("Drop Here Tag", TargetTagColor, out tutorialTargetTagText);
+            tutorialTipTag = CreateTag("Shelf Tip Tag", TipTagColor, out tutorialTipTagText);
+            tutorialTipTagText.fontSize = 32;
             GameAnalytics.TutorialStarted();
             AvnEvents.TutorialShown(AvnEvents.TutorialFirstLevel, (int)TutorialStep.PlaceFirst);
             SetTutorialStep(TutorialStep.PlaceFirst, pieces[0]);
@@ -180,16 +187,16 @@ namespace CatBlockPuzzle
                 tutorialTargets.Add(image);
                 image.gameObject.SetActive(tutorialCelebrationRemaining <= 0f);
             }
-            SetTutorialContext();
-            if (tutorialCoach != null && !reducedMotion) StartCoroutine(fx.PopTransform(tutorialCoach, 1.045f));
         }
 
         public bool TutorialAllowsPickup(PieceState piece) => !IsOpen ||
-            (tutorialCelebrationRemaining <= 0f && piece == tutorialPiece);
-        // Undo/relocate is taught contextually after this level via the move-piece tip, not in this walkthrough.
-        public bool TutorialAllowsShelfReturn(PieceState piece) => !IsOpen;
+            (tutorialCelebrationRemaining <= 0f && (piece == tutorialPiece || CanMoveBack(piece)));
+        // On the second cat the first one may go back to the shelf, which is what the tip tells the player.
+        public bool TutorialAllowsShelfReturn(PieceState piece) => !IsOpen || CanMoveBack(piece);
         public bool TutorialAllowsPlacement(PieceState piece, int row, int col) => !IsOpen ||
-            (piece == tutorialPiece && row == piece.Definition.SolutionRow && col == piece.Definition.SolutionCol);
+            ((piece == tutorialPiece || CanMoveBack(piece)) && row == piece.Definition.SolutionRow && col == piece.Definition.SolutionCol);
+
+        private bool CanMoveBack(PieceState piece) => tutorialStep == TutorialStep.PlaceSecond && piece != tutorialPiece && pieces.Count > 0 && piece == pieces[0];
 
         public void OnPiecePlaced(PieceState piece)
         {
@@ -279,6 +286,15 @@ namespace CatBlockPuzzle
             return TutorialPointerForAnchor(start, anchor);
         }
 
+        // The middle of the cells the current cat has to fill.
+        private Vector2 TutorialTargetCenter(int fallbackRow, int fallbackCol)
+        {
+            if (tutorialTargetCoordinates.Count == 0) return TutorialCell(fallbackRow, fallbackCol);
+            Vector2 sum = Vector2.zero;
+            foreach (Vector2Int coordinate in tutorialTargetCoordinates) sum += TutorialCell(coordinate.x, coordinate.y);
+            return sum / tutorialTargetCoordinates.Count;
+        }
+
         private Vector2 TutorialScreenLocal(Vector2 screen)
         {
             return space.ScreenToLocal(tutorialRoot, screen);
@@ -291,10 +307,6 @@ namespace CatBlockPuzzle
             bool hidden = gates.MetaUiOpen || gates.ResultScreenOpen || gates.SystemPaused || gates.SettingsOpen || gates.GameplayHidden;
             tutorialRoot.gameObject.SetActive(!hidden);
             tutorialTargetRoot.gameObject.SetActive(!hidden);
-            // The card sits just above the board, centred on it: the strip between the level banner and the board is the
-            // one place that is always empty, whatever the shelf height.
-            Vector2 boardTop = TutorialLocal(boardRoot.TransformPoint(new Vector3(0f, boardRoot.rect.yMax, 0f)));
-            tutorialCoach.anchoredPosition = new Vector2(boardTop.x, boardTop.y + 72f + CoachHeight * .5f);
             if (hidden || session.inputLocked) return;
             if (tutorialCelebrationRemaining > 0f) tutorialCelebrationRemaining = Mathf.Max(0f, tutorialCelebrationRemaining - Time.unscaledDeltaTime);
             else tutorialElapsed += Time.unscaledDeltaTime;
@@ -303,24 +315,26 @@ namespace CatBlockPuzzle
                 Finish();
                 return;
             }
-            SetTutorialContext();
             Vector2 startScreen = TutorialPickupScreen(tutorialPiece);
             Vector2 start = TutorialScreenLocal(startScreen);
             int destinationRow = tutorialPiece.Definition.SolutionRow;
             int destinationCol = tutorialPiece.Definition.SolutionCol;
-            Vector2 destinationScreen = TutorialPointerDestination(tutorialPiece, destinationRow, destinationCol);
-            Vector2 destination = TutorialScreenLocal(destinationScreen);
+            // The hand ends on the green spaces themselves, so it points at the right place on the grid.
+            Vector2 destination = TutorialTargetCenter(destinationRow, destinationCol);
+            Vector2 destinationScreen = space.WorldToScreen(tutorialRoot.TransformPoint(destination));
 
             bool dragging = session.drag != null;
+            // The first cat is shown by the hand; on the second the player tries alone and gets the hand back only if stuck.
+            bool handOn = tutorialStep == TutorialStep.PlaceFirst || tutorialElapsed > SecondStepHandDelay;
             float wave = reducedMotion ? .5f : .5f + .5f * Mathf.Sin(tutorialElapsed * 4f);
             tutorialHalo.rectTransform.anchoredPosition = start;
             tutorialHalo.rectTransform.sizeDelta = new Vector2(104f, 104f) * (1f + .12f * wave);
             tutorialHalo.color = new Color(GoldColor.r, GoldColor.g, GoldColor.b, .2f + .15f * wave);
-            tutorialHalo.gameObject.SetActive(!dragging && tutorialCelebrationRemaining <= 0f);
+            tutorialHalo.gameObject.SetActive(!dragging && handOn && tutorialCelebrationRemaining <= 0f);
             for (int i = 0; i < tutorialDots.Count; i++)
             {
                 var dot = tutorialDots[i];
-                dot.gameObject.SetActive(!dragging && tutorialCelebrationRemaining <= 0f);
+                dot.gameObject.SetActive(!dragging && handOn && tutorialCelebrationRemaining <= 0f);
                 dot.rectTransform.anchoredPosition = Vector2.Lerp(start, destination, (i + 1f) / (tutorialDots.Count + 1f));
                 float travel = reducedMotion ? .5f : Mathf.Repeat(tutorialElapsed * .8f - i * .1f, 1f);
                 dot.color = new Color(GoldColor.r, GoldColor.g, GoldColor.b, .24f + .65f * travel);
@@ -341,7 +355,7 @@ namespace CatBlockPuzzle
             float cycle = tutorialElapsed % 3.1f;
             float t = Mathf.Clamp01((cycle - .45f) / 1.15f);
             Vector2 pointerScreen = reducedMotion ? destinationScreen : Vector2.Lerp(startScreen, destinationScreen, EaseOutCubic(t));
-            tutorialHand.gameObject.SetActive(!dragging && tutorialCelebrationRemaining <= 0f);
+            tutorialHand.gameObject.SetActive(!dragging && handOn && tutorialCelebrationRemaining <= 0f);
             tutorialHand.anchoredPosition = TutorialScreenLocal(pointerScreen);
             tutorialHand.localScale = Vector3.one * (reducedMotion ? 1f : 1f - .08f * Mathf.Sin(Mathf.Clamp01(cycle / .45f) * Mathf.PI));
 
@@ -353,7 +367,10 @@ namespace CatBlockPuzzle
             tutorialCheck.localScale = Vector3.one * markerScale;
             tutorialHand.SetAsLastSibling();
             tutorialCheck.SetAsLastSibling();
-            tutorialCoach.SetAsLastSibling();
+            UpdateTags(start, destinationRow, destinationCol, dragging);
+            tutorialCatTag.SetAsLastSibling();
+            tutorialTargetTag.SetAsLastSibling();
+            tutorialTipTag.SetAsLastSibling();
         }
 
         public void Cancel()
@@ -369,8 +386,6 @@ namespace CatBlockPuzzle
             tutorialTargets.Clear();
             tutorialDots.Clear();
             tutorialTargetCoordinates.Clear();
-            tutorialProgressDots.Clear();
-            tutorialCoachGrid.Clear();
             tutorialCelebrationRemaining = 0f;
             if (tutorialRoot != null) { tutorialRoot.gameObject.SetActive(false); Destroy(tutorialRoot.gameObject); }
             if (tutorialTargetRoot != null) { tutorialTargetRoot.gameObject.SetActive(false); Destroy(tutorialTargetRoot.gameObject); }
@@ -378,89 +393,92 @@ namespace CatBlockPuzzle
             tutorialTargetRoot = null;
         }
 
-        private void CreateTutorialCoach()
+        // A small solid pill with a white edge and a pointer notch: readable on any background and no bigger than its words.
+        private RectTransform CreateTag(string name, Color color, out Text label)
         {
-            tutorialCoach = RuntimeUiFactory.CreateRect(tutorialRoot, "Tutorial Context Card");
-            RuntimeUiFactory.SetRect(tutorialCoach, Vector2.zero, new Vector2(CoachWidth, CoachHeight));
-            // No card: like the TangleRings tutorials, the words are bold white letters with a brown outline straight on the
-            // scene. Fixed sizes with room for two lines, so nothing is ever shrunk to a soft size.
-            tutorialCoachTitle = RuntimeUiFactory.CreateText(tutorialCoach, "Context Title", "", 50, TextAnchor.MiddleCenter);
-            tutorialCoachTitle.resizeTextForBestFit = false;
-            tutorialCoachTitle.verticalOverflow = VerticalWrapMode.Overflow;
-            tutorialCoachTitle.horizontalOverflow = HorizontalWrapMode.Overflow;
-            RuntimeUiFactory.SetRect(tutorialCoachTitle.rectTransform, new Vector2(0f, 42f), new Vector2(CoachWidth - 40f, 62f));
-            tutorialCoachBody = RuntimeUiFactory.CreateText(tutorialCoach, "Context Detail", "", 34, TextAnchor.UpperCenter);
-            tutorialCoachBody.resizeTextForBestFit = false;
-            tutorialCoachBody.horizontalOverflow = HorizontalWrapMode.Wrap;
-            tutorialCoachBody.verticalOverflow = VerticalWrapMode.Overflow;
-            RuntimeUiFactory.SetRect(tutorialCoachBody.rectTransform, new Vector2(0f, -22f), new Vector2(CoachWidth - 56f, 50f));
-            tutorialCoachTitle.raycastTarget = tutorialCoachBody.raycastTarget = false;
-            foreach (Text words in new[] { tutorialCoachTitle, tutorialCoachBody })
-            {
-                words.color = Color.white;
-                var outline = words.gameObject.AddComponent<Outline>();
-                outline.effectColor = new Color(.28f, .16f, .1f, 1f);
-                outline.effectDistance = new Vector2(3.5f, -3.5f);
-            }
-            tutorialCoachPictures = RuntimeUiFactory.CreateRect(tutorialCoach, "Visual Context");
-            tutorialCoachCat = RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Cat Group", mood.Portrait(CatMood.Happy, 0), Color.white,
-                new Vector2(-108f, 8f), new Vector2(53f, 53f));
-            RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Move Line", roundedBoxSprite, GoldColor,
-                new Vector2(-40f, 8f), new Vector2(45f, 8f));
-            var arrow = RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Move Arrow", roundedBoxSprite, GoldColor,
-                new Vector2(-17f, 15f), new Vector2(24f, 8f));
-            arrow.rectTransform.localEulerAngles = new Vector3(0f, 0f, -40f);
-            arrow = RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Move Arrow", roundedBoxSprite, GoldColor,
-                new Vector2(-17f, 1f), new Vector2(24f, 8f));
-            arrow.rectTransform.localEulerAngles = new Vector3(0f, 0f, 40f);
-            for (int i = 0; i < 4; i++)
-                tutorialCoachGrid.Add(RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Fill A Space", roundedBoxSprite, ValidColor,
-                    new Vector2(33f + (i % 2) * 23f, 20f - (i / 2) * 23f), new Vector2(19f, 19f)));
-            RuntimeUiFactory.CreateImage(tutorialCoachPictures, "Happy Home", pawSprite, GoldColor,
-                new Vector2(110f, 8f), new Vector2(46f, 46f));
-            for (int i = 0; i < TutorialProgressStepCount; i++)
-                tutorialProgressDots.Add(RuntimeUiFactory.CreateImage(tutorialCoach, "Learning Progress", circleSprite, TargetColor,
-                    new Vector2((i - (TutorialProgressStepCount - 1) * .5f) * 32f, -CoachHeight * .5f + 20f), new Vector2(12f, 12f)));
+            RectTransform tag = RuntimeUiFactory.CreateRect(tutorialRoot, name);
+            RuntimeUiFactory.SetRect(tag, Vector2.zero, new Vector2(240f, 70f));
+            var notchEdge = RuntimeUiFactory.CreateImage(tag, "Notch Edge", roundedBoxSprite, Color.white, new Vector2(0f, -38f), new Vector2(30f, 30f));
+            notchEdge.rectTransform.localEulerAngles = new Vector3(0f, 0f, 45f);
+            RuntimeUiFactory.CreateImage(tag, "Edge", roundedBoxSprite, Color.white, Vector2.zero, new Vector2(240f, 70f));
+            var notch = RuntimeUiFactory.CreateImage(tag, "Notch", roundedBoxSprite, color, new Vector2(0f, -36f), new Vector2(22f, 22f));
+            notch.rectTransform.localEulerAngles = new Vector3(0f, 0f, 45f);
+            RuntimeUiFactory.CreateImage(tag, "Fill", roundedBoxSprite, color, Vector2.zero, new Vector2(228f, 58f));
+            label = RuntimeUiFactory.CreateText(tag, "Label", "", 38, TextAnchor.MiddleCenter);
+            label.resizeTextForBestFit = false;
+            label.horizontalOverflow = HorizontalWrapMode.Overflow;
+            label.verticalOverflow = VerticalWrapMode.Overflow;
+            label.color = Color.white;
+            label.raycastTarget = false;
+            var outline = label.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, .35f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
+            RuntimeUiFactory.SetRect(label.rectTransform, Vector2.zero, new Vector2(228f, 58f));
+            return tag;
         }
 
-        private int TutorialProgressIndex() => tutorialStep == TutorialStep.PlaceFirst ? 0 : 1;
-
-        private void SetTutorialContext()
+        // Sizes the pill to its words and puts the notch's tip on <paramref name="tip"/>.
+        private static void PlaceTag(RectTransform tag, Text label, string text, Vector2 tip)
         {
-            if (tutorialCoachTitle == null) return;
-            string title;
-            string detail;
-            if (tutorialStep == TutorialStep.PlaceFirst)
+            label.text = text;
+            float width = Mathf.Max(150f, label.preferredWidth + 56f);
+            RuntimeUiFactory.SetRect(tag.Find("Edge") as RectTransform, Vector2.zero, new Vector2(width, 70f));
+            RuntimeUiFactory.SetRect(tag.Find("Fill") as RectTransform, Vector2.zero, new Vector2(width - 12f, 58f));
+            RuntimeUiFactory.SetRect(label.rectTransform, Vector2.zero, new Vector2(width - 12f, 58f));
+            tag.sizeDelta = new Vector2(width, 70f);
+            // The pill sits above the tip; its notch hangs 50 below the pill's centre.
+            tag.anchoredPosition = tip + new Vector2(0f, 50f);
+        }
+
+        // "Drag me" floats over the cat and "Drop here" over the green spaces; both hide while a cat lands.
+        private void UpdateTags(Vector2 catPoint, int destinationRow, int destinationCol, bool dragging)
+        {
+            bool show = showTutorialCaptions;
+            bool celebrating = tutorialCelebrationRemaining > 0f;
+            bool tipOn = show && tutorialStep == TutorialStep.PlaceSecond && !dragging && !celebrating && tutorialElapsed < ShelfTipSeconds;
+            tutorialTipTag.gameObject.SetActive(tipOn);
+            float bob = reducedMotion ? 0f : Mathf.Sin(Time.unscaledTime * 3.2f) * 6f;
+            tutorialCatTag.gameObject.SetActive(show && !dragging && !celebrating && !tipOn);
+            tutorialTargetTag.gameObject.SetActive(show);
+            if (!show) return;
+
+            if (tipOn)
             {
-                title = "GIVE THIS CAT A HOME!";
-                detail = "Drag the glowing cat onto the green spaces";
+                // The notch points down at the shelf, the container the cat can go back to.
+                var shelfCorners = new Vector3[4];
+                trayRoot.GetWorldCorners(shelfCorners);
+                Vector2 shelfTop = TutorialLocal((shelfCorners[1] + shelfCorners[2]) * .5f);
+                PlaceTag(tutorialTipTag, tutorialTipTagText, "TIP: DRAG A CAT BACK TO THE SHELF", shelfTop + new Vector2(0f, 8f));
             }
-            else
+
+            if (tutorialCatTag.gameObject.activeSelf)
             {
-                title = "NOW THE SECOND ONE!";
-                detail = "Drag this glowing cat onto the green spaces";
+                string catText = tutorialStep == TutorialStep.PlaceFirst ? "DRAG ME" : "YOUR TURN";
+                PlaceTag(tutorialCatTag, tutorialCatTagText, catText, catPoint + new Vector2(0f, 42f + bob));
             }
-            DragState drag = session.drag;
-            if (tutorialCelebrationRemaining > 0f)
-            { title = "PURRFECT!"; detail = "You got it. Now fill the whole board"; }
-            else if (drag != null && drag.Piece == tutorialPiece)
+
+            if (celebrating)
             {
-                title = drag.Valid ? "GREEN MEANS IT FITS!" : "KEEP SLIDING";
-                detail = drag.Valid ? "Let go and the cat snaps into place" : "Slide it onto the green spaces";
+                PlaceTag(tutorialTargetTag, tutorialTargetTagText, "PURRFECT!", tutorialCelebrationPosition + new Vector2(0f, boardCellHeight * .85f));
+                return;
             }
-            tutorialCoachTitle.text = title;
-            tutorialCoachBody.text = detail;
-            tutorialCoachTitle.gameObject.SetActive(showTutorialCaptions);
-            tutorialCoachBody.gameObject.SetActive(showTutorialCaptions);
-            tutorialCoachPictures.gameObject.SetActive(!showTutorialCaptions);
-            tutorialCoachCat.sprite = mood.Portrait(CatMood.Happy, tutorialPiece.AtlasIndex);
-            foreach (var gridCell in tutorialCoachGrid) gridCell.color = ValidColor;
-            int progress = TutorialProgressIndex();
-            for (int i = 0; i < tutorialProgressDots.Count; i++)
+
+            // The tip sits just above the topmost green space.
+            Vector2 top = TutorialCell(destinationRow, destinationCol);
+            foreach (Vector2Int coordinate in tutorialTargetCoordinates)
             {
-                tutorialProgressDots[i].color = i < progress ? TargetDeepColor : i == progress ? GoldColor : TargetColor;
-                tutorialProgressDots[i].rectTransform.localScale = Vector3.one * (i == progress ? 1.3f : 1f);
+                Vector2 cell = TutorialCell(coordinate.x, coordinate.y);
+                if (cell.y > top.y) top = cell;
             }
+            bool fits = dragging && session.drag != null && session.drag.Valid;
+            SetTagColor(tutorialTargetTag, TargetTagColor);
+            PlaceTag(tutorialTargetTag, tutorialTargetTagText, fits ? "LET GO!" : "DROP HERE", top + new Vector2(0f, boardCellHeight * .55f + bob));
+        }
+
+        private static void SetTagColor(RectTransform tag, Color color)
+        {
+            foreach (string part in new[] { "Notch", "Fill" })
+                if (tag.Find(part) != null) tag.Find(part).GetComponent<Image>().color = color;
         }
 
         private void CelebrateTutorialAction(PieceState piece)
