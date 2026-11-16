@@ -57,14 +57,16 @@ namespace CatBlockPuzzle
         /// The red X is small and hangs off the panel corner; this makes it bigger, pulls it inside the corner and gives it a
         /// generous invisible touch area, so a thumb hits it first time.
         /// </summary>
-        public static void EnlargeCloseButton(Button close, float scale = 1.4f)
+        public static void EnlargeCloseButton(Button close, float scale = 0.85f)
         {
             if (close == null) return;
             var rect = close.transform as RectTransform;
             if (rect != null)
             {
-                rect.localScale = rect.localScale * scale;
-                rect.anchoredPosition += new Vector2(-12f, -12f);
+                // The cream panel reaches about +/-337 across and +176 up from the popup's centre; the X is a little one tucked
+                // right into that top-right corner, its whole circle still inside the panel.
+                rect.localScale = Vector3.one * scale;
+                rect.anchoredPosition = new Vector2(295f, 135f);
             }
             var image = close.GetComponent<Image>();
             if (image != null) image.raycastPadding = new Vector4(-18f, -18f, -18f, -18f);

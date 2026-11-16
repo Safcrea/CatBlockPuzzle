@@ -63,6 +63,10 @@ namespace CatBlockPuzzle
             // Tapping the dim outside the panel closes an info popup, the same as OK or the X.
             if (backdrop != null) backdrop.Clicked = Close;
             PopupBackdrop.EnlargeCloseButton(closeButton);
+            // The OK button sits inside the panel with a clear margin, not against its bottom edge.
+            var okRect = (RectTransform)okButton.transform;
+            okRect.sizeDelta = new Vector2(340f, 100f);
+            okRect.anchoredPosition = new Vector2(0f, -268f);
             okButton.onClick.AddListener(Close);
             closeButton.onClick.AddListener(Close);
             foreach (Text text in GetComponentsInChildren<Text>(true)) text.raycastTarget = false;

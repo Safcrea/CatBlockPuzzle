@@ -93,6 +93,8 @@ namespace CatBlockPuzzle
         internal Sprite TimerTutorialIcon => timerTutorialIcon;
         [Tooltip("Applied to the images of a locked power-up button (Cat Block Puzzle/UI Grayscale).")]
         [SerializeField] private Material lockedMaterial;
+        /// <summary>The grey material the locked power-ups use; popups reuse it to grey out something that cannot be used.</summary>
+        internal Material LockedMaterial => lockedMaterial;
         private InfoPopup lockedInfo;
         [Header("Power Up Purchase")]
         [Tooltip("Popup spawned when a power-up is tapped with an empty bag. Falls back to Resources/" + PowerUpPurchasePopup.PrefabResourcePath + ", then to a code-built layout.")]

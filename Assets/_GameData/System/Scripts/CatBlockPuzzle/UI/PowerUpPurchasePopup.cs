@@ -139,6 +139,13 @@ namespace CatBlockPuzzle
             closeButton.onClick.RemoveListener(Close);
             closeButton.onClick.AddListener(Close);
             PopupBackdrop.EnlargeCloseButton(closeButton);
+            // With the coin sentence gone there is room to lift the icon, and the quantity badge sits on the icon's lower
+            // right corner instead of crowding the buttons.
+            icon.rectTransform.anchoredPosition += new Vector2(0f, 22f);
+            // Both green buttons sit well inside the panel (with room for their pulse), not against its edges.
+            FitButton(buyButton, new Vector2(-155f, -250f));
+            FitButton(freeButton, new Vector2(155f, -250f));
+            if (badge != null) badge.rectTransform.anchoredPosition += new Vector2(-8f, 36f);
             gameObject.SetActive(false);
             return true;
         }
@@ -206,8 +213,9 @@ namespace CatBlockPuzzle
             SetBadge("x" + offer.quantity);
             buyLabel.text = offer.coinPrice.ToString();
             bool canAfford = coins >= offer.coinPrice;
-            // The balance is always shown, so the player never has to guess whether the price is within reach.
-            SetMessage(canAfford ? "You have " + coins + " coins" : "Need " + (offer.coinPrice - coins) + " more (you have " + coins + ")");
+            // No coin sentence: when the price is out of reach the price button simply greys out (and shakes if tapped),
+            // and the Free button pulses instead.
+            SetMessage(string.Empty);
             buyButton.interactable = true; // stays tappable so a short purse can shake instead of doing nothing
             SetBuyDimmed(!canAfford);
         }
@@ -225,10 +233,31 @@ namespace CatBlockPuzzle
             badge.gameObject.SetActive(!string.IsNullOrEmpty(text));
         }
 
+        private static void FitButton(Button button, Vector2 position)
+        {
+            if (button == null) return;
+            var rect = (RectTransform)button.transform;
+            rect.sizeDelta = new Vector2(290f, 112f);
+            rect.anchoredPosition = position;
+        }
+
         private void SetBuyDimmed(bool dimmed)
         {
             var graphic = buyButton.targetGraphic as Image;
-            if (graphic != null) graphic.color = dimmed ? new Color(0.62f, 0.62f, 0.62f, 1f) : Color.white;
+            // Out of reach reads as disabled: a grey button with a faded coin and price. It stays tappable (it shakes).
+            // The same grey as a locked power-up, so it reads as unavailable and not just darker green.
+            Material gray = hud != null ? hud.LockedMaterial : null;
+            if (graphic != null)
+            {
+                graphic.material = dimmed ? gray : null;
+                graphic.color = dimmed ? (gray != null ? new Color(0.9f, 0.9f, 0.9f, 1f) : new Color(0.5f, 0.5f, 0.5f, 1f)) : Color.white;
+            }
+            foreach (Graphic child in buyButton.GetComponentsInChildren<Graphic>(true))
+            {
+                if (child == graphic) continue;
+                if (child is Image childImage) childImage.material = dimmed ? gray : null;
+                child.canvasRenderer.SetAlpha(dimmed ? 0.55f : 1f);
+            }
         }
 
         public void Buy()
@@ -357,6 +386,9 @@ namespace CatBlockPuzzle
                 iconRect.localScale = Vector3.one * (1f + 0.045f * bob);
                 iconRect.localRotation = Quaternion.Euler(0f, 0f, Mathf.Sin(time * 2.1f) * 4f);
                 buyRect.localScale = affordable ? Vector3.one * (1f + 0.035f * Mathf.Sin(time * 4.4f)) : Vector3.one;
+                // Out of reach: steer the player to the Free button by pulsing it, where the price button pulses when it is affordable.
+                if (freeButton != null && freeButton.gameObject.activeSelf)
+                    ((RectTransform)freeButton.transform).localScale = !affordable ? Vector3.one * (1f + 0.045f * Mathf.Sin(time * 4.4f)) : Vector3.one;
                 yield return null;
             }
         }
