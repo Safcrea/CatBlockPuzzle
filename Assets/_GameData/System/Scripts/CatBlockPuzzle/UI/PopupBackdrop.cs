@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace CatBlockPuzzle
@@ -8,13 +10,16 @@ namespace CatBlockPuzzle
     /// swallows taps so nothing behind the popup can be pressed. Every popup uses this one component so they all dim the same.
     /// </summary>
     [DisallowMultipleComponent]
-    public sealed class PopupBackdrop : MonoBehaviour
+    public sealed class PopupBackdrop : MonoBehaviour, IPointerClickHandler
     {
         public const string ChildName = "Popup Backdrop";
         /// <summary>How dark the screen goes behind a popup (0 = none, 1 = black).</summary>
         public const float DimAlpha = 0.8f;
         private const float FadeInSeconds = 0.22f;
         private const float FadeOutSeconds = 0.2f;
+
+        /// <summary>Raised when the player taps the dim outside the panel. Popups that should close that way set it.</summary>
+        public Action Clicked;
 
         private Image image;
         private float shown;
@@ -44,6 +49,25 @@ namespace CatBlockPuzzle
             Image own = popupRoot.GetComponent<Image>();
             if (own != null) own.color = new Color(own.color.r, own.color.g, own.color.b, 0f);
             return backdrop;
+        }
+
+        public void OnPointerClick(PointerEventData eventData) => Clicked?.Invoke();
+
+        /// <summary>
+        /// The red X is small and hangs off the panel corner; this makes it bigger, pulls it inside the corner and gives it a
+        /// generous invisible touch area, so a thumb hits it first time.
+        /// </summary>
+        public static void EnlargeCloseButton(Button close, float scale = 1.4f)
+        {
+            if (close == null) return;
+            var rect = close.transform as RectTransform;
+            if (rect != null)
+            {
+                rect.localScale = rect.localScale * scale;
+                rect.anchoredPosition += new Vector2(-12f, -12f);
+            }
+            var image = close.GetComponent<Image>();
+            if (image != null) image.raycastPadding = new Vector4(-18f, -18f, -18f, -18f);
         }
 
         /// <summary>Starts (or resumes) the fade in. Called when the popup opens.</summary>

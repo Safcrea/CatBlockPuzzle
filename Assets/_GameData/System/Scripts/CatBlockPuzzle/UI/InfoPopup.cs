@@ -60,6 +60,9 @@ namespace CatBlockPuzzle
             root.anchorMax = Vector2.one;
             root.offsetMin = root.offsetMax = Vector2.zero;
             backdrop = PopupBackdrop.Attach(root);
+            // Tapping the dim outside the panel closes an info popup, the same as OK or the X.
+            if (backdrop != null) backdrop.Clicked = Close;
+            PopupBackdrop.EnlargeCloseButton(closeButton);
             okButton.onClick.AddListener(Close);
             closeButton.onClick.AddListener(Close);
             foreach (Text text in GetComponentsInChildren<Text>(true)) text.raycastTarget = false;

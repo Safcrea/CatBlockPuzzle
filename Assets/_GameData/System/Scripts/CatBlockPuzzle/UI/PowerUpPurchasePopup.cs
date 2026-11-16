@@ -138,6 +138,7 @@ namespace CatBlockPuzzle
             buyButton.onClick.AddListener(Buy);
             closeButton.onClick.RemoveListener(Close);
             closeButton.onClick.AddListener(Close);
+            PopupBackdrop.EnlargeCloseButton(closeButton);
             gameObject.SetActive(false);
             return true;
         }
@@ -205,7 +206,8 @@ namespace CatBlockPuzzle
             SetBadge("x" + offer.quantity);
             buyLabel.text = offer.coinPrice.ToString();
             bool canAfford = coins >= offer.coinPrice;
-            SetMessage(canAfford ? string.Empty : "Need " + (offer.coinPrice - coins) + " more");
+            // The balance is always shown, so the player never has to guess whether the price is within reach.
+            SetMessage(canAfford ? "You have " + coins + " coins" : "Need " + (offer.coinPrice - coins) + " more (you have " + coins + ")");
             buyButton.interactable = true; // stays tappable so a short purse can shake instead of doing nothing
             SetBuyDimmed(!canAfford);
         }
