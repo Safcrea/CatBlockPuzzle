@@ -45,6 +45,20 @@ namespace CatBlockPuzzle
         [SerializeField, Range(2, 10)] private int mediumFromRating = 4;
         [Tooltip("Levels rated from this number (1-10) up are Hard.")]
         [SerializeField, Range(3, 10)] private int hardFromRating = 8;
+        [Header("Legal Links")]
+        [Tooltip("Opened by the Privacy Policy link on the Shop screen. Leave empty to keep the built-in default.")]
+        [SerializeField] private string privacyPolicyUrl = "";
+        [Tooltip("Opened by a Terms of Use link. Leave empty to keep the built-in default.")]
+        [SerializeField] private string termsUrl = "";
+        [Header("Undo")]
+        [Tooltip("Free undos each attempt at a level.")]
+        [SerializeField, Min(0)] private int undoFreePerLevel = 3;
+        [Tooltip("Coins each undo costs after the free ones are used.")]
+        [SerializeField, Min(0)] private int undoCoinPrice = 20;
+        [Tooltip("Undo is never limited and never costs coins.")]
+        [SerializeField] private bool undoUnlimited;
+        [Tooltip("Show the number (free undos left, then the coin price) on the Undo button.")]
+        [SerializeField] private bool undoShowCount = true;
         [Header("Popups")]
         [Tooltip("How dark the one shared dim is behind every popup, 0 (clear) to 255 (black).")]
         [SerializeField, Range(0, 255)] private int popupDimAlpha = 244;
@@ -74,6 +88,12 @@ namespace CatBlockPuzzle
             DifficultyTiers.FirstMediumDifficulty = mediumFromRating;
             DifficultyTiers.FirstHardDifficulty = Mathf.Max(mediumFromRating + 1, hardFromRating);
             PopupBackdrop.DimAlpha255 = popupDimAlpha;
+            UndoController.FreePerLevel = Mathf.Max(0, undoFreePerLevel);
+            UndoController.CoinPrice = Mathf.Max(0, undoCoinPrice);
+            UndoController.Unlimited = undoUnlimited;
+            UndoController.ShowCount = undoShowCount;
+            if (!string.IsNullOrWhiteSpace(privacyPolicyUrl)) StoreLinks.PrivacyPolicyUrl = privacyPolicyUrl.Trim();
+            if (!string.IsNullOrWhiteSpace(termsUrl)) StoreLinks.TermsUrl = termsUrl.Trim();
         }
         public bool ShowLevelTestButtons => showLevelTestButtons;
         public int LevelCount => gameplayController != null ? gameplayController.LevelCount : 0;
@@ -318,6 +338,7 @@ namespace CatBlockPuzzle
 
             Instance = this;
             ApplyDailyPuzzleSettings();
+            PopupBackdrop.AdoptScreens();
             Application.targetFrameRate = 60;
             if (home == null) home = GetComponent<HomeController>();
             if (levelTestButtons != null) levelTestButtons.gameObject.SetActive(showLevelTestButtons);

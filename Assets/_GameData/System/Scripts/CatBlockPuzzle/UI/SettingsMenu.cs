@@ -15,8 +15,6 @@ namespace CatBlockPuzzle
         [SerializeField] private Button musicButton;
         [SerializeField] private Button sfxButton;
         [SerializeField] private Button hapticsButton;
-        [Tooltip("Optional round '?' button: makes every tutorial and intro card show again.")]
-        [SerializeField] private Button howToPlayButton;
         [Header("Toggle Artwork")]
         [SerializeField] private Sprite enabledSprite;
         [SerializeField] private Sprite disabledSprite;
@@ -64,7 +62,7 @@ namespace CatBlockPuzzle
             // Order here is the order the toggles pop in.
             MenuTransition.Show(root, true, openingAnimation, animatedItems != null && animatedItems.Length > 0
                 ? MenuTransition.Cards(animatedItems)
-                : MenuTransition.Cards(musicButton, sfxButton, hapticsButton, closeButton, howToPlayButton));
+                : MenuTransition.Cards(musicButton, sfxButton, hapticsButton, closeButton));
             AvnEvents.PopupOpened(AvnScreen.settings, root);
             RefreshVisuals();
         }
@@ -82,19 +80,6 @@ namespace CatBlockPuzzle
             Listen(musicButton, ToggleMusic, bind);
             Listen(sfxButton, ToggleSfx, bind);
             Listen(hapticsButton, ToggleHaptics, bind);
-            Listen(howToPlayButton, ShowTutorialsAgain, bind);
-        }
-
-        private InfoPopup resetPopup;
-
-        // The "?" button: forget every seen tutorial, then say so.
-        private void ShowTutorialsAgain()
-        {
-            ButtonSfx.PlayClick();
-            TutorialReset.ResetAll();
-            if (resetPopup == null) resetPopup = InfoPopup.Create(root != null ? root.transform : transform);
-            if (resetPopup == null || resetPopup.IsOpen) return;
-            resetPopup.Show("Tutorials are back!", null, () => "Level 1 and every new power-up and trick will show their tips again.");
         }
 
         private static void Listen(Button button, UnityAction action, bool bind)

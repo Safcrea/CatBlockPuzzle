@@ -41,8 +41,14 @@ namespace CatBlockPuzzle
         {
             if (bound == null) return;
             int free = bound.FreeLeft;
-            if (badge != null) badge.text = free > 0 ? free.ToString() : UndoController.CoinPrice.ToString();
-            if (coin != null) coin.gameObject.SetActive(free <= 0);
+            if (badge != null)
+            {
+                badge.text = UndoController.Unlimited ? "∞" : free > 0 ? free.ToString() : UndoController.CoinPrice.ToString();
+                // The count pill (the badge's parent) can be hidden from the Setup window.
+                Transform pill = badge.transform.parent;
+                if (pill != null && pill != transform && pill.gameObject.activeSelf != UndoController.ShowCount) pill.gameObject.SetActive(UndoController.ShowCount);
+            }
+            if (coin != null) coin.gameObject.SetActive(free <= 0 && !UndoController.Unlimited);
             bool active = bound.HasMove;
             if (group != null) group.alpha = active ? 1f : .6f;
         }

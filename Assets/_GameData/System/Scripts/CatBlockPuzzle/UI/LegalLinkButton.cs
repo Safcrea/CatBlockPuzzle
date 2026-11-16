@@ -10,9 +10,10 @@ namespace CatBlockPuzzle
     /// </summary>
     public static class StoreLinks
     {
-        // Same documents as the studio's other games (Zombie Rush). Replace with Cat Blocks' own pages when they exist.
-        public const string PrivacyPolicyUrl = "https://drive.google.com/file/d/10PM9SazVO6EmkjYxDqkaCX2td3JIcUmC/view?usp=drive_link";
-        public const string TermsUrl = "https://drive.google.com/file/d/1USmexlEsJGMP9AJ2fZV2uVpHQEtt7TuD/view?usp=drive_link";
+        // Defaults are the studio's other games' documents (Zombie Rush). The real links are set on GameSystem (and in the
+        // Setup window, Legal Links), which overwrites these at start-up.
+        public static string PrivacyPolicyUrl = "https://drive.google.com/file/d/10PM9SazVO6EmkjYxDqkaCX2td3JIcUmC/view?usp=drive_link";
+        public static string TermsUrl = "https://drive.google.com/file/d/1USmexlEsJGMP9AJ2fZV2uVpHQEtt7TuD/view?usp=drive_link";
 
         /// <summary>Set by the purchase plugin: restores the player's purchases, then calls back with whether anything came back.</summary>
         public static Action<Action<bool>> RestoreProvider;

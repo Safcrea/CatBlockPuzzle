@@ -142,7 +142,9 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
         GUILayout.Label("GAMEPLAY", categoryStyle);
         DrawPowerUps();
         DrawTimerAndDifficulty();
+        DrawUndo();
         DrawPopups();
+        DrawLegalLinks();
         DrawAssetSection("shop", "Shop & Prices", ShopPath, "What the shop sells: each power-up's coin price and pack size, the Starter Bundle and the coin packs (amount and store price label).");
         DrawAssetSection("daily", "Daily Rewards", DailyPath, "The seven-day login calendar: what each day pays (coins, Hints, Freezes, Hammers) and the day 7 special.");
         DrawDailyPuzzle();
@@ -222,6 +224,22 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
         if (!Section("timer", "Timer & Difficulty", "The level the countdown timer starts on (the timer tutorial plays there; earlier levels have no timer and always earn 3 stars), whether the big EASY / MEDIUM / HARD banner shows when the difficulty changes, and which 1-10 level ratings count as Medium and Hard. Each level's rating itself is set in the level pack (levels_100.json).")) return;
         if (!SceneFields("GameSystem", ("timerStartLevel", "Timer starts on level"), ("showDifficultyBanner", "Show difficulty banner"),
                 ("mediumFromRating", "Medium from rating"), ("hardFromRating", "Hard from rating")))
+            NeedScene();
+        EndSection();
+    }
+
+    private void DrawLegalLinks()
+    {
+        if (!Section("legal", "Legal Links", "The web pages the Privacy Policy link (Shop screen) and a Terms of Use link open. Paste the full address (https://...). Left empty, the built-in default is used, which is currently another game's page, so set your own before release.")) return;
+        if (!SceneFields("GameSystem", ("privacyPolicyUrl", "Privacy Policy URL"), ("termsUrl", "Terms of Use URL")))
+            NeedScene();
+        EndSection();
+    }
+
+    private void DrawUndo()
+    {
+        if (!Section("undo", "Undo", "Each attempt at a level gets a few free undos. After those, every undo costs coins; with too few coins it is refused (a toast says the price). Tick Unlimited to never limit or charge it. Untick Show count to hide the number pill on the Undo button.")) return;
+        if (!SceneFields("GameSystem", ("undoFreePerLevel", "Free undos per attempt"), ("undoCoinPrice", "Coin price per extra undo"), ("undoUnlimited", "Unlimited (never charged)"), ("undoShowCount", "Show count on Undo button")))
             NeedScene();
         EndSection();
     }

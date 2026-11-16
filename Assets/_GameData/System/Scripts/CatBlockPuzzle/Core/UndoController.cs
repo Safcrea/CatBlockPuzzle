@@ -10,8 +10,13 @@ namespace CatBlockPuzzle
     /// </summary>
     internal sealed class UndoController
     {
-        public const int FreePerLevel = 3;
-        public const int CoinPrice = 20;
+        // Set from GameSystem (and the Setup window).
+        public static int FreePerLevel = 3;
+        public static int CoinPrice = 20;
+        /// <summary>Undo is never limited or charged.</summary>
+        public static bool Unlimited = false;
+        /// <summary>Show the number (free undos left, or the coin price) on the Undo button.</summary>
+        public static bool ShowCount = true;
 
         private readonly struct Move
         {
@@ -29,8 +34,7 @@ namespace CatBlockPuzzle
         private readonly PieceDragController drag;
         private readonly PlayerProgress progress;
         private readonly List<Move> history = new List<Move>();
-        private int freeLeft = FreePerLevel;
-        private int serial = -1;
+        private int freeLeft = FreePerLevel;        private int serial = -1;
 
         /// <summary>The count or price the button shows changed.</summary>
         public event Action Changed;
@@ -45,7 +49,7 @@ namespace CatBlockPuzzle
             if (hammer != null) hammer.Struck += () => { SyncAttempt(); history.Clear(); Changed?.Invoke(); };
         }
 
-        public int FreeLeft { get { SyncAttempt(); return freeLeft; } }
+        public int FreeLeft { get { SyncAttempt(); return Unlimited ? int.MaxValue : freeLeft; } }
         public bool HasMove { get { SyncAttempt(); return history.Count > 0; } }
 
         public enum Result { Undone, NothingToUndo, NotEnoughCoins, Busy }
@@ -61,12 +65,12 @@ namespace CatBlockPuzzle
                 history.RemoveAt(history.Count - 1);
             }
             if (history.Count == 0) return Result.NothingToUndo;
-            bool free = freeLeft > 0;
+            bool free = Unlimited || freeLeft > 0;
             if (!free && progress.Coins < CoinPrice) return Result.NotEnoughCoins;
             Move move = history[history.Count - 1];
             if (!drag.UndoMove(move.Piece, move.WasPlaced, move.Row, move.Col)) return Result.Busy;
             history.RemoveAt(history.Count - 1);
-            if (free) freeLeft--;
+            if (free) { if (!Unlimited) freeLeft--; }
             else
             {
                 progress.Coins -= CoinPrice;

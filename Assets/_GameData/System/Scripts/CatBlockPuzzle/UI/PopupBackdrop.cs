@@ -39,6 +39,23 @@ namespace CatBlockPuzzle
             return client;
         }
 
+        /// <summary>
+        /// Moves the full screens that had their own dark "Dimmer" (Pause, Settings, Daily Reward, Level Complete, Level Failed)
+        /// onto the shared dim: their own layer goes clear and they turn the shared one on while they are open.
+        /// </summary>
+        public static void AdoptScreens()
+        {
+            foreach (Image img in UnityEngine.Object.FindObjectsByType<Image>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            {
+                if (img.name != "Dimmer") continue;
+                Transform screen = img.transform.parent;
+                if (screen == null || screen.parent == null || screen.parent.name != "MainUi" || !screen.name.EndsWith("Screen")) continue;
+                img.color = new Color(img.color.r, img.color.g, img.color.b, 0f);
+                img.raycastTarget = false;
+                if (screen.GetComponent<PopupDimClient>() == null) screen.gameObject.AddComponent<PopupDimClient>();
+            }
+        }
+
         internal static void Request(PopupDimClient client)
         {
             if (client == null || client.transform.parent == null) return;
