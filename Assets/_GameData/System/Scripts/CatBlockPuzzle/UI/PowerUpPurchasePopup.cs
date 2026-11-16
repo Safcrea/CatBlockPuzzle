@@ -89,9 +89,12 @@ namespace CatBlockPuzzle
         }
 
         /// <summary>Resolves authored references, fits the panel to the canvas and wires the buttons.</summary>
+        private PopupBackdrop backdrop;
+
         private bool Bind(GameplayHudView hud)
         {
             this.hud = hud;
+            backdrop = PopupBackdrop.Attach((RectTransform)transform);
             if (panel == null) panel = transform.Find("Panel") as RectTransform;
             if (panel == null)
             {
@@ -404,6 +407,7 @@ namespace CatBlockPuzzle
             if (!sessionOpen || closing) return;
             ButtonSfx.PlayBack();
             closing = true;
+            backdrop?.Conceal();
             MenuTransition.Hide(gameObject, null, !ReducedMotion);
         }
 

@@ -21,6 +21,7 @@ namespace CatBlockPuzzle
         [SerializeField] private Button okButton;
         [SerializeField] private Button closeButton;
 
+        private PopupBackdrop backdrop;
         private Func<string> messageSource;
         private Coroutine motion;
         private bool closing;
@@ -58,6 +59,7 @@ namespace CatBlockPuzzle
             root.anchorMin = Vector2.zero;
             root.anchorMax = Vector2.one;
             root.offsetMin = root.offsetMax = Vector2.zero;
+            backdrop = PopupBackdrop.Attach(root);
             okButton.onClick.AddListener(Close);
             closeButton.onClick.AddListener(Close);
             foreach (Text text in GetComponentsInChildren<Text>(true)) text.raycastTarget = false;
@@ -104,6 +106,7 @@ namespace CatBlockPuzzle
             if (!IsOpen) return;
             ButtonSfx.PlayClick();
             closing = true;
+            backdrop?.Conceal();
             MenuTransition.Hide(gameObject, null, !ReducedMotion);
         }
 
