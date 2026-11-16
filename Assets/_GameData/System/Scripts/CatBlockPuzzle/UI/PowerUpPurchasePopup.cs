@@ -89,7 +89,7 @@ namespace CatBlockPuzzle
         }
 
         /// <summary>Resolves authored references, fits the panel to the canvas and wires the buttons.</summary>
-        private PopupBackdrop backdrop;
+        private PopupDimClient backdrop;
 
         private bool Bind(GameplayHudView hud)
         {

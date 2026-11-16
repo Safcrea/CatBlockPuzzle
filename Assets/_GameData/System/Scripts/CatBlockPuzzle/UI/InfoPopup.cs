@@ -21,7 +21,7 @@ namespace CatBlockPuzzle
         [SerializeField] private Button okButton;
         [SerializeField] private Button closeButton;
 
-        private PopupBackdrop backdrop;
+        private PopupDimClient backdrop;
         private Func<string> messageSource;
         private Coroutine motion;
         private bool closing;

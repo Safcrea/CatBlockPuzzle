@@ -45,6 +45,9 @@ namespace CatBlockPuzzle
         [SerializeField, Range(2, 10)] private int mediumFromRating = 4;
         [Tooltip("Levels rated from this number (1-10) up are Hard.")]
         [SerializeField, Range(3, 10)] private int hardFromRating = 8;
+        [Header("Popups")]
+        [Tooltip("How dark the one shared dim is behind every popup, 0 (clear) to 255 (black).")]
+        [SerializeField, Range(0, 255)] private int popupDimAlpha = 244;
         [Header("Testing")]
         [Tooltip("Testing only: every level and chapter is playable, ignoring the star gates. Untick for the normal flow. A build made with this ticked logs a warning.")]
         [SerializeField] private bool unlockAllLevels;
@@ -70,6 +73,7 @@ namespace CatBlockPuzzle
             DifficultyProfile.TimerStartLevel = Mathf.Max(1, timerStartLevel);
             DifficultyTiers.FirstMediumDifficulty = mediumFromRating;
             DifficultyTiers.FirstHardDifficulty = Mathf.Max(mediumFromRating + 1, hardFromRating);
+            PopupBackdrop.DimAlpha255 = popupDimAlpha;
         }
         public bool ShowLevelTestButtons => showLevelTestButtons;
         public int LevelCount => gameplayController != null ? gameplayController.LevelCount : 0;

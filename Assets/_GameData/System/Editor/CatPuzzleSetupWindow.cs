@@ -142,6 +142,7 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
         GUILayout.Label("GAMEPLAY", categoryStyle);
         DrawPowerUps();
         DrawTimerAndDifficulty();
+        DrawPopups();
         DrawAssetSection("shop", "Shop & Prices", ShopPath, "What the shop sells: each power-up's coin price and pack size, the Starter Bundle and the coin packs (amount and store price label).");
         DrawAssetSection("daily", "Daily Rewards", DailyPath, "The seven-day login calendar: what each day pays (coins, Hints, Freezes, Hammers) and the day 7 special.");
         DrawDailyPuzzle();
@@ -221,6 +222,14 @@ public sealed class CatPuzzleSetupWindow : EditorWindow
         if (!Section("timer", "Timer & Difficulty", "The level the countdown timer starts on (the timer tutorial plays there; earlier levels have no timer and always earn 3 stars), whether the big EASY / MEDIUM / HARD banner shows when the difficulty changes, and which 1-10 level ratings count as Medium and Hard. Each level's rating itself is set in the level pack (levels_100.json).")) return;
         if (!SceneFields("GameSystem", ("timerStartLevel", "Timer starts on level"), ("showDifficultyBanner", "Show difficulty banner"),
                 ("mediumFromRating", "Medium from rating"), ("hardFromRating", "Hard from rating")))
+            NeedScene();
+        EndSection();
+    }
+
+    private void DrawPopups()
+    {
+        if (!Section("popups", "Popups", "One dim is shared by every popup (the daily puzzle, locked power-up and new-mechanic cards, and the Out of Hints purchase popup): a single object that turns on behind whichever popup opens and fades in and out. This sets how dark it is, from 0 (clear) to 255 (black).")) return;
+        if (!SceneFields("GameSystem", ("popupDimAlpha", "Dim darkness (0-255)")))
             NeedScene();
         EndSection();
     }
